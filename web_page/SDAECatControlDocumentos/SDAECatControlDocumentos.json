@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1642117807164,
+  "lastUpdate" : 1642206002024,
   "rows" : [
     [
       {
@@ -143,17 +143,20 @@
                   "value" : "Select an option"
                 },
                 "availableValues" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "lstCampusByUser"
                 },
                 "displayedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "descripcion"
                 },
                 "returnedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "descripcion"
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "lstFiltros[0].valor"
                 }
               },
               "reference" : "c2f1c1a7-2e0c-4298-b68c-3b5afd3111d8",
@@ -208,7 +211,11 @@
                   "value" : "Select an option"
                 },
                 "availableValues" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : [
+                    "1",
+                    "2"
+                  ]
                 },
                 "displayedKey" : {
                   "type" : "constant"
@@ -218,7 +225,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "tipoApoyoSeleccionado"
                 }
               },
               "reference" : "118855e1-39d9-4544-a841-8301733d300f",
@@ -511,8 +518,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!tipoApoyoSeleccionado"
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -528,8 +535,7 @@
                   ]
                 },
                 "content" : {
-                  "type" : "expression",
-                  "value" : "lstDocumentos"
+                  "type" : "constant"
                 },
                 "columnsKey" : {
                   "type" : "constant"
@@ -549,11 +555,50 @@
                 "bordered" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "urlGet" : {
+                  "type" : "constant"
+                },
+                "dataToFilter" : {
+                  "type" : "variable",
+                  "value" : "dataToFilter"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "../API/extension/AnahuacBecasRest?url=getCatManejoDocumento&p=0&c=0"
+                },
+                "objCatGenerico" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : "accion"
                 }
               },
-              "reference" : "81bccc95-d881-4b4e-8493-20f23c991487",
+              "reference" : "76c22724-8806-44cd-b216-5e4ecf7f4f97",
               "hasValidationError" : false,
-              "id" : "customSDAETableCatManejoDocumentos"
+              "id" : "customSDAETableSeleccionarFiltradoNoCombo2"
             }
           ]
         ]
@@ -1746,6 +1791,152 @@
         "    }",
         "]"
       ],
+      "exposed" : false
+    },
+    "dataToFilter" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"catalogo\": $data.nombreCatalogo,\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"idCampus\": \"1\",\r",
+        "    \"idTipoApoyo\": $data.tipoApoyoSeleccionado\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "nombreCatalogo" : {
+      "type" : "constant",
+      "value" : [
+        "CatManejoDocumento"
+      ],
+      "exposed" : false
+    },
+    "tipoApoyoSeleccionado" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "accion" : {
+      "type" : "constant",
+      "value" : [
+        "tabla"
+      ],
+      "exposed" : false
+    },
+    "lstCampusByUser" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado=[];",
+        "",
+        "for(var x in $data.lstMembership){",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){",
+        "        resultado.push($data.lstMembership[x].group_id.name);",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampus" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "",
+        "for(var x in $data.lstCampusUsuario){",
+        "    for(var index in $data.lstCatCampus){",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
+        "            resultado.push($data.lstCatCampus[index]);",
+        "            if($data.lstCampusUsuario.length == 1){",
+        "                $data.lstFiltros[0].valor = resultado[0].descripcion;",
+        "            }",
+        "        }",
+        "    }",
+        "}",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusUsuario" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "",
+        "for(var x in $data.lstCampusByUser){",
+        "    for(var index in $data.lstCampusRole){",
+        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
+        "            //resultado.push($data.lstCampusRole[index]);",
+        "            let i = 0;",
+        "            resultado.forEach(value =>{",
+        "                if(value == $data.lstCampusRole[index] ){",
+        "                   i++;",
+        "                }",
+        "            });",
+        "            if(i === 0){",
+        "              resultado.push($data.lstCampusRole[index]);",
+        "            }",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusRole" : {
+      "type" : "expression",
+      "value" : [
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
+      ],
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

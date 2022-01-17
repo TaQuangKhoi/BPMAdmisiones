@@ -119,8 +119,8 @@ class Index implements RestApiController {
 				/*Fin Cat manejo documentos*/
 					
 				/*Cat manejo documentos*/
-				case "getCatTipoAoyo":
-					result = new CatalogosDAO().getCatTipoAoyo(jsonData, context)
+				case "getCatTipoAoyoByCampus":
+					result = new CatalogosDAO().getCatTipoAoyoByCampus(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

@@ -489,7 +489,7 @@ class CatalogosDAO {
 			CatManejoDocumentos row = new CatManejoDocumentos();
 			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
 			closeCon = validarConexion();
-			where += " WHERE isEliminado = false";
+			where += " WHERE isEliminado = false  AND IDCAMPUS = " + object.idCampus + " AND IDTIPOAPOYO = " + object.idTipoApoyo + " ";
 			errorLog +=" 1";
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 
@@ -595,6 +595,8 @@ class CatalogosDAO {
 			
 			consulta = consulta.replace("[ORDERBY]", orderby);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			
+			errorLog = consulta;
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			pstm = con.prepareStatement(consulta);
 			pstm.setInt(1, object.limit);
@@ -602,15 +604,16 @@ class CatalogosDAO {
 
 			rs = pstm.executeQuery()
 			while (rs.next()) {
-				row = new CatGenerico();
+				row = new CatManejoDocumentos();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-				row.idCampus(rs.getLong("IDCAMPUS"));
-				row.idTipoApoyo(rs.getLong("IDTIPOAPOYO"));
+				row.setIdCampus(rs.getLong("IDCAMPUS"));
+				row.setIdTipoApoyo(rs.getLong("IDTIPOAPOYO"));
 				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
 				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));
-				row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setFechaCreacion(rs.getString("fechaCreacion"));
 				row.setIsEliminado(rs.getBoolean("isEliminado"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIO"));
 
 				rows.add(row);
 			}
@@ -638,7 +641,7 @@ class CatalogosDAO {
 	 * @param context (RestAPIContext)
 	 * @return resultado (Result)
 	 */
-	public Result getCatTipoAoyo(String jsonData, RestAPIContext context) {
+	public Result getCatTipoAoyoByCampus(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String where = "", orderby = "ORDER BY ", errorLog="entro";
@@ -651,7 +654,7 @@ class CatalogosDAO {
 			CatTypoApoyo row = new CatTypoApoyo();
 			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
 			closeCon = validarConexion();
-			where += " WHERE isEliminado = false";
+			where += " WHERE isEliminado = false ";
 			errorLog +=" 1";
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 

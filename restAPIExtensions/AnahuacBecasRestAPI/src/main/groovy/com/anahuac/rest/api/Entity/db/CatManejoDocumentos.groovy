@@ -8,7 +8,7 @@ class CatManejoDocumentos {
 	private String nombreDocumento;
 	private String urlDocumentoAzure;
 	private Boolean isEliminado;
-	private Date fechaCreacion;
+	private String fechaCreacion;
 	private String usuarioCreacion;
 	private String descripcionDocumento;
 	
@@ -60,10 +60,10 @@ class CatManejoDocumentos {
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
 	}
-	public Date getFechaCreacion() {
+	public String getFechaCreacion() {
 		return fechaCreacion;
 	}
-	public void setFechaCreacion(Date fechaCreacion) {
+	public void setFechaCreacion(String fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 	public String getUsuarioCreacion() {
