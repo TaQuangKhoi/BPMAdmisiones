@@ -358,9 +358,14 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
     
     $scope.redirectComentario = function(row){
+        if($scope.isPeriodoVencido(row.periodofin)){
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning")
+        }else{
         $scope.properties.datosUsuario = row;
         $scope.properties.cambioPantalla = 'comentarios'
         window.scrollTo(0,0);
+            
+        }
     }
     
    /* $scope.blockPaseLista = function(row){
@@ -480,6 +485,10 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             .error(function (data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             });
+    }
+    $scope.isPeriodoVencido=function(periodofin){
+        var fecha = new Date(periodofin.slice(0,10))
+        return fecha<new Date();
     }
     
     
