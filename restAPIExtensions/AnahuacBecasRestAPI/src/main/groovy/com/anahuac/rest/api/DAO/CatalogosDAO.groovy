@@ -641,141 +641,37 @@ class CatalogosDAO {
 	 * @param context (RestAPIContext)
 	 * @return resultado (Result)
 	 */
-	public Result getCatTipoAoyoByCampus(String jsonData, RestAPIContext context) {
+	public Result getCatTipoAoyoByCampus(String campus, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String where = "", orderby = "ORDER BY ", errorLog="entro";
 		
 		try {
-			def jsonSlurper = new JsonSlurper();
-			def object = jsonSlurper.parseText(jsonData);
+			errorLog += "ENTRO ";
+//			def jsonSlurper = new JsonSlurper();
+//			def object = jsonSlurper.parseText(jsonData);
 
-			String consulta = StatementsCatalogos.GET_CAT_MANEJO_DOCUMENTOS;
+			String consulta = StatementsCatalogos.GET_TIPO_APOYO_BY_CAMPUS;
 			CatTypoApoyo row = new CatTypoApoyo();
 			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
 			closeCon = validarConexion();
-			where += " WHERE isEliminado = false ";
-			errorLog +=" 1";
-			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+			where += " WHERE ta.ISELIMINADO   = false AND cc.GRUPOBONITA = '" + campus + "' ";
 
-				switch (filtro.get("columna")) {
-					case "CLAVE":
-						where += " AND LOWER(clave) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')";
-						} else {
-							where += "LIKE LOWER('%[valor]%')";
-						}
-						where = where.replace("[valor]", filtro.get("valor"));
-						break;
-					case "DESCRIPCION":
-						where += " AND LOWER(DESCRIPCION) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')";
-						} else {
-							where += "LIKE LOWER('%[valor]%')";
-						}
-						where = where.replace("[valor]", filtro.get("valor"));
-						break;
-					case "FECHACREACION":
-						where += " AND LOWER(FECHACREACION) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')";
-						} else {
-							where += "LIKE LOWER('%[valor]%')";
-						}
-						where = where.replace("[valor]", filtro.get("valor"));
-						break;
-					case "PERSISTENCEID":
-						where += " AND LOWER(PERSISTENCEID) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')";
-						} else {
-							where += "LIKE LOWER('%[valor]%')";
-						}
-						where = where.replace("[valor]", filtro.get("valor"));
-						break;
-					case "PERSISTENCEVERSION":
-						where += " AND LOWER(PERSISTENCEVERSION) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')";
-						} else {
-							where += "LIKE LOWER('%[valor]%')";
-						}
-						where = where.replace("[valor]", filtro.get("valor"));
-						break;
-					case "USUARIOCREACION":
-						where += " AND LOWER(USUARIOCREACION) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += " =LOWER('[valor]')";
-						} else {
-							where += " LIKE LOWER('%[valor]%')";
-						}
-						where = where.replace("[valor]", filtro.get("valor"));
-						break;
-				}
-			}
-			
-			switch (object.orderby) {
-				case "CLAVE":
-					orderby += "clave";
-					break;
-				case "DESCRIPCION":
-					orderby += "descripcion";
-					break;
-				case "FECHACREACION":
-					orderby += "fechaCreacion";
-					break;
-				case "ISELIMINADO":
-					orderby += "isEliminado";
-					break;
-				case "PERSISTENCEID":
-					orderby += "persistenceId";
-					break;
-				case "PERSISTENCEVERSION":
-					orderby += "persistenceVersion";
-					break;
-				case "USUARIOCREACION":
-					orderby += "usuarioCreacion";
-					break;
-				case "CONDICIONESVIDEO":
-					orderby += "CONDICIONESVIDEO";
-					break;
-				default:
-					orderby += "persistenceid";
-					break;
-			}
-			
-			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
-			consulta = consulta.replace("[CATALOGO]", object.catalogo);
-
-			String consultaCount = StatementsCatalogos.GET_COUNT_CAT_MANEJO_DOCUMENTOS;
-			consultaCount = consultaCount.replace("[WHERE]", where);
-			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo);
-			
-			pstm = con.prepareStatement(consultaCount);
-			rs = pstm.executeQuery();
-			if (rs.next()) {
-				resultado.setTotalRegistros(rs.getInt("registros"));
-			}
-			
-			consulta = consulta.replace("[ORDERBY]", orderby);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			pstm = con.prepareStatement(consulta);
-			pstm.setInt(1, object.limit);
-			pstm.setInt(2, object.offset);
-
-			rs = pstm.executeQuery()
+			
+			rs = pstm.executeQuery();
+			
 			while (rs.next()) {
 				row = new CatTypoApoyo();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-				row.setClave(rs.getString("CLAVE"));
+//				row.setClave(rs.getString("CLAVE"));
 				row.setDescripcion(rs.getString("DESCRIPCION"))
-				row.setFechaCreacion(rs.getString("FECHACREACION"));
-				row.setIsEliminado(rs.getBoolean("ISELIMINADO"));
-				row.setUsuarioCreacion(rs.getString("USUARIOCREACION"));
+//				row.setFechaCreacion(rs.getString("FECHACREACION"));
+//				row.setIsEliminado(rs.getBoolean("ISELIMINADO"));
+//				row.setUsuarioCreacion(rs.getString("USUARIOCREACION"));
 				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
 				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
 
@@ -784,6 +680,63 @@ class CatalogosDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Obtiene la lista de registros de documentos rrelacionados a un tipo de apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getDocumentosByTipoApoyo(String campus, String idTipoApoyo, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		
+		try {
+			errorLog += "ENTRO ";
+			String consulta = StatementsCatalogos.GET_COCUMENTOS_BY_APOYO_AND_CAMPUS;
+			CatTypoApoyo row = new CatTypoApoyo();
+			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
+			closeCon = validarConexion();
+			where += " WHERE  rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
+
+			consulta = consulta.replace("[WHERE]", where);
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, Long.valueOf(idTipoApoyo));
+			pstm.setString(2, campus);
+				
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new CatTypoApoyo();
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setDescripcion(rs.getString("DESCRIPCION"));
+				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
+				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
+
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
 
 		} catch (Exception e) {
 			resultado.setError_info(errorLog);

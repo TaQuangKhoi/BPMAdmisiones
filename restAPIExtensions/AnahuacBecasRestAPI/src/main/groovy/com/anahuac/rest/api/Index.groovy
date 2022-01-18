@@ -96,16 +96,15 @@ class Index implements RestApiController {
 					}
 					break;
 				case "insertUpdateCatTipoMoneda":
-					result = new CatalogosDAO().insertUpdateCatTipoMoneda(jsonData, context)
+					result = new CatalogosDAO().insertUpdateCatTipoMoneda(jsonData, context);
 
-					responseBuilder.withMediaType("application/json")
+					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
 					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 					break;
-					
 				/*Cat manejo documentos*/
 				case "getCatManejoDocumento":
 					result = new CatalogosDAO().getCatManejoDocumento(jsonData, context)
@@ -117,19 +116,9 @@ class Index implements RestApiController {
 					}
 					break;
 				/*Fin Cat manejo documentos*/
+				/*Cat TipoApoyo*/
 					
-				/*Cat manejo documentos*/
-				case "getCatTipoAoyoByCampus":
-					result = new CatalogosDAO().getCatTipoAoyoByCampus(jsonData, context)
-					responseBuilder.withMediaType("application/json")
-					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-					}
-					break;
-				/*Fin Cat manejo documentos*/
-					
+				/*Fin Cat TipoApoyo*/
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
