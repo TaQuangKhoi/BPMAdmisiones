@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "AppEditarviewDownloadSolicitud",
   "name" : "AppEditarviewDownloadSolicitud",
-  "lastUpdate" : 1642456710869,
+  "lastUpdate" : 1642608981579,
   "rows" : [
     [
       {
@@ -123,7 +123,7 @@
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "right"
+                        "value" : "center"
                       },
                       "buttonStyle" : {
                         "type" : "constant",
@@ -338,58 +338,6 @@
                           "hasValidationError" : false,
                           "id" : "pbContainer",
                           "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Default label"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "allowHTML" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "text" : {
-                                    "type" : "interpolation",
-                                    "value" : "{{objSolicitudDeAdmision.catBachilleratos.descripcion}}"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "left"
-                                  }
-                                },
-                                "reference" : "fa07a70d-3642-4ea0-b681-e8976b86fa3b",
-                                "hasValidationError" : false,
-                                "id" : "pbText"
-                              }
-                            ],
                             [
                               {
                                 "type" : "component",
@@ -2211,9 +2159,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "abcafca4-d0e5-4709-89f3-b094d9546d9d",
+                          "reference" : "b57b1e47-6b00-4b24-84cd-9cf2d2a13e9f",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customInputCambiarCorreoHubspotEditarRegistro"
                         },
                         {
                           "type" : "component",
@@ -2842,8 +2790,8 @@
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 4,
-                                  "lg" : 3
+                                  "md" : 3,
+                                  "lg" : 4
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -2867,7 +2815,7 @@
                                 ]
                               },
                               {
-                                "type" : "container",
+                                "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
@@ -2880,27 +2828,199 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarBotonesInfoPersonal"
+                                  },
+                                  "disabled" : {
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "repeatedCollection" : {
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Cancelar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "danger"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "Submit task"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "responseStatusCode" : {
                                     "type" : "variable",
                                     "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "constant"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnEditar"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarBotonesInfoPersonal"
+                                  },
+                                  "banderaDeshabilitarEdicion" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "habilitarCampos" : {
+                                    "type" : "variable",
+                                    "value" : "banderaDeshabilitarEdicion"
                                   }
                                 },
-                                "reference" : "d5caa223-5675-4180-80fb-cd138fd987b7",
+                                "reference" : "82516688-2d1b-4b2a-bcb8-ace168d52ffc",
                                 "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [ ]
-                                ]
+                                "id" : "customBtnCancelarEdicion"
                               },
                               {
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 2,
+                                  "md" : 3,
+                                  "lg" : 3
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarBotonesInfoPersonal"
+                                  },
+                                  "disabled" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Guardar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "success"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "POST"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "responseStatusCode" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "expression",
+                                    "value" : "objSolicitudDeAdmision"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  },
+                                  "objtutorTemp" : {
+                                    "type" : "variable",
+                                    "value" : "objTutorTemp"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnGuardar"
+                                  }
+                                },
+                                "reference" : "42594516-ca6d-4e9b-9600-a67dfaecb4ab",
+                                "hasValidationError" : false,
+                                "id" : "customButtondePrueba"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -3044,108 +3164,19 @@
                                   "banderaOcultarbtnEditar" : {
                                     "type" : "variable",
                                     "value" : "banderaOcultarbtnEditar"
+                                  },
+                                  "banderaOcultarBotones" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarBotonesInfoPersonal"
+                                  },
+                                  "ocultarBtnEditarInformacionPersonal" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnEditar"
                                   }
                                 },
                                 "reference" : "179257b6-69bd-4162-b974-14cc71b1951d",
                                 "hasValidationError" : false,
                                 "id" : "customBtnEditarAppviewSolicitud"
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 2,
-                                  "lg" : 3
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "banderaOcultarbtnGuardar"
-                                  },
-                                  "disabled" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Guardar"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "right"
-                                  },
-                                  "buttonStyle" : {
-                                    "type" : "constant",
-                                    "value" : "success"
-                                  },
-                                  "action" : {
-                                    "type" : "constant",
-                                    "value" : "POST"
-                                  },
-                                  "assign" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "url" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "responseStatusCode" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "dataToSend" : {
-                                    "type" : "expression",
-                                    "value" : "objSolicitudDeAdmision"
-                                  },
-                                  "dataFromSuccess" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "closeOnSuccess" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "dataFromError" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "targetUrlOnSuccess" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "collectionToModify" : {
-                                    "type" : "variable"
-                                  },
-                                  "modalId" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "collectionPosition" : {
-                                    "type" : "constant",
-                                    "value" : "Last"
-                                  },
-                                  "valueToAdd" : {
-                                    "type" : "constant"
-                                  },
-                                  "removeItem" : {
-                                    "type" : "variable"
-                                  },
-                                  "objtutorTemp" : {
-                                    "type" : "variable",
-                                    "value" : "objTutorTemp"
-                                  },
-                                  "banderaOcultarbtnGuardar" : {
-                                    "type" : "variable",
-                                    "value" : "banderaOcultarbtnGuardar"
-                                  }
-                                },
-                                "reference" : "42594516-ca6d-4e9b-9600-a67dfaecb4ab",
-                                "hasValidationError" : false,
-                                "id" : "customButtondePrueba"
                               }
                             ]
                           ]
@@ -4238,7 +4269,7 @@
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 4,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -4263,7 +4294,7 @@
                                 ]
                               },
                               {
-                                "type" : "container",
+                                "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
@@ -4276,27 +4307,102 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarGuardarDomPermanente"
+                                  },
+                                  "disabled" : {
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "repeatedCollection" : {
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Cancelar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "danger"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "Submit task"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "responseStatusCode" : {
                                     "type" : "variable",
                                     "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "constant"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnPermanente"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarGuardarDomPermanente"
+                                  },
+                                  "banderaDeshabilitarEdicion" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "habilitarCampos" : {
+                                    "type" : "variable",
+                                    "value" : "BanderaDomiciliopermanente"
                                   }
                                 },
-                                "reference" : "dcde5a20-9a15-46d4-ae22-e89416e5cada",
+                                "reference" : "1cfa8fa1-af5a-4044-a124-349cc5e1dd13",
                                 "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [ ]
-                                ]
+                                "id" : "customBtnCancelarEdicion"
                               },
                               {
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 2,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -4305,8 +4411,97 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarGuardarDomPermanente"
+                                  },
+                                  "disabled" : {
                                     "type" : "constant",
                                     "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Guardar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "success"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "POST"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "responseStatusCode" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "expression",
+                                    "value" : "objSolicitudDeAdmision"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  }
+                                },
+                                "reference" : "ccde2372-cfc4-4c42-94c7-a1cf6f534e7a",
+                                "hasValidationError" : false,
+                                "id" : "customBtnDomicilioPermanente"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 3,
+                                  "lg" : 3
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarbtnPermanente"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -4432,100 +4627,19 @@
                                   "banderaEdicion" : {
                                     "type" : "variable",
                                     "value" : "BanderaDomiciliopermanente"
+                                  },
+                                  "banderaOcultarGuardarDomPermanente" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarGuardarDomPermanente"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnPermanente"
                                   }
                                 },
                                 "reference" : "cba5c553-91fb-4dd7-badd-7c958d8a22dc",
                                 "hasValidationError" : false,
                                 "id" : "customBtnDomiciliopermanenteBandera"
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 2,
-                                  "lg" : 3
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "disabled" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Guardar"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "left"
-                                  },
-                                  "buttonStyle" : {
-                                    "type" : "constant",
-                                    "value" : "success"
-                                  },
-                                  "action" : {
-                                    "type" : "constant",
-                                    "value" : "POST"
-                                  },
-                                  "assign" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "url" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "responseStatusCode" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "dataToSend" : {
-                                    "type" : "expression",
-                                    "value" : "objSolicitudDeAdmision"
-                                  },
-                                  "dataFromSuccess" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "closeOnSuccess" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "dataFromError" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "targetUrlOnSuccess" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "collectionToModify" : {
-                                    "type" : "variable"
-                                  },
-                                  "modalId" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "collectionPosition" : {
-                                    "type" : "constant",
-                                    "value" : "Last"
-                                  },
-                                  "valueToAdd" : {
-                                    "type" : "constant"
-                                  },
-                                  "removeItem" : {
-                                    "type" : "variable"
-                                  }
-                                },
-                                "reference" : "ccde2372-cfc4-4c42-94c7-a1cf6f534e7a",
-                                "hasValidationError" : false,
-                                "id" : "customBtnDomicilioPermanente"
                               }
                             ]
                           ]
@@ -5949,7 +6063,7 @@
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 4,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -5974,7 +6088,7 @@
                                 ]
                               },
                               {
-                                "type" : "container",
+                                "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
@@ -5987,27 +6101,102 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "mostrarbtnBanderaBachillerato"
+                                  },
+                                  "disabled" : {
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "repeatedCollection" : {
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Cancelar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "danger"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "Submit task"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "responseStatusCode" : {
                                     "type" : "variable",
                                     "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "constant"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarEditarBachillerato"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "mostrarbtnBanderaBachillerato"
+                                  },
+                                  "banderaDeshabilitarEdicion" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "habilitarCampos" : {
+                                    "type" : "variable",
+                                    "value" : "banderaEditarInfoBachillerato"
                                   }
                                 },
-                                "reference" : "9ef38e0b-e23d-48d4-b967-47b3708bc3a1",
+                                "reference" : "35d5b9aa-d82e-4bc5-8676-328e2acd4a8b",
                                 "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [ ]
-                                ]
+                                "id" : "customBtnCancelarEdicion"
                               },
                               {
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 2,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -6016,8 +6205,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarEditarBachillerato"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -6143,6 +6332,14 @@
                                   "banderaEdicion" : {
                                     "type" : "variable",
                                     "value" : "banderaEditarInfoBachillerato"
+                                  },
+                                  "mostrarbtn" : {
+                                    "type" : "variable",
+                                    "value" : "mostrarbtnBanderaBachillerato"
+                                  },
+                                  "banderaOcultarbBtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarEditar"
                                   }
                                 },
                                 "reference" : "400940b6-0f0d-4f53-8f8c-5460c705df15",
@@ -6154,7 +6351,7 @@
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 2,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -6163,8 +6360,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "mostrarbtnBanderaBachillerato"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -8178,7 +8375,7 @@
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 4,
+                                        "md" : 3,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -8203,7 +8400,7 @@
                                       ]
                                     },
                                     {
-                                      "type" : "container",
+                                      "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
@@ -8216,27 +8413,102 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "mostrarBtonTutor"
+                                        },
+                                        "disabled" : {
                                           "type" : "constant",
                                           "value" : false
                                         },
-                                        "repeatedCollection" : {
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Cancelar"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "center"
+                                        },
+                                        "buttonStyle" : {
+                                          "type" : "constant",
+                                          "value" : "danger"
+                                        },
+                                        "action" : {
+                                          "type" : "constant",
+                                          "value" : "Submit task"
+                                        },
+                                        "assign" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "url" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "responseStatusCode" : {
                                           "type" : "variable",
                                           "value" : ""
+                                        },
+                                        "dataToSend" : {
+                                          "type" : "constant"
+                                        },
+                                        "dataFromSuccess" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "closeOnSuccess" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "dataFromError" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "targetUrlOnSuccess" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "collectionToModify" : {
+                                          "type" : "variable"
+                                        },
+                                        "modalId" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "collectionPosition" : {
+                                          "type" : "constant",
+                                          "value" : "Last"
+                                        },
+                                        "valueToAdd" : {
+                                          "type" : "constant"
+                                        },
+                                        "removeItem" : {
+                                          "type" : "variable"
+                                        },
+                                        "banderaOcultarbtnEditar" : {
+                                          "type" : "variable",
+                                          "value" : "banderaOcultarEditarTutores"
+                                        },
+                                        "banderaOcultarbtnGuardar" : {
+                                          "type" : "variable",
+                                          "value" : "mostrarBtonTutor"
+                                        },
+                                        "banderaDeshabilitarEdicion" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "habilitarCampos" : {
+                                          "type" : "variable",
+                                          "value" : "BanderaInformacionTutor"
                                         }
                                       },
-                                      "reference" : "fab6ddf3-5fb5-4667-b631-860f63635690",
+                                      "reference" : "971d5f66-0ad6-49c2-ada5-7604785d9170",
                                       "hasValidationError" : false,
-                                      "id" : "pbContainer",
-                                      "rows" : [
-                                        [ ]
-                                      ]
+                                      "id" : "customBtnCancelarEdicion"
                                     },
                                     {
                                       "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 2,
+                                        "md" : 3,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -8245,8 +8517,84 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "mostrarBtonTutor"
+                                        },
+                                        "disabled" : {
                                           "type" : "constant",
                                           "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Guardar"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "right"
+                                        },
+                                        "buttonStyle" : {
+                                          "type" : "constant",
+                                          "value" : "success"
+                                        },
+                                        "contenido" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "userId" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "taskId" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "dataToSend" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "urlConsulta" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "objTaskInformation" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "urlTaskInformation" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "nuevosValores" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "isModificacion" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "index" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        }
+                                      },
+                                      "reference" : "f159af74-2ca3-4ba6-9465-7abd347292d6",
+                                      "hasValidationError" : false,
+                                      "id" : "customBtnGuardarInformacionTutor"
+                                    },
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 3,
+                                        "lg" : 3
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "banderaOcultarEditarTutores"
                                         },
                                         "disabled" : {
                                           "type" : "constant",
@@ -8372,87 +8720,23 @@
                                         "banderaEdicion" : {
                                           "type" : "variable",
                                           "value" : "BanderaInformacionTutor"
+                                        },
+                                        "mostrarbtn" : {
+                                          "type" : "variable",
+                                          "value" : "mostrarbtnBandera"
+                                        },
+                                        "banderaOcultarbBtnEditar" : {
+                                          "type" : "variable",
+                                          "value" : "banderaOcultarEditarTutores"
+                                        },
+                                        "mostrarBotonesTutor" : {
+                                          "type" : "variable",
+                                          "value" : "mostrarBtonTutor"
                                         }
                                       },
                                       "reference" : "4c0ba901-bbf4-484a-a663-74a038d41553",
                                       "hasValidationError" : false,
                                       "id" : "customBtnEditarTutor"
-                                    },
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 2,
-                                        "lg" : 3
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "disabled" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "label" : {
-                                          "type" : "interpolation",
-                                          "value" : "Guardar"
-                                        },
-                                        "alignment" : {
-                                          "type" : "constant",
-                                          "value" : "right"
-                                        },
-                                        "buttonStyle" : {
-                                          "type" : "constant",
-                                          "value" : "success"
-                                        },
-                                        "contenido" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "userId" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "taskId" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "dataToSend" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "urlConsulta" : {
-                                          "type" : "interpolation"
-                                        },
-                                        "objTaskInformation" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "urlTaskInformation" : {
-                                          "type" : "interpolation"
-                                        },
-                                        "nuevosValores" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "isModificacion" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "index" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        }
-                                      },
-                                      "reference" : "f159af74-2ca3-4ba6-9465-7abd347292d6",
-                                      "hasValidationError" : false,
-                                      "id" : "customBtnGuardarInformacionTutor"
                                     }
                                   ]
                                 ]
@@ -10441,7 +10725,7 @@
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 4,
+                                        "md" : 3,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -10466,7 +10750,7 @@
                                       ]
                                     },
                                     {
-                                      "type" : "container",
+                                      "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
@@ -10479,27 +10763,102 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "mostrarBotonesPadre"
+                                        },
+                                        "disabled" : {
                                           "type" : "constant",
                                           "value" : false
                                         },
-                                        "repeatedCollection" : {
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Cancelar"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "right"
+                                        },
+                                        "buttonStyle" : {
+                                          "type" : "constant",
+                                          "value" : "danger"
+                                        },
+                                        "action" : {
+                                          "type" : "constant",
+                                          "value" : "Submit task"
+                                        },
+                                        "assign" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "url" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "responseStatusCode" : {
                                           "type" : "variable",
                                           "value" : ""
+                                        },
+                                        "dataToSend" : {
+                                          "type" : "constant"
+                                        },
+                                        "dataFromSuccess" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "closeOnSuccess" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "dataFromError" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "targetUrlOnSuccess" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "collectionToModify" : {
+                                          "type" : "variable"
+                                        },
+                                        "modalId" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "collectionPosition" : {
+                                          "type" : "constant",
+                                          "value" : "Last"
+                                        },
+                                        "valueToAdd" : {
+                                          "type" : "constant"
+                                        },
+                                        "removeItem" : {
+                                          "type" : "variable"
+                                        },
+                                        "banderaOcultarbtnEditar" : {
+                                          "type" : "variable",
+                                          "value" : "banderaOcultarEditarPadre"
+                                        },
+                                        "banderaOcultarbtnGuardar" : {
+                                          "type" : "variable",
+                                          "value" : "mostrarBotonesPadre"
+                                        },
+                                        "banderaDeshabilitarEdicion" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "habilitarCampos" : {
+                                          "type" : "variable",
+                                          "value" : "BanderaInformacionPadre"
                                         }
                                       },
-                                      "reference" : "cd679b65-9b03-46e0-877c-434814fce116",
+                                      "reference" : "40e570b4-15e5-4980-82b3-e76d856c45a3",
                                       "hasValidationError" : false,
-                                      "id" : "pbContainer",
-                                      "rows" : [
-                                        [ ]
-                                      ]
+                                      "id" : "customBtnCancelarEdicion"
                                     },
                                     {
                                       "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 2,
+                                        "md" : 3,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -10508,8 +10867,117 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "mostrarBotonesPadre"
+                                        },
+                                        "disabled" : {
                                           "type" : "constant",
                                           "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Guardar"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "left"
+                                        },
+                                        "buttonStyle" : {
+                                          "type" : "constant",
+                                          "value" : "success"
+                                        },
+                                        "action" : {
+                                          "type" : "constant",
+                                          "value" : "POST"
+                                        },
+                                        "assign" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "url" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "responseStatusCode" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "dataToSend" : {
+                                          "type" : "expression",
+                                          "value" : "objPadre"
+                                        },
+                                        "dataFromSuccess" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "closeOnSuccess" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "dataFromError" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "targetUrlOnSuccess" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "collectionToModify" : {
+                                          "type" : "variable"
+                                        },
+                                        "modalId" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "collectionPosition" : {
+                                          "type" : "constant",
+                                          "value" : "Last"
+                                        },
+                                        "valueToAdd" : {
+                                          "type" : "constant"
+                                        },
+                                        "removeItem" : {
+                                          "type" : "variable"
+                                        },
+                                        "objPadreCatCampusEgreso" : {
+                                          "type" : "variable",
+                                          "value" : "objPadreCatCampusEgreso"
+                                        },
+                                        "objPadreCatTrabaja" : {
+                                          "type" : "variable",
+                                          "value" : "objPadreCatTrabaja"
+                                        },
+                                        "objPadreCatEgresoAnahuac" : {
+                                          "type" : "variable",
+                                          "value" : "objPadreCatEgresoAnahuac"
+                                        },
+                                        "objPadreCatTitulo" : {
+                                          "type" : "variable",
+                                          "value" : "objPadreCatTitulo"
+                                        },
+                                        "objPadreCatEscolaridad" : {
+                                          "type" : "variable",
+                                          "value" : "objPadreCatEscolaridad"
+                                        }
+                                      },
+                                      "reference" : "5c0f3dad-8638-42d3-9f1e-d35973db2a02",
+                                      "hasValidationError" : false,
+                                      "id" : "customBTNGUARDARINFORMACIONPADRE"
+                                    },
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 3,
+                                        "lg" : 3
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "banderaOcultarEditarPadre"
                                         },
                                         "disabled" : {
                                           "type" : "constant",
@@ -10635,120 +11103,19 @@
                                         "banderaEdicion" : {
                                           "type" : "variable",
                                           "value" : "BanderaInformacionPadre"
+                                        },
+                                        "banderaMostrarbotones" : {
+                                          "type" : "variable",
+                                          "value" : "mostrarBotonesPadre"
+                                        },
+                                        "ocultarBtnEditarPadre" : {
+                                          "type" : "variable",
+                                          "value" : "banderaOcultarEditarPadre"
                                         }
                                       },
                                       "reference" : "6432dbc7-471b-4909-b613-de97404f1418",
                                       "hasValidationError" : false,
                                       "id" : "customBtnEditarInformacionPadre"
-                                    },
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 2,
-                                        "lg" : 3
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "disabled" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "label" : {
-                                          "type" : "interpolation",
-                                          "value" : "Guardar"
-                                        },
-                                        "alignment" : {
-                                          "type" : "constant",
-                                          "value" : "left"
-                                        },
-                                        "buttonStyle" : {
-                                          "type" : "constant",
-                                          "value" : "success"
-                                        },
-                                        "action" : {
-                                          "type" : "constant",
-                                          "value" : "POST"
-                                        },
-                                        "assign" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "url" : {
-                                          "type" : "interpolation"
-                                        },
-                                        "responseStatusCode" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "dataToSend" : {
-                                          "type" : "expression",
-                                          "value" : "objPadre"
-                                        },
-                                        "dataFromSuccess" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "closeOnSuccess" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "dataFromError" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "targetUrlOnSuccess" : {
-                                          "type" : "interpolation"
-                                        },
-                                        "collectionToModify" : {
-                                          "type" : "variable"
-                                        },
-                                        "modalId" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "collectionPosition" : {
-                                          "type" : "constant",
-                                          "value" : "Last"
-                                        },
-                                        "valueToAdd" : {
-                                          "type" : "constant"
-                                        },
-                                        "removeItem" : {
-                                          "type" : "variable"
-                                        },
-                                        "objPadreCatCampusEgreso" : {
-                                          "type" : "variable",
-                                          "value" : "objPadreCatCampusEgreso"
-                                        },
-                                        "objPadreCatTrabaja" : {
-                                          "type" : "variable",
-                                          "value" : "objPadreCatTrabaja"
-                                        },
-                                        "objPadreCatEgresoAnahuac" : {
-                                          "type" : "variable",
-                                          "value" : "objPadreCatEgresoAnahuac"
-                                        },
-                                        "objPadreCatTitulo" : {
-                                          "type" : "variable",
-                                          "value" : "objPadreCatTitulo"
-                                        },
-                                        "objPadreCatEscolaridad" : {
-                                          "type" : "variable",
-                                          "value" : "objPadreCatEscolaridad"
-                                        }
-                                      },
-                                      "reference" : "5c0f3dad-8638-42d3-9f1e-d35973db2a02",
-                                      "hasValidationError" : false,
-                                      "id" : "customBTNGUARDARINFORMACIONPADRE"
                                     }
                                   ]
                                 ]
@@ -12740,7 +13107,7 @@
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 4,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -12765,7 +13132,7 @@
                                 ]
                               },
                               {
-                                "type" : "container",
+                                "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
@@ -12778,27 +13145,102 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaMostrarBotonesInfoMadre"
+                                  },
+                                  "disabled" : {
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "repeatedCollection" : {
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Cancelar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "danger"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "Submit task"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "responseStatusCode" : {
                                     "type" : "variable",
                                     "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "constant"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnEditarInfoMadre"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "BanderaMostrarBotonesInfoMadre"
+                                  },
+                                  "banderaDeshabilitarEdicion" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "habilitarCampos" : {
+                                    "type" : "variable",
+                                    "value" : "banderaEditarInfoMadre"
                                   }
                                 },
-                                "reference" : "d8f14bd8-d5a1-46da-abdd-421f035649ee",
+                                "reference" : "f313d398-274e-4852-8550-bdb7673dc064",
                                 "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [ ]
-                                ]
+                                "id" : "customBtnCancelarEdicion"
                               },
                               {
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 2,
+                                  "md" : 3,
                                   "lg" : 3
                                 },
                                 "propertyValues" : {
@@ -12807,8 +13249,84 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaMostrarBotonesInfoMadre"
+                                  },
+                                  "disabled" : {
                                     "type" : "constant",
                                     "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Guardar"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "success"
+                                  },
+                                  "contenido" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "userId" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "taskId" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlConsulta" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "objTaskInformation" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlTaskInformation" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "nuevosValores" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "isModificacion" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "index" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "542c7398-8516-4eaa-b9ea-d3ccdeb0d9de",
+                                "hasValidationError" : false,
+                                "id" : "customBtnGuardarInformacionMadre"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 3,
+                                  "lg" : 3
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarbtnEditarInfoMadre"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -12934,87 +13452,19 @@
                                   "banderaEdicion" : {
                                     "type" : "variable",
                                     "value" : "banderaEditarInfoMadre"
+                                  },
+                                  "banderaMostrarYOcultarBotones" : {
+                                    "type" : "variable",
+                                    "value" : "BanderaMostrarBotonesInfoMadre"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnEditarInfoMadre"
                                   }
                                 },
                                 "reference" : "521b1ebb-f97b-45b5-bd77-db1d9657ded8",
                                 "hasValidationError" : false,
                                 "id" : "customBtnInformacionEditarMadre"
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 2,
-                                  "lg" : 3
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "disabled" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Guardar"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "right"
-                                  },
-                                  "buttonStyle" : {
-                                    "type" : "constant",
-                                    "value" : "success"
-                                  },
-                                  "contenido" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "userId" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "taskId" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "dataToSend" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "urlConsulta" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "objTaskInformation" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "urlTaskInformation" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "nuevosValores" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isModificacion" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "index" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "542c7398-8516-4eaa-b9ea-d3ccdeb0d9de",
-                                "hasValidationError" : false,
-                                "id" : "customBtnGuardarInformacionMadre"
                               }
                             ]
                           ]
@@ -13529,7 +13979,7 @@
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 4,
+                                        "md" : 3,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -13554,7 +14004,7 @@
                                       ]
                                     },
                                     {
-                                      "type" : "container",
+                                      "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
@@ -13567,27 +14017,102 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "BanderaMostrarBotonesContactos"
+                                        },
+                                        "disabled" : {
                                           "type" : "constant",
                                           "value" : false
                                         },
-                                        "repeatedCollection" : {
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Cancelar"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "right"
+                                        },
+                                        "buttonStyle" : {
+                                          "type" : "constant",
+                                          "value" : "danger"
+                                        },
+                                        "action" : {
+                                          "type" : "constant",
+                                          "value" : "Submit task"
+                                        },
+                                        "assign" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "url" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "responseStatusCode" : {
                                           "type" : "variable",
                                           "value" : ""
+                                        },
+                                        "dataToSend" : {
+                                          "type" : "constant"
+                                        },
+                                        "dataFromSuccess" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "closeOnSuccess" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "dataFromError" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "targetUrlOnSuccess" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "collectionToModify" : {
+                                          "type" : "variable"
+                                        },
+                                        "modalId" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "collectionPosition" : {
+                                          "type" : "constant",
+                                          "value" : "Last"
+                                        },
+                                        "valueToAdd" : {
+                                          "type" : "constant"
+                                        },
+                                        "removeItem" : {
+                                          "type" : "variable"
+                                        },
+                                        "banderaOcultarbtnEditar" : {
+                                          "type" : "variable",
+                                          "value" : "ocultarBtnEditarContactos"
+                                        },
+                                        "banderaOcultarbtnGuardar" : {
+                                          "type" : "variable",
+                                          "value" : "BanderaMostrarBotonesContactos"
+                                        },
+                                        "banderaDeshabilitarEdicion" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "habilitarCampos" : {
+                                          "type" : "variable",
+                                          "value" : "BanderaInformacionEmergencia"
                                         }
                                       },
-                                      "reference" : "9c4a7c1d-e881-44d3-985c-7dd6715e2408",
+                                      "reference" : "3581aed1-7d58-4b15-9b1c-4db18841fdf1",
                                       "hasValidationError" : false,
-                                      "id" : "pbContainer",
-                                      "rows" : [
-                                        [ ]
-                                      ]
+                                      "id" : "customBtnCancelarEdicion"
                                     },
                                     {
                                       "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 2,
+                                        "md" : 3,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -13596,8 +14121,97 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "BanderaMostrarBotonesContactos"
+                                        },
+                                        "disabled" : {
                                           "type" : "constant",
                                           "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Guardar"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "left"
+                                        },
+                                        "buttonStyle" : {
+                                          "type" : "constant",
+                                          "value" : "success"
+                                        },
+                                        "action" : {
+                                          "type" : "constant",
+                                          "value" : "POST"
+                                        },
+                                        "assign" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "url" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "responseStatusCode" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "dataToSend" : {
+                                          "type" : "constant",
+                                          "value" : "$item"
+                                        },
+                                        "dataFromSuccess" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "closeOnSuccess" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "dataFromError" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "targetUrlOnSuccess" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "collectionToModify" : {
+                                          "type" : "variable"
+                                        },
+                                        "modalId" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "collectionPosition" : {
+                                          "type" : "constant",
+                                          "value" : "Last"
+                                        },
+                                        "valueToAdd" : {
+                                          "type" : "constant"
+                                        },
+                                        "removeItem" : {
+                                          "type" : "variable"
+                                        }
+                                      },
+                                      "reference" : "3a17eb4c-0631-42b9-8466-80c4f5120672",
+                                      "hasValidationError" : false,
+                                      "id" : "customBtnContactoEmergencia"
+                                    },
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 3,
+                                        "lg" : 3
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "ocultarBtnEditarContactos"
                                         },
                                         "disabled" : {
                                           "type" : "constant",
@@ -13723,100 +14337,19 @@
                                         "banderaEdicion" : {
                                           "type" : "variable",
                                           "value" : "BanderaInformacionEmergencia"
+                                        },
+                                        "banderaOcultarbtnEditar" : {
+                                          "type" : "variable",
+                                          "value" : "ocultarBtnEditarContactos"
+                                        },
+                                        "banderaMostrarYOcultarBotones" : {
+                                          "type" : "variable",
+                                          "value" : "BanderaMostrarBotonesContactos"
                                         }
                                       },
                                       "reference" : "f49d9cb1-b7b1-4505-aae9-e3723555fa85",
                                       "hasValidationError" : false,
                                       "id" : "customBtnEditarInformacionEmergencia"
-                                    },
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 2,
-                                        "lg" : 3
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "disabled" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "label" : {
-                                          "type" : "interpolation",
-                                          "value" : "Guardar"
-                                        },
-                                        "alignment" : {
-                                          "type" : "constant",
-                                          "value" : "left"
-                                        },
-                                        "buttonStyle" : {
-                                          "type" : "constant",
-                                          "value" : "success"
-                                        },
-                                        "action" : {
-                                          "type" : "constant",
-                                          "value" : "POST"
-                                        },
-                                        "assign" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "url" : {
-                                          "type" : "interpolation"
-                                        },
-                                        "responseStatusCode" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "dataToSend" : {
-                                          "type" : "constant",
-                                          "value" : "$item"
-                                        },
-                                        "dataFromSuccess" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "closeOnSuccess" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "dataFromError" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "targetUrlOnSuccess" : {
-                                          "type" : "interpolation"
-                                        },
-                                        "collectionToModify" : {
-                                          "type" : "variable"
-                                        },
-                                        "modalId" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "collectionPosition" : {
-                                          "type" : "constant",
-                                          "value" : "Last"
-                                        },
-                                        "valueToAdd" : {
-                                          "type" : "constant"
-                                        },
-                                        "removeItem" : {
-                                          "type" : "variable"
-                                        }
-                                      },
-                                      "reference" : "3a17eb4c-0631-42b9-8466-80c4f5120672",
-                                      "hasValidationError" : false,
-                                      "id" : "customBtnContactoEmergencia"
                                     }
                                   ]
                                 ]
@@ -14296,13 +14829,6 @@
       "advancedOptions" : { },
       "exposed" : false
     },
-    "banderaOcultarbtnGuardar" : {
-      "type" : "expression",
-      "value" : [
-        "return true;"
-      ],
-      "exposed" : false
-    },
     "banderaOcultarbtnEditar" : {
       "type" : "expression",
       "value" : [
@@ -14335,6 +14861,118 @@
     },
     "preparatoriaSeleccionadaClave" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "banderaOcultarGuardarDomPermanente" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "mostrarbtnBandera" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarEditar" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarEditarpermanente" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarbtnPermanente" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarEditarBachillerato" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "mostrarbtnBanderaBachillerato" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarEditarPadre" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "mostrarBotonesPadre" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarBotonesInfoPersonal" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarEditarTutores" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "mostrarBtonTutor" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "BanderaMostrarBotonesInfoMadre" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarbtnEditarInfoMadre" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "ocultarBtnEditarContactos" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "BanderaMostrarBotonesContactos" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
       "exposed" : false
     }
   },

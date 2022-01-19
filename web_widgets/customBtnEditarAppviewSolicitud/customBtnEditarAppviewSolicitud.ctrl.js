@@ -5,8 +5,8 @@ var vm = this;
       debugger
     if($scope.properties.banderaEdicion == true){
         $scope.properties.banderaEdicion = false;
-        $scope.properties.banderaOcultarbtnGuardar = false
-        $scope.properties.banderaOcultarbtnEditar = true
+        $scope.properties.banderaOcultarBotones = false;
+        $scope.properties.ocultarBtnEditarInformacionPersonal = true;
         
     }else if($scope.properties.banderaEdicion == false){
         $scope.properties.banderaEdicion = true
