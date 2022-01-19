@@ -41,7 +41,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
     ///API/bpm/process/4774666324165829920?d=deployedBy&n=openCases&n=failedCases
         $scope.preAsignarTarea=function(rowData) {
-        
+        if($scope.isPeriodoVencido(rowData.periodofin)){
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning")
+        }else{
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -59,6 +61,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 console.error(data);
             })
             .finally(function() {});
+        }
     }
     $scope.preProcesoAsignarTarea=function(rowData) {
         
@@ -424,6 +427,10 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             .error(function(data, status) {
                 console.error(data);
             });
+    }
+    $scope.isPeriodoVencido=function(periodofin){
+        var fecha = new Date(periodofin.slice(0,10))
+        return fecha<new Date();
     }
 
     $scope.getCatCampus();

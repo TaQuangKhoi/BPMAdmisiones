@@ -5,6 +5,12 @@ function PbButtonCtrl($scope, $http, $location,  $window) {
     var vm = this;
     $scope.psicologo={}
     $scope.sesiones = [];
+    $scope.initModal=function(){
+        $scope.psicologo={};
+        $scope.sesiones = [];
+        $("#exampleModal").modal("show")
+    }
+    
     this.action = function action() {
         doRequest("GET","/bonita/API/extension/AnahuacRestGet?url=getPsicologoSesiones&p=0&c=9999&jsonData="+$scope.psicologo.id,null,null,function(datos){
             $scope.sesiones = datos;
