@@ -948,7 +948,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
         } else if (key.equals("IB")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_BACHILLERATO.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información bachillerato | "+pstm;
-            pstm.setLong(1, object.bachillerato_pid);
+            pstm.setLong(1, Integer.parseInt(object.bachillerato_pid));
             pstm.setString(2, object.nombreBachillerato);
             pstm.setString(3, object.paisBachillerato);
             pstm.setString(4, object.estadoBachillerato);
