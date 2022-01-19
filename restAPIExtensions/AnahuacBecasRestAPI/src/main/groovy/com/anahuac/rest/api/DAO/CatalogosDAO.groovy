@@ -371,7 +371,58 @@ class CatalogosDAO {
 			}
 			return resultado;
 	}
+
+	public Result insertManejoDocumento(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
 		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+
+		String errorLog = "Entro";
+		try {
+			errorLog+= " 1";
+			closeCon = validarConexion();
+			
+			if(objCatGenerico.persistenceId != 0) {
+				errorLog+= " update";
+				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATPROVIENENINGRESOS);
+				pstm.setLong(1, objCatGenerico.idCampus);
+				pstm.setLong(2, objCatGenerico.idTipoApoyo);
+				pstm.setBoolean(3, objCatGenerico.isObligatorio);
+				pstm.setString(4, objCatGenerico.nombreDocumento);
+				pstm.setString(5, objCatGenerico.descripcionDocumento);
+				pstm.setString(7, objCatGenerico.urlDocumentoAzure);
+				pstm.setString(8, objCatGenerico.persistenceId);
+				pstm.execute();
+			}else {
+				errorLog+= " insert";
+				pstm = con.prepareStatement(StatementsCatalogos.INSERT_CAT_MANEJO_DOCUMENTOS);
+				pstm.setLong(1, objCatGenerico.idCampus);
+				pstm.setLong(2, objCatGenerico.idTipoApoyo);
+				pstm.setBoolean(3, objCatGenerico.isObligatorio);
+				pstm.setString(4, objCatGenerico.nombreDocumento);
+				pstm.setString(5, objCatGenerico.descripcionDocumento);
+				pstm.setString(6, objCatGenerico.urlDocumentoAzure);
+				pstm.setString(7, objCatGenerico.usuarioCreacion);
+				pstm.execute();
+			}
+			errorLog+= " salio";
+//			con.commit();
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertManejoDocumento] " + e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
 	public Result insertUpdateCatProvienenIngresos(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -710,8 +761,8 @@ class CatalogosDAO {
 		try {
 			errorLog += "ENTRO ";
 			String consulta = StatementsCatalogos.GET_COCUMENTOS_BY_APOYO_AND_CAMPUS;
-			CatTypoApoyo row = new CatTypoApoyo();
-			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
+			CatManejoDocumentos row = new CatManejoDocumentos();
+			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
 			closeCon = validarConexion();
 			where += " WHERE  rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
 
@@ -725,11 +776,12 @@ class CatalogosDAO {
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
-				row = new CatTypoApoyo();
+				row = new CatManejoDocumentos();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-				row.setDescripcion(rs.getString("DESCRIPCION"));
-				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
-				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
+				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
+				row.setDescripcionDocumento(rs.getBoolean("DESCRIPCIONDOCUMENTO"));
+				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));
+				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIODOC"));
 
 				rows.add(row);
 			}
