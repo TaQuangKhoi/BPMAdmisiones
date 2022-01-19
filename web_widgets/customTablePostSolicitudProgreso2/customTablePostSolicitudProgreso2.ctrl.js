@@ -459,6 +459,11 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 console.error(data);
             });
     }
+    $scope.isPeriodoVencido = function(periodofin) {
+        var fecha = new Date(periodofin.slice(0, 10))
+        return fecha < new Date();
+    }
+
 
     $scope.getCatCampus();
 }
