@@ -10,7 +10,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Error!", "Su sesion ha expirado", "warning");   
                     setTimeout(function(){ window.top.location.href = $scope.properties.urlDireccion }, 3000);
                 }else{
+                    
                     $scope.properties.navigationVar = $scope.properties.newValue;
+                    $scope.validarPeriodo($scope.properties.catSolicitudDeAdmision.catPeriodo.fechaFin);
                 }
             })
             .error(function(data, status) {
@@ -20,4 +22,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             
             });   
     }
+    $scope.validarPeriodo=function(periodofin){
+      console.log("isPeriodoVencido?")
+      try{
+      var fecha = new Date(periodofin.slice(0,10));
+      if (fecha<new Date()){
+          swal("¡Periodo vencido!", "Recuerda que el periodo de ingreso que seleccionaste ha vencido y debes actualizarlo, contacta a tu asesor o a través del chat", "warning");
+      }}catch(e){
+          
+      }
+  }
 }
