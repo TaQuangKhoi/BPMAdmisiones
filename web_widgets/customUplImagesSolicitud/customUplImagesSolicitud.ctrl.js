@@ -168,7 +168,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
             }
         } else {
             ctrl.clear()
-            swal("¡Formato Incorrecto!", "Solo se aceptan imagenes png, jpg, jpeg, jfif", "warning");
+            swal("¡Formato no válido!", "Solo se aceptan imágenes png, jpg, jpeg, jfif", "warning");
             return false;
         }
     }
