@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1641427273396,
+  "lastUpdate" : 1642633777632,
   "rows" : [
     [
       {
@@ -513,6 +513,66 @@
             ]
           ]
         }
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "objSolicitudDeAdmision"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          },
+          "urlGet" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlParametro" : {
+            "type" : "variable",
+            "value" : "urlParametroGet"
+          },
+          "textMensaje" : {
+            "type" : "constant",
+            "value" : "el periodo del aspirante ha vencido, favor de solicitar al aspirante que rectifique el periodo seleccionado para poder continuar con el proceso de admision."
+          },
+          "resultadoGet" : {
+            "type" : "constant",
+            "value" : "array"
+          },
+          "datoNombre" : {
+            "type" : "constant",
+            "value" : "isVencido"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "objGetWithModal.isVencido"
+          }
+        },
+        "reference" : "86751674-ae05-4334-8b5c-e779779ac15a",
+        "hasValidationError" : false,
+        "id" : "customGetWithModal"
       }
     ],
     [
@@ -26389,6 +26449,7 @@
         "/*if($data.objGetDescuentosCiudadBachillerato == null){\r",
         "    $data.objGetDescuentosCiudadBachillerato = [];\r",
         "}*/\r",
+        "//objGetWithModal.isVencido\r",
         "$data.formOutput.detalleSolicitudInput.isCurpValidado = $data.isCurpValidado;\r",
         "if ($data.descuentoManual) {\r",
         "    console.log(1)\r",
@@ -28803,6 +28864,7 @@
         "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
         "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
         "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno,\r",
+        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
         "    \"sexo\": $data.objSolicitudDeAdmision.catSexo.persistenceId,\r",
         "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
         "    \"idbanner\":($data.formOutput.detalleSolicitudInput.idBanner == null ?\"\":$data.formOutput.detalleSolicitudInput.idBanner)\r",
@@ -28823,6 +28885,22 @@
         "    }",
         "}else{",
         "    return true;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "urlParametroGet" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.objSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "objGetWithModal" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
         "}"
       ],
       "exposed" : false
