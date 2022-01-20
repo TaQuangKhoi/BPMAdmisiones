@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1642535811835,
+  "lastUpdate" : 1642634168089,
   "rows" : [
     [
       {
@@ -7803,6 +7803,35 @@
       "type" : "constant",
       "value" : [
         "https://procesos.bpm.anahuac.mx/apps/login/admisiones/"
+      ],
+      "exposed" : false
+    },
+    "urlParametro" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.objectSolicitud.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "objTipoLicenciatura" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.objectSolicitud.catGestionEscolar.tipoLicenciatura"
+      ],
+      "exposed" : false
+    },
+    "catPeriodo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivo&p=0&c=10&tipo={{objTipoLicenciatura}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{ \"isVencido\":false }"
       ],
       "exposed" : false
     }

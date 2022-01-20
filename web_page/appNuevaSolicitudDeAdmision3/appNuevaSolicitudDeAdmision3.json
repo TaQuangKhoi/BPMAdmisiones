@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1642203837364,
+  "lastUpdate" : 1642630153362,
   "rows" : [
     [
       {
@@ -11455,7 +11455,8 @@
                 "userId" : "users.user_id",
                 "Bachilleratopersistenceid" : "Bachilleratopersistenceid",
                 "userName" : "users.user_name",
-                "urlRedireccion" : "urlDireccion"
+                "urlRedireccion" : "urlDireccion",
+                "isVencido" : "isPeriodoVencido.isVencido"
               }
             }
           ]
@@ -18293,8 +18294,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 1,
-          "lg" : 1
+          "md" : 0,
+          "lg" : 0
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18681,6 +18682,68 @@
         "reference" : "79faa7a8-1522-4302-b1e5-21e055ec8daa",
         "hasValidationError" : false,
         "id" : "customCustomSetEstadoCiudadSeleccionada"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catPeriodo.data"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlInfo" : {
+            "type" : "expression",
+            "value" : "DatoUrlGetInfo"
+          },
+          "urlPost" : {
+            "type" : "constant",
+            "value" : "postUpdatePeriodoVencido"
+          },
+          "caseId" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.caseId"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "isPeriodoVencido.isVencido"
+          }
+        },
+        "reference" : "ffa8d75d-8eef-4ab8-b441-2ff65218ed1d",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfoModalRestrictivo"
       },
       {
         "type" : "component",
@@ -24484,6 +24547,22 @@
       "type" : "url",
       "value" : [
         "../API/bpm/archivedActivity?f=caseId={{getCatRegistro[0].caseId}}&f=state=aborted"
+      ],
+      "exposed" : false
+    },
+    "DatoUrlGetInfo" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.catSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
+        "}"
       ],
       "exposed" : false
     }

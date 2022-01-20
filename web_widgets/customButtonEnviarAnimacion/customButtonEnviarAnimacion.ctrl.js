@@ -14,7 +14,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action === 'Start process') {
       startProcess();
     } else if ($scope.properties.action === 'Submit task') {
-      submitTask();
+         try {
+                  console.log("isPeriodoVencido?")
+                  var fecha = new Date($scope.properties.solicitudDeAdmision.catPeriodo.fechaFin.slice(0, 10));
+                  if (fecha < new Date()) {
+
+                      swal("¡Periodo vencido!", "Recuerda que el periodo de ingreso que seleccionaste ha vencido y debes actualizarlo, contacta a tu asesor o a través del chat", "warning")
+                          .then((value) => {
+                              submitTask();
+                          });
+                  } else {
+                      submitTask();
+                  }
+              } catch (e) {
+                  submitTask();
+              }
     } else if ($scope.properties.action === 'Open modal') {
       closeModal($scope.properties.closeOnSuccess);
       openModal($scope.properties.modalId);

@@ -310,7 +310,64 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.cargaManual = function(row) {
         if ($scope.isPeriodoVencido(row.periodofin)) {
-            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning")
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
+
+                $scope.properties.datosAspirante = {
+                    "IDBANNER": "",
+                    "FECHAEXAMEN": "",
+                    "IdSesion": "",
+                    "CIT1": "",
+                    "CIT2": "",
+                    "HI1": "",
+                    "HI2": "",
+                    "HI3": "",
+                    "HI4": "",
+                    "HI5": "",
+                    "HI6": "",
+                    "LA1": "",
+                    "LA2": "",
+                    "LA3": "",
+                    "LA4": "",
+                    "LEO1": "",
+                    "LEO3": "",
+                    "LEO4": "",
+                    "LEO5": "",
+                    "PAAN": "",
+                    "PAAV": "",
+                    "PARA": "",
+                    "PG1": "",
+                    "PG2": "",
+                    "PG3": "",
+                    "PG4": "",
+                    "PG5": "",
+                    "PV1": "",
+                    "PV4": "",
+                    "TOTAL": "",
+                    "tipoExamen": "",
+                    "MLEX": "",
+                    "CLEX": "",
+                    "HLEX": "",
+                    "INVP": ""
+                };
+                $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+                $scope.properties.datosAspirante.IdSesion = row.id;
+                $scope.properties.tabla = "fragmento";
+                $scope.properties.view = false;
+                /*var req = {
+                    method: "GET",
+                    url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}`
+                };
+                return $http(req)
+                    .success(function (data, status) {
+                        cargaDeDatos($scope.properties.datosAspirante,data.data[0])
+                    })
+                    .error(function (data, status) {
+                        console.error(data);
+                    })
+                    .finally(function () { });*/
+
+
+            });
         } else {
             $scope.properties.datosAspirante = {
                 "IDBANNER": "",
