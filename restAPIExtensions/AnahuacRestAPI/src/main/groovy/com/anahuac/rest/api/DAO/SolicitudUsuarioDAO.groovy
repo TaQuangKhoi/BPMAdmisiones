@@ -871,6 +871,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
     String replaceTableSolicitud = "";
     String replaceTablePadresTutor = "";
     String replaceTableContacEmergencia = "";
+	String fechaOutput = "";
     List < String > rows = new ArrayList < String > ();
 
     try {
@@ -905,28 +906,30 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 		if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") || replaceTablePadresTutor.equals(" PadresTutor ") && object.egresoAnahuac_pid != 77) {
 			replaceColumn = ", catcampusegreso_pid = ?";
 		}
+		if(object.fechaNacimiento != null || object.fechaNacimiento != "") {
+			fechaOutput = object.fechaNacimiento;
+			SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Date formatoFechaNacimiento = output.parse(fechaOutput);
+			fechaOutput = output.format(formatoFechaNacimiento)
+		}
 
         if (key.equals("IP")) {
-			String fecha = object.fechaNacimiento;
-        	SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy'T'HH:mm:ss.SSS Z");
-        	String formatoFechaNacimiento = format.parse(fecha.replace("Z", " UTC"));
-			errorLog += "formatoFechaNacimiento |"+formatoFechaNacimiento
+			errorLog += "fechaOutput |"+fechaOutput
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PERSONAL.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información personal | "+pstm;
             pstm.setString(1, object.primerNombre);
             pstm.setString(2, object.segundoNombre);
             pstm.setString(3, object.apellidoPaterno);
             pstm.setString(4, object.apellidoMaterno);
-            pstm.setString(5, object.correoElectronico);
-            pstm.setString(6, formatoFechaNacimiento);
-            pstm.setLong(7, object.sexo_pid);
-            pstm.setLong(8, object.nacionalidad_pid);
-            pstm.setLong(9, object.religion_pid);
-            pstm.setString(10, object.curp);
-            pstm.setLong(11, object.estadoCivil_pid);
-            pstm.setString(12, object.telefonoCelular);
-            pstm.setLong(13, object.caseid);
-            pstm.setString(14, object.correoElectronico);
+            pstm.setString(5, fechaOutput);
+            pstm.setLong(6, object.sexo_pid);
+            pstm.setLong(7, object.nacionalidad_pid);
+            pstm.setLong(8, object.religion_pid);
+            pstm.setString(9, object.curp);
+            pstm.setLong(10, object.estadoCivil_pid);
+            pstm.setString(11, object.telefonoCelular);
+            pstm.setLong(12, object.caseid);
+            pstm.setString(13, object.correoElectronico);
             errorLog += "Fin sección: Información personal | "+pstm;
 
         } else if (key.equals("DP")) {
