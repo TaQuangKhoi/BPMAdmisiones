@@ -137,7 +137,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.asignarTarea = function(rowData) {
         if ($scope.isPeriodoVencido(rowData.periodofin)) {
-            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
+            Swal.fire("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
 
 
 

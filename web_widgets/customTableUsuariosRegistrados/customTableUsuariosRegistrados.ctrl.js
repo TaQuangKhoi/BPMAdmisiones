@@ -7,7 +7,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
   };
 
   this.selectRow = function (row) {
-    if ($scope.isPeriodoVencido(rowData.periodofin)) {
+    if ($scope.isPeriodoVencido(row.periodofin)) {
       swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
         /*if (this.isClickable()) {
           $scope.properties.selectedRow = row;
@@ -32,7 +32,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
       
       $scope.properties.isSelected = 'editar';
       $scope.properties.catUsuariosselectedNR["todelete"] = false;
-
+      $scope.$apply();    
     });
     }else{
       /*if (this.isClickable()) {
