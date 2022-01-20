@@ -232,7 +232,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
                                     swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
                                 } else {
-                                    if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)) {
+                                    if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null || $scope.properties.objCampanaSelected==null)) {
                                         console.log("descuento descuentoManual")
                                         swal.fire("¡Descuento!", "Debe seleccionar un descuento", "warning");
                                     } else {
@@ -299,7 +299,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
                             swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
                         } else {
-                            if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)) {
+                            if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null || $scope.properties.objCampanaSelected==null)) {
                                 console.log("descuento descuentoManual")
                                 swal.fire("¡Descuento!", "Debe seleccionar un descuento", "warning");
                             } else {

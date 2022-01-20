@@ -7,6 +7,11 @@ import java.sql.ResultSet
 import java.sql.Statement
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.concurrent.Callable
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -66,41 +71,50 @@ class BannerDAO {
 		String barrerToken = "";
 		String jsonResultado = "";
 		String strGetConsumeJSON = "";
+		Integer intentos = 5;
 		try {
-			errorLog += " | " + ("START JSON======================================");
-			barrerToken = getBarreToken();
-			//errorLog += " | " + barrerToken;
-			errorLog += " | " + ("================================================");
-
-			jsonResultado = getConsumePrepa(barrerToken);
-			
-			//JSON PRUEBA ANGEL CREATE
-			//jsonResultado = "[{\"id\":\"329\",\"published\":\"2021-12-08 01:33:33.630727+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"330\",\"published\":\"2021-12-08 01:34:40.980862+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 1\",\"linea 2\"],\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"02400\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 1\",\"streetLine2\":null,\"streetLine3\":\"linea 2\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			
-			//JSON PRUEBA ANGEL EDITAR
-			//jsonResultado = "[{\"id\":\"335\",\"published\":\"2021-12-09 00:14:38.400733+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"version\":\"application\/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 45\",\"linea 45\"],\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"52004\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 45\",\"streetLine2\":null,\"streetLine3\":\"linea 45\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"7254939d-2368-443d-9e77-6e1e14de3fba\",\"title\":\"prueba hoy\",\"type\":\"secondarySchool\",\"code\":\"10360\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			
-			//errorLog += " | " + jsonResultado;
-			
-			//CREAR-------------------------------------------------------
-			//jsonResultado = "[{\"id\":\"81\",\"published\":\"2021-05-31 18:30:53.865019+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"title\":\"Instituto Curie\",\"type\":\"secondarySchool\",\"code\":\"9345\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"82\",\"published\":\"2021-05-31 18:31:56.227161+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"AV. Montevideo\"],\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"07730\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Gustavo A. Madero\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"AV. Montevideo\",\"streetLine2\":null,\"streetLine3\":\"calle 3\",\"nationCode\":\"99\",\"stateCode\":\"M16\",\"countyCode\":\"09005\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			
-			//EDITAR------------------------------------------------------
-			//jsonResultado = "[{\"id\":\"30\",\"published\":\"2021-04-22 18:26:29.274756+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Blvd. La Mirada 3050\",\"Los Angeles\"],\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Culiac\u00e1n 25006\",\"postalCode\":\"80014\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Sinaloa\"},\"subRegion\":{\"title\":\"Culiac\u00e1n\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			
-			//DELETE------------------------------------------------------
-			//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
-			
-			//PROBLEMA
-			//jsonResultado = "[{\"id\":\"132\",\"published\":\"2021-06-17 18:36:38.890122+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"f1a6ad1e-9ed1-4692-92fa-6df7582650b1\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"title\":\"Instituto Americano\",\"type\":\"secondarySchool\",\"code\":\"9680\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			
-			errorLog += " | jsonResultado: " + jsonResultado;
-			errorLog += " | " + ("END JSON========================================");
-
-			resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
-			errorLog += " | " + strGetConsumeJSON;
-			//resultadoGetConsumeJSON.setSuccess(true);
-			resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
+			while(intentos>0) {
+				errorLog += " | " + ("START JSON======================================");
+				barrerToken = getBarreToken();
+				//errorLog += " | " + barrerToken;
+				errorLog += " | " + ("================================================");
+	
+				jsonResultado = getConsumePrepa(barrerToken);
+				
+				//JSON PRUEBA ANGEL CREATE
+				//jsonResultado = "[{\"id\":\"329\",\"published\":\"2021-12-08 01:33:33.630727+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"330\",\"published\":\"2021-12-08 01:34:40.980862+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 1\",\"linea 2\"],\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"02400\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 1\",\"streetLine2\":null,\"streetLine3\":\"linea 2\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+				
+				//JSON PRUEBA ANGEL EDITAR
+				//jsonResultado = "[{\"id\":\"335\",\"published\":\"2021-12-09 00:14:38.400733+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"version\":\"application\/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 45\",\"linea 45\"],\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"52004\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 45\",\"streetLine2\":null,\"streetLine3\":\"linea 45\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"7254939d-2368-443d-9e77-6e1e14de3fba\",\"title\":\"prueba hoy\",\"type\":\"secondarySchool\",\"code\":\"10360\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+				
+				//errorLog += " | " + jsonResultado;
+				
+				//CREAR-------------------------------------------------------
+				//jsonResultado = "[{\"id\":\"81\",\"published\":\"2021-05-31 18:30:53.865019+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"title\":\"Instituto Curie\",\"type\":\"secondarySchool\",\"code\":\"9345\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"82\",\"published\":\"2021-05-31 18:31:56.227161+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"AV. Montevideo\"],\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"07730\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Gustavo A. Madero\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"AV. Montevideo\",\"streetLine2\":null,\"streetLine3\":\"calle 3\",\"nationCode\":\"99\",\"stateCode\":\"M16\",\"countyCode\":\"09005\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+				
+				//EDITAR------------------------------------------------------
+				//jsonResultado = "[{\"id\":\"30\",\"published\":\"2021-04-22 18:26:29.274756+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Blvd. La Mirada 3050\",\"Los Angeles\"],\"id\":\"b53b842d-4fee-439d-a0a2-2e9bd61ea173\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Culiac\u00e1n 25006\",\"postalCode\":\"80014\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Sinaloa\"},\"subRegion\":{\"title\":\"Culiac\u00e1n\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+				
+				//DELETE------------------------------------------------------
+				//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
+				
+				//PROBLEMA
+				//jsonResultado = "[{\"id\":\"132\",\"published\":\"2021-06-17 18:36:38.890122+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"f1a6ad1e-9ed1-4692-92fa-6df7582650b1\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"title\":\"Instituto Americano\",\"type\":\"secondarySchool\",\"code\":\"9680\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+				
+				errorLog += " | jsonResultado: " + jsonResultado;
+				errorLog += " | " + ("END JSON========================================");
+				
+				if(jsonResultado.equals("[]")){
+					intentos=0;
+					resultadoGetConsumeJSON.setSuccess(true)
+				}else {
+					resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
+					intentos--;
+				}
+				errorLog += " | " + strGetConsumeJSON;
+				//resultadoGetConsumeJSON.setSuccess(true);
+				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
+			}
 		} catch (Exception e) {
 			errorLog += " | " + e.getMessage();
 			resultadoGetConsumeJSON.setError_info(errorLog);
@@ -1890,6 +1904,10 @@ class BannerDAO {
 		
 		def jsonSlurper = new JsonSlurper();
 		try {
+			errorLog += "| idBanner" +idBanner;
+			errorLog += "| codeScore" +codeScore;
+			errorLog += "| score" +score;
+			errorLog += "| fecha" +fecha;
 			closeCon = validarConexion();
 			pstm = con.prepareStatement("SELECT ck.tokenbanner, (SELECT valor from catconfiguracion where clave='bannerMatchPerson' limit 1) as bannerMatchPerson  FROM catapikey ck inner join solicituddeadmision sda on sda.catcampus_pid=ck.campus_pid inner join detallesolicitud ds on ds.caseid::bigint=sda.caseid and ds.idbanner=? limit 1")
 			pstm.setString(1, idBanner);
@@ -1897,6 +1915,8 @@ class BannerDAO {
 			if(rs.next()) {
 				barrerToken = rs.getString("tokenbanner")
 				bannerMatchPerson = rs.getString("bannerMatchPerson")
+			}else {
+				throw new Exception("La universidad no cuenta con token Banner Ethos")
 			}
 			
 			if(barrerToken==null) {
@@ -2144,6 +2164,78 @@ class BannerDAO {
 
 		return resultado;
 	}
+	public Result testMultiThread(RestAPIContext context) {
+		Result result = new Result();
+		 Map<String,Object> coins =  new HashMap < String, Object > ();
+		 List<Map<String,Object>> machine = new ArrayList <Map<String,Object>> ()
+		 
+		 coins.put("context", context)
+		 coins.put("idBanner", "00525252")
+		 coins.put("codeScore", "PAAN")
+		 coins.put("score", "1")
+		 coins.put("fecha", "2022-01-13")
+		 
+		 machine.add(coins)
+		 
+		 result = multiThread(machine)
+		 return result;
+	}
+	/**
+	 * Inserta o actualiza puntuacion de aspirantes en banner
+	 * @author Juan Esquer
+	 * @param fecha yyyy-MM-dd es la fecha del examen
+	 * */
+	public Result multiThread(List<Map<String,Object>> threads) {
+		Result result = new Result();
+		String errorLog="[1]"
+		ExecutorService executorService = Executors.newFixedThreadPool(threads.size());
+		List<Callable<Result[]>> callableTasks = new ArrayList<>();
+		try {
+			
+			errorLog+="[2]"
+			threads.each { 
+				errorLog+="[2.1]"
+				errorLog+=""+it.toString()
+				Callable<Result[]> callable = new MyCallable(it);
+				errorLog+="[2.2]"
+				callableTasks.add(callable);
+				errorLog+="[2.3]"
+			}
+			executorService.awaitTermination(10, TimeUnit.SECONDS);
+			List<Future<Result[]>> futures = executorService.invokeAll(callableTasks);
+			for(Future<Result[]> future: futures) {
+				errorLog+="[3]"
+				Result[] results = future.get();
+				errorLog+=" || " + results[0].error_info
+			}
+			executorService.shutdown();
+			executorService.shutdownNow();
+			result.setSuccess(true)
+			errorLog+="[4]"
+			}catch(Exception e) {
+				errorLog+="[e]" + e.getMessage()
+				result.setSuccess(false)
+				result.setError(e.getMessage())
+		}
+		result.setSuccess(true)
+		result.setError_info(errorLog)
+		return result;
+	}
+	
+	private class MyCallable implements Callable<Result[]> {
+			private Map<String,Object> graph = new HashMap < String, Object > ();
+
+			public MyCallable(Map<String,Object> graph) {
+				this.graph = graph;
+			}
+
+			@Override
+			public Result[] call() {
+				Result[] arrayResult = new Result[1];
+				arrayResult[0]= new BannerDAO().integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
+				return arrayResult
+			}
+	 }
 	
 	
 }

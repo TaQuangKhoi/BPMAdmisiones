@@ -1963,6 +1963,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				case "postUpdatePeriodoVencido":
+					result = new SolicitudUsuarioDAO().postUpdatePeriodoVencido(jsonData)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "getPadreVencido":
 					result = suDAO.getPadreVencido(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {

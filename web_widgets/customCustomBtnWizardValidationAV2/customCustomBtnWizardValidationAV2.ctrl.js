@@ -44,6 +44,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 console.log("Task done")
             })
             .error(function(data, status) {
+                $scope.properties.selectedIndex--
                 blockUI.stop();
                 console.log("task failed")
             });
