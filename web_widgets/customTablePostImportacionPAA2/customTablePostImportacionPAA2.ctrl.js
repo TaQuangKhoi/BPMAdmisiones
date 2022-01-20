@@ -317,64 +317,129 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.getCatCampus();
 
     $scope.cargaManual = function(row) {
-        $scope.properties.datosAspirante = {
-            "CIT1": "",
-            "CIT2": "",
-            "fechaExamen": "",
-            "HI1": "",
-            "HI2": "",
-            "HI3": "",
-            "HI4": "",
-            "HI5": "",
-            "HI6": "",
-            "IDBANNER": "",
-            "LA1": "",
-            "LA2": "",
-            "LA3": "",
-            "LA4": "",
-            "LEO1": "",
-            "LEO3": "",
-            "LEO4": "",
-            "LEO5": "",
-            "PAAN": "",
-            "PAAV": "",
-            "PARA": "",
-            "PG1": "",
-            "PG2": "",
-            "PG3": "",
-            "PG4": "",
-            "PG5": "",
-            "PV1": "",
-            "PV4": "",
-            "TOTAL": "",
-            "tipoExamen": "",
-            "CLEX": "",
-            "MLEX": "",
-            "HLEX": "",
-            "INVP": "",
-            "update": true,
-            "fecha": "",
-            "IdSesion": ""
-        };
-        $scope.properties.datosAspirante.IDBANNER = row.idbanner;
-        $scope.properties.datosAspirante.IdSesion = row.id;
-        $scope.properties.tabla = "fragmento";
-        $scope.properties.view = false;
-         $scope.properties.update = "";
-        var req = {
-            method: "GET",
-            url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
-        };
-        return $http(req)
-            .success(function(data, status) {
-                cargaDeDatos($scope.properties.datosAspirante, data.data[0]);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+        if ($scope.isPeriodoVencido(rowData.periodofin)) {
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
+
+                $scope.properties.datosAspirante = {
+                    "CIT1": "",
+                    "CIT2": "",
+                    "fechaExamen": "",
+                    "HI1": "",
+                    "HI2": "",
+                    "HI3": "",
+                    "HI4": "",
+                    "HI5": "",
+                    "HI6": "",
+                    "IDBANNER": "",
+                    "LA1": "",
+                    "LA2": "",
+                    "LA3": "",
+                    "LA4": "",
+                    "LEO1": "",
+                    "LEO3": "",
+                    "LEO4": "",
+                    "LEO5": "",
+                    "PAAN": "",
+                    "PAAV": "",
+                    "PARA": "",
+                    "PG1": "",
+                    "PG2": "",
+                    "PG3": "",
+                    "PG4": "",
+                    "PG5": "",
+                    "PV1": "",
+                    "PV4": "",
+                    "TOTAL": "",
+                    "tipoExamen": "",
+                    "CLEX": "",
+                    "MLEX": "",
+                    "HLEX": "",
+                    "INVP": "",
+                    "update": true,
+                    "fecha": "",
+                    "IdSesion": ""
+                };
+                $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+                $scope.properties.datosAspirante.IdSesion = row.id;
+                $scope.properties.tabla = "fragmento";
+                $scope.properties.view = false;
+                $scope.properties.update = "";
+                var req = {
+                    method: "GET",
+                    url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
+                };
+                return $http(req)
+                    .success(function(data, status) {
+                        cargaDeDatos($scope.properties.datosAspirante, data.data[0]);
+                    })
+                    .error(function(data, status) {
+                        console.error(data);
+                    })
+                    .finally(function() {});
 
 
+
+            });
+        } else {
+            $scope.properties.datosAspirante = {
+                "CIT1": "",
+                "CIT2": "",
+                "fechaExamen": "",
+                "HI1": "",
+                "HI2": "",
+                "HI3": "",
+                "HI4": "",
+                "HI5": "",
+                "HI6": "",
+                "IDBANNER": "",
+                "LA1": "",
+                "LA2": "",
+                "LA3": "",
+                "LA4": "",
+                "LEO1": "",
+                "LEO3": "",
+                "LEO4": "",
+                "LEO5": "",
+                "PAAN": "",
+                "PAAV": "",
+                "PARA": "",
+                "PG1": "",
+                "PG2": "",
+                "PG3": "",
+                "PG4": "",
+                "PG5": "",
+                "PV1": "",
+                "PV4": "",
+                "TOTAL": "",
+                "tipoExamen": "",
+                "CLEX": "",
+                "MLEX": "",
+                "HLEX": "",
+                "INVP": "",
+                "update": true,
+                "fecha": "",
+                "IdSesion": ""
+            };
+            $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+            $scope.properties.datosAspirante.IdSesion = row.id;
+            $scope.properties.tabla = "fragmento";
+            $scope.properties.view = false;
+            $scope.properties.update = "";
+            var req = {
+                method: "GET",
+                url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
+            };
+            return $http(req)
+                .success(function(data, status) {
+                    cargaDeDatos($scope.properties.datosAspirante, data.data[0]);
+                })
+                .error(function(data, status) {
+                    console.error(data);
+                })
+                .finally(function() {});
+
+
+        }
     }
 
     function cargaDeDatos(json, data) {
@@ -407,7 +472,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         }
     }
-
+    $scope.isPeriodoVencido = function(periodofin) {
+        var fecha = new Date(periodofin.slice(0, 10))
+        return fecha < new Date();
+    }
 
 
 }
