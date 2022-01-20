@@ -21,6 +21,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
 
 class SolicitudUsuarioDAO {
 	Connection con;
@@ -906,6 +907,10 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 		}
 
         if (key.equals("IP")) {
+			String fecha = object.fechaNacimiento;
+        	SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy'T'HH:mm:ss.SSS Z");
+        	String formatoFechaNacimiento = format.parse(fecha.replace("Z", " UTC"));
+			errorLog += "formatoFechaNacimiento |"+formatoFechaNacimiento
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PERSONAL.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información personal | "+pstm;
             pstm.setString(1, object.primerNombre);
@@ -913,7 +918,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             pstm.setString(3, object.apellidoPaterno);
             pstm.setString(4, object.apellidoMaterno);
             pstm.setString(5, object.correoElectronico);
-            pstm.setString(6, object.fechaNacimiento);
+            pstm.setString(6, formatoFechaNacimiento);
             pstm.setLong(7, object.sexo_pid);
             pstm.setLong(8, object.nacionalidad_pid);
             pstm.setLong(9, object.religion_pid);
