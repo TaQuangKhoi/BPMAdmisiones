@@ -895,7 +895,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 
         if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IT") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("DPT")) {
 			 where = " WHERE caseid = ? AND countintento = ? AND vive_pid IS NULL AND istutor = 't'";
-        } else if(replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IT") || key.equals("DPT") || replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("DPT")) {
+        } else if(replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IT") || replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("DPT")) {
              where = " WHERE caseid = ? AND persistenceid = ? AND vive_pid IS NULL AND istutor = 't'";
         } else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IPA") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("DPPA") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") &&  key.equals("IMA") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") &&  key.equals("DPMA")) {
              where = " WHERE caseid = ? AND countintento = ? AND vive_pid IS NOT NULL AND istutor = 'f'";
@@ -903,10 +903,10 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
              where = " WHERE caseid = ? AND persistenceid = ? AND vive_pid IS NOT NULL AND istutor = 'f'";
         }
 		
-		if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") || replaceTablePadresTutor.equals(" PadresTutor ") && object.egresoAnahuac_pid != 77) {
+		if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ")  && object.egresoAnahuac_pid != 77 || replaceTablePadresTutor.equals(" PadresTutor ") && object.egresoAnahuac_pid != 77) {
 			replaceColumn = ", catcampusegreso_pid = ?";
 		}
-		if(object.fechaNacimiento != null || object.fechaNacimiento != "") {
+		if(key.equals("IP") && fechaNacimiento != null || key.equals("IP") && object.fechaNacimiento != "") {
 			fechaOutput = object.fechaNacimiento;
 			SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			Date formatoFechaNacimiento = output.parse(fechaOutput);
@@ -914,7 +914,6 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 		}
 
         if (key.equals("IP")) {
-			errorLog += "fechaOutput |"+fechaOutput
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PERSONAL.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información personal | "+pstm;
             pstm.setString(1, object.primerNombre);
@@ -935,10 +934,11 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
         } else if (key.equals("DP")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PERMANENTE.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Domicilio permanente | " + pstm;
+			errorLog += "OBJETO | " + object;
             pstm.setLong(1, object.pais_pid);
             pstm.setString(2, object.codigoPostal);
             pstm.setString(3, object.estadoExtranjero);
-            pstm.setLong(4, object.estado_pid);
+            pstm.setLong(4, (object.estado_pid.equals(null) || object.estado_pid.equals('')? 0 : object.estado_pid));
             pstm.setString(5, object.ciudad);
             pstm.setString(6, object.delegacionMunicipio);
             pstm.setString(7, object.colonia);
