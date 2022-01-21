@@ -938,7 +938,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             pstm.setLong(1, object.pais_pid);
             pstm.setString(2, object.codigoPostal);
             pstm.setString(3, object.estadoExtranjero);
-            pstm.setLong(4, (object.estado_pid.equals(null) || object.estado_pid.equals('')? 0 : object.estado_pid));
+            pstm.setLong(4, object.estado_pid);
             pstm.setString(5, object.ciudad);
             pstm.setString(6, object.delegacionMunicipio);
             pstm.setString(7, object.colonia);
