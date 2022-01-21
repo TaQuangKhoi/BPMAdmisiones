@@ -384,16 +384,17 @@ class CatalogosDAO {
 			errorLog+= " 1";
 			closeCon = validarConexion();
 			
+			errorLog += objCatGenerico.toString();
 			if(objCatGenerico.persistenceId != 0) {
 				errorLog+= " update";
-				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATPROVIENENINGRESOS);
+				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CAT_MANEJO_DOCUMENTOS);
 				pstm.setLong(1, objCatGenerico.idCampus);
 				pstm.setLong(2, objCatGenerico.idTipoApoyo);
 				pstm.setBoolean(3, objCatGenerico.isObligatorio);
 				pstm.setString(4, objCatGenerico.nombreDocumento);
-				pstm.setString(5, objCatGenerico.descripcionDocumento);
-				pstm.setString(7, objCatGenerico.urlDocumentoAzure);
-				pstm.setString(8, objCatGenerico.persistenceId);
+				pstm.setString(5, objCatGenerico.urlDocumentoAzure);
+				pstm.setString(6, objCatGenerico.descripcionDocumento);
+				pstm.setLong(7, objCatGenerico.persistenceId);
 				pstm.execute();
 			}else {
 				errorLog+= " insert";
@@ -423,6 +424,7 @@ class CatalogosDAO {
 		}
 		return resultado;
 	}
+	
 	public Result insertUpdateCatProvienenIngresos(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -764,7 +766,7 @@ class CatalogosDAO {
 			CatManejoDocumentos row = new CatManejoDocumentos();
 			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
 			closeCon = validarConexion();
-			where += " WHERE  rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
+			where += " WHERE doc.ISELIMINADO <> TRUE AND rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
 
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
@@ -779,9 +781,12 @@ class CatalogosDAO {
 				row = new CatManejoDocumentos();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
 				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
-				row.setDescripcionDocumento(rs.getBoolean("DESCRIPCIONDOCUMENTO"));
+				row.setDescripcionDocumento(rs.getString("DESCRIPCIONDOCUMENTO"));
 				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));
 				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIODOC"));
+				row.setIdCampus(rs.getLong("IDCAMPUS"));
+				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
+//				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));)
 
 				rows.add(row);
 			}
@@ -798,6 +803,66 @@ class CatalogosDAO {
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	//
+	
+	public Result updateTipoApoyoVideo(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CAT_TIPO_APOYO_VIDEO);
+			pstm.setBoolean(1, objCatGenerico.requiereVideo);
+			pstm.setString(2, objCatGenerico.condicionesVideo);
+			pstm.setLong(3, objCatGenerico.persistenceId);
+			pstm.execute();
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertManejoDocumento] " + e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	public Result deleteCatManejoDocumentos(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.DELETE_CAT_MANEJO_DOCUMENTOS);
+			pstm.setLong(1, objCatGenerico.persistenceId);
+			pstm.execute();
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertManejoDocumento] " + e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
 		return resultado;

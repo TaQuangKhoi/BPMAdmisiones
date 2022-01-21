@@ -9,7 +9,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     
     $scope.loadPaginado = function(){
         $scope.valorTotal = Math.ceil($scope.value/$scope.properties.dataToFilter.limit);
-        $scope.lstPaginado=[]
+        $scope.lstPaginado = []
         if($scope.valorSeleccionado <= 5) {
             $scope.iniciarP = 1;
             $scope.finalP = $scope.valorTotal>10 ? 10 : $scope.valorTotal;
@@ -31,13 +31,11 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
 
     this.selectRow = function(row) {
-        debugger
-        $scope.properties.objCatGenerico.objCatGenerico = row;
-        $scope.properties.accion = 'editar';
+        $scope.properties.selectedRow = angular.copy(row);
+        modalService.open($scope.properties.idModal);
     };
     
     $scope.setOrderBy= function(order){
-        debugger
         if($scope.properties.dataToFilter.orderby == order){
             $scope.properties.dataToFilter.orientation = ($scope.properties.dataToFilter.orientation=="ASC")?"DESC":"ASC";
         }else{
@@ -60,15 +58,13 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             })
             .then((value) => {
                 if(value){
-        
-                    $scope.properties.objCatGenerico.objCatGenerico = angular.copy(row);
-                    $scope.properties.objCatGenerico.objCatGenerico.isEliminado= true;
-                    doRequest('POST', '../API/extension/AnahuacBecasRest?url=insertUpdateCatGenerico&p=0&c=0', $scope.properties.objCatGenerico )
+                    doRequest('POST', '../API/extension/AnahuacBecasRest?url=deleteCatManejoDocumentos&p=0&c=0', row );
                     $scope.properties.accion = 'tabla';
                 }
             }); 
     };
-       function doRequest(method, url, datos, params) {
+
+    function doRequest(method, url, datos, params) {
         var req = {
             method: method,
             url: url,
@@ -86,7 +82,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             .finally(function() {});
     }
 
-        $scope.$watch("properties.dataToFilter", function(newValue, oldValue) {
+    $scope.$watch("properties.dataToFilter", function(newValue, oldValue) {
 
         if (newValue !== undefined) {
             getRegistrosCatalogo();
@@ -94,11 +90,19 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         console.log($scope.properties.dataToFilter);
     });
 
+    $scope.$watch("properties.reloadTable", function(newValue, oldValue) {
+        if (newValue === true || newValue === "true") {
+            $scope.properties.reloadTable = false;
+            setTimeout(function(){
+                getRegistrosCatalogo();
+            }, 500);
+        }
+    });
     
     function getRegistrosCatalogo(params) {
         var req = {
-            method: "POST",
-            url: $scope.properties.urlPost,
+            method: "GET",
+            url: $scope.properties.urlGet,
             data: angular.copy($scope.properties.dataToFilter),
             params: params
         };
@@ -106,14 +110,11 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         return $http(req)
             .success(function(data, status) {
                  $scope.properties.contenido = data.data;
-                 $scope.value = data.totalRegistros;
-                 $scope.loadPaginado();
-                 console.log(data.data)
             })
             .error(function(data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
-        }
+    }
 
 }
