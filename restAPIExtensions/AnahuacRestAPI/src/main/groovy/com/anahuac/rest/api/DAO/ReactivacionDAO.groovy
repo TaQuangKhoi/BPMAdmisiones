@@ -2057,7 +2057,7 @@ class ReactivacionDAO {
 			
 			con.close();
 			
-			closeCon= validarConexionBonita()
+			validarConexionBonita()
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement("UPDATE REF_BIZ_DATA_INST SET data_id=? where proc_inst_id=${caseIdDestino} and name='autodescripcionV2' ")
 			pstm.setLong(1,autodescripcionId)
@@ -2069,7 +2069,12 @@ class ReactivacionDAO {
 
 			pstm.executeUpdate();
 			
-			con.commit();			
+			con.commit();
+			
+			con.close()
+			
+			validarConexion()
+			con.setAutoCommit(false)
 			try {
 				String username = "";
 				String password = "";
