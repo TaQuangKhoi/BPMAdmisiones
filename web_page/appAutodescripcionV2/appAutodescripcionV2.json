@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1641410501853,
+  "lastUpdate" : 1642540542338,
   "rows" : [
     [
       {
@@ -135,6 +135,10 @@
                 "reloadTask" : {
                   "type" : "variable",
                   "value" : "reloadTask"
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "d1cb684b-432c-4ad1-92c3-ad24e9e9a375",
@@ -10356,6 +10360,10 @@
                       "taskId" : {
                         "type" : "variable",
                         "value" : "newTaskId"
+                      },
+                      "solicitudDeAdmision" : {
+                        "type" : "variable",
+                        "value" : "objectSolicitud"
                       }
                     },
                     "reference" : "9592cc65-ab35-4bda-a506-803006bfdef8",
@@ -15553,6 +15561,34 @@
         "hasValidationError" : false,
         "id" : "customLoadLstUniversidadHasEstadoMod"
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "solicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "objectSolicitud"
+          }
+        },
+        "reference" : "8ccb9357-8a9c-4536-adfc-2cc3c5aea64f",
+        "hasValidationError" : false,
+        "id" : "customWdgPeriodoVencido"
+      }
     ]
   ],
   "assets" : [
@@ -16426,7 +16462,19 @@
         "    $data.titleMessageStep3 = \"Nombre de la organización o empresa donde trabajas actualmente\";\r",
         "}\r",
         "if(!output && $data.selectedIndex>2  ){\r",
-        "    $data.selectedIndex=2  \r",
+        "    //$data.selectedIndex=2\r",
+        "    try{\r",
+        "var theUrl= \t\"../\"+$data.context.autodescripcionV2_ref.link\r",
+        "    var xmlHttp = new XMLHttpRequest();\r",
+        "    xmlHttp.open( \"GET\", theUrl, false ); // false for synchronous request\r",
+        "    xmlHttp.send( null );\r",
+        "    $data.autodescripcionV2=JSON.parse(xmlHttp.responseText);\r",
+        "    \r",
+        "}catch(e){\r",
+        "    console.error(e)\r",
+        "    $data.selectedIndex=2\r",
+        "}\r",
+        "    \r",
         "}\r",
         "return output;"
       ],

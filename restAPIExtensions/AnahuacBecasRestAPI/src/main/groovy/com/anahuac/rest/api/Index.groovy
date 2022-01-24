@@ -96,8 +96,18 @@ class Index implements RestApiController {
 					}
 					break;
 				case "insertUpdateCatTipoMoneda":
-					result = new CatalogosDAO().insertUpdateCatTipoMoneda(jsonData, context)
+					result = new CatalogosDAO().insertUpdateCatTipoMoneda(jsonData, context);
 
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+				/*Cat manejo documentos*/
+				case "getCatManejoDocumento":
+					result = new CatalogosDAO().getCatManejoDocumento(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -105,6 +115,55 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "insertManejoDocumento":
+					result = new CatalogosDAO().insertManejoDocumento(jsonData, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "deleteCatManejoDocumentos":
+					result = new CatalogosDAO().deleteCatManejoDocumentos(jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+				/*Fin Cat manejo documentos*/
+				/*Cat TipoApoyo*/
+				case "getCatTipoAoyo":
+					result = new CatalogosDAO().getCatTipoAoyo(jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+				case "insertUpdateCatTipoApoyo":
+					result = new CatalogosDAO().insertUpdateCatTipoApoyo(jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+				case "updateTipoApoyoVideo":
+					result = new CatalogosDAO().updateTipoApoyoVideo(jsonData, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				/*Fin Cat man
+				/*Fin Cat TipoApoyo*/
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
@@ -116,7 +175,6 @@ class Index implements RestApiController {
 			}
 			
 		} catch (Exception e) {
-
 			result.setSuccess(false)
 			result.setError("500 INTERNAL SERVER ERROR")
 			result.setError_info(e.getMessage())
