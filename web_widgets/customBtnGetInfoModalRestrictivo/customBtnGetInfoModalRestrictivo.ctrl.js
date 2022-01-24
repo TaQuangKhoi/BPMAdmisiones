@@ -47,7 +47,7 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
         });
         //cancelButtonText:'continuar en otra ocasión',
         const { value } = await Swal.fire({
-            title: 'El periodo que ha seleccionado ha vencido, deberas seleccionar otro para poder continuar con la solicitud',
+            title: 'El periodo de ingreso que seleccionaste ya ha vencido, para continuar debes seleccionar uno vigente',
             input: 'select',
             allowOutsideClick:false,
             inputOptions: options,
