@@ -10,7 +10,14 @@ class CatTypoApoyo {
 	private Boolean isEliminado;
 	private Boolean requiereVideo;
 	private String condicionesVideo;
+	private boolean esSocioEconomico;
 	
+	public boolean isEsSocioEconomico() {
+		return esSocioEconomico;
+	}
+	public void setEsSocioEconomico(boolean esSocioEconomico) {
+		this.esSocioEconomico = esSocioEconomico;
+	}
 	public Boolean getRequiereVideo() {
 		return requiereVideo;
 	}

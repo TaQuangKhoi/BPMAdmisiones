@@ -135,6 +135,24 @@ class Index implements RestApiController {
 					break;
 				/*Fin Cat manejo documentos*/
 				/*Cat TipoApoyo*/
+				case "getCatTipoAoyo":
+					result = new CatalogosDAO().getCatTipoAoyo(jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+				case "insertUpdateCatTipoApoyo":
+					result = new CatalogosDAO().insertUpdateCatTipoApoyo(jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
 				case "updateTipoApoyoVideo":
 					result = new CatalogosDAO().updateTipoApoyoVideo(jsonData, context);
 					responseBuilder.withMediaType("application/json")
