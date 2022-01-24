@@ -15,8 +15,9 @@
                 </td>
                 <td>
                 <div class="block form-group form-inline">
-                    <input ng-keypress="forceKeyPressUppercase($event)" class="form-control width-limited" ng-model="properties.puntuacionINVP" ng-disabled="getTotal()==0" ng-if="getTotal()!=0"> <label ng-if="getTotal()!=0">{{ (properties.fechaINVP.length > 0 ? formatFecha(properties.fechaINVP[0].fecha_prueba):"") }}</label>
+                    <input ng-keypress="forceKeyPressUppercase($event)" class="form-control width-limited" ng-model="properties.puntuacionINVP" ng-disabled="getTotal()==0 " ng-if="(getTotal()!=0 && properties.resultadoInvp!=0)"> <label ng-if="(getTotal()!=0 && properties.resultadoInvp!=0)">{{ (properties.fechaINVP.length > 0 ? formatFecha(properties.fechaINVP[0].fecha_prueba):"") }}</label>
                     <label class="label-next-input"  ng-if="properties.resultadoInvp==0">Aun no hay resultados cargados de examen de INVP, no es posible capturar aún este dato.</label>
+                    <label class="label-next-input"  ng-if="(getTotal()==0 && properties.resultadoInvp!=0)">Aun no hay resultados cargados de examen de aptitudes y conocimientos, no es posible cargar este dato.</label>
                 </div>
                 </td>
             </tr>

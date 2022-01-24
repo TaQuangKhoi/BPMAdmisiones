@@ -113,6 +113,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                                             url = url.replace("[CASEID]", rowData.caseid);
                                             //window.top.location.href = url;
                                             window.open(url, '_blank');
+                                            $scope.$apply();
                                         })
                                         .error(function(data, status) {
                                             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

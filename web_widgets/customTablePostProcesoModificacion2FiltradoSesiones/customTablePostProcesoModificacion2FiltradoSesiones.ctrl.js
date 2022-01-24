@@ -64,26 +64,26 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             if (op === 1) {
                 if ($scope.functionAsistenciaExmenes(row, op) || row.cbcoincide === "t") {
                     fechas = (row.cbcoincide === "t" ? " Examen de aptitudes y conocimientos (exento)" : " Examen de aptitudes y conocimientos")
-                    //fechas="Asistió Examen de aptitudes y conocimientos"
+                        //fechas="Asistió Examen de aptitudes y conocimientos"
                 } else {
-                    fechas = " " + (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoCollegeBoard === null ? (NoCollegeBoard === undefined ? -1 : NoCollegeBoard) : NoCollegeBoard)]
+                    fechas = " " + (arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoCollegeBoard === null ? (NoCollegeBoard === undefined ? -1 : NoCollegeBoard) : NoCollegeBoard)]
                 }
 
             }
             if (op === 2) {
                 if ($scope.functionAsistenciaExmenes(row, op)) {
                     fechas = " Entrevista"
-                    //fechas="Asistió Entrevista"
+                        //fechas="Asistió Entrevista"
                 } else {
-                    fechas = " " + (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoEntrevista === null ? (NoEntrevista === undefined ? -1 : NoEntrevista) : NoEntrevista)]
+                    fechas = " " + (arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoEntrevista === null ? (NoEntrevista === undefined ? -1 : NoEntrevista) : NoEntrevista)]
                 }
             }
             if (op === 3) {
                 if ($scope.functionAsistenciaExmenes(row, op)) {
                     fechas = " Examen Psicométrico"
-                    // fechas="Asistió Examen Psicométrico"
+                        // fechas="Asistió Examen Psicométrico"
                 } else {
-                    fechas = " " + (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoPsicometrico === null ? (NoPsicometrico === undefined ? -1 : NoPsicometrico) : NoPsicometrico)]
+                    fechas = " " + (arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoPsicometrico === null ? (NoPsicometrico === undefined ? -1 : NoPsicometrico) : NoPsicometrico)]
                 }
             }
 
@@ -110,19 +110,19 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         if (row.asistencia !== null || row.asistencia !== "" || row.asistencia !== " ") {
             if (op === 1) {
-                if (((arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoCollegeBoard === null ? (NoCollegeBoard === undefined ? -1 : NoCollegeBoard) : NoCollegeBoard)] === undefined ? [] :(arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoCollegeBoard === null ? (NoCollegeBoard === undefined ? -1 : NoCollegeBoard) : NoCollegeBoard)]).includes("1") || row.cbcoincide === "t") {
+                if (((arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoCollegeBoard === null ? (NoCollegeBoard === undefined ? -1 : NoCollegeBoard) : NoCollegeBoard)] === undefined ? [] : (arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoCollegeBoard === null ? (NoCollegeBoard === undefined ? -1 : NoCollegeBoard) : NoCollegeBoard)]).includes("1") || row.cbcoincide === "t") {
                     resultado = true;
                 } else {
                     resultado = false
                 }
             } else if (op === 2) {
-                if ( ( (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoEntrevista === null ? (NoEntrevista === undefined ? -1 : NoEntrevista) : NoEntrevista)] === undefined ? [] : (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoEntrevista === null ? (NoEntrevista === undefined ? -1 : NoEntrevista) : NoEntrevista)]).includes("1")) {
+                if (((arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoEntrevista === null ? (NoEntrevista === undefined ? -1 : NoEntrevista) : NoEntrevista)] === undefined ? [] : (arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoEntrevista === null ? (NoEntrevista === undefined ? -1 : NoEntrevista) : NoEntrevista)]).includes("1")) {
                     resultado = true;
                 } else {
                     resultado = false
                 }
             } else if (op === 3) {
-                if ( ( (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoPsicometrico === null ? (NoPsicometrico === undefined ? -1 : NoPsicometrico) : NoPsicometrico)] === undefined ? [] : (arrayDeCadenas=== null ? (arrayDeCadenas=== undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoPsicometrico === null ? (NoPsicometrico === undefined ? -1 : NoPsicometrico) : NoPsicometrico)]).includes("1")) {
+                if (((arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoPsicometrico === null ? (NoPsicometrico === undefined ? -1 : NoPsicometrico) : NoPsicometrico)] === undefined ? [] : (arrayDeCadenas === null ? (arrayDeCadenas === undefined ? [] : arrayDeCadenas) : arrayDeCadenas)[(NoPsicometrico === null ? (NoPsicometrico === undefined ? -1 : NoPsicometrico) : NoPsicometrico)]).includes("1")) {
                     resultado = true;
                 } else {
                     resultado = false
@@ -137,15 +137,15 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     }
 
-    $scope.loadProcessData = function(rowData,humanTask) {
+    $scope.loadProcessData = function(rowData, humanTask) {
         var req = {
             method: "GET",
-            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+ ((humanTask == "humanTask") ? 'ready' : 'completed') +"&d=processId"
+            url: "../API/bpm/" + humanTask + "?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=" + ((humanTask == "humanTask") ? 'ready' : 'completed') + "&d=processId"
         };
 
         return $http(req)
             .success(function(data, status) {
-                if (data.length>0) {
+                if (data.length > 0) {
                     let version = parseFloat(data[0].processId.version);
                     console.log(data)
                     console.log(version)
@@ -153,28 +153,28 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         var url = "/portal/resource/app/administrativo/verAutodescripcion/content/?app=administrativo&email=" + rowData.correoelectronico;
                         window.open(url, '_blank');
                     } else {
-                        $scope.loadTaskData(rowData,humanTask)
+                        $scope.loadTaskData(rowData, humanTask)
                     }
                 } else {
-                    $scope.loadProcessData(rowData,"archivedHumanTask");
+                    $scope.loadProcessData(rowData, "archivedHumanTask");
                 }
-                
+
             })
             .error(function(data, status) {
                 console.error(data);
             })
     }
 
-    $scope.loadTaskData = function(rowData,humanTask) {
+    $scope.loadTaskData = function(rowData, humanTask) {
         var req = {
             method: "GET",
-            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+((humanTask == "humanTask") ? 'ready' : 'completed')
+            url: "../API/bpm/" + humanTask + "?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=" + ((humanTask == "humanTask") ? 'ready' : 'completed')
         };
 
         return $http(req)
             .success(function(data, status) {
                 console.log(data)
-                var url = "/portal/resource/app/administrativo/verAutodescripcionv2/content/?app=administrativo&caseId=" + rowData.caseid + "&id=" + data[0].id + "&idbanner="+rowData.idbanner;
+                var url = "/portal/resource/app/administrativo/verAutodescripcionv2/content/?app=administrativo&caseId=" + rowData.caseid + "&id=" + data[0].id + "&idbanner=" + rowData.idbanner;
                 window.open(url, '_blank');
             })
             .error(function(data, status) {
@@ -183,58 +183,44 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-        $scope.loadProcessDataVSol(rowData,"humanTask");
+        if ($scope.isPeriodoVencido(rowData.periodofin)) {
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
+                $scope.loadProcessDataVSol(rowData, "humanTask");
+            });
+        } else {
+            $scope.loadProcessDataVSol(rowData, "humanTask");
+        }
 
-        /*var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-                var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
-                if (data.length > 0) {
-                    url = url.replace("[TASKID]", data[0].id);
-                } else {
-                    url = url.replace("[TASKID]", "");
-                }
-                url = url.replace("[CASEID]", rowData.caseid);
-                window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});*/
     }
 
-    $scope.loadProcessDataVSol = function(rowData,humanTask) {
+    $scope.loadProcessDataVSol = function(rowData, humanTask) {
         var req = {
             method: "GET",
-            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+((humanTask == "humanTask") ? 'ready' : 'completed')+"&d=processId"
+            url: "../API/bpm/" + humanTask + "?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=" + ((humanTask == "humanTask") ? 'ready' : 'completed') + "&d=processId"
         };
 
         return $http(req)
             .success(function(data, status) {
-                if (data.length>0) {
+                if (data.length > 0) {
                     let version = parseFloat(data[0].processId.version);
                     console.log(data)
                     console.log(version)
-                    $scope.loadTaskDataVSol(rowData, version,humanTask);
+                    $scope.loadTaskDataVSol(rowData, version, humanTask);
                 } else {
-                    $scope.loadProcessDataVSol(rowData,"archivedHumanTask");
+                    $scope.loadProcessDataVSol(rowData, "archivedHumanTask");
                 }
-                
+
             })
             .error(function(data, status) {
                 console.error(data);
             })
     }
 
-    $scope.loadTaskDataVSol = function(rowData, version,humanTask) {
+    $scope.loadTaskDataVSol = function(rowData, version, humanTask) {
         var url = "";
         var req = {
             method: "GET",
-            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+((humanTask == "humanTask") ? 'ready' : 'completed')
+            url: "../API/bpm/" + humanTask + "?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=" + ((humanTask == "humanTask") ? 'ready' : 'completed')
         };
 
         return $http(req)
@@ -575,6 +561,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         return sedeExamen;
     }
-
+    $scope.isPeriodoVencido = function(periodofin) {
+        var fecha = new Date(periodofin.slice(0, 10))
+        return fecha < new Date();
+    }
     $scope.getCatCampus();
 }
