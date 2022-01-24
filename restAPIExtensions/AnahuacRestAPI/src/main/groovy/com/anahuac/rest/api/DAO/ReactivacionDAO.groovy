@@ -2027,6 +2027,9 @@ class ReactivacionDAO {
 				detalleSolicitudId = rs.getLong("persistenceid")
 			}
 			
+			pstm = con.prepareStatement("UPDATE DetalleSolicitud SET persistenceversion = '0' WHERE persistenceversion is null ")
+			pstm.executeUpdate();
+			
 			def contexto = jsonSlurper.parseText(JsonOutput.toJson(getUserContext(Long.parseLong(caseIdOrigen), context)?.getData()?.get(0)));
 			def contexto2 = jsonSlurper.parseText(JsonOutput.toJson(getUserContext(Long.parseLong(caseIdDestino), context)?.getData()?.get(0)));
 			
