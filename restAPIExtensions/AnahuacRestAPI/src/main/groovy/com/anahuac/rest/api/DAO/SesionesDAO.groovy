@@ -5,6 +5,7 @@ import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.catalogos.CatNotificacionesFirma
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.Calendario
 import com.anahuac.rest.api.Entity.Custom.PruebaCustom
@@ -15,6 +16,7 @@ import com.anahuac.rest.api.Entity.Custom.SesionesAspiranteCustom
 import com.anahuac.rest.api.Entity.db.Responsable
 import com.anahuac.rest.api.Entity.db.ResponsableDisponible
 import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.anahuac.rest.api.Entity.db.CatTipoPrueba
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
@@ -29,6 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.Date;
 
 import org.apache.commons.collections4.functors.ComparatorPredicate.Criterion
+import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.data.DataInstance
 import org.bonitasoft.engine.bpm.document.Document
@@ -6955,7 +6958,8 @@ class SesionesDAO {
 						pstm.setLong(4, Long.parseLong(sesiones_pid))
 						pstm.setString(5, nowAsISO)
 						pstm.execute()
-					}
+					} 
+					
 				}else {
 					resultado.setError("Error");
 					resultado.setError_info("Ya hay un aspirante con ese id_sesion")
@@ -6969,11 +6973,12 @@ class SesionesDAO {
 			if(resultado.getError().equals("Error")){
 				resultado.setSuccess(false);
 			}else {
+				Result asistencia = asistenciaINVP(idbanner,sesiones_pid);
 				rows.add(respuestainvp)
 				additionalData.add(aData)
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				resultado.setAdditional_data(additionalData+"error:"+errorLog)
+				resultado.setAdditional_data(additionalData+"error:"+errorLog+" asistencia:"+asistencia.isSuccess()+"error_Asistencia:"+asistencia.getError())
 			}
 			
 		} catch (Exception e) {
@@ -6985,6 +6990,73 @@ class SesionesDAO {
 			}
 		}
 		return resultado;
+	}
+	
+	public Result asistenciaINVP(String idbanner,String idsesion) {
+		Result resultado = new Result();
+		Result dataResult = new Result();
+		String errorLog = "";
+		try {
+			String caseid = "", prueba="",username2 = "",username="servicio INVP";
+			errorLog+="1";
+			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 4 and AP.sesiones_pid = ${idsesion} ")
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				caseid = rs.getString("caseid");
+				prueba = rs.getString("prueba_pid");
+				username2 = rs.getString("username");
+			}
+			errorLog+="2";
+			if(!prueba.equals("") && !prueba.equals("null") && prueba != null ){
+				boolean update = false;
+				errorLog+="3";
+				pstm = con.prepareStatement(" SELECT * FROM paselista WHERE prueba_pid = ${prueba} and username = '${username2}'")
+				rs= pstm.executeQuery();
+				if(rs.next()) {
+					update = true;
+				}
+				errorLog+="4";
+				String jsdonPaseLista = "{\"prueba\":${prueba},\"username\":\"${username2}\",\"asistencia\":true,\"usuarioPaseLista\":\"${username}\"}";
+				if(update) {
+					errorLog+="5";
+					dataResult = new SesionesDAO().updatePaseLista(jsdonPaseLista,context);
+				}else {
+					errorLog+="6";
+					dataResult = new SesionesDAO().insertPaseLista(jsdonPaseLista,context);
+				}
+				errorLog+="7";
+				
+				String usuario = "";
+				String password = "";
+				
+				/*-------------------------------------------------------------*/
+				LoadParametros objLoad = new LoadParametros();
+				PropertiesEntity objProperties = objLoad.getParametros();
+				usuario = objProperties.getUsuario();
+				password = objProperties.getPassword();
+				/*-------------------------------------------------------------*/
+				
+				org.bonitasoft.engine.api.APIClient apiClient = new APIClient() //context.getApiClient();
+				apiClient.login(username, password);
+				//context.getApiClient().getProcessAPI();
+				ProcessAPI processAPI = apiClient.getProcessAPI();
+				Map<String, Serializable> rows = new HashMap<String, Serializable>();
+				
+				rows.put("asistenciaPsicometrico", true);
+				processAPI.updateProcessDataInstances(Long.parseLong(caseid),rows)
+				errorLog +="8";
+			}
+			
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(dataResult.toString())
+			resultado.setError(errorLog);
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(errorLog);
+			resultado.setError_info(e.getMessage())
+		}
+		return resultado
 	}
 	
 	
