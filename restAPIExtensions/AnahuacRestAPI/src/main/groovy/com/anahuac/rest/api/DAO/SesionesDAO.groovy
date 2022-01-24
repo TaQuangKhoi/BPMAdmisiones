@@ -2916,6 +2916,38 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result updateAspirantesPruebas(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.UPDATE_ASPIRANTESPRUEBAS);
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setLong(2,object.prueba);
+				pstm.setString(3,object.username);
+				
+				
+				pstm.executeUpdate();
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result updateBitacoraAspirantesPruebas(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -2949,6 +2981,38 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	
+	public Result updateBitacoraAspirantesPruebas(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.UPDATE_BITACORAASPIRANTESPRUEBAS);
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setLong(2,object.prueba);
+				pstm.setString(3,object.username);
+				
+				
+				pstm.executeUpdate();
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	
 	public Result insertPaseLista( String jsonData, RestAPIContext context) {
@@ -3008,8 +3072,8 @@ class SesionesDAO {
 				
 				con.commit();
 				
-				Result dataResult = updateAspirantesPruebas(jsonData, context);
-				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
+				Result dataResult = updateAspirantesPruebas(jsonData);
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData);
 				
 				resultado.setSuccess(true)
 			} catch (Exception e) {
