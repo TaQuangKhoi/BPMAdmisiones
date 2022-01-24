@@ -2988,8 +2988,81 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result insertPaseLista( String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+				pstm.setLong(1, object.prueba);
+				pstm.setString(2, object.username);
+				pstm.setBoolean(3,object.asistencia);
+				pstm.setString(4,object.usuarioPaseLista);
+				
+				pstm.executeUpdate();
+				
+				con.commit();
+				
+				Result dataResult = updateAspirantesPruebas(jsonData, context);
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
+				
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			String es = e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(es);
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result updatePaseLista(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.UPDATE_PASEDELISTA)
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setString(2,object.usuarioPaseLista);
+				pstm.setLong(3, object.prueba)
+				pstm.setString(4, object.username)
+				pstm.executeUpdate();
+				
+				con.commit();
+				Result dataResult = updateAspirantesPruebas(jsonData, context);
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
+				
+				resultado.setSuccess(true)
+				resultado.setError_info(errorLog)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updatePaseLista(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -6999,7 +7072,7 @@ class SesionesDAO {
 		try {
 			String caseid = "", prueba="",username2 = "",username="servicio INVP";
 			errorLog+="1";
-			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 4 and AP.sesiones_pid = ${idsesion} ")
+			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 2 and AP.sesiones_pid = ${idsesion} ")
 			rs= pstm.executeQuery();
 			if(rs.next()) {
 				caseid = rs.getString("caseid");
@@ -7019,10 +7092,10 @@ class SesionesDAO {
 				String jsdonPaseLista = "{\"prueba\":${prueba},\"username\":\"${username2}\",\"asistencia\":true,\"usuarioPaseLista\":\"${username}\"}";
 				if(update) {
 					errorLog+="5";
-					dataResult = new SesionesDAO().updatePaseLista(jsdonPaseLista,context);
+					dataResult = new SesionesDAO().updatePaseLista(jsdonPaseLista);
 				}else {
 					errorLog+="6";
-					dataResult = new SesionesDAO().insertPaseLista(jsdonPaseLista,context);
+					dataResult = new SesionesDAO().insertPaseLista(jsdonPaseLista);
 				}
 				errorLog+="7";
 				
@@ -7037,7 +7110,7 @@ class SesionesDAO {
 				/*-------------------------------------------------------------*/
 				
 				org.bonitasoft.engine.api.APIClient apiClient = new APIClient() //context.getApiClient();
-				apiClient.login(username, password);
+				apiClient.login(usuario, password);
 				//context.getApiClient().getProcessAPI();
 				ProcessAPI processAPI = apiClient.getProcessAPI();
 				Map<String, Serializable> rows = new HashMap<String, Serializable>();
