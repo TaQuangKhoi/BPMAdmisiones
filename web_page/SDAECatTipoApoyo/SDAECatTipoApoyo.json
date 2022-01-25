@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatTipoApoyo",
   "name" : "SDAECatTipoApoyo",
-  "lastUpdate" : 1642815145412,
+  "lastUpdate" : 1643070658893,
   "rows" : [
     [
       {
@@ -38,6 +38,58 @@
         "reference" : "3cafc906-7260-4a3f-8902-e52cecebcb9d",
         "hasValidationError" : false,
         "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{ accion }} <br> {{ nuevoTipoApoyo | json }}</pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "ebef4918-9738-4580-b6be-d3ad4961377f",
+        "hasValidationError" : false,
+        "id" : "pbText"
       }
     ],
     [
@@ -164,11 +216,19 @@
                       "texto" : {
                         "type" : "constant",
                         "value" : "agregar"
+                      },
+                      "variable" : {
+                        "type" : "variable",
+                        "value" : "nuevoTipoApoyo"
+                      },
+                      "valor" : {
+                        "type" : "expression",
+                        "value" : "nuevoTipoApoyoValor"
                       }
                     },
-                    "reference" : "86a4a78a-9558-4110-9643-52ed937a8916",
+                    "reference" : "8da67022-90f1-46a3-9c5a-d9f85cfca9ff",
                     "hasValidationError" : false,
-                    "id" : "customBtnCambioVariable"
+                    "id" : "customBtnCambioVariableMultiple"
                   }
                 ],
                 [
@@ -210,7 +270,7 @@
                       },
                       "selectedRow" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "nuevoTipoApoyo"
                       },
                       "striped" : {
                         "type" : "constant",
@@ -238,11 +298,11 @@
                       },
                       "dataToSend" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "nuevoTipoApoyo"
                       },
                       "contenido" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "lstTiipoApoyo"
                       },
                       "urlGet" : {
                         "type" : "constant"
@@ -445,7 +505,7 @@
                 },
                 "type" : {
                   "type" : "constant",
-                  "value" : "number"
+                  "value" : "text"
                 },
                 "min" : {
                   "type" : "constant"
@@ -633,8 +693,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!nuevoTipoApoyo.requiereVideo"
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -731,7 +791,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -852,11 +912,19 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "reloadTable" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : "accion"
                 }
               },
-              "reference" : "52d95cd9-ce78-4ef1-88c9-81f695bb6962",
+              "reference" : "10acfa72-9824-419a-848e-3b3aa5ecb42f",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customSDAEBotonGuardarTipoApoyo"
             }
           ],
           [
@@ -1030,11 +1098,22 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "objNuevo" : {
+                  "type" : "variable",
+                  "value" : "objetoCampusTipoApoyo"
+                },
+                "idCampus" : {
+                  "type" : "constant"
+                },
+                "idTipoApoyo" : {
+                  "type" : "expression",
+                  "value" : "nuevoTipoApoyo.persistenceId"
                 }
               },
-              "reference" : "a2368313-d6e4-483b-9472-b6579ff2ada0",
+              "reference" : "9062fc5d-ff78-4187-b861-7510d3de706e",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customSDAEBtnNuevoCampusTipoApoyo"
             }
           ],
           [
@@ -1089,11 +1168,57 @@
                 "bordered" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "urlGet" : {
+                  "type" : "constant"
+                },
+                "dataToFilter" : {
+                  "type" : "variable",
+                  "value" : "nuevoTipoApoyo"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "../API/extension/AnahuacBecasRest?url=getCampusByTipoApoyo&p=0&c=0"
+                },
+                "objCatGenerico" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "idModal" : {
+                  "type" : "constant"
+                },
+                "reloadTable" : {
+                  "type" : "variable",
+                  "value" : "reloadTableCampus"
                 }
               },
-              "reference" : "e9c82ec2-f4fb-42cf-8d68-d7e4b556f64b",
+              "reference" : "677723df-6253-4042-92eb-49764941db7d",
               "hasValidationError" : false,
-              "id" : "pbTable"
+              "id" : "customSDAETableCampusTipoApoyo"
             }
           ]
         ]
@@ -1288,11 +1413,11 @@
                         },
                         "returnedKey" : {
                           "type" : "constant",
-                          "value" : ""
+                          "value" : "persistenceId"
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "objetoCampusTipoApoyo.idCampus"
                         }
                       },
                       "reference" : "260a5ae4-8a35-490c-8f38-02d262f232dc",
@@ -1366,7 +1491,7 @@
                         },
                         "action" : {
                           "type" : "constant",
-                          "value" : "Submit task"
+                          "value" : "Close modal"
                         },
                         "assign" : {
                           "type" : "constant",
@@ -1454,21 +1579,23 @@
                         },
                         "action" : {
                           "type" : "constant",
-                          "value" : "Submit task"
+                          "value" : "POST"
                         },
                         "assign" : {
                           "type" : "constant",
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation"
+                          "type" : "interpolation",
+                          "value" : "../API/extension/AnahuacBecasRest?url=switchCampusTipoApoyo&p=0&c=0"
                         },
                         "responseStatusCode" : {
                           "type" : "variable",
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "objetoCampusTipoApoyo"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -1476,7 +1603,7 @@
                         },
                         "closeOnSuccess" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "dataFromError" : {
                           "type" : "variable",
@@ -1501,11 +1628,19 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
+                        },
+                        "reloadTable" : {
+                          "type" : "variable",
+                          "value" : "reloadTableCampus"
+                        },
+                        "accion" : {
+                          "type" : "variable",
+                          "value" : ""
                         }
                       },
-                      "reference" : "a37b1819-82e3-4a91-9914-0d6bbf2c720c",
+                      "reference" : "ae728580-5bbb-4602-abcd-b94e0bd9ad00",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEBotonGuardarCampusTipoApoyo"
                     }
                   ]
                 ]
@@ -1638,6 +1773,30 @@
         "    \"condicionesVideo\" : \"\",\r",
         "    \"esSocioEconomico\" : false,\r",
         "};"
+      ],
+      "exposed" : false
+    },
+    "lstTiipoApoyo" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "reloadTableCampus" : {
+      "type" : "constant",
+      "value" : [
+        "false"
+      ],
+      "exposed" : false
+    },
+    "objetoCampusTipoApoyo" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"idCampus\":0,",
+        "    \"idTipoApoyo\":0",
+        "}"
       ],
       "exposed" : false
     }

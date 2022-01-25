@@ -48,7 +48,7 @@ function PbTableCtrl($scope, $http, modalService) {
     }
 
     this.selectRowDelete = function(row) {
-        
+        row.isDelete = true;
         swal("¿Esta seguro que desea eliminar?", {
             icon: "warning",
             buttons: {
@@ -62,7 +62,7 @@ function PbTableCtrl($scope, $http, modalService) {
             if(value){
                 row.isDeleted = true;
                 debugger;
-                doRequest('POST', "../API/extension/AnahuacBecasRest?url=deleteCatTipoApoyo&p=0&c=0", row);
+                doRequest('POST', "../API/extension/AnahuacBecasRest?url=switchCampusTipoApoyo&p=0&c=0", row);
                 $scope.properties.accion = 'tabla';
             }
         }); 
@@ -75,9 +75,7 @@ function PbTableCtrl($scope, $http, modalService) {
             data: datos,
             params: params
         };
-        debugger;
         return $http(req) .success(function(data, status) {
-            debugger;
             $scope.properties.accion = "tabla";
             getRegistrosCatalogo();
             

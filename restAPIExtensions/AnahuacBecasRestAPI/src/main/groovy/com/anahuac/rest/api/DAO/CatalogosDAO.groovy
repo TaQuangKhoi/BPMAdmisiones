@@ -11,6 +11,7 @@ import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.catalogos.CatCampus
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.StatementsCatalogos
 import com.anahuac.rest.api.Entity.Result
@@ -908,6 +909,122 @@ class CatalogosDAO {
 		return resultado
 	}
 	
+	
+	/**
+	 * Obtiene la lista de campus relacionados a cierto tipo de apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getCampusByTipoApoyo(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		
+		try {
+			
+			String consulta = StatementsCatalogos.GET_CAMPUS_BY_TIPO_APOYO;
+			CatCampus row = new CatCampus();
+			List < CatCampus > rows = new ArrayList < CatCampus > ();
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			
+			pstm.setLong(1, object.persistenceId);
+			
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new CatCampus();
+				row.setDescripcion(rs.getString("descripcion"));
+				row.setPersistenceId(rs.getLong("persistenceid"));
+
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Inserta o elimina la relacion de campus con tipo apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result switchCampusTipoApoyo(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		
+		try {
+			String consulta = StatementsCatalogos.GET_CAMPUS_TIPO_APOYO_EXIST;
+			String mensajeError = "";
+			Boolean isError = false;
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			
+			pstm.setLong(1, object.idCampus);
+			pstm.setLong(2, object.idTipoApoyo);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				if(object.isDelete) {
+					pstm = con.prepareStatement(StatementsCatalogos.DELETE_CAMPUS_TIPO_APOYO_EXIST);
+				} else {
+					throw new Exception("El registro ya existe");
+				}
+				
+			} else {
+				if(!object.isDelete) {
+					pstm = con.prepareStatement(StatementsCatalogos.INSERT_CAMPUS_TIPO_APOYO_EXIST);
+				} else {
+					throw new Exception("No se puede eliminar un registro que no existe");
+				}
+			}
+			
+			pstm.setLong(1, object.idCampus);
+			pstm.setLong(2, object.idTipoApoyo);
+			
+			pstm.executeUpdate();
+			
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
 	/**
 	 * Obtiene la lista de registros de documentos rrelacionados a un tipo de apoyo
 	 * @author José Carlos García Romero
@@ -1041,28 +1158,25 @@ class CatalogosDAO {
 			closeCon = validarConexion();
 			
 			errorLog += objCatGenerico.toString();
-			
+			closeCon = validarConexion();
 			if(objCatGenerico.persistenceId != 0) {
 				errorLog+= " update";
 				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CAT_TIPO_APOYO);
 
-				pstm.setString(1, objCatGenerico.clave);
+//				CLAVE = ?, DESCRIPCION = ?, ISELIMINADO = ?, REQUIEREVIDEO = ?, 
+//				CONDICIONESVIDEO = ?, ESSOCIOECONOMICO = ? WHERE PERSISTENCEID = ?;
+				pstm.setString(1, objCatGenerico.clave.toString());
 				pstm.setString(2, objCatGenerico.descripcion);
-				pstm.setString(3, objCatGenerico.nombreDocumento);
-				pstm.setBoolean(4, objCatGenerico.requiereVideo);
-				pstm.setBoolean(5, objCatGenerico.esSocioEconomico);
-				pstm.setLong(6, objCatGenerico.persistenceId);
+				pstm.setBoolean(3, objCatGenerico.isEliminado);
+				pstm.setString(4, objCatGenerico.requiereVideo.toString());
+				pstm.setString(5, objCatGenerico.condicionesVideo);
+				pstm.setBoolean(6, objCatGenerico.esSocioEconomico);
+				pstm.setLong(7, objCatGenerico.persistenceId);
 				pstm.execute();
 			}else {
 				errorLog+= " insert";
 				pstm = con.prepareStatement(StatementsCatalogos.INSERT_CAT_TIPO_APOYO);
-				//				CLAVE,					?,
-				//				DESCRIPCION,			?,
-				//				USUARIOCREACION,		?,
-				//				REQUIEREVIDEO,			?,
-				//				CONDICIONESVIDEO,		?,
-				//				ESSOCIOECONOMICO		?,
-				pstm.setString(1, objCatGenerico.clave);
+				pstm.setString(1, objCatGenerico.clave.toString());
 				pstm.setString(2, objCatGenerico.descripcion);
 				pstm.setString(3, objCatGenerico.usuarioCreacion);
 				pstm.setString(4, objCatGenerico.requiereVideo.toString());
@@ -1087,4 +1201,40 @@ class CatalogosDAO {
 		}
 		return resultado;
 	}
+	
+	public Result deleteCatTipoApoyo(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+
+		String errorLog = "Entro";
+		try {
+			errorLog+= " 1";
+			closeCon = validarConexion();
+			
+			errorLog+= " update ID " + objCatGenerico.persistenceId;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.DELETE_CAT_TIPO_APOYO);
+
+			pstm.setLong(1, objCatGenerico.persistenceId);
+			pstm.executeUpdate();
+			
+			errorLog+= " salio";
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertManejoDocumento] " + e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
 }
