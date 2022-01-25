@@ -5852,7 +5852,7 @@ class SesionesDAO {
 			closeCon = validarConexion();
 			//consulta=consulta.replace("[WHERE]", where);
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion, s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD FROM sesiones s inner join catcampus cc on cc.persistenceid=s.campus_pid inner join pruebas p on s.persistenceid=p.sesion_pid  and p.cattipoprueba_pid=2 inner join aspirantespruebas ap on ap.sesiones_pid=s.persistenceid "+ where)
+			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion, s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD FROM sesiones s inner join catcampus cc on cc.persistenceid=s.campus_pid inner join pruebas p on s.persistenceid=p.sesion_pid  and p.cattipoprueba_pid=2 LEFT JOIN aspirantespruebas ap on ap.sesiones_pid=s.persistenceid "+ where)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
