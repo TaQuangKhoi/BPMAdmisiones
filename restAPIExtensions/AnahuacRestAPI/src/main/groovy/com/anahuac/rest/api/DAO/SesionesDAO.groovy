@@ -3024,7 +3024,7 @@ class SesionesDAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				closeCon = validarConexion();
-				con.setAutoCommit(false)
+				con.setAutoCommit(false);
 				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
 				pstm.setLong(1, object.prueba);
 				pstm.setString(2, object.username);
