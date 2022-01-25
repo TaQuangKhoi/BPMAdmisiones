@@ -96,7 +96,7 @@ class ReactivacionDAO {
 			}
 
 			assert object instanceof Map;
-			where += " WHERE sda.iseliminado=false "
+			where += " WHERE sda.iseliminado=false AND sda.correoelectronico NOT LIKE '%(rechazado)%' "
 			where += " AND (sda.ESTATUSSOLICITUD = 'Rechazado por comité')"
 			
 			if (lstGrupo.size() > 0) {
