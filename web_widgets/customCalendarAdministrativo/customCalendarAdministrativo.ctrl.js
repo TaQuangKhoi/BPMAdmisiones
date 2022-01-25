@@ -590,7 +590,7 @@ function($scope, $http, blockUI) {
     $scope.confirmarEliminarPruebas = function(prueba) {
         $scope.prueba = prueba;
         Swal.fire({
-            title: "¿Está seguro que desea eliminar prueba "+prueba.nombre+"? Una vez realizado da clic en Guardar para conservar el cambio.",
+            title: "¿Está seguro que desea eliminar prueba "+prueba.nombre+"? Una vez realizada la acción, da clic en “Guardar” para conservar el cambio.",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
