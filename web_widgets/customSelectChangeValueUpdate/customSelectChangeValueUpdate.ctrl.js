@@ -66,8 +66,18 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
     }
 
     $scope.cleandata = function() {
+    debugger
+    var objAuxData;
 
+    if($scope.properties.catSolicitudDeAdmision.catPais.descripcion != "México"){
+        objAuxData = $scope.properties.catSolicitudDeAdmision;
+        localStorage.setItem("objData",    $scope.properties.catSolicitudDeAdmision.catEstado.persistenceId);
+
+    }
+    
         if ($scope.properties.catSolicitudDeAdmision.catPais.descripcion !== "México") {
+            
+
             $scope.properties.catSolicitudDeAdmision.catEstado = null;
             $scope.properties.catSolicitudDeAdmision.ciudad = "";
             $scope.properties.catSolicitudDeAdmision.delegacionMunicipio = "";
@@ -82,18 +92,19 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
             $scope.properties.catSolicitudDeAdmision.telefono = "";
             $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = "";
         } else {
-            $scope.properties.catSolicitudDeAdmision.ciudad = "";
-            $scope.properties.catSolicitudDeAdmision.delegacionMunicipio = "";
-            $scope.properties.catSolicitudDeAdmision.colonia = "";
-            $scope.properties.catSolicitudDeAdmision.codigoPostal = "";
+            
+            $scope.properties.catSolicitudDeAdmision.ciudad = objAuxData.ciudad;
+            $scope.properties.catSolicitudDeAdmision.delegacionMunicipio = objAuxData.delegacionMunicipio;
+            $scope.properties.catSolicitudDeAdmision.colonia = objAuxData.colonia;
+            $scope.properties.catSolicitudDeAdmision.codigoPostal = objAuxData.codigoPostal;
             $scope.properties.haveCiudad = false;
             $scope.properties.datosCP = undefined;
-            $scope.properties.catSolicitudDeAdmision.calle = "";
-            $scope.properties.catSolicitudDeAdmision.calle2 = "";
-            $scope.properties.catSolicitudDeAdmision.numExterior = "";
-            $scope.properties.catSolicitudDeAdmision.numInterior = "";
-            $scope.properties.catSolicitudDeAdmision.telefono = "";
-            $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = "";
+            $scope.properties.catSolicitudDeAdmision.calle = objAuxData.calle;
+            $scope.properties.catSolicitudDeAdmision.calle2 = objAuxData.calle2;
+            $scope.properties.catSolicitudDeAdmision.numExterior = objAuxData.numExterior;
+            $scope.properties.catSolicitudDeAdmision.numInterior = objAuxData.numInterior;
+            $scope.properties.catSolicitudDeAdmision.telefono = objAuxData.telefono;
+            $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = objAuxData.otroTelefonoContacto;
         }
 
     }
