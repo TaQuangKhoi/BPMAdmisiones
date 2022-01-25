@@ -108,6 +108,7 @@ class ImportacionPAADAO {
 						pstm.setString(34,it.fechaExamen);
 						pstm.setLong(35,Long.parseLong(it.PERSISTENCEID));
 						pstm.setString(36,it.IDBANNER);
+						pstm.setString(36,it.caseId);
 						pstm.executeUpdate();
 						
 					}else {
@@ -156,6 +157,7 @@ class ImportacionPAADAO {
 							pstm.setString(34,it.tipoExamen);
 							pstm.setString(35,it.INVP);
 							pstm.setString(36,it.IdSesion)
+							pstm.setString(37,it.caseId);
 							pstm.executeUpdate();
 							dataResult = asistenciaCollegeBoard(it.IDBANNER,it.IdSesion,it.username,context);
 					}
@@ -468,6 +470,7 @@ class ImportacionPAADAO {
 					 columns.put("AA",false);
 					 columns.put("puede",false);
 					 columns.put("sc", false);
+					 columns.put("caseId", '');
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
@@ -478,6 +481,12 @@ class ImportacionPAADAO {
 						 columns.put("sc",(rs.getBoolean("SC")))
 						 
 					 }
+					 pstm = con.prepareStatement("SELECT ds.caseid FROM detallesolicitud as ds INNER JOIN solicitudDeAdmision as sda ON sda.caseid = ds.caseid::integer WHERE sda.correoelectronico NOT LIKE '%(rechazado)%' and  ds.idbanner = '${idBanner[j]}' limit 1");
+					 rs= pstm.executeQuery();
+					 if(rs.next()) {
+						 columns.put("caseId", rs.getString("caseid"));
+					 }
+					  
 					 estatus.add(columns)
 					 
 				 }
