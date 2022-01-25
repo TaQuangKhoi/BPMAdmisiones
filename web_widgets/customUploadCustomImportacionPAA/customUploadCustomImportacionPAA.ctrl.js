@@ -269,6 +269,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en la sesion subida"}]
             }else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
+                datos[indice].caseId  = info.caseId;
                 $scope.final = [ ...$scope.final,datos[indice]]
             }
         })
