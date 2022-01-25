@@ -21,6 +21,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
 
 class SolicitudUsuarioDAO {
 	Connection con;
@@ -870,6 +871,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
     String replaceTableSolicitud = "";
     String replaceTablePadresTutor = "";
     String replaceTableContacEmergencia = "";
+	String fechaOutput = "";
     List < String > rows = new ArrayList < String > ();
 
     try {
@@ -893,7 +895,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 
         if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IT") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("DPT")) {
 			 where = " WHERE caseid = ? AND countintento = ? AND vive_pid IS NULL AND istutor = 't'";
-        } else if(replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IT") || key.equals("DPT") || replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("DPT")) {
+        } else if(replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IT") || replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("DPT")) {
              where = " WHERE caseid = ? AND persistenceid = ? AND vive_pid IS NULL AND istutor = 't'";
         } else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IPA") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("DPPA") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") &&  key.equals("IMA") || replaceTablePadresTutor.equals(" PadresTutorRespaldo ") &&  key.equals("DPMA")) {
              where = " WHERE caseid = ? AND countintento = ? AND vive_pid IS NOT NULL AND istutor = 'f'";
@@ -901,8 +903,14 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
              where = " WHERE caseid = ? AND persistenceid = ? AND vive_pid IS NOT NULL AND istutor = 'f'";
         }
 		
-		if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") || replaceTablePadresTutor.equals(" PadresTutor ") && object.egresoAnahuac_pid != 77) {
+		if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ")  && object.egresoAnahuac_pid != 77 || replaceTablePadresTutor.equals(" PadresTutor ") && object.egresoAnahuac_pid != 77) {
 			replaceColumn = ", catcampusegreso_pid = ?";
+		}
+		if(key.equals("IP") && fechaNacimiento != null || key.equals("IP") && object.fechaNacimiento != "") {
+			fechaOutput = object.fechaNacimiento;
+			SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Date formatoFechaNacimiento = output.parse(fechaOutput);
+			fechaOutput = output.format(formatoFechaNacimiento)
 		}
 
         if (key.equals("IP")) {
@@ -912,21 +920,21 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             pstm.setString(2, object.segundoNombre);
             pstm.setString(3, object.apellidoPaterno);
             pstm.setString(4, object.apellidoMaterno);
-            pstm.setString(5, object.correoElectronico);
-            pstm.setString(6, object.fechaNacimiento);
-            pstm.setLong(7, object.sexo_pid);
-            pstm.setLong(8, object.nacionalidad_pid);
-            pstm.setLong(9, object.religion_pid);
-            pstm.setString(10, object.curp);
-            pstm.setLong(11, object.estadoCivil_pid);
-            pstm.setString(12, object.telefonoCelular);
-            pstm.setLong(13, object.caseid);
-            pstm.setString(14, object.correoElectronico);
+            pstm.setString(5, fechaOutput);
+            pstm.setLong(6, object.sexo_pid);
+            pstm.setLong(7, object.nacionalidad_pid);
+            pstm.setLong(8, object.religion_pid);
+            pstm.setString(9, object.curp);
+            pstm.setLong(10, object.estadoCivil_pid);
+            pstm.setString(11, object.telefonoCelular);
+            pstm.setLong(12, object.caseid);
+            pstm.setString(13, object.correoElectronico);
             errorLog += "Fin sección: Información personal | "+pstm;
 
         } else if (key.equals("DP")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PERMANENTE.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Domicilio permanente | " + pstm;
+			errorLog += "OBJETO | " + object;
             pstm.setLong(1, object.pais_pid);
             pstm.setString(2, object.codigoPostal);
             pstm.setString(3, object.estadoExtranjero);
@@ -948,7 +956,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
         } else if (key.equals("IB")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_BACHILLERATO.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información bachillerato | "+pstm;
-            pstm.setLong(1, object.bachillerato_pid);
+            pstm.setLong(1, Integer.parseInt(object.bachillerato_pid));
             pstm.setString(2, object.nombreBachillerato);
             pstm.setString(3, object.paisBachillerato);
             pstm.setString(4, object.estadoBachillerato);
@@ -1207,6 +1215,75 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
     return resultado
 }
 	
+	
+	public Result getIsPeriodoVencido(String periodo) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.GET_IS_PERIODO_VENCIDO);
+			pstm.setLong(1, Long.parseLong(periodo));
+			
+			rs= pstm.executeQuery();
+			
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			Map<String, Object> columns = new LinkedHashMap<String, Object>();
+			if(rs.next()) {
+				columns.put("isVencido", true);
+			}else {
+				columns.put("isVencido", false);
+			}
+			info.add(columns)
+			
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result postUpdatePeriodoVencido(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			pstm = con.prepareStatement(Statements.UPDATE_PERIODO_VENCIDO_SOLICITUD);
+			pstm.setLong(1, Long.parseLong(object.persistenceid));
+			pstm.setLong(2, Long.parseLong(object.caseid));
+			
+			pstm.executeUpdate();
+			
+			con.commit();
+			
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Result getUpdateFamiliaresIntento(String caseid, intentos, cantidad) {
 		Result resultado = new Result();
