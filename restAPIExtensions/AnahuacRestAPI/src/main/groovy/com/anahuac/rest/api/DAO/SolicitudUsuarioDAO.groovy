@@ -912,8 +912,16 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 			Date formatoFechaNacimiento = output.parse(fechaOutput);
 			fechaOutput = output.format(formatoFechaNacimiento)
 		}
-
-        if (key.equals("IP")) {
+		
+		if (key.equals("IS")) {
+			pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_SOLICITUD.replace("[TABLA]", replaceTableSolicitud));
+			errorLog += "Sección: Información solicitud | "+pstm;
+			pstm.setLong(1, object.periodo_pid);;
+			pstm.setLong(2, object.caseid);
+			pstm.setString(3, object.correoElectronico);
+			errorLog += "Fin sección: Información solicitud | "+pstm;
+			
+		} else if (key.equals("IP")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PERSONAL.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información personal | "+pstm;
             pstm.setString(1, object.primerNombre);
