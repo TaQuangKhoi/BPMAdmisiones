@@ -190,6 +190,17 @@ class Index implements RestApiController {
 					}
 					break;
 					
+				case "getImagenesByTipoApoyo":
+					String campus = request.getParameter "campus"
+					result = new CatalogosDAO().getImagenesByTipoApoyo(campus, jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+					
 				/*Fin Cat TipoApoyo*/
 				default:
 					result = notFound(url);
