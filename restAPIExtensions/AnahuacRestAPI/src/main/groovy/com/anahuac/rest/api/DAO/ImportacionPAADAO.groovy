@@ -1088,7 +1088,7 @@ class ImportacionPAADAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false and PAA.idBanner is not null and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
+			where+=" WHERE sda.iseliminado=false and PAA.idBanner is not null and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) ";
 			if(object.campus != null){
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
