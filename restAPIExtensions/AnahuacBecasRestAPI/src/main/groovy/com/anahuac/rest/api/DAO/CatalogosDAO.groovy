@@ -721,6 +721,7 @@ class CatalogosDAO {
 				row.setDescripcion(rs.getString("DESCRIPCION"));
 				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
 				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
+				row.setEsSocioEconomico(rs.getBoolean("ESSOCIOECONOMICO"));
 
 				rows.add(row);
 			}
@@ -1085,8 +1086,13 @@ class CatalogosDAO {
 		return resultado;
 	}
 	
-	//
-	
+	/**
+	 * Actualiza las variables condicionesVideo, requiereVideo y isSocioEconomico de un tipo de video
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
 	public Result updateTipoApoyoVideo(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -1095,12 +1101,14 @@ class CatalogosDAO {
 		def objCatGenerico = jsonSlurper.parseText(jsonData);
 
 		String errorLog = "";
+		
 		try {
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CAT_TIPO_APOYO_VIDEO);
 			pstm.setBoolean(1, objCatGenerico.requiereVideo);
 			pstm.setString(2, objCatGenerico.condicionesVideo);
-			pstm.setLong(3, objCatGenerico.persistenceId);
+			pstm.setBoolean(3, objCatGenerico.esSocioEconomico);
+			pstm.setLong(4, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
