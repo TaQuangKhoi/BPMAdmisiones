@@ -916,7 +916,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 		if (key.equals("IS")) {
 			pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_SOLICITUD.replace("[TABLA]", replaceTableSolicitud));
 			errorLog += "Sección: Información solicitud | "+pstm;
-			pstm.setLong(1, object.periodo_pid);;
+			pstm.setLong(1, object.periodo_pid);
 			pstm.setLong(2, object.caseid);
 			pstm.setString(3, object.correoElectronico);
 			errorLog += "Fin sección: Información solicitud | "+pstm;
@@ -1201,7 +1201,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
-        if(key.equals("IP") || key.equals("DP") || key.equals("IB") || key.equals("CE")) {
+        if(key.equals("IP") || key.equals("DP") || key.equals("IB") || key.equals("CE") || key.equals("IS")) {
             pstm.executeUpdate();
         }
         errorLog += "Se ejecuto el update correctamente - Consulta | " + pstm;
