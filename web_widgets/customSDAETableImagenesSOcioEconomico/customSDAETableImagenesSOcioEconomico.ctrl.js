@@ -65,11 +65,12 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     };
 
     function doRequest(method, url, datos, params) {
+        debugger;
         var req = {
             method: method,
             url: url,
             data: datos,
-            params: params
+            // params: params
         };
         return $http(req)
             .success(function(data, status) {
@@ -83,7 +84,6 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
 
     $scope.$watch("properties.dataToFilter", function(newValue, oldValue) {
-
         if (newValue !== undefined) {
             getRegistrosCatalogo();
         }
@@ -99,17 +99,19 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         }
     });
     
-    function getRegistrosCatalogo(params) {
+    function getRegistrosCatalogo() {
+        debugger;
         var req = {
-            method: "GET",
-            url: $scope.properties.urlGet,
+            method: "POST",
+            url: $scope.properties.urlPost,
             data: angular.copy($scope.properties.dataToFilter),
-            params: params
+            // params: params
         };
 
         return $http(req)
             .success(function(data, status) {
-                 $scope.properties.contenido = data.data;
+                debugger;
+                $scope.properties.contenido = data.data;
             })
             .error(function(data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

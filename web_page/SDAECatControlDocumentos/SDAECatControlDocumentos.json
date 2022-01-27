@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1643237452825,
+  "lastUpdate" : 1643312523301,
   "rows" : [
     [
       {
@@ -2238,10 +2238,11 @@
                         },
                         "dataToFilter" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "dataToSendImagenes"
                         },
                         "urlPost" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "\"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" +  lstFiltros[0].valor"
                         },
                         "objCatGenerico" : {
                           "type" : "variable",
@@ -2754,6 +2755,15 @@
       "type" : "constant",
       "value" : [
         "false"
+      ],
+      "exposed" : false
+    },
+    "dataToSendImagenes" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"idTipoApoyo\" : $data.tipoApoyoSeleccionado.persistenceId",
+        "}"
       ],
       "exposed" : false
     }
