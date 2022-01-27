@@ -1471,6 +1471,28 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getUserContext":
+				String caseid=request.getParameter "caseid"
+				result = new ReactivacionDAO().getUserContext(Long.valueOf(caseid),context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "updateDatosSolicitud":
+				String caseIdOrigen=request.getParameter "caseIdOrigen"
+				String caseIdDestino=request.getParameter "caseIdDestino"
+				result = new ReactivacionDAO().updateDatosSolicitud(caseIdOrigen,caseIdDestino,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
 				
 				case "getExistsIdBannerINVP":
 				String idbanner=request.getParameter "idbanner"

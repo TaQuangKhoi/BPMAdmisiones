@@ -195,6 +195,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
             else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
+                datos.caseId = info.caseId;
                 $scope.final = [ ...$scope.final,datos]
             }
         })

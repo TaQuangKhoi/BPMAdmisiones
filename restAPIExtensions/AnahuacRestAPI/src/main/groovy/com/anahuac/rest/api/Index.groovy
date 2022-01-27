@@ -1894,6 +1894,15 @@ class Index implements RestApiController {
 					}
 					break;
 					
+				case "nuevoCasoSolicitud":
+					result = reDAO.nuevoCasoSolicitud(jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "RealizarRespaldo":
 					result = reDAO.RealizarRespaldo(jsonData, context)
 					if (result.isSuccess()) {
@@ -1913,7 +1922,8 @@ class Index implements RestApiController {
 					break;
 
 				case "getInformacionReporteSolicitudRespaldo":
-					result = reDAO.getInformacionReporteSolicitudRespaldo(jsonData, context)
+					String caseid = request.getParameter "caseid";
+					result = reDAO.getInformacionReporteSolicitudRespaldo(caseid, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -2055,6 +2065,17 @@ class Index implements RestApiController {
 					break;
 				case "selectConsultaDeResultadosManual":
 					result = rDAO.selectConsultaDeResultadosManual(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "updateViewDownloadSolicitud":
+					String key = request.getParameter "key";
+					String intento = request.getParameter "intento";
+					Boolean tipoTabla = request.getParameter "tipoTabla";
+					result = suDAO.updateViewDownloadSolicitud(parameterP, parameterC, key, intento, tipoTabla, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

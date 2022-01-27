@@ -1,7 +1,8 @@
-function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
-
+function PbTableCtrl($scope, $http, $window, blockUI, modalService, $filter) {
     this.isArray = Array.isArray;
 
+    $scope.date = new Date();
+    $scope.fechaActual = ($filter('date')(Date.parse($scope.date), "dd/MMM/yyyy")).toString();
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
@@ -528,16 +529,10 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             method: "GET",
             url: "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=100"
         };
-
+        debugger
         return $http(req)
             .success(function(data, status) {
-                $scope.lstCampus = [];
-                for (var index in data) {
-                    $scope.lstCampus.push({
-                        "descripcion": data[index].descripcion,
-                        "valor": data[index].grupoBonita
-                    })
-                }
+                $scope.lstDatosAlumno = data;
             })
             .error(function(data, status) {
                 console.error(data);
@@ -588,8 +583,29 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
     }
     
     /*              GENERACIÓN PDF              */
+    $scope.getReporteSolicitudAdmisionRespaldo = function(row) {
+        debugger
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacRest?url=getInformacionReporteSolicitudRespaldo&p=0&c=10&caseid="+row.caseid
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.fotobase64 = "";
+                $scope.fotobase64 = row.fotografiaReporteb64;
+                $scope.lstInReporteAdmision = [];
+                $scope.lstInReporteAdmision = data.data[0];
+                $scope.generatePDF($scope.lstInReporteAdmision);
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
     
-    $scope.generatePDF = function() {
+    $scope.generatePDF = function(row) {
+        debugger
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
@@ -616,12 +632,12 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         
         doc.addImage("widgets/customTablePostRespaldoUsuarios/assets/img/LogoRUA.png", "PNG", ((width / 2) + 35), ((height / 2) - 128), 60, 20);
 
-        doc.setFontSize(fontSubTitle);
+        doc.setFontSize(fontText);
         doc.text(margenSegundaFila, (height / 2) - 135, 'Usuario:');
-        //doc.text($scope.properties.data.user_name, 160, (height / 2) - 135);
-        doc.setFontSize(fontSubTitle);
+        doc.text($scope.properties.data.user_name, 160, (height / 2) - 135);
+        doc.setFontSize(fontText);
         doc.text(margenPrimeraFila, (height / 2) - 135, 'Fecha:');  
-        //doc.text($scope.fechaActual, 37, (height / 2) - 135);
+        doc.text($scope.fechaActual, 37, (height / 2) - 135);
         
 
         
@@ -652,16 +668,16 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         //doc.rect(margenSegundaFila,((height / 2)-84),35,45)
         doc.rect(157.5,((height / 2)-84),35,45)
         
-        //doc.addImage($scope.properties.urlFoto,"JPG", 160, ((height / 2)-82), 30, 40);
+        doc.addImage($scope.fotobase64,"JPG", 160, ((height / 2)-82), 30, 40);
         
 
         //Respuestas
         doc.setFont(undefined, 'normal');
-        /*doc.text($scope.properties.PDFobjSolicitudDeAdmision.catCampusEstudio.descripcion, respuestasPrimeraFila, (height / 2) - 78);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catGestionEscolar.nombre, respuestasPrimeraFila, (height / 2) - 66);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catPeriodo.descripcion, respuestasPrimeraFila, (height / 2) - 54);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion, respuestasPrimeraFila, (height / 2) - 37);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catCampus.descripcion, respuestasPrimeraFila, (height / 2) - 25);*/
+        doc.text($scope.lstInReporteAdmision.campuscursar1, respuestasPrimeraFila, (height / 2) - 78);
+        doc.text($scope.lstInReporteAdmision.licenciatura, respuestasPrimeraFila, (height / 2) - 66);
+        doc.text($scope.lstInReporteAdmision.periodo, respuestasPrimeraFila, (height / 2) - 54);
+        doc.text($scope.lstInReporteAdmision.presentasteenotrocampus, respuestasPrimeraFila, (height / 2) - 37);
+        doc.text($scope.lstInReporteAdmision.lugarexamen, respuestasPrimeraFila, (height / 2) - 25);
     
         //  ----------------------------------------- SEGUNDA SECCIÓN  ----------------------------------------- 
         doc.setFontSize(fontTitle);
@@ -689,22 +705,22 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         //Respuestas
         doc.setFont(undefined, 'normal');
-        /*doc.text($scope.properties.PDFobjSolicitudDeAdmision.primerNombre+" "+$scope.properties.PDFobjSolicitudDeAdmision.segundoNombre, respuestasPrimeraFila, (height / 2) + 3);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.apellidoPaterno, respuestasFilaIntermedia, (height / 2) + 3);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.apellidoMaterno, respuestasSegundaFila, (height / 2) + 3);
+        doc.text($scope.lstInReporteAdmision.primernombre+" "+$scope.lstInReporteAdmision.segundonombre, respuestasPrimeraFila, (height / 2) + 3);
+        doc.text($scope.lstInReporteAdmision.apellidopaterno, respuestasFilaIntermedia, (height / 2) + 3);
+        doc.text($scope.lstInReporteAdmision.apellidomaterno, respuestasSegundaFila, (height / 2) + 3);
 
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.correoElectronico, respuestasPrimeraFila, (height / 2) + 15);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.fechaNacimiento, respuestasFilaIntermedia, (height / 2) + 15);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catSexo.descripcion, respuestasSegundaFila, (height / 2) + 15);
+        doc.text($scope.lstInReporteAdmision.correoelectronico, respuestasPrimeraFila, (height / 2) + 15);
+        doc.text($scope.lstInReporteAdmision.fechanacimiento = ($filter('date')(Date.parse($scope.lstInReporteAdmision.fechanacimiento), "dd/MMM/yyyy")).toString(), respuestasFilaIntermedia, (height / 2) + 15);
+        doc.text($scope.lstInReporteAdmision.sexo, respuestasSegundaFila, (height / 2) + 15);
 
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catNacionalidad.descripcion, respuestasPrimeraFila, (height / 2) + 27);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catReligion.descripcion, respuestasFilaIntermedia, (height / 2) + 27);
-        if($scope.properties.PDFobjSolicitudDeAdmision.curp !=null){
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.curp, respuestasSegundaFila, (height / 2) + 27);  
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.curp == "" ? "N/A" : $scope.properties.PDFobjSolicitudDeAdmision.curp), respuestasPrimeraFila, (height / 2) + 39);
+        doc.text($scope.lstInReporteAdmision.nacionalidad, respuestasPrimeraFila, (height / 2) + 27);
+        doc.text($scope.lstInReporteAdmision.religion, respuestasFilaIntermedia, (height / 2) + 27);
+        if($scope.lstInReporteAdmision.curp !=null){
+        doc.text($scope.lstInReporteAdmision.curp, respuestasSegundaFila, (height / 2) + 27);  
+        doc.text(($scope.lstInReporteAdmision.curp == "" ? "N/A" : $scope.lstInReporteAdmision.curp), respuestasPrimeraFila, (height / 2) + 39);
         }
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.catEstadoCivil.descripcion, respuestasFilaIntermedia, (height / 2) + 39);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.telefonoCelular, respuestasSegundaFila, (height / 2) + 39);*/
+        doc.text($scope.lstInReporteAdmision.estadocivil, respuestasFilaIntermedia, (height / 2) + 39);
+        doc.text($scope.lstInReporteAdmision.telefonocelular, respuestasSegundaFila, (height / 2) + 39);
 
         //  ----------------------------------------- TERCERA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
@@ -736,21 +752,21 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
          //Respuestas
         doc.setFont(undefined, 'normal');
-        /*doc.text($scope.properties.PDFobjSolicitudDeAdmision.catPais.descripcion, respuestasPrimeraFila, (height / 2) + 75);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.codigoPostal, respuestasFilaIntermedia, (height / 2) + 75);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.catEstado.descripcion == ""  ? $scope.properties.PDFobjSolicitudDeAdmision.estadoExtranjero : $scope.properties.PDFobjSolicitudDeAdmision.catEstado.descripcion), respuestasSegundaFila, (height / 2) + 75);
+        doc.text($scope.lstInReporteAdmision.pais, respuestasPrimeraFila, (height / 2) + 75);
+        doc.text($scope.lstInReporteAdmision.codigopostal, respuestasFilaIntermedia, (height / 2) + 75);
+        doc.text(($scope.lstInReporteAdmision.estado == ""  ? $scope.lstInReporteAdmision.estadoExtranjero : $scope.lstInReporteAdmision.estado), respuestasSegundaFila, (height / 2) + 75);
 
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.ciudad, respuestasPrimeraFila, (height / 2) + 88.5);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 92);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.colonia, respuestasSegundaFila, (height / 2) + 88.5);
+        doc.text($scope.lstInReporteAdmision.ciudad, respuestasPrimeraFila, (height / 2) + 88.5);
+        doc.text($scope.lstInReporteAdmision.delegacionmunicipio, respuestasFilaIntermedia, (height / 2) + 92);
+        doc.text($scope.lstInReporteAdmision.colonia, respuestasSegundaFila, (height / 2) + 88.5);
 
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.calle, respuestasPrimeraFila, (height / 2) + 104);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.calle2 ==  null || $scope.properties.PDFobjSolicitudDeAdmision.calle2 ==  "" ? "N/A" : $scope.properties.PDFobjSolicitudDeAdmision.calle2), respuestasFilaIntermedia, (height / 2) + 104);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.numExterior == "" ? "N/A" : $scope.properties.PDFobjSolicitudDeAdmision.numExterior), respuestasSegundaFila, (height / 2) + 104);
+        doc.text($scope.lstInReporteAdmision.calle, respuestasPrimeraFila, (height / 2) + 104);
+        doc.text(($scope.lstInReporteAdmision.calle2 ==  null || $scope.lstInReporteAdmision.calle2 ==  "" ? "N/A" : $scope.lstInReporteAdmision.calle2), respuestasFilaIntermedia, (height / 2) + 104);
+        doc.text(($scope.lstInReporteAdmision.numexterior == "" ? "N/A" : $scope.lstInReporteAdmision.numexterior), respuestasSegundaFila, (height / 2) + 104);
 
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.numInterior == "" ? "N/A" : $scope.properties.PDFobjSolicitudDeAdmision.numInterior), respuestasPrimeraFila, (height / 2) + 116);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.telefono, respuestasFilaIntermedia, (height / 2) + 116);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.otroTelefonoContacto == "" ? "N/A" : $scope.properties.PDFobjSolicitudDeAdmision.otroTelefonoContacto), respuestasSegundaFila, (height / 2) + 116);*/
+        doc.text(($scope.lstInReporteAdmision.numinterior == "" ? "N/A" : $scope.lstInReporteAdmision.numinterior), respuestasPrimeraFila, (height / 2) + 116);
+        doc.text($scope.lstInReporteAdmision.telefono, respuestasFilaIntermedia, (height / 2) + 116);
+        doc.text(($scope.lstInReporteAdmision.otrotelefonocontacto == "" ? "N/A" : $scope.lstInReporteAdmision.otrotelefonocontacto), respuestasSegundaFila, (height / 2) + 116);
 
         doc.addPage();
         //  ----------------------------------- NUEVA HOJA Y CUARTA SECCIÓN  ----------------------------------- 
@@ -771,13 +787,13 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         //Respuestas
         doc.setFont(undefined, 'normal');
-        /*doc.text($scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.descripcion, respuestasPrimeraFila, (height / 2) - 101);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.pais == null ? $scope.properties.PDFobjSolicitudDeAdmision.paisBachillerato : $scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.pais), respuestasFilaIntermedia, (height / 2) - 101);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.estado == null ? $scope.properties.PDFobjSolicitudDeAdmision.estadoBachillerato : $scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.estado), respuestasSegundaFila, (height / 2) - 101);
+        doc.text($scope.lstInReporteAdmision.lstPreparatoria.descripcion, respuestasPrimeraFila, (height / 2) - 101);
+        doc.text(($scope.lstInReporteAdmision.lstPreparatoria.pais == null ? $scope.lstInReporteAdmision.paisbachillerato : $scope.lstInReporteAdmision.lstPreparatoria.pais), respuestasFilaIntermedia, (height / 2) - 101);
+        doc.text(($scope.lstInReporteAdmision.lstPreparatoria.estado == null ? $scope.lstInReporteAdmision.estadobachillerato : $scope.lstInReporteAdmision.lstPreparatoria.estado), respuestasSegundaFila, (height / 2) - 101);
 
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.ciudad == null ? $scope.properties.PDFobjSolicitudDeAdmision.ciudad : $scope.properties.PDFobjSolicitudDeAdmision.catBachilleratos.ciudad), respuestasPrimeraFila, (height / 2) - 89);
-        doc.text($scope.properties.PDFobjSolicitudDeAdmision.promedioGeneral, respuestasFilaIntermedia, (height / 2) - 89);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.resultadoPAA.toString() <= 0 ? "N/A" : $scope.properties.PDFobjSolicitudDeAdmision.resultadoPAA.toString()), respuestasSegundaFila, (height / 2) - 89);*/
+        doc.text(($scope.lstInReporteAdmision.lstPreparatoria.ciudad == null ? $scope.lstInReporteAdmision.ciudad : $scope.lstInReporteAdmision.lstPreparatoria.ciudad), respuestasPrimeraFila, (height / 2) - 89);
+        doc.text($scope.lstInReporteAdmision.promediogeneral, respuestasFilaIntermedia, (height / 2) - 89);
+        doc.text(($scope.lstInReporteAdmision.resultadopaa.toString() <= 0 ? "N/A" : $scope.lstInReporteAdmision.resultadopaa.toString()), respuestasSegundaFila, (height / 2) - 89);
     
         //  ----------------------------------------- QUINTA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
@@ -808,17 +824,17 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
                 //Respuestas
                 doc.setFont(undefined, 'normal');
-                /*doc.text($scope.properties.PDFobjTutor[0].catTitulo.descripcion, respuestasPrimeraFila, (height / 2) - 59);
-                doc.text($scope.properties.PDFobjTutor[0].nombre, respuestasFilaIntermedia, (height / 2) - 59);
-                doc.text($scope.properties.PDFobjTutor[0].apellidos, respuestasSegundaFila, (height / 2) - 59);
+                doc.text($scope.lstInReporteAdmision.objTutor.tituloTutor, respuestasPrimeraFila, (height / 2) - 59);
+                doc.text($scope.lstInReporteAdmision.objTutor.nombreTutor, respuestasFilaIntermedia, (height / 2) - 59);
+                doc.text($scope.lstInReporteAdmision.objTutor.apellidoTutor, respuestasSegundaFila, (height / 2) - 59);
 
-                doc.text($scope.properties.PDFobjTutor[0].catParentezco.descripcion, respuestasPrimeraFila, (height / 2) - 47);
-                doc.text($scope.properties.PDFobjTutor[0].correoElectronico, respuestasFilaIntermedia, (height / 2) - 47);
-                doc.text($scope.properties.PDFobjTutor[0].catEscolaridad.descripcion, respuestasSegundaFila, (height / 2) - 47);
+                doc.text($scope.lstInReporteAdmision.objTutor.parentezcoTutor, respuestasPrimeraFila, (height / 2) - 47);
+                doc.text($scope.lstInReporteAdmision.objTutor.correoTutor, respuestasFilaIntermedia, (height / 2) - 47);
+                doc.text($scope.lstInReporteAdmision.objTutor.escolaridadTutore, respuestasSegundaFila, (height / 2) - 47);
 
-                doc.text(($scope.properties.PDFobjTutor[0].puesto == "" ? "No trabaja" : $scope.properties.PDFobjTutor[0].puesto), respuestasPrimeraFila, (height / 2) - 35);
-                doc.text(($scope.properties.PDFobjTutor[0].empresaTrabaja == "" ? "No trabaja" : $scope.properties.PDFobjTutor[0].empresaTrabaja), respuestasFilaIntermedia, (height / 2) - 35);
-                doc.text(($scope.properties.PDFobjTutor[0].catCampusEgreso == null ? "No" : $scope.properties.PDFobjTutor[0].catCampusEgreso.descripcion), respuestasSegundaFila, (height / 2) - 35);*/
+                doc.text(($scope.lstInReporteAdmision.objTutor.ocupacionTutor == "" ? "No trabaja" : $scope.lstInReporteAdmision.objTutor.ocupacionTutor), respuestasPrimeraFila, (height / 2) - 35);
+                doc.text(($scope.lstInReporteAdmision.objTutor.empresatrabajaTutor == "" ? "No trabaja" : $scope.lstInReporteAdmision.objTutor.empresatrabajaTutor), respuestasFilaIntermedia, (height / 2) - 35);
+                doc.text(($scope.lstInReporteAdmision.objTutor.egresouniversidadanahuacTutor == null ? "No" : $scope.lstInReporteAdmision.objTutor.egresouniversidadanahuacTutor), respuestasSegundaFila, (height / 2) - 35);
 
                 doc.setFontSize(fontSubTitle);
                 doc.setFont(undefined, 'bold');
@@ -843,18 +859,18 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
                 //Respuestas
                 doc.setFont(undefined, 'normal');
-                /*doc.text($scope.properties.PDFobjTutor[0].catPais.descripcion, respuestasPrimeraFila, (height / 2) - 5);
-                doc.text($scope.properties.PDFobjTutor[0].codigoPostal, respuestasFilaIntermedia, (height / 2) - 5);
-                doc.text($scope.properties.PDFobjTutor[0].catEstado.descripcion, respuestasSegundaFila, (height / 2) - 5);
+                doc.text($scope.lstInReporteAdmision.objTutor.paisTutor, respuestasPrimeraFila, (height / 2) - 5);
+                doc.text($scope.lstInReporteAdmision.objTutor.codigopostalTutor, respuestasFilaIntermedia, (height / 2) - 5);
+                doc.text($scope.lstInReporteAdmision.objTutor.estadoTutor, respuestasSegundaFila, (height / 2) - 5);
 
-                doc.text($scope.properties.PDFobjTutor[0].ciudad, respuestasPrimeraFila, (height / 2) + 7.5);
-                doc.text($scope.properties.PDFobjTutor[0].delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 12);
-                doc.text($scope.properties.PDFobjTutor[0].colonia, respuestasSegundaFila, (height / 2) + 7.5);
+                doc.text($scope.lstInReporteAdmision.objTutor.ciudadTutor, respuestasPrimeraFila, (height / 2) + 7.5);
+                doc.text($scope.lstInReporteAdmision.objTutor.delegacionTutor, respuestasFilaIntermedia, (height / 2) + 12);
+                doc.text($scope.lstInReporteAdmision.objTutor.coloniaTutor, respuestasSegundaFila, (height / 2) + 7.5);
 
-                doc.text($scope.properties.PDFobjTutor[0].calle, respuestasPrimeraFila, (height / 2) + 24);
-                doc.text(($scope.properties.PDFobjTutor[0].numeroExterior == "" ? "N/A" : $scope.properties.PDFobjTutor[0].numeroExterior), respuestasFilaIntermedia, (height / 2) + 24);
-                doc.text(($scope.properties.PDFobjTutor[0].numeroInterior == "" ? "N/A" : $scope.properties.PDFobjTutor[0].numeroInterior), respuestasSegundaFila, (height / 2) + 24);
-                doc.text($scope.properties.PDFobjTutor[0].telefono, respuestasPrimeraFila, countFinSeccionTutor = ((height / 2) + 36));*/
+                doc.text($scope.lstInReporteAdmision.objTutor.calleTutor, respuestasPrimeraFila, (height / 2) + 24);
+                doc.text(($scope.lstInReporteAdmision.objTutor.numexteriorTutor == "" ? "N/A" : $scope.lstInReporteAdmision.objTutor.numexteriorTutor), respuestasFilaIntermedia, (height / 2) + 24);
+                doc.text(($scope.lstInReporteAdmision.objTutor.numinteriorTutor == "" ? "N/A" : $scope.lstInReporteAdmision.objTutor.numinteriorTutor), respuestasSegundaFila, (height / 2) + 24);
+                doc.text($scope.lstInReporteAdmision.objTutor.telefonoTutor, respuestasPrimeraFila, countFinSeccionTutor = ((height / 2) + 36));
 
                 //console.log(countFinSeccionTutor)
 
@@ -882,24 +898,24 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         //Respuestas
         doc.setFont(undefined, 'normal');
         
-        /*if($scope.properties.PDFobjPadreCatTitulo !=null){
-        doc.text($scope.properties.PDFobjPadreCatTitulo.descripcion, respuestasPrimeraFila, (height / 2) + 70);
-        doc.text($scope.properties.PDFobjPadre.nombre, respuestasFilaIntermedia, (height / 2) + 70);
-        doc.text($scope.properties.PDFobjPadre.apellidos, respuestasSegundaFila, (height / 2) + 70);  
+        if($scope.lstInReporteAdmision.objPadre.tituloPadre !=null){
+        doc.text($scope.lstInReporteAdmision.objPadre.tituloPadre, respuestasPrimeraFila, (height / 2) + 70);
+        doc.text($scope.lstInReporteAdmision.objPadre.nombrePadre, respuestasFilaIntermedia, (height / 2) + 70);
+        doc.text($scope.lstInReporteAdmision.objPadre.apellidoPadre, respuestasSegundaFila, (height / 2) + 70);  
         }else{
         doc.text("Se desconoce", respuestasPrimeraFila, (height / 2) + 70);
         doc.text("Se desconoce", respuestasFilaIntermedia, (height / 2) + 70);
         doc.text("Se desconoce", respuestasSegundaFila, (height / 2) + 70);            
         }
         
-        if($scope.properties.PDFobjPadre.vive != null){
-        if($scope.properties.PDFobjPadre.vive.descripcion == "Sí") {
-        doc.text($scope.properties.PDFobjPadre.correoElectronico, respuestasPrimeraFila, (height / 2) + 82);
-        doc.text($scope.properties.PDFobjPadreCatEscolaridad.descripcion, respuestasFilaIntermedia, (height / 2) + 82);
-        doc.text(($scope.properties.PDFobjPadreCatCampusEgreso == null ? "No" : $scope.properties.PDFobjPadreCatCampusEgreso.descripcion), respuestasSegundaFila, (height / 2) + 82);
+        if($scope.lstInReporteAdmision.objPadre.vive != null){
+        if($scope.lstInReporteAdmision.objPadre.vive == "Sí") {
+        doc.text($scope.lstInReporteAdmision.objPadre.correoPadre, respuestasPrimeraFila, (height / 2) + 82);
+        doc.text($scope.lstInReporteAdmision.objPadre.escolaridadPadre, respuestasFilaIntermedia, (height / 2) + 82);
+        doc.text(($scope.lstInReporteAdmision.objPadre.egresouniversidadanahuacPadre == null ? "No" : $scope.lstInReporteAdmision.objPadre.egresouniversidadanahuacPadre), respuestasSegundaFila, (height / 2) + 82);
 
-        doc.text(($scope.properties.PDFobjPadre.puesto == null || $scope.properties.PDFobjPadre.puesto == "" ? "No trabaja" : $scope.properties.PDFobjPadre.puesto), respuestasPrimeraFila, (height / 2) + 94);
-        doc.text(($scope.properties.PDFobjPadre.empresaTrabaja == null || $scope.properties.PDFobjPadre.empresaTrabaja == "" ? "No trabaja" : $scope.properties.PDFobjPadre.empresaTrabaja), respuestasFilaIntermedia, (height / 2) + 94);
+        doc.text(($scope.lstInReporteAdmision.objPadre.ocupacionPadre == null || $scope.lstInReporteAdmision.objPadre.ocupacionPadre == "" ? "No trabaja" : $scope.lstInReporteAdmision.objPadre.ocupacionPadre), respuestasPrimeraFila, (height / 2) + 94);
+        doc.text(($scope.lstInReporteAdmision.objPadre.empresatrabajaPadre == null || $scope.lstInReporteAdmision.objPadre.empresatrabajaPadre == "" ? "No trabaja" : $scope.lstInReporteAdmision.objPadre.empresatrabajaPadre), respuestasFilaIntermedia, (height / 2) + 94);
         } else {
             doc.setFont(undefined, 'normal');
             doc.text("Finado", respuestasPrimeraFila, (height / 2) + 82);
@@ -916,7 +932,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
             doc.text("Se desconoce", respuestasPrimeraFila, (height / 2) + 94);
             doc.text("Se desconoce", respuestasFilaIntermedia, (height / 2) + 94);
-        }*/
+        }
         
         doc.addPage();
 
@@ -944,20 +960,20 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         doc.text(margenPrimeraFila, (height / 2) - 64, 'Teléfono:');
 
         //Respuestas
-        /*if($scope.properties.PDFobjPadre.catPais != null){
+        if($scope.lstInReporteAdmision.objPadre.paisPadre != null){
         doc.setFont(undefined, 'normal');
-        doc.text($scope.properties.PDFobjPadre.catPais.descripcion, respuestasPrimeraFila, (height / 2) - 101);
-        doc.text($scope.properties.PDFobjPadre.codigoPostal, respuestasFilaIntermedia, (height / 2) - 101);
-        doc.text($scope.properties.PDFobjPadre.catEstado.descripcion, respuestasSegundaFila, (height / 2) - 101);
+        doc.text($scope.lstInReporteAdmision.objPadre.paisPadre, respuestasPrimeraFila, (height / 2) - 101);
+        doc.text($scope.lstInReporteAdmision.objPadre.codigopostalPadre, respuestasFilaIntermedia, (height / 2) - 101);
+        doc.text($scope.lstInReporteAdmision.objPadre.estadoPadre, respuestasSegundaFila, (height / 2) - 101);
 
-        doc.text($scope.properties.PDFobjPadre.ciudad, respuestasPrimeraFila, (height / 2) - 86.5);
-        doc.text($scope.properties.PDFobjPadre.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) - 83);
-        doc.text($scope.properties.PDFobjPadre.colonia, respuestasSegundaFila, (height / 2) - 86.5);
+        doc.text($scope.lstInReporteAdmision.objPadre.ciudadPadre, respuestasPrimeraFila, (height / 2) - 86.5);
+        doc.text($scope.lstInReporteAdmision.objPadre.delegacionPadre, respuestasFilaIntermedia, (height / 2) - 83);
+        doc.text($scope.lstInReporteAdmision.objPadre.coloniaPadre, respuestasSegundaFila, (height / 2) - 86.5);
 
-        doc.text($scope.properties.PDFobjPadre.calle, respuestasPrimeraFila, (height / 2) - 71);
-        doc.text(($scope.properties.PDFobjPadre.numeroExterior == "" ? "N/A" : $scope.properties.PDFobjPadre.numeroExterior), respuestasFilaIntermedia, (height / 2) - 71);
-        doc.text(($scope.properties.PDFobjPadre.numeroInterior == "" ? "N/A" : $scope.properties.PDFobjPadre.numeroInterior), respuestasSegundaFila, (height / 2) - 71);
-        doc.text($scope.properties.PDFobjPadre.telefono, respuestasPrimeraFila, (height / 2) - 59);
+        doc.text($scope.lstInReporteAdmision.objPadre.callePadre, respuestasPrimeraFila, (height / 2) - 71);
+        doc.text(($scope.lstInReporteAdmision.objPadre.numexteriorPadre == "" ? "N/A" : $scope.lstInReporteAdmision.objPadre.numexteriorPadre), respuestasFilaIntermedia, (height / 2) - 71);
+        doc.text(($scope.lstInReporteAdmision.objPadre.numinteriorPadre == "" ? "N/A" : $scope.lstInReporteAdmision.objPadre.numinteriorPadre), respuestasSegundaFila, (height / 2) - 71);
+        doc.text($scope.lstInReporteAdmision.objPadre.telefonoPadre, respuestasPrimeraFila, (height / 2) - 59);
   
       } else{
 
@@ -974,7 +990,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         doc.text("Se desconoce", respuestasFilaIntermedia, (height / 2) - 71);
         doc.text("Se desconoce", respuestasSegundaFila, (height / 2) - 71);
         doc.text("Se desconoce", respuestasPrimeraFila, (height / 2) - 59);
-      }*/
+      }
         
         //  ----------------------------------------- OCTAVA SECCIÓN  ----------------------------------------- 
 
@@ -1001,10 +1017,10 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         //Respuestas
         doc.setFont(undefined, 'normal');
-        /*if($scope.properties.PDFobjMadreCatTitulo != null){
-        doc.text($scope.properties.PDFobjMadreCatTitulo.descripcion,  respuestasPrimeraFila, (height / 2) - 26);
-        doc.text($scope.properties.PDFobjMadre.nombre, respuestasFilaIntermedia, (height / 2) - 26);
-        doc.text($scope.properties.PDFobjMadre.apellidos, respuestasSegundaFila, (height / 2) - 26);
+        if($scope.lstInReporteAdmision.objMadre.tituloMadre != null){
+        doc.text($scope.lstInReporteAdmision.objMadre.tituloMadre,  respuestasPrimeraFila, (height / 2) - 26);
+        doc.text($scope.lstInReporteAdmision.objMadre.nombreMadre, respuestasFilaIntermedia, (height / 2) - 26);
+        doc.text($scope.lstInReporteAdmision.objMadre.apellidoMadre, respuestasSegundaFila, (height / 2) - 26);
 
         }else{
         doc.text("Se desconoce",  respuestasPrimeraFila, (height / 2) - 26);
@@ -1012,14 +1028,14 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         doc.text("Se desconoce", respuestasSegundaFila, (height / 2) - 26);          
         }
 
-        if($scope.properties.PDFobjMadre.vive != null){
-        if($scope.properties.PDFobjMadre.vive.descripcion == "Sí") {
-        doc.text($scope.properties.PDFobjMadre.correoElectronico, respuestasPrimeraFila, (height / 2) - 14);
-        doc.text($scope.properties.PDFobjMadreCatEscolaridad.descripcion, respuestasFilaIntermedia, (height / 2) - 14);
-        doc.text(($scope.properties.PDFobjMadreCatCampusEgreso == null ? "No" : $scope.properties.PDFobjMadreCatCampusEgreso.descripcion), respuestasSegundaFila, (height / 2) - 14);
+        if($scope.lstInReporteAdmision.objMadre.vive != null){
+        if($scope.lstInReporteAdmision.objMadre.vive == "Sí") {
+        doc.text($scope.lstInReporteAdmision.objMadre.correoMadre, respuestasPrimeraFila, (height / 2) - 14);
+        doc.text($scope.lstInReporteAdmision.objMadre.escolaridadMadre, respuestasFilaIntermedia, (height / 2) - 14);
+        doc.text(($scope.lstInReporteAdmision.objMadre.egresouniversidadanahuacMadre == null ? "No" : $scope.lstInReporteAdmision.objMadre.egresouniversidadanahuacMadre), respuestasSegundaFila, (height / 2) - 14);
 
-        doc.text(($scope.properties.PDFobjMadre.puesto == null || $scope.properties.PDFobjMadre.puesto == "" ? "No trabaja" : $scope.properties.PDFobjMadre.puesto), respuestasPrimeraFila, (height / 2) - 2);
-        doc.text(($scope.properties.PDFobjMadre.empresaTrabaja == null || $scope.properties.PDFobjMadre.empresaTrabaja == "" ? "No trabaja" : $scope.properties.PDFobjMadre.empresaTrabaja), respuestasFilaIntermedia, (height / 2) - 2);
+        doc.text(($scope.lstInReporteAdmision.objMadre.ocupacionMadre == null || $scope.lstInReporteAdmision.objMadre.ocupacionMadre == "" ? "No trabaja" : $scope.lstInReporteAdmision.objMadre.ocupacionMadre), respuestasPrimeraFila, (height / 2) - 2);
+        doc.text(($scope.lstInReporteAdmision.objMadre.empresatrabajaMadre == null || $scope.lstInReporteAdmision.objMadre.empresatrabajaMadre == "" ? "No trabaja" : $scope.lstInReporteAdmision.objMadre.empresatrabajaMadre), respuestasFilaIntermedia, (height / 2) - 2);
         } else {
             doc.setFont(undefined, 'normal');
             doc.text("Finado", respuestasPrimeraFila, (height / 2) - 14);
@@ -1039,7 +1055,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             doc.text("Se desconoce", respuestasPrimeraFila, (height / 2) - 2);
             doc.text("Se desconoce", respuestasFilaIntermedia, (height / 2) - 2);
 
-        }*/
+        }
         
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
@@ -1063,20 +1079,20 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         doc.text(margenPrimeraFila, (height / 2) + 59, 'Teléfono:');
 
         //Respuestas
-        /*if($scope.properties.PDFobjMadre.catPais != null){
+        if($scope.lstInReporteAdmision.objMadre.paisMadre != null){
         doc.setFont(undefined, 'normal');
-        doc.text($scope.properties.PDFobjMadre.catPais.descripcion, respuestasPrimeraFila, (height / 2) + 23);
-        doc.text($scope.properties.PDFobjMadre.codigoPostal, respuestasFilaIntermedia, (height / 2) + 23);
-        doc.text($scope.properties.PDFobjMadre.catEstado.descripcion, respuestasSegundaFila, (height / 2) + 23);
+        doc.text($scope.lstInReporteAdmision.objMadre.paisMadre, respuestasPrimeraFila, (height / 2) + 23);
+        doc.text($scope.lstInReporteAdmision.objMadre.codigopostalMadre, respuestasFilaIntermedia, (height / 2) + 23);
+        doc.text($scope.lstInReporteAdmision.objMadre.estadoMadre, respuestasSegundaFila, (height / 2) + 23);
 
-        doc.text($scope.properties.PDFobjMadre.ciudad, respuestasPrimeraFila, (height / 2) + 35.5);
-        doc.text($scope.properties.PDFobjMadre.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 40);
-        doc.text($scope.properties.PDFobjMadre.colonia, respuestasSegundaFila, (height / 2) + 35.5);
+        doc.text($scope.lstInReporteAdmision.objMadre.ciudadMadre, respuestasPrimeraFila, (height / 2) + 35.5);
+        doc.text($scope.lstInReporteAdmision.objMadre.delegacionMadre, respuestasFilaIntermedia, (height / 2) + 40);
+        doc.text($scope.lstInReporteAdmision.objMadre.coloniaMadre, respuestasSegundaFila, (height / 2) + 35.5);
 
-        doc.text($scope.properties.PDFobjMadre.calle, respuestasPrimeraFila, (height / 2) + 52);
-        doc.text(($scope.properties.PDFobjMadre.numeroExterior == "" ? "N/A" : $scope.properties.PDFobjMadre.numeroExterior), respuestasFilaIntermedia, (height / 2) + 52);
-        doc.text(($scope.properties.PDFobjMadre.numeroInterior == "" ? "N/A" : $scope.properties.PDFobjMadre.numeroInterior), respuestasSegundaFila, (height / 2) + 52);
-        doc.text($scope.properties.PDFobjMadre.telefono, respuestasPrimeraFila, (height / 2) + 64);  
+        doc.text($scope.lstInReporteAdmision.objMadre.calleMadre, respuestasPrimeraFila, (height / 2) + 52);
+        doc.text(($scope.lstInReporteAdmision.objMadre.numexteriorMadre == "" ? "N/A" : $scope.lstInReporteAdmision.objMadre.numexteriorMadre), respuestasFilaIntermedia, (height / 2) + 52);
+        doc.text(($scope.lstInReporteAdmision.objMadre.numinteriorMadre == "" ? "N/A" : $scope.lstInReporteAdmision.objMadre.numinteriorMadre), respuestasSegundaFila, (height / 2) + 52);
+        doc.text($scope.lstInReporteAdmision.objMadre.telefonoMadre, respuestasPrimeraFila, (height / 2) + 64);  
         }else{
 
         doc.setFont(undefined, 'normal');
@@ -1093,7 +1109,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         doc.text("Se desconoce", respuestasSegundaFila, (height / 2) + 52);
         doc.text("Se desconoce", respuestasPrimeraFila, (height / 2) + 64);  
 
-        }*/
+        }
         
 
         //  ----------------------------------------- NOVENA SECCIÓN  ----------------------------------------- 
@@ -1111,14 +1127,13 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         doc.text(margenPrimeraFila, (height / 2) + 101, 'Celular de emergencia:');
 
         //Respuestas
-        /*doc.setFont(undefined, 'normal');
-        doc.text($scope.properties.PDFobjcasosDeEmergencia[0].nombre, respuestasPrimeraFila, (height / 2) + 94);
-        doc.text($scope.properties.PDFobjcasosDeEmergencia[0].parentesco, respuestasFilaIntermedia, (height / 2) + 94);
-        doc.text($scope.properties.PDFobjcasosDeEmergencia[0].telefono, respuestasSegundaFila, (height / 2) + 94);
+        doc.setFont(undefined, 'normal');
+        doc.text($scope.lstInReporteAdmision.lstEmergencia.nombreEmergencia, respuestasPrimeraFila, (height / 2) + 94);
+        doc.text($scope.lstInReporteAdmision.lstEmergencia.parentescoEmergencia, respuestasFilaIntermedia, (height / 2) + 94);
+        doc.text($scope.lstInReporteAdmision.lstEmergencia.telefonoEmergencia, respuestasSegundaFila, (height / 2) + 94);
 
-        doc.text($scope.properties.PDFobjcasosDeEmergencia[0].telefonoCelular, respuestasPrimeraFila, (height / 2) + 106);*/
+        doc.text($scope.lstInReporteAdmision.lstEmergencia.telefonoCelularEmergencia, respuestasPrimeraFila, (height / 2) + 106);
 
         doc.save(`CuestionarioSolicitud.pdf`);
     }
-
 }
