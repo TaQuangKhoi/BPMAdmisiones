@@ -5,24 +5,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        if(valiateDocument()){
+        if(validateImagen()){
             doRequest($scope.properties.action, $scope.properties.url);
         }
     };
 
-    function valiateDocument() {
+    function validateImagen() {
         let output = true;
         let messageTitle = "", errorMessage = "";
         let objValidate = angular.copy($scope.properties.dataToSend);
-        if(!objValidate.nombreDocumento){
-            messageTitle = "¡Nombre del documento!";
-            errorMessage = "El campo 'Nombre del documento' no debe ir vacío";
+        if(!objValidate.descripcion){
+            messageTitle = "¡Descripción!";
+            errorMessage = "El campo 'Descripción' no debe ir vacío";
             output = false;
-        } else if(!objValidate.descripcionDocumento){
-            messageTitle = "¡Descripción del documento!";
-            errorMessage = "El campo 'Descripción del documento' no debe ir vacío";
-            output = false;
-        }
+        } 
 
         if(!output){
             swal(messageTitle, errorMessage, "warning");

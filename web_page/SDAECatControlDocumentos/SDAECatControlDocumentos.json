@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1643312523301,
+  "lastUpdate" : 1643322069656,
   "rows" : [
     [
       {
@@ -358,6 +358,14 @@
                       "reloadTableImagenes" : {
                         "type" : "variable",
                         "value" : "reloadTablaImagenes"
+                      },
+                      "objetoNuevaImagen" : {
+                        "type" : "variable",
+                        "value" : "nuevaImagen"
+                      },
+                      "objetoReinicioImagen" : {
+                        "type" : "variable",
+                        "value" : "resetImagen"
                       }
                     },
                     "reference" : "f40f2b34-5222-4c1e-a66c-67891bf216b1",
@@ -2046,7 +2054,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "nuevaImagen.descripcion"
                         },
                         "type" : {
                           "type" : "constant",
@@ -2109,14 +2117,16 @@
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation"
+                          "type" : "interpolation",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertImagenSocioEconomico&p=0&c=0&"
                         },
                         "responseStatusCode" : {
                           "type" : "variable",
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "nuevaImagen"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -2763,6 +2773,49 @@
       "value" : [
         "return {",
         "    \"idTipoApoyo\" : $data.tipoApoyoSeleccionado.persistenceId",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "nuevaImagen" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"persistenceId\": 0,",
+        "    \"idTipoApoyo\": 0,",
+        "    \"idCampus\": 0,",
+        "    \"descripcion\": \"\",",
+        "    \"urlAzure\": \"\",",
+        "    \"isEliminado\": false,",
+        "    \"usuarioCreacion\": \"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "resetImagen" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"persistenceId\": 0,",
+        "    \"idTipoApoyo\": $data.tipoApoyoSeleccionado.persistenceId,",
+        "    \"idCampus\": getIdCampus($data.lstFiltros[0].valor),",
+        "    \"descripcion\": \"\",",
+        "    \"urlAzure\": \"\",",
+        "    \"isEliminado\": false,",
+        "    \"usuarioCreacion\": $data.userData.user_name",
+        "}",
+        "",
+        "function getIdCampus(campus){",
+        "    let output = 0;",
+        "    debugger;",
+        "    for(let i = 0; i< $data.lstCatCampus.length; i++){",
+        "        if($data.lstCatCampus[i].grupoBonita === campus){",
+        "            output = $data.lstCatCampus[i].persistenceId",
+        "            break;",
+        "        }",
+        "    }",
+        "    ",
+        "    return output;",
         "}"
       ],
       "exposed" : false

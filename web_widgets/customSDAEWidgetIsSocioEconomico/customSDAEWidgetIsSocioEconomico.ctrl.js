@@ -9,6 +9,7 @@ function PbCheckboxCtrl($scope, $log, widgetNameFactory, modalService, $http) {
     });
   
     $scope.showModalCondiciones = function(){
+        $scope.properties.objetoNuevaImagen = $scope.properties.objetoReinicioImagen;
         $scope.properties.reloadTableImagenes = true;
         modalService.open("imagenesSocioEconomico");
     }
