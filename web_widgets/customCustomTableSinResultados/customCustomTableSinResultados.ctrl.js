@@ -429,11 +429,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
 
         return $http(req).success(function(data, status) {
-            if($scope.decision.rechazado == true){
+            doRequest("POST", $scope.properties.urlPost);
+            /*if($scope.decision.rechazado == true){
                 doRequestRechazadosRespaldo("POST","/bonita/API/extension/AnahuacRest?url=RealizarRespaldo&p=0&c=100")
             }else{
                 doRequest("POST", $scope.properties.urlPost);
-            }
+            }*/
         }).error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
                 blockUI.stop();
@@ -454,8 +455,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 doRequest("POST", $scope.properties.urlPost);
             })
             .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                blockUI.stop();
+                doRequest("POST", $scope.properties.urlPost);
             })
     }
 

@@ -108,7 +108,7 @@ class ImportacionPAADAO {
 						pstm.setString(34,it.fechaExamen);
 						pstm.setLong(35,Long.parseLong(it.PERSISTENCEID));
 						pstm.setString(36,it.IDBANNER);
-						pstm.setString(36,it.caseId);
+						pstm.setString(37,it.caseId);
 						pstm.executeUpdate();
 						
 					}else {
@@ -481,7 +481,7 @@ class ImportacionPAADAO {
 						 columns.put("sc",(rs.getBoolean("SC")))
 						 
 					 }
-					 pstm = con.prepareStatement("SELECT ds.caseid FROM detallesolicitud as ds INNER JOIN solicitudDeAdmision as sda ON sda.caseid = ds.caseid::integer WHERE sda.correoelectronico NOT LIKE '%(rechazado)%' and  ds.idbanner = '${idBanner[j]}' limit 1");
+					 pstm = con.prepareStatement("SELECT ds.caseid FROM detallesolicitud as ds INNER JOIN solicitudDeAdmision as sda ON sda.caseid = ds.caseid::integer WHERE sda.correoelectronico NOT LIKE '%(rechazado)%' and  ds.idbanner = ${idBanner[j]} limit 1");
 					 rs= pstm.executeQuery();
 					 if(rs.next()) {
 						 columns.put("caseId", rs.getString("caseid"));
@@ -866,7 +866,7 @@ class ImportacionPAADAO {
 						where +=" ( LOWER(SESIONES.nombre) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(SESIONES.persistenceid||'') like lower('%[valor]%') ";
+						where +=" OR LOWER(SESIONES.persistenceid||'') like lower('%[valor]%') ) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 					
@@ -1378,7 +1378,7 @@ class ImportacionPAADAO {
 							where +=" ( LOWER(sesion.nombre) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR LOWER(sesion.persistenceid||'') like lower('%[valor]%') ";
+							where +=" OR LOWER(sesion.persistenceid||'') like lower('%[valor]%')) ";
 							where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					

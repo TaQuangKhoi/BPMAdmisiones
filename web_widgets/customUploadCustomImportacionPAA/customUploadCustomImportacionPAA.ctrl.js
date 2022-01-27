@@ -20,7 +20,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 processData(e.target.result)
                 //ProcessExcel(e.target.result);
             };
-                reader.readAsBinaryString(file);
+                reader.readAsText(file,"UTF-8")
             } else {
                 //For IE Browser.
                 reader.onload = function (e) {
@@ -34,13 +34,15 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 reader.readAsArrayBuffer(file);
             }
     };
+
     function processData(allText){
         var allTextLines = allText.split(/\r\n|\n/);
         var headers = allTextLines[0].split(',');
         var lines = [];
         if(allTextLines.length > 1){
             for (var i=1; i<allTextLines.length; i++) {
-                var data = allTextLines[i].split(',');
+                //var data =  allTextLines[i].split(',');
+                var data =  csvToArray(allTextLines[i]);
                 if (data.length == headers.length) {
                     var tarr = [];
                     for (var j=0; j<headers.length; j++) {
@@ -53,6 +55,27 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             $scope.$apply(); 
         }
         
+    }
+
+    function csvToArray(text){
+        var re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
+        var re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
+
+        if (!re_valid.test(text)) return null;
+        var a = [];                     // Initialize array to receive values.
+        text.replace(re_value, // "Walk" the string using replace with callback.
+            function(m0, m1, m2, m3) {
+                // Remove backslash from \' in single quoted values.
+                if (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
+                // Remove backslash from \" in double quoted values.
+                else if (m2 !== undefined) a.push(m2.replace(/\\"/g, '"'));
+                else if (m3 !== undefined) a.push(m3);
+                return ''; // Return empty string.
+            });
+        // Handle special case of empty last value.
+        if (/,\s*$/.test(text)) a.push('');
+
+        return a;
     }
     
     function uploadFile(fileObject){
@@ -149,7 +172,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         $scope.properties.revisar.forEach(valor =>{
             info = Object.assign({[valor]:(data[valor] || '')},info)
         })
-        info.fechaExamen = (data['Fecha de examen'] || '');
+        info.fechaExamen = (data['Fechadeexamen'] || '');
         info.PAAN = (data['MLEX'] || '');
         info.PAAV = (data['CLEX'] || '');
         info.PARA = (data['HLEX'] || '');
@@ -162,15 +185,15 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         var error = "";
         let valores1= ["MLEX","CLEX","HLEX"];
         let valores2= ["PAAN","PAAV","PARA"];
-        let valores3=["MLEX","CLEX","HLEX","PAAN","PAAV","PARA","fechaExamen","IDBANNER","Total","LEXIUM_Total","Fecha de examen","IdSesion","NombreSesion"]
-        let valores4 =["fechaExamen","IDBANNER","Total","LEXIUM_Total","Fecha de examen","IdSesion","NombreSesion"]
+        let valores3=["MLEX","CLEX","HLEX","PAAN","PAAV","PARA","fechaExamen","IDBANNER","Total","LEXIUM_Total","Fechadeexamen","IdSesion","NombreSesion"]
+        let valores4 =["fechaExamen","IDBANNER","Total","LEXIUM_Total","Fechadeexamen","IdSesion","NombreSesion"]
         if(data !== null && data !== undefined){
             data['PAAN'] = convertirDato(data['PAAN']);
             data['PAAV'] = convertirDato(data['PAAV']);
             data['PARA'] = convertirDato(data['PARA']);
             let columnas = $scope.properties.revisar;
             for(let i = 0; i< $scope.properties.revisar.length; i++){
-                if(isNullOrUndefined(data[columnas[i]])  && columnas[i] != "IDBANNER" && columnas[i] != "Fecha de examen"){
+                if(isNullOrUndefined(data[columnas[i]])  && columnas[i] != "IDBANNER" && columnas[i] != "Fechadeexamen"){
                     error+=(error.length>0?",":"")+"falta el dato "+columnas[i]
                 }else if(columnas[i] == "IDBANNER"){
                     if(isNullOrUndefined(data[columnas[i]])){
@@ -178,7 +201,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                     }else if(data[columnas[i]].length != 8){
                         error+=(error.length>0?",":"")+"id banner tiene que ser de 8 digitos"
                     }
-                }else if(columnas[i] == "Fecha de examen"){
+                }else if(columnas[i] == "Fechadeexamen"){
                     if(isNullOrUndefined(data[columnas[i]])){
                         error+=(error.length>0?",":"")+"falta el dato fecha de examen "
                     }else if(!moment(data[columnas[i]],'DD/MM/YYYY').isValid()){
@@ -315,7 +338,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         $scope.lstBanner = {'IDBANNER':"", "FECHA":"","IDSESION":""};
 		arreglo.forEach(info =>{
         	$scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
-            $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['Fecha de examen']}'`;
+            $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['Fechadeexamen']}'`;
             $scope.lstBanner.IDSESION += `${$scope.lstBanner.IDSESION.length>0?",":""}'${info['IdSesion']}'`;
         });
     }
