@@ -227,10 +227,10 @@ function($scope, $http, blockUI, $window) {
                 const element = datos.data[0].psicologos[index];
                 for (let index2 = 0; index2 < element.lstFechasDisponibles.length; index2++) {
                     const element2 = element.lstFechasDisponibles[index2];
-                    $scope.jsonEntrevista.psicologos[0].lstFechasDisponibles.push(element2)    
+                    $scope.jsonEntrevista.psicologos[0].lstFechasDisponibles.push(element2)
                 }
-                
-                
+
+
             }
         })
     }
@@ -281,14 +281,14 @@ function($scope, $http, blockUI, $window) {
         filtro = {
             "columna": "PERIODO",
             "operador": "Igual a",
-            "valor":  $scope.properties.usuario[0].catPeriodo.persistenceId
+            "valor": $scope.properties.usuario[0].catPeriodo.persistenceId
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
 
         filtro = {
             "columna": "EMAIL",
             "operador": "Igual a",
-            "valor":  $scope.properties.usuario[0].correoElectronico
+            "valor": $scope.properties.usuario[0].correoElectronico
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte + "&isMedicina=" + $scope.properties.isMedicina, null, $scope.dataToSend, null, function(datos, extra) {
@@ -473,19 +473,54 @@ function($scope, $http, blockUI, $window) {
                                     break;
                                 }
                             }
+                            try {
+                                console.log("isPeriodoVencido?")
+                                var fecha = new Date($scope.properties.solicitudDeAdmision.catPeriodo.fechaFin.slice(0, 10));
+                                if (fecha < new Date()) {
+                                    Swal.fire("¡Periodo vencido!", "Recuerda que el periodo de ingreso que seleccionaste ha vencido y debes actualizarlo, contacta a tu asesor o a través del chat", "warning")
+                                        .then((value) => {
+                                            doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
 
-                            doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                                Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Correcto',
+                                                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                                    })
+                                                    ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                                    //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                                    //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                                $scope.VerificarTask();
+                                            })
+                                        });
+                                } else {
+                                    doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
 
-                                Swal.fire({
-                                        icon: 'success',
-                                        title: 'Correcto',
-                                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                        Swal.fire({
+                                                icon: 'success',
+                                                title: 'Correcto',
+                                                text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                            })
+                                            ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                            //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                            //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                        $scope.VerificarTask();
                                     })
-                                    ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                    //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
-                                    //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
-                                $scope.VerificarTask();
-                            })
+                                }
+                            } catch (e) {
+                                doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+
+                                    Swal.fire({
+                                            icon: 'success',
+                                            title: 'Correcto',
+                                            text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                        })
+                                        ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                        //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                        //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                    $scope.VerificarTask();
+                                })
+                            }
+
                         })
                     })
 
@@ -531,24 +566,27 @@ function($scope, $http, blockUI, $window) {
     }
     $scope.VerificarTask = function() {
         doRequest("GET", "/API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.usuario[0].caseId + "&fstate=ready", null, null, null, function(datos, extra) {
-            
+
             if ($scope.contadorVerificarTask <= 100) {
-                var isSeleccionar=false;
+                var isSeleccionar = false;
                 for (let index = 0; index < datos.length; index++) {
                     const element = datos[index];
-                    if(element.name=="Seleccionar cita"){
-                        isSeleccionar=true;
+                    if (element.name == "Seleccionar cita") {
+                        isSeleccionar = true;
                     }
                 }
-                if (datos !== undefined && datos.length>0 && !isSeleccionar) {
+                if (datos !== undefined && datos.length > 0 && !isSeleccionar) {
                     let ipBonita = window.location.protocol + "//" + window.location.host + "";
                     let url = "";
                     url = ipBonita + "/bonita/apps/aspirante/nueva_solicitud/";
                     top.location.href = url;
                 } else {
                     blockUI.start();
-                    setTimeout(function() {blockUI.stop(); $scope.VerificarTask(); }, 1000);
-                    
+                    setTimeout(function() {
+                        blockUI.stop();
+                        $scope.VerificarTask();
+                    }, 1000);
+
                     $scope.contadorVerificarTask = $scope.contadorVerificarTask + 1;
                 }
 

@@ -5,6 +5,7 @@ import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.catalogos.CatNotificacionesFirma
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.Calendario
 import com.anahuac.rest.api.Entity.Custom.PruebaCustom
@@ -15,6 +16,7 @@ import com.anahuac.rest.api.Entity.Custom.SesionesAspiranteCustom
 import com.anahuac.rest.api.Entity.db.Responsable
 import com.anahuac.rest.api.Entity.db.ResponsableDisponible
 import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.anahuac.rest.api.Entity.db.CatTipoPrueba
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
@@ -29,6 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.Date;
 
 import org.apache.commons.collections4.functors.ComparatorPredicate.Criterion
+import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.data.DataInstance
 import org.bonitasoft.engine.bpm.document.Document
@@ -2304,8 +2307,8 @@ class SesionesDAO {
 				}else {
 					consulta=consulta.replace("[ENTREVISTA]", "")
 				}
-				 errorlog += "conteo= "+ consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct (AP.persistenceid)) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "");
-				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct (AP.persistenceid)) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				 errorlog += "conteo= "+ consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CPO.fechafin AS periodofin,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct (AP.persistenceid)) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "");
+				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CPO.fechafin AS periodofin,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct (AP.persistenceid)) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				pstm.setInt(1, object.prueba);
 				pstm.setInt(2, object.sesion);
 				rs= pstm.executeQuery()
@@ -2913,6 +2916,38 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result updateAspirantesPruebas(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.UPDATE_ASPIRANTESPRUEBAS);
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setLong(2,object.prueba);
+				pstm.setString(3,object.username);
+				
+				
+				pstm.executeUpdate();
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result updateBitacoraAspirantesPruebas(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -2947,6 +2982,38 @@ class SesionesDAO {
 	}
 	
 	
+	public Result updateBitacoraAspirantesPruebas(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.UPDATE_BITACORAASPIRANTESPRUEBAS);
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setLong(2,object.prueba);
+				pstm.setString(3,object.username);
+				
+				
+				pstm.executeUpdate();
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result insertPaseLista( String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -2957,7 +3024,7 @@ class SesionesDAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				closeCon = validarConexion();
-				con.setAutoCommit(false)
+				con.setAutoCommit(false);
 				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
 				pstm.setLong(1, object.prueba);
 				pstm.setString(2, object.username);
@@ -2985,8 +3052,81 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result insertPaseLista( String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+				pstm.setLong(1, object.prueba);
+				pstm.setString(2, object.username);
+				pstm.setBoolean(3,object.asistencia);
+				pstm.setString(4,object.usuarioPaseLista);
+				
+				pstm.executeUpdate();
+				
+				con.commit();
+				
+				Result dataResult = updateAspirantesPruebas(jsonData);
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData);
+				
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			String es = e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(es);
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result updatePaseLista(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.UPDATE_PASEDELISTA)
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setString(2,object.usuarioPaseLista);
+				pstm.setLong(3, object.prueba)
+				pstm.setString(4, object.username)
+				pstm.executeUpdate();
+				
+				con.commit();
+				Result dataResult = updateAspirantesPruebas(jsonData, context);
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
+				
+				resultado.setSuccess(true)
+				resultado.setError_info(errorLog)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updatePaseLista(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -5852,7 +5992,7 @@ class SesionesDAO {
 			closeCon = validarConexion();
 			//consulta=consulta.replace("[WHERE]", where);
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion, s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD FROM sesiones s inner join catcampus cc on cc.persistenceid=s.campus_pid inner join pruebas p on s.persistenceid=p.sesion_pid  and p.cattipoprueba_pid=2 and p.registrados>0 inner join aspirantespruebas ap on ap.sesiones_pid=s.persistenceid "+ where)
+			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion, s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD FROM sesiones s inner join catcampus cc on cc.persistenceid=s.campus_pid inner join pruebas p on s.persistenceid=p.sesion_pid  and p.cattipoprueba_pid=2 LEFT JOIN aspirantespruebas ap on ap.sesiones_pid=s.persistenceid "+ where)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -6955,7 +7095,8 @@ class SesionesDAO {
 						pstm.setLong(4, Long.parseLong(sesiones_pid))
 						pstm.setString(5, nowAsISO)
 						pstm.execute()
-					}
+					} 
+					
 				}else {
 					resultado.setError("Error");
 					resultado.setError_info("Ya hay un aspirante con ese id_sesion")
@@ -6969,11 +7110,12 @@ class SesionesDAO {
 			if(resultado.getError().equals("Error")){
 				resultado.setSuccess(false);
 			}else {
+				Result asistencia = asistenciaINVP(idbanner,sesiones_pid);
 				rows.add(respuestainvp)
 				additionalData.add(aData)
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				resultado.setAdditional_data(additionalData+"error:"+errorLog)
+				resultado.setAdditional_data(additionalData+"error:"+errorLog+" asistencia:"+asistencia.isSuccess()+"error_Asistencia:"+asistencia.getError())
 			}
 			
 		} catch (Exception e) {
@@ -6985,6 +7127,73 @@ class SesionesDAO {
 			}
 		}
 		return resultado;
+	}
+	
+	public Result asistenciaINVP(String idbanner,String idsesion) {
+		Result resultado = new Result();
+		Result dataResult = new Result();
+		String errorLog = "";
+		try {
+			String caseid = "", prueba="",username2 = "",username="servicio INVP";
+			errorLog+="1";
+			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 2 and AP.sesiones_pid = ${idsesion} ")
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				caseid = rs.getString("caseid");
+				prueba = rs.getString("prueba_pid");
+				username2 = rs.getString("username");
+			}
+			errorLog+="2";
+			if(!prueba.equals("") && !prueba.equals("null") && prueba != null ){
+				boolean update = false;
+				errorLog+="3";
+				pstm = con.prepareStatement(" SELECT * FROM paselista WHERE prueba_pid = ${prueba} and username = '${username2}'")
+				rs= pstm.executeQuery();
+				if(rs.next()) {
+					update = true;
+				}
+				errorLog+="4";
+				String jsdonPaseLista = "{\"prueba\":${prueba},\"username\":\"${username2}\",\"asistencia\":true,\"usuarioPaseLista\":\"${username}\"}";
+				if(update) {
+					errorLog+="5";
+					dataResult = new SesionesDAO().updatePaseLista(jsdonPaseLista);
+				}else {
+					errorLog+="6";
+					dataResult = new SesionesDAO().insertPaseLista(jsdonPaseLista);
+				}
+				errorLog+="7";
+				
+				String usuario = "";
+				String password = "";
+				
+				/*-------------------------------------------------------------*/
+				LoadParametros objLoad = new LoadParametros();
+				PropertiesEntity objProperties = objLoad.getParametros();
+				usuario = objProperties.getUsuario();
+				password = objProperties.getPassword();
+				/*-------------------------------------------------------------*/
+				
+				org.bonitasoft.engine.api.APIClient apiClient = new APIClient() //context.getApiClient();
+				apiClient.login(usuario, password);
+				//context.getApiClient().getProcessAPI();
+				ProcessAPI processAPI = apiClient.getProcessAPI();
+				Map<String, Serializable> rows = new HashMap<String, Serializable>();
+				
+				rows.put("asistenciaPsicometrico", true);
+				processAPI.updateProcessDataInstances(Long.parseLong(caseid),rows)
+				errorLog +="8";
+			}
+			
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(dataResult.toString())
+			resultado.setError(errorLog);
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(errorLog);
+			resultado.setError_info(e.getMessage())
+		}
+		return resultado
 	}
 	
 	

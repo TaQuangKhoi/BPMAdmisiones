@@ -61,7 +61,8 @@
                     {{row.promediogeneral}}
                 </td>
                 <td>
-                    {{row.fechaultimamodificacion | date:'dd-MM-yyyy HH:mm:ss'}}
+                    {{row.fechaultimamodificacion | date:'dd-MM-yyyy HH:mm:ss'}}<br>
+                    <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                 </td>
                 <!--td>
                     {{row.updateDate}}

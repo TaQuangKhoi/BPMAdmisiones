@@ -14,9 +14,11 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         reader = new FileReader();
         
         
-        if (reader.readAsBinaryString) {
+        if (reader.readAsText) {
+        //if (reader.readAsBinaryString) {
             reader.onload = function (e) {
-                ProcessExcel(e.target.result);
+                processData(e.target.result)
+                //ProcessExcel(e.target.result);
             };
                 reader.readAsBinaryString(file);
             } else {
@@ -32,6 +34,26 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 reader.readAsArrayBuffer(file);
             }
     };
+    function processData(allText){
+        var allTextLines = allText.split(/\r\n|\n/);
+        var headers = allTextLines[0].split(',');
+        var lines = [];
+        if(allTextLines.length > 1){
+            for (var i=1; i<allTextLines.length; i++) {
+                var data = allTextLines[i].split(',');
+                if (data.length == headers.length) {
+                    var tarr = [];
+                    for (var j=0; j<headers.length; j++) {
+                        tarr[headers[j]] = data[j];
+                    }
+                    lines.push(needValues(tarr));
+                }
+            }
+            auditoria(lines)
+            $scope.$apply(); 
+        }
+        
+    }
     
     function uploadFile(fileObject){
         let url = "/bonita/API/extension/AnahuacRest?url=getInformacionResultado&p=0&c=100";
@@ -88,8 +110,9 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         if(!isNullOrUndefined(row) ){
             row.forEach(datos =>{
                 count++;
-                var info = angular.copy(datos);
+                var info = datos;
                 //info.fechaExamen = info['Fecha de examen']
+                debugger;
                 let paso = validacion(info);
                 if(paso){
                     info.tipoExamen = "KP";
@@ -246,6 +269,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en la sesion subida"}]
             }else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
+                datos[indice].caseId  = info.caseId;
                 $scope.final = [ ...$scope.final,datos[indice]]
             }
         })

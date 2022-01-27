@@ -1894,6 +1894,15 @@ class Index implements RestApiController {
 					}
 					break;
 					
+				case "nuevoCasoSolicitud":
+					result = reDAO.nuevoCasoSolicitud(jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "RealizarRespaldo":
 					result = reDAO.RealizarRespaldo(jsonData, context)
 					if (result.isSuccess()) {
@@ -1964,6 +1973,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				case "postUpdatePeriodoVencido":
+					result = new SolicitudUsuarioDAO().postUpdatePeriodoVencido(jsonData)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "getPadreVencido":
 					result = suDAO.getPadreVencido(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -2056,7 +2075,7 @@ class Index implements RestApiController {
 					String key = request.getParameter "key";
 					String intento = request.getParameter "intento";
 					Boolean tipoTabla = request.getParameter "tipoTabla";
-					result = suDAO.updateViewDownloadSolicitud(key, intento, tipoTabla, jsonData, context)
+					result = suDAO.updateViewDownloadSolicitud(parameterP, parameterC, key, intento, tipoTabla, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

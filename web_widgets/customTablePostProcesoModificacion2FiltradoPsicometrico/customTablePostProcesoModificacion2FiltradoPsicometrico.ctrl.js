@@ -1,36 +1,36 @@
 function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.isArray = Array.isArray;
-    
-    $scope.redirecc = function(row){
-        
+
+    $scope.redirecc = function(row) {
+
         let str = {
-            "username":row.correoelectronico,
-            "idbanner":row.idbanner
+            "username": row.correoelectronico,
+            "idbanner": row.idbanner
         };
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=postBitacoraSesiones&p=0&c=10",
             data: str,
         };
-         return $http(req)
-            .success(function (data, status) {
-                if(data.data.length < 1){
-                    swal("¡El aspirante aún no ha seleccionado una sesión!","","info")
-                }else{
-                    var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username="+row.correoelectronico+"&nombre="+`${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}`+"&idbanner="+row.idbanner;
+        return $http(req)
+            .success(function(data, status) {
+                if (data.data.length < 1) {
+                    swal("¡El aspirante aún no ha seleccionado una sesión!", "", "info")
+                } else {
+                    var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username=" + row.correoelectronico + "&nombre=" + `${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}` + "&idbanner=" + row.idbanner;
                     window.open(url, '_blank');
                 }
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function () {
-                
+            .finally(function() {
+
                 blockUI.stop();
             });
-        
-        
+
+
     }
 
     this.isClickable = function() {
@@ -73,50 +73,102 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
+        if ($scope.isPeriodoVencido(rowData.periodofin)) {
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
 
-        return $http(req)
-            .success(function(data, status) {
+                var req = {
+                    method: "GET",
+                    url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                };
 
-            blockUI.start();
-            var req2 = {
+                return $http(req)
+                    .success(function(data, status) {
+
+                        blockUI.start();
+                        var req2 = {
+                            method: "GET",
+                            url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                        };
+
+                        $http(req2)
+                            .success(function(data2, status) {
+
+                                var url = "/apps/administrativo/appPsicometricoV3/?taskId=[TASKID]&id=[ID]&intento=[COUNTRECHAZO]";
+                                if (data2.length > 0) {
+                                    if (parseFloat(data2[0].processId.version) >= 1.51) {
+                                        url = url.replace("[ID]", data2[0].caseId);
+                                        url = url.replace("[TASKID]", data2[0].id);
+                                        url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null ? (rowData.countrechazo == null ? "null" : rowData.countrechazo) : rowData.countrechazos);
+                                        window.open(url, '_blank');
+                                    }
+
+                                } else {
+                                    url = url.replace("[TASKID]", "");
+                                }
+
+
+                            })
+                            .error(function(data, status) {
+                                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                            })
+                            .finally(function() {
+
+                                blockUI.stop();
+                            });
+                    })
+                    .error(function(data, status) {
+                        console.error(data);
+                    })
+                    .finally(function() {});
+
+
+            });
+        } else {
+            var req = {
                 method: "GET",
-                url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
             };
 
-            $http(req2)
-                .success(function(data2, status) {
-                    
-                var url = "/apps/administrativo/appPsicometricoV3/?taskId=[TASKID]&id=[ID]&intento=[COUNTRECHAZO]";
-                if (data2.length > 0) {
-                    if(parseFloat(data2[0].processId.version)>=1.51){
-                        url = url.replace("[ID]",data2[0].caseId);
-                        url = url.replace("[TASKID]", data2[0].id);
-                        url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );
-                        window.open(url, '_blank');
-                    }
-                    
-                } else {
-                    url = url.replace("[TASKID]", "");
-                }
-                
-               
+            return $http(req)
+                .success(function(data, status) {
+
+                    blockUI.start();
+                    var req2 = {
+                        method: "GET",
+                        url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                    };
+
+                    $http(req2)
+                        .success(function(data2, status) {
+
+                            var url = "/apps/administrativo/appPsicometricoV3/?taskId=[TASKID]&id=[ID]&intento=[COUNTRECHAZO]";
+                            if (data2.length > 0) {
+                                if (parseFloat(data2[0].processId.version) >= 1.51) {
+                                    url = url.replace("[ID]", data2[0].caseId);
+                                    url = url.replace("[TASKID]", data2[0].id);
+                                    url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null ? (rowData.countrechazo == null ? "null" : rowData.countrechazo) : rowData.countrechazos);
+                                    window.open(url, '_blank');
+                                }
+
+                            } else {
+                                url = url.replace("[TASKID]", "");
+                            }
+
+
+                        })
+                        .error(function(data, status) {
+                            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                        })
+                        .finally(function() {
+
+                            blockUI.stop();
+                        });
                 })
                 .error(function(data, status) {
-                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                    console.error(data);
                 })
-                .finally(function() {
-
-                    blockUI.stop();
-                });
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+                .finally(function() {});
+        }
     }
     $scope.isenvelope = false;
     $scope.selectedrow = {};
@@ -460,4 +512,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function() {});
     }
+    $scope.isPeriodoVencido = function(periodofin) {
+        var fecha = new Date(periodofin.slice(0, 10))
+        return fecha < new Date();
+    }
+
 }

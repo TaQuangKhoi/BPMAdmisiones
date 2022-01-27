@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1640195786109,
+  "lastUpdate" : 1642702822833,
   "rows" : [
     [
       {
@@ -11241,7 +11241,8 @@
                 "userId" : "users.user_id",
                 "Bachilleratopersistenceid" : "Bachilleratopersistenceid",
                 "formInput" : "",
-                "urlDireccion" : "urlDireccion"
+                "urlDireccion" : "urlDireccion",
+                "isVencido" : "isPeriodoVencido.isVencido"
               }
             }
           ]
@@ -18189,8 +18190,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18219,8 +18220,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18249,8 +18250,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18297,6 +18298,68 @@
         "reference" : "144ef76d-965f-4771-9d52-940f695ac141",
         "hasValidationError" : false,
         "id" : "customMismodomiciliotutor"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 3,
+          "lg" : 3
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catPeriodo.data"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlInfo" : {
+            "type" : "expression",
+            "value" : "DatoUrlGetInfo"
+          },
+          "urlPost" : {
+            "type" : "constant",
+            "value" : "postUpdatePeriodoVencido"
+          },
+          "caseId" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.caseId"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "isPeriodoVencido.isVencido"
+          }
+        },
+        "reference" : "ccd41851-0756-4521-a47e-3d590a173395",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfoModalRestrictivo"
       }
     ]
   ],
@@ -23755,6 +23818,22 @@
         "        $data.jsonModificarTutor.calle = capitalizeText($data.jsonModificarTutor.calle);\r",
         "    }\r",
         "}\r"
+      ],
+      "exposed" : false
+    },
+    "DatoUrlGetInfo" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.catSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
+        "}"
       ],
       "exposed" : false
     }

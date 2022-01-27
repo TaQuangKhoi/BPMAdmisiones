@@ -23,11 +23,15 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                sw2Action()
-                console.log(data);
+                $scope.properties.returnValue = data.data[0].isVencido;
+                if(data.data[0].isVencido == true){
+                    sw2Action()    
+                }
+                console.log("datos is vencido"+data);
             })
             .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                $scope.properties.returnValue = false;
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             }).finally(function() {
 
                 blockUI.stop();
@@ -36,21 +40,22 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
     
     
     async function sw2Action(){
-        
+        debugger;
         let options = {};
         $scope.properties.value.forEach( element =>{
-           options[element.clave] = element.descripcion; 
+           options[element.persistenceId] = element.descripcion; 
         });
         
         const { value } = await Swal.fire({
-            title: 'Se tiene que seleccionar un periodo nuevo ',
+            title: 'El periodo que ha seleccionado ha vencido, deberas seleccionar otro para poder continuar con la solicitud',
             input: 'select',
             allowOutsideClick:false,
             inputOptions: options,
             inputPlaceholder: 'Seleccionar un periodo activo',
-            showCancelButton: false,
+            showCancelButton: true,
+            cancelButtonText:'continuar en otra ocasión',
             confirmButtonText: 'Guardar periodo',
-            confirmButtonColor: "FF5900",
+            confirmButtonColor: "#FF5900",
             inputValidator: (value) => {
                 return new Promise((resolve) => {
                     if (value !== "") {
@@ -62,10 +67,41 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
             }
         })
         if (value) {
-            
-            Swal.fire(`El periodo seleccionado es ${options[value]}`)
+            doRequest2(value)
+            //Swal.fire(`El periodo seleccionado es ${options[value]}`)
+        }else{
+            Swal.fire(`No se selecciono algun periodo`)
         }
         
+    }
+    
+    function doRequest2(persistenceid) {
+        let info = angular.copy({
+                "persistenceid": persistenceid+"",
+                "caseid": $scope.properties.caseId+"",
+            })
+        blockUI.start();
+        var req = {
+            method: "POST",
+            url: `/bonita/API/extension/AnahuacRest?url=${$scope.properties.urlPost}&p=0&c=100`,
+            data: info
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                 Swal.fire(`sea actualizado el periodo correctamente`)
+                 setTimeout(()=>{
+                     location.reload();
+                 }, 1000);
+                 
+            })
+            .error(function(data, status) {
+                Swal.fire(`sea sucitado un error al actualizar el periodo`)
+                
+            }).finally(function() {
+
+                blockUI.stop();
+            });
     }
 
 }

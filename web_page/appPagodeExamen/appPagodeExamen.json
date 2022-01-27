@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1639508440133,
+  "lastUpdate" : 1642792305880,
   "rows" : [
     [
       {
@@ -6910,6 +6910,34 @@
           ]
         ]
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "solicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "objectSolicitud"
+          }
+        },
+        "reference" : "db7ff58c-728f-4fc5-be69-a9b676cd5132",
+        "hasValidationError" : false,
+        "id" : "customWdgPeriodoVencido"
+      }
     ]
   ],
   "assets" : [
@@ -7775,6 +7803,35 @@
       "type" : "constant",
       "value" : [
         "https://procesos.bpm.anahuac.mx/apps/login/admisiones/"
+      ],
+      "exposed" : false
+    },
+    "urlParametro" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.objectSolicitud.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "objTipoLicenciatura" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.objectSolicitud.catGestionEscolar.tipoLicenciatura"
+      ],
+      "exposed" : false
+    },
+    "catPeriodo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivo&p=0&c=10&tipo={{objTipoLicenciatura}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{ \"isVencido\":false }"
       ],
       "exposed" : false
     }
