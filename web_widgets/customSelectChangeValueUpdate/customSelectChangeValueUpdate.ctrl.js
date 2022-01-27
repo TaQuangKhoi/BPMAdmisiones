@@ -85,12 +85,12 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
             $scope.properties.catSolicitudDeAdmision.codigoPostal = "";
             $scope.properties.haveCiudad = false;
             $scope.properties.datosCP = undefined;
-            $scope.properties.catSolicitudDeAdmision.calle = "";
-            $scope.properties.catSolicitudDeAdmision.calle2 = "";
-            $scope.properties.catSolicitudDeAdmision.numExterior = "";
-            $scope.properties.catSolicitudDeAdmision.numInterior = "";
-            $scope.properties.catSolicitudDeAdmision.telefono = "";
-            $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = "";
+            //$scope.properties.catSolicitudDeAdmision.calle = "";
+            //$scope.properties.catSolicitudDeAdmision.calle2 = "";
+            //$scope.properties.catSolicitudDeAdmision.numExterior = "";
+            //$scope.properties.catSolicitudDeAdmision.numInterior = "";
+            //$scope.properties.catSolicitudDeAdmision.telefono = "";
+            //$scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = "";
         } else {
             
             $scope.properties.catSolicitudDeAdmision.ciudad = objAuxData.ciudad;
@@ -99,12 +99,12 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
             $scope.properties.catSolicitudDeAdmision.codigoPostal = objAuxData.codigoPostal;
             $scope.properties.haveCiudad = false;
             $scope.properties.datosCP = undefined;
-            $scope.properties.catSolicitudDeAdmision.calle = objAuxData.calle;
-            $scope.properties.catSolicitudDeAdmision.calle2 = objAuxData.calle2;
-            $scope.properties.catSolicitudDeAdmision.numExterior = objAuxData.numExterior;
-            $scope.properties.catSolicitudDeAdmision.numInterior = objAuxData.numInterior;
-            $scope.properties.catSolicitudDeAdmision.telefono = objAuxData.telefono;
-            $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = objAuxData.otroTelefonoContacto;
+            //$scope.properties.catSolicitudDeAdmision.calle = objAuxData.calle;
+            //$scope.properties.catSolicitudDeAdmision.calle2 = objAuxData.calle2;
+            //$scope.properties.catSolicitudDeAdmision.numExterior = objAuxData.numExterior;
+            //$scope.properties.catSolicitudDeAdmision.numInterior = objAuxData.numInterior;
+            //$scope.properties.catSolicitudDeAdmision.telefono = objAuxData.telefono;
+            //$scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = objAuxData.otroTelefonoContacto;
         }
 
     }

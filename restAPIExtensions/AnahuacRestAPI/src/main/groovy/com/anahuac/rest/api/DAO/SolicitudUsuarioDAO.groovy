@@ -912,8 +912,16 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 			Date formatoFechaNacimiento = output.parse(fechaOutput);
 			fechaOutput = output.format(formatoFechaNacimiento)
 		}
-
-        if (key.equals("IP")) {
+		
+		if (key.equals("IS")) {
+			pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_SOLICITUD.replace("[TABLA]", replaceTableSolicitud));
+			errorLog += "Sección: Información solicitud | "+pstm;
+			pstm.setLong(1, object.periodo_pid);
+			pstm.setLong(2, object.caseid);
+			pstm.setString(3, object.correoElectronico);
+			errorLog += "Fin sección: Información solicitud | "+pstm;
+			
+		} else if (key.equals("IP")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PERSONAL.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información personal | "+pstm;
             pstm.setString(1, object.primerNombre);
@@ -1193,7 +1201,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
-        if(key.equals("IP") || key.equals("DP") || key.equals("IB") || key.equals("CE")) {
+        if(key.equals("IP") || key.equals("DP") || key.equals("IB") || key.equals("CE") || key.equals("IS")) {
             pstm.executeUpdate();
         }
         errorLog += "Se ejecuto el update correctamente - Consulta | " + pstm;

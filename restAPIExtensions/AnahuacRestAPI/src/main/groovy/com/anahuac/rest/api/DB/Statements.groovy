@@ -312,9 +312,9 @@ class Statements {
 
 
 	//insert importacion PAA
-	public static final String INSERT_IMPORTACIONPAA = "INSERT INTO IMPORTACIONPAA (idBanner,paan,la1,la2,la3,la4,pg1,pg2,pg3,pg4,pg5,pv1,pv4,paav,leo1,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,total,fechaExamen,lexiumPaan,LexiumPaav,lexiumPara,lexiumTotal,tipoExamen,invp,sesion_pid,fechaRegistro,persistenceid) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,TO_CHAR( NOW(),'DD-MM-YYYY'),case when (SELECT max(persistenceId)+1 from importacionpaa ) is null then 1 else (SELECT max(persistenceId)+1 from importacionpaa) end )"
+	public static final String INSERT_IMPORTACIONPAA = "INSERT INTO IMPORTACIONPAA (idBanner,paan,la1,la2,la3,la4,pg1,pg2,pg3,pg4,pg5,pv1,pv4,paav,leo1,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,total,fechaExamen,lexiumPaan,LexiumPaav,lexiumPara,lexiumTotal,tipoExamen,invp,sesion_pid,caseid,fechaRegistro,persistenceid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,TO_CHAR( NOW(),'DD-MM-YYYY'),case when (SELECT max(persistenceId)+1 from importacionpaa ) is null then 1 else (SELECT max(persistenceId)+1 from importacionpaa) end )"
 
-	public static final String UPDATE_IMPORTACIONPAA = "UPDATE IMPORTACIONPAA SET paan = ?,la1 = ?,la2 = ?,la3 = ?,la4 = ?,pg1 = ?,pg2 = ?,pg3 = ?,pg4 = ?,pg5 = ?,pv1 = ?,pv4 = ?,paav = ?,leo1 = ?,leo3 = ?,leo4 = ?,leo5 = ?,cit1 = ?,cit2 = ?,para = ?,hi1 = ?,hi2 = ?,hi3 = ?,hi4 = ?,hi5 = ?,hi6 = ?,total = ?,lexiumPaan = ?,LexiumPaav = ?,lexiumPara = ?,lexiumTotal = ?,tipoExamen = ?,invp = ?,fechaExamen = ?,fechaRegistro = TO_CHAR( NOW(),'DD-MM-YYYY') WHERE persistenceid = ? and idBanner = ?"
+	public static final String UPDATE_IMPORTACIONPAA = "UPDATE IMPORTACIONPAA SET paan = ?,la1 = ?,la2 = ?,la3 = ?,la4 = ?,pg1 = ?,pg2 = ?,pg3 = ?,pg4 = ?,pg5 = ?,pv1 = ?,pv4 = ?,paav = ?,leo1 = ?,leo3 = ?,leo4 = ?,leo5 = ?,cit1 = ?,cit2 = ?,para = ?,hi1 = ?,hi2 = ?,hi3 = ?,hi4 = ?,hi5 = ?,hi6 = ?,total = ?,lexiumPaan = ?,LexiumPaav = ?,lexiumPara = ?,lexiumTotal = ?,tipoExamen = ?,invp = ?,fechaExamen = ?,fechaRegistro = TO_CHAR( NOW(),'DD-MM-YYYY') WHERE persistenceid = ? and idBanner = ? AND caseid = ?"
 
 	public static final String UPDATE_INVP = "UPDATE IMPORTACIONPAA SET INVP = ? where fecharegistro = ? and idbanner = ? ";
 
@@ -587,4 +587,5 @@ class Statements {
 	public static final String UPDATE_SECCION_INFORMACION_MADRE = "UPDATE [TABLA] SET cattitulo_pid = ?, nombre = ?, apellidos = ?, correoelectronico = ?, catescolaridad_pid = ?, categresoanahuac_pid = ?, cattrabaja_pid = ?, giroempresa = ?, puesto = ?  [COLUMN] [WHERE]";
 	public static final String UPDATE_SECCION_DOMICILIO_MADRE = "UPDATE [TABLA] SET catpais_pid = ?, codigopostal = ?, estadoExtranjero = ?, catestado_pid = ?, ciudad = ?, delegacionmunicipio = ?, colonia = ?, calle = ?, numeroexterior = ?, numerointerior = ?, telefono = ?, vivecontigo = ? [WHERE]";
 	public static final String UPDATE_SECCION_CONTACTO_EMERGENCIA = "UPDATE [TABLA] SET nombre = ?, parentesco = ?, telefono = ?, telefonoCelular = ? WHERE caseid = ? AND catparentesco_pid = ? AND persistenceid = ?";
+	public static final String UPDATE_SECCION_INFORMACION_SOLICITUD = "UPDATE [TABLA] SET catperiodo_pid = ? WHERE caseid = ? AND correoelectronico = ?";
 }

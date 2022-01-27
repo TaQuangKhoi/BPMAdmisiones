@@ -36,7 +36,8 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
                     $scope.properties.datosPreparatoria.persistenceId =  $scope.properties.availableValues[x].persistenceId;
                     $scope.properties.datosPreparatoria.clave =  $scope.properties.availableValues[x].clave;
                     $scope.properties.clavePrepaSeleccionada = $scope.properties.availableValues[x].descripcion;
-
+                    
+                    $scope.$apply()
                 break;
             }
         }
