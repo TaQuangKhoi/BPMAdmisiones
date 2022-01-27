@@ -164,6 +164,37 @@
             <queries/>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+            <fields>
+                <field type="STRING" length="255" name="username" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="idAlumno" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="costoMensualColegiatura" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatTienesHijos" fetchType="LAZY" name="catTienesHijos" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="calificacionOficialPreparatoria" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="nombreTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="telefonoCasaTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="telefonoOficinaTutor" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatSexo" fetchType="LAZY" name="catSexoTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="telefonoCelularTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="parentescoTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="correoElectronicoTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="viveMismoDocimicilioAlumnoTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="maximoNivelEstudiosTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="ocupacionTutor" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatProvienenIngresos" fetchType="LAZY" name="catProvienenIngresos" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="ingresoMensualNetoTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="empresaTutor" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="puestoTutor" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatTipoInversionesPosee" fetchType="LAZY" name="catTipoInversionesPosee" nullable="true" collection="true"/>
+                <field type="LONG" length="255" name="pageIndex" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.bitacora.CatBitacoraComentarios">
             <fields>
                 <field type="TEXT" length="255" name="comentario" nullable="true" collection="false"/>
