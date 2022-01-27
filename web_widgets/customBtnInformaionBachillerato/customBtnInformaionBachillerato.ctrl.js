@@ -26,7 +26,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.ObjetoInformacionBachillerato = {
 
     
-    "bachillerato_pid": $scope.properties.dataToSend.catBachilleratos.persistenceId,
+    "bachillerato_pid": $scope.properties.dataToSend.catBachilleratos.persistenceid,
     "nombreBachillerato": $scope.properties.datosPreparatoria.nombreBachillerato,
     "paisBachillerato": $scope.properties.datosPreparatoria.paisBachillerato,
     "estadoBachillerato": $scope.properties.datosPreparatoria.estadoBachillerato,
