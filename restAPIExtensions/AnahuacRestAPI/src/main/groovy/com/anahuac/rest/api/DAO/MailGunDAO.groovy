@@ -189,6 +189,8 @@ class MailGunDAO {
 		
 		return resultado
 	}
+	
+	
 	public Result sendEmailPlantilla(String correo, String asunto, String body, String cc, String campus,RestAPIContext context ) {
 		Result resultado = new Result()
 		ProcessDefinition objProcessDefinition
