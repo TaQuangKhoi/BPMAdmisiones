@@ -2175,7 +2175,7 @@ class ReactivacionDAO {
 			con.setAutoCommit(false)
 			errorLog+=",INICIO lstInformacionEscolar_ref";
 			List<Long> lstEscuelasHasEstadoids = new ArrayList()
-			pstm = con prepareStatement("SELECT  md.data_id FROM ref_biz_data_inst data  INNER JOIN multi_biz_data md on md.id=data.id where proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
+			pstm = con.prepareStatement("SELECT  md.data_id FROM ref_biz_data_inst data  INNER JOIN multi_biz_data md on md.id=data.id where proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
 			rs = pstm.executeQuery()
 			while(rs.next()) {
 				lstEscuelasHasEstadoids.add(rs.getLong("data_id"))
