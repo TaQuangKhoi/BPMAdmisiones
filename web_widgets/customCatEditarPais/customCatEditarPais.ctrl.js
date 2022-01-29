@@ -12,7 +12,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   this.getLabel = createGetter($scope.properties.displayedKey) || function (item) {
     return typeof item === 'string' ? item : JSON.stringify(item);
   };
-  debugger
+
   this.getValue = createGetter($scope.properties.returnedKey) || function (item) {
     return item;
   };
@@ -33,7 +33,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   $scope.$watchCollection('properties.availableValues', function(items) {
     if (Array.isArray(items)) {
       var foundItem = ctrl.findSelectedItem(items);
-      debugger
+
       //force IE9 to rerender option list
       if ($window.navigator && $window.navigator.userAgent && $window.navigator.userAgent.indexOf('MSIE 9') >= 0) {
         var option = document.createElement('option');
@@ -50,7 +50,6 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   });
 
   $scope.$watch('properties.value', function(value) {
-    debugger
     if (angular.isDefined(value) && value !== null) {
       var items = $scope.properties.availableValues;
       if (Array.isArray(items)) {
