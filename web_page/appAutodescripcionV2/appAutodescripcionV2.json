@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1643648423913,
+  "lastUpdate" : 1643664318218,
   "rows" : [
     [
       {
@@ -15982,7 +15982,7 @@
         "        })),\r",
         "        lstInformacionEscolarInput: $data.lstInformacionEscolarMod,\r",
         "        catSolicitudDeAdmisionInput:{\r",
-        "            catReligion: $data.objectSolicitud.catReligion\r",
+        "            catReligion: $data.objectSolicitud?.catReligion\r",
         "        }\r",
         "    }\r",
         "    try{\r",
@@ -16009,10 +16009,10 @@
         "    }\r",
         "    \r",
         "} catch (t) {\r",
-        "    console.log(\"---------------------------------------------------\")\r",
+        "    console.error(\"---------------------------------------------------\")\r",
         "    console.error(t)\r",
-        "    console.log(\"---------------------------------------------------\")\r",
-        "    resultado = {\r",
+        "    console.error(\"---------------------------------------------------\")\r",
+        "    /*resultado = {\r",
         "        isAutodescripcionTerminadaCont: $data.formInput.isAutodescripcionTerminadaCont,\r",
         "        autodescripcionV2Input: {\r",
         "            comoEstaConformadaFamilia:  \"\", \r",
@@ -16100,7 +16100,7 @@
         "        catSolicitudDeAdmisionInput:{\r",
         "            catReligion: $data.objectSolicitud.catReligion\r",
         "        }\r",
-        "    }\r",
+        "    }*/\r",
         "}\r",
         "return resultado;"
       ],
