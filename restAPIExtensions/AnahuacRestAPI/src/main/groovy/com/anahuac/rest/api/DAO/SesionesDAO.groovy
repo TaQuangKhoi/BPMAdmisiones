@@ -5926,7 +5926,7 @@ class SesionesDAO {
 			consulta=consulta.replace("[WHERE]", where);
 
 			errorlog+=consulta;			
-			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro, ri.caseId", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 			rs = pstm.executeQuery()
 			if(rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))

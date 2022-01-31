@@ -486,7 +486,6 @@ class ImportacionPAADAO {
 					 if(rs.next()) {
 						 columns.put("caseId", rs.getString("caseid"));
 					 }
-					  
 					 estatus.add(columns)
 					 
 				 }

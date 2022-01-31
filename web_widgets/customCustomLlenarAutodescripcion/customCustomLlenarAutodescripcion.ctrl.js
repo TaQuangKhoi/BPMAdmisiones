@@ -24,7 +24,7 @@ function ($scope, blockUI, $http) {
     }
     
     $scope.$watch("properties.objetoAutodescripcion",function(){
-        if($scope.properties.objetoAutodescripcion !== undefined){
+        if($scope.properties.objetoAutodescripcion !== undefined && $scope.properties.objetoAutodescripcion.caseId != null){
             $scope.properties.formInput = $scope.properties.objetoAutodescripcion;
             $scope.properties.selectedIndex = $scope.properties.formInput.pageIndex === undefined ? -1 : $scope.properties.formInput.pageIndex;
             $scope.properties.formInput.hermanos = [];
