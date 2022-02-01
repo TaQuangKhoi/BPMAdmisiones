@@ -2175,7 +2175,7 @@ class ReactivacionDAO {
 			con.setAutoCommit(false)
 			errorLog+=",INICIO lstInformacionEscolar_ref";
 			List<Long> lstEscuelasHasEstadoids = new ArrayList()
-			pstm = con prepareStatement("SELECT  md.data_id FROM ref_biz_data_inst data  INNER JOIN multi_biz_data md on md.id=data.id where proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
+			pstm = con.prepareStatement("SELECT  md.data_id FROM ref_biz_data_inst data  INNER JOIN multi_biz_data md on md.id=data.id where proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
 			rs = pstm.executeQuery()
 			while(rs.next()) {
 				lstEscuelasHasEstadoids.add(rs.getLong("data_id"))
@@ -2235,9 +2235,10 @@ class ReactivacionDAO {
 				
 				org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
 				apiClient.login(username, password)
-				String consulta_bonita = "[\"SELECT id,processinstanceid FROM arch_document_mapping WHERE processinstanceid = ${caseIdOrigen} \"]"
+				String consulta_bonita = "[\"SELECT id,processinstanceid FROM arch_document_mapping WHERE processinstanceid = ${caseIdOrigen} \"]";
 				def bonita = new NotificacionDAO().simpleSelectBonita(0, 0, consulta_bonita, context)?.getData()?.get(0);
 				Document doc = apiClient.getProcessAPI().getArchivedProcessDocument(Long.parseLong(bonita?.id));
+				errorLog+="caso_Archivado:"+bonita?.id;
 				//apiClient.getProcessAPI().updateDocument(101, new DocumentValue(apiClient.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), "Fot_47010.jpg"))
 				apiClient.getProcessAPI().addDocument(Long.parseLong(caseIdDestino),"FotoPasaporte","FotoPasaporte", new DocumentValue(apiClient.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), "Fot_${caseIdDestino}.jpg") )
 				

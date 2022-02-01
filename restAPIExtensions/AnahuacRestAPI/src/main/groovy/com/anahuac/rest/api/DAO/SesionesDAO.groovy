@@ -5926,7 +5926,7 @@ class SesionesDAO {
 			consulta=consulta.replace("[WHERE]", where);
 
 			errorlog+=consulta;			
-			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro, ri.caseId", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 			rs = pstm.executeQuery()
 			if(rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -7009,6 +7009,9 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
+	
+	
 	public Result insertRespuesta(String jsonData) {
 		def jsonSlurper = new JsonSlurper();
 		def object = jsonSlurper.parseText(jsonData);
@@ -7077,6 +7080,18 @@ class SesionesDAO {
 				}
 				
 			}
+			String caseId = "";
+			try {
+				pstm = con.prepareStatement("SELECT ds.caseid FROM detallesolicitud as ds INNER JOIN solicitudDeAdmision as sda ON sda.caseid = ds.caseid::integer WHERE sda.correoelectronico NOT LIKE '%(rechazado)%' and  ds.idbanner = '${idbanner}' limit 1");
+				rs= pstm.executeQuery();
+				if(rs.next()) {
+					caseId = rs.getString("caseid");
+				}
+				 
+			} catch(Exception cd) {
+				errorLog+=", fallo en traer el caseid";
+				caseId = "0";
+			}
 			try {
 				TimeZone tz = TimeZone.getTimeZone("UTC")
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS") // Quoted "Z" to indicate UTC, no timezone offset
@@ -7088,12 +7103,13 @@ class SesionesDAO {
 				rs = pstm.executeQuery()
 				if(!rs.next()) {
 					for (Map.Entry<String,Integer> entry: respuestainvp) {
-						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion,fecha_registro) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0,?)")
+						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid,persistenceid,persistenceversion,fecha_registro,caseId) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0,?,?)")
 						pstm.setString(1, idbanner)
 						pstm.setString(2, entry.getKey())
 						pstm.setInt(3, entry.getValue())
 						pstm.setLong(4, Long.parseLong(sesiones_pid))
 						pstm.setString(5, nowAsISO)
+						pstm.setLong(6, Long.parseLong(caseId))
 						pstm.execute()
 					} 
 					

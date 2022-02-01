@@ -1044,7 +1044,7 @@ class PsicometricoDAO {
 				if(testPsicomInput.sesion_pid == null || Long.parseLong(testPsicomInput.sesion_pid) == 0 ) {
 					pstm.setNull(36, Types.INTEGER);
 				}else {
-					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid) : 0 );					
+					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid.toString()): 0 );					
 				}
 				pstm.executeUpdate();
 			}

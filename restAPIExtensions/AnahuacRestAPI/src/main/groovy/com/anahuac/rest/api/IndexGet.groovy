@@ -826,6 +826,17 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getInfoByIdBanner2":
+				String idbanner=request.getParameter "idbanner"
+				result = new AvanzeProcesoDAO().getInfoByIdBanner2(idbanner)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				case "getIdbanner":
 				String idbanner=request.getParameter "idbanner"
 				result = new SolicitudUsuarioDAO().getIdbanner(0, 9999, idbanner, context)
@@ -1416,6 +1427,7 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				
 				break;
 				case "getTipoEscala":
 				result = new SesionesDAO().getTipoEscala()
