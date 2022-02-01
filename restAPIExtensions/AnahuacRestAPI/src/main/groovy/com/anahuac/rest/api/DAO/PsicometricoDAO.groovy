@@ -1164,50 +1164,55 @@ class PsicometricoDAO {
 			
 			/*========================================================TEST PSICOMETRICO RASGOS ACCIONES========================================================*/
 			strError += "Rasgos | "
-			contador = 0;
-			pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_RASGOS+" AND countRechazo = "+ testPsicomInput.countRechazo);
-			pstm.setString(1, caseId);
-			pstm.executeUpdate();
-			strError = strError + " | " + "-------------------------------------------";
-			if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+			if(object.testPsicomRasgosInput != null && object.testPsicomRasgosInput != "" && object.testPsicomRasgosInput?.size() > 0) {
+				contador = 0;
+				pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_RASGOS+" AND countRechazo = "+ testPsicomInput.countRechazo);
+				pstm.setString(1, caseId);
+				pstm.executeUpdate();
 				strError = strError + " | " + "-------------------------------------------";
-				if (object.testPsicomRasgosInput != null && object.testPsicomRasgosInput != "") {
-					assert object.testPsicomRasgosInput instanceof List;
-					for (def row: object.testPsicomRasgosInput) {
-						rasgo = row.rasgo;
-						calificacion = row.calificacion;
-						
-						assert rasgo instanceof Map;
-						if(calificacion != null ) {
-							assert calificacion instanceof Map;
-						}
-												
-						pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_RASGOS);
-						if(rasgo.persistenceId != null && rasgo.persistenceId != ""){
-							pstm.setInt(1, rasgo.persistenceId);
-						}
-						else {
-							pstm.setNull(1, Types.INTEGER);
-						}
-						if(calificacion != null) {
-							if(calificacion.persistenceId != null && calificacion.persistenceId != ""){
-								pstm.setInt(2, calificacion.persistenceId);
+				if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+					strError = strError + " | " + "-------------------------------------------";
+					if (object.testPsicomRasgosInput != null && object.testPsicomRasgosInput != "") {
+						assert object.testPsicomRasgosInput instanceof List;
+						for (def row: object.testPsicomRasgosInput) {
+							rasgo = row.rasgo;
+							calificacion = row.calificacion;
+							
+							assert rasgo instanceof Map;
+							if(calificacion != null ) {
+								assert calificacion instanceof Map;
+							}
+													
+							pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_RASGOS);
+							if(rasgo.persistenceId != null && rasgo.persistenceId != ""){
+								pstm.setInt(1, rasgo.persistenceId);
 							}
 							else {
+								pstm.setNull(1, Types.INTEGER);
+							}
+							if(calificacion != null) {
+								if(calificacion.persistenceId != null && calificacion.persistenceId != ""){
+									pstm.setInt(2, calificacion.persistenceId);
+								}
+								else {
+									pstm.setNull(2, Types.INTEGER);
+								}
+							} else {
 								pstm.setNull(2, Types.INTEGER);
 							}
-						} else {
-							pstm.setNull(2, Types.INTEGER);
+							pstm.setString(3, caseId);
+							pstm.setBoolean(4, false);
+							pstm.setLong(5, testPsicomInput.countRechazo);
+							
+							pstm.executeUpdate();
+							contador++;
 						}
-						pstm.setString(3, caseId);
-						pstm.setBoolean(4, false);
-						pstm.setLong(5, testPsicomInput.countRechazo);
-						
-						pstm.executeUpdate();
-						contador++;
 					}
 				}
+			}else {
+				strError += " | Rasgos vacios "
 			}
+			
 			/*========================================================TEST PSICOMETRICO RASGOS FIN========================================================*/
 			
 			/*========================================================TEST PSICOMETRICO CARRERAS REC ACCIONES========================================================*/
