@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.Entity.Result
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
@@ -92,10 +93,41 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 					break;
-					case "getCartasNotificaciones":
+				case "getCartasNotificaciones":
 					String campus =request.getParameter "campus"
 					result = new NotificacionDAO().getCartasNotificaciones(campus)
 					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+				case "getSolicitudDeAdmision":
+					String email = request.getParameter "email"
+					result = new SolicitudDeAdmisionDAO().getSolicitudDeAdmision(email);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getInfrmacionEscolar":
+					String email = request.getParameter "email"
+					result = new SolicitudDeAdmisionDAO().getInfrmacionEscolar(email);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getPadresTutorByCaseid":
+					String caseid = request.getParameter "caseid"
+					result = new SolicitudDeAdmisionDAO().getPadresTutorByCaseid(caseid);
+					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
