@@ -35,6 +35,7 @@ import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
+import com.anahuac.rest.api.DAO.FileDownload
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.PruebaCustom
 import com.anahuac.rest.api.Entity.Custom.SesionCustom
@@ -1514,6 +1515,12 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				case "getFileTest":
+				String resultado = new FileDownload().b64Url("https://bpmintegra.blob.core.windows.net/privado/47044/Fot_47044.jpg?sv=2020-04-08&st=2021-05-04T19%3A38%3A43Z&se=2035-02-01T20%3A38%3A00Z&sr=c&sp=r&sig=ZCmK9hcMcFMZRk4PJyDd6BKPtNjRaho3MjCPGVoEnfo%3D&v=0.23659524683358757")
+				responseBuilder.withMediaType("text/plain")
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, resultado)
+				
 				break;
 				
 			}
