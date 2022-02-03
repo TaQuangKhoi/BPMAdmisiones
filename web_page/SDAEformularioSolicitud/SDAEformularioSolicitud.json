@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1643762973636,
+  "lastUpdate" : 1643907383346,
   "rows" : [
     [
       {
@@ -129,58 +129,6 @@
               "reference" : "0c3a474e-7978-4f1a-8f37-67f5648fd8d2",
               "hasValidationError" : false,
               "id" : "customTxtSDAEWatcherFormateoInformacionSolicitud"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "{{getDatosSolicitante}}"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "871de561-3e55-43c8-b461-0d129e1e2953",
-              "hasValidationError" : false,
-              "id" : "pbText"
             }
           ],
           [
@@ -535,7 +483,7 @@
                                   "xs" : 12,
                                   "sm" : 12,
                                   "md" : 12,
-                                  "lg" : 6
+                                  "lg" : 12
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -576,7 +524,7 @@
                                   },
                                   "labelWidth" : {
                                     "type" : "constant",
-                                    "value" : 4
+                                    "value" : 8
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation"
@@ -660,7 +608,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.segundoNombre"
+                                    "value" : "getDatosSolicitante[0].segundoNombre"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -737,7 +685,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.apellidoPaterno"
+                                    "value" : "getDatosSolicitante[0].primerApellido"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -814,7 +762,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.apellidoMaterno"
+                                    "value" : "getDatosSolicitante[0].segundoApellido"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -891,7 +839,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.correoElectronico"
+                                    "value" : "getDatosSolicitante[0].correoElectronico"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1070,71 +1018,6 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "disabled" : {
-                                    "type" : "expression",
-                                    "value" : "vista"
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Sexo:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation",
-                                    "value" : "Selecciona una opción"
-                                  },
-                                  "availableValues" : {
-                                    "type" : "constant"
-                                  },
-                                  "displayedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "returnedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "usuario.catSexo"
-                                  }
-                                },
-                                "reference" : "edc12b2d-570b-4076-b541-5e1c5e0e95ed",
-                                "hasValidationError" : false,
-                                "id" : "pbSelect"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
                                     "value" : false
                                   },
                                   "required" : {
@@ -1174,7 +1057,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.catSexo.descripcion"
+                                    "value" : "getDatosSolicitante[0].sexo"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1240,71 +1123,6 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "disabled" : {
-                                    "type" : "expression",
-                                    "value" : "vista"
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Tipo de ingreso:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation",
-                                    "value" : "Selecciona una opción"
-                                  },
-                                  "availableValues" : {
-                                    "type" : "constant"
-                                  },
-                                  "displayedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "returnedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "01469ecd-b241-448a-bddf-611b3a25d90d",
-                                "hasValidationError" : false,
-                                "id" : "pbSelect"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
                                     "value" : false
                                   },
                                   "required" : {
@@ -1344,7 +1162,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : ""
+                                    "value" : "getDatosSolicitante[0].tipoIngreso"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1412,71 +1230,6 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "disabled" : {
-                                    "type" : "expression",
-                                    "value" : "vista"
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Programa de licenciatura:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation",
-                                    "value" : "Selecciona una opción"
-                                  },
-                                  "availableValues" : {
-                                    "type" : "constant"
-                                  },
-                                  "displayedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "returnedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "a093277d-74ee-432b-8279-1513b9e5bc62",
-                                "hasValidationError" : false,
-                                "id" : "pbSelect"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
                                     "value" : false
                                   },
                                   "required" : {
@@ -1516,7 +1269,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objSolicitudDeAdmision.catGestionEscolar.nombre"
+                                    "value" : "getDatosSolicitante[0].licenciatura"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1582,71 +1335,6 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "disabled" : {
-                                    "type" : "expression",
-                                    "value" : "vista"
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Semestre de ingreso:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation",
-                                    "value" : "Selecciona una opción"
-                                  },
-                                  "availableValues" : {
-                                    "type" : "constant"
-                                  },
-                                  "displayedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "returnedKey" : {
-                                    "type" : "constant"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "ec6e6405-794b-4b0e-a53d-d21b01ab71a7",
-                                "hasValidationError" : false,
-                                "id" : "pbSelect"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
                                     "value" : false
                                   },
                                   "required" : {
@@ -1686,7 +1374,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objSolicitudDeAdmision.catPeriodo.descripcion"
+                                    "value" : "getDatosSolicitante[0].semestreIngreso"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1742,8 +1430,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "vista"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -1766,7 +1454,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "getDatosSolicitante[0].idAlumno"
                             },
                             "type" : {
                               "type" : "constant",
@@ -1868,7 +1556,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.fechaNacimiento | date: 'dd/MM/yyyy'"
+                                    "value" : "getDatosSolicitante[0].fechaNacimiento | date: 'dd/MM/yyyy'"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1948,7 +1636,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "usuario.telefonoCelular"
+                              "value" : "getDatosSolicitante[0].telefonoCelular"
                             },
                             "type" : {
                               "type" : "constant",
@@ -1999,8 +1687,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "vista"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2023,7 +1711,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "getDatosSolicitante[0].trabajas"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2100,7 +1788,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "usuario.catNacionalidad.descripcion"
+                              "value" : "getDatosSolicitante[0].nacionalidad"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2175,7 +1863,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "usuario.catEstadoCivil.descripcion"
+                              "value" : "getDatosSolicitante[0].estadoCivil"
                             },
                             "type" : {
                               "type" : "constant",
@@ -5569,7 +5257,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objPadre.nombre"
+                        "value" : "getDatosPadres[0].nombre"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5721,7 +5409,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objPadre.apellidos"
+                        "value" : "getDatosPadres[0].apellidos"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5796,7 +5484,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objPadre.telefono"
+                        "value" : "getDatosPadres[0].telefono"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5968,7 +5656,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "objPadre.vive.descripcion"
+                              "value" : "getDatosPadres[0].vive"
                             },
                             "type" : {
                               "type" : "constant",
@@ -6046,7 +5734,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objPadre.correoElectronico"
+                        "value" : "getDatosPadres[0].correoElectronico"
                       },
                       "type" : {
                         "type" : "constant",
@@ -12128,6 +11816,182 @@
         "    \"licenciatura\": \"Actuaría\",\r",
         "    \"nacionalidad\": \"Mexicana\"\r",
         "  }\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "getDatosPadres" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "  {\r",
+        "    \"persistenceId\": 717627,\r",
+        "    \"persistenceId_string\": \"717627\",\r",
+        "    \"persistenceVersion\": 0,\r",
+        "    \"persistenceVersion_string\": \"0\",\r",
+        "    \"catTitulo\": {\r",
+        "      \"persistenceId\": 145225,\r",
+        "      \"persistenceId_string\": \"145225\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"clave\": \"LIC\",\r",
+        "      \"descripcion\": \"Lic.\",\r",
+        "      \"fechaCreacion\": \"2021-03-29T13:39:53.538884\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false,\r",
+        "      \"orden\": 4\r",
+        "    },\r",
+        "    \"catParentezco\": {\r",
+        "      \"persistenceId\": 145999,\r",
+        "      \"persistenceId_string\": \"145999\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"clave\": \"P\",\r",
+        "      \"descripcion\": \"Padre\",\r",
+        "      \"fechaCreacion\": \"2021-03-31T19:09:20.814573\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false,\r",
+        "      \"id\": \"4a3f5eec-0b3a-4177-862c-240050f3af77\"\r",
+        "    },\r",
+        "    \"nombre\": \"Alfonso\",\r",
+        "    \"apellidos\": \"Gerardo\",\r",
+        "    \"correoElectronico\": \"mantcep@hotmail.com\",\r",
+        "    \"catEscolaridad\": {\r",
+        "      \"persistenceId\": 145267,\r",
+        "      \"persistenceId_string\": \"145267\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"clave\": \"G\",\r",
+        "      \"descripcion\": \"Grado Técnico\",\r",
+        "      \"fechaCreacion\": \"2021-03-29T13:58:17.35403\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false\r",
+        "    },\r",
+        "    \"catEgresoAnahuac\": {\r",
+        "      \"persistenceId\": 77,\r",
+        "      \"persistenceId_string\": \"77\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"descripcion\": \"No\",\r",
+        "      \"clave\": \"no\",\r",
+        "      \"fechaCreacion\": \"2020-11-17T22:40:00\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false\r",
+        "    },\r",
+        "    \"catCampusEgreso\": null,\r",
+        "    \"catTrabaja\": {\r",
+        "      \"persistenceId\": 49,\r",
+        "      \"persistenceId_string\": \"49\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"descripcion\": \"No\",\r",
+        "      \"fechaCreacion\": \"2020-11-17T22:40:00\",\r",
+        "      \"isEliminado\": false,\r",
+        "      \"usuarioBanner\": \"Administrador\",\r",
+        "      \"fechaImplementacion\": null,\r",
+        "      \"clave\": \"no\",\r",
+        "      \"isEnable\": null\r",
+        "    },\r",
+        "    \"empresaTrabaja\": \"\",\r",
+        "    \"giroEmpresa\": \"\",\r",
+        "    \"puesto\": \"\",\r",
+        "    \"isTutor\": true,\r",
+        "    \"vive\": null,\r",
+        "    \"calle\": \"Dfdsfd\",\r",
+        "    \"catPais\": {\r",
+        "      \"persistenceId\": 145306,\r",
+        "      \"persistenceId_string\": \"145306\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"clave\": \"99\",\r",
+        "      \"descripcion\": \"México\",\r",
+        "      \"fechaCreacion\": \"2021-03-29T16:28:50.680679\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false,\r",
+        "      \"orden\": 1,\r",
+        "      \"caseId\": null,\r",
+        "      \"id\": null\r",
+        "    },\r",
+        "    \"numeroExterior\": \"dsfdsf\",\r",
+        "    \"numeroInterior\": \"\",\r",
+        "    \"catEstado\": {\r",
+        "      \"persistenceId\": 145599,\r",
+        "      \"persistenceId_string\": \"145599\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"clave\": \"M26\",\r",
+        "      \"descripcion\": \"Sonora\",\r",
+        "      \"fechaCreacion\": \"2021-03-29T17:01:08.884438\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false,\r",
+        "      \"pais\": \"México\",\r",
+        "      \"orden\": 26,\r",
+        "      \"caseId\": \"58\"\r",
+        "    },\r",
+        "    \"ciudad\": \"Navojoa\",\r",
+        "    \"colonia\": \"Santa Bárbara\",\r",
+        "    \"telefono\": \"6421197077\",\r",
+        "    \"codigoPostal\": \"85870\",\r",
+        "    \"viveContigo\": true,\r",
+        "    \"otroParentesco\": \"\",\r",
+        "    \"caseId\": 47032,\r",
+        "    \"caseId_string\": \"47032\",\r",
+        "    \"desconozcoDatosPadres\": null,\r",
+        "    \"delegacionMunicipio\": \"Navojoa\",\r",
+        "    \"estadoExtranjero\": \"\",\r",
+        "    \"vencido\": null,\r",
+        "    \"countIntento\": null\r",
+        "  },\r",
+        "  {\r",
+        "    \"persistenceId\": 717628,\r",
+        "    \"persistenceId_string\": \"717628\",\r",
+        "    \"persistenceVersion\": 0,\r",
+        "    \"persistenceVersion_string\": \"0\",\r",
+        "    \"catTitulo\": null,\r",
+        "    \"catParentezco\": {\r",
+        "      \"persistenceId\": 145996,\r",
+        "      \"persistenceId_string\": \"145996\",\r",
+        "      \"persistenceVersion\": 0,\r",
+        "      \"persistenceVersion_string\": \"0\",\r",
+        "      \"clave\": \"M\",\r",
+        "      \"descripcion\": \"Madre\",\r",
+        "      \"fechaCreacion\": \"2021-03-31T19:08:53.82906\",\r",
+        "      \"usuarioCreacion\": \"Administrador\",\r",
+        "      \"isEliminado\": false,\r",
+        "      \"id\": \"9cfff8d0-5c53-4090-9cc6-4d22ddd9eb01\"\r",
+        "    },\r",
+        "    \"nombre\": \"\",\r",
+        "    \"apellidos\": \"\",\r",
+        "    \"correoElectronico\": \"\",\r",
+        "    \"catEscolaridad\": null,\r",
+        "    \"catEgresoAnahuac\": null,\r",
+        "    \"catCampusEgreso\": null,\r",
+        "    \"catTrabaja\": null,\r",
+        "    \"empresaTrabaja\": \"\",\r",
+        "    \"giroEmpresa\": \"\",\r",
+        "    \"puesto\": \"\",\r",
+        "    \"isTutor\": false,\r",
+        "    \"vive\": null,\r",
+        "    \"calle\": \"\",\r",
+        "    \"catPais\": null,\r",
+        "    \"numeroExterior\": \"\",\r",
+        "    \"numeroInterior\": \"\",\r",
+        "    \"catEstado\": null,\r",
+        "    \"ciudad\": \"\",\r",
+        "    \"colonia\": \"\",\r",
+        "    \"telefono\": \"\",\r",
+        "    \"codigoPostal\": \"\",\r",
+        "    \"viveContigo\": false,\r",
+        "    \"otroParentesco\": null,\r",
+        "    \"caseId\": 47032,\r",
+        "    \"caseId_string\": \"47032\",\r",
+        "    \"desconozcoDatosPadres\": true,\r",
+        "    \"delegacionMunicipio\": \"\",\r",
+        "    \"estadoExtranjero\": \"\",\r",
+        "    \"vencido\": null,\r",
+        "    \"countIntento\": 1\r",
+        "  }\r",
+        "\r",
         "]"
       ],
       "exposed" : false
