@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1643665415628,
+  "lastUpdate" : 1643762973636,
   "rows" : [
     [
       {
@@ -129,6 +129,58 @@
               "reference" : "0c3a474e-7978-4f1a-8f37-67f5648fd8d2",
               "hasValidationError" : false,
               "id" : "customTxtSDAEWatcherFormateoInformacionSolicitud"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{getDatosSolicitante}}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "871de561-3e55-43c8-b461-0d129e1e2953",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -531,7 +583,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "usuario.primerNombre"
+                                    "value" : "getDatosSolicitante[0].primerNombre"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -12052,6 +12104,31 @@
         "",
         "",
         "return suma;"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "  {\r",
+        "    \"estadoCivil\": \"Consagrado (a)\",\r",
+        "    \"fechaNacimiento\": \"1999-05-29T01:00:00\",\r",
+        "    \"idAlumno\": \"00541695\",\r",
+        "    \"sexo\": \"Masculino\",\r",
+        "    \"segundoNombre\": \"Acuña\",\r",
+        "    \"trabajas\": \"No\",\r",
+        "    \"telefonoCelular\": \"642150094\",\r",
+        "    \"correoElectronico\": \"daphnee04z_p17d@vixej.com\",\r",
+        "    \"segundoApellido\": \"Garcia\",\r",
+        "    \"primerApellido\": \"Guerrero\",\r",
+        "    \"primerNombre\": \"Rodolfo\",\r",
+        "    \"semestreIngreso\": \"Agosto 2022\",\r",
+        "    \"tipoIngreso\": \"Admisión regular\",\r",
+        "    \"licenciatura\": \"Actuaría\",\r",
+        "    \"nacionalidad\": \"Mexicana\"\r",
+        "  }\r",
+        "]"
       ],
       "exposed" : false
     }
