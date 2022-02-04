@@ -1044,7 +1044,7 @@ class PsicometricoDAO {
 				if(testPsicomInput.sesion_pid == null || Long.parseLong(testPsicomInput.sesion_pid) == 0 ) {
 					pstm.setNull(36, Types.INTEGER);
 				}else {
-					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid) : 0 );					
+					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid.toString()): 0 );					
 				}
 				pstm.executeUpdate();
 			}
@@ -1164,50 +1164,55 @@ class PsicometricoDAO {
 			
 			/*========================================================TEST PSICOMETRICO RASGOS ACCIONES========================================================*/
 			strError += "Rasgos | "
-			contador = 0;
-			pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_RASGOS+" AND countRechazo = "+ testPsicomInput.countRechazo);
-			pstm.setString(1, caseId);
-			pstm.executeUpdate();
-			strError = strError + " | " + "-------------------------------------------";
-			if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+			if(object.testPsicomRasgosInput != null && object.testPsicomRasgosInput != "" && object.testPsicomRasgosInput?.size() > 0) {
+				contador = 0;
+				pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_RASGOS+" AND countRechazo = "+ testPsicomInput.countRechazo);
+				pstm.setString(1, caseId);
+				pstm.executeUpdate();
 				strError = strError + " | " + "-------------------------------------------";
-				if (object.testPsicomRasgosInput != null && object.testPsicomRasgosInput != "") {
-					assert object.testPsicomRasgosInput instanceof List;
-					for (def row: object.testPsicomRasgosInput) {
-						rasgo = row.rasgo;
-						calificacion = row.calificacion;
-						
-						assert rasgo instanceof Map;
-						if(calificacion != null ) {
-							assert calificacion instanceof Map;
-						}
-												
-						pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_RASGOS);
-						if(rasgo.persistenceId != null && rasgo.persistenceId != ""){
-							pstm.setInt(1, rasgo.persistenceId);
-						}
-						else {
-							pstm.setNull(1, Types.INTEGER);
-						}
-						if(calificacion != null) {
-							if(calificacion.persistenceId != null && calificacion.persistenceId != ""){
-								pstm.setInt(2, calificacion.persistenceId);
+				if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+					strError = strError + " | " + "-------------------------------------------";
+					if (object.testPsicomRasgosInput != null && object.testPsicomRasgosInput != "") {
+						assert object.testPsicomRasgosInput instanceof List;
+						for (def row: object.testPsicomRasgosInput) {
+							rasgo = row.rasgo;
+							calificacion = row.calificacion;
+							
+							assert rasgo instanceof Map;
+							if(calificacion != null ) {
+								assert calificacion instanceof Map;
+							}
+													
+							pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_RASGOS);
+							if(rasgo.persistenceId != null && rasgo.persistenceId != ""){
+								pstm.setInt(1, rasgo.persistenceId);
 							}
 							else {
+								pstm.setNull(1, Types.INTEGER);
+							}
+							if(calificacion != null) {
+								if(calificacion.persistenceId != null && calificacion.persistenceId != ""){
+									pstm.setInt(2, calificacion.persistenceId);
+								}
+								else {
+									pstm.setNull(2, Types.INTEGER);
+								}
+							} else {
 								pstm.setNull(2, Types.INTEGER);
 							}
-						} else {
-							pstm.setNull(2, Types.INTEGER);
+							pstm.setString(3, caseId);
+							pstm.setBoolean(4, false);
+							pstm.setLong(5, testPsicomInput.countRechazo);
+							
+							pstm.executeUpdate();
+							contador++;
 						}
-						pstm.setString(3, caseId);
-						pstm.setBoolean(4, false);
-						pstm.setLong(5, testPsicomInput.countRechazo);
-						
-						pstm.executeUpdate();
-						contador++;
 					}
 				}
+			} else {
+				strError += " | Rasgos vacios "
 			}
+			
 			/*========================================================TEST PSICOMETRICO RASGOS FIN========================================================*/
 			
 			/*========================================================TEST PSICOMETRICO CARRERAS REC ACCIONES========================================================*/
@@ -3917,7 +3922,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 	}
 	
 	
-	public Result getFechaSesion(String usuario,String intento) {
+	/*public Result getFechaSesion(String usuario,String intento) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -3965,6 +3970,59 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 				}
 				
 				rows.add(columns);
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+		}catch (Exception e) {
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}*/
+	
+	public Result getFechaSesion(String usuario,String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("SELECT p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.caseid = ${caseid} AND ap.asistencia IS TRUE AND ap.catTipoPrueba_pid = 1 order by ap.persistenceid DESC limit 1" )
+			rs = pstm.executeQuery();
+			
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				rows.add(columns);
+			}
+			if(rows.size() == 0 )  {
+				pstm = con.prepareStatement("SELECT p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.caseid = ${caseid} AND ap.asistencia is false and ap.acreditado IS FALSE AND ap.catTipoPrueba_pid = 1 order by ap.persistenceid DESC limit 1" )
+				rs = pstm.executeQuery();
+				metaData = rs.getMetaData();
+				columnCount = metaData.getColumnCount();
+				while (rs.next()) {
+					Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+					
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+						
+					rows.add(columns);
+				}
 			}
 			resultado.setSuccess(true);
 			resultado.setData(rows);

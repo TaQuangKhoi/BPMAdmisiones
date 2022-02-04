@@ -17,12 +17,34 @@ function ($scope, $http) {
     $scope.$watch("properties.caseId", ()=>{
         if($scope.properties.caseId){
            getPsicom(); 
+           getSesion($scope.properties.caseId);
         }
     });
-    $scope.$watch('properties.idbanner', function(value) {
+    
+    function getSesion(value){
+        vm.busy = true;
+            var dataToSend={"caseId":value}
+            var req = {
+                method: "POST",
+                url: "/bonita/API/extension/AnahuacRest?url=postGetIdSesionByCaseId&p=0&c=9999",
+                data: angular.copy(dataToSend),
+            };
+
+            return $http(req)
+            .success(function(data, status) {
+                $scope.properties.sesionid=data.data[0].idsesion;
+            })
+            .error(function(data, status) {
+                console.error(data)
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+    /*$scope.$watch('properties.idbanner', function(value) {
     if (angular.isDefined(value) && value !== null) {
          vm.busy = true;
-    var dataToSend={"idbanner":value}
+    var dataToSend={"caseid":value}
     var req = {
       method: "POST",
       url: "/bonita/API/extension/AnahuacRest?url=postGetIdSesionByIdBanner&p=0&c=9999",
@@ -40,5 +62,5 @@ function ($scope, $http) {
         vm.busy = false;
       });
     }
-  });
+  });*/
 }

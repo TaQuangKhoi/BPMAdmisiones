@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmisionADV2",
   "name" : "viewValidarSolicitudDeAdmisionADV2",
-  "lastUpdate" : 1640197605475,
+  "lastUpdate" : 1643415593244,
   "rows" : [
     [
       {
@@ -24448,8 +24448,9 @@
     "findByCorreoElectronico" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&f=correoElectronico={{objSolicitudDeAdmision.correoElectronico}}&p=0&c=9999"
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCaseId&f=caseId={{objSolicitudDeAdmision.caseId}}&p=0&c=9999"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "campus" : {
@@ -25371,6 +25372,7 @@
       "type" : "expression",
       "value" : [
         "var estatus = $data.objSolicitudDeAdmision.estatusSolicitud;",
+        "debugger;",
         "var wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }];",
         "if(estatus === \"Solicitud con pago aceptado\" || estatus===\"Validación admisión Anáhuac\" || estatus == \"Validación descuento 100%\" || estatus == \"Validación pago condonado\"){",
         "    wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }, { \"title\" : \"Pago\", \"value\" : \"checkRequest\", \"isValid\": true } ];",
@@ -25393,7 +25395,7 @@
         "            wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }, { \"title\" : \"Pago\", \"value\" : \"checkRequest\", \"isValid\": true }, { \"title\" : \"Información Familiar\", \"value\" : \"autodesc\", \"isValid\": true }, { \"title\" : \"Información Escolar(Autodescripcion)\", \"value\" : \"infoEscolar\", \"isValid\": true }, { \"title\" : \"Información laboral\", \"value\" : \"infoLaboral\", \"isValid\": true }, { \"title\" : \"Idiomas\", \"value\" : \"idiomas\", \"isValid\": true }, { \"title\" : \"Salud\", \"value\" : \"salud\", \"isValid\": true }, { \"title\" : \"Entorno familiar\", \"value\" : \"entornoFam\", \"isValid\": true }, { \"title\" : \"Entorno social\", \"value\" : \"entornoSoc\", \"isValid\": true }, { \"title\" : \"Valoración personal\", \"value\" : \"valoracionPersonal\", \"isValid\": true }, { \"title\" : \"Religión\", \"value\" : \"religion\", \"isValid\": true }, { \"title\" : \"Información vocacional\", \"value\" : \"infoVocacional\", \"isValid\": true },{ \"title\" : \"Sesiones\", \"value\" : \"sesiones\", \"isValid\": true } ];",
         "        }",
         "    });",
-        "}else if(estatus === \"Resultado final del comité\" || estatus === \"Carga y consulta de resultados\" ){",
+        "}else if(estatus === \"Resultado final del comité\" || estatus === \"Carga y consulta de resultados\" || estatus === \"Rechazado por comité\" ){",
         "    wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }, { \"title\" : \"Pago\", \"value\" : \"checkRequest\", \"isValid\": true },{ \"title\" : \"Sesiones\", \"value\" : \"sesiones\", \"isValid\": true }];",
         "    let info = angular.copy($data.membership)",
         "    info.forEach( roles => {",
