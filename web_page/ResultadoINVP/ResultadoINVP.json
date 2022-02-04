@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "ResultadoINVP",
   "name" : "ResultadoINVP",
-  "lastUpdate" : 1643657623964,
+  "lastUpdate" : 1643998787277,
   "rows" : [
     [
       {
@@ -362,7 +362,8 @@
                         "value" : ""
                       },
                       "campoDato" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "idbanner"
                       },
                       "accionNextOrReturn" : {
                         "type" : "constant",
@@ -375,6 +376,10 @@
                       "sesiones" : {
                         "type" : "expression",
                         "value" : "idsesion"
+                      },
+                      "caseid" : {
+                        "type" : "variable",
+                        "value" : "str.caseid"
                       }
                     },
                     "reference" : "63bc5a2c-facf-4763-aaff-63207971540c",
@@ -442,7 +447,8 @@
                         "value" : ""
                       },
                       "campoDato" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "idbanner"
                       },
                       "accionNextOrReturn" : {
                         "type" : "constant",
@@ -455,6 +461,10 @@
                       "sesiones" : {
                         "type" : "expression",
                         "value" : "idsesion"
+                      },
+                      "caseid" : {
+                        "type" : "variable",
+                        "value" : "str.caseid"
                       }
                     },
                     "reference" : "7d35bd0f-ef71-4f5b-b1dc-3a0bf57ab6c4",
@@ -568,7 +578,7 @@
                       },
                       "valorRetorno" : {
                         "type" : "variable",
-                        "value" : "str.idbanner"
+                        "value" : "str.caseid"
                       },
                       "sesiones" : {
                         "type" : "variable",
@@ -577,6 +587,14 @@
                       "valorRetorno2" : {
                         "type" : "variable",
                         "value" : ""
+                      },
+                      "caseid" : {
+                        "type" : "variable",
+                        "value" : "str.caseid"
+                      },
+                      "idbanner" : {
+                        "type" : "variable",
+                        "value" : "str.idbanner"
                       }
                     },
                     "reference" : "37945b66-cb3a-427e-b1d2-3ebf613ebdf8",
@@ -1331,8 +1349,13 @@
     "aspiranteData" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getUserByIdbanner&p=0&c=9999&idbanner={{str.idbanner.length < 1 ? idbanner: str.idbanner}}"
+        "../API/extension/AnahuacRestGet?url=getUserByCaseIdINVP&p=0&c=9999&caseid={{str.caseid.length < 1 ? caseId : str.caseid}}&sesion={{str.sesiones_pid.length < 1 ? idsesion: str.sesiones_pid}}"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "idbanner" : {
@@ -1542,7 +1565,8 @@
       "value" : [
         "{",
         "    \"idbanner\":\"\",",
-        "    \"sesiones_pid\":\"\"",
+        "    \"sesiones_pid\":\"\",",
+        "    \"caseid\":\"\"",
         "}"
       ],
       "exposed" : false

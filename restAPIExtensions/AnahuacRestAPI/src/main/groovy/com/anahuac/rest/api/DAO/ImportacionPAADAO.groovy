@@ -159,7 +159,7 @@ class ImportacionPAADAO {
 							pstm.setString(36,it.IdSesion)
 							pstm.setString(37,it.caseId);
 							pstm.executeUpdate();
-							dataResult = asistenciaCollegeBoard(it.IDBANNER,it.IdSesion,it.username,context);
+							dataResult = asistenciaCollegeBoard(it.IDBANNER,it.IdSesion,it.username,it.caseId,context);
 					}
 					
 				}
@@ -186,21 +186,22 @@ class ImportacionPAADAO {
 		return resultado
 	}
 	
-	public Result asistenciaCollegeBoard(String idbanner,idsesion,username, RestAPIContext context) {
+	public Result asistenciaCollegeBoard(String idbanner,idsesion,username,caseid, RestAPIContext context) {
 		Result resultado = new Result();
 		Result dataResult = new Result();
 		String errorLog = "";
 		try {
-			String caseid = "", prueba="",username2 = "";
+			String  prueba="",username2 = "";
 			errorLog+="1";
 			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 4 and AP.sesiones_pid = ${idsesion} ")
 			rs= pstm.executeQuery();
 			if(rs.next()) {
-				caseid = rs.getString("caseid");
+				//caseid = rs.getString("caseid");
 				prueba = rs.getString("prueba_pid");
 				username2 = rs.getString("username");
 			}
 			errorLog+="2";
+			username2 = username2.replace(" (rechazado)","");
 			if(!prueba.equals("") && !prueba.equals("null") && prueba != null ){
 				boolean update = false;
 				errorLog+="3";
