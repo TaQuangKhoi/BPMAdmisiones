@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1643317168121,
+  "lastUpdate" : 1643931546461,
   "rows" : [
     [
       {
@@ -1627,6 +1627,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Comentarios"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d31386be-86e9-40c7-b4d2-ca935addd77b",
@@ -4004,6 +4008,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Salud"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d239eaef-6fd9-49eb-a89a-363a06ed06e4",
@@ -4919,7 +4927,7 @@
                                   },
                                   "targetUrl" : {
                                     "type" : "expression",
-                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid"
+                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid+\"&caseId=\"+caseId"
                                   },
                                   "pageToken" : {
                                     "type" : "constant"
@@ -8604,8 +8612,9 @@
     "getFechaInvp" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&intento={{intentos}}"
+        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&caseid={{caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "finalizado" : {
