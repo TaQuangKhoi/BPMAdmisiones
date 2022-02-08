@@ -2188,11 +2188,12 @@ class BannerDAO {
 	public Result multiThread(List<Map<String,Object>> threads) {
 		Result result = new Result();
 		String errorLog="[1]"
-		ExecutorService executorService = Executors.newFixedThreadPool(threads.size());
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
 		List<Callable<Result[]>> callableTasks = new ArrayList<>();
 		try {
 			
 			errorLog+="[2]"
+			
 			threads.each { 
 				errorLog+="[2.1]"
 				errorLog+=""+it.toString()

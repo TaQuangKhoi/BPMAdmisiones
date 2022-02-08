@@ -290,7 +290,7 @@ class ImportacionPAADAO {
 				//errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				if(it.tipoExamen.toString().equals("KP")) {
-					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
+					//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
 					coins =  new HashMap < String, Object > ();
 					coins.put("context", context)
 					coins.put("idBanner", it.IDBANNER)

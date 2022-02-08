@@ -1269,6 +1269,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Motivos de ingreso"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "38a29b48-f6ae-4ec2-9a0a-2f72839f9f9e",
@@ -1467,6 +1471,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Rasgos observados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "142f2d07-e8e4-4a5f-9af7-d8f1476996bc",
@@ -7556,7 +7564,7 @@
     "testPsicomRasgos" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
+        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{($data.intentos==null ||$data.intentos==\\\"null\\\")?0:intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
       ],
       "exposed" : false
     },
