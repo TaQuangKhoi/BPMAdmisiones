@@ -7608,21 +7608,24 @@ class SesionesDAO {
 	public Result correcionNuevoCampoSesion() {
 		Result resultado = new Result();
 		Boolean closeCon = false;
+		String errorLog = "", username = "";
 		try {	
 				closeCon = validarConexion();
 				
-				pstm = con.prepareStatement("select distinct(username) from aspirantespruebas where  caseid is null ")
+				pstm = con.prepareStatement("select distinct(username) as username from aspirantespruebas where  caseid is null ")
 				rs = pstm.executeQuery();
 				
 				con.setAutoCommit(false)
-				if(rs.next()) {
-					String username = rs.getString("username");
+				while(rs.next()) { 
+					username = rs.getString("username");
+					errorLog += username+', ';
 					pstm = con.prepareStatement("UPDATE aspirantespruebas SET caseid = sda.caseid  FROM (SELECT caseid FROM solicitudDeAdmision WHERE solicituddeadmision.correoelectronico = '${username}' ) as sda WHERE aspirantespruebas.username = '${username}' ")
 					pstm.executeUpdate();
 				}
 				con.commit();
 				
 				resultado.setSuccess(true)
+				resultado.setError_info(errorLog);
 			} catch (Exception e) {
 			String es = e.getMessage();
 			resultado.setSuccess(false);
