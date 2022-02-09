@@ -811,8 +811,18 @@ class SesionesDAO {
 					throw new Exception("Se encuentra ocupado")
 				}
 				
-				pstm = con.prepareStatement(Statements.GET_SESIONASPIRANTE)
+				Long caseid=0L
+				Integer rechazo=null
+				pstm=con.prepareStatement("SELECT caseid, countRechazos from solicituddeadmision where correoelectronico=? limit 1")
 				pstm.setString(1, sesionAspirante.getUsername())
+				rs = pstm.executeQuery()
+				if(rs.next()) {
+					caseid= rs.getLong("caseid")
+					rechazo= rs.getInt("countRechazos")
+				}
+				
+				pstm = con.prepareStatement(Statements.GET_SESIONASPIRANTE_BY_CASEID)
+				pstm.setLong(1, caseid)
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					
@@ -876,6 +886,7 @@ class SesionesDAO {
 					pstm.setString(1, sesionAspirante.getUsername())
 					pstm.setLong(2, sesionAspirante.getSesiones_pid())
 					pstm.setLong(3, sesionAspirante.getResponsabledisponible_pid())
+					pstm.setLong(4, caseid)
 					
 					pstm.executeUpdate();
 					rs = pstm.getGeneratedKeys()
@@ -884,15 +895,7 @@ class SesionesDAO {
 						sesionAspirante.setPersistenceId(rs.getLong("persistenceId"))
 					}
 				}
-				Long caseid=0L
-				Integer rechazo=null
-				pstm=con.prepareStatement("SELECT caseid, countRechazos from solicituddeadmision where correoelectronico=? limit 1")
-				pstm.setString(1, sesionAspirante.getUsername())
-				rs = pstm.executeQuery()
-				if(rs.next()) {
-					caseid= rs.getLong("caseid")
-					rechazo= rs.getInt("countRechazos")
-				}
+				
 				DataInstance asistenciaCollegeBoard= context.getApiClient().getProcessAPI().getProcessDataInstance("asistenciaCollegeBoard", caseid)
 				DataInstance asistenciaPsicometrico= context.getApiClient().getProcessAPI().getProcessDataInstance("asistenciaPsicometrico", caseid)
 				DataInstance asistenciaEntrevista= context.getApiClient().getProcessAPI().getProcessDataInstance("asistenciaEntrevista", caseid)
@@ -7608,7 +7611,7 @@ class SesionesDAO {
 	public Result correcionNuevoCampoSesion() {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String errorLog = "", username = "";
+		String errorLog = "", username = "", sesion = "";
 		try {	
 				closeCon = validarConexion();
 				
@@ -7620,6 +7623,16 @@ class SesionesDAO {
 					username = rs.getString("username");
 					errorLog += username+', ';
 					pstm = con.prepareStatement("UPDATE aspirantespruebas SET caseid = sda.caseid  FROM (SELECT caseid FROM solicitudDeAdmision WHERE solicituddeadmision.correoelectronico = '${username}' ) as sda WHERE aspirantespruebas.username = '${username}' ")
+					pstm.executeUpdate();
+				}
+				errorLog += " |termino los usuarios| ";
+				pstm = con.prepareStatement("select distinct(username) as username, sesiones_pid as sesion from sesionaspirante where  caseid is null ")
+				rs = pstm.executeQuery();
+				while(rs.next()) {
+					username = rs.getString("username");
+					sesion  = rs.getString("sesion");
+					errorLog +=" ${username}|${sesion}, ";
+					pstm = con.prepareStatement("UPDATE sesionaspirante SET caseid = ap.caseid  FROM (SELECT caseid FROM aspirantespruebas WHERE aspirantespruebas.username like '%${username}%' AND aspirantespruebas.sesiones_pid = ${sesion}  ) as ap WHERE sesionaspirante.username = '${username}' AND sesionaspirante.sesiones_pid = ${sesion} ")
 					pstm.executeUpdate();
 				}
 				con.commit();
