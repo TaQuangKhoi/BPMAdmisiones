@@ -44,6 +44,7 @@ import com.anahuac.rest.api.Entity.db.CatTipoPrueba
 import com.anahuac.rest.api.Entity.db.Sesion
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
+import java.nio.charset.StandardCharsets
 
 class IndexGet implements RestApiController {
 
@@ -1517,9 +1518,17 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				case "getFileTest":
-				String resultado = new FileDownload().b64Url("https://bpmintegra.blob.core.windows.net/privado/47044/Fot_47044.jpg?sv=2020-04-08&st=2021-05-04T19%3A38%3A43Z&se=2035-02-01T20%3A38%3A00Z&sr=c&sp=r&sig=ZCmK9hcMcFMZRk4PJyDd6BKPtNjRaho3MjCPGVoEnfo%3D&v=0.23659524683358757")
-				responseBuilder.withMediaType("text/plain")
-				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, resultado)
+				byte[] resultado = new FileDownload().getByteFromUrl("https://bpmintegra.blob.core.windows.net/privado/47044/Fot_47044.jpg?sv=2020-04-08&st=2021-05-04T19%3A38%3A43Z&se=2035-02-01T20%3A38%3A00Z&sr=c&sp=r&sig=ZCmK9hcMcFMZRk4PJyDd6BKPtNjRaho3MjCPGVoEnfo%3D&v=0.23659524683358757")
+				String s = new String(resultado, StandardCharsets.UTF_8)
+				return responseBuilder.with {
+					//withAdditionalHeader("Content-Disposition","attachment; filename=Fot_47044.png")
+					//withAdditionalHeader("Content-Language", "fr") // Optional
+					withResponseStatus(HttpServletResponse.SC_OK)
+					withResponse(resultado) // fileContentAsString is a String
+					withMediaType("image/png")
+				build()
+				}
+				//return buildResponse(responseBuilder, HttpServletResponse.SC_OK, resultado)
 				
 				break;
 				
