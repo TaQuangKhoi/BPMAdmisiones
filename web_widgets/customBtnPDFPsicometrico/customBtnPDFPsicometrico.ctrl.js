@@ -19,8 +19,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         "PCA": false
     }
 
-    $scope.cargarDatos = function() {
-        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario +"&intentos="+$scope.properties.intentos, 1);
+    $scope.cargarDatos = function () {
+        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario + "&intentos=" + $scope.properties.intentos, 1);
     }
 
     function doRequest(method, url, numero) {
@@ -32,7 +32,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         };
 
         return $http(req)
-            .success(function(data, status) {
+            .success(function (data, status) {
                 switch (numero) {
                     case 1:
                         if (data.length > 0) {
@@ -48,19 +48,19 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         if (data.length > 0) {
                             $scope.datosHermanos = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoFuentesInfluyeron&p=0&c=9999&caseid=" + $scope.properties.caseId +"&intentos="+$scope.properties.intentos , 4);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoFuentesInfluyeron&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos=" + $scope.properties.intentos, 4);
                         break;
                     case 4:
                         if (data.length > 0) {
                             $scope.getInfoFuentesInfluyeron = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRasgos&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos="+$scope.properties.intentos, 5);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRasgos&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos=" + $scope.properties.intentos, 5);
                         break;
                     case 5:
                         if (data.length > 0) {
                             $scope.datosRasgos = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoCapacidadAdaptacion&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos="+$scope.properties.intentos, 6);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoCapacidadAdaptacion&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos=" + $scope.properties.intentos, 6);
                         break;
                     case 6:
                         if (data.length > 0) {
@@ -72,17 +72,17 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         if (data.length > 0) {
                             $scope.datosSaludPSeccion = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoSaludSSeccion&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos="+$scope.properties.intentos, 8);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoSaludSSeccion&p=0&c=9999&caseid=" + $scope.properties.caseId + "&intentos=" + $scope.properties.intentos, 8);
                         break;
                     case 8:
                         if (data.length > 0) {
                             $scope.datosSaludSSeccion = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario + "&intentos="+$scope.properties.intentos, 9);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario + "&intentos=" + $scope.properties.intentos, 9);
                         break;
                     case 9:
                         if (data.length > 0) {
-                            debugger
+
                             $scope.datosBitacoraComentarios = data;
                         }
                         $scope.generatePDF();
@@ -90,21 +90,21 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 }
 
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function() {
+            .finally(function () {
                 blockUI.stop();
             });
     }
 
 
-    $scope.generatePDF = function() {
+    $scope.generatePDF = function () {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
         var i = 0;
-        var recSize=0;
+        var recSize = 0;
         var textSize;
         var textCount;
         var textConvert;
@@ -114,8 +114,9 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         var fontSubTitle = 13;
         var fontparam = undefined;
         var margenPrimeraFila = 15;
-        var margenSegundaFila =  115;
-        var margenSegundaFilaRasgos =  115;
+        var margenFilaIntermedia = 60;
+        var margenSegundaFila = 115;
+        var margenSegundaFilaRasgos = 115;
         var respuestasPrimeraFila = 60;
         var respuestasSegundaFila = 167;
         var respuestasSegundaFilaInfoAdm = 147;
@@ -154,8 +155,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.text(margenPrimeraFila, (height / 2) - 33, 'Fecha:');
 
         doc.setDrawColor(115, 66, 34)
-        doc.rect(157.5,((height / 2)-84),35,45)
-        doc.addImage($scope.datosUsuario.fotografiab64, "JPG", 160, ((height / 2)-82), 30, 40);
+        doc.rect(157.5, ((height / 2) - 84), 35, 45)
+        doc.addImage($scope.datosUsuario.fotografiab64, "JPG", 160, ((height / 2) - 82), 30, 40);
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
@@ -183,7 +184,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.text(respuestasPrimeraFila, (height / 2) - 58, $scope.datosUsuario.pais);
         doc.text(respuestasPrimeraFila, (height / 2) - 51.5, $scope.datosUsuario.carrera);
         doc.text(respuestasPrimeraFila, (height / 2) - 43, (Math.trunc(parseInt($scope.datosUsuario.edad))).toString());
-        
+
         doc.text(respuestasPrimeraFila, (height / 2) - 38, $scope.datosUsuario.promedio);
         doc.text(respuestasPrimeraFila, (height / 2) - 33, ($scope.datosUsuario.fechafinalizacion == null ? "N/A" : $scope.datosUsuario.fechafinalizacion = ($filter('date')(Date.parse($scope.datosUsuario.fechafinalizacion), "dd/MMM/yyyy")).toString()));
 
@@ -221,31 +222,31 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.text(margenPrimeraFila, 245, 'Ocupación del Tutor:');
         doc.text(margenPrimeraFila, 250, 'Empresa:');
         doc.text(margenPrimeraFila, 255, 'Universidad Anahuac:');
-        
+
         doc.setFont(fontparam, 'normal')
         $scope.datosPadres.forEach(element => {
             if (element.parentesco == "Padre") {
                 doc.text(respuestasPrimeraFila, 190, element.nombre == "" || element.nombre == " " || element.nombre == null ? "Se desconoce" : element.nombre);
-                if(element.vive == "No"){
+                if (element.vive == "No") {
                     doc.text(respuestasPrimeraFila, 195, "Finado");
                     doc.text(respuestasPrimeraFila, 200, "Finado");
                     doc.text(respuestasPrimeraFila, 205, "Finado");
-                } else if(element.desconozcodatospadres == "t" && element.vive == null) {
+                } else if (element.desconozcodatospadres == "t" && element.vive == null) {
                     doc.text(respuestasPrimeraFila, 195, "Se desconoce");
                     doc.text(respuestasPrimeraFila, 200, "Se desconoce");
                     doc.text(respuestasPrimeraFila, 205, "Se desconoce");
-                } else{
+                } else {
                     doc.text(respuestasPrimeraFila, 195, element.puesto == "" ? "No trabaja" : element.puesto);
                     doc.text(respuestasPrimeraFila, 200, element.empresatrabaja == "" ? "No trabaja" : element.empresatrabaja);
-                    doc.text(respuestasPrimeraFila, 205, element.campusanahuac == null ? "No" : element.campusanahuac);   
+                    doc.text(respuestasPrimeraFila, 205, element.campusanahuac == null ? "No" : element.campusanahuac);
                 }
             } else if (element.parentesco == "Madre") {
                 doc.text(respuestasPrimeraFila, 215, element.nombre == "" || element.nombre == " " || element.nombre == null ? "Se desconoce" : element.nombre);
-                if(element.vive == "No") {
+                if (element.vive == "No") {
                     doc.text(respuestasPrimeraFila, 220, "Finado");
                     doc.text(respuestasPrimeraFila, 225, "Finado");
                     doc.text(respuestasPrimeraFila, 230, "Finado");
-                }  else if (element.desconozcodatospadres == "t" && element.vive == null) {
+                } else if (element.desconozcodatospadres == "t" && element.vive == null) {
                     doc.text(respuestasPrimeraFila, 220, "Se desconoce");
                     doc.text(respuestasPrimeraFila, 225, "Se desconoce");
                     doc.text(respuestasPrimeraFila, 230, "Se desconoce");
@@ -256,7 +257,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 }
             }
             if (element.istutor == "t") {
-                doc.text(respuestasPrimeraFila, 240, element.nombre == "" || element.nombre == " " || element.nombre == null ? "Se desconoce" : element.nombre);                
+                doc.text(respuestasPrimeraFila, 240, element.nombre == "" || element.nombre == " " || element.nombre == null ? "Se desconoce" : element.nombre);
                 doc.text(respuestasPrimeraFila, 245, element.puesto == "" ? "No trabaja" : element.puesto);
                 doc.text(respuestasPrimeraFila, 250, element.empresatrabaja == "" ? "No trabaja" : element.empresatrabaja);
                 doc.text(respuestasPrimeraFila, 255, element.campusanahuac == null ? "No" : element.campusanahuac);
@@ -269,9 +270,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
         //doc.internal.write(0, "Tw")
-        doc.text(margenPrimeraFila, yvalue, 'Fuentes que influyeron en su decisíon:');
+        doc.text(margenPrimeraFila, 35, 'Fuentes que influyeron en su decisíon:');
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal')
+
         if ($scope.getInfoFuentesInfluyeron.length > 0) {
             yvalue += 10;
             if ($scope.getInfoFuentesInfluyeron[0].autodescripcion == true) {
@@ -286,7 +288,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 });
             } else {
                 //doc.internal.write(-2, "Tw")
-                doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, yvalue, { maxWidth: 180, align: "left" });
+                //doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, yvalue, { maxWidth: 180, align: "left" });
+                doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, 40, { maxWidth: 180, align: "left" });
                 let count = Math.ceil(($scope.getInfoFuentesInfluyeron[0].fuentes.length / 180))
                 yvalue += (count * 7) + 3;
                 if (yvalue >= 275) {
@@ -309,7 +312,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         }
 
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor, 190, 90, 'F');
+        doc.rect(10, yValor, 190, 100, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
@@ -320,11 +323,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         respuestasPrimeraFila += 5;
         doc.setFontSize(fontText);
         $scope.datosRasgos.forEach(element => {
-            if(i > 10) {
+            if (i > 10) {
                 doc.setFont(fontparam, 'bold')
-                doc.text(margenSegundaFilaRasgos, yValorRagos, element.rasgo);
+                doc.text(margenPrimeraFila, yValor, element.rasgo);
+                //doc.text(margenSegundaFilaRasgos, yValorRagos, element.rasgo);
                 doc.setFont(fontparam, 'normal')
-                doc.text(respuestasSegundaFila, yValorRagos, element.calificacion);
+                doc.text(respuestasPrimeraFila, yValor, element.calificacion);
+                //doc.text(respuestasSegundaFila, yValorRagos, element.calificacion);
                 yValorRagos += 7;
             } else {
                 doc.setFont(fontparam, 'bold')
@@ -333,7 +338,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 doc.text(respuestasPrimeraFila, yValor, element.calificacion);
                 yValor += 7;
             }
-            i+=1;
+            i += 1;
         });
 
         yValor += 7;
@@ -345,8 +350,9 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontSubTitle);
 
         doc.setFont(fontparam, 'bold');
-        doc.text(margenPrimeraFila, yValor, "Salud");
+        doc.text(margenPrimeraFila, yValor += 10, "Salud");
         yValor += 10;
+
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
@@ -446,7 +452,64 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         var capacidades = [{ nombre: 'ajustemediofamiliar', calificacion: 'califajustemediofamiliar' }, { nombre: 'ajusteescolarprevio', calificacion: 'califajusteescolarprevio' }, { nombre: 'ajustemediosocial', calificacion: 'califajustemediosocial' }, { nombre: 'ajusteefectivo', calificacion: 'califajusteafectivo' }, { nombre: 'ajustereligioso', calificacion: 'califajustereligioso' }, { nombre: 'ajusteexistencial', calificacion: 'califajusteexistencial' }]
         let newPage, reseteo = false;
 
-        for (let i = 0; i < 6; i++) {
+
+        //SECCION ESTATICA NUEVA
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 45, "Ajuste al medio familiar");
+
+        //Comentario
+        doc.setFont(fontparam, 'normal');
+        $scope.datosCapacidad[0].ajustemediofamiliar = convertToPlain($scope.datosCapacidad[0].ajustemediofamiliar);
+        doc.text($scope.datosCapacidad[0].ajustemediofamiliar, margenPrimeraFila, 52, { maxWidth: 180, align: "left" });
+
+        //Puntuacion 
+        doc.text(165, 95, "Puntiación:");
+        doc.text(185, 95, $scope.datosCapacidad[0].califajustemediofamiliar);
+
+        /****************************************** */
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 100, "Ajuste escolar previo");
+
+        //Comentario
+        $scope.datosCapacidad[0].ajusteescolarprevio = convertToPlain($scope.datosCapacidad[0].ajusteescolarprevio);
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosCapacidad[0].ajusteescolarprevio, margenPrimeraFila, 108, { maxWidth: 180, align: "left" });
+
+        //Puntuacion 
+        doc.text(165, 150, "Puntiación:");
+        doc.text(185, 150, $scope.datosCapacidad[0].califajusteescolarprevio);
+        /****************************************** */
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 155, "Ajuste al medio social");
+
+        //Comentario
+        $scope.datosCapacidad[0].ajustemediosocial = convertToPlain($scope.datosCapacidad[0].ajustemediosocial);
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosCapacidad[0].ajustemediosocial, margenPrimeraFila, 163, { maxWidth: 180, align: "left" });
+
+        //Puntuacion 
+        doc.text(165, 205, "Puntiación:");
+        doc.text(185, 205, $scope.datosCapacidad[0].califajustemediosocial);
+
+        /****************************************** */
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 210, "Ajuste afectivo (filiación)");
+
+        //Comentario
+        $scope.datosCapacidad[0].ajusteefectivo = convertToPlain($scope.datosCapacidad[0].ajusteefectivo);
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosCapacidad[0].ajusteefectivo, margenPrimeraFila, 219, { maxWidth: 180, align: "left" });
+
+        //Puntuacion 
+        doc.text(165, 260, "Puntiación:");
+        doc.text(185, 260, $scope.datosCapacidad[0].califajusteafectivo);
+
+
+        /*for (let i = 0; i < 6; i++) {
             if (yValor >= 275) {
                 doc.addPage();
                 newPage = true;
@@ -473,7 +536,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             doc.text(165, yValor, "Puntiación:");
             doc.text(185, yValor, $scope.datosCapacidad[0][capacidades[i].calificacion]);
             yValor += 7;
-        }
+        }*/
 
         if (yValor >= 150) {
             doc.addPage();
@@ -486,25 +549,55 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         yValor = 30
 
-
         recSize = recResize($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
         recSize += 40;
 
-        doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor, 190, recSize, 'F');
-        //doc.rect(10, yValor, 190, 50, 'F');
+        /******************Capacidad de adaptación segunda parte************************ */
+        doc.setFillColor(228, 212, 200);
+        doc.rect(10, 30, 190, 125, 'F');
+        
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 35, "Ajuste religioso");
+
+        //Comentario
+        $scope.datosCapacidad[0].ajustereligioso = convertToPlain($scope.datosCapacidad[0].ajustereligioso);
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosCapacidad[0].ajustereligioso, margenPrimeraFila, 48, { maxWidth: 180, align: "left" });
+
+        //Puntuacion 
+        doc.text(165, 90, "Puntiación:");
+        doc.text(185, 90, $scope.datosCapacidad[0].califajustereligioso);
+
+        /******************************************************************************** */
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 100, "Ajuste existencial");
+
+        //Comentario
+        $scope.datosCapacidad[0].ajusteexistencial = convertToPlain($scope.datosCapacidad[0].ajusteexistencial);
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosCapacidad[0].ajusteexistencial, margenPrimeraFila, 109, { maxWidth: 180, align: "left" });
+
+        //Puntuacion 
+        doc.text(165, 149, "Puntiación:");
+        doc.text(185, 149, $scope.datosCapacidad[0].califajusteexistencial);
+
+        /******************Capacidad de adaptación segunda parte************************ */
+
+        /* doc.setFillColor(228, 212, 200)
+         doc.rect(10, yValor, 190, recSize, 'F');
+         //doc.rect(10, yValor, 190, 50, 'F');*/
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
         //doc.internal.write(0, "Tw")
-        doc.text(margenPrimeraFila, yValor+=10, "Conclusiones y recomendaciones");
+        doc.text(margenPrimeraFila, 165, "Conclusiones y recomendaciones");
         yValor += 10;
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
         $scope.conclusiones_recomendaciones = convertToPlain($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
         //doc.internal.write(-2, "Tw")
-        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
+        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, 170, { maxWidth: 177, align: "left" });
         count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
         yValor += (count * 7) + 3;
 
@@ -512,18 +605,20 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             doc.addPage();
             yValor = 15;
         }
+        doc.setFillColor(228, 212, 200);
+        doc.rect(10, 213, 190, 55, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
         //doc.internal.write(0, "Tw")
-        doc.text(margenPrimeraFila, yValor+=30, "Interpretación");
+        doc.text(margenPrimeraFila, 217, "Interpretación");
         yValor += 10;
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
         $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
         //doc.internal.write(-2, "Tw")
-        doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
+        doc.text($scope.interpretacion, margenPrimeraFila, 224, { maxWidth: 180, align: "left" });
         count = Math.ceil(($scope.interpretacion.length / 180))
         yValor += (count * 7) + 3;
 
@@ -539,57 +634,16 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         // calcular el font para los comentarios
         for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
 
-            $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
+            $scope.comentarios[i] = convertToPlain($scope.datosBitacoraComentarios[i].comentario);
             count = Math.ceil(($scope.comentarios[i].length / 180))
             nuevaLogitud += (count * 10) + 3;
-    
+
         }
-
-     
-
-        doc.setFillColor(228, 212, 200);
-        doc.rect(10, (height / 2) - 35, 190, 75, 'F');
-
-        /*doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor+=10, 190, 35, 'F');*/
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        //doc.internal.write(0, "Tw")
-        doc.text(margenPrimeraFila, yValor+=10, "Comentarios");
-        yValor += 10;
-
-        doc.setFontSize(fontText);
-        doc.setFont(fontparam, 'normal');
-        debugger
-        
-       // $scope.comentarios = convertToPlain($scope.datosBitacoraComentarios[0].comentario);
-        //doc.internal.write(-2, "Tw")
-        $scope.comentarios = [];
-        for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
-
-            $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
-    
-            doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-    
-            count = Math.ceil(($scope.comentarios[i].length / 180))
-            yValor += (count * 7) + 3;
-    
-            if (yValor >= 275) {
-                doc.addPage();
-                yValor = 15;
-            }
-    
-        }      
-
-        if ( (yValor+=30) >= 275) {
-            doc.addPage();
-            yValor = 15;
-        }
-        
-        doc.setFontSize(fontSubTitle);
-        doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, yValor+=30, "Cursos Recomendados")
+        //doc.text(margenPrimeraFila, 238, "Cursos Recomendados")
+        doc.text(margenFilaIntermedia += 10, 275, "Cursos Recomendados")
         yValor += 10;
 
         doc.setFontSize(fontText);
@@ -612,17 +666,55 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                     break;
             }
         }
+        
+        doc.text("PDU: " + ($scope.cursos.PDU ? "Si" : "No"), 60, 285, { maxWidth: 180, align: "left" });
+        yValor += (1 * 7);
+        doc.text("SSE: " + ($scope.cursos.SSE ? "Si" : "No"), 80, 285, { maxWidth: 180, align: "left" });
+        yValor += (1 * 7);
+        doc.text("PDP: " + ($scope.cursos.PDP ? "Si" : "No"), 100, 285, { maxWidth: 180, align: "left" });
+        yValor += (1 * 7);
+        doc.text("PCA: " + ($scope.cursos.PCA ? "Si" : "No"), 120, 285, { maxWidth: 180, align: "left" });
+        yValor += (1 * 7);
 
-        doc.text("PDU: " + ($scope.cursos.PDU ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-        yValor += (1 * 7);
-        doc.text("SSE: " + ($scope.cursos.SSE ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-        yValor += (1 * 7);
-        doc.text("PDP: " + ($scope.cursos.PDP ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-        yValor += (1 * 7);
-        doc.text("PCA: " + ($scope.cursos.PCA ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-        yValor += (1 * 7);
+       /* if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }*/
 
-        if (yValor >= 275) {
+        doc.addPage();
+
+        //COMENTARIOS 
+         doc.setFontSize(fontSubTitle);
+         doc.setFont(fontparam, 'bold')
+         //doc.internal.write(0, "Tw")
+         doc.text(margenPrimeraFila, 35, "Comentarios");
+         //doc.text(margenPrimeraFila, yValor+=10, "Comentarios");
+         yValor += 10;
+ 
+         doc.setFontSize(fontText);
+         doc.setFont(fontparam, 'normal');
+         debugger
+     // $scope.comentarios = convertToPlain($scope.datosBitacoraComentarios[0].comentario);
+         //doc.internal.write(-2, "Tw")
+         var yvalorAux = 45
+         $scope.comentarios = [];
+         for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
+ 
+             $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
+     
+             doc.text($scope.comentarios[i], margenPrimeraFila, yvalorAux, { maxWidth: 180, align: "left" });
+     
+             count = Math.ceil(($scope.comentarios[i].length / 180))
+             yvalorAux += (count * 7) + 3;
+     
+             if (yvalorAux >= 275) {
+                 doc.addPage();
+                 yvalorAux = 15;
+             }
+     
+         }      
+
+        if ((yValor += 30) >= 275) {
             doc.addPage();
             yValor = 15;
         }
@@ -647,11 +739,11 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     }
 
     function recResize(texto) {
-        
-        if(texto != undefined) {
+
+        if (texto != undefined) {
             textConvert = convertToPlain(texto);
-            textCount = Math.ceil((textConvert.length/180));
-            textSize = (textCount * 7)+3;
+            textCount = Math.ceil((textConvert.length / 180));
+            textSize = (textCount * 7) + 3;
         } else {
             textSize = 35;
         }

@@ -22,25 +22,29 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       closeModal(true);
     } else if ($scope.properties.action) {
       debugger
-      
-    $scope.ObjetoDomicilioPermanente = {
+      var estado_pid = localStorage.getItem("objData");
+        estado_pid = parseInt(estado_pid);
+        $scope.ObjetoDomicilioPermanente = {
 
-        "pais_pid": $scope.properties.dataToSend.catPais.persistenceId,
-        "codigoPostal": $scope.properties.dataToSend.codigoPostal,
-        "estado_pid": $scope.properties.dataToSend.catEstado.persistenceId,
-        "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
-        "ciudad": $scope.properties.dataToSend.ciudad,
-        "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
-        "colonia": $scope.properties.dataToSend.colonia,
-        "calle": $scope.properties.dataToSend.calle,
-        "calle2": $scope.properties.dataToSend.calle2,
-        "numExterior": $scope.properties.dataToSend.numExterior,
-        "numInterior": $scope.properties.dataToSend.numInterior,
-        "telefono": $scope.properties.dataToSend.telefono,
-        "otroTelefonoContacto": $scope.properties.dataToSend.otroTelefonoContacto,
-        "caseid": $scope.properties.dataToSend.caseId,
-        "correoElectronico": $scope.properties.dataToSend.correoElectronico
-    }
+          "pais_pid": $scope.properties.dataToSend.catPais.persistenceId,
+          "codigoPostal": $scope.properties.dataToSend.codigoPostal,
+          "estado_pid": estado_pid,
+          //"estado_pid": $scope.properties.dataToSend.catEstado.persistenceId,
+          "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
+          "ciudad": $scope.properties.dataToSend.ciudad,
+          "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
+          "colonia": $scope.properties.dataToSend.colonia,
+          "calle": $scope.properties.dataToSend.calle,
+          "calle2": $scope.properties.dataToSend.calle2,
+          "numExterior": $scope.properties.dataToSend.numExterior,
+          "numInterior": $scope.properties.dataToSend.numInterior,
+          "telefono": $scope.properties.dataToSend.telefono,
+          "otroTelefonoContacto": $scope.properties.dataToSend.otroTelefonoContacto,
+          "caseid": $scope.properties.dataToSend.caseId,
+          "correoElectronico": $scope.properties.dataToSend.correoElectronico
+      }
+    
+    
     //"persistenceversion" : $scope.properties.objtutorTemp.persistenceid
     
       doRequest($scope.properties.action);
