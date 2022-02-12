@@ -24,6 +24,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.Entity.CaseVariable
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Utilities.LoadParametros
@@ -119,25 +120,34 @@ class CustomUserRequestDAO {
 		Integer finContador = 0;
 		String taskid = "";
 		List<ProcessInstance> data = new ArrayList<ProcessInstance>();
+		String errorLog = "";
+		
 		try {
-			
+			errorLog += "Entro; ";
 			SearchOptionsBuilder searchBuilderProccess = new SearchOptionsBuilder(0, 99999);
 			searchBuilderProccess.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Proceso admisiones");
+			errorLog += "Definicion de filtros; ";
 			final SearchOptions searchOptionsProccess = searchBuilderProccess.done();
 			SearchResult<ProcessDeploymentInfo> SearchProcessDeploymentInfo = context.getApiClient().getProcessAPI().searchProcessDeploymentInfos(searchOptionsProccess);
+			errorLog += "Buscando procesdeployments; ";
 			List<ProcessDeploymentInfo> lstProcessDeploymentInfo = SearchProcessDeploymentInfo.getResult();
-			
+			errorLog += "Lista de procesos desplegados; ";
 			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(ProcessInstanceSearchDescriptor.ID, caseId);
 			final SearchOptions searchOptions = searchBuilder.done();
-			SearchResult<ProcessDeploymentInfo> instances = context.getApiClient().getProcessAPI().searchProcessInstances(searchOptions);
-			List<ProcessDeploymentInfo> lstInstances = SearchProcessDeploymentInfo.getResult();
+			errorLog += "Busco procesos; ";
+			SearchResult<ProcessInstance> instances = context.getApiClient().getProcessAPI().searchProcessInstances(searchOptions);
+			List<ProcessInstance> lstInstances = SearchProcessDeploymentInfo.getResult();
 			
-			for(ProcessInstance objInstance : lstInstances) {
-				data.add(objInstance);
-				
-			}
 			
+			errorLog += lstInstances.get(0).getDescription() + "";
+			errorLog += "Iterando lista; ";
+			data = instances.getResult();
+//			for(ProcessInstance objInstance : lstInstances) {
+//				data.add(objInstance);
+//			}
+			
+			result.setError(errorLog);
 			result.setData(data);
 			result.setSuccess(true);
 		} catch (Exception e) {
@@ -145,7 +155,7 @@ class CustomUserRequestDAO {
 			LOGGER.error e.getCause();
 			LOGGER.error e.getLocalizedMessage();
 			result.setSuccess(false);
-			result.setError(e.getMessage());
+			result.setError(errorLog);
 		}
 		return result;
 	}
