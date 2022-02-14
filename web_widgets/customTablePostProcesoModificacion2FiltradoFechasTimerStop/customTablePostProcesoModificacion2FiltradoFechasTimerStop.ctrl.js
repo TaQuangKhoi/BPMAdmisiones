@@ -155,13 +155,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         blockUI.start();
                         var req2 = {
                             method: "GET",
-                            url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+                            url: `/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
                         };
 
                         $http(req2)
                             .success(function(data2, status) {
 
-                                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                                ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
 
                                 var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                                 if (data.length > 0) {
@@ -208,13 +208,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                     blockUI.start();
                     var req2 = {
                         method: "GET",
-                        url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+                        url: `/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
                     };
 
                     $http(req2)
                         .success(function(data2, status) {
 
-                            ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                            ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
 
                             var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                             if (data.length > 0) {

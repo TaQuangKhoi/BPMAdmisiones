@@ -47,7 +47,7 @@ if (location.search) {
 $scope.caseId = GET_parameters.caseId;
       
      function getCurrentTask(){
-        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.caseId +"&fstate=ready";
+        let url = "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.caseId +"&fstate=ready";
         
         var req = {
             method: "GET",
@@ -86,8 +86,8 @@ $scope.caseId = GET_parameters.caseId;
                 }else{
                    $scope.caseId= getUrlParam("caseId");
                 }
-                //  ../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready
-                doRequest("GET","../API/bpm/humanTask?p=0&c=10&f=caseId="+$scope.caseId+"&fstate=ready", null, function(data,status){
+                //  ../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseList[0].caseId}}&fstate=ready
+                doRequest("GET","../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid="+$scope.caseId+"&fstate=ready", null, function(data,status){
                     $scope.taskId=data[0].id;
                     $scope.properties.taskId = $scope.taskId;
                     doRequest("GET","../API/bpm/userTask/"+$scope.taskId+"/context", null, function(context,status){

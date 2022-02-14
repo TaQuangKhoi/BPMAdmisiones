@@ -565,7 +565,7 @@ function($scope, $http, blockUI, $window) {
         })
     }
     $scope.VerificarTask = function() {
-        doRequest("GET", "/API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.usuario[0].caseId + "&fstate=ready", null, null, null, function(datos, extra) {
+        doRequest("GET", "/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.properties.usuario[0].caseId + "&fstate=ready", null, null, null, function(datos, extra) {
 
             if ($scope.contadorVerificarTask <= 100) {
                 var isSeleccionar = false;

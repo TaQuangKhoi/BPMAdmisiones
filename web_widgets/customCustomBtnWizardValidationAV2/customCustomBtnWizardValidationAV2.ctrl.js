@@ -54,7 +54,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let contador = 0;
         let limite = 99
 
-        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready";
+        let url = "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.properties.caseId + "&fstate=ready";
 
         var req = {
             method: "GET",

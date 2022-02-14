@@ -38,7 +38,7 @@ function getUserAbandono($scope, $http, $window) {
     $scope.getCurrentTask = function(caseid) {
         var req = {
             method: "GET",
-            url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + caseid + "&fstate=ready"
+            url: "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + caseid + "&fstate=ready"
         };
         return $http(req)
             .success(function(data, status) {
@@ -64,7 +64,7 @@ function getUserAbandono($scope, $http, $window) {
     $scope.getTaskAbandono = function(caseid) {
         var req = {
             method: "GET",
-            url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + caseid + "&fstate=ready"
+            url: "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + caseid + "&fstate=ready"
         };
         return $http(req)
             .success(function(data, status) {
