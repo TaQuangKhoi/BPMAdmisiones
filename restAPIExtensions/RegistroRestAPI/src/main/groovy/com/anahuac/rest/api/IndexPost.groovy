@@ -27,7 +27,7 @@ class IndexPost implements RestApiController {
     RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
         // To retrieve query parameters use the request.getParameter(..) method.
         // Be careful, parameter values are always returned as String values
-
+		String errorlog=""
         // Retrieve url parameter
         def url = request.getParameter "url"
         if (url == null) {
@@ -36,11 +36,12 @@ class IndexPost implements RestApiController {
 		Result result = new Result()
 		switch(url) {
 			case "instantiation": 
+			String jsonData = request.reader.readLines().join("\n")
 			try {
-				String jsonData = request.reader.readLines().join("\n")
+				errorlog+="[1] "
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
-				assert object instanceof Map
+				//assert object instanceof Map
 				Map<String, Serializable> contract = new HashMap<String, Serializable>();
 				Map<String, Serializable> catRegistroInput = new HashMap<String, Serializable>();
 				
@@ -57,27 +58,102 @@ class IndexPost implements RestApiController {
 				catRegistroInput.put("segundonombre",object.catRegistroInput.segundonombre);
 				
 				contract.put("catRegistroInput",catRegistroInput)
-				
+				errorlog+="[2] "
 				Map<String, Serializable> catSolicitudDeAdmisionInput = new HashMap<String, Serializable>();
 				
 				catSolicitudDeAdmisionInput.put("apellidoMaterno",object.catSolicitudDeAdmisionInput.apellidoMaterno);
 				catSolicitudDeAdmisionInput.put("apellidoPaterno",object.catSolicitudDeAdmisionInput.apellidoPaterno);
 				catSolicitudDeAdmisionInput.put("avisoPrivacidad",object.catSolicitudDeAdmisionInput.avisoPrivacidad);
-				catSolicitudDeAdmisionInput.put("catCampus",object.catSolicitudDeAdmisionInput.catCampus);
-				catSolicitudDeAdmisionInput.put("catCampusEstudio",object.catSolicitudDeAdmisionInput.catCampusEstudio);
-				catSolicitudDeAdmisionInput.put("catEstadoExamen",object.catSolicitudDeAdmisionInput.catEstadoExamen);
-				catSolicitudDeAdmisionInput.put("catGestionEscolar",object.catSolicitudDeAdmisionInput.catGestionEscolar);
-				catSolicitudDeAdmisionInput.put("catLugarExamen",object.catSolicitudDeAdmisionInput.catLugarExamen);
-				catSolicitudDeAdmisionInput.put("catPaisExamen",object.catSolicitudDeAdmisionInput.catPaisExamen);
 				
-				assert object.catSolicitudDeAdmisionInput.catPeriodo instanceof Map
-				def map = [:]
-				for ( prop in object.catSolicitudDeAdmisionInput.catPeriodo ) {
-					map[prop.key] = prop.value
+				def mapcatCampus = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catCampus ) {
+					mapcatCampus[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatCampus["persistenceId_string"] = prop.value+"";
+					}
+				}
+				catSolicitudDeAdmisionInput.put("catCampus",mapcatCampus);
+				
+				def mapcatCampusEstudio = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catCampusEstudio ) {
+					mapcatCampusEstudio[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatCampusEstudio["persistenceId_string"] = prop.value+"";
+					}
+				}
+				catSolicitudDeAdmisionInput.put("catCampusEstudio",mapcatCampusEstudio);
+				
+				def mapcatEstadoExamen = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catEstadoExamen ) {
+					mapcatEstadoExamen[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatEstadoExamen["persistenceId_string"] = prop.value+"";
+					}
+				}
+				if(object.catSolicitudDeAdmisionInput.catEstadoExamen == null) {
+					catSolicitudDeAdmisionInput.put("catEstadoExamen",null);
+				}else {
+					catSolicitudDeAdmisionInput.put("catEstadoExamen",mapcatEstadoExamen);
 				}
 				
-				catSolicitudDeAdmisionInput.put("catPeriodo",map);
-				catSolicitudDeAdmisionInput.put("catPropedeutico",object.catSolicitudDeAdmisionInput.catPropedeutico);
+				def mapcatGestionEscolar = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catGestionEscolar ) {
+					mapcatGestionEscolar[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatGestionEscolar["persistenceId_string"] = prop.value+"";
+					}
+				}				
+				catSolicitudDeAdmisionInput.put("catGestionEscolar",mapcatGestionEscolar);
+				
+				def mapcatLugarExamen = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catLugarExamen ) {
+					mapcatLugarExamen[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatLugarExamen["persistenceId_string"] = prop.value+"";
+					}
+				}
+				catSolicitudDeAdmisionInput.put("catLugarExamen",mapcatLugarExamen);
+				
+				def mapcatPaisExamen = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catPaisExamen ) {
+					mapcatPaisExamen[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatPaisExamen["persistenceId_string"] = prop.value+"";
+					}
+				}
+				if(object.catSolicitudDeAdmisionInput.catPaisExamen == null) {
+					catSolicitudDeAdmisionInput.put("catPaisExamen",null);
+				}else {
+					catSolicitudDeAdmisionInput.put("catPaisExamen",mapcatPaisExamen);
+				}
+				
+				
+				//assert object.catSolicitudDeAdmisionInput.catPeriodo instanceof Map
+				def mapcatPeriodo = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catPeriodo ) {
+					mapcatPeriodo[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatPeriodo["persistenceId_string"] = prop.value+"";
+					}
+				}
+				errorlog+="[3] "
+				catSolicitudDeAdmisionInput.put("catPeriodo",mapcatPeriodo);
+				
+				def mapcatPropedeutico = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catPropedeutico ) {
+					mapcatPropedeutico[prop.key] = prop.value
+					if(prop.key == "persistenceId") {
+						mapcatPropedeutico["persistenceId_string"] = prop.value+"";
+					}
+				}
+				if(object.catSolicitudDeAdmisionInput.catPropedeutico == null) {
+					errorlog+="[catPropedeutico] es null"
+					catSolicitudDeAdmisionInput.put("catPropedeutico",null);
+				}else {
+					errorlog+="[catPropedeutico] es tiene valor"
+					catSolicitudDeAdmisionInput.put("catPropedeutico",mapcatPropedeutico);
+				}
+				
 				catSolicitudDeAdmisionInput.put("ciudadExamen",object.catSolicitudDeAdmisionInput.ciudadExamen);
 				catSolicitudDeAdmisionInput.put("ciudadExamenPais",object.catSolicitudDeAdmisionInput.ciudadExamenPais);
 				catSolicitudDeAdmisionInput.put("correoElectronico",object.catSolicitudDeAdmisionInput.correoElectronico);
@@ -86,16 +162,20 @@ class IndexPost implements RestApiController {
 				catSolicitudDeAdmisionInput.put("primerNombre",object.catSolicitudDeAdmisionInput.primerNombre);
 				catSolicitudDeAdmisionInput.put("segundoNombre",object.catSolicitudDeAdmisionInput.segundoNombre);
 				//catSolicitudDeAdmisionInput.put("segundonombre",object.segundonombre);
-				
+				errorlog+="[4] "
 				contract.put("catSolicitudDeAdmisionInput",catSolicitudDeAdmisionInput)
 				contract.put("nuevaoportunidad",object.nuevaoportunidad)
+				errorlog+="[5] "
 				Long processId = context.getApiClient().getProcessAPI().getLatestProcessDefinitionId("Proceso admisiones");
+				errorlog+="[6] " + contract.toMapString()
 				ProcessInstance processInstance = context.getApiClient().getProcessAPI().startProcessWithInputs(processId, contract);
+				errorlog+="[7] "
 				Long caseId = processInstance.getRootProcessInstanceId();
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseId\": "+caseId+"}")
 				}catch(Exception ex) {
 					result.setSuccess(false)
-					result.setError("")
+					result.setError(ex.getMessage())
+					result.setError_info(errorlog)
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 			break;
