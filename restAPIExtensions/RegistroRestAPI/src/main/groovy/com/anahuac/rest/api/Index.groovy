@@ -87,6 +87,24 @@ class Index implements RestApiController {
 			}
 			
 			break;
+			
+			case "caseVariable":
+			
+			String caseid=request.getParameter "caseid";
+			String name=request.getParameter "name";
+			if(name == null || name == 'null') {
+				name = "";
+			}
+			
+			resultado = new BonitaGetsDAO().getCaseVariable(Long.parseLong(caseid),name,context)
+			responseBuilder.withMediaType("application/json")
+			if (resultado.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
+			}
+			
+			break;
 		}
         // Here is an example of how you can retrieve configuration parameters from a properties file
         // It is safe to remove this if no configuration is required

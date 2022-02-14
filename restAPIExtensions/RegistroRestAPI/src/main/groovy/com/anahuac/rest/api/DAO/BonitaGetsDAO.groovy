@@ -3,6 +3,7 @@ package com.anahuac.rest.api.DAO
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
+import java.sql.ResultSetMetaData
 import java.sql.Statement
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
@@ -43,10 +44,22 @@ class BonitaGetsDAO {
 		String errorLog ="";
 		Boolean conection = false;
 		try {
+			String username = "";
+			String password = "";
 			
 			List<ActivityInstance> activityInstances = [];
 			
-			org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
 				activityInstances = context.getApiClient().getProcessAPI().getActivities(caseid, 0, 1);
 			}catch(Exception ex) {
@@ -75,7 +88,20 @@ class BonitaGetsDAO {
 			
 			List<ArchivedActivityInstance> activityInstances = [];
 			
-			org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			String username = "";
+			String password = "";
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
 				
 				closeCon = validarConexionBonita()
@@ -158,10 +184,13 @@ class BonitaGetsDAO {
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorLog)
 			e.printStackTrace();
+		} 
+		finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
-		if (closeCon) {
-			new DBConnect().closeObj(con, stm, rs, pstm)
-		}
+		
 		return resultado;
 	}
 	
@@ -170,6 +199,70 @@ class BonitaGetsDAO {
 		
 		resultado.setSuccess(true)
 		resultado.setData([]);
+		return resultado;
+	}
+	
+	public Result getCaseVariable(Long caseid,String name,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="", where = "";
+		Boolean closeCon = false;
+		try {
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			if(name.length() > 0) {
+				where = "AND name =  '${name}'"
+			}
+			
+			closeCon = validarConexionBonita()
+			pstm = con.prepareStatement(" SELECT containerid AS case_id,name,description,classname AS type,booleanvalue,shorttextvalue,clobvalue,longvalue FROM data_instance WHERE containerid = ${caseid} ${where}");
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+				for (int i = 1; i <= columnCount; i++) {
+					if(metaData.getColumnLabel(i).toLowerCase().equals("type") || metaData.getColumnLabel(i).toLowerCase().equals("case_id") || metaData.getColumnLabel(i).toLowerCase().equals("name") || metaData.getColumnLabel(i).toLowerCase().equals("description")) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+					if(metaData.getColumnLabel(i).toLowerCase().equals("type")) {
+						if(rs.getString(i).equals("java.lang.Boolean")) {
+							columns.put("value", rs.getString("booleanvalue")?.toLowerCase())
+						} else 
+							if(rs.getString(i).equals("java.lang.String")) {
+							columns.put("value", rs.getString("shorttextvalue"))
+						} else 
+							if(rs.getString(i).equals("java.lang.Long")) {
+							columns.put("value", rs.getString("longvalue"))
+						} else
+							 if(rs.getString(i).equals("java.util.Map")) {
+							columns.put("value", rs.getString("clobvalue"))
+						} else 
+							if(rs.getString(i).equals("java.util.Date")) {
+							columns.put("value", rs.getString("longvalue"))
+						}
+						
+					}
+				}
+	
+					rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows)
+			resultado.setError(errorLog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
 		return resultado;
 	}
 	

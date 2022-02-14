@@ -548,19 +548,19 @@ function($scope, $http, blockUI, $window) {
     }
 
     $scope.loadAsistenciaCollegeBoard = function() {
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.usuario[0].caseId + "&name=asistenciaCollegeBoard", null, null, null, function(datos, extra) {
             $scope.asistenciaCollegeBoard = (datos.value === "true");
             $scope.loadAsistenciaPsicometrico();
         })
     }
     $scope.loadAsistenciaPsicometrico = function() {
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaPsicometrico", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.usuario[0].caseId + "&name=asistenciaPsicometrico", null, null, null, function(datos, extra) {
             $scope.asistenciaPsicometrico = (datos.value === "true");
             $scope.loadAsistenciaEntrevista();
         })
     }
     $scope.loadAsistenciaEntrevista = function() {
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaEntrevista", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.usuario[0].caseId + "&name=asistenciaEntrevista", null, null, null, function(datos, extra) {
             $scope.asistenciaEntrevista = (datos.value === "true");
         })
     }
