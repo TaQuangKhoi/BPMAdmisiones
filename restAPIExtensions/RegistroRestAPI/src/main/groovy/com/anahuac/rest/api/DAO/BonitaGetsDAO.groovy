@@ -165,6 +165,14 @@ class BonitaGetsDAO {
 		return resultado;
 	}
 	
+	public Result getCase() {
+		Result resultado = new Result();
+		
+		resultado.setSuccess(true)
+		resultado.setData([]);
+		return resultado;
+	}
+	
 	
 	public Boolean validarConexionBonita() {
 		Boolean retorno = false
