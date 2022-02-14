@@ -31,7 +31,7 @@ function ($scope) {
             }
 
 
-        } else if($scope.properties.catRasgosObservados !== undefined){
+        } else if($scope.properties.catRasgosObservados !== undefined && $scope.properties.content.length == 0){
             // $scope.properties.content.splice(0, $scope.properties.content.length);
             $scope.properties.content = [];
             
