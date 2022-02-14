@@ -1,11 +1,13 @@
 package com.anahuac.rest.api;
 
+import com.anahuac.rest.api.Entity.Result
 import groovy.json.JsonBuilder
-
+import groovy.json.JsonSlurper
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 import org.apache.http.HttpHeaders
+import org.bonitasoft.engine.bpm.process.ProcessInstance
 import org.bonitasoft.web.extension.ResourceProvider
 import org.bonitasoft.web.extension.rest.RestApiResponse
 import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
@@ -31,8 +33,71 @@ class IndexPost implements RestApiController {
         if (url == null) {
             return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
         }
+		Result result = new Result()
 		switch(url) {
-			case "": 
+			case "instantiation": 
+			try {
+				String jsonData = request.reader.readLines().join("\n")
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				assert object instanceof Map
+				Map<String, Serializable> contract = new HashMap<String, Serializable>();
+				Map<String, Serializable> catRegistroInput = new HashMap<String, Serializable>();
+				
+				catRegistroInput.put("apellidomaterno",object.catRegistroInput.apellidomaterno);
+				catRegistroInput.put("apellidopaterno",object.catRegistroInput.apellidopaterno);
+				catRegistroInput.put("ayuda",object.catRegistroInput.ayuda);
+				catRegistroInput.put("catCampus",object.catRegistroInput.catCampus);
+				catRegistroInput.put("catGestionEscolar",object.catRegistroInput.catGestionEscolar);
+				catRegistroInput.put("correoelectronico",object.catRegistroInput.correoelectronico);
+				catRegistroInput.put("isEliminado",object.catRegistroInput.isEliminado);
+				catRegistroInput.put("nombreusuario",object.catRegistroInput.nombreusuario);
+				catRegistroInput.put("password",object.catRegistroInput.password);
+				catRegistroInput.put("primernombre",object.catRegistroInput.primernombre);
+				catRegistroInput.put("segundonombre",object.catRegistroInput.segundonombre);
+				
+				contract.put("catRegistroInput",catRegistroInput)
+				
+				Map<String, Serializable> catSolicitudDeAdmisionInput = new HashMap<String, Serializable>();
+				
+				catSolicitudDeAdmisionInput.put("apellidoMaterno",object.catSolicitudDeAdmisionInput.apellidoMaterno);
+				catSolicitudDeAdmisionInput.put("apellidoPaterno",object.catSolicitudDeAdmisionInput.apellidoPaterno);
+				catSolicitudDeAdmisionInput.put("avisoPrivacidad",object.catSolicitudDeAdmisionInput.avisoPrivacidad);
+				catSolicitudDeAdmisionInput.put("catCampus",object.catSolicitudDeAdmisionInput.catCampus);
+				catSolicitudDeAdmisionInput.put("catCampusEstudio",object.catSolicitudDeAdmisionInput.catCampusEstudio);
+				catSolicitudDeAdmisionInput.put("catEstadoExamen",object.catSolicitudDeAdmisionInput.catEstadoExamen);
+				catSolicitudDeAdmisionInput.put("catGestionEscolar",object.catSolicitudDeAdmisionInput.catGestionEscolar);
+				catSolicitudDeAdmisionInput.put("catLugarExamen",object.catSolicitudDeAdmisionInput.catLugarExamen);
+				catSolicitudDeAdmisionInput.put("catPaisExamen",object.catSolicitudDeAdmisionInput.catPaisExamen);
+				
+				assert object.catSolicitudDeAdmisionInput.catPeriodo instanceof Map
+				def map = [:]
+				for ( prop in object.catSolicitudDeAdmisionInput.catPeriodo ) {
+					map[prop.key] = prop.value
+				}
+				
+				catSolicitudDeAdmisionInput.put("catPeriodo",map);
+				catSolicitudDeAdmisionInput.put("catPropedeutico",object.catSolicitudDeAdmisionInput.catPropedeutico);
+				catSolicitudDeAdmisionInput.put("ciudadExamen",object.catSolicitudDeAdmisionInput.ciudadExamen);
+				catSolicitudDeAdmisionInput.put("ciudadExamenPais",object.catSolicitudDeAdmisionInput.ciudadExamenPais);
+				catSolicitudDeAdmisionInput.put("correoElectronico",object.catSolicitudDeAdmisionInput.correoElectronico);
+				catSolicitudDeAdmisionInput.put("isEliminado",object.catSolicitudDeAdmisionInput.isEliminado);
+				catSolicitudDeAdmisionInput.put("necesitoAyuda",object.catSolicitudDeAdmisionInput.necesitoAyuda);
+				catSolicitudDeAdmisionInput.put("primerNombre",object.catSolicitudDeAdmisionInput.primerNombre);
+				catSolicitudDeAdmisionInput.put("segundoNombre",object.catSolicitudDeAdmisionInput.segundoNombre);
+				//catSolicitudDeAdmisionInput.put("segundonombre",object.segundonombre);
+				
+				contract.put("catSolicitudDeAdmisionInput",catSolicitudDeAdmisionInput)
+				contract.put("nuevaoportunidad",object.nuevaoportunidad)
+				Long processId = context.getApiClient().getProcessAPI().getLatestProcessDefinitionId("Proceso admisiones");
+				ProcessInstance processInstance = context.getApiClient().getProcessAPI().startProcessWithInputs(processId, contract);
+				Long caseId = processInstance.getRootProcessInstanceId();
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseId\": "+caseId+"}")
+				}catch(Exception ex) {
+					result.setSuccess(false)
+					result.setError("")
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
 			break;
 		}
         // Here is an example of how you can retrieve configuration parameters from a properties file
@@ -47,9 +112,7 @@ class IndexPost implements RestApiController {
          * Your code goes here
          * 
          * 
-         */
-        // Prepare the result
-        def result = [ "url" : url , "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
+		 */
 
         // Send the result as a JSON representation
         // You may use buildPagedResponse if your result is multiple
