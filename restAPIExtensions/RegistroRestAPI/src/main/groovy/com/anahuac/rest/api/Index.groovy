@@ -1,5 +1,7 @@
 package com.anahuac.rest.api;
 
+import com.anahuac.rest.api.DAO.BonitaGetsDAO
+import com.anahuac.rest.api.Entity.Result
 import groovy.json.JsonBuilder
 
 import javax.servlet.http.HttpServletRequest
@@ -23,6 +25,7 @@ class Index implements RestApiController {
 
     @Override
     RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
+		Result resultado = new Result();
         // To retrieve query parameters use the request.getParameter(..) method.
         // Be careful, parameter values are always returned as String values
 
@@ -33,6 +36,45 @@ class Index implements RestApiController {
         }
 		switch(url) {
 			case "": 
+			break;
+			
+			case "humanTask":
+			
+			String caseid=request.getParameter "caseid";
+			
+			resultado = new BonitaGetsDAO().getUserHumanTask(Long.parseLong(caseid),context)
+			responseBuilder.withMediaType("application/json")
+			if (resultado.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
+			}
+			
+			break; 
+			
+			case "archivedHumanTask":
+			
+			String caseid=request.getParameter "caseid";
+			
+			resultado = new BonitaGetsDAO().getUserArchivedHumanTask(Long.parseLong(caseid),context)
+			responseBuilder.withMediaType("application/json")
+			if (resultado.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
+			}
+			
+			break;
+			
+			case "process":
+			resultado = new BonitaGetsDAO().getUserProcess(context)
+			responseBuilder.withMediaType("application/json")
+			if (resultado.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
+			}
+			
 			break;
 		}
         // Here is an example of how you can retrieve configuration parameters from a properties file
