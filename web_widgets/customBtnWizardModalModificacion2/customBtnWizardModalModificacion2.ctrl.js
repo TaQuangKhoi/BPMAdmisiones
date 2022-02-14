@@ -315,7 +315,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         blockUI.start();
         var req = {
             method: "GET",
-            url: "../API/bpm/caseVariable/"+$scope.properties.catSolicitudDeAdmision.caseId+"/"+variable,
+            url: "../API/extension/RegistroRest?url=caseVariable&caseid="+$scope.properties.catSolicitudDeAdmision.caseId+"&name="+variable,
         };
         return $http(req).success(function(data, status) {
             var date = new Date();
