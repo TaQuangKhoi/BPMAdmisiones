@@ -58,7 +58,7 @@ class IndexPut implements RestApiController {
 				apiClient.login(username, password);
 				
 				apiClient.processAPI.assignUserTask(task_id, object.assigned_id);
-				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseId\": "+caseId+"}")
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"task_id\": "+task_id+"}")
 				}catch(Exception ex) {
 					result.setSuccess(false)
 					result.setError(ex.getMessage())
