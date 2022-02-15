@@ -303,7 +303,7 @@ class BonitaGetsDAO {
 				pstm = con.prepareStatement(" SELECT id FROM ARCH_PROCESS_INSTANCE WHERE sourceobjectid = ${caseid} ");
 				rs = pstm.executeQuery();
 				if(rs.next()) {
-					contexto = apiClient.getProcessAPI().getArchivedProcessInstanceExecutionContext( Long.parseLong(rs.getString("id")) );
+					contexto = apiClient.getProcessAPI().getArchivedProcessInstanceExecutionContext( Long.parseLong(rs.getString("id")));
 				}
 			}
 			
