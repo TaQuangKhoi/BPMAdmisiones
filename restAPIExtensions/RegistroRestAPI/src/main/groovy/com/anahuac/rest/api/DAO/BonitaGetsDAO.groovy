@@ -306,18 +306,18 @@ class BonitaGetsDAO {
 					contextoDetalle = new HashMap<String, Serializable>();
 					
 					if(prop.key == "fotoPasaporte_ref") {
-						contextoDetalle.put("id", contexto[prop.key]?.id);
-						contextoDetalle.put("processInstanceId", contexto[prop.key]?.processInstanceId);
-						contextoDetalle.put("author", contexto[prop.key]?.author);
-						contextoDetalle.put("creationDate", contexto[prop.key]?.creationDate);
-						contextoDetalle.put("fileName", contexto[prop.key]?.fileName);
-						contextoDetalle.put("contentMimeType", contexto[prop.key]?.contentMimeType);
-						contextoDetalle.put("contentStorageId", contexto[prop.key]?.contentStorageId);
-						contextoDetalle.put("url", contexto[prop.key]?.url);
-						contextoDetalle.put("description", contexto[prop.key]?.description);
-						contextoDetalle.put("version", contexto[prop.key]?.version);
-						contextoDetalle.put("index", contexto[prop.key]?.index);
-						contextoDetalle.put("contentFileName", contexto[prop.key]?.contentFileName);
+						contextoDetalle.put("id", contexto[prop.key][0]?.id);
+						contextoDetalle.put("processInstanceId", contexto[prop.key][0]?.processInstanceId);
+						contextoDetalle.put("author", contexto[prop.key][0]?.author);
+						contextoDetalle.put("creationDate", contexto[prop.key][0]?.creationDate);
+						contextoDetalle.put("fileName", contexto[prop.key][0]?.fileName);
+						contextoDetalle.put("contentMimeType", contexto[prop.key][0]?.contentMimeType);
+						contextoDetalle.put("contentStorageId", contexto[prop.key][0]?.contentStorageId);
+						contextoDetalle.put("url", contexto[prop.key][0]?.url);
+						contextoDetalle.put("description", contexto[prop.key][0]?.description);
+						contextoDetalle.put("version", contexto[prop.key][0]?.version);
+						contextoDetalle.put("index", contexto[prop.key][0]?.index);
+						contextoDetalle.put("contentFileName", contexto[prop.key][0]?.contentFileName);
 						
 					}else {
 						
