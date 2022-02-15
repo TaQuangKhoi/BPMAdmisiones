@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1642702822833,
+  "lastUpdate" : 1644964027539,
   "rows" : [
     [
       {
@@ -23521,8 +23521,13 @@
     "processData" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&f=state=ready&d=processId"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&f=state=ready&name=processId"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "ocultarCamposNuevos" : {
@@ -23530,7 +23535,7 @@
       "value" : [
         "var resultado = false;",
         "",
-        "var version = parseFloat($data.processData[0].processId.version);",
+        "var version = parseFloat($data.processData[0].version);",
         "if(version < parseFloat(\"1.4\")){",
         "    resultado = true;",
         "}",

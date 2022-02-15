@@ -41,8 +41,12 @@ class Index implements RestApiController {
 			case "humanTask":
 			
 			String caseid=request.getParameter "caseid";
+			String name=request.getParameter "name";
+			if(name == null || name == 'null') {
+				name = "";
+			}
 			
-			resultado = new BonitaGetsDAO().getUserHumanTask(Long.parseLong(caseid),context)
+			resultado = new BonitaGetsDAO().getUserHumanTask(Long.parseLong(caseid),name,context)
 			responseBuilder.withMediaType("application/json")
 			if (resultado.isSuccess()) {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
@@ -95,7 +99,6 @@ class Index implements RestApiController {
 			if(name == null || name == 'null') {
 				name = "";
 			}
-			
 			resultado = new BonitaGetsDAO().getCaseVariable(Long.parseLong(caseid),name,context)
 			responseBuilder.withMediaType("application/json")
 			if (resultado.isSuccess()) {
