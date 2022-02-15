@@ -274,6 +274,58 @@ class BonitaGetsDAO {
 	}
 	
 	
+	public Result getUserContext(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
+			Map<String, Serializable> contexto;
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			
+			try {
+				contexto = apiClient.getProcessAPI().getProcessInstanceExecutionContext(caseid);
+			}catch(ProcessInstanceNotFoundException ex) {\
+				closeCon = validarConexionBonita();
+				pstm = con.prepareStatement(" SELECT id FROM ARCH_PROCESS_INSTANCE WHERE sourceobjectid = ${caseid} ");
+				rs = pstm.executeQuery();
+				if(rs.next()) {
+					contexto = apiClient.getProcessAPI().getArchivedProcessInstanceExecutionContext( Long.parseLong(rs.getString("id")) );
+				}
+			}
+			
+			/**/
+			rows.add(contexto);	
+			resultado.setSuccess(true);
+			resultado.setData(rows)
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	
 	public Boolean validarConexionBonita() {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
