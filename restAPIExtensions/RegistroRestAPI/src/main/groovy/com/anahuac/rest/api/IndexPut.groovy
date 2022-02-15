@@ -85,12 +85,43 @@ class IndexPut implements RestApiController {
 				
 				org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 				apiClient.login(username, password);
-				Map<String,Serializable> value = new HashMap();
 				
-				value.put("value", object.value)
-				value.put("type", object.type)
-				value.put("name", name)
-				apiClient.processAPI.updateActivityInstanceVariables(Long.parseLong(caseVariable), value)
+				Serializable value = null
+				try {
+					errorlog+="[2] "
+					switch(object.type) { 
+						case "java.util.Date":
+							value = new java.util.Date(object.value)
+						break;
+						case "java.lang.Long":
+							value = (java.lang.Long) object.value
+						break
+						case "java.lang.Boolean":
+							value = (java.lang.Boolean) object.value
+						break;
+						case "java.lang.String":
+							value = (java.lang.String) object.value
+						break;
+						case "java.lang.String":
+							value = (java.lang.String) object.value
+						break;
+						case "java.util.Map":
+							value = (java.util.Map) object.value
+						break;
+						case "java.lang.Integer":
+							value = (java.lang.Integer) object.value
+						break;
+						default:
+							value = new java.util.Date(object.value)
+						break;
+						}
+					}
+					catch(Exception i) {
+						errorlog+="[3] "
+						value = new java.util.Date(object.value)
+					}
+					errorlog+="[4] id:" + caseVariable + " serializable:" + value.toString() + " name:" +name
+					apiClient.processAPI.updateProcessDataInstance(name,Long.parseLong(caseVariable.toString()),value)
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseVariable\": "+caseVariable+"}")
 				}catch(Exception ex) {
 					result.setSuccess(false)
