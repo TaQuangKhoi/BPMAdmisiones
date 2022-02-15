@@ -329,7 +329,7 @@ class BonitaGetsDAO {
 						try {
 							contextoDetalle.put("storageId", contexto[prop.key]?.storageId);
 							contextoDetalle.put("storageId_string", contexto[prop.key]?.storageIdAsString);
-							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/findByIds?ids="+ (contexto[prop.key]?.storageId != null ?contexto[prop.key]?.storageId: "" ));
+							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/"+ (contexto[prop.key]?.storageId != null ?contexto[prop.key]?.storageId: "" ));
 						}catch(Exception ex) {
 							contextoDetalle.put("storageIds", contexto[prop.key]?.storageIds);
 							contextoDetalle.put("storageIds_string", contexto[prop.key]?.storageIdsAsString);
