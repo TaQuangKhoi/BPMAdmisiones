@@ -66,6 +66,38 @@ class IndexPut implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 			break;
+			case "caseVariable" :
+			String jsonData = request.reader.readLines().join("\n")
+			try {
+				errorlog+="[1] "
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				String username = "";
+				String password = "";
+				def caseVariable = request.getParameter "caseVariable"
+				def name = request.getParameter "name"
+				/*-------------------------------------------------------------*/
+				LoadParametros objLoad = new LoadParametros();
+				PropertiesEntity objProperties = objLoad.getParametros();
+				username = objProperties.getUsuario();
+				password = objProperties.getPassword();
+				/*-------------------------------------------------------------*/
+				
+				org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
+				apiClient.login(username, password);
+				Map<String,Serializable> value = new HashMap();
+				
+				value.put("value", object.value)
+				value.put("name", name)
+				apiClient.processAPI.updateActivityInstanceVariables(Long.parseLong(caseVariable), value)
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseVariable\": "+caseVariable+"}")
+				}catch(Exception ex) {
+					result.setSuccess(false)
+					result.setError(ex.getMessage())
+					result.setError_info(errorlog)
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+			break;
 		}
         // Here is an example of how you can retrieve configuration parameters from a properties file
         // It is safe to remove this if no configuration is required
