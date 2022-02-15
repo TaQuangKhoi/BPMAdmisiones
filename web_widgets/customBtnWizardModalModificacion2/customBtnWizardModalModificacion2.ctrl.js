@@ -383,10 +383,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function updateVariable(type, fechatimmer, variable) {
         //$scope.showModal();
+        var callUrl = "/API/extension/RegistroPut?url=caseVariable&caseVariable="+$scope.properties.catSolicitudDeAdmision.caseId+"&name="+variable
         blockUI.start();
         var req = {
             method: "PUT",
-            url: "../API/bpm/caseVariable/"+$scope.properties.catSolicitudDeAdmision.caseId+"/"+variable,
+            url: callUrl,//"../API/bpm/caseVariable/"+$scope.properties.catSolicitudDeAdmision.caseId+"/"+variable,
             data: {
               "type": type,
               "value": fechatimmer

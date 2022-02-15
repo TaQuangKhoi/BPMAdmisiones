@@ -88,6 +88,7 @@ class IndexPut implements RestApiController {
 				Map<String,Serializable> value = new HashMap();
 				
 				value.put("value", object.value)
+				value.put("type", object.type)
 				value.put("name", name)
 				apiClient.processAPI.updateActivityInstanceVariables(Long.parseLong(caseVariable), value)
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseVariable\": "+caseVariable+"}")
