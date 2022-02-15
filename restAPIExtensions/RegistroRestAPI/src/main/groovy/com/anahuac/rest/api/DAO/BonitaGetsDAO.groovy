@@ -281,9 +281,11 @@ class BonitaGetsDAO {
 		try {
 			String username = "";
 			String password = "";
-			
+			def ref;
 			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
 			Map<String, Serializable> contexto;
+			Map<String, Serializable> contexto2 = new HashMap<String, Serializable>();
+			Map<String, Serializable> contextoDetalle = new HashMap<String, Serializable>();
 			
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
@@ -298,6 +300,45 @@ class BonitaGetsDAO {
 			
 			try {
 				contexto = apiClient.getProcessAPI().getProcessInstanceExecutionContext(caseid);
+				boolean link = false
+				for ( prop in contexto ) {
+					
+					contextoDetalle = new HashMap<String, Serializable>();
+					
+					if(prop.key == "fotoPasaporte_ref") {
+						contextoDetalle.put("id", contexto[prop.key]?.id);
+						contextoDetalle.put("processInstanceId", contexto[prop.key]?.processInstanceId);
+						contextoDetalle.put("author", contexto[prop.key]?.author);
+						contextoDetalle.put("creationDate", contexto[prop.key]?.creationDate);
+						contextoDetalle.put("fileName", contexto[prop.key]?.fileName);
+						contextoDetalle.put("contentMimeType", contexto[prop.key]?.contentMimeType);
+						contextoDetalle.put("contentStorageId", contexto[prop.key]?.contentStorageId);
+						contextoDetalle.put("url", contexto[prop.key]?.url);
+						contextoDetalle.put("description", contexto[prop.key]?.description);
+						contextoDetalle.put("version", contexto[prop.key]?.version);
+						contextoDetalle.put("index", contexto[prop.key]?.index);
+						contextoDetalle.put("contentFileName", contexto[prop.key]?.contentFileName);
+						
+					}else {
+						
+						contextoDetalle.put("name", contexto[prop.key]?.name);
+						contextoDetalle.put("type", contexto[prop.key]?.type);
+						try {
+							contextoDetalle.put("storageId", contexto[prop.key]?.storageId);
+							contextoDetalle.put("storageId_string", contexto[prop.key]?.storageIdAsString);
+							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/findByIds?ids="+ (contexto[prop.key]?.storageId != null ?contexto[prop.key]?.storageId: "" ));
+						}catch(Exception ex) {
+							contextoDetalle.put("storageIds", contexto[prop.key]?.storageIds);
+							contextoDetalle.put("storageIds_string", contexto[prop.key]?.storageIdsAsString);
+							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/findByIds?ids="+ (contexto[prop.key]?.storageIds?.join(",")));
+							
+						}
+					
+					}
+					 
+					 contexto2.put(prop.key, contextoDetalle)
+				}
+				
 			}catch(ProcessInstanceNotFoundException ex) {\
 				closeCon = validarConexionBonita();
 				pstm = con.prepareStatement(" SELECT id FROM ARCH_PROCESS_INSTANCE WHERE sourceobjectid = ${caseid} ");
@@ -308,13 +349,15 @@ class BonitaGetsDAO {
 			}
 			
 			/**/
-			rows.add(contexto);	
+			rows.add(contexto2);	
 			resultado.setSuccess(true);
 			resultado.setData(rows)
+			resultado.setError_info( errorLog)
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
+			resultado.setError_info( errorLog)
 			e.printStackTrace();
 		}
 		finally {
