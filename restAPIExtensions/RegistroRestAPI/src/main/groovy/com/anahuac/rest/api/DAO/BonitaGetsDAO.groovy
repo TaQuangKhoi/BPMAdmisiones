@@ -5,6 +5,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance
@@ -238,7 +239,13 @@ class BonitaGetsDAO {
 							columns.put("value", rs.getString("clobvalue"))
 						} else 
 							if(rs.getString(i).equals("java.util.Date")) {
-							columns.put("value", rs.getString("longvalue"))
+								if(rs.getString("longvalue") != null && rs.getString("longvalue") != 'null') {
+									Date currentDate = new Date(rs.getLong("longvalue"));
+									columns.put("value", currentDate.toString() )
+								} else {
+									columns.put("value", null )
+								}
+								
 						}
 						
 					}
