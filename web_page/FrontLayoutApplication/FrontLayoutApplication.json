@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.46",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1644946118224,
+  "lastUpdate" : 1644957562955,
   "rows" : [
     [
       {
@@ -3109,14 +3109,15 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{taskId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskId" : {
       "type" : "expression",
       "value" : [
-        "return $data.currentTask[0].id;"
+        "return $data.currentTask[0].parentProcessInstanceId;"
       ],
       "exposed" : false
     },
