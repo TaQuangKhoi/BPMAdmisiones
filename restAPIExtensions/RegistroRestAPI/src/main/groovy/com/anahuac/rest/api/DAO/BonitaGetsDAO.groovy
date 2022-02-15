@@ -53,7 +53,8 @@ class BonitaGetsDAO {
 			
 			List<ActivityInstance> activityInstances = [];
 			ProcessDeploymentInfo info;
-			List<ProcessDeploymentInfo> map = [];
+			Map<String, Serializable> datos = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
 			
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
@@ -67,26 +68,45 @@ class BonitaGetsDAO {
 			
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
-				
 				activityInstances = context.getApiClient().getProcessAPI().getActivities(caseid, 0, 10);
 				
-				if( activityInstances.size() && value.length() > 0 && value == "processId") {
-					processId = !processId;
-					info = apiClient.getProcessAPI().getProcessDeploymentInfo( activityInstances[0]['processDefinitionId'] );
+				for(int i = 0; i< activityInstances?.size(); i++) {
+					datos = new HashMap<String, Serializable>();
+					datos.put("displayDescription", activityInstances[i]['displayDescription'] );
+					datos.put("executedBy", activityInstances[i]['executedBy'] );
+					datos.put("rootContainerId", activityInstances[i]['rootContainerId'] );
+					datos.put("displayName", activityInstances[i]['displayName'] );
+					datos.put("executedBySubstitute", activityInstances[i]['executedBySubstitute'] );
+					datos.put("description", activityInstances[i]['description'] );
+					datos.put("type", activityInstances[i]['type'] );
+					datos.put("priority", activityInstances[i]['priority'] );
+					datos.put("actorId", activityInstances[i]['actorId'] );
+					datos.put("caseId", activityInstances[i]['parentContainerId'] );
+					datos.put("name", activityInstances[i]['name'] );
+					datos.put("reached_state_date", activityInstances[i]['reachedStateDate'] );
+					datos.put("rootCaseId", activityInstances[i]['rootContainerId'] );
+					datos.put("id", activityInstances[i]['id'] );
+					datos.put("state", activityInstances[i]['state'] );
+					datos.put("parentCaseId", activityInstances[i]['parentProcessInstanceId'] );
+					datos.put("last_update_date", activityInstances[i]['lastUpdateDate'] );
+					datos.put("assigned_id", activityInstances[i]['assigneeId'] );
+					
+					if( value.length() > 0 && value == "processId") {
+						info = apiClient.getProcessAPI().getProcessDeploymentInfo( activityInstances[i]['processDefinitionId']);
+						datos.put("processId", info );
+					}else {
+						datos.put("processId", activityInstances[i]['processDefinitionId'] );
+					}
+					
+					rows.add(datos)
+						
 				}
-				
 				
 			}catch(Exception ex) {
 				errorLog += ex;
 			}
 			
-			if(processId) {
-				map.add(info)
-				resultado.setData(map)
-			}else {
-				resultado.setData(activityInstances)
-			}
-			
+			resultado.setData(rows)
 			resultado.setSuccess(true);
 			
 		} catch (Exception e) {

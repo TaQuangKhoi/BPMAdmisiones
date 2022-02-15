@@ -299,7 +299,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         doRequest("GET", "../API/identity/user/" + $scope.properties.userId, null, null, function(data) {
 
             doRequest("GET", "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico=" + data.userName + "&p=0&c=500", null, null, function(datos1) {
-                doRequest("GET", "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + datos1[0].caseId + "&fstate=ready&d=processId", null, null, function(data0) {
+                doRequest("GET", "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + datos1[0].caseId + "&fstate=ready&name=processId", null, null, function(data0) {
                     if (data0.length > 0) {
                         $scope.processVersion = data0[0].processId.version;
                         if (
