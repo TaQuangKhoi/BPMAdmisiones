@@ -1,7 +1,7 @@
 function WidgetlivingApplicationMenuController($scope, $http, $window, $location, $timeout, modalService) {
     var ctrl = this;
     var vm = this;
-    $scope.processVersion=0;
+    $scope.processVersion = 0;
     ctrl.appStarted = false;
     ctrl.disabledByTask = function(name) {
         let taskName = $scope.properties.currentTaskName;
@@ -144,23 +144,23 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     ctrl.redirectToPage = function(token) {
         var previousToken = ctrl.pageToken;
         var previousPath = window.location.pathname;
-        if(token=="autodescripcion"){
-            token=($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
-            if(token=="autodescripcionV2"){
+        if (token == "autodescripcion") {
+            token = ($scope.processVersion < 1.53) ? "autodescripcion" : "autodescripcionV2";
+            if (token == "autodescripcionV2") {
                 var taskName = $scope.properties.currentTaskName;
-                if(taskName === "Seleccionar cita" ||
-                taskName === "Generar credencial" ||
-                taskName === "Pase de lista Prueba 1" ||
-                taskName === "Pase de lista Prueba 2" ||
-                taskName === "Pase de lista Prueba 3" ||
-                taskName === "Carga y consulta de resultados" ||
-                taskName === "Resultado final de comité" ||
-                taskName === "Reactivar usuario rechazado"){
-                    token="autodescripcionV2vista";
+                if (taskName === "Seleccionar cita" ||
+                    taskName === "Generar credencial" ||
+                    taskName === "Pase de lista Prueba 1" ||
+                    taskName === "Pase de lista Prueba 2" ||
+                    taskName === "Pase de lista Prueba 3" ||
+                    taskName === "Carga y consulta de resultados" ||
+                    taskName === "Resultado final de comité" ||
+                    taskName === "Reactivar usuario rechazado") {
+                    token = "autodescripcionV2vista";
                 }
             }
         }
-        
+
         ctrl.pageToken = token;
         var urlPath = "";
         if (previousToken === "autodescripcion" || previousToken === "autodescripcionV2" || previousToken === "pago_de_examen" || previousToken === "confirmacion_credencial" || previousToken === "verSesiones") {
@@ -255,13 +255,13 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción") {
-            ctrl.pageToken = ($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
+            ctrl.pageToken = ($scope.processVersion < 1.53) ? "autodescripcion" : "autodescripcionV2";
         } else if ($scope.properties.currentTaskName === "Seleccionar cita") {
             ctrl.pageToken = "verSesiones";
         } else if ($scope.properties.currentTaskName === "Generar credencial") {
             let array = window.location.href.split("/");
             let appName = array[array.length - 2];
-            debugger;
+
             if (appName === "generar_credencial") {
                 ctrl.pageToken = "generar_credencial";
             } else {
@@ -301,7 +301,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             doRequest("GET", "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico=" + data.userName + "&p=0&c=500", null, null, function(datos1) {
                 doRequest("GET", "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + datos1[0].caseId + "&fstate=ready&d=processId", null, null, function(data0) {
                     if (data0.length > 0) {
-                        $scope.processVersion=data0[0].processId.version;
+                        $scope.processVersion = data0[0].processId.version;
                         if (
                             ($scope.properties.isCaseStarted && $scope.properties.currentTaskName !== "") ||
                             (!$scope.properties.isCaseStarted && $scope.properties.currentTaskName === "")
