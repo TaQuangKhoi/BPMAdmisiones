@@ -8,9 +8,11 @@ import java.sql.Statement
 import java.text.SimpleDateFormat
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
+import org.bonitasoft.engine.bpm.data.DataDefinition
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.ArchivedActivityInstance
+import org.bonitasoft.engine.bpm.process.DesignProcessDefinition
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessInstanceNotFoundException
@@ -40,15 +42,17 @@ class BonitaGetsDAO {
 	PreparedStatement pstm
 	
 	
-	public Result getUserHumanTask(Long caseid,RestAPIContext context) {
+	public Result getUserHumanTask(Long caseid,String value,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
-		Boolean conection = false;
+		Boolean closeCon = false, processId = false;
 		try {
 			String username = "";
 			String password = "";
 			
 			List<ActivityInstance> activityInstances = [];
+			ProcessDeploymentInfo info;
+			List<ProcessDeploymentInfo> map = [];
 			
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
@@ -62,14 +66,27 @@ class BonitaGetsDAO {
 			
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
-				activityInstances = context.getApiClient().getProcessAPI().getActivities(caseid, 0, 1);
+				
+				activityInstances = context.getApiClient().getProcessAPI().getActivities(caseid, 0, 10);
+				
+				if( activityInstances.size() && value.length() > 0 && value == "processId") {
+					processId = !processId;
+					info = apiClient.getProcessAPI().getProcessDeploymentInfo( activityInstances[0]['processDefinitionId'] );
+				}
+				
+				
 			}catch(Exception ex) {
 				errorLog += ex;
 			}
 			
+			if(processId) {
+				map.add(info)
+				resultado.setData(map)
+			}else {
+				resultado.setData(activityInstances)
+			}
+			
 			resultado.setSuccess(true);
-			resultado.setData(activityInstances)
-			resultado.setError(errorLog);
 			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();

@@ -57,7 +57,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 blockUI.start();
                 var req2 = {
                     method: "GET",
-                    url: `/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
+                    url: `/API/bpm/humanTask?p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
                 };
 
                 $http(req2)
