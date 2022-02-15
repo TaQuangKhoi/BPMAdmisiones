@@ -286,6 +286,7 @@ class BonitaGetsDAO {
 			Map<String, Serializable> contexto;
 			Map<String, Serializable> contexto2 = new HashMap<String, Serializable>();
 			Map<String, Serializable> contextoDetalle = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> foto = new ArrayList < Map < String, Serializable >> ();
 			
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
@@ -319,6 +320,8 @@ class BonitaGetsDAO {
 						contextoDetalle.put("index", contexto[prop.key][0]?.index);
 						contextoDetalle.put("contentFileName", contexto[prop.key][0]?.contentFileName);
 						
+						foto.add(contextoDetalle);
+						contexto2.put(prop.key, foto)
 					}else {
 						
 						contextoDetalle.put("name", contexto[prop.key]?.name);
@@ -333,10 +336,12 @@ class BonitaGetsDAO {
 							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/findByIds?ids="+ (contexto[prop.key]?.storageIds?.join(",")));
 							
 						}
+						
+						contexto2.put(prop.key, contextoDetalle)
 					
 					}
 					 
-					 contexto2.put(prop.key, contextoDetalle)
+					 
 				}
 				
 			}catch(ProcessInstanceNotFoundException ex) {\
