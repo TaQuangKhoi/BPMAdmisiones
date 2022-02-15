@@ -8,6 +8,7 @@ import java.sql.Statement
 import java.text.SimpleDateFormat
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
+import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.ArchivedActivityInstance
@@ -373,6 +374,45 @@ class BonitaGetsDAO {
 		return resultado;
 	}
 	
+	public Result caseDocument(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean conection = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			List<Document> documents = [];
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
+			apiClient.login(username, password)
+			
+			try {
+				documents = context.getApiClient().getProcessAPI().getDocumentList(caseid, "fotoPasaporte", 0, 9999)
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(documents)
+			resultado.setError(errorLog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 	
 	public Boolean validarConexionBonita() {
 		Boolean retorno = false
