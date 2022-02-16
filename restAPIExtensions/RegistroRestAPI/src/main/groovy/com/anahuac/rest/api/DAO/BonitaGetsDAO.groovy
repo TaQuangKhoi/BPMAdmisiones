@@ -225,7 +225,7 @@ class BonitaGetsDAO {
 				errorLog+= "2"
 				errorLog+= "|"+activityInstances?.size()
 				for(int i = 0; i< activityInstances?.size(); i++) {
-					datos = new HashMap<String, Serializable>();
+					/*datos = new HashMap<String, Serializable>();
 					datos.put("displayDescription", activityInstances[i]['displayDescription'] );
 					datos.put("executedBy", activityInstances[i]['executedBy'] );
 					datos.put("rootContainerId", activityInstances[i]['rootContainerId'] );
@@ -245,7 +245,7 @@ class BonitaGetsDAO {
 					datos.put("last_update_date", activityInstances[i]['lastUpdateDate'] );
 					datos.put("assigned_id", activityInstances[i]['assigneeId'] );
 					datos.put("processId", activityInstances[i]['processDefinitionId'] );
-					rows.add(datos)
+					rows.add(datos)*/
 				}
 				
 			}catch(Exception ex) {
@@ -253,7 +253,7 @@ class BonitaGetsDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setData(rows)
+			resultado.setData(activityInstances)
 			resultado.setError(errorLog);
 			
 		} catch (Exception e) {
