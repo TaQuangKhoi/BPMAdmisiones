@@ -464,7 +464,7 @@ function($scope, $http, blockUI, $window) {
                 if (result.isConfirmed) {
                     $scope.sesion_aspirante.username = $scope.properties.usuario[0].correoElectronico
                     doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesionAspirante&p=0&c=10", null, $scope.sesion_aspirante, null, function(datos, extra) {
-                        doRequest("GET", `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
+                        doRequest("GET", `/API/extension/RegistroRest?url=humanTask&caseid=${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
                             var taskId = 0;
                             for (let index = 0; index < datos.length; index++) {
                                 const element = datos[index];
@@ -479,21 +479,42 @@ function($scope, $http, blockUI, $window) {
                                 if (fecha < new Date()) {
                                     Swal.fire("¡Periodo vencido!", "Recuerda que el periodo de ingreso que seleccionaste ha vencido y debes actualizarlo, contacta a tu asesor o a través del chat", "warning")
                                         .then((value) => {
-                                            doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                            doRequest("PUT", `../API/extension/RegistroPut?url=changeTaskId&taskId=${taskId}`, null, {}, null, function(datos, extra) {
+                                                doRequest("POST", `/API/bpm/userTask/${taskId}/execution`, null, {}, null, function(datos, extra) {
 
-                                                Swal.fire({
-                                                        icon: 'success',
-                                                        title: 'Correcto',
-                                                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
-                                                    })
-                                                    ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                                    //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
-                                                    //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
-                                                $scope.VerificarTask();
-                                            })
+                                                    Swal.fire({
+                                                            icon: 'success',
+                                                            title: 'Correcto',
+                                                            text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                                        })
+                                                        ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                                        //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                                        //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                                    $scope.VerificarTask();
+                                                })
+                                            });
+
                                         });
                                 } else {
-                                    doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                    doRequest("PUT", `../API/extension/RegistroPut?url=changeTaskId&taskId=${taskId}`, null, {}, null, function(datos, extra) {
+                                        doRequest("POST", `/API/bpm/userTask/${taskId}/execution`, null, {}, null, function(datos, extra) {
+
+                                            Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Correcto',
+                                                    text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                                })
+                                                ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                                //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                                //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                            $scope.VerificarTask();
+                                        })
+                                    });
+
+                                }
+                            } catch (e) {
+                                doRequest("PUT", `../API/extension/RegistroPut?url=changeTaskId&taskId=${taskId}`, null, {}, null, function(datos, extra) {
+                                    doRequest("POST", `/API/bpm/userTask/${taskId}/execution`, null, {}, null, function(datos, extra) {
 
                                         Swal.fire({
                                                 icon: 'success',
@@ -505,20 +526,8 @@ function($scope, $http, blockUI, $window) {
                                             //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
                                         $scope.VerificarTask();
                                     })
-                                }
-                            } catch (e) {
-                                doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                });
 
-                                    Swal.fire({
-                                            icon: 'success',
-                                            title: 'Correcto',
-                                            text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
-                                        })
-                                        ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                        //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
-                                        //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
-                                    $scope.VerificarTask();
-                                })
                             }
 
                         })
