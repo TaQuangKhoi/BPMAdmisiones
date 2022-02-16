@@ -226,25 +226,25 @@ class BonitaGetsDAO {
 				errorLog+= "|"+activityInstances?.size()
 				for(int i = 0; i< activityInstances?.size(); i++) {
 					datos = new HashMap<String, Serializable>();
-					datos.put("displayDescription", activityInstances[0]['displayDescription'] );
-					datos.put("executedBy", activityInstances[0]['executedBy'] );
-					datos.put("rootContainerId", activityInstances[0]['rootContainerId'] );
-					datos.put("displayName", activityInstances[0]['displayName'] );
-					datos.put("executedBySubstitute", activityInstances[0]['executedBySubstitute'] );
-					datos.put("description", activityInstances[0]['description'] );
-					datos.put("type", activityInstances[0]['type'] );
-					datos.put("priority", activityInstances[0]['priority'] );
-					datos.put("actorId", activityInstances[0]['actorId'] );
-					datos.put("caseId", activityInstances[0]['parentContainerId'] );
-					datos.put("name", activityInstances[0]['name'] );
-					datos.put("reached_state_date", activityInstances[0]['reachedStateDate'] );
-					datos.put("rootCaseId", activityInstances[0]['rootContainerId'] );
-					datos.put("id", activityInstances[0]['id'] );
-					datos.put("state", activityInstances[0]['state'] );
-					datos.put("parentCaseId", activityInstances[0]['parentProcessInstanceId'] );
-					datos.put("last_update_date", activityInstances[0]['lastUpdateDate'] );
-					datos.put("assigned_id", activityInstances[0]['assigneeId'] );
-					datos.put("processId", activityInstances[0]['processDefinitionId'] );
+					datos.put("displayDescription", activityInstances[i]['displayDescription'] );
+					datos.put("executedBy", activityInstances[i]['executedBy'] );
+					datos.put("rootContainerId", activityInstances[i]['rootContainerId'] );
+					datos.put("displayName", activityInstances[i]['displayName'] );
+					datos.put("executedBySubstitute", activityInstances[i]['executedBySubstitute'] );
+					datos.put("description", activityInstances[i]['description'] );
+					datos.put("type", activityInstances[i]['type'] );
+					datos.put("priority", activityInstances[i]['priority'] );
+					datos.put("actorId", activityInstances[i]['actorId'] );
+					datos.put("caseId", activityInstances[i]['parentContainerId'] );
+					datos.put("name", activityInstances[i]['name'] );
+					datos.put("reached_state_date", activityInstances[i]['reachedStateDate'] );
+					datos.put("rootCaseId", activityInstances[i]['rootContainerId'] );
+					datos.put("id", activityInstances[i]['id'] );
+					datos.put("state", activityInstances[i]['state'] );
+					datos.put("parentCaseId", activityInstances[i]['parentProcessInstanceId'] );
+					datos.put("last_update_date", activityInstances[i]['lastUpdateDate'] );
+					datos.put("assigned_id", activityInstances[i]['assigneeId'] );
+					datos.put("processId", activityInstances[i]['processDefinitionId'] );
 					rows.add(datos)
 				}
 				
