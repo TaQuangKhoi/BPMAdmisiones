@@ -219,7 +219,7 @@ class BonitaGetsDAO {
 			
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			errorLog+= "1"
-			activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(caseid, 0, 10, ActivityInstanceCriterion.DEFAULT)
+			activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(caseid, 0, 100, ActivityInstanceCriterion.DEFAULT)
 			
 			errorLog+= "2"
 			errorLog+= "|"+activityInstances?.size()
