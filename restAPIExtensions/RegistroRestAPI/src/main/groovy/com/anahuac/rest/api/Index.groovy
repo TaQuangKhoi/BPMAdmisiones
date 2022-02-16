@@ -182,7 +182,12 @@ class Index implements RestApiController {
 			resultado = new BonitaGetsDAO().getUserIdentity(0L,context)
 			responseBuilder.withMediaType("application/json")
 			if (resultado.isSuccess()) {
-				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
+				if(resultado.getData()?.size() > 0) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData().get(0)).toString())
+				} else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
+				}
+				
 			}else {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
 			}

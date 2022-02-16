@@ -151,9 +151,11 @@ class BonitaGetsDAO {
 			try {
 				
 				info = apiClient.getProcessAPI()?.getProcessDefinition(apiClient.getProcessAPI().getProcessInstance(caseid)?.processDefinitionId)
-				rows.add(info)
+				rows.add(info);
+				
 			}catch(Exception ex) {
-				errorLog += ex;
+				info = apiClient.getProcessAPI()?.getProcessDefinition(apiClient.getProcessAPI().getArchivedProcessInstance(caseid)?.processDefinitionId)
+				rows.add(info);
 			}
 			
 			resultado.setData(rows)
