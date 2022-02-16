@@ -412,14 +412,14 @@
     "taskId" : {
       "type" : "expression",
       "value" : [
-        "return $data.currentTask[0].parentContainerId;"
+        "return $data.currentTask[0].id;"
       ],
       "exposed" : false
     },
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=context&caseid={{taskId}}"
+        "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

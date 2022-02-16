@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "solicitudIniciadaApp",
   "name" : "solicitudIniciadaApp",
-  "lastUpdate" : 1644946166868,
+  "lastUpdate" : 1644978786066,
   "rows" : [
     [
       {
@@ -880,7 +880,7 @@
       "type" : "expression",
       "value" : [
         "// return \"/bonita/apps/aspirante/verSolicitudAdmision/?id=\" + $data.currentTask[0].id + \"&displayConfirmation=false\"",
-        "return \"/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=\" + $data.currentTask[0].parentContainerId + \"&displayConfirmation=false\""
+        "return \"/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=\" + $data.currentTask[0].caseId + \"&displayConfirmation=false\""
       ],
       "exposed" : false
     },
@@ -924,7 +924,7 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=context&caseid={{taskId}}"
+        "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -932,7 +932,7 @@
     "taskId" : {
       "type" : "expression",
       "value" : [
-        "return $data.currentTask[0].parentContainerId;"
+        "return $data.currentTask[0].id;"
       ],
       "exposed" : false
     },

@@ -130,6 +130,38 @@ class IndexPut implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 			break;
+			case "changeTaskId":
+			
+			String taskId=request.getParameter "taskId";
+			
+			
+			try {
+				String username = "";
+				String password = "";
+				
+				/*-------------------------------------------------------------*/
+				LoadParametros objLoad = new LoadParametros();
+				PropertiesEntity objProperties = objLoad.getParametros();
+				username = objProperties.getUsuario();
+				password = objProperties.getPassword();
+				/*-------------------------------------------------------------*/
+				
+				org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+				apiClient.login(username, password)
+				apiClient.getProcessAPI().assignUserTask(taskId, 0L)
+				
+				apiClient.getProcessAPI().assignUserTask(taskId, context.getApiSession().getUserId())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"task_id\": "+taskId+"}")
+			}catch(Exception i) {
+				result.setSuccess(false)
+				result.setError(i.getMessage())
+				result.setError_info(errorlog)
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			
+			
+			break;
+
 		}
         // Here is an example of how you can retrieve configuration parameters from a properties file
         // It is safe to remove this if no configuration is required
