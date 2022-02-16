@@ -218,42 +218,44 @@ class BonitaGetsDAO {
 			apiClient.login(username, password)
 			
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
-			try {
-				errorLog+= "1"
-				activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(caseid, 0, 10, ActivityInstanceCriterion.DEFAULT)
+			errorLog+= "1"
+			activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(caseid, 0, 10, ActivityInstanceCriterion.DEFAULT)
+			
+			errorLog+= "2"
+			errorLog+= "|"+activityInstances?.size()
+			for(int i = 0; i< activityInstances?.size(); i++) {
 				
-				errorLog+= "2"
-				errorLog+= "|"+activityInstances?.size()
-				for(int i = 0; i< activityInstances?.size(); i++) {
-					
-					datos = new HashMap<String, Serializable>();
-					datos.put("displayDescription", activityInstances[i]['displayDescription'] );
-					datos.put("executedBy", activityInstances[i]['executedBy'] );
-					datos.put("archivedDate", activityInstances[i]['archiveDate'] );
-					datos.put("rootContainerId", activityInstances[i]['rootContainerId'] );			
-					datos.put("displayName", activityInstances[i]['displayName'] );
-					datos.put("executedBySubstitute", activityInstances[i]['executedBySubstitute'] );
-					datos.put("description", activityInstances[i]['description'] );
-					datos.put("type", activityInstances[i]['type'] );
-					//datos.put("priority", activityInstances[i]?.priority );
-					//datos.put("actorId", activityInstances[i]?.actorId );
-					datos.put("processId", activityInstances[i]['processDefinitionId'] );
-					datos.put("caseId", activityInstances[i]['processInstanceId'] );
-					datos.put("name", activityInstances[i]['name'] );
-					datos.put("reached_state_date", activityInstances[i]['reachedStateDate'] );
-					datos.put("rootCaseId", activityInstances[i]['rootContainerId'] );
-					datos.put("id", activityInstances[i]['id'] );
-					datos.put("state", activityInstances[i]['state'] );
-					datos.put("parentCaseId", activityInstances[i]['parentContainerId'] );
-					datos.put("last_update_date", activityInstances[i]['lastUpdateDate'] );
+				datos = new HashMap<String, Serializable>();
+				datos.put("displayDescription", activityInstances[i]['displayDescription'] );
+				datos.put("executedBy", activityInstances[i]['executedBy'] );
+				datos.put("archivedDate", activityInstances[i]['archiveDate'] );
+				datos.put("rootContainerId", activityInstances[i]['rootContainerId'] );
+				datos.put("displayName", activityInstances[i]['displayName'] );
+				datos.put("executedBySubstitute", activityInstances[i]['executedBySubstitute'] );
+				datos.put("description", activityInstances[i]['description'] );
+				datos.put("type", activityInstances[i]['type'] );
+				
+				datos.put("processId", activityInstances[i]['processDefinitionId'] );
+				datos.put("caseId", activityInstances[i]['processInstanceId'] );
+				datos.put("name", activityInstances[i]['name'] );
+				datos.put("reached_state_date", activityInstances[i]['reachedStateDate'] );
+				datos.put("rootCaseId", activityInstances[i]['rootContainerId'] );
+				datos.put("id", activityInstances[i]['id'] );
+				datos.put("state", activityInstances[i]['state'] );
+				datos.put("parentCaseId", activityInstances[i]['parentContainerId'] );
+				datos.put("last_update_date", activityInstances[i]['lastUpdateDate'] );
+				
+				try {
 					datos.put("assigned_id", activityInstances[i]['assigneeId'] );
-					
-					rows.add(datos)
+					datos.put("priority", activityInstances[i]["priority"] );
+					datos.put("actorId", activityInstances[i]["actorId"] );
+				}catch(Exception ex) {
+					errorLog += ex;
 				}
 				
-			}catch(Exception ex) {
-				errorLog += ex;
+				rows.add(datos)
 			}
+			
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows)
