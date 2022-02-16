@@ -58,7 +58,7 @@ function($scope, $http, $location) {
                     doRequest("GET", "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.caseId + "&fstate=ready", null, function(data, status) {
 
                         if (data.length < 1) {
-                            doRequest("GET", "../API/bpm/archivedCase?c=1&p=0&f=sourceObjectId=" + $scope.caseId, {},
+                            doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid=" + $scope.caseId, {},
                                 function(data, status) { //SUCCESS
                                     $scope.lstArchivedCase = data[0];
                                     if (data.length > 0) {
@@ -82,7 +82,7 @@ function($scope, $http, $location) {
                                 $scope.properties.context = context;
 
                             }, function(data, status) {
-                                doRequest("GET", "../API/bpm/archivedCase?c=1&p=0&f=sourceObjectId=" + $scope.caseId, {},
+                                doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid=" + $scope.caseId, {},
                                     function(data, status) { //SUCCESS
                                         $scope.lstArchivedCase = data[0];
                                         if (data.length > 0) {
@@ -136,7 +136,7 @@ function($scope, $http, $location) {
 
     $scope.loadArchivedCase = function(caseId) {
         if ($scope.taskId === undefined || $scope.taskId === "") {
-            doRequest("GET", "../API/bpm/archivedCase?c=1&p=0&f=sourceObjectId=" + caseId, {},
+            doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid=" + caseId, {},
                 function(data, status) { //SUCCESS
                     $scope.lstArchivedCase = data;
                     if (data.length > 0) {
