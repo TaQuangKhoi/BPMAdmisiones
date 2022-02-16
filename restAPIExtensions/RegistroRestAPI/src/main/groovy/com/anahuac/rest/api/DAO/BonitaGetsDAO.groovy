@@ -383,7 +383,55 @@ class BonitaGetsDAO {
 					 
 				}
 				
-			}catch(ProcessInstanceNotFoundException ex) {\
+			}catch(ProcessInstanceNotFoundException ex) {
+				
+			}
+			
+			/**/
+			rows.add(contexto2);	
+			resultado.setSuccess(true);
+			resultado.setData(rows)
+			resultado.setError_info( errorLog)
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info( errorLog)
+			e.printStackTrace();
+		}
+		finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	public Result getUserArchivedContext(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			String username = "";
+			String password = "";
+			def ref;
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
+			Map<String, Serializable> contexto;
+			Map<String, Serializable> contexto2 = new HashMap<String, Serializable>();
+			Map<String, Serializable> contextoDetalle = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> foto = new ArrayList < Map < String, Serializable >> ();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			try {
 				closeCon = validarConexionBonita();
 				pstm = con.prepareStatement(" SELECT id FROM ARCH_PROCESS_INSTANCE WHERE sourceobjectid = ${caseid} ");
 				rs = pstm.executeQuery();
@@ -432,100 +480,10 @@ class BonitaGetsDAO {
 						 
 					}
 				}
-			}
-			
-			/**/
-			rows.add(contexto2);	
-			resultado.setSuccess(true);
-			resultado.setData(rows)
-			resultado.setError_info( errorLog)
-		} catch (Exception e) {
-			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
-			resultado.setError_info( errorLog)
-			e.printStackTrace();
-		}
-		finally {
-			if (closeCon) {
-				new DBConnect().closeObj(con, stm, rs, pstm)
-			}
-		}
-		return resultado;
-	}
-	
-	public Result getUserArchivedContext(Long caseid,RestAPIContext context) {
-		Result resultado = new Result();
-		String errorLog ="";
-		Boolean closeCon = false;
-		try {
-			String username = "";
-			String password = "";
-			def ref;
-			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
-			Map<String, Serializable> contexto;
-			Map<String, Serializable> contexto2 = new HashMap<String, Serializable>();
-			Map<String, Serializable> contextoDetalle = new HashMap<String, Serializable>();
-			List < Map < String, Serializable >> foto = new ArrayList < Map < String, Serializable >> ();
-			
-			/*-------------------------------------------------------------*/
-			LoadParametros objLoad = new LoadParametros();
-			PropertiesEntity objProperties = objLoad.getParametros();
-			username = objProperties.getUsuario();
-			password = objProperties.getPassword();
-			/*-------------------------------------------------------------*/
-			
-			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
-			apiClient.login(username, password)
-			
-			closeCon = validarConexionBonita();
-			pstm = con.prepareStatement(" SELECT id FROM ARCH_PROCESS_INSTANCE WHERE sourceobjectid = ${caseid} ");
-			rs = pstm.executeQuery();
-			if(rs.next()) {
-				contexto = apiClient.getProcessAPI().getArchivedProcessInstanceExecutionContext( Long.parseLong(rs.getString("id")));
-				boolean link = false
-				for ( prop in contexto ) {
 					
-					contextoDetalle = new HashMap<String, Serializable>();
+				}catch(ProcessInstanceNotFoundException ex) {
 					
-					if(prop.key == "fotoPasaporte_ref") {
-						contextoDetalle.put("id", contexto[prop.key][0]?.id);
-						contextoDetalle.put("processInstanceId", contexto[prop.key][0]?.processInstanceId);
-						contextoDetalle.put("author", contexto[prop.key][0]?.author);
-						contextoDetalle.put("creationDate", contexto[prop.key][0]?.creationDate);
-						contextoDetalle.put("fileName", contexto[prop.key][0]?.fileName);
-						contextoDetalle.put("contentMimeType", contexto[prop.key][0]?.contentMimeType);
-						contextoDetalle.put("contentStorageId", contexto[prop.key][0]?.contentStorageId);
-						contextoDetalle.put("url", contexto[prop.key][0]?.url);
-						contextoDetalle.put("description", contexto[prop.key][0]?.description);
-						contextoDetalle.put("version", contexto[prop.key][0]?.version);
-						contextoDetalle.put("index", contexto[prop.key][0]?.index);
-						contextoDetalle.put("contentFileName", contexto[prop.key][0]?.contentFileName);
-						
-						foto.add(contextoDetalle);
-						contexto2.put(prop.key, foto)
-					}else {
-						
-						contextoDetalle.put("name", contexto[prop.key]?.name);
-						contextoDetalle.put("type", contexto[prop.key]?.type);
-						try {
-							contextoDetalle.put("storageId", contexto[prop.key]?.storageId);
-							contextoDetalle.put("storageId_string", contexto[prop.key]?.storageIdAsString);
-							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/"+ (contexto[prop.key]?.storageId != null ?contexto[prop.key]?.storageId: "" ));
-						}catch(Exception ex) {
-							contextoDetalle.put("storageIds", contexto[prop.key]?.storageIds);
-							contextoDetalle.put("storageIds_string", contexto[prop.key]?.storageIdsAsString);
-							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/findByIds?ids="+ (contexto[prop.key]?.storageIds?.join(",")));
-							
-						}
-						
-						contexto2.put(prop.key, contextoDetalle)
-					
-					}
-					 
-					 
 				}
-			}
 			
 			/**/
 			rows.add(contexto2);
