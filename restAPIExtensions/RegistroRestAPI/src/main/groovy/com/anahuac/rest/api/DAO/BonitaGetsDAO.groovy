@@ -16,6 +16,7 @@ import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.ArchivedActivityInstance
 import org.bonitasoft.engine.bpm.process.ArchivedProcessInstance
 import org.bonitasoft.engine.bpm.process.DesignProcessDefinition
+import org.bonitasoft.engine.bpm.process.ProcessDefinition
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessInstanceNotFoundException
@@ -108,6 +109,49 @@ class BonitaGetsDAO {
 						
 				}
 				
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setData(rows)
+			resultado.setSuccess(true);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	public Result getCaseInstance(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false, processId = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			ProcessDefinition info;
+			List < ProcessDefinition> rows = new ArrayList < ProcessDefinition> ();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			try {
+				
+				info = apiClient.getProcessAPI()?.getProcessDefinition(apiClient.getProcessAPI().getProcessInstance(caseid)?.processDefinitionId)
+				rows.add(info)
 			}catch(Exception ex) {
 				errorLog += ex;
 			}
@@ -336,6 +380,8 @@ class BonitaGetsDAO {
 		resultado.setData([]);
 		return resultado;
 	}
+	
+	
 	
 	public Result getCaseVariable(Long caseid,String name,RestAPIContext context) {
 		Result resultado = new Result();

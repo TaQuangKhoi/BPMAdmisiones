@@ -149,6 +149,19 @@ class Index implements RestApiController {
 			
 			break;
 			
+			case "caseInstance":
+			
+			String caseid=request.getParameter "caseid";
+			resultado = new BonitaGetsDAO().getCaseInstance(Long.parseLong(caseid), context)
+			responseBuilder.withMediaType("application/json")
+			if (resultado.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado?.getData()?.get(0)).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
+			}
+			
+			break;
+			
 			case "archivedCase":
 			
 			String caseid=request.getParameter "caseid";
