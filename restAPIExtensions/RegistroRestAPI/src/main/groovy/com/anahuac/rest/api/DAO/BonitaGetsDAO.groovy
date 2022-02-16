@@ -235,8 +235,8 @@ class BonitaGetsDAO {
 					datos.put("executedBySubstitute", activityInstances[i]['executedBySubstitute'] );
 					datos.put("description", activityInstances[i]['description'] );
 					datos.put("type", activityInstances[i]['type'] );
-					datos.put("priority", activityInstances[i]?.priority );
-					datos.put("actorId", activityInstances[i]?.actorId );
+					//datos.put("priority", activityInstances[i]?.priority );
+					//datos.put("actorId", activityInstances[i]?.actorId );
 					datos.put("processId", activityInstances[i]['processDefinitionId'] );
 					datos.put("caseId", activityInstances[i]['processInstanceId'] );
 					datos.put("name", activityInstances[i]['name'] );
