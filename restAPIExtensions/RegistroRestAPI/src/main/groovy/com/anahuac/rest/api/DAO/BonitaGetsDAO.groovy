@@ -20,6 +20,7 @@ import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessInstanceNotFoundException
 import org.bonitasoft.engine.exception.BonitaRuntimeException
+import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
@@ -644,6 +645,69 @@ class BonitaGetsDAO {
 			resultado.setSuccess(true);
 			resultado.setData(archivedProcessInstances)
 			resultado.setError(errorLog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	
+	public Result getUserIdentity(Long user,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false, processId = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			User usuario;
+			Map<String, Serializable> datos = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			try {
+				
+				usuario = apiClient.getIdentityAPI().getUser(user)
+				
+				datos = new HashMap<String, Serializable>();
+				datos.put("firstname", usuario['firstName'] );
+				datos.put("icon", usuario['iconPath'] );
+				datos.put("creation_date", usuario['creationDate'] );
+				datos.put("userName", usuario['userName'] );
+				datos.put("title", usuario['title'] );
+				datos.put("created_by_user_id", usuario['createdBy'] );
+				datos.put("enabled", usuario['enabled'] );
+				datos.put("lastname", usuario['lastName'] );
+				datos.put("last_connection", usuario['lastConnection'] );
+				datos.put("password", "");
+				datos.put("manager_id", usuario['managerUserId'] );
+				datos.put("id", usuario['id'] );
+				datos.put("job_title", usuario['jobTitle'] );
+				datos.put("last_update_date", usuario['lastUpdate'] );
+				
+				rows.add(datos)
+				
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setData(rows)
+			resultado.setSuccess(true);
 			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
