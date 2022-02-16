@@ -19,8 +19,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var id;
         id = $scope.properties.taskId;
         if (id) {
-            doRequest('POST', '../API/bpm/userTask/' + id + '/execution').then(function() {
-                localStorageService.delete($window.location.href);
+            doRequest('PUT', '../API/extension/RegistroPut?url=changeTaskId&taskId=' + id).then(function() {
+                doRequest('POST', '../API/bpm/userTask/' + id + '/execution').then(function() {
+                    localStorageService.delete($window.location.href);
+                });
             });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
@@ -45,7 +47,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             })
             .error(function(data, status) {
                 $scope.properties.selectedIndex--
-                blockUI.stop();
+                    blockUI.stop();
                 console.log("task failed")
             });
     }
