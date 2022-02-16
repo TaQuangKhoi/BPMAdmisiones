@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.46",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1645036995978,
+  "lastUpdate" : 1645042352777,
   "rows" : [
     [
       {
@@ -1030,7 +1030,7 @@
                                     },
                                     "text" : {
                                       "type" : "interpolation",
-                                      "value" : "{{loggedUser.userName}}"
+                                      "value" : "{{loggedUser[0].userName}}"
                                     },
                                     "alignment" : {
                                       "type" : "constant",
@@ -2635,7 +2635,7 @@
         "    return '';",
         "}",
         "",
-        "var isCustomIconPath = $data.loggedUser.icon && $data.loggedUser.icon!='icons/default/icon_user.png';",
+        "var isCustomIconPath = $data.loggedUser[0].icon && $data.loggedUser[0].icon!='icons/default/icon_user.png';",
         "",
         "const htmlContentForImage = `<span><img title=\"${$data.userName}\" src=\"${$data.loggedUser.icon}\" alt=\"${uiTranslate('User icon')}\"></span>`;",
         "",
@@ -2671,8 +2671,9 @@
     "currentUserProfileList" : {
       "type" : "url",
       "value" : [
-        "../API/portal/profile?p=0&c=100&f=user_id={{loggedUser.id}}"
+        "../API/portal/profile?p=0&c=100&f=user_id={{loggedUser[0].id}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "languageList" : {

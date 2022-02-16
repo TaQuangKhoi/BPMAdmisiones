@@ -859,7 +859,7 @@ class UsuariosDAO {
 					pstm.setLong(2, flownodedefinitionid)
 					pstm.setLong(3, new Long(object.caseId))
 					pstm.setLong(4, new Long(object.caseId))
-					pstm.setLong(5, Long.parseLong(object.processDefinitionId))
+					pstm.setLong(5, Long.valueOf(object.processDefinitionId))
 					pstm.setLong(6, new Long(object.caseId))
 					pstm.setLong(7, new Long(object.caseId))
 					pstm.execute()
