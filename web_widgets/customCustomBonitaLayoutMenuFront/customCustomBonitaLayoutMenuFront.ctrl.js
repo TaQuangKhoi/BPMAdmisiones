@@ -310,7 +310,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                             setApplication();
                         }
                     } else {
-                        doRequest("GET", "../API/extension/RegistroRest?url=archivedActivity&p=0&c=10&caseid=" + datos1[0].caseId + "&f=state=aborted", null, null, function(datos2) {
+                        doRequest("GET", "../API/extension/RegistroRest?url=archivedHumanTask&p=0&c=10&caseid=" + datos1[0].caseId + "&f=state=aborted", null, null, function(datos2) {
                             for (let index = 0; index < datos2.length; index++) {
                                 const element = datos2[index].displayName;
                                 if (true) {
