@@ -42,8 +42,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                getCurrentTask();
-                console.log("Task done")
+                if (!req.url.includes("changeTaskId")) {
+                    getCurrentTask();
+                    console.log("Task done");  
+                }
+                
             })
             .error(function(data, status) {
                 $scope.properties.selectedIndex--

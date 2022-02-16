@@ -133,7 +133,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-
+                
+                if (!req.url.includes("changeTaskId")) {
                 setTimeout(() => {
                     $scope.properties.dataFromSuccess = data;
                     $scope.properties.responseStatusCode = status;
@@ -157,6 +158,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //   }, 5000);
                 // }
                 // closeModal($scope.properties.closeOnSuccess);
+                }
             })
             .error(function(data, status) {
                 $scope.properties.dataFromError = data;
@@ -214,9 +216,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (id) {
             var params = getUserParam();
             params.assign = $scope.properties.assign;
-            doRequest('POST', '../API/bpm/userTask/' + id + '/execution', params).then(function() {
-                localStorageService.delete($window.location.href);
+            doRequest('PUT', '../API/extension/RegistroPut?url=changeTaskId&taskId=' + id).then(function() {
+                doRequest('POST', '../API/bpm/userTask/' + id + '/execution').then(function() {
+                    localStorageService.delete($window.location.href);
+                });
             });
+       
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
