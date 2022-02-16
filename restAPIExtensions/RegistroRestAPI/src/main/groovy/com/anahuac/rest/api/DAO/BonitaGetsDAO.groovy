@@ -21,6 +21,7 @@ import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessInstanceNotFoundException
 import org.bonitasoft.engine.exception.BonitaRuntimeException
 import org.bonitasoft.engine.identity.User
+import org.bonitasoft.engine.identity.UserWithContactData
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
@@ -666,6 +667,7 @@ class BonitaGetsDAO {
 			String password = "";
 			
 			User usuario;
+			UserWithContactData uwcd;
 			Map<String, Serializable> datos = new HashMap<String, Serializable>();
 			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
 			
@@ -683,7 +685,7 @@ class BonitaGetsDAO {
 			try {
 				
 				usuario = apiClient.getIdentityAPI().getUser(user)
-				
+				uwcd = apiClient.getIdentityAPI().getUserWithProfessionalDetails(user)
 				datos = new HashMap<String, Serializable>();
 				datos.put("firstname", usuario['firstName'] );
 				datos.put("icon", usuario['iconPath'] );
@@ -699,6 +701,7 @@ class BonitaGetsDAO {
 				datos.put("id", usuario['id'] );
 				datos.put("job_title", usuario['jobTitle'] );
 				datos.put("last_update_date", usuario['lastUpdate'] );
+				datos.put("professional_data", uwcd.contactData);
 				
 				rows.add(datos)
 				
