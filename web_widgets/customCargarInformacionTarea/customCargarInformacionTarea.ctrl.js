@@ -78,7 +78,7 @@ function($scope, $http, $location) {
                             $scope.taskId = data[0].id;
                             $scope.properties.taskId = $scope.taskId;
 
-                            doRequest("GET", "../API/bpm/userTask/" + $scope.taskId + "/context", null, function(context, status) {
+                            doRequest("GET", "../API/extension/RegistroRest?url=context&caseid=" + $scope.caseId , null, function(context, status) {
                                 $scope.properties.context = context;
 
                             }, function(data, status) {

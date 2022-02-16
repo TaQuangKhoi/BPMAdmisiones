@@ -13,6 +13,19 @@ function loadContextCtrl($scope, $http) {
                 }
             })
     }
+    
+    $scope.loadContextRest = function(caseId) {
+        console.log("LOAD TASK");
+        doRequest("GET", "../API/extension/RegistroRest?url=context&caseid="+caseId, {},
+        function(data, status){//SUCCESS
+            $scope.properties.context = data;
+        },
+        function(data, status){//ERROR
+            if($scope.properties.caseId !== undefined){
+                $scope.loadArchivedCase($scope.properties.caseId,true);
+            }
+        })
+    }
 
     $scope.loadArchivedCase = function(caseId, revivida) {
         console.log("LOAD ARCHIVED TASK");
@@ -57,15 +70,16 @@ function loadContextCtrl($scope, $http) {
 
     $scope.$watchCollection("properties.taskId", function(newValue, oldValue) {
         console.log("loadcontext")
-        if ($scope.properties.taskId !== undefined && $scope.properties.taskId !== "") {
+        /*if ($scope.properties.taskId !== undefined && $scope.properties.taskId !== "") {
             $scope.loadContextTask($scope.properties.taskId);
-        }
+        }*/
     });
 
     $scope.$watchCollection("properties.caseId", function(newValue, oldValue) {
+        console.log("loadcontext")
         if ($scope.properties.caseId !== undefined) {
             if ($scope.properties.taskId === undefined || $scope.properties.taskId === "") {
-                $scope.loadArchivedCase($scope.properties.caseId, false);
+                $scope.loadContextRest($scope.properties.caseId,false);
             }
         }
     });
