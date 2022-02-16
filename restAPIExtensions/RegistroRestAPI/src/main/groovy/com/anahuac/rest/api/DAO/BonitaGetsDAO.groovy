@@ -13,6 +13,7 @@ import org.bonitasoft.engine.bpm.data.DataDefinition
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.ArchivedActivityInstance
+import org.bonitasoft.engine.bpm.process.ArchivedProcessInstance
 import org.bonitasoft.engine.bpm.process.DesignProcessDefinition
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
@@ -451,6 +452,45 @@ class BonitaGetsDAO {
 		return resultado;
 	}
 	
+	public Result archivedCase(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean conection = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			List<ArchivedProcessInstance>  archivedProcessInstances = [];
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
+			apiClient.login(username, password)
+			
+			try {
+				archivedProcessInstances = apiClient.processAPI.getArchivedProcessInstances(caseid, 0, 999)
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(archivedProcessInstances)
+			resultado.setError(errorLog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 	public Boolean validarConexionBonita() {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
