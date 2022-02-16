@@ -256,7 +256,7 @@ class BonitaGetsDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setData(activityInstances)
+			resultado.setData(rows)
 			resultado.setError(errorLog);
 			
 		} catch (Exception e) {
