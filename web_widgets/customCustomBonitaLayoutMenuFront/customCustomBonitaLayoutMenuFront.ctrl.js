@@ -245,7 +245,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     }
 
     function verifySession() {
-        var userIdentity = '../API/identity/user/' + $scope.properties.userId;
+        var userIdentity = '../API/extension/RegistroRest?url=getUserIdentity&userId=' + $scope.properties.userId;
         return $http.get(userIdentity);
     }
 
