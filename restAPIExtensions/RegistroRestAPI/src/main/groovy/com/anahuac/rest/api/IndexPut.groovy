@@ -148,9 +148,9 @@ class IndexPut implements RestApiController {
 				
 				org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
 				apiClient.login(username, password)
-				apiClient.getProcessAPI().assignUserTask(taskId, 0L)
+				apiClient.getProcessAPI().assignUserTask(Long.parseLong(taskId), 0L)
 				
-				apiClient.getProcessAPI().assignUserTask(taskId, context.getApiSession().getUserId())
+				apiClient.getProcessAPI().assignUserTask(Long.parseLong(taskId), context.getApiSession().getUserId())
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"task_id\": "+taskId+"}")
 			}catch(Exception i) {
 				result.setSuccess(false)
