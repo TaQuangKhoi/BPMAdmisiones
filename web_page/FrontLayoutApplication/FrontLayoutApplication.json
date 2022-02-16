@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.46",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1644958978900,
+  "lastUpdate" : 1645034554321,
   "rows" : [
     [
       {
@@ -2612,8 +2612,9 @@
     "loggedUser" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user/{{session.user_id}}?d=professional_data"
+        "../API/extension/RegistroRest?url=getUserIdentity&userId={{session.user_id}}&d=professional_data"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "homePage" : {
@@ -2966,8 +2967,9 @@
     "memberships" : {
       "type" : "url",
       "value" : [
-        "../API/identity/membership?p=0&c=10&f=user_id%3d{{session.user_id}}&d=role_id&d=group_id"
+        "../API/extension/RegistroRest?url=getUserIdentityMembership?userId={{session.user_id}}&d=role_id&d=group_id"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getCampus" : {

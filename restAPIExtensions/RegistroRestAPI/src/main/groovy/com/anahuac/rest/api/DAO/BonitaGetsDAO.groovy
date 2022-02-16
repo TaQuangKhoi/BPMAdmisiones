@@ -21,6 +21,8 @@ import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessInstanceNotFoundException
 import org.bonitasoft.engine.exception.BonitaRuntimeException
 import org.bonitasoft.engine.identity.User
+import org.bonitasoft.engine.identity.UserMembership
+import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.identity.UserWithContactData
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
@@ -704,6 +706,62 @@ class BonitaGetsDAO {
 				datos.put("professional_data", uwcd.contactData);
 				
 				rows.add(datos)
+				
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setData(rows)
+			resultado.setSuccess(true);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	public Result getUserIdentityMembership(Long user,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false, processId = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			List<UserMembership> userMemberships;
+			UserWithContactData uwcd;
+			Map<String, Serializable> datos = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			try {
+				
+				userMemberships = apiClient.getIdentityAPI().getUserMemberships(user, 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)
+				for(UserMembership um: userMemberships) {
+					Map<String, Serializable> props= um;
+					datos = new HashMap<String, Serializable>();
+					datos.put("group_id", apiClient.getIdentityAPI().getGroup(um.groupId))
+					datos.put("role_id", apiClient.getIdentityAPI().getRole(um.roleId))
+					for(prop in props) {
+						datos.put(prop.key, prop.value)
+					}
+					rows.add(datos)
+				}
+				
 				
 			}catch(Exception ex) {
 				errorLog += ex;
