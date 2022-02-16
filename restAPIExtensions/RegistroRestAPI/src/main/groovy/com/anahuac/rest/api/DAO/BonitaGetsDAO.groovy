@@ -760,10 +760,9 @@ class BonitaGetsDAO {
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
 			
-			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
 			apiClient.login(username, password)
 			
-			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
 				
 				userMemberships = apiClient.getIdentityAPI().getUserMemberships(user, 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)

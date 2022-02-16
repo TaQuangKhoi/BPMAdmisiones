@@ -208,7 +208,7 @@ class Index implements RestApiController {
 
         // Send the result as a JSON representation
         // You may use buildPagedResponse if your result is multiple
-        return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+        return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST, new JsonBuilder(result).toString())
     }
 
     /**

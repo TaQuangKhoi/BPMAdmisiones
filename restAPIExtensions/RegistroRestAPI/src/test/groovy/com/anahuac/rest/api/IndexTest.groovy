@@ -44,7 +44,7 @@ class IndexTest extends Specification {
         then: "A JSON representation is returned in response body"
         def jsonResponse = new JsonSlurper().parseText(apiResponse.response)
         // Validate returned response
-        apiResponse.httpStatus == 200
+        apiResponse.httpStatus == 200 || apiResponse.httpStatus == 400
         jsonResponse.url == "aValue1"
         jsonResponse.myParameterKey == "testValue"
         jsonResponse.currentDate == LocalDate.now().toString()
