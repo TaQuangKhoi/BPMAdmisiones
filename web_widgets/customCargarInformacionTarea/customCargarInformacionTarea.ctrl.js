@@ -78,7 +78,7 @@ function($scope, $http, $location) {
                             $scope.taskId = data[0].id;
                             $scope.properties.taskId = $scope.taskId;
 
-                            doRequest("GET", "../API/extension/RegistroRest?url=context&caseid=" + $scope.caseId , null, function(context, status) {
+                            doRequest("GET", "../API/extension/RegistroRest?url=context&caseid=" + $scope.caseId, null, function(context, status) {
                                 $scope.properties.context = context;
 
                             }, function(data, status) {
@@ -136,7 +136,7 @@ function($scope, $http, $location) {
 
     $scope.loadArchivedCase = function(caseId) {
         if ($scope.taskId === undefined || $scope.taskId === "") {
-            doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid=" + caseId, {},
+            doRequest("GET", "../API/bpm/archivedCase?c=1&p=0&f=sourceObjectId=" + caseId, {},
                 function(data, status) { //SUCCESS
                     $scope.lstArchivedCase = data;
                     if (data.length > 0) {

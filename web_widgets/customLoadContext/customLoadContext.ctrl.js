@@ -3,19 +3,19 @@ function loadContextCtrl($scope, $http) {
 
     $scope.loadContextTask = function(taskId) {
         console.log("LOAD TASK");
-        doRequest("GET", "../API/extension/RegistroRest?url=context&caseid=" + taskId, {},
-            function(data, status) { //SUCCESS
-                $scope.properties.context = data;
-            },
-            function(data, status) { //ERROR
-                if ($scope.properties.caseId !== undefined) {
-                    $scope.loadArchivedCase($scope.properties.caseId, true);
-                }
-            })
+        doRequest("GET", "../API/bpm/userTask/"+taskId+"/context", {},
+        function(data, status){//SUCCESS
+            $scope.properties.context = data;
+        },
+        function(data, status){//ERROR
+            if($scope.properties.caseId !== undefined){
+                $scope.loadArchivedCase($scope.properties.caseId,true);
+            }
+        })
     }
-    
+
     $scope.loadContextRest = function(caseId) {
-        console.log("LOAD TASK");
+        console.log("LOAD context");
         doRequest("GET", "../API/extension/RegistroRest?url=context&caseid="+caseId, {},
         function(data, status){//SUCCESS
             $scope.properties.context = data;
@@ -27,36 +27,36 @@ function loadContextCtrl($scope, $http) {
         })
     }
 
-    $scope.loadArchivedCase = function(caseId, revivida) {
+    $scope.loadArchivedCase = function(caseId,revivida) {
         console.log("LOAD ARCHIVED TASK");
         if ($scope.properties.taskId === undefined || $scope.properties.taskId === "" || revivida) {
-            doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid=" + caseId, {},
-                function(data, status) { //SUCCESS
-                    $scope.lstArchivedCase = data;
-                    if (data.length > 0) {
-                        $scope.loadContextCaseId(data[0], revivida);
-                    }
-                },
-                function(data, status) { //ERROR
+            doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid="+caseId, {},
+            function(data, status){//SUCCESS
+                $scope.lstArchivedCase = data;
+                if(data.length>0){
+                    $scope.loadContextCaseId(data[0],revivida);
+                }
+            },
+            function(data, status){//ERROR
 
-                })
+            })
         }
     }
 
     $scope.loadContextCaseId = function(archivedCase, revivida) {
         if ($scope.properties.taskId === undefined || $scope.properties.taskId === "" || revivida) {
-            doRequest("GET", "../API/bpm/archivedCase/" + archivedCase.id + "/context", {},
-                function(data, status) { //SUCCESS
-                    $scope.properties.context = data;
-                },
-                function(data, status) { //ERROR
+            doRequest("GET", "../API/bpm/archivedCase/"+archivedCase.id+"/context", {},
+            function(data, status){//SUCCESS
+                $scope.properties.context = data;
+            },
+            function(data, status){//ERROR
 
-                })
+            })
         }
     }
 
     function doRequest(method, url, dataToSend, callback, errorCallback) {
-
+        
         var req = {
             method: method,
             url: url,
@@ -69,17 +69,19 @@ function loadContextCtrl($scope, $http) {
     }
 
     $scope.$watchCollection("properties.taskId", function(newValue, oldValue) {
-        console.log("loadcontext")
-        /*if ($scope.properties.taskId !== undefined && $scope.properties.taskId !== "") {
+        /*console.log("loadcontext")
+        if ($scope.properties.taskId !== undefined && $scope.properties.taskId !== "") {
             $scope.loadContextTask($scope.properties.taskId);
         }*/
     });
 
     $scope.$watchCollection("properties.caseId", function(newValue, oldValue) {
-        console.log("loadcontext")
         if ($scope.properties.caseId !== undefined) {
+            console.log("loadcontext")
+            $scope.loadContextRest($scope.properties.caseId);
+
             if ($scope.properties.taskId === undefined || $scope.properties.taskId === "") {
-                $scope.loadContextRest($scope.properties.caseId,false);
+                $scope.loadArchivedCase($scope.properties.caseId,false);
             }
         }
     });
