@@ -2,8 +2,39 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1643935131485,
+  "lastUpdate" : 1644970689835,
   "rows" : [
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "1451465e-7db2-49d2-8185-a5afcfd507b0",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [ ]
+        ]
+      }
+    ],
     [
       {
         "type" : "container",
@@ -302,6 +333,58 @@
                     "reference" : "2693447e-55ff-46fe-9965-bc8e291829fa",
                     "hasValidationError" : false,
                     "id" : "customBtnSDAEsiguienteSolicitudAspirante"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "{{getDocumentosByTipoApoyo.data}})"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "ce9240dc-a090-4bcb-98b2-8e6a430a7289",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -9808,7 +9891,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Gatos médicos"
+                        "value" : "Gastos médicos"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -10963,18 +11046,231 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Title"
+                        "value" : "A continuación carga los documentos indicados en JPG, o PDF para completar tu solicitud"
                       },
                       "level" : {
                         "type" : "constant",
-                        "value" : "Level 2"
+                        "value" : "Level 5"
                       },
                       "alignment" : {
                         "type" : "constant",
                         "value" : "left"
                       }
                     },
-                    "reference" : "4aec2286-4930-467d-ae6e-e034cb85f756",
+                    "reference" : "0a0fce8e-c13b-4d6a-af3b-5e2b44254246",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Acepto el Reglamento de Becas y Financiamiento de Anahuác"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "4018f803-6bfa-45bb-8d34-7b4931e38b32",
+                    "hasValidationError" : false,
+                    "id" : "pbCheckbox"
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : "getDocumentosByTipoApoyo.data"
+                      }
+                    },
+                    "reference" : "6a9fb2a0-1e7a-4464-b2f5-eadeaeae6497",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "{{getDocumentosByTipoApoyo.data[$index].descripcionDocumento}}"
+                            },
+                            "level" : {
+                              "type" : "constant",
+                              "value" : "Level 5"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "429189e1-6c5b-4bdb-8cb5-c59416a63019",
+                          "hasValidationError" : false,
+                          "id" : "pbTitle"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "{{getDocumentosByTipoApoyo.data[$index].nombreDocumento}}"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "url" : {
+                              "type" : "constant",
+                              "value" : "../API/formFileUpload"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "errorContent" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "urlretorno" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isImagen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isPDF" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "b00c7a48-98e1-47df-90c3-b7b78223e925",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEUploadCustom"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Video de Habilidades"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "30055e37-d73c-4db6-befb-724074b86a88",
                     "hasValidationError" : false,
                     "id" : "pbTitle"
                   }
@@ -10999,7 +11295,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "URL del video de Habilidades Deportivas"
+                        "value" : "URL del video de Habilidades"
                       },
                       "level" : {
                         "type" : "constant",
@@ -12024,6 +12320,45 @@
         "  }\r",
         "\r",
         "]"
+      ],
+      "exposed" : false
+    },
+    "getDocumentosByTipoApoyo" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"error_info\": \"entroENTRO \",\r",
+        "  \"error\": null,\r",
+        "  \"data\": [\r",
+        "    {\r",
+        "      \"urlDocumentoAzure\": \"\",\r",
+        "      \"isObligatorio\": false,\r",
+        "      \"persistenceId\": 16,\r",
+        "      \"isEliminado\": null,\r",
+        "      \"nombreDocumento\": \"Este es el nuevo documento  de pruebas para el insert\",\r",
+        "      \"idCampus\": 145884,\r",
+        "      \"fechaCreacion\": null,\r",
+        "      \"usuarioCreacion\": null,\r",
+        "      \"descripcionDocumento\": \"<ol><li>Pruebas 1</li><li>prebas 2</li><li>pruebas 3</li></ol>\",\r",
+        "      \"idTipoApoyo\": 1\r",
+        "    },\r",
+        "    {\r",
+        "      \"urlDocumentoAzure\": \"\",\r",
+        "      \"isObligatorio\": false,\r",
+        "      \"persistenceId\": 6,\r",
+        "      \"isEliminado\": null,\r",
+        "      \"nombreDocumento\": \"documento de pruebas 3\",\r",
+        "      \"idCampus\": 145884,\r",
+        "      \"fechaCreacion\": null,\r",
+        "      \"usuarioCreacion\": null,\r",
+        "      \"descripcionDocumento\": \"<p>este es otro documento </p><p><br/></p>\",\r",
+        "      \"idTipoApoyo\": 1\r",
+        "    }\r",
+        "  ],\r",
+        "  \"additional_data\": null,\r",
+        "  \"success\": true,\r",
+        "  \"totalRegistros\": null\r",
+        "}"
       ],
       "exposed" : false
     }
