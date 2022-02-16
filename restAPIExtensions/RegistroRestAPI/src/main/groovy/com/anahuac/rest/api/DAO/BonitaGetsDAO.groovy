@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.bpm.actor.ActorUpdater
 import org.bonitasoft.engine.bpm.data.DataDefinition
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
@@ -653,6 +654,71 @@ class BonitaGetsDAO {
 		}
 		return resultado;
 	}
+	
+	public Result getChangeUserTask(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			
+			List<ArchivedActivityInstance> activityInstances = [];
+			ActorUpdater actor;
+			
+			String username = "";
+			String password = "";
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			try {
+				
+				//context.getApiClient().getProcessAPI().updateac
+				
+				closeCon = validarConexionBonita()
+				
+				pstm = con.prepareStatement("SELECT * FROM arch_flownode_instance WHERE sourceobjectid = ${caseid}");
+				rs = pstm.executeQuery();
+				if(rs.next()) {
+					try {
+						errorLog+=rs.getLong("id")
+						activityInstances = context.getApiClient().getProcessAPI().getArchivedActivityInstances(rs.getLong("id"), 0, 10, ActivityInstanceCriterion.NAME_ASC )
+					}catch(BonitaRuntimeException a) {
+						errorLog+="error"+a
+					}
+					
+				}
+				
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(activityInstances)
+			resultado.setError(errorLog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
 	public Boolean validarConexionBonita() {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
