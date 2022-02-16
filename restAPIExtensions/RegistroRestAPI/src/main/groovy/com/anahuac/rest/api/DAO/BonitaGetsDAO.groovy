@@ -219,38 +219,33 @@ class BonitaGetsDAO {
 			
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
+				errorLog+= "1"
+				activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(caseid, 0, 100, ActivityInstanceCriterion.DEFAULT)
 				
-				closeCon = validarConexionBonita()
-				
-				pstm = con.prepareStatement("SELECT * FROM arch_flownode_instance WHERE rootcontainerid = ${caseid}");
-				rs = pstm.executeQuery();
-				if(rs.next()) {
-					activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(rs.getLong("id"), 0, 1, ActivityInstanceCriterion.NAME_ASC )
-					
-					for(int i = 0; i< activityInstances.size(); i++) {
-						datos = new HashMap<String, Serializable>();
-						datos.put("displayDescription", activityInstances['displayDescription'] );
-						datos.put("executedBy", activityInstances['executedBy'] );
-						datos.put("rootContainerId", activityInstances['rootContainerId'] );
-						datos.put("displayName", activityInstances['displayName'] );
-						datos.put("executedBySubstitute", activityInstances['executedBySubstitute'] );
-						datos.put("description", activityInstances['description'] );
-						datos.put("type", activityInstances['type'] );
-						datos.put("priority", activityInstances['priority'] );
-						datos.put("actorId", activityInstances['actorId'] );
-						datos.put("caseId", activityInstances['parentContainerId'] );
-						datos.put("name", activityInstances['name'] );
-						datos.put("reached_state_date", activityInstances['reachedStateDate'] );
-						datos.put("rootCaseId", activityInstances['rootContainerId'] );
-						datos.put("id", activityInstances['id'] );
-						datos.put("state", activityInstances['state'] );
-						datos.put("parentCaseId", activityInstances['parentProcessInstanceId'] );
-						datos.put("last_update_date", activityInstances['lastUpdateDate'] );
-						datos.put("assigned_id", activityInstances['assigneeId'] );
-						datos.put("processId", activityInstances['processDefinitionId'] );
-						rows.add(datos)
-					}
-					
+				errorLog+= "2"
+				errorLog+= "|"+activityInstances?.size()
+				for(int i = 0; i< activityInstances?.size(); i++) {
+					datos = new HashMap<String, Serializable>();
+					datos.put("displayDescription", activityInstances[0]['displayDescription'] );
+					datos.put("executedBy", activityInstances[0]['executedBy'] );
+					datos.put("rootContainerId", activityInstances[0]['rootContainerId'] );
+					datos.put("displayName", activityInstances[0]['displayName'] );
+					datos.put("executedBySubstitute", activityInstances[0]['executedBySubstitute'] );
+					datos.put("description", activityInstances[0]['description'] );
+					datos.put("type", activityInstances[0]['type'] );
+					datos.put("priority", activityInstances[0]['priority'] );
+					datos.put("actorId", activityInstances[0]['actorId'] );
+					datos.put("caseId", activityInstances[0]['parentContainerId'] );
+					datos.put("name", activityInstances[0]['name'] );
+					datos.put("reached_state_date", activityInstances[0]['reachedStateDate'] );
+					datos.put("rootCaseId", activityInstances[0]['rootContainerId'] );
+					datos.put("id", activityInstances[0]['id'] );
+					datos.put("state", activityInstances[0]['state'] );
+					datos.put("parentCaseId", activityInstances[0]['parentProcessInstanceId'] );
+					datos.put("last_update_date", activityInstances[0]['lastUpdateDate'] );
+					datos.put("assigned_id", activityInstances[0]['assigneeId'] );
+					datos.put("processId", activityInstances[0]['processDefinitionId'] );
+					rows.add(datos)
 				}
 				
 			}catch(Exception ex) {
@@ -258,7 +253,7 @@ class BonitaGetsDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setData(activityInstances)
+			resultado.setData(rows)
 			resultado.setError(errorLog);
 			
 		} catch (Exception e) {
