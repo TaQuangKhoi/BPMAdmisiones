@@ -130,8 +130,8 @@ class IndexPut implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 			break;
-			case "changeTaskId":
 			
+			case "changeTaskId":
 			String taskId=request.getParameter "taskId";
 			
 			try {
