@@ -78,7 +78,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             (
                 taskName === "Carga y consulta de resultados" ||
                 taskName === "Resultado final de comité" ||
-                taskName === "Reactivar usuario rechazado"
+                taskName === "Reactivar usuario rechazado" ||
+                taskName === "Resultado"
             )
         ) {
             return false;
@@ -277,7 +278,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         } else if (
             $scope.properties.currentTaskName === "Carga y consulta de resultados" ||
             $scope.properties.currentTaskName === "Resultado final de comité" ||
-            $scope.properties.currentTaskName === "Reactivar usuario rechazado"
+            $scope.properties.currentTaskName === "Reactivar usuario rechazado" ||
+            $scope.properties.currentTaskName === "Resultado"
         ) {
             ctrl.pageToken = "Resultado";
         } else {
@@ -311,7 +313,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                             setApplication();
                         }
                     } else {
-                        console.log("tarea")
                         doRequest("GET", "../API/extension/RegistroRest?url=archivedHumanTask&p=0&c=10&caseid=" + datos1[0].caseId + "&f=state=aborted", null, null, function(datos2) {
                             for (let index = 0; index < datos2.length; index++) {
                                 const element = datos2[index].displayName;
