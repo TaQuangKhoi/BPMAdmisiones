@@ -705,8 +705,8 @@ class BonitaGetsDAO {
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 			try {
 				
-				usuario = apiClient.getIdentityAPI().getUser(user)
-				uwcd = apiClient.getIdentityAPI().getUserWithProfessionalDetails(user)
+				usuario = apiClient.getIdentityAPI().getUser(context.apiSession.getUserId())
+				uwcd = apiClient.getIdentityAPI().getUserWithProfessionalDetails(context.apiSession.getUserId())
 				datos = new HashMap<String, Serializable>();
 				datos.put("firstname", usuario['firstName'] );
 				datos.put("icon", usuario['iconPath'] );
@@ -768,7 +768,7 @@ class BonitaGetsDAO {
 			
 		
 				
-				userMemberships = apiClient.getIdentityAPI().getUserMemberships(user, 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)
+				userMemberships = apiClient.getIdentityAPI().getUserMemberships(context.apiSession.getUserId(), 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)
 				for(UserMembership um: userMemberships) {
 					datos = new HashMap<String, Serializable>();
 					datos.put("membership", apiClient.getIdentityAPI().getGroup(um.groupId))
