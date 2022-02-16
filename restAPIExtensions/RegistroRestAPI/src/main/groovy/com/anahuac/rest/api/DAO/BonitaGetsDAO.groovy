@@ -766,24 +766,18 @@ class BonitaGetsDAO {
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
 			apiClient.login(username, password)
 			
-			try {
+		
 				
 				userMemberships = apiClient.getIdentityAPI().getUserMemberships(user, 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)
 				for(UserMembership um: userMemberships) {
-					Map<String, Serializable> props= um;
 					datos = new HashMap<String, Serializable>();
+					datos.put("membership", apiClient.getIdentityAPI().getGroup(um.groupId))
 					datos.put("group_id", apiClient.getIdentityAPI().getGroup(um.groupId))
 					datos.put("role_id", apiClient.getIdentityAPI().getRole(um.roleId))
-					for(prop in props) {
-						datos.put(prop.key, prop.value)
-					}
 					rows.add(datos)
 				}
 				
 				
-			}catch(Exception ex) {
-				errorLog += ex;
-			}
 			
 			resultado.setData(rows)
 			resultado.setSuccess(true);
