@@ -54,7 +54,20 @@ class Index implements RestApiController {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
 			}
 			
-			break; 
+			break;
+			
+			case "userTask":
+			
+			String traskid = request.getParameter "taskId";
+			resultado = new BonitaGetsDAO().getUserTask(Long.parseLong(traskid),context)
+			responseBuilder.withMediaType("application/json")
+			if (resultado.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado?.getData()?.get(0)).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(resultado).toString())
+			}
+			
+			break;
 			
 			case "archivedHumanTask":
 			

@@ -120,6 +120,75 @@ class BonitaGetsDAO {
 		return resultado;
 	}
 	
+	public Result getUserTask(Long taskId,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false, processId = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			ActivityInstance activityInstances;
+			ProcessDeploymentInfo info;
+			Map<String, Serializable> datos = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+			try {
+				
+				activityInstances = context.getApiClient().getProcessAPI().getActivityInstance(taskId)
+				
+				datos = new HashMap<String, Serializable>();
+				datos.put("displayDescription", activityInstances['displayDescription'] );
+				datos.put("executedBy", activityInstances['executedBy'] );
+				datos.put("rootContainerId", activityInstances['rootContainerId'] );
+				datos.put("displayName", activityInstances['displayName'] );
+				datos.put("executedBySubstitute", activityInstances['executedBySubstitute'] );
+				datos.put("description", activityInstances['description'] );
+				datos.put("type", activityInstances['type'] );
+				datos.put("priority", activityInstances['priority'] );
+				datos.put("actorId", activityInstances['actorId'] );
+				datos.put("caseId", activityInstances['parentContainerId'] );
+				datos.put("name", activityInstances['name'] );
+				datos.put("reached_state_date", activityInstances['reachedStateDate'] );
+				datos.put("rootCaseId", activityInstances['rootContainerId'] );
+				datos.put("id", activityInstances['id'] );
+				datos.put("state", activityInstances['state'] );
+				datos.put("parentCaseId", activityInstances['parentProcessInstanceId'] );
+				datos.put("last_update_date", activityInstances['lastUpdateDate'] );
+				datos.put("assigned_id", activityInstances['assigneeId'] );
+				datos.put("processId", activityInstances['processDefinitionId'] );
+				
+				
+				rows.add(datos)
+				
+			}catch(Exception ex) {
+				errorLog += ex;
+			}
+			
+			resultado.setData(rows)
+			resultado.setSuccess(true);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
 	public Result getUserArchivedHumanTask(Long caseid,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
