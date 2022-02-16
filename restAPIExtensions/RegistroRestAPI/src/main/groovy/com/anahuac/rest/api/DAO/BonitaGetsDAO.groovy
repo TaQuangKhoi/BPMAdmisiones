@@ -199,6 +199,8 @@ class BonitaGetsDAO {
 		try {
 			
 			List<ArchivedActivityInstance> activityInstances = [];
+			Map<String, Serializable> datos = new HashMap<String, Serializable>();
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
 			
 			String username = "";
 			String password = "";
@@ -218,14 +220,33 @@ class BonitaGetsDAO {
 				
 				closeCon = validarConexionBonita()
 				
-				pstm = con.prepareStatement("SELECT * FROM arch_flownode_instance WHERE sourceobjectid = ${caseid}");
+				pstm = con.prepareStatement("SELECT * FROM arch_flownode_instance WHERE rootcontainerid = ${caseid}");
 				rs = pstm.executeQuery();
 				if(rs.next()) {
-					try {
-						errorLog+=rs.getLong("id")
-						activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(rs.getLong("id"), 0, 10, ActivityInstanceCriterion.NAME_ASC )
-					}catch(BonitaRuntimeException a) {
-						errorLog+="error"+a
+					activityInstances = apiClient.getProcessAPI().getArchivedActivityInstances(rs.getLong("id"), 0, 1, ActivityInstanceCriterion.NAME_ASC )
+					
+					for(int i = 0; i< activityInstances.size(); i++) {
+						datos = new HashMap<String, Serializable>();
+						datos.put("displayDescription", activityInstances['displayDescription'] );
+						datos.put("executedBy", activityInstances['executedBy'] );
+						datos.put("rootContainerId", activityInstances['rootContainerId'] );
+						datos.put("displayName", activityInstances['displayName'] );
+						datos.put("executedBySubstitute", activityInstances['executedBySubstitute'] );
+						datos.put("description", activityInstances['description'] );
+						datos.put("type", activityInstances['type'] );
+						datos.put("priority", activityInstances['priority'] );
+						datos.put("actorId", activityInstances['actorId'] );
+						datos.put("caseId", activityInstances['parentContainerId'] );
+						datos.put("name", activityInstances['name'] );
+						datos.put("reached_state_date", activityInstances['reachedStateDate'] );
+						datos.put("rootCaseId", activityInstances['rootContainerId'] );
+						datos.put("id", activityInstances['id'] );
+						datos.put("state", activityInstances['state'] );
+						datos.put("parentCaseId", activityInstances['parentProcessInstanceId'] );
+						datos.put("last_update_date", activityInstances['lastUpdateDate'] );
+						datos.put("assigned_id", activityInstances['assigneeId'] );
+						datos.put("processId", activityInstances['processDefinitionId'] );
+						rows.add(datos)
 					}
 					
 				}
