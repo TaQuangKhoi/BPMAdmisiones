@@ -1,4 +1,5 @@
 function WidgetlivingApplicationMenuController($scope, $http, $window, $location, $timeout, modalService) {
+    
     var ctrl = this;
     var vm = this;
     $scope.processVersion = 0;
