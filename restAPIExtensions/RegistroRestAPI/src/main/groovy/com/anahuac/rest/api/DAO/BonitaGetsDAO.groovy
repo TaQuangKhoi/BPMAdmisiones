@@ -488,21 +488,23 @@ class BonitaGetsDAO {
 					
 					contextoDetalle = new HashMap<String, Serializable>();
 					
-					if(prop.key == "fotoPasaporte_ref") {
-						contextoDetalle.put("id", contexto[prop.key][0]?.id);
-						contextoDetalle.put("processInstanceId", contexto[prop.key][0]?.processInstanceId);
-						contextoDetalle.put("author", contexto[prop.key][0]?.author);
-						contextoDetalle.put("creationDate", contexto[prop.key][0]?.creationDate);
-						contextoDetalle.put("fileName", contexto[prop.key][0]?.fileName);
-						contextoDetalle.put("contentMimeType", contexto[prop.key][0]?.contentMimeType);
-						contextoDetalle.put("contentStorageId", contexto[prop.key][0]?.contentStorageId);
-						contextoDetalle.put("url", contexto[prop.key][0]?.url);
-						contextoDetalle.put("description", contexto[prop.key][0]?.description);
-						contextoDetalle.put("version", contexto[prop.key][0]?.version);
-						contextoDetalle.put("index", contexto[prop.key][0]?.index);
-						contextoDetalle.put("contentFileName", contexto[prop.key][0]?.contentFileName);
-						
-						foto.add(contextoDetalle);
+					if(prop.key == "fotoPasaporte_ref" || prop.key == "actaNacimiento_ref" || prop.key == "constancia_ref" || prop.key == "descuento_ref" || prop.key == "resultadoCB_ref" || prop.key == "cartaAA_ref" ) {
+						foto = new ArrayList < Map < String, Serializable >> ();
+						if(contexto[prop.key][0]?.processInstanceId != null) {
+							contextoDetalle.put("id", contexto[prop.key][0]?.id);
+							contextoDetalle.put("processInstanceId", contexto[prop.key][0]?.processInstanceId);
+							contextoDetalle.put("author", contexto[prop.key][0]?.author);
+							contextoDetalle.put("creationDate", contexto[prop.key][0]?.creationDate);
+							contextoDetalle.put("fileName", contexto[prop.key][0]?.fileName);
+							contextoDetalle.put("contentMimeType", contexto[prop.key][0]?.contentMimeType);
+							contextoDetalle.put("contentStorageId", contexto[prop.key][0]?.contentStorageId);
+							contextoDetalle.put("url", contexto[prop.key][0]?.url);
+							contextoDetalle.put("description", contexto[prop.key][0]?.description);
+							contextoDetalle.put("version", contexto[prop.key][0]?.version);
+							contextoDetalle.put("index", contexto[prop.key][0]?.index);
+							contextoDetalle.put("contentFileName", contexto[prop.key][0]?.contentFileName);
+							foto.add(contextoDetalle);
+						}			
 						contexto2.put(prop.key, foto)
 					}else {
 						
