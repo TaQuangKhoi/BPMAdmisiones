@@ -134,7 +134,6 @@ class IndexPut implements RestApiController {
 			
 			String taskId=request.getParameter "taskId";
 			
-			
 			try {
 				String username = "";
 				String password = "";

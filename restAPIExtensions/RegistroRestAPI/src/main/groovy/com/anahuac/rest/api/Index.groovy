@@ -25,6 +25,7 @@ class Index implements RestApiController {
 
     @Override
     RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
+		responseBuilder.withCharacterSet("UTF-8");
 		Result resultado = new Result();
         // To retrieve query parameters use the request.getParameter(..) method.
         // Be careful, parameter values are always returned as String values
