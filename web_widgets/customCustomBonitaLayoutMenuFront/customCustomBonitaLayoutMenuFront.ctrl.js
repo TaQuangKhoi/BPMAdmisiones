@@ -315,7 +315,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                             for (let index = 0; index < datos2.length; index++) {
                                 const element = datos2[index].displayName;
                                 if (true) {
-                                    $scope.properties.currentTaskName = "nueva_solicitud";
+                                    $scope.properties.currentTaskName = element;
                                     break;
                                 }
 
