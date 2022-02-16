@@ -166,7 +166,7 @@ class Index implements RestApiController {
 			
 			String user=request.getParameter "userId";
 			
-			resultado = new BonitaGetsDAO().getUserIdentity(Long.parseLong(user),context)
+			resultado = new BonitaGetsDAO().getUserIdentity(0L,context)
 			responseBuilder.withMediaType("application/json")
 			if (resultado.isSuccess()) {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
@@ -180,7 +180,7 @@ class Index implements RestApiController {
 			
 			String user=request.getParameter "userId";
 			
-			resultado = new BonitaGetsDAO().getUserIdentityMembership(Long.parseLong(user), context)
+			resultado = new BonitaGetsDAO().getUserIdentityMembership(0L, context)
 			responseBuilder.withMediaType("application/json")
 			if (resultado.isSuccess()) {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(resultado.getData()).toString())
