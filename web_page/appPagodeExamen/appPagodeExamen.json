@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1642792305880,
+  "lastUpdate" : 1644969331034,
   "rows" : [
     [
       {
@@ -7264,8 +7264,9 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready&jusquer=1"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "redirectTaskDone" : {
@@ -7454,8 +7455,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED&f=name=Proceso%20admisiones"
+        "../API/extension/RegistroRest?url=process&jusquer=1"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "processId" : {
@@ -7511,8 +7513,9 @@
     "caseVariables" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=caseVariable&caseid={{getCatRegistro[0].caseId}}&name=isAdmisionAnahuac"
+        "../API/extension/RegistroRest?url=caseVariable&caseid={{getCatRegistro[0].caseId}}&name=isAdmisionAnahuac&jusquer=1"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "isAdmisionAnahuac" : {
