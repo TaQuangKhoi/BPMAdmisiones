@@ -164,7 +164,7 @@ class Index implements RestApiController {
 			
 			case "getUserIdentity":
 			
-			String user=request.getParameter "userId";
+			//String user=request.getParameter "userId";
 			
 			resultado = new BonitaGetsDAO().getUserIdentity(0L,context)
 			responseBuilder.withMediaType("application/json")
@@ -178,7 +178,7 @@ class Index implements RestApiController {
 			
 			case "getUserIdentityMembership":
 			
-			String user=request.getParameter "userId";
+			//String user=request.getParameter "userId";
 			
 			resultado = new BonitaGetsDAO().getUserIdentityMembership(0L, context)
 			responseBuilder.withMediaType("application/json")
