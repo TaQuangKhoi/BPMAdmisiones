@@ -3,7 +3,7 @@ function loadContextCtrl($scope, $http) {
 
     $scope.loadContextTask = function(taskId) {
         console.log("LOAD TASK");
-        doRequest("GET", "../API/bpm/userTask/"+taskId+"/context", {},
+        doRequest("GET", "../API/extension/RegistroRest?url=context&caseid="+taskId, {},
         function(data, status){//SUCCESS
             $scope.properties.context = data;
         },
