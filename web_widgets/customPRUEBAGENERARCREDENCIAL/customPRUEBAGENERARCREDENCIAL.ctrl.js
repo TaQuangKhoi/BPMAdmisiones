@@ -84,7 +84,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.loadAsistenciaCollegeBoard = function() {
         
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.caseId + "&name=asistenciaCollegeBoard", null, null, null, function(datos, extra) {
             
             $scope.asistenciaCollegeBoard = (datos.value === "true");
 
@@ -92,7 +92,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
     $scope.loadAsistenciaPsicometrico = function() {
         
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaPsicometrico", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.caseId + "&name=asistenciaPsicometrico", null, null, null, function(datos, extra) {
             
             $scope.asistenciaPsicometrico = (datos.value === "true");
 
@@ -100,7 +100,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
     $scope.loadAsistenciaEntrevista = function() {
         
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaEntrevista", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.caseId + "&name=asistenciaEntrevista", null, null, null, function(datos, extra) {
         
         $scope.asistenciaEntrevista = (datos.value === "true");
         })

@@ -969,7 +969,7 @@ class ConektaDAO {
 			closeCon = validarConexion();
 			
 //			where = " WHERE usuarioAspirante = '" + email + "' AND caseId = " + caseId.toString();
-			where = " WHERE usuarioAspirante = '" + email + " ";
+			where = " WHERE usuarioAspirante = '" + email + "' ";
 			String consulta = Statements.GET_BITACORA_PAGO;
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[ORDERBY]", "");

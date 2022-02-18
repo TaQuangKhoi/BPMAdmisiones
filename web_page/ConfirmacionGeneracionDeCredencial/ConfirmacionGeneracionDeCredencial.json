@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "ConfirmacionGeneracionDeCredencial",
   "name" : "ConfirmacionGeneracionDeCredencial",
-  "lastUpdate" : 1642636268583,
+  "lastUpdate" : 1645028987975,
   "rows" : [
     [
       {
@@ -788,8 +788,9 @@
     "userDataEmail" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+        "../API/extension/RegistroRest?url=getUserIdentity&userId={{userData.user_id}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "caseId" : {
@@ -817,8 +818,9 @@
     "context" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskid}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskid" : {
@@ -831,7 +833,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
