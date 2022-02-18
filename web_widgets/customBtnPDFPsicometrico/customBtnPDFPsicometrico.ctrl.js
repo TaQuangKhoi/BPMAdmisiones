@@ -428,9 +428,9 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.text(($scope.datosSaludPSeccion[0].tipo_terapia != '' ? $scope.datosSaludPSeccion[0].tipo_terapia : "N/A"), margenPrimeraFila, yValor);
         yValor += 7;
 
-        if (yValor >= 275) {
+        if (yValor >= 230) {
             doc.addPage();
-            yValor = 15;
+            yValor = 30;
         }
 
         /*----------------------------------------------------------------- FIN SEGUNDA HOJA -----------------------------------------------------------------*/
@@ -463,7 +463,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
                 doc.setFont(fontparam, 'normal');
                 $scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre] = convertToPlain($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre]);
-                doc.text($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre], margenPrimeraFila, (data.individual[data.cantidad[i]].yValue == 40? 48:data.individual[data.cantidad[i]].yValue), { maxWidth: 180, align: "left" });
+                doc.text($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre], margenPrimeraFila, (data.individual[data.cantidad[i]].yValue == 40? 46:data.individual[data.cantidad[i]].yValue), { maxWidth: 180, align: "left" });
 
                 doc.text(165, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?8:14), "Puntiación:");
                 doc.text(185, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?8:14), $scope.datosCapacidad[0].califajustemediofamiliar);
@@ -472,17 +472,32 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             //saltoPagina = !saltoPagina;
           } else{
             doc.setFillColor(228, 212, 200)
-            doc.rect(10, 30, 190, data.longitud, 'F');  
+                  
+            if(!unico){
+                doc.rect(10, yValor, 190, data.longitud, 'F');
+              doc.setFontSize(fontSubTitle);
+              doc.setFont(fontparam, 'bold')
+              doc.text(margenPrimeraFila, yValor + 7, "Capacidad de adaptación");
+              unico = !unico;
+
+              doc.setFontSize(fontText);
+              doc.setFont(fontparam, 'normal');
+
+            }else{
+                doc.rect(10, 30, 190, data.longitud, 'F');
+            }
+
+
             for(let i = 0; i < data.cantidad.length; i++){
                 doc.setFont(fontparam, 'bold')
-                doc.text(margenPrimeraFila, ((data.individual[data.cantidad[i]].yValue == 40)?40:data.individual[data.cantidad[i]].yValue-8), capacidadesTitulo[data.cantidad[i]]);
+                doc.text(margenPrimeraFila, ((data.individual[data.cantidad[i]].yValue == 40)?35:data.individual[data.cantidad[i]].yValue-8), capacidadesTitulo[data.cantidad[i]]);
 
                 doc.setFont(fontparam, 'normal');
                 $scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre] = convertToPlain($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre]);
-                doc.text($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre], margenPrimeraFila, (data.individual[data.cantidad[i]].yValue == 40? 48:data.individual[data.cantidad[i]].yValue), { maxWidth: 180, align: "left" });
+                doc.text($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre], margenPrimeraFila, (data.individual[data.cantidad[i]].yValue == 40? 42:data.individual[data.cantidad[i]].yValue), { maxWidth: 180, align: "left" });
 
-                doc.text(165, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?8:14), "Puntiación:");
-                doc.text(185, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?8:14), $scope.datosCapacidad[0].califajustemediofamiliar);
+                doc.text(165, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?12:14), "Puntiación:");
+                doc.text(185, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?12:14), $scope.datosCapacidad[0].califajustemediofamiliar);
             } 
           }
           if( (index+1) == distancia.length){
@@ -518,7 +533,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             doc.addPage();
         }
         doc.setFillColor(228, 212, 200);
-        doc.rect(10, regtangulo.yInicio, 190, regtangulo.longitud, 'F');
+        doc.rect(10, regtangulo.yInicio, 190, regtangulo.longitud+18, 'F');
         yValor = regtangulo.yInicio + 8;
 
         doc.setFontSize(fontSubTitle);

@@ -1,4 +1,4 @@
-function ($scope) {
+function ($scope,blockUI) {
     
     $scope.$watchCollection("[properties.rasgosBDM, properties.catRasgosObservados]", function(){
         if($scope.properties.rasgosBDM !== undefined && $scope.properties.rasgosBDM.length > 0){
