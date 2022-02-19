@@ -911,6 +911,71 @@ class CatalogosDAO {
 		return resultado
 	}
 	
+	/**
+	 * Obtiene la lista de registros del catálogo detipo de apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getCatTienesHijos() {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		try {
+			def jsonSlurper = new JsonSlurper();
+
+			String consulta = StatementsCatalogos.GET_CAT_TIENES_HIJOS;
+			CatGenerico row = new CatGenerico();
+			List < CatGenerico > rows = new ArrayList < CatGenerico > ();
+			closeCon = validarConexion();
+
+			String consultaCount = StatementsCatalogos.GET_COUNT_CAT_TIENES_HIJOS;
+			consultaCount = consultaCount.replace("[WHERE]", where);
+			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo);
+			errorLog +=" 4";
+			pstm = con.prepareStatement(consultaCount);
+			rs = pstm.executeQuery();
+			
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"));
+			}
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+
+			errorLog +=" 5";
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new CatGenerico();
+				row.setClave(rs.getString("clave"))
+				row.setDescripcion(rs.getString("descripcion"));
+				row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+
+				rows.add(row);
+			}
+			errorLog +=" 6";
+			//resultado.setError_info(errorLog);
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	/**
 	 * Obtiene la lista de campus relacionados a cierto tipo de apoyo
