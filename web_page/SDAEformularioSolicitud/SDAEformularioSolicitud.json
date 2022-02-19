@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1645140131466,
+  "lastUpdate" : 1645229994727,
   "rows" : [
     [
       {
@@ -662,8 +662,8 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
+                      "md" : 6,
+                      "lg" : 6
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -765,6 +765,162 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Anterior"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "info"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Anterior"
+                            },
+                            "isValidStep" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "errorMessage" : {
+                              "type" : "constant"
+                            },
+                            "messageTitle" : {
+                              "type" : "constant"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "reloadTask" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "caseId" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "5affb45b-a99e-4ae1-b695-d599b4e4a27e",
+                          "hasValidationError" : false,
+                          "id" : "customCustomBtnWizardValidation"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "isValidStep" : {
+                              "type" : "variable",
+                              "value" : "validar1"
+                            },
+                            "errorMessage" : {
+                              "type" : "expression",
+                              "value" : "errorPaso1"
+                            },
+                            "messageTitle" : {
+                              "type" : "expression",
+                              "value" : "tituloErrorPaso1"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskId"
+                            },
+                            "reloadTask" : {
+                              "type" : "variable",
+                              "value" : "reloadTask"
+                            },
+                            "caseId" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "05a60320-3969-4953-a2ef-ac2797337f07",
+                          "hasValidationError" : false,
+                          "id" : "customCustomBtnWizardValidation"
+                        }
+                      ],
                       [
                         {
                           "type" : "component",
@@ -12046,7 +12202,7 @@
     "selectedIndex" : {
       "type" : "constant",
       "value" : [
-        "0"
+        "-1"
       ],
       "exposed" : false
     },
@@ -12213,7 +12369,11 @@
       "value" : [
         "{{ligaApiGetCatalogos}}CatPorcentajeBeca"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "lstCatPorcentajeFinanciamiento" : {
@@ -12911,7 +13071,9 @@
         "            isSolArtisticaAprobada: $data.solicitudApoyoEducativo.isSolArtisticaAprobada !== undefined ? $data.solicitudApoyoEducativo.isSolArtisticaAprobada : null,\r",
         "            motivoRechazoArtistica: $data.solicitudApoyoEducativo.motivoRechazoArtistica !== undefined ? $data.solicitudApoyoEducativo.motivoRechazoArtistica : null,\r",
         "            motivoAprobadaArtistica: $data.solicitudApoyoEducativo.motivoAprobadaArtistica !== undefined ? $data.solicitudApoyoEducativo.motivoAprobadaArtistica : null\r",
-        "        }\r",
+        "        },\r",
+        "        isFinalizadaInput: false\r",
+        "        \r",
         "    }\r",
         "}\r"
       ],
@@ -13015,8 +13177,43 @@
     "idProceso" : {
       "type" : "constant",
       "value" : [
-        "4751649442560744703"
+        "4794970754268096251"
       ],
+      "exposed" : false
+    },
+    "validar1" : {
+      "type" : "expression",
+      "value" : [
+        "let output =  true; ",
+        "",
+        "",
+        "if(!$data.solicitudApoyoEducativoInput){",
+        "    output = false;",
+        "    $data.errorPaso1 = \"Debes llenar todos los campos requeridos en el formulario\";",
+        "    $data.tituloErrorPaso1 = \"Datos del inmueble que avala el crédito\";",
+        "} else if(!$data.solicitudApoyoEducativoInput.calle){",
+        "    output = false;",
+        "    $data.errorPaso1 = \"Campo 'Calle' no debe ir vacío\";",
+        "    $data.tituloErrorPaso1 = \"Datos del inmueble que avala el crédito\";",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "errorPaso1" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : false
+    },
+    "tituloErrorPaso1" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "reloadTask" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
