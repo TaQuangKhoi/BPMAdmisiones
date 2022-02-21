@@ -135,7 +135,7 @@ class IndexGET implements RestApiController {
 					}
 					break;
 				case "getCatTienesHijos":
-					result = new SolicitudDeAdmisionDAO().CatalogosDAO();
+					result = new CatalogosDAO().getCatTienesHijos();
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
