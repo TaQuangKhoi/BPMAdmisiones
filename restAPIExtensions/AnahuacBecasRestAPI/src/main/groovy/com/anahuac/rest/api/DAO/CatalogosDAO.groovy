@@ -930,18 +930,6 @@ class CatalogosDAO {
 			List < CatGenerico > rows = new ArrayList < CatGenerico > ();
 			closeCon = validarConexion();
 
-			String consultaCount = StatementsCatalogos.GET_COUNT_CAT_TIENES_HIJOS;
-			consultaCount = consultaCount.replace("[WHERE]", where);
-			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo);
-			errorLog +=" 4";
-			pstm = con.prepareStatement(consultaCount);
-			rs = pstm.executeQuery();
-			
-			if (rs.next()) {
-				resultado.setTotalRegistros(rs.getInt("registros"));
-			}
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			pstm = con.prepareStatement(consulta);
 
 			errorLog +=" 5";
@@ -952,7 +940,7 @@ class CatalogosDAO {
 				row.setClave(rs.getString("clave"))
 				row.setDescripcion(rs.getString("descripcion"));
 				row.setFechaCreacion(rs.getString("fechacreacion"));
-				row.setIsEliminado(rs.getBoolean("isEliminado"));
+//				row.setIsEliminado(rs.getBoolean("isEliminado"));
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
 				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
