@@ -288,8 +288,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 });
             } else {
                 //doc.internal.write(-2, "Tw")
-                //doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, yvalue, { maxWidth: 180, align: "left" });
-                doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, 40, { maxWidth: 180, align: "left" });
+                //doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, yvalue, { maxWidth: 180, align: "justify" });
+                doc.text($scope.getInfoFuentesInfluyeron[0].fuentes, margenPrimeraFila, 40, { maxWidth: 180, align: "justify" });
                 let count = Math.ceil(($scope.getInfoFuentesInfluyeron[0].fuentes.length / 180))
                 yvalue += (count * 7) + 3;
                 if (yvalue >= 275) {
@@ -346,7 +346,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             doc.addPage();
             yValor = 15;
         }
-
+        debugger
         doc.setFontSize(fontSubTitle);
 
         doc.setFont(fontparam, 'bold');
@@ -357,7 +357,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
         $scope.salud = convertToPlain($scope.datosSaludSSeccion[0].salud);
-        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
+        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
         let count = Math.ceil(($scope.salud.length / 180))
         yValor += (count * 7) + 3;
 
@@ -380,18 +380,19 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             yValor = 15;
         }
 
+        count = Math.ceil(($scope.datosSaludPSeccion[0].situacion_discapacidad.length / 150))
+        let yTempdisc = (yValor + (count * 7) + 3);
+        yTempdisc=nuevaHoja(yTempdisc,doc,true);
+        if(yTempdisc == 15){
+            yValor = yTempdisc;
+        }
         doc.setFont(fontparam, 'bold')
         doc.text(margenPrimeraFila, yValor, "¿Tienes algún problema de salud que necesite atención médica continua?");
         yValor += 7;
-
         doc.setFont(fontparam, 'normal');
-        doc.text(($scope.datosSaludPSeccion[0].situacion_discapacidad != '' ? $scope.datosSaludPSeccion[0].situacion_discapacidad : "N/A"), margenPrimeraFila, yValor);
-        yValor += (1 * 7);
+        doc.text(($scope.datosSaludPSeccion[0].situacion_discapacidad != '' ? $scope.datosSaludPSeccion[0].situacion_discapacidad : "N/A"), margenPrimeraFila, yValor,{ maxWidth: 150, align: "justify" });
+        yValor += (count * 7)+3;
 
-        if (yValor >= 275) {
-            doc.addPage();
-            yValor = 15;
-        }
 
         doc.setFont(fontparam, 'bold')
         doc.text(margenPrimeraFila, yValor, "¿Te consideras una persona saludable?");
@@ -420,92 +421,56 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             yValor = 15;
         }
 
+        count = Math.ceil(($scope.datosSaludPSeccion[0].tipo_terapia.length / 150))
+        let yTempTipo = (yValor + (count * 7) + 3);
+        yTempTipo=nuevaHoja(yTempTipo,doc,true);
+        if(yTempTipo == 15){
+            yValor = yTempTipo;
+        }
         doc.setFont(fontparam, 'bold')
         doc.text(margenPrimeraFila, yValor, "¿Qué tipo de terapia?");
         yValor += 7;
-
         doc.setFont(fontparam, 'normal');
-        doc.text(($scope.datosSaludPSeccion[0].tipo_terapia != '' ? $scope.datosSaludPSeccion[0].tipo_terapia : "N/A"), margenPrimeraFila, yValor);
-        yValor += 7;
-
-        if (yValor >= 230) {
-            doc.addPage();
-            yValor = 30;
-        }
+        doc.text(($scope.datosSaludPSeccion[0].tipo_terapia != '' ? $scope.datosSaludPSeccion[0].tipo_terapia : "N/A"), margenPrimeraFila, yValor,{ maxWidth: 150, align: "justify" });
+        yValor += (count * 7)+3;
 
         /*----------------------------------------------------------------- FIN SEGUNDA HOJA -----------------------------------------------------------------*/
 
         //yValor = 30
-
         var capacidadesTitulo = ["Ajuste al medio familiar", "Ajuste escolar previo", "Ajuste al medio social", "Ajuste afectivo (filiación)", "Ajuste religioso", "Ajuste existencial"]
         var capacidades = [{ nombre: 'ajustemediofamiliar', calificacion: 'califajustemediofamiliar' }, { nombre: 'ajusteescolarprevio', calificacion: 'califajusteescolarprevio' }, { nombre: 'ajustemediosocial', calificacion: 'califajustemediosocial' }, { nombre: 'ajusteefectivo', calificacion: 'califajusteafectivo' }, { nombre: 'ajustereligioso', calificacion: 'califajustereligioso' }, { nombre: 'ajusteexistencial', calificacion: 'califajusteexistencial' }]
-        debugger
-        let distancia = calcularCapacidadDeAdaptacion(convertToPlain($scope.datosCapacidad[0].ajustemediofamiliar),convertToPlain($scope.datosCapacidad[0].ajusteescolarprevio),convertToPlain($scope.datosCapacidad[0].ajustemediosocial), convertToPlain($scope.datosCapacidad[0].ajusteefectivo),convertToPlain($scope.datosCapacidad[0].ajustereligioso),convertToPlain($scope.datosCapacidad[0].ajusteexistencial), yValor)
-        let unico = false;
-        distancia.forEach( (data, index) =>{
-          if(data.newPage ){
-            doc.setFillColor(228, 212, 200)
-            doc.rect(10, yValor, 190, data.longitud, 'F');    
-            if(!unico){
-              doc.setFontSize(fontSubTitle);
-              doc.setFont(fontparam, 'bold')
-              doc.text(margenPrimeraFila, yValor + 7, "Capacidad de adaptación");
-              unico = !unico;
 
-              doc.setFontSize(fontText);
-              doc.setFont(fontparam, 'normal');
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor += 7, "Capacidad de adaptación");
+        doc.setFontSize(fontText);
+        yValor += 7
+        capacidades.forEach((data, index) =>{
+            count = Math.ceil(($scope.datosCapacidad[0][data.nombre].length / 180))
 
+            let yTemporal = (yValor + (count * 7) + 3);
+            yTemporal=nuevaHoja(yTemporal,doc,true);
+            if(yTemporal == 15){
+                yValor = yTemporal;
             }
 
-            for(let i = 0; i < data.cantidad.length; i++){
-                doc.setFont(fontparam, 'bold')
-                doc.text(margenPrimeraFila, ((data.individual[data.cantidad[i]].yValue == 40)?40:data.individual[data.cantidad[i]].yValue-8), capacidadesTitulo[data.cantidad[i]]);
+            doc.setFont(fontparam, 'bold')
+            doc.text(margenPrimeraFila, yValor, capacidadesTitulo[index]);
+            yValor=nuevaHoja(yValor,doc,true);
 
-                doc.setFont(fontparam, 'normal');
-                $scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre] = convertToPlain($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre]);
-                doc.text($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre], margenPrimeraFila, (data.individual[data.cantidad[i]].yValue == 40? 46:data.individual[data.cantidad[i]].yValue), { maxWidth: 180, align: "left" });
+            doc.setFont(fontparam, 'normal');
+            $scope.datosCapacidad[0][data.nombre] = convertToPlain($scope.datosCapacidad[0][data.nombre]);
+            doc.text($scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8, { maxWidth: 180, align: "justify" });
 
-                doc.text(165, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?8:14), "Puntiación:");
-                doc.text(185, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?8:14), $scope.datosCapacidad[0].califajustemediofamiliar);
-            }
-            doc.addPage();
-            //saltoPagina = !saltoPagina;
-          } else{
-            doc.setFillColor(228, 212, 200)
-                  
-            if(!unico){
-                doc.rect(10, yValor, 190, data.longitud, 'F');
-              doc.setFontSize(fontSubTitle);
-              doc.setFont(fontparam, 'bold')
-              doc.text(margenPrimeraFila, yValor + 7, "Capacidad de adaptación");
-              unico = !unico;
+            yValor += (count * 7) + 3;
 
-              doc.setFontSize(fontText);
-              doc.setFont(fontparam, 'normal');
+            doc.text(165, yValor, "Puntiación:");
+            doc.text(185, yValor, $scope.datosCapacidad[0][data.calificacion]);
+            yValor+=8
 
-            }else{
-                doc.rect(10, 30, 190, data.longitud, 'F');
-            }
-
-
-            for(let i = 0; i < data.cantidad.length; i++){
-                doc.setFont(fontparam, 'bold')
-                doc.text(margenPrimeraFila, ((data.individual[data.cantidad[i]].yValue == 40)?35:data.individual[data.cantidad[i]].yValue-8), capacidadesTitulo[data.cantidad[i]]);
-
-                doc.setFont(fontparam, 'normal');
-                $scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre] = convertToPlain($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre]);
-                doc.text($scope.datosCapacidad[0][capacidades[data.cantidad[i]].nombre], margenPrimeraFila, (data.individual[data.cantidad[i]].yValue == 40? 42:data.individual[data.cantidad[i]].yValue), { maxWidth: 180, align: "left" });
-
-                doc.text(165, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?12:14), "Puntiación:");
-                doc.text(185, data.individual[data.cantidad[i]].yValueFinal - ((data.individual[data.cantidad[i]].yValue == 40)?12:14), $scope.datosCapacidad[0].califajustemediofamiliar);
-            } 
-          }
-          if( (index+1) == distancia.length){
-              yValor = data.longitud + 40;
-          }
         });
+        
 
-        yValor=nuevaHoja(yValor,doc,true);
 
         /******************Capacidad de adaptación segunda parte************************ */
         doc.setFontSize(fontSubTitle);
@@ -518,7 +483,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFont(fontparam, 'normal');
         $scope.conclusiones_recomendaciones = convertToPlain($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
         //doc.internal.write(-2, "Tw")
-        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "left" });
+        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "justify" });
         count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
         yValor += (count * 7) + 3;
         yValor += 10;
@@ -528,30 +493,38 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor +10;
 
          /***********************  Calcular la interpretacion ***********************/
-        let regtangulo = calcularRegtangulo(convertToPlain($scope.datosSaludSSeccion[0].interpretacion),yValor);
+
+       /* let regtangulo = calcularRegtangulo(convertToPlain($scope.datosSaludSSeccion[0].interpretacion),yValor);
         if(regtangulo.newPage){
             doc.addPage();
         }
         doc.setFillColor(228, 212, 200);
-        doc.rect(10, regtangulo.yInicio, 190, regtangulo.longitud+18, 'F');
-        yValor = regtangulo.yInicio + 8;
+        doc.rect(10, regtangulo.yInicio, 190, regtangulo.longitud+10, 'F');
+        yValor = regtangulo.yInicio + 8;*/
+
+        yValor += 8,
+
+        $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
+        count = Math.ceil(($scope.interpretacion.length / 180))
+        let yTempInter = (yValor + (count * 7) + 3)+10;
+        yTempInter=nuevaHoja(yTempInter,doc,true);
+        if(yTempInter == 15){
+            yValor = yTempInter;
+        }
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        //doc.internal.write(0, "Tw")
         doc.text(margenPrimeraFila, yValor, "Interpretación");
         yValor += 10;
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
-        $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
-        //doc.internal.write(-2, "Tw")
-        doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-        count = Math.ceil(($scope.interpretacion.length / 180))
+        
+        
+        doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
         yValor += (count * 7) + 3;
 
         yValor = nuevaHoja(yValor,doc,false);
-
         yValor+=10
         /***************** CURSOS RECOMENDADOS ***********/
 
@@ -582,10 +555,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             }
         }
         
-        doc.text("PDU: " + ($scope.cursos.PDU ? "Si" : "No"), 60, yValor, { maxWidth: 180, align: "left" });
-        doc.text("SSE: " + ($scope.cursos.SSE ? "Si" : "No"), 80, yValor, { maxWidth: 180, align: "left" });
-        doc.text("PDP: " + ($scope.cursos.PDP ? "Si" : "No"), 100, yValor, { maxWidth: 180, align: "left" });
-        doc.text("PCA: " + ($scope.cursos.PCA ? "Si" : "No"), 120, yValor, { maxWidth: 180, align: "left" });
+        doc.text("PDU: " + ($scope.cursos.PDU ? "Si" : "No"), 60, yValor, { maxWidth: 180, align: "justify" });
+        doc.text("SSE: " + ($scope.cursos.SSE ? "Si" : "No"), 80, yValor, { maxWidth: 180, align: "justify" });
+        doc.text("PDP: " + ($scope.cursos.PDP ? "Si" : "No"), 100, yValor, { maxWidth: 180, align: "justify" });
+        doc.text("PCA: " + ($scope.cursos.PCA ? "Si" : "No"), 120, yValor, { maxWidth: 180, align: "justify" });
         yValor += 17;
 
         yValor = nuevaHoja(yValor,doc,true);
@@ -596,6 +569,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
        // doc.addPage();
 
         //COMENTARIOS 
+         doc.addPage();
+         yValor = 15;
          doc.setFontSize(fontSubTitle);
          doc.setFont(fontparam, 'bold')
          doc.text(margenPrimeraFila, yValor, "Comentarios");
@@ -604,23 +579,22 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
  
          doc.setFontSize(fontText);
          doc.setFont(fontparam, 'normal');
-         debugger
 
          $scope.comentarios = [];
          for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
  
              $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
-     
-             doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-     
              count = Math.ceil(($scope.comentarios[i].length / 180))
-             yValor += (count * 7) + 3;
-     
-             if ((yValor + 20) >= 275) {
-                 doc.addPage();
-                 yValor = 15;
+             let yTemp = (yValor + (count * 7) + 3);
+             yTemp=nuevaHoja(yTemp,doc,true);
+             if(yTemp == 15){
+                yValor = yTemp;
              }
-     
+
+             doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+    
+             
+             yValor += (count * 7) + 3; 
          }
 
         doc.save(`${$scope.properties.fileName}_ReporteOV.pdf`);
@@ -742,7 +716,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         var str = {};
         let nuevaLongitud = yValor;
         let count = Math.ceil((valor.length / 180));
-        nuevaLongitud += (count * 10) + 5;
+        nuevaLongitud += (count * 7) + 5;
         nuevaLongitud -= yValor;
         if ((nuevaLongitud + 30) >= 230) {
               str = {longitud:nuevaLongitud,newPage:true,yInicio:40};
