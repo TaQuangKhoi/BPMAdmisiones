@@ -1067,6 +1067,18 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getValidarEscalaEAC":
+				String escala = request.getParameter "escala";
+				String id = request.getParameter "id";
+				result = new CatalogosDAO().getValidarClavePeriodo(0,9999, escala, id);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
 				case "getInfoPrueba":
 				String id = request.getParameter "id";
 				result = new SesionesDAO().getInfoPrueba(0, 9999, id);

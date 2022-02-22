@@ -1658,6 +1658,38 @@ class ImportacionPAADAO {
 		return resultado;
 	}
 	
+	public Result PostUpdateDeleteCatEscalaEAC(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.UPDATE_CATESCALAEAC, Statement.RETURN_GENERATED_KEYS)
+				pstm.setString(1, object.letra);
+				pstm.setString(2, object.equivalente);
+				pstm.setBoolean(3,object.isEliminado);
+				pstm.setInt(4,object.persistenceId);
+				
+				pstm.executeUpdate();
+				con.commit();
+				
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	
 }
