@@ -940,13 +940,13 @@ class CatalogosDAO {
 				row.setClave(rs.getString("clave"))
 				row.setDescripcion(rs.getString("descripcion"));
 				row.setFechaCreacion(rs.getString("fechacreacion"));
-//				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setIsEliminado(rs.getBoolean("isEliminadoBool"));
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
 
 				rows.add(row);
 			}
+			
 			errorLog +=" 6";
 			//resultado.setError_info(errorLog);
 			resultado.setSuccess(true);
