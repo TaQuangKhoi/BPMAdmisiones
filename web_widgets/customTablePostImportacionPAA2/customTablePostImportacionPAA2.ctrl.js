@@ -357,10 +357,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                   "INVP": "",
                   "update": true,
                   "fecha": "",
-                  "IdSesion": ""
+                  "IdSesion": "",
+                  "caseId":""
               };
               $scope.properties.datosAspirante.IDBANNER = row.idbanner;
               $scope.properties.datosAspirante.IdSesion = row.id;
+              $scope.properties.datosAspirante.caseId = row.caseid;
               $scope.properties.tabla = "fragmento";
               $scope.properties.view = false;
               $scope.properties.update = "";
@@ -375,10 +377,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                   .error(function(data, status) {
                       console.error(data);
                   })
-                  .finally(function() {});
-                  $scope.$apply();
-
-
+                  .finally(function() {
+                       $scope.$apply();
+                  });
           });
       } else {
           $scope.properties.datosAspirante = {
@@ -418,10 +419,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
               "INVP": "",
               "update": true,
               "fecha": "",
-              "IdSesion": ""
+              "IdSesion": "",
+              "caseId": ""
           };
           $scope.properties.datosAspirante.IDBANNER = row.idbanner;
           $scope.properties.datosAspirante.IdSesion = row.id;
+          $scope.properties.datosAspirante.caseId = row.caseid;
           $scope.properties.tabla = "fragmento";
           $scope.properties.view = false;
           $scope.properties.update = "";
@@ -436,9 +439,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
               .error(function(data, status) {
                   console.error(data);
               })
-              .finally(function() {});
-
-
+              .finally(function() {
+                  
+              });
       }
   }
 

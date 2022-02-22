@@ -590,7 +590,7 @@ function($scope, $http, blockUI) {
     $scope.confirmarEliminarPruebas = function(prueba) {
         $scope.prueba = prueba;
         Swal.fire({
-            title: "¿Está seguro que desea eliminar prueba "+prueba.nombre+"? Una vez realizada la acción, da clic en “Guardar” para conservar el cambio.",
+            title: "¿Está seguro que desea eliminar prueba " + prueba.nombre + "? Una vez realizada la acción, da clic en “Guardar” para conservar el cambio.",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -1129,7 +1129,7 @@ function($scope, $http, blockUI) {
     $scope.loadCatalogs = function() {
 
         doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getEstadosPreparatorias&p=0&c=100", null, null, null, function(data, extra) {
-           debugger
+            debugger
             $scope.lstEstadosPreparatoria = data;
         })
 
@@ -1270,7 +1270,7 @@ function($scope, $http, blockUI) {
             "isEliminado": false,
             "periodo_pid": null,
             "usuarios_lst_id": "",
-            "estado_preparatoria":""
+            "estado_preparatoria": ""
         }
         $scope.pantallaCambiar(pantalla);
     }
@@ -1531,34 +1531,34 @@ function($scope, $http, blockUI) {
             error = true;
             sweet.titulo = "Fecha de Último día para inscripción";
             sweet.texto = 'Favor de capturar "Fecha de Último día para inscripción"'
-        } else if($scope.sesion.usuarios_lst_id!=""){
-        	console.log("validar residencia con aspirante");
-        	var valido=false;
-        	for (var i = 0; i < $scope.lstUsuarios.length; i++) {
-        		valido=false;
-        		for (var j = 0; j < $scope.sesion.usuarios_lst_id.split(",").length; j++) {
-        			if($scope.sesion.usuarios_lst_id.split(",")[j]==$scope.lstUsuarios[i].correoelectronico){
-        				for (var k = 0; k < $scope.sesion.tipo.split(",").length; k++) {
-        					if ($scope.sesion.tipo.split(",").length==3) {
-        						valido=true;
-        					}else{
-        						if($scope.sesion.tipo.split(",")[k]==$scope.lstUsuarios[i].clave){
-        							valido=true;
-        						}
-        					}
-        				}
-        				
-        			}else{valido=true}
-        		}
-        		if (!valido) {
-        			error = true;
-		            sweet.titulo = "Configuración avanzada";
-		            sweet.texto = 'Uno de los aspirantes seleccionados no coincide con el tipo de residencia"'
-		            break;
-        		}
-        	}
-        	
-        	
+        } else if ($scope.sesion.usuarios_lst_id != "") {
+            console.log("validar residencia con aspirante");
+            var valido = false;
+            for (var i = 0; i < $scope.lstUsuarios.length; i++) {
+                valido = false;
+                for (var j = 0; j < $scope.sesion.usuarios_lst_id.split(",").length; j++) {
+                    if ($scope.sesion.usuarios_lst_id.split(",")[j] == $scope.lstUsuarios[i].correoelectronico) {
+                        for (var k = 0; k < $scope.sesion.tipo.split(",").length; k++) {
+                            if ($scope.sesion.tipo.split(",").length == 3) {
+                                valido = true;
+                            } else {
+                                if ($scope.sesion.tipo.split(",")[k] == $scope.lstUsuarios[i].clave) {
+                                    valido = true;
+                                }
+                            }
+                        }
+
+                    } else { valido = true }
+                }
+                if (!valido) {
+                    error = true;
+                    sweet.titulo = "Configuración avanzada";
+                    sweet.texto = 'Uno de los aspirantes seleccionados no coincide con el tipo de residencia"'
+                    break;
+                }
+            }
+
+
         }
 
 
@@ -1712,8 +1712,8 @@ function($scope, $http, blockUI) {
         //$scope.loadCatalogs();
     var hidden = document.getElementsByClassName("oculto");
     hidden[0].classList.add("invisible");
-	$scope.$watch('properties.campusSelected', function(value) {
-	    debugger;
+    $scope.$watch('properties.campusSelected', function(value) {
+
         if (angular.isDefined(value) && value !== null) {
             $scope.loadCatalogs();
         }

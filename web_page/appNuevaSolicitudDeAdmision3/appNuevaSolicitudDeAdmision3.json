@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1645225135841,
+  "lastUpdate" : 1645489963347,
   "rows" : [
     [
       {
@@ -19008,7 +19008,7 @@
           },
           "processDefinitionId" : {
             "type" : "variable",
-            "value" : "processDefinitionId.processDefinitionId.id"
+            "value" : "processDefinitionId.id"
           },
           "caseid" : {
             "type" : "variable",
@@ -23191,8 +23191,9 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "redirectCaseStarted" : {
@@ -23248,8 +23249,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
+        "../API/extension/RegistroRest?url=process&p=0&c=10"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "processUrl" : {
@@ -23657,8 +23659,9 @@
     "getCaseIdCatCiudad" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getCatCiudadBycaseId" : {
@@ -23671,15 +23674,17 @@
     "objCaseInformationEstados" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "objCaseInformationPaises" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "isDataRegistro" : {
@@ -23983,13 +23988,15 @@
       "value" : [
         "../API/bpm/userTask/{{taskId}}/context"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "task" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}"
+        "../API/extension/RegistroRest?url=userTask&taskId={{taskId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskId" : {
@@ -24049,7 +24056,7 @@
     "urlCurrentTask" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bpm/humanTask?p=0&c=10&f=caseId=\"+$data.getCatRegistro[0].caseId+\"&f=state=ready&f=name=Llenar%20solicitud\""
+        "return \"../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=\"+$data.getCatRegistro[0].caseId+\"&f=state=ready&f=name=Llenar%20solicitud\""
       ],
       "exposed" : false
     },
@@ -24515,7 +24522,7 @@
     "processDefinitionId" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case/{{getCatRegistro[0].caseId}}?d=processDefinitionId"
+        "../API/extension/RegistroRest?url=caseInstance&caseid={{getCatRegistro[0].caseId}}&d=processDefinitionId"
       ],
       "exposed" : false
     },
@@ -24529,7 +24536,7 @@
     "vericartareas" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
+        "",
         "var retorno = false",
         "try{",
         "    for(var x=0;x<$data.verificarabortadas.length;x++){",
@@ -24546,8 +24553,9 @@
     "verificarabortadas" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/archivedActivity?f=caseId={{getCatRegistro[0].caseId}}&f=state=aborted"
+        "../API/extension/RegistroRest?url=archivedHumanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&f=state=aborted"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "DatoUrlGetInfo" : {

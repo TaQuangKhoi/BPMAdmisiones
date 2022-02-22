@@ -1088,37 +1088,7 @@ class TransferenciasDAO {
 				usuarioReagendar = (rs.getString("correoelectronico"))
 			}
 			
-			if(object.isProceso == null) {
-				/*con.setAutoCommit(false)
-				
-				List<Long> pruebas = new ArrayList<Long>()
-				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
-				pstm.setString(1,  usuarioReagendar)
-				rs = pstm.executeQuery()
-				while(rs.next()) {
-					pruebas.add(rs.getLong("prueba_pid"))
-				}
-				//errorLog = errorLog + " | Pruebas "+ pruebas
-				for(Long pa:pruebas) {
-					pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
-					pstm.setString(1, usuarioReagendar)
-					pstm.setLong(2, pa)
-					rs = pstm.executeQuery()
-					//errorLog = errorLog + " | rs "+rs
-					if(!rs.next()) {
-						//errorLog = errorLog + " | insert de pruebas "
-						pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
-						pstm.setLong(1, pa);
-						pstm.setString(2, usuarioReagendar);
-						pstm.setBoolean(3,false);
-						pstm.setString(4,"");
-						
-						pstm.executeUpdate();
-					}
-				}
-				
-				con.commit();*/
-			}else {
+			if(object.isProceso == false) {
 				Result resultadoSesion = new SesionesDAO().eliminarSesionAspirante(usuarioReagendar, context)
 				errorLog += " el error en el eliminar es : " + resultadoSesion.getError();
 				if (resultadoSesion.isSuccess()) {
@@ -1126,6 +1096,37 @@ class TransferenciasDAO {
 				} else {
 					errorLog += " no elimino al aspirante de la sesion "+ resultadoSesion.isSuccess().toString();
 				}
+				
+			}else {
+				/*con.setAutoCommit(false)
+				 
+				 List<Long> pruebas = new ArrayList<Long>()
+				 pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
+				 pstm.setString(1,  usuarioReagendar)
+				 rs = pstm.executeQuery()
+				 while(rs.next()) {
+					 pruebas.add(rs.getLong("prueba_pid"))
+				 }
+				 //errorLog = errorLog + " | Pruebas "+ pruebas
+				 for(Long pa:pruebas) {
+					 pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
+					 pstm.setString(1, usuarioReagendar)
+					 pstm.setLong(2, pa)
+					 rs = pstm.executeQuery()
+					 //errorLog = errorLog + " | rs "+rs
+					 if(!rs.next()) {
+						 //errorLog = errorLog + " | insert de pruebas "
+						 pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+						 pstm.setLong(1, pa);
+						 pstm.setString(2, usuarioReagendar);
+						 pstm.setBoolean(3,false);
+						 pstm.setString(4,"");
+						 
+						 pstm.executeUpdate();
+					 }
+				 }
+				 
+				 con.commit();*/
 			}
             resultado.setSuccess(true)
             resultado.setError_info(errorLog);
@@ -1133,7 +1134,7 @@ class TransferenciasDAO {
             resultado.setError_info(errorLog);
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
-            con.rollback();
+            //con.rollback();
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)

@@ -108,7 +108,7 @@ class ImportacionPAADAO {
 						pstm.setString(34,it.fechaExamen);
 						pstm.setLong(35,Long.parseLong(it.PERSISTENCEID));
 						pstm.setString(36,it.IDBANNER);
-						pstm.setString(36,it.caseId);
+						pstm.setString(37,it.caseId);
 						pstm.executeUpdate();
 						
 					}else {
@@ -159,7 +159,7 @@ class ImportacionPAADAO {
 							pstm.setString(36,it.IdSesion)
 							pstm.setString(37,it.caseId);
 							pstm.executeUpdate();
-							dataResult = asistenciaCollegeBoard(it.IDBANNER,it.IdSesion,it.username,context);
+							dataResult = asistenciaCollegeBoard(it.IDBANNER,it.IdSesion,it.username,it.caseId,context);
 					}
 					
 				}
@@ -186,21 +186,22 @@ class ImportacionPAADAO {
 		return resultado
 	}
 	
-	public Result asistenciaCollegeBoard(String idbanner,idsesion,username, RestAPIContext context) {
+	public Result asistenciaCollegeBoard(String idbanner,idsesion,username,caseid, RestAPIContext context) {
 		Result resultado = new Result();
 		Result dataResult = new Result();
 		String errorLog = "";
 		try {
-			String caseid = "", prueba="",username2 = "";
+			String  prueba="",username2 = "";
 			errorLog+="1";
 			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 4 and AP.sesiones_pid = ${idsesion} ")
 			rs= pstm.executeQuery();
 			if(rs.next()) {
-				caseid = rs.getString("caseid");
+				//caseid = rs.getString("caseid");
 				prueba = rs.getString("prueba_pid");
 				username2 = rs.getString("username");
 			}
 			errorLog+="2";
+			username2 = username2.replace(" (rechazado)","");
 			if(!prueba.equals("") && !prueba.equals("null") && prueba != null ){
 				boolean update = false;
 				errorLog+="3";
@@ -289,7 +290,7 @@ class ImportacionPAADAO {
 				//errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				if(it.tipoExamen.toString().equals("KP")) {
-					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
+					//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
 					coins =  new HashMap < String, Object > ();
 					coins.put("context", context)
 					coins.put("idBanner", it.IDBANNER)
@@ -481,12 +482,11 @@ class ImportacionPAADAO {
 						 columns.put("sc",(rs.getBoolean("SC")))
 						 
 					 }
-					 pstm = con.prepareStatement("SELECT ds.caseid FROM detallesolicitud as ds INNER JOIN solicitudDeAdmision as sda ON sda.caseid = ds.caseid::integer WHERE sda.correoelectronico NOT LIKE '%(rechazado)%' and  ds.idbanner = '${idBanner[j]}' limit 1");
+					 pstm = con.prepareStatement("SELECT ds.caseid FROM detallesolicitud as ds INNER JOIN solicitudDeAdmision as sda ON sda.caseid = ds.caseid::integer WHERE sda.correoelectronico NOT LIKE '%(rechazado)%' and  ds.idbanner = ${idBanner[j]} limit 1");
 					 rs= pstm.executeQuery();
 					 if(rs.next()) {
 						 columns.put("caseId", rs.getString("caseid"));
 					 }
-					  
 					 estatus.add(columns)
 					 
 				 }
@@ -866,7 +866,7 @@ class ImportacionPAADAO {
 						where +=" ( LOWER(SESIONES.nombre) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(SESIONES.persistenceid||'') like lower('%[valor]%') ";
+						where +=" OR LOWER(SESIONES.persistenceid||'') like lower('%[valor]%') ) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 					
@@ -1088,7 +1088,7 @@ class ImportacionPAADAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false and PAA.idBanner is not null and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
+			where+=" WHERE sda.iseliminado=false and PAA.idBanner is not null and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) ";
 			if(object.campus != null){
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
@@ -1378,7 +1378,7 @@ class ImportacionPAADAO {
 							where +=" ( LOWER(sesion.nombre) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR LOWER(sesion.persistenceid||'') like lower('%[valor]%') ";
+							where +=" OR LOWER(sesion.persistenceid||'') like lower('%[valor]%')) ";
 							where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					

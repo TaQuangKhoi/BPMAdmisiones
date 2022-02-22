@@ -122,7 +122,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', getUserParam()).then(function() {
+        var url = '../API/extension/Registro?url=instantiation&p=0&c=10';
+        var prom = doRequest('POST', url, getUserParam()).then(function() {
             localStorageService.delete($window.location.href);
         });
 

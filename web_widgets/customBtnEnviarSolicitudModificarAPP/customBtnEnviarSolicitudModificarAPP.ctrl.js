@@ -237,15 +237,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var params = getUserParam();
           params.assign = $scope.properties.assign;
         doRequest('POST', '../API/bpm/userTask/' + id + '/execution', params).then(function() {
-          doRequestFamilia().then(
-            function(data, status){//SUCCESS
-              localStorageService.delete($window.location.href);
-            },
-            function(data, status){//ERROR
-              localStorageService.delete($window.location.href);
-            }
-          );
-          
+            localStorageService.delete($window.location.href);
         });
       } else {
         $log.log('Impossible to retrieve the task id value from the URL');
