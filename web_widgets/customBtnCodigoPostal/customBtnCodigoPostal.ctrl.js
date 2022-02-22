@@ -17,7 +17,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             submitTask();
         } else if ($scope.properties.action === 'Open modal') {
             closeModal($scope.properties.closeOnSuccess);
-
+            debugger;
+            $scope.properties.esEdicion.esEdicion = true;
             console.log($scope.properties.estado);
             $scope.properties.estado = null;
             $scope.properties.ciudad = "";

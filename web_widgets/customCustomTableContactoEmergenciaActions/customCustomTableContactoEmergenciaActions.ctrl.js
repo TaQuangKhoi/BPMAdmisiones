@@ -31,7 +31,7 @@ function PbTableCtrl($scope, modalService) {
         $scope.properties.ocultar = true;
         $scope.properties.ver = false;
         $scope.properties.datosEditar = row;
-        openModal($scope.properties.modalid);
+        openModalEditar($scope.properties.modalid);
         
     }
 
@@ -46,6 +46,15 @@ function PbTableCtrl($scope, modalService) {
     function openModal(modalid,modalidContactoEmergencia) {
 
         modalService.open(modalid);
+        $scope.properties.MostrarBotones = true;
+        $scope.properties.BanderaInformacionEmergencia = true;
+    }
+    
+    function openModalEditar(modalid,modalidContactoEmergencia) {
+
+        modalService.open(modalid);
+        $scope.properties.MostrarBotones = false;
+        $scope.properties.BanderaInformacionEmergencia = false;
     }
 
     function closeModal(shouldClose) {

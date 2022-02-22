@@ -2,39 +2,41 @@ function PbTableCtrl($scope, modalService) {
 
     this.isArray = Array.isArray;
 
-    this.isClickable = function() {
+    this.isClickable = function () {
         return $scope.properties.isBound('selectedRow');
     };
 
-    this.selectRow = function(row) {
+    this.selectRow = function (row) {
         if (this.isClickable()) {
             $scope.properties.selectedRow = row;
         }
     };
 
-    this.isSelected = function(row) {
+    this.isSelected = function (row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
 
-    this.showdatos = function(row) {
+    this.showdatos = function (row, value) {
+        debugger
         $scope.properties.datomodificar = angular.copy(row);
         $scope.properties.ver = true;
         $scope.properties.datosEditar = row;
-        openModal($scope.properties.modalid);
+        openModal($scope.properties.modalid, value);
     }
 
-    this.editdatos = function(row) {
+    this.editdatos = function (row) {
+        debugger
         $scope.properties.datomodificar = angular.copy(row);
         console.log($scope.properties.datomodificar);
         $scope.properties.ocultar = true;
         $scope.properties.ver = false;
         $scope.properties.datosEditar = row;
         $scope.properties.jsonRow = row;
-        openModal($scope.properties.modalid);
+        openModalEditar($scope.properties.modalid);
     }
 
 
-    $scope.deleteData = function(row, index) {
+    $scope.deleteData = function (row, index) {
         if ($scope.properties.eliminar[index].catParentezco.descripcion === "Padre") {
             $scope.properties.padre.catTitulo = null;
             $scope.properties.padre.nombre = "";
@@ -89,11 +91,21 @@ function PbTableCtrl($scope, modalService) {
         console.log($scope.properties.eliminar + index);
     }
 
-
-    function openModal(modalid) {
+    function openModal(modalid, value) {
+        var titulo = "";
+        $scope.properties.OcultarBotones = true;
+        $scope.properties.BanderaInformacionTutor = true;
 
         modalService.open(modalid);
     }
+    
+    function openModalEditar(modalid, value) {
+        
+        $scope.properties.OcultarBotones = false;
+        $scope.properties.BanderaInformacionTutor = false;
+        modalService.open(modalid);
+    }
+
 
     function closeModal(shouldClose) {
         if (shouldClose)
