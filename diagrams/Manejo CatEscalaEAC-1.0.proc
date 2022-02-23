@@ -78,8 +78,8 @@
       </configurations>
       <contract xmi:type="process:Contract" xmi:id="_Rx5bj5QCEeyrR9iC257-8Q">
         <inputs xmi:type="process:ContractInput" xmi:id="_Rx5bkJQCEeyrR9iC257-8Q" name="lstCatEscalaEACInput" type="COMPLEX" multiple="true" dataReference="lstCatEscalaEAC">
-          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5bkZQCEeyrR9iC257-8Q" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5bkpQCEeyrR9iC257-8Q" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5bkZQCEeyrR9iC257-8Q" name="escala"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5bkpQCEeyrR9iC257-8Q" name="equivalenteKP"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Rx5bk5QCEeyrR9iC257-8Q" name="fechaCreacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Rx5blJQCEeyrR9iC257-8Q" name="usuarioCreacion"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Rx5blZQCEeyrR9iC257-8Q" name="isEliminado" type="BOOLEAN"/>
@@ -135,8 +135,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_Rx5bu5QCEeyrR9iC257-8Q" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_Rx5bvJQCEeyrR9iC257-8Q" name="lstCatEscalaEAC" multiple="true" dataType="_Rx5b_JQCEeyrR9iC257-8Q" className="com.anahuac.catalogos.CatEscalaEAC">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Rx5bvZQCEeyrR9iC257-8Q" name="initLstCatEscalaEAC()" content="import com.anahuac.catalogos.CatEscalaEAC;&#xD;&#xA;&#xD;&#xA;def CatEscalaEACList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatEscalaEACInput: lstCatEscalaEACInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatEscalaEACInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatEscalaEAC objCatEscalaEAC = CatEscalaEACDAO.findByPersistenceId(objCatEscalaEACInput.persistenceId);&#xD;&#xA;&#x9;if(objCatEscalaEAC != null){&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.escala = objCatEscalaEACInput.escala;&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.equivalenteKP = objCatEscalaEACInput.equivalenteKP;&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.isEliminado = objCatEscalaEACInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.usuarioCreacion = objCatEscalaEAC.usuarioCreacion;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;CatEscalaEACList.add(objCatEscalaEAC);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return CatEscalaEACList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_hepLoJQDEeyrR9iC257-8Q" name="lstCatEscalaEACInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Rx5bvZQCEeyrR9iC257-8Q" name="initLstCatEscalaEAC()" content="import com.anahuac.catalogos.CatEscalaEAC;&#xD;&#xA;&#xD;&#xA;def CatEscalaEACList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatEscalaEACInput: lstCatEscalaEACInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatEscalaEACInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatEscalaEAC objCatEscalaEAC = catEscalaEACDAO.findByPersistenceId(Long.valueOf(objCatEscalaEACInput.persistenceId));&#xD;&#xA;&#x9;if(objCatEscalaEAC != null){&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.escala = objCatEscalaEACInput.escala;&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.equivalenteKP = objCatEscalaEACInput.equivalenteKP;&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.isEliminado = objCatEscalaEACInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatEscalaEAC.usuarioCreacion = objCatEscalaEAC.usuarioCreacion;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;CatEscalaEACList.add(objCatEscalaEAC);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return CatEscalaEACList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_8jBnEJRHEeyrR9iC257-8Q" name="lstCatEscalaEACInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_8jBnEZRHEeyrR9iC257-8Q" name="catEscalaEACDAO" content="catEscalaEACDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEscalaEACDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_Rx5bwJQCEeyrR9iC257-8Q" name="lstCatEscalaEACToDelete" multiple="true" dataType="_Rx5b_JQCEeyrR9iC257-8Q" className="com.anahuac.catalogos.CatEscalaEAC">
@@ -177,8 +178,8 @@
       </configurations>
       <contract xmi:type="process:Contract" xmi:id="_Rx5b3JQCEeyrR9iC257-8Q">
         <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b3ZQCEeyrR9iC257-8Q" name="lstCatEscalaEACInput" type="COMPLEX" multiple="true" dataReference="lstCatEscalaEAC">
-          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b3pQCEeyrR9iC257-8Q" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b35QCEeyrR9iC257-8Q" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b3pQCEeyrR9iC257-8Q" name="escala"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b35QCEeyrR9iC257-8Q" name="equivalenteKP"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b4JQCEeyrR9iC257-8Q" name="fechaCreacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b4ZQCEeyrR9iC257-8Q" name="usuarioCreacion"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Rx5b4pQCEeyrR9iC257-8Q" name="isEliminado" type="BOOLEAN"/>

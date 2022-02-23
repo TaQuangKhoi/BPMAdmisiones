@@ -76,7 +76,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function startProcess() {
         if ($scope.properties.dataToChange2.escala || $scope.properties.dataToChange2.escala === "") {
             if ($scope.properties.dataToChange2.escala && $scope.properties.dataToChange2.equivalenteKP ) {
-                req = {
+                let req = {
                     method: 'GET',
                     url: `/API/extension/AnahuacRestGet?url=getValidarEscalaEAC&p=0&c=10&clave=${$scope.properties.dataToChange2.escala}&id=${$scope.properties.dataToChange2.persistenceId}`,
                 };
@@ -103,7 +103,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
         } else {
             if ($scope.properties.dataToChange2.lstCatEscalaEACInput[0].escala && $scope.properties.dataToChange2.lstCatEscalaEACInput[0].equivalenteKP) {
-                        req = {
+                        let req = {
                             method: 'GET',
                             url: `/API/extension/AnahuacRestGet?url=getValidarEscalaEAC&p=0&c=10&escala=${$scope.properties.dataToChange2.lstCatEscalaEACInput[0].escala}&id=`,
                         };
