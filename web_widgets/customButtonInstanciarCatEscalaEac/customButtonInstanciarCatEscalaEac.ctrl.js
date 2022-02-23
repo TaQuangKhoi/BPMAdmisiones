@@ -74,11 +74,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     var validar = false;
     function startProcess() {
-        if ($scope.properties.lstCatEscalaEACInput[0].escala || $scope.properties.lstCatEscalaEACInput[0].escala === "") {
-            if ($scope.properties.lstCatEscalaEACInput[0].escala && $scope.properties.lstCatEscalaEACInput[0].equivalentekp ) {
+        if ($scope.properties.dataToChange2.escala || $scope.properties.dataToChange2.escala === "") {
+            if ($scope.properties.dataToChange2.escala && $scope.properties.dataToChange2.equivalenteKP ) {
                 req = {
                     method: 'GET',
-                    url: `/API/extension/AnahuacRestGet?url=getValidarClavePeriodo&p=0&c=10&clave=${$scope.properties.lstCatEscalaEACInput[0].escala}&tipo=${tipo}&id=${$scope.properties.dataToChange2.persistenceId}`,
+                    url: `/API/extension/AnahuacRestGet?url=getValidarEscalaEAC&p=0&c=10&clave=${$scope.properties.dataToChange2.escala}&id=${$scope.properties.dataToChange2.persistenceId}`,
                 };
                 return $http(req).success(function(datos, status) {
                     if (datos.totalRegistros < 1) {
@@ -102,7 +102,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
             }
         } else {
-            if ($scope.properties.dataToChange2.lstCatEscalaEACInput[0].escala && $scope.properties.dataToChange2.lstCatEscalaEACInput[0].equivalentekp) {
+            if ($scope.properties.dataToChange2.lstCatEscalaEACInput[0].escala && $scope.properties.dataToChange2.lstCatEscalaEACInput[0].equivalenteKP) {
                         req = {
                             method: 'GET',
                             url: `/API/extension/AnahuacRestGet?url=getValidarEscalaEAC&p=0&c=10&escala=${$scope.properties.dataToChange2.lstCatEscalaEACInput[0].escala}&id=`,
@@ -121,7 +121,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             }
                         }).error(function(data, status) {})
             } else {
-                if (!$scope.properties.dataToChange2.lstCatEscalaEACInput[0].equivalentekp) {
+                if (!$scope.properties.dataToChange2.lstCatEscalaEACInput[0].equivalenteKP) {
                     swal("¡Aviso!", "Faltó capturar información en: valor KP.", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatEscalaEACInput[0].escala) {

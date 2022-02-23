@@ -1070,7 +1070,7 @@ class IndexGet implements RestApiController {
 				case "getValidarEscalaEAC":
 				String escala = request.getParameter "escala";
 				String id = request.getParameter "id";
-				result = new CatalogosDAO().getValidarClavePeriodo(0,9999, escala, id);
+				result = new CatalogosDAO().getValidarEscalaEAC(0,9999, escala, id);
 				responseBuilder.withMediaType("application/json");
 				if (result.isSuccess()) {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

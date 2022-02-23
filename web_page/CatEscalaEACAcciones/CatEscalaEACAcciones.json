@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "CatEscalaEACAcciones",
   "name" : "CatEscalaEACAcciones",
-  "lastUpdate" : 1645556158396,
+  "lastUpdate" : 1645572724522,
   "rows" : [
     [
       {
@@ -233,8 +233,8 @@
                   "type" : "constant",
                   "value" : [
                     "Escala",
-                    "EquivalenteKP",
-                    "Usuario"
+                    "equivalenteKP",
+                    "usuarioCreacion"
                   ]
                 },
                 "content" : {
@@ -244,7 +244,7 @@
                   "type" : "constant",
                   "value" : [
                     "escala",
-                    "equivalentekp",
+                    "equivalenteKP",
                     "usuariocreacion"
                   ]
                 },
@@ -294,7 +294,7 @@
                 },
                 "urlPost" : {
                   "type" : "constant",
-                  "value" : "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100"
+                  "value" : "/bonita/API/extension/AnahuacRest?url=getCatEscalaEAC&p=0&c=100"
                 },
                 "keyPressFilter" : {
                   "type" : "constant",
@@ -557,59 +557,21 @@
                   "value" : "text"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 200
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 800
                 },
                 "step" : {
                   "type" : "constant",
                   "value" : 1
                 }
               },
-              "reference" : "e6434a74-fe0f-424e-8ec0-42dc3bc18a72",
+              "reference" : "cbd6e247-2de3-4b0b-b6b9-1b4d563837b4",
               "hasValidationError" : false,
-              "id" : "customInputMinMayCustom"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Escala Masculina"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "CatEscalaEAC_selected.sexo"
-                }
-              },
-              "reference" : "56da7e96-e2cb-41e9-9254-073b049d3f56",
-              "hasValidationError" : false,
-              "id" : "pbCheckbox"
+              "id" : "pbInput"
             }
           ],
           [
@@ -960,59 +922,21 @@
                   "value" : "text"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 200
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 800
                 },
                 "step" : {
                   "type" : "constant",
                   "value" : 1
                 }
               },
-              "reference" : "9f8fa0ab-c8a6-4071-8a8f-a873d49f744e",
+              "reference" : "0e34ea11-6234-428a-b678-a4dc32f59009",
               "hasValidationError" : false,
-              "id" : "customInputMinMayCustom"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Escala Masculina"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar.lstCatEscalaEACInput[0].sexo"
-                }
-              },
-              "reference" : "4d21171c-a20a-4355-a9ff-f6c0c2d94966",
-              "hasValidationError" : false,
-              "id" : "pbCheckbox"
+              "id" : "pbInput"
             }
           ],
           [
@@ -1235,8 +1159,9 @@
     "CatEscalaEAC" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaEAC&p={{inicio}}&c=10"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaINVP&p={{inicio}}&c=10"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "CatEscalaEAC_selected" : {
@@ -1344,7 +1269,7 @@
     "urlRefreshPaginado" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaEAC&p=\"+$data.inicio+\"&c=10\";"
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaINVP&p=\"+$data.inicio+\"&c=10\";"
       ],
       "exposed" : false
     },

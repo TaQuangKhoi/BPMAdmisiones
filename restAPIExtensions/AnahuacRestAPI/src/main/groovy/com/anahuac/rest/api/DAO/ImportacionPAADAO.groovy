@@ -1690,6 +1690,157 @@ class ImportacionPAADAO {
 		return resultado
 	}
 	
+	public Result getCatEscalaEAC(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog = ""
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			//assert object instanceof List;
+			String consulta = Statements.GET_CATESCALAEAC
+			closeCon = validarConexion();
+			where += " WHERE isEliminado = false";
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+
+				switch (filtro.get("columna")) {
+
+					case "USUARIO CREACION":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(USUARIOCREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+
+					case "FECHA CREACIÓN":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(FECHACREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+
+					
+					case "ESCALA":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(escala) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "EQUIVALENTE":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(equivalentekp) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+
+				}
+			}
+			switch (object.orderby) {
+				case "ISELIMINADO":
+					orderby += "isEliminado";
+					break;
+				case "USUARIOCREACION":
+					orderby += "usuarioCreacion";
+					break;
+				case "EQUIVALENTE":
+					orderby += "equivalenteKP";
+					break;
+				case "ESCALA":
+					orderby += "escala";
+					break;
+				case "FECHA CREACIÓN":
+					orderby += "fechaCreacion";
+					break;
+				default:
+					orderby += "persistenceid"
+
+					break;
+			}
+			errorLog += "orderby"
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[WHERE]", where);
+			pstm = con.prepareStatement(consulta.replace("*", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""))
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+			
+			errorLog += consulta
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery()
+			rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+					columns.put("escala", rs.getString("escala"));
+					columns.put("equivalenteKP", rs.getString("equivalenteKP"));
+					columns.put("isEliminado", rs.getBoolean("isEliminado"));
+					columns.put("fechaCreacion", rs.getString("fechaCreacion"));
+					columns.put("usuarioCreacion", rs.getString("usuarioCreacion"));
+					columns.put("persistenceId", rs.getString("persistenceId"));
+					columns.put("persistenceVersion", rs.getString("persistenceVersion"));
+					
+					rows.add(columns);
+			}
+			
+			errorLog += " paso el listado";
+			resultado.setSuccess(true)
+			resultado.setError(errorLog)
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	
 }

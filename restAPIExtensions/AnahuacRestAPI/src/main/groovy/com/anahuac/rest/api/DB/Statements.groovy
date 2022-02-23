@@ -167,6 +167,7 @@ class Statements {
 	public static final String GET_CATDESCUENTOS = "SELECT c.*, b.descripcion as bachilleratos FROM CATDESCUENTOS c left join CATBACHILLERATOS b on b.PERSISTENCEID = c.CATBACHILLERATOS_PID [BACHILLERATO] LEFT JOIN CATCAMPUS a on a.grupobonita=c.campus [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CATNACIONALIDAD = "SELECT * FROM CATNACIONALIDAD [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CATGENERICO = "SELECT * FROM [CATALOGO] [WHERE] [ORDERBY] [LIMITOFFSET]"
+	public static final String GET_CATESCALAEAC= "SELECT * FROM CATESCALAEAC [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CORREO_BY_CASEID = " SELECT correoelectronico from solicituddeadmision where caseid = ?"
 
 	/*************************JOSECARLOSFELIXIBARRA********************/
