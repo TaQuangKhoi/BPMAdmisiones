@@ -2,8 +2,44 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1645573525698,
+  "lastUpdate" : 1645577539805,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&p=0\""
+          },
+          "reloadTask" : {
+            "type" : "variable",
+            "value" : "reloadTask"
+          },
+          "taskId" : {
+            "type" : "variable",
+            "value" : "taskId"
+          }
+        },
+        "reference" : "8e36a0e2-2288-48b4-afc9-b660a6a3c9dd",
+        "hasValidationError" : false,
+        "id" : "customSDAEGetTareaUsuario"
+      }
+    ],
     [
       {
         "type" : "container",
@@ -19,8 +55,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "taskId"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -371,8 +407,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "!taskId"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -696,7 +732,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "{{taskList | json}}"
+                        "value" : "{{context\t| json}}"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -704,6 +740,56 @@
                       }
                     },
                     "reference" : "cd87232c-8c1d-43c9-8303-93968187c19c",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "{{solicitudApoyoEducativo| json}}"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "08825dde-ea7d-4d4e-b5f4-f0a6587533ed",
                     "hasValidationError" : false,
                     "id" : "pbText"
                   }
@@ -837,12 +923,12 @@
                             },
                             "caseId" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "caseId"
                             }
                           },
-                          "reference" : "05a60320-3969-4953-a2ef-ac2797337f07",
+                          "reference" : "5f0254f1-1576-4305-91ae-07263dd493bf",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnWizardValidation"
+                          "id" : "customSDAEcustomBtnWizardValidation"
                         }
                       ],
                       [
@@ -2416,8 +2502,7 @@
                               "value" : "Selecciona una opción"
                             },
                             "availableValues" : {
-                              "type" : "expression",
-                              "value" : "lstCatTienesHijos.data"
+                              "type" : "constant"
                             },
                             "displayedKey" : {
                               "type" : "constant",
@@ -2429,7 +2514,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "datosUsuario.catTieneHijos"
+                              "value" : ""
                             }
                           },
                           "reference" : "87846e11-80f7-4b87-86dd-0164f6f56f8c",
@@ -3952,9 +4037,9 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "40c9674e-1f63-492f-a5f0-a6d00c78873d",
+                    "reference" : "fc1eccea-41d2-4950-ad5d-89bddf982b91",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidation"
                   },
                   {
                     "type" : "component",
@@ -4030,9 +4115,9 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "f434af95-2763-4a02-8250-b369b7d323ba",
+                    "reference" : "2ca8051b-21a5-478f-b8ac-58a848786918",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidation"
                   }
                 ],
                 [
@@ -8317,9 +8402,9 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "d4a873c1-a021-48d0-bddf-38dd322bcff3",
+                    "reference" : "436214f9-ec12-4eb4-bae9-8d99e85db660",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidation"
                   },
                   {
                     "type" : "component",
@@ -8395,9 +8480,9 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "7ef9eaf5-3d9d-446f-b263-d03388c3b2e9",
+                    "reference" : "28865642-d219-4bcf-b3d4-10bcb6132cbe",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidation"
                   }
                 ],
                 [
@@ -8873,9 +8958,9 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "72fa94a3-0536-492f-9a5f-ea0c323d19bd",
+                    "reference" : "9eb07b84-bee3-4522-96f9-3585b924b757",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidation"
                   },
                   {
                     "type" : "component",
@@ -12969,7 +13054,11 @@
       "value" : [
         "{{ligaApiGetCatalogos}}CatTienesHermanos"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "lstCatContoBecaPreparatoria" : {
@@ -12982,14 +13071,6 @@
         "statusCode" : "",
         "failedResponseValue" : ""
       },
-      "exposed" : false
-    },
-    "lstCatTienesHijos" : {
-      "type" : "url",
-      "value" : [
-        "{{ligaApiGetCatalogos}}CatTienesHijos"
-      ],
-      "advancedOptions" : { },
       "exposed" : false
     },
     "objPadresTutor" : {
@@ -13458,7 +13539,7 @@
     "catPorcentajeBeca_query" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatPorcentajeBeca?q=find&p=0&c=99"
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatPorcentajeBeca"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -13466,7 +13547,7 @@
     "catPorcentajeFinanciamiento_query" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatPorcentajeFinanciamiento?q=find&p=0&c=99"
+        "https://dev.bpm.anahuac.mx/bonita/API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatPorcentajeFinanciamiento"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -13474,7 +13555,7 @@
     "catProvienenIngresos_query" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatProvienenIngresos?q=find&p=0&c=99"
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatProvienenIngresos"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -13482,7 +13563,7 @@
     "catTienesHijos_query" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatTienesHijos?q=find&p=0&c=99"
+        "../API/extension/AnahuacBecasRestGET?url=getCatTienesHijos&p=0&c=0"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -13490,7 +13571,7 @@
     "catTipoApoyo_query" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatTipoApoyo?q=find&p=0&c=99"
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatTipoApoyo"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -13520,9 +13601,9 @@
       "exposed" : false
     },
     "taskId" : {
-      "type" : "urlparameter",
+      "type" : "constant",
       "value" : [
-        "id"
+        ""
       ],
       "exposed" : false
     },
@@ -13770,6 +13851,9 @@
     },
     "reloadTask" : {
       "type" : "constant",
+      "value" : [
+        "true"
+      ],
       "exposed" : false
     },
     "errorPaso2" : {
@@ -13887,12 +13971,8 @@
       ],
       "exposed" : false
     },
-    "taskList" : {
-      "type" : "url",
-      "value" : [
-        "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{userData.user_id}}&p=0"
-      ],
-      "advancedOptions" : { },
+    "caseId" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
