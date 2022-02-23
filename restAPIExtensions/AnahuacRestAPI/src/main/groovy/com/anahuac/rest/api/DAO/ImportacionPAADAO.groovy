@@ -1672,7 +1672,7 @@ class ImportacionPAADAO {
 				pstm.setString(1, object.letra);
 				pstm.setString(2, object.equivalente);
 				pstm.setBoolean(3,object.isEliminado);
-				pstm.setInt(4,object.persistenceId);
+				pstm.setInt(4,Integer.valueOf(object.persistenceId));
 				
 				pstm.executeUpdate();
 				con.commit();

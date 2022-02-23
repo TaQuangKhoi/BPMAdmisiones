@@ -45,7 +45,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
   function startProcess() {
       if ($scope.properties.processId) {
-          if($scope.properties.selectedRow["persistenceIdVersion"] != null){
+          if($scope.properties.selectedRow["persistenceVersion"] != null){
               var prom = doRequestDelete('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                   localStorageService.delete($window.location.href);
               });

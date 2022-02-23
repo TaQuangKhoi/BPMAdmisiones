@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "CatEscalaEACAcciones",
   "name" : "CatEscalaEACAcciones",
-  "lastUpdate" : 1645577009142,
+  "lastUpdate" : 1645645623427,
   "rows" : [
     [
       {
@@ -245,7 +245,7 @@
                   "value" : [
                     "escala",
                     "equivalenteKP",
-                    "usuariocreacion"
+                    "usuarioCreacion"
                   ]
                 },
                 "selectedRow" : {
@@ -683,7 +683,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaEAC&p={{inicio}}&c=10"
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaINVP&p={{inicio}}&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -1041,7 +1041,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaEAC&p={{inicio}}&c=10"
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaINVP&p={{inicio}}&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -1161,7 +1161,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=getCatEscalaINVP&p={{inicio}}&c=10"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "CatEscalaEAC_selected" : {
@@ -1313,15 +1317,15 @@
       "value" : [
         "var validar = true;",
         "if($data.editable === \"editar\"){",
-        "    if($data.CatEscalaEAC_selected.clave.trim()=== \"\"){",
+        "    if($data.CatEscalaEAC_selected.escala.trim()=== \"\"){",
         "        validar = false;",
-        "    }else if($data.CatEscalaEAC_selected.descripcion.trim()=== \"\"){",
+        "    }else if($data.CatEscalaEAC_selected.equivalenteKP.trim()=== \"\"){",
         "        validar = false;",
         "    }",
         "}else if($data.editable === \"agregar\"){",
-        "    if($data.formOutputAgregar.lstCatEscalaEACInput[0].clave.trim()=== \"\"){",
+        "    if($data.formOutputAgregar.lstCatEscalaEACInput[0].escala.trim()=== \"\"){",
         "        validar = false;",
-        "    }else if($data.formOutputAgregar.lstCatEscalaEACInput[0].descripcion.trim()=== \"\"){",
+        "    }else if($data.formOutputAgregar.lstCatEscalaEACInput[0].equivalenteKP.trim()=== \"\"){",
         "        validar = false;",
         "    } else if($data.formOutputAgregar.lstCatEscalaEACInput[0].usuarioCreacion.trim()=== \"\"){",
         "       $data.formOutputAgregar.lstCatEscalaEACInput[0].usuarioCreacion = $data.userData.user_name;",
