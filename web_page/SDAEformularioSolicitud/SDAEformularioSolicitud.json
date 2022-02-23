@@ -2,8 +2,60 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1645577539805,
+  "lastUpdate" : 1645653640943,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{formOutputReal| json}}</pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "cd87232c-8c1d-43c9-8303-93968187c19c",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -33,6 +85,10 @@
           "taskId" : {
             "type" : "variable",
             "value" : "taskId"
+          },
+          "caseId" : {
+            "type" : "variable",
+            "value" : ""
           }
         },
         "reference" : "8e36a0e2-2288-48b4-afc9-b660a6a3c9dd",
@@ -693,56 +749,6 @@
                   }
                 ],
                 [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "{{context\t| json}}"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      }
-                    },
-                    "reference" : "cd87232c-8c1d-43c9-8303-93968187c19c",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  },
                   {
                     "type" : "component",
                     "dimension" : {
@@ -13973,6 +13979,129 @@
     },
     "caseId" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "formOutputReal" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;\r",
+        "let formOutput = {};\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    $data.solicitudApoyoEducativo.catTienesHijos = $data.solicitudApoyoEducativo_catTienesHijos;\r",
+        "    $data.solicitudApoyoEducativo.catProvienenIngresos = $data.solicitudApoyoEducativo_catProvienenIngresos;\r",
+        "    $data.solicitudApoyoEducativo.bienesRaices = $data.solicitudApoyoEducativo_bienesRaices;\r",
+        "    $data.solicitudApoyoEducativo.hermanos = $data.solicitudApoyoEducativo_hermanos;\r",
+        "    $data.solicitudApoyoEducativo.catTipoApoyo = $data.solicitudApoyoEducativo_catTipoApoyo;\r",
+        "    $data.solicitudApoyoEducativo.catPorcentajeBeca = $data.solicitudApoyoEducativo_catPorcentajeBeca;\r",
+        "    $data.solicitudApoyoEducativo.catPorcentajeFinanciamiento = $data.solicitudApoyoEducativo_catPorcentajeFinanciamiento;\r",
+        "    $data.solicitudApoyoEducativo.catCasaDondeVives = $data.solicitudApoyoEducativo_catCasaDondeVives;\r",
+        "    $data.solicitudApoyoEducativo.autos = $data.solicitudApoyoEducativo_autos;\r",
+        "\r",
+        "    formOutput = $data.solicitudApoyoEducativo;\r",
+        "} else {\r",
+        "    formOutput.catTienesHijos = $data.solicitudApoyoEducativo_catTienesHijos;\r",
+        "    formOutput.catProvienenIngresos = $data.solicitudApoyoEducativo_catProvienenIngresos;\r",
+        "    formOutput.bienesRaices = $data.solicitudApoyoEducativo_bienesRaices;\r",
+        "    formOutput.hermanos = $data.solicitudApoyoEducativo_hermanos;\r",
+        "    formOutput.catTipoApoyo = $data.solicitudApoyoEducativo_catTipoApoyo;\r",
+        "    formOutput.catPorcentajeBeca = $data.solicitudApoyoEducativo_catPorcentajeBeca;\r",
+        "    formOutput.catPorcentajeFinanciamiento = $data.solicitudApoyoEducativo_catPorcentajeFinanciamiento;\r",
+        "    formOutput.catCasaDondeVives = $data.solicitudApoyoEducativo_catCasaDondeVives;\r",
+        "    formOutput.autos = $data.solicitudApoyoEducativo_autos;\r",
+        "}\r",
+        "\r",
+        "formOutput.caseId = formOutput.caseId !== undefined ? formOutput.caseId : null;\r",
+        "formOutput.isEliminado = formOutput.isEliminado !== undefined ? formOutput.isEliminado : null;\r",
+        "formOutput.pageIndex = formOutput.pageIndex !== undefined ? formOutput.pageIndex : null;\r",
+        "formOutput.costoMensualColegiatura = formOutput.costoMensualColegiatura !== undefined ? formOutput.costoMensualColegiatura : null;\r",
+        "formOutput.catTienesHijos = formOutput.catTienesHijos ? {\r",
+        "    persistenceId_string: formOutput.catTienesHijos.persistenceId_string !== undefined ? formOutput.catTienesHijos.persistenceId_string : null\r",
+        "} : null;\r",
+        "formOutput.calificacionOficialPreparatoria = formOutput.calificacionOficialPreparatoria !== undefined ? formOutput.calificacionOficialPreparatoria : null;\r",
+        "formOutput.nombreTutor = formOutput.nombreTutor !== undefined ? formOutput.nombreTutor : null,\r",
+        "formOutput.telefonoCasaTutor = formOutput.telefonoCasaTutor !== undefined ? formOutput.telefonoCasaTutor : null,\r",
+        "formOutput.telefonoOficinaTutor = formOutput.telefonoOficinaTutor !== undefined ? formOutput.telefonoOficinaTutor : null,\r",
+        "formOutput.telefonoCelularTutor = formOutput.telefonoCelularTutor !== undefined ? formOutput.telefonoCelularTutor : null,\r",
+        "formOutput.parentescoTutor = formOutput.parentescoTutor !== undefined ? formOutput.parentescoTutor : null,\r",
+        "formOutput.correoElectronicoTutor = formOutput.correoElectronicoTutor !== undefined ? formOutput.correoElectronicoTutor : null,\r",
+        "formOutput.viveMismoDocimicilioAlumnoTutor = formOutput.viveMismoDocimicilioAlumnoTutor !== undefined ? formOutput.viveMismoDocimicilioAlumnoTutor : null,\r",
+        "formOutput.maximoNivelEstudiosTutor = formOutput.maximoNivelEstudiosTutor !== undefined ? formOutput.maximoNivelEstudiosTutor : null,\r",
+        "formOutput.ocupacionTutor = formOutput.ocupacionTutor !== undefined ? formOutput.ocupacionTutor : null,\r",
+        "formOutput.catProvienenIngresos = formOutput.catProvienenIngresos ? {\r",
+        "    persistenceId_string : formOutput.catProvienenIngresos.persistenceId_string !== undefined ? formOutput.catProvienenIngresos.persistenceId_string : null\r",
+        "} : null,\r",
+        "formOutput.ingresoMensualNetoTutor = formOutput.ingresoMensualNetoTutor !== undefined ? formOutput.ingresoMensualNetoTutor : null,\r",
+        "formOutput.empresaTutor = formOutput.empresaTutor !== undefined ? formOutput.empresaTutor : null,\r",
+        "formOutput.puestoTutor = formOutput.puestoTutor !== undefined ? formOutput.puestoTutor : null,\r",
+        "formOutput.bienesRaices = formOutput.bienesRaices.map( it => ({\r",
+        "    persistenceId_string: it.persistenceId_string !== undefined ? it.persistenceId_string : null\r",
+        "})),\r",
+        "formOutput.tieneHermanos = formOutput.tieneHermanos !== undefined ? formOutput.tieneHermanos : null,\r",
+        "formOutput.hermanos = formOutput.hermanos.map( it => ({\r",
+        "    persistenceId_string: it.persistenceId_string !== undefined ? it.persistenceId_string : null\r",
+        "})),\r",
+        "formOutput.motivoBeca = formOutput.motivoBeca !== undefined ? formOutput.motivoBeca : null,\r",
+        "formOutput.catTipoApoyo = formOutput.catTipoApoyo ? {\r",
+        "    persistenceId_string : formOutput.catTipoApoyo.persistenceId_string !== undefined ? formOutput.catTipoApoyo.persistenceId_string : null\r",
+        "} : null,\r",
+        "formOutput.catPorcentajeBeca = formOutput.catPorcentajeBeca ? {\r",
+        "    persistenceId_string : formOutput.catPorcentajeBeca.persistenceId_string !== undefined ? formOutput.catPorcentajeBeca.persistenceId_string : null\r",
+        "} : null,\r",
+        "formOutput.catPorcentajeFinanciamiento = formOutput.catPorcentajeFinanciamiento ? {\r",
+        "    persistenceId_string : formOutput.catPorcentajeFinanciamiento.persistenceId_string !== undefined ? formOutput.catPorcentajeFinanciamiento.persistenceId_string : null\r",
+        "} : null,\r",
+        "formOutput.cantMensualPagarUni = formOutput.cantMensualPagarUni !== undefined ? formOutput.cantMensualPagarUni : null,\r",
+        "formOutput.catCasaDondeVives = formOutput.catCasaDondeVives ? {\r",
+        "    persistenceId_string : formOutput.catCasaDondeVives.persistenceId_string !== undefined ? formOutput.catCasaDondeVives.persistenceId_string : null\r",
+        "} : null,\r",
+        "formOutput.contruccionM2Casa = formOutput.contruccionM2Casa !== undefined ? formOutput.contruccionM2Casa : null,\r",
+        "formOutput.terrenoM2Casa = formOutput.terrenoM2Casa !== undefined ? formOutput.terrenoM2Casa : null,\r",
+        "formOutput.valorAproxCasa = formOutput.valorAproxCasa !== undefined ? formOutput.valorAproxCasa : null,\r",
+        "formOutput.calle = formOutput.calle !== undefined ? formOutput.calle : null,\r",
+        "formOutput.delegacionCiudad = formOutput.delegacionCiudad !== undefined ? formOutput.delegacionCiudad : null,\r",
+        "formOutput.numExterior = formOutput.numExterior !== undefined ? formOutput.numExterior : null,\r",
+        "formOutput.numInterior = formOutput.numInterior !== undefined ? formOutput.numInterior : null,\r",
+        "formOutput.pais = formOutput.pais !== undefined ? formOutput.pais : null,\r",
+        "formOutput.colonia = formOutput.colonia !== undefined ? formOutput.colonia : null,\r",
+        "formOutput.estado = formOutput.estado !== undefined ? formOutput.estado : null,\r",
+        "formOutput.codigoPostal = formOutput.codigoPostal !== undefined ? formOutput.codigoPostal : null,\r",
+        "formOutput.autos = formOutput.autos.map( it => ({\r",
+        "    persistenceId_string: it.persistenceId_string !== undefined ? it.persistenceId_string : null\r",
+        "})),\r",
+        "formOutput.ingresoPadre = formOutput.ingresoPadre !== undefined ? formOutput.ingresoPadre : null,\r",
+        "formOutput.ingresoMadre = formOutput.ingresoMadre !== undefined ? formOutput.ingresoMadre : null,\r",
+        "formOutput.ingresoHermano = formOutput.ingresoHermano !== undefined ? formOutput.ingresoHermano : null,\r",
+        "formOutput.ingresoTio = formOutput.ingresoTio !== undefined ? formOutput.ingresoTio : null,\r",
+        "formOutput.ingresoAbuelo = formOutput.ingresoAbuelo !== undefined ? formOutput.ingresoAbuelo : null,\r",
+        "formOutput.ingresoAspirante = formOutput.ingresoAspirante !== undefined ? formOutput.ingresoAspirante : null,\r",
+        "formOutput.ingresoTotal = formOutput.ingresoTotal !== undefined ? formOutput.ingresoTotal : null,\r",
+        "formOutput.egresoRenta = formOutput.egresoRenta !== undefined ? formOutput.egresoRenta : null,\r",
+        "formOutput.egresoServicios = formOutput.egresoServicios !== undefined ? formOutput.egresoServicios : null,\r",
+        "formOutput.egresoEducacion = formOutput.egresoEducacion !== undefined ? formOutput.egresoEducacion : null,\r",
+        "formOutput.egresoGastosMedicos = formOutput.egresoGastosMedicos !== undefined ? formOutput.egresoGastosMedicos : null,\r",
+        "formOutput.egresoAlimentacion = formOutput.egresoAlimentacion !== undefined ? formOutput.egresoAlimentacion : null,\r",
+        "formOutput.egresoVestido = formOutput.egresoVestido !== undefined ? formOutput.egresoVestido : null,\r",
+        "formOutput.egresoSeguro = formOutput.egresoSeguro !== undefined ? formOutput.egresoSeguro : null,\r",
+        "formOutput.egresoDiversion = formOutput.egresoDiversion !== undefined ? formOutput.egresoDiversion : null,\r",
+        "formOutput.egresoAhorro = formOutput.egresoAhorro !== undefined ? formOutput.egresoAhorro : null,\r",
+        "formOutput.egresoCreditos = formOutput.egresoCreditos !== undefined ? formOutput.egresoCreditos : null,\r",
+        "formOutput.egresoOtros = formOutput.egresoOtros !== undefined ? formOutput.egresoOtros : null,\r",
+        "formOutput.egresoTotal = formOutput.egresoTotal !== undefined ? formOutput.egresoTotal : null,\r",
+        "formOutput.urlVideoYouTube = formOutput.urlVideoYouTube !== undefined ? formOutput.urlVideoYouTube : null,\r",
+        "formOutput.isSolDeportivaAprobada = formOutput.isSolDeportivaAprobada !== undefined ? formOutput.isSolDeportivaAprobada : null,\r",
+        "formOutput.motivoRechazoDeportiva = formOutput.motivoRechazoDeportiva !== undefined ? formOutput.motivoRechazoDeportiva : null,\r",
+        "formOutput.motivoAprobadaDeportiva = formOutput.motivoAprobadaDeportiva !== undefined ? formOutput.motivoAprobadaDeportiva : null,\r",
+        "formOutput.isSolArtisticaAprobada = formOutput.isSolArtisticaAprobada !== undefined ? formOutput.isSolArtisticaAprobada : null,\r",
+        "formOutput.motivoRechazoArtistica = formOutput.motivoRechazoArtistica !== undefined ? formOutput.motivoRechazoArtistica : null,\r",
+        "formOutput.motivoAprobadaArtistica = formOutput.motivoAprobadaArtistica !== undefined ? formOutput.motivoAprobadaArtistica : null \r",
+        "\r",
+        "let output = {\r",
+        "    solicitudApoyoEducativoInput:formOutput,\r",
+        "    isFinalizadaInput: false\r",
+        "};\r",
+        "\r",
+        "return  output;\r"
+      ],
       "exposed" : false
     }
   },
