@@ -6,4 +6,6 @@ class Statements {
 	public static final String GET_INFORMACION_ESCOLAR_BY_CORREO = "SELECT CBA.descripcion, SAD.promediogeneral AS promedioPreparatoria, CBA.id, CBA.ciudad, CBA.estado, CBA.pais, '' AS costoMensualPReparatoria, SAD.urlconstancia  FROM SOLICITUDDEADMISION AS SAD INNER JOIN CATBACHILLERATOS AS CBA ON CBA.PERSISTENCEID = SAD.CATBACHILLERATOS_PID WHERE CORREOELECTRONICO = ?;";
 	
 	public static final String GET_PADRES_TUTOT_BY_CASEID = "SELECT * FROM PADRESTUTOR WHERE CASEID = ?";
+
+	public static final String SELECT_PROPERTIES_BONITA = "SELECT A.tenantid, A.id, A.process_id, A.name, A.value FROM proc_parameter AS A LEFT JOIN process_definition AS B ON B.processid = A.process_id WHERE A.name IN ('usuario','password') ORDER BY B.version DESC Limit 2";
 }

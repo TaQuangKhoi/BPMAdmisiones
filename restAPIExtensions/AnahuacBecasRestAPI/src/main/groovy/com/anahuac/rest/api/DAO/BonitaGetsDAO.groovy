@@ -14,6 +14,7 @@ import org.bonitasoft.engine.bpm.data.DataDefinition
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.ArchivedActivityInstance
+import org.bonitasoft.engine.bpm.process.ActivationState
 import org.bonitasoft.engine.bpm.process.ArchivedProcessInstance
 import org.bonitasoft.engine.bpm.process.DesignProcessDefinition
 import org.bonitasoft.engine.bpm.process.ProcessDefinition
@@ -853,5 +854,72 @@ class BonitaGetsDAO {
 			retorno = true
 		}
 		return retorno
+	}
+	
+	public Result getUserProcessApoyoEducativo(RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			List<ProcessDeploymentInfo> map = [];
+			ProcessDeploymentInfo info;
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
+//			try {
+//				closeCon = validarConexionBonita()
+//				pstm = con.prepareStatement(" SELECT processid FROM process_definition WHERE NAME = 'Solicitud de apoyo educativo' and activationstate = 'ENABLED' ");
+//				rs = pstm.executeQuery();
+//				if(rs.next()) {
+//					info = apiClient.getProcessAPI().getProcessDeploymentInfo(rs.getLong("processid"));
+//				}
+//			}catch(Exception ex) {
+//				errorLog += ex;
+//			}
+//			map.add(info);
+			
+//			
+//			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 1);
+//			searchProcessBuilder.filter("", p);
+//			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
+//			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
+//			final SearchResult<ProcessDeploymentInfo> searchRes =
+//			apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());
+//			
+//			if (searchRes.count<1) {
+//				return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "theprocess is unknown"}""");
+//			}
+			
+			Long id = searchRes.result.get(0).processId;
+			resultado.setSuccess(true);
+			resultado.setData(map)
+			resultado.setError(errorLog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			e.printStackTrace();
+		}
+		finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
 	}
 }

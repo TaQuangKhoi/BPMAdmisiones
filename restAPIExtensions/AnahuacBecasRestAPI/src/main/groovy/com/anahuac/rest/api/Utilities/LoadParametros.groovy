@@ -9,6 +9,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.DB.DBConnectBonita
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.AzureConfig
@@ -58,7 +59,7 @@ class LoadParametros {
             LOGGER.error "[ERROR] " + e.getMessage();
         } finally {
             if(closeConBonita) {
-                new DBConnect().closeObj(conBonita, stmBonita, rsBonita, pstmBonita);
+				new DBConnectBonita().closeObj(con, stm, rs, pstm);
             }
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm);
@@ -70,7 +71,7 @@ class LoadParametros {
 	public Boolean validarConexion() {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
-			con = new DBConnect().getConnection();
+			con = new DBConnectBonita().getConnection();
 			retorno = true
 		}
 		return retorno
@@ -79,7 +80,7 @@ class LoadParametros {
     public Boolean validarConexionBonita() {
         Boolean retorno=false
         if (conBonita == null || conBonita.isClosed()) {
-            conBonita = new DBConnect().getConnectionBonita();
+            conBonita = new DBConnectBonita().getConnectionBonita();
             retorno=true
         }
         return retorno;
