@@ -639,7 +639,11 @@ class UsuariosDAO {
 					}
 					where +=" group_.id ";
 					if(filtro.get("operador").equals("Igual a")) {
-						where+="=[valor]"
+						if(filtro.get("valor").toString().contains("(")) {
+							where+="IN [valor]"
+						}else {
+							where+="=[valor]"
+						}
 					}else {
 						where+="=[valor]"
 					}
