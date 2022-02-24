@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1645653640943,
+  "lastUpdate" : 1645660676284,
   "rows" : [
     [
       {
@@ -44,7 +44,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<pre>{{formOutputReal| json}}</pre>"
+            "value" : "<pre>{{solicitudApoyoEducativo| json}}</pre>"
           },
           "alignment" : {
             "type" : "constant",
@@ -74,9 +74,61 @@
             "type" : "constant",
             "value" : false
           },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{context| json}}</pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "cd3358e4-b02c-4fd9-8900-b1d97750c4ec",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
           "url" : {
             "type" : "expression",
-            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&p=0\""
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&f=name=Llenado solicitud de apoyo académico&p=0\""
           },
           "reloadTask" : {
             "type" : "variable",
@@ -88,7 +140,15 @@
           },
           "caseId" : {
             "type" : "variable",
-            "value" : ""
+            "value" : "caseId"
+          },
+          "urlContext" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/userTask/\"+taskId+\"/context\""
+          },
+          "solicitudApoyoEducativo" : {
+            "type" : "variable",
+            "value" : "solicitudApoyoEducativo"
           }
         },
         "reference" : "8e36a0e2-2288-48b4-afc9-b660a6a3c9dd",
@@ -746,58 +806,6 @@
                     "reference" : "2693447e-55ff-46fe-9965-bc8e291829fa",
                     "hasValidationError" : false,
                     "id" : "customBtnSDAEsiguienteSolicitudAspirante"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "{{solicitudApoyoEducativo| json}}"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      }
-                    },
-                    "reference" : "deaafecc-b54f-417d-b642-472efff378bb",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
                   }
                 ]
               ]
@@ -13601,7 +13609,11 @@
       "value" : [
         "../API/bpm/userTask/{{taskId}}/context"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "task" : {
@@ -13744,11 +13756,10 @@
       "exposed" : false
     },
     "solicitudApoyoEducativo" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../{{context.solicitudApoyoEducativo_ref.link}}"
+        "{}"
       ],
-      "advancedOptions" : { },
       "exposed" : false
     },
     "solicitudApoyoEducativo_autos" : {
@@ -13834,7 +13845,7 @@
     "idProceso" : {
       "type" : "constant",
       "value" : [
-        "7291645830158379804"
+        "4896146701624404792"
       ],
       "exposed" : false
     },
