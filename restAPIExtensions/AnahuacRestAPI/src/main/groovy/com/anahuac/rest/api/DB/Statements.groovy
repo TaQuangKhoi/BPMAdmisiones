@@ -169,6 +169,7 @@ class Statements {
 	public static final String GET_CATGENERICO = "SELECT * FROM [CATALOGO] [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CATESCALAEAC= "SELECT * FROM CATESCALAEAC [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CORREO_BY_CASEID = " SELECT correoelectronico from solicituddeadmision where caseid = ?"
+	
 
 	/*************************JOSECARLOSFELIXIBARRA********************/
 	public static final String GET_CATPARENTESCTO = "SELECT * FROM CATPARENTESCO  [WHERE] [ORDERBY] [LIMITOFFSET]"
