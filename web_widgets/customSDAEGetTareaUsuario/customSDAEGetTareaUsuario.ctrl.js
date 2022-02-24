@@ -4,7 +4,7 @@ function ($scope, $http) {
     {
     	"solicitudApoyoEducativoInput":{
     		"caseId":"",
-    		"isEliminado":[],
+    		"isEliminado":false,
     		"pageIndex":"",
     		"costoMensualColegiatura":"",
     		"catTienesHijos":null,
