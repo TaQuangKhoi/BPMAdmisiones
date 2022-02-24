@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1645552078500,
+  "lastUpdate" : 1645738718308,
   "rows" : [
     [
       {
@@ -130,6 +130,38 @@
               "hasValidationError" : false,
               "id" : "pbTable"
             }
+          ],
+          [
+            {
+              "type" : "fragment",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                }
+              },
+              "reference" : "878d0b33-c652-4a9c-9d0e-29e563de1d65",
+              "hasValidationError" : false,
+              "id" : "frgSDAEInformacionDelSolicitante",
+              "binding" : {
+                "wizardContent" : "wizardContent",
+                "selectedIndex" : "selectedIndex",
+                "getInformacionEscolar" : "getInformacionEscolar",
+                "getInformacionPersonal" : "getInformacionPersonal",
+                "getInformacionPadres" : "getInformacionPadres",
+                "solicitudApoyoEducativo" : "solicitudApoyoEducativo"
+              }
+            }
           ]
         ]
       }
@@ -149,8 +181,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "selectedIndex != 5"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -3201,6 +3233,84 @@
       "value" : [
         "id"
       ],
+      "exposed" : false
+    },
+    "selectedIndex" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "wizardContent" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "    {\r",
+        "        \"title\" : \"Información personal\",\r",
+        "        \"value\" : \"personalInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Información familiar\",\r",
+        "        \"value\" : \"familiarInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Motivos\",\r",
+        "        \"value\" : \"motivosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Información económica\",\r",
+        "        \"value\" : \"economicaInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Documentos\",\r",
+        "        \"value\" : \"documentosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Pre-autorización\",\r",
+        "        \"value\" : \"preAutorizacion\",\r",
+        "        \"isValid\": true\r",
+        "    }\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "getInformacionPersonal" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userDataEmail[0].userName}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getInformacionEscolar" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getInfrmacionEscolar&p=0&c=100&email={{userDataEmail[0].userName}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getInformacionPadres" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.PadresTutor?q=findByCaseId&p=0&c=10&f=caseId={{caseId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "caseId" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "solicitudApoyoEducativo" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.solicitudApoyoEducativo_ref.link}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
