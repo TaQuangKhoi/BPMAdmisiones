@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1645724620473,
+  "lastUpdate" : 1645745440945,
   "rows" : [
     [
       {
@@ -2976,11 +2976,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "valorKP" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PAAN"
                             }
                           },
-                          "reference" : "f58479eb-9cf5-4675-8d11-a73c8c2a821f",
+                          "reference" : "a42c13a1-2d04-45a4-9a26-35c38d2178c9",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
+                          "id" : "customInputEscalaEAC"
                         },
                         {
                           "type" : "component",
@@ -6422,7 +6426,7 @@
       "type" : "expression",
       "value" : [
         "if( !$data.VariableCarga.view && $data.strAlumno.tipoExamen == \"KP\" ){",
-        "    $data.strAlumno.PAAN = convertirDato($data.strAlumno['MLEX']);",
+        "    //$data.strAlumno.PAAN = convertirDato($data.strAlumno['MLEX']);",
         "    $data.strAlumno.PAAV = convertirDato($data.strAlumno['CLEX']);",
         "    $data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
         "    ",

@@ -1,4 +1,4 @@
-function PbInputCtrl($scope, $log, widgetNameFactory) {
+function PbInputCtrl($scope, $log, widgetNameFactory,$http) {
 
   'use strict';
 
@@ -52,7 +52,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
       if(isNumeric(cantidad)){
         var req = {
           method: "GET",
-          url: `API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=findByEscala&f=escala=${cantidad}&p=0&c=999`,
+          url: `../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=findByEscala&f=escala=${cantidad}&p=0&c=999`,
         };
 
         return $http(req)
