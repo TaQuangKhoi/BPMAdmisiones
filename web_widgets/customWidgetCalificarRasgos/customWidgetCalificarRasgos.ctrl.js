@@ -1,4 +1,4 @@
-function ($scope) {
+function ($scope,blockUI) {
     
     $scope.$watchCollection("[properties.rasgosBDM, properties.catRasgosObservados]", function(){
         if($scope.properties.rasgosBDM !== undefined && $scope.properties.rasgosBDM.length > 0){
@@ -31,7 +31,7 @@ function ($scope) {
             }
 
 
-        } else if($scope.properties.catRasgosObservados !== undefined){
+        } else if($scope.properties.catRasgosObservados !== undefined && $scope.properties.content.length == 0){
             // $scope.properties.content.splice(0, $scope.properties.content.length);
             $scope.properties.content = [];
             
