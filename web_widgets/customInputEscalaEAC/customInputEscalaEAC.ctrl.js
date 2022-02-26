@@ -38,6 +38,8 @@ function PbInputCtrl($scope, $log, widgetNameFactory,$http) {
         if($scope.properties.value >= $scope.properties.max){
             $scope.properties.value = null;
             $scope.properties.value = "";
+        }else{
+            doRequest($scope.properties.value);
         }
         if($scope.properties.value % 1 != 0){
             $scope.properties.value = (parseFloat($scope.properties.value).toFixed(2))+"";
@@ -47,25 +49,28 @@ function PbInputCtrl($scope, $log, widgetNameFactory,$http) {
     });
     
     //API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=999
-    
-    function doRequest(cantidad) {
-      if(isNumeric(cantidad)){
-        var req = {
+
+  
+    async function doRequest(cantidad) {
+      if(!isNumeric(cantidad)){
+          cantidad = -1;
+      }
+      
+      var req = {
           method: "GET",
           url: `../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=findByEscala&f=escala=${cantidad}&p=0&c=999`,
         };
 
-        return $http(req)
+        return  await $http(req)
           .success(function(data, status) {
+              $scope.properties.valorKP = 0;
               if(data.length > 0){
-                  return data[0].equivalenteKP;
+                  $scope.properties.valorKP = data[0].equivalenteKP;
               }
-              return 0
           })
           .error(function(data, status) {
-              return 0;
+              $scope.properties.valorKP = 0;
           })
-      }
       
    }
    

@@ -122,7 +122,7 @@ function UploadCustomImportacionPAA($scope, $http, blockUI) {
     $scope.final = [];
     $scope.lstBanner = {};
 
-    function auditoria(row) {
+    async function auditoria(row) {
 
         var count = 0;
         $scope.errores = [];
@@ -190,9 +190,9 @@ function UploadCustomImportacionPAA($scope, $http, blockUI) {
         let valores3 = ["MLEX", "CLEX", "HLEX", "PAAN", "PAAV", "PARA", "fechaExamen", "IDBANNER", "Total", "LEXIUM_Total", "Fechadeexamen", "IdSesion", "NombreSesion"]
         let valores4 = ["fechaExamen", "IDBANNER", "Total", "LEXIUM_Total", "Fechadeexamen", "IdSesion", "NombreSesion"]
         if (data !== null && data !== undefined) {
-            data['PAAN'] = convertirDato(data['PAAN']);
-            data['PAAV'] = convertirDato(data['PAAV']);
-            data['PARA'] = convertirDato(data['PARA']);
+            data['PAAN'] = revisarEscalaEAC(data['PAAN']);
+            data['PAAV'] = revisarEscalaEAC(data['PAAV']);
+            data['PARA'] =revisarEscalaEAC(data['PARA']);
             let columnas = $scope.properties.revisar;
             for (let i = 0; i < $scope.properties.revisar.length; i++) {
                 if (isNullOrUndefined(data[columnas[i]]) && columnas[i] != "IDBANNER" && columnas[i] != "Fechadeexamen") {
@@ -345,5 +345,14 @@ function UploadCustomImportacionPAA($scope, $http, blockUI) {
         });
     }
 
-
+    function  revisarEscalaEAC(valor){
+        var equivalente = "0";
+        $scope.properties.escalaEAC.forEach(value =>{
+            if(value.escala == valor){
+                equivalente = value.equivalenteKP
+            }
+        });
+    
+        return equivalente;
+    }
 }

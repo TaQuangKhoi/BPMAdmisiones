@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1645745440945,
+  "lastUpdate" : 1645829266591,
   "rows" : [
     [
       {
@@ -926,6 +926,10 @@
                       "lstBanner" : {
                         "type" : "variable",
                         "value" : "lstBanner"
+                      },
+                      "escalaEAC" : {
+                        "type" : "expression",
+                        "value" : "escalaEAC"
                       }
                     },
                     "reference" : "f5edce9c-8d89-49a0-a4e3-ca98d6f1df27",
@@ -2982,7 +2986,7 @@
                               "value" : "strAlumno.PAAN"
                             }
                           },
-                          "reference" : "a42c13a1-2d04-45a4-9a26-35c38d2178c9",
+                          "reference" : "e35a830d-2b7f-4ab1-a7fc-4682d517a365",
                           "hasValidationError" : false,
                           "id" : "customInputEscalaEAC"
                         },
@@ -3134,11 +3138,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "valorKP" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PAAV"
                             }
                           },
-                          "reference" : "ae29472a-4bb3-4c27-9e5a-28fcd3b63d9e",
+                          "reference" : "ad145f6e-6aa2-4363-b2b0-9a8de6507bf2",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
+                          "id" : "customInputEscalaEAC"
                         },
                         {
                           "type" : "component",
@@ -3288,11 +3296,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "valorKP" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PARA"
                             }
                           },
-                          "reference" : "47c6b3e8-8f8f-40b4-bf2d-f6bf0240e495",
+                          "reference" : "ba4e7d1f-c59f-4b72-9deb-630330e3fa32",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
+                          "id" : "customInputEscalaEAC"
                         },
                         {
                           "type" : "component",
@@ -6427,8 +6439,8 @@
       "value" : [
         "if( !$data.VariableCarga.view && $data.strAlumno.tipoExamen == \"KP\" ){",
         "    //$data.strAlumno.PAAN = convertirDato($data.strAlumno['MLEX']);",
-        "    $data.strAlumno.PAAV = convertirDato($data.strAlumno['CLEX']);",
-        "    $data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
+        "    //$data.strAlumno.PAAV = convertirDato($data.strAlumno['CLEX']);",
+        "    //$data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
         "    ",
         "    $data.strAlumno.LEXIUM_Total = \"\"+(parseFloat($data.strAlumno.MLEX ?$data.strAlumno.MLEX: 0) + parseFloat($data.strAlumno.CLEX ?$data.strAlumno.CLEX: 0) + parseFloat($data.strAlumno.HLEX ?$data.strAlumno.HLEX: 0))",
         "}"
@@ -6463,6 +6475,14 @@
       "value" : [
         "{}"
       ],
+      "exposed" : false
+    },
+    "escalaEAC" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=findByIsEliminado&f=isEliminado=false&p=0&c=999"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
