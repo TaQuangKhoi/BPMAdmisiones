@@ -6358,7 +6358,7 @@
           "xs" : 12,
           "sm" : 12,
           "md" : 12,
-          "lg" : 10
+          "lg" : 12
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -6368,6 +6368,63 @@
           "hidden" : {
             "type" : "expression",
             "value" : "selectedIndex !== 4"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "24cff2f4-fa67-41f9-b03b-671905030c7d",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "fragment",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                }
+              },
+              "reference" : "124bd37a-65a0-4d62-9f60-bf78264d9687",
+              "hasValidationError" : false,
+              "id" : "frgValidacionDeInformacionView",
+              "binding" : {
+                "catSolicitudDeAdmision" : "objSolicitudDeAdmision"
+              }
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 10
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "col-lg-offset-1"
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "selectedIndex !== 5"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -9415,6 +9472,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Información familiar"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "fd9238bc-33d9-473d-a2b2-d5a430631133",
@@ -15215,9 +15276,9 @@
       "type" : "expression",
       "value" : [
         "var estatus = $data.objSolicitudDeAdmision.estatusSolicitud;",
-        "var wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }];",
+        "var wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true },{ \"title\" : \"Validación\", \"value\" : \"validacionInfo\", \"isValid\": true }];",
         "if(estatus === \"Solicitud con pago aceptado\" || estatus===\"Validación admisión Anáhuac\" || estatus == \"Validación descuento 100%\" || estatus == \"Validación pago condonado\"){",
-        "    wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }, { \"title\" : \"Pago\", \"value\" : \"checkRequest\", \"isValid\": true } ];",
+        "    wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true },{ \"title\" : \"Validación\", \"value\" : \"validacionInfo\", \"isValid\": true }, { \"title\" : \"Pago\", \"value\" : \"checkRequest\", \"isValid\": true } ];",
         "}",
         "",
         "return wizar;"
@@ -16757,7 +16818,7 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
+        "../API/extension/RegistroRest?url=process&p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
       ],
       "advancedOptions" : { },
       "exposed" : false
