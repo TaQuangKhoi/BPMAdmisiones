@@ -773,6 +773,16 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "getCatEscalaEAC":
+					result = new ImportacionPAADAO().getCatEscalaEAC(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 					case "postGuardarBitacoraErrores":
 					result = new ResultadoComiteDAO().postGuardarBitacoraErroresRC(jsonData, context)
 					responseBuilder.withMediaType("application/json")
@@ -1894,6 +1904,15 @@ class Index implements RestApiController {
 					}
 					break;
 					
+				case "nuevoCasoSolicitud":
+					result = reDAO.nuevoCasoSolicitud(jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "RealizarRespaldo":
 					result = reDAO.RealizarRespaldo(jsonData, context)
 					if (result.isSuccess()) {
@@ -1913,7 +1932,8 @@ class Index implements RestApiController {
 					break;
 
 				case "getInformacionReporteSolicitudRespaldo":
-					result = reDAO.getInformacionReporteSolicitudRespaldo(jsonData, context)
+					String caseid = request.getParameter "caseid";
+					result = reDAO.getInformacionReporteSolicitudRespaldo(caseid, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1963,6 +1983,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				case "postUpdatePeriodoVencido":
+					result = new SolicitudUsuarioDAO().postUpdatePeriodoVencido(jsonData)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "getPadreVencido":
 					result = suDAO.getPadreVencido(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -2045,6 +2075,17 @@ class Index implements RestApiController {
 					break;
 				case "selectConsultaDeResultadosManual":
 					result = rDAO.selectConsultaDeResultadosManual(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "updateViewDownloadSolicitud":
+					String key = request.getParameter "key";
+					String intento = request.getParameter "intento";
+					Boolean tipoTabla = request.getParameter "tipoTabla";
+					result = suDAO.updateViewDownloadSolicitud(parameterP, parameterC, key, intento, tipoTabla, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -2207,8 +2248,29 @@ class Index implements RestApiController {
 				}
 				break;
 				
+				case "postGetIdSesionByCaseId":
+				result = new SesionesDAO().postGetIdSesionByCaseId(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				case "PostUpdateDeleteCatEscalaINVP":
 				result = new SesionesDAO().PostUpdateDeleteCatEscalaINVP(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "PostUpdateDeleteCatEscalaEAC":
+				result = new ImportacionPAADAO().PostUpdateDeleteCatEscalaEAC(jsonData)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

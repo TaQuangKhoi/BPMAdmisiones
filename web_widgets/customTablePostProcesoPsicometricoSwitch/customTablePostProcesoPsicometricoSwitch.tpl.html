@@ -10,7 +10,7 @@
 <div style="margin-bottom:15px; float: right; margin-right:20px"  ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null || filtroCampus =='Todos los campus'">
     <table>
         <tr>
-            <td data-toggle="tooltip" data-placement="top" title="Cambio entre solicitudes activas y pasadas">
+           <!-- <td data-toggle="tooltip" data-placement="top" title="Cambio entre solicitudes activas y pasadas">
                 <label style="margin-right:15px">{{ ctrl.orden ? "Psicométrico activo: " : "Psicométrico archivado: " }}</label>
             </td>
             <td data-toggle="tooltip" data-placement="top" title="Cambio entre solicitudes activas y Rechazadas">
@@ -18,7 +18,7 @@
                     <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox" ng-model="ctrl.orden" ng-click="cambioOrden(ctrl.orden)" />
                     <label for="someSwitchOptionSuccess" class="label-success"></label>
                 </div>
-            </td>
+            </td> -->
             <td>
                 <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit" style="margin-left: 15px;width: 100px;">
                     <option ng-value="20">20</option>
@@ -141,6 +141,7 @@
                     </td>
                     <td class="max-size">
                         <b>{{row.estatussolicitud2 != null ? row.estatussolicitud2:row.estatussolicitud }}</b><br> 
+                        <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                         <!--{{row.tipoalumno}}-->
                         <br>
                     </td>

@@ -223,13 +223,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 blockUI.start();
                 var req2 = {
                     method: "GET",
-                    url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+                    url: `/API/bpm/humanTask?p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
                 };
 
                 $http(req2)
                     .success(function(data2, status) {
 
-                        ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                        ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
 
                         var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                         if (data.length > 0) {
@@ -429,11 +429,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
 
         return $http(req).success(function(data, status) {
-            if($scope.decision.rechazado == true){
+            doRequest("POST", $scope.properties.urlPost);
+            /*if($scope.decision.rechazado == true){
                 doRequestRechazadosRespaldo("POST","/bonita/API/extension/AnahuacRest?url=RealizarRespaldo&p=0&c=100")
             }else{
                 doRequest("POST", $scope.properties.urlPost);
-            }
+            }*/
         }).error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
                 blockUI.stop();
@@ -454,8 +455,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 doRequest("POST", $scope.properties.urlPost);
             })
             .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                blockUI.stop();
+                doRequest("POST", $scope.properties.urlPost);
             })
     }
 

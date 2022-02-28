@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "APPUsuarioAceptadoRechazado",
   "name" : "APPUsuarioAceptadoRechazado",
-  "lastUpdate" : 1639423380228,
+  "lastUpdate" : 1645032250843,
   "rows" : [
     [
       {
@@ -617,7 +617,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseList[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
@@ -631,8 +631,9 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "objectDetalleSolicitud" : {

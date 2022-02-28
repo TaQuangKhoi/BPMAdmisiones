@@ -48,7 +48,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
    
     $scope.VerificarTask = function () {
-        doRequest("GET", "/API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready", null, null, null, function (datos, extra) {
+        doRequest("GET", "/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.properties.caseId + "&fstate=ready", null, null, null, function (datos, extra) {
             console.log(datos);
             if ($scope.contadorVerificarTask <= 100) {
                 if (datos[0].name !== undefined && datos[0].name !== "Generar credencial") {
@@ -68,7 +68,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         // URL POST: https://anahuac-preproduction.bonitacloud.com/API/extension/AnahuacRest?url=reagendarExamen&p=0&c=100
         // var req = {
         //     method: "GET",
-        //     url: "/API/bpm/humanTask?p=0&c=10&f=caseId={{caseId}}&fstate=ready",
+        //     url: "/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseId}}&fstate=ready",
         //     data: angular.copy({"caseid":$scope.properties.caseId})            
         // };
         // return $http(req)

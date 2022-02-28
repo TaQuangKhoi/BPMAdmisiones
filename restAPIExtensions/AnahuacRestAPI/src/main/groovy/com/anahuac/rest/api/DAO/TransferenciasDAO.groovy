@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.model.DetalleSolicitud
+import com.anahuac.model.SolicitudDeAdmision
+import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.PropertiesEntity
@@ -1088,37 +1090,7 @@ class TransferenciasDAO {
 				usuarioReagendar = (rs.getString("correoelectronico"))
 			}
 			
-			if(object.isProceso == null) {
-				/*con.setAutoCommit(false)
-				
-				List<Long> pruebas = new ArrayList<Long>()
-				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
-				pstm.setString(1,  usuarioReagendar)
-				rs = pstm.executeQuery()
-				while(rs.next()) {
-					pruebas.add(rs.getLong("prueba_pid"))
-				}
-				//errorLog = errorLog + " | Pruebas "+ pruebas
-				for(Long pa:pruebas) {
-					pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
-					pstm.setString(1, usuarioReagendar)
-					pstm.setLong(2, pa)
-					rs = pstm.executeQuery()
-					//errorLog = errorLog + " | rs "+rs
-					if(!rs.next()) {
-						//errorLog = errorLog + " | insert de pruebas "
-						pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
-						pstm.setLong(1, pa);
-						pstm.setString(2, usuarioReagendar);
-						pstm.setBoolean(3,false);
-						pstm.setString(4,"");
-						
-						pstm.executeUpdate();
-					}
-				}
-				
-				con.commit();*/
-			}else {
+			if(object.isProceso == false) {
 				Result resultadoSesion = new SesionesDAO().eliminarSesionAspirante(usuarioReagendar, context)
 				errorLog += " el error en el eliminar es : " + resultadoSesion.getError();
 				if (resultadoSesion.isSuccess()) {
@@ -1126,6 +1098,37 @@ class TransferenciasDAO {
 				} else {
 					errorLog += " no elimino al aspirante de la sesion "+ resultadoSesion.isSuccess().toString();
 				}
+				
+			}else {
+				/*con.setAutoCommit(false)
+				 
+				 List<Long> pruebas = new ArrayList<Long>()
+				 pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
+				 pstm.setString(1,  usuarioReagendar)
+				 rs = pstm.executeQuery()
+				 while(rs.next()) {
+					 pruebas.add(rs.getLong("prueba_pid"))
+				 }
+				 //errorLog = errorLog + " | Pruebas "+ pruebas
+				 for(Long pa:pruebas) {
+					 pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
+					 pstm.setString(1, usuarioReagendar)
+					 pstm.setLong(2, pa)
+					 rs = pstm.executeQuery()
+					 //errorLog = errorLog + " | rs "+rs
+					 if(!rs.next()) {
+						 //errorLog = errorLog + " | insert de pruebas "
+						 pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+						 pstm.setLong(1, pa);
+						 pstm.setString(2, usuarioReagendar);
+						 pstm.setBoolean(3,false);
+						 pstm.setString(4,"");
+						 
+						 pstm.executeUpdate();
+					 }
+				 }
+				 
+				 con.commit();*/
 			}
             resultado.setSuccess(true)
             resultado.setError_info(errorLog);
@@ -1133,7 +1136,7 @@ class TransferenciasDAO {
             resultado.setError_info(errorLog);
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
-            con.rollback();
+            //con.rollback();
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1183,6 +1186,7 @@ class TransferenciasDAO {
 			}
 			
 			con.commit();
+			
 		}catch (Exception ex) {
             resultado.setError_info(errorLog);
             resultado.setSuccess(false);
@@ -1196,6 +1200,50 @@ class TransferenciasDAO {
 		
 		return resultado;
 		
+	}
+	
+	public Result ejecutarGenerarCredencial(String email, RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog = "";
+		Boolean closeCon = false;
+		List<SolicitudDeAdmision> lstSolicitudDeAdmision = new ArrayList<SolicitudDeAdmision>();
+		try {
+			
+			def objSolicitudDeAdmisionDAO = context.apiClient.getDAO(SolicitudDeAdmisionDAO.class);
+			lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(email, 0, 1);
+			
+			ProcessAPI processAPI = context.getApiClient().getProcessAPI();
+			Map < String, Serializable > inputs = new HashMap < String, Serializable > ();
+			
+			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, lstSolicitudDeAdmision.get(0).getCaseId());
+			searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
+			SearchOptions searchOptions = searchBuilder.done();
+			
+			SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
+			List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			Boolean isSeleccionCita = false,generoCredencial = false;;
+			for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
+				if (objHumanTaskInstance.getName().equals("Generar credencial")) {
+					errorLog+="credencial"
+					generoCredencial = true;
+					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+					processAPI.executeUserTask(objHumanTaskInstance.getId(),inputs);
+				}
+				
+			}
+			
+			resultado.setSuccess(true)
+		} catch (Exception ex) {
+			resultado.setSuccess(false);
+			resultado.setError(ex.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+
+		return resultado;
 	}
 	
 	

@@ -228,7 +228,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 $http(req2)
                     .success(function(data2, status) {
 
-                        ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                        ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
 
                         var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                         if (data2.length > 0) {

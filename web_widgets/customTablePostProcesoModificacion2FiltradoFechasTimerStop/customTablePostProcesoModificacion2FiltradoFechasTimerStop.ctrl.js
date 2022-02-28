@@ -65,7 +65,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             if (op == 1) {
                 if ($scope.functionAsistenciaExmenes(row, op) || row.cbcoincide === "t") {
                     fechas = (row.cbcoincide == "t" ? " Examen de aptitudes y conocimientos (validado)" : " Examen de aptitudes y conocimientos")
-                    //fechas="Asistió Examen de aptitudes y conocimientos"
+                        //fechas="Asistió Examen de aptitudes y conocimientos"
                 } else {
                     fechas = " " + arrayDeCadenas[NoCollegeBoard]
                 }
@@ -74,7 +74,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             if (op == 2) {
                 if ($scope.functionAsistenciaExmenes(row, op)) {
                     fechas = " Entrevista"
-                    //fechas="Asistió Entrevista"
+                        //fechas="Asistió Entrevista"
                 } else {
                     fechas = " " + arrayDeCadenas[NoEntrevista]
                 }
@@ -82,7 +82,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             if (op == 3) {
                 if ($scope.functionAsistenciaExmenes(row, op)) {
                     fechas = " Examen Psicométrico"
-                    // fechas="Asistió Examen Psicométrico"
+                        // fechas="Asistió Examen Psicométrico"
                 } else {
                     fechas = " " + arrayDeCadenas[NoPsicometrico]
                 }
@@ -136,53 +136,113 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-        var page = "verSolicitudAdmisionADV2";
-        
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
+        if ($scope.isPeriodoVencido(rowData.periodofin)) {
+            Swal.fire("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
 
-        return $http(req)
-            .success(function(data, status) {
 
-            blockUI.start();
-            var req2 = {
+
+
+                var page = "verSolicitudAdmisionADV2";
+
+                var req = {
+                    method: "GET",
+                    url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                };
+
+                return $http(req)
+                    .success(function(data, status) {
+
+                        blockUI.start();
+                        var req2 = {
+                            method: "GET",
+                            url: `/API/bpm/humanTask?p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
+                        };
+
+                        $http(req2)
+                            .success(function(data2, status) {
+
+                                ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
+
+                                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                if (data.length > 0) {
+                                    if (parseFloat(data2[0].processId.version) < 1.51) {
+                                        page = "verSolicitudAdmision";
+                                    }
+                                    url = url.replace("[PAGE]", page);
+                                    url = url.replace("[TASKID]", data[0].id);
+                                } else {
+                                    url = url.replace("[TASKID]", "");
+                                }
+                                url = url.replace("[CASEID]", rowData.caseid);
+                                //window.top.location.href = url;
+                                window.open(url, '_blank');
+                            })
+                            .error(function(data, status) {
+                                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                            })
+                            .finally(function() {
+
+                                blockUI.stop();
+                            });
+                    })
+                    .error(function(data, status) {
+                        console.error(data);
+                    })
+                    .finally(function() {});
+
+
+            });
+        } else {
+
+
+            var page = "verSolicitudAdmisionADV2";
+
+            var req = {
                 method: "GET",
-                url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+                url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
             };
 
-            $http(req2)
-                .success(function(data2, status) {
-                    
-                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
-                
-                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
-                if (data.length > 0) {
-                    if(parseFloat(data2[0].processId.version)<1.51){
-                        page = "verSolicitudAdmision";
-                    }
-                    url = url.replace("[PAGE]",page);
-                    url = url.replace("[TASKID]", data[0].id);
-                } else {
-                    url = url.replace("[TASKID]", "");
-                }
-                url = url.replace("[CASEID]", rowData.caseid);
-                //window.top.location.href = url;
-                window.open(url, '_blank');
+            return $http(req)
+                .success(function(data, status) {
+
+                    blockUI.start();
+                    var req2 = {
+                        method: "GET",
+                        url: `/API/bpm/humanTask?p=0&c=10&caseid=${rowData.caseid}&f=state=ready&d=processId`
+                    };
+
+                    $http(req2)
+                        .success(function(data2, status) {
+
+                            ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
+
+                            var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                            if (data.length > 0) {
+                                if (parseFloat(data2[0].processId.version) < 1.51) {
+                                    page = "verSolicitudAdmision";
+                                }
+                                url = url.replace("[PAGE]", page);
+                                url = url.replace("[TASKID]", data[0].id);
+                            } else {
+                                url = url.replace("[TASKID]", "");
+                            }
+                            url = url.replace("[CASEID]", rowData.caseid);
+                            //window.top.location.href = url;
+                            window.open(url, '_blank');
+                        })
+                        .error(function(data, status) {
+                            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                        })
+                        .finally(function() {
+
+                            blockUI.stop();
+                        });
                 })
                 .error(function(data, status) {
-                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                    console.error(data);
                 })
-                .finally(function() {
-
-                    blockUI.stop();
-                });
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+                .finally(function() {});
+        }
     }
 
     $scope.isenvelope = false;
@@ -477,7 +537,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         var req = {
             method: "GET",
             url: "../API/bpm/humanTask/[TASKID]".replace("[TASKID]", taskId),
-            data: {"assigned_id":""}
+            data: { "assigned_id": "" }
         };
         return $http(req)
             .success(function(data, status) {
@@ -495,7 +555,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         var req = {
             method: "GET",
             url: "../API/bpm/humanTask/[TASKID]".replace("[TASKID]", taskId),
-            data: {"assigned_id":$scope.properties.userId}
+            data: { "assigned_id": $scope.properties.userId }
         };
         return $http(req)
             .success(function(data, status) {
@@ -524,16 +584,16 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.recursiveGet = function() {
         console.log("recursiveGet")
-        $scope.foundTask=false;
+        $scope.foundTask = false;
         var req = {
             method: "GET",
             url: "../API/bpm/task?p=0&c=10&f=caseId=[CASEID]&f=isFailed=false".replace("[CASEID]", $scope.caseId)
         };
         return $http(req)
             .success(function(data, status) {
-                for(var indexData in data){
-                    if(data[indexData].name=="Seleccionar cita" || data[indexData].name=="Carga y consulta de resultados"){
-                        $scope.foundTask=true;
+                for (var indexData in data) {
+                    if (data[indexData].name == "Seleccionar cita" || data[indexData].name == "Carga y consulta de resultados") {
+                        $scope.foundTask = true;
                     }
                 }
 
@@ -662,6 +722,11 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         return sedeExamen;
     }
+    $scope.isPeriodoVencido = function(periodofin) {
+        var fecha = new Date(periodofin.slice(0, 10))
+        return fecha < new Date();
+    }
+
 
     $scope.getCatCampus();
 }
