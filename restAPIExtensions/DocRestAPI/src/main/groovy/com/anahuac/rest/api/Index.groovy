@@ -43,9 +43,21 @@ class Index implements RestApiController {
          */
         // Prepare the result
 		Result result  = new Result();
-		String jsonData = "{\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"Id_banner\": {\"type\": \"string\"} }, \"required\": [\"00000012345\"] } }"
+		String jsonData = null 
+		try {
+			jsonData=request.reader.readLines().join("\n")
+		}catch(Exception ex) {
+			jsonData = null
+			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder("[]").toString())
+		} 
+		
 		result = new DocumentDAO().getDocs(jsonData, context)
-		return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+		if(result.success) {
+			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+		}else {
+			return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+		}
+		
 		/*def resultado = [  "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
 
         // Send the result as a JSON representation
