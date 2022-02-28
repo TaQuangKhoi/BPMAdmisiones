@@ -1841,4 +1841,162 @@ class ImportacionPAADAO {
 		return resultado
 	}
 	
+	public Result cargarEACBANNER() {
+		Result resultado = new Result();
+		Result dataResult = new Result();
+		String errorLog = "";
+		try {
+			
+			int registros = 0;
+			String consultaREGISTROS = Statements.GET_EAC_BANNER_REGISTROS;
+			pstm = con.prepareStatement(consultaREGISTROS);
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				registros = rs.getInt("registros");
+			}
+			
+			registros = (int) Math.ceil((registros/100.0));
+			
+			String consulta = Statements.GET_EAC_BANNER;
+		
+			for(int j=0; j<= registros; j++) {
+				
+				pstm = con.prepareStatement(consulta);
+				pstm.setInt(1, (j*50))
+				pstm.setInt(2, ((j - (j==0?0:-1) )*50))
+				rs= pstm.executeQuery();
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+					
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toUpperCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				Result resultado2 = new Result();
+				resultado2 = subirEAC_BannerEthos(rows);
+				if(resultado2.isSuccess()) {
+					updateEAC(rows);
+				}
+				
+			}
+			
+			resultado.setSuccess(true)
+			resultado.setError(errorLog);
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(errorLog);
+			resultado.setError_info(e.getMessage())
+		}
+		return resultado
+	}
+	
+	public Result subirEAC_BannerEthos(List<Map<String, Object>> list) {
+		Result resultado = new Result();
+		String errorLog = "";
+		List<Map<String,Object>> machine = new ArrayList <Map<String,Object>> ()
+		Map<String,Object> coins =  new HashMap < String, Object > ();
+		try {
+			
+			
+			for (Map<String, Object> it : list) {
+				String fecha =  it.FECHAEXAMEN.substring(6, 10)+"-"+it.FECHAEXAMEN.substring(3, 5)+"-"+it.FECHAEXAMEN.substring(0, 2);
+				
+				coins =  new HashMap < String, Object > ();
+				coins.put("context", context)
+				coins.put("idBanner", it.IDBANNER)
+				coins.put("codeScore", "PAAV")
+				coins.put("score", it.PAAV)
+				coins.put("fecha", fecha)
+				machine.add(coins)
+				
+				coins =  new HashMap < String, Object > ();
+				coins.put("context", context)
+				coins.put("idBanner", it.IDBANNER)
+				coins.put("codeScore", "PAAN")
+				coins.put("score", it.PAAN)
+				coins.put("fecha", fecha)
+				machine.add(coins)
+				
+				coins =  new HashMap < String, Object > ();
+				coins.put("context", context)
+				coins.put("idBanner", it.IDBANNER)
+				coins.put("codeScore", "PARA")
+				coins.put("score", it.PARA)
+				coins.put("fecha", fecha)
+				machine.add(coins)
+				
+				if(it.TIPOEXAMEN.toString().equals("KP")) {
+					
+					coins =  new HashMap < String, Object > ();
+					coins.put("context", context)
+					coins.put("idBanner", it.IDBANNER)
+					coins.put("codeScore", "MLEX")
+					coins.put("score", it.MLEX)
+					coins.put("fecha", fecha)
+					machine.add(coins)
+					
+					coins =  new HashMap < String, Object > ();
+					coins.put("context", context)
+					coins.put("idBanner", it.IDBANNER)
+					coins.put("codeScore", "CLEX")
+					coins.put("score", it.CLEX)
+					coins.put("fecha", fecha)
+					machine.add(coins)
+					
+					coins =  new HashMap < String, Object > ();
+					coins.put("context", context)
+					coins.put("idBanner", it.IDBANNER)
+					coins.put("codeScore", "HLEX")
+					coins.put("score", it.HLEX)
+					coins.put("fecha", fecha)
+					machine.add(coins)
+
+				}
+				resultado.setSuccess(true);
+				resultado.setError_info(errorLog);
+			}
+			
+			resultado = new BannerDAO().multiThread(machine);
+
+			
+		}catch(Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		}
+		
+		return resultado;
+	}
+	
+	
+	
+	public Result updateEAC(List<Map<String, Object>> list) {
+		Result resultado = new Result();
+		Result dataResult = new Result();
+		String errorLog = "";
+		try {
+			String ids="";
+			
+			for (Map<String, Object> it : list) {
+				ids+= (ids.length() == 0?"":",") + it.PERSISTENCEID;
+			}
+			
+			pstm = con.prepareStatement(Statements.UPDATE_IMPORTACIONPAA_BANNER.replace('[VALOR]', "(${ids})"))
+			pstm.executeUpdate();
+			resultado.setSuccess(true)
+			resultado.setError(errorLog);
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(errorLog);
+			resultado.setError_info(e.getMessage())
+		}
+		return resultado
+	}
+	
 }

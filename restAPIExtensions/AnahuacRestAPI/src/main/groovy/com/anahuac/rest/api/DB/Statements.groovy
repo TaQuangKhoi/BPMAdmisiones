@@ -170,6 +170,10 @@ class Statements {
 	public static final String GET_CATESCALAEAC= "SELECT * FROM CATESCALAEAC [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CORREO_BY_CASEID = " SELECT correoelectronico from solicituddeadmision where caseid = ?"
 	
+	public static final String GET_EAC_BANNER = "SELECT persistenceid,idbanner,paav,para,paan,mlex,clex,hlex,fechaExamen,tipoExamen FROM importacionpaa where (inBanner is null OR inBanner is false) LIMIT ? OFFSET ? "
+	
+	public static final String GET_EAC_BANNER_REGISTROS = "SELECT count(*) as registros FROM importacionpaa where (inBanner is null OR inBanner is false) "
+	
 
 	/*************************JOSECARLOSFELIXIBARRA********************/
 	public static final String GET_CATPARENTESCTO = "SELECT * FROM CATPARENTESCO  [WHERE] [ORDERBY] [LIMITOFFSET]"
@@ -319,6 +323,8 @@ class Statements {
 	public static final String INSERT_IMPORTACIONPAA = "INSERT INTO IMPORTACIONPAA (idBanner,paan,la1,la2,la3,la4,pg1,pg2,pg3,pg4,pg5,pv1,pv4,paav,leo1,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,total,fechaExamen,lexiumPaan,LexiumPaav,lexiumPara,lexiumTotal,tipoExamen,invp,sesion_pid,caseid,fechaRegistro,persistenceid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,TO_CHAR( NOW(),'DD-MM-YYYY'),case when (SELECT max(persistenceId)+1 from importacionpaa ) is null then 1 else (SELECT max(persistenceId)+1 from importacionpaa) end )"
 
 	public static final String UPDATE_IMPORTACIONPAA = "UPDATE IMPORTACIONPAA SET paan = ?,la1 = ?,la2 = ?,la3 = ?,la4 = ?,pg1 = ?,pg2 = ?,pg3 = ?,pg4 = ?,pg5 = ?,pv1 = ?,pv4 = ?,paav = ?,leo1 = ?,leo3 = ?,leo4 = ?,leo5 = ?,cit1 = ?,cit2 = ?,para = ?,hi1 = ?,hi2 = ?,hi3 = ?,hi4 = ?,hi5 = ?,hi6 = ?,total = ?,lexiumPaan = ?,LexiumPaav = ?,lexiumPara = ?,lexiumTotal = ?,tipoExamen = ?,invp = ?,fechaExamen = ?,fechaRegistro = TO_CHAR( NOW(),'DD-MM-YYYY') WHERE persistenceid = ? and idBanner = ? AND caseid = ?"
+	
+	public static final String UPDATE_IMPORTACIONPAA_BANNER = "UPDATE IMPORTACIONPAA SET fechaBanner = TO_CHAR( NOW(),'DD-MM-YYYY'), inBanner = true  WHERE persistenceid IN ([VALOR])"
 
 	public static final String UPDATE_INVP = "UPDATE IMPORTACIONPAA SET INVP = ? where fecharegistro = ? and idbanner = ? ";
 
