@@ -93,6 +93,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       })
       .finally(function() {
         vm.busy = false;
+        window.location.reload();
       });
   }
   

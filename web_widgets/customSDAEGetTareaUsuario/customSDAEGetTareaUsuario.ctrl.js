@@ -18,11 +18,6 @@ function ($scope, $http) {
     		"viveMismoDocimicilioAlumnoTutor":"2345",
     		"maximoNivelEstudiosTutor":"234",
     		"ocupacionTutor":"2345",
-    		"parentescoTutor":"2345",
-    		"correoElectronicoTutor":"2345",
-    		"viveMismoDocimicilioAlumnoTutor":"2345",
-    		"maximoNivelEstudiosTutor":"2345",
-    		"ocupacionTutor":"2345",
     		"catProvienenIngresos":null,
     		"ingresoMensualNetoTutor":"2345",
     		"empresaTutor":"2345",
@@ -68,7 +63,8 @@ function ($scope, $http) {
     		"egresoOtros":0,
     		"egresoTotal":0,
     		"urlVideoYouTube":"",
-    		"caseIdAdmisiones":0
+    		"caseIdAdmisiones":0,
+    		"eliminado": false
     	},
     	"isFinalizadaInput":false
     };
