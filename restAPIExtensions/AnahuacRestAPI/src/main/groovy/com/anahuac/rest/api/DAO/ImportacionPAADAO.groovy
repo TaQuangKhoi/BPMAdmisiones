@@ -1843,10 +1843,10 @@ class ImportacionPAADAO {
 	
 	public Result cargarEACBANNER() {
 		Result resultado = new Result();
-		Result dataResult = new Result();
 		String errorLog = "";
+		Boolean closeCon = false;
 		try {
-			
+			closeCon = validarConexion();
 			int registros = 0;
 			String consultaREGISTROS = Statements.GET_EAC_BANNER_REGISTROS;
 			pstm = con.prepareStatement(consultaREGISTROS);
@@ -1855,7 +1855,7 @@ class ImportacionPAADAO {
 				registros = rs.getInt("registros");
 			}
 			
-			registros = (int) Math.ceil((registros/100.0));
+			registros = (int) Math.ceil((registros/50.0));
 			
 			String consulta = Statements.GET_EAC_BANNER;
 		
@@ -1980,23 +1980,46 @@ class ImportacionPAADAO {
 		Result resultado = new Result();
 		Result dataResult = new Result();
 		String errorLog = "";
+		Boolean closeCon = false;
 		try {
-			String ids="";
 			
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			String ids="";
 			for (Map<String, Object> it : list) {
 				ids+= (ids.length() == 0?"":",") + it.PERSISTENCEID;
+				
+				pstm = con.prepareStatement(Statements.INSERT_BITACORA_INTEGRACION_EAC)
+				pstm.setLong(1,Long.valueOf(it.PERSISTENCEID));
+				pstm.setLong(2,Long.valueOf(it.CASEID));
+				pstm.setString(3,it.ESTATUS);
+				pstm.setString(4,it.PARA);
+				pstm.setString(5,it.PAAV);
+				pstm.setString(6,it.PAAN);
+				pstm.setString(7,it.MLEX);
+				pstm.setString(8,it.CLEX);
+				pstm.setString(9,it.HLEX);
+				pstm.executeUpdate();
 			}
 			
 			pstm = con.prepareStatement(Statements.UPDATE_IMPORTACIONPAA_BANNER.replace('[VALOR]', "(${ids})"))
 			pstm.executeUpdate();
+			
+			con.commit();
 			resultado.setSuccess(true)
 			resultado.setError(errorLog);
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(errorLog);
 			resultado.setError_info(e.getMessage())
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado
 	}
+	
 	
 }
