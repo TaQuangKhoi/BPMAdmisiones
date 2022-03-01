@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1646097246595,
+  "lastUpdate" : 1646163092651,
   "rows" : [
     [
       {
@@ -415,6 +415,10 @@
                 "idProceso" : {
                   "type" : "variable",
                   "value" : "idProceso"
+                },
+                "processStartContract" : {
+                  "type" : "variable",
+                  "value" : "processStartContract"
                 }
               },
               "reference" : "76c6b091-4ab3-407e-88b7-58275c6f5c36",
@@ -4126,7 +4130,7 @@
                       },
                       "caseId" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "caseId"
                       }
                     },
                     "reference" : "2ca8051b-21a5-478f-b8ac-58a848786918",
@@ -8491,7 +8495,7 @@
                       },
                       "caseId" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "caseId"
                       }
                     },
                     "reference" : "28865642-d219-4bcf-b3d4-10bcb6132cbe",
@@ -9047,7 +9051,7 @@
                       },
                       "caseId" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "caseId"
                       }
                     },
                     "reference" : "1f241410-9df9-4706-a765-745cf8a4e016",
@@ -12106,10 +12110,90 @@
                       },
                       "caseId" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "caseId"
                       }
                     },
                     "reference" : "abbe601e-c4ab-4646-8ce0-8cdd8e29aba5",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidation"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Siguiente"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : "validar5"
+                      },
+                      "errorMessage" : {
+                        "type" : "expression",
+                        "value" : "errorPaso5"
+                      },
+                      "messageTitle" : {
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso5"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : "reloadTask"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      }
+                    },
+                    "reference" : "4a7bc88c-e639-4ae4-9f2c-62c1c83446d7",
                     "hasValidationError" : false,
                     "id" : "customSDAEcustomBtnWizardValidation"
                   }
@@ -12233,7 +12317,7 @@
                       "xs" : 12,
                       "sm" : 12,
                       "md" : 6,
-                      "lg" : 12
+                      "lg" : 4
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -12840,6 +12924,11 @@
         "    {\r",
         "        \"title\" : \"Documentos\",\r",
         "        \"value\" : \"documentosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Finalizar\",\r",
+        "        \"value\" : \"finalizar\",\r",
         "        \"isValid\": true\r",
         "    }\r",
         "]"
@@ -13841,7 +13930,7 @@
     "idProceso" : {
       "type" : "constant",
       "value" : [
-        "4812654440374178165"
+        "8016853967233601851"
       ],
       "exposed" : false
     },
@@ -14268,6 +14357,27 @@
         "    \t},\r",
         "    \t\"isFinalizadaInput\":false\r",
         "    }"
+      ],
+      "exposed" : false
+    },
+    "getProcessId" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getUserProcessApoyoEducativo&c=0&p=0"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "processStartContract" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"idUsuarioIniciador\":$data.userData.user_id",
+        "}"
       ],
       "exposed" : false
     }

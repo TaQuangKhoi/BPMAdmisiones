@@ -70,7 +70,9 @@ function ($scope, $http) {
     };
     
     function getCurrentTaskId(){
+        debugger;
         $http.get($scope.properties.url).success((data)=>{
+            debugger;
             if(data.length){
                 $scope.properties.taskId = data[0].id;
                 $scope.properties.caseId = data[0].caseId;
@@ -82,7 +84,9 @@ function ($scope, $http) {
     }
     
     function getCurrentContext(){
+        debugger;
         $http.get($scope.properties.urlContext).success((data)=>{
+            debugger;
             if(data.length){
                getModelSolicitudApoyoEducativo(data.solicitudApoyoEducativo_ref.link);
             }else{
@@ -95,7 +99,9 @@ function ($scope, $http) {
     }
     
     function getModelSolicitudApoyoEducativo(url){
+        debugger;
         $http.get(url).success((data)=>{
+            debugger;
             if(data.length){
                 $scope.properties.solicitudApoyoEducativo = [];
                 $scope.properties.solicitudApoyoEducativo = data;
