@@ -7,7 +7,6 @@ function ($scope, $http) {
     		"caseId":"1",
     		"pageIndex":"",
     		"costoMensualColegiatura":"4000",
-    		"catTienesHijos":{"persistenceId_string":"1"},
     		"calificacionOficialPreparatoria":"9",
     		"nombreTutor":"Jose",
     		"telefonoCasaTutor":"23452345",
@@ -64,7 +63,8 @@ function ($scope, $http) {
     		"egresoTotal":0,
     		"urlVideoYouTube":"",
     		"caseIdAdmisiones":0,
-    		"eliminado": false
+    		"eliminado": false,
+    		"tieneHijos":false
     	},
     	"isFinalizadaInput":false
     };
