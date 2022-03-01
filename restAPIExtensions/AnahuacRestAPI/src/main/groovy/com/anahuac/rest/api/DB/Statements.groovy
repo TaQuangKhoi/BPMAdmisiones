@@ -170,7 +170,7 @@ class Statements {
 	public static final String GET_CATESCALAEAC= "SELECT * FROM CATESCALAEAC [WHERE] [ORDERBY] [LIMITOFFSET]"
 	public static final String GET_CORREO_BY_CASEID = " SELECT correoelectronico from solicituddeadmision where caseid = ?"
 	
-	public static final String GET_EAC_BANNER = "SELECT paa.persistenceid,paa.idbanner,paa.paav,paa.para,paa.paan,paa.lexiumPaan as mlex,paa.lexiumPaav as clex,paa.lexiumPara as hlex,paa.fechaExamen,paa.tipoExamen,paa.caseid, sda.estatussolicitud FROM importacionpaa AS paa INNER JOIN solicitudDeAdmision AS sda ON sda.caseid = paa.caseid::integer where (paa.inBanner is null OR paa.inBanner is false) LIMIT ? OFFSET ? "
+	public static final String GET_EAC_BANNER = "SELECT paa.persistenceid,paa.idbanner,paa.paav,paa.para,paa.paan,paa.lexiumPaan as mlex,paa.lexiumPaav as clex,paa.lexiumPara as hlex,paa.fechaExamen,paa.tipoExamen,paa.caseid, sda.estatussolicitud FROM importacionpaa AS paa INNER JOIN solicitudDeAdmision AS sda ON sda.caseid = paa.caseid::integer where (paa.inBanner is null OR paa.inBanner is false)"
 	
 	public static final String GET_EAC_BANNER_REGISTROS = "SELECT count(*) as registros FROM importacionpaa where (inBanner is null OR inBanner is false) "
 	

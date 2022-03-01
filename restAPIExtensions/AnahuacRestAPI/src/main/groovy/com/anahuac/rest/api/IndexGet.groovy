@@ -1193,7 +1193,6 @@ class IndexGet implements RestApiController {
 						persistenceid=""
 					}
 					
-					
 					result = new ImportacionPAADAO().getAspirantePAA(idbanner,persistenceid,context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
@@ -1204,7 +1203,7 @@ class IndexGet implements RestApiController {
 				break;
 				
 				case "cargarEACBANNER":
-					result = new ImportacionPAADAO().cargarEACBANNER();
+					result = new ImportacionPAADAO().cargarEACBANNER(context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
