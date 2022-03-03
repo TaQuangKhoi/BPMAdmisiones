@@ -819,18 +819,14 @@ class BonitaGetsDAO {
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
 			apiClient.login(username, password)
 			
-		
-				
-				userMemberships = apiClient.getIdentityAPI().getUserMemberships(context.apiSession.getUserId(), 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)
-				for(UserMembership um: userMemberships) {
-					datos = new HashMap<String, Serializable>();
-					datos.put("membership", apiClient.getIdentityAPI().getGroup(um.groupId))
-					datos.put("group_id", apiClient.getIdentityAPI().getGroup(um.groupId))
-					datos.put("role_id", apiClient.getIdentityAPI().getRole(um.roleId))
-					rows.add(datos)
-				}
-				
-				
+			userMemberships = apiClient.getIdentityAPI().getUserMemberships(context.apiSession.getUserId(), 0, 999, UserMembershipCriterion.ROLE_NAME_ASC)
+			for(UserMembership um: userMemberships) {
+				datos = new HashMap<String, Serializable>();
+				datos.put("membership", apiClient.getIdentityAPI().getGroup(um.groupId))
+				datos.put("group_id", apiClient.getIdentityAPI().getGroup(um.groupId))
+				datos.put("role_id", apiClient.getIdentityAPI().getRole(um.roleId))
+				rows.add(datos)
+			}
 			
 			resultado.setData(rows)
 			resultado.setSuccess(true);
@@ -864,12 +860,17 @@ class BonitaGetsDAO {
 			String username = "";
 			String password = "";
 			
+			List<Long> lstId = new ArrayList<Long>();
+			
 			List<ProcessDeploymentInfo> map = [];
 			ProcessDeploymentInfo info;
 			
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
+			
+			errorLog += objProperties.toString();
+			
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
@@ -888,23 +889,23 @@ class BonitaGetsDAO {
 //			}catch(Exception ex) {
 //				errorLog += ex;
 //			}
-//			map.add(info);
 			
-//			
-//			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 1);
-//			searchProcessBuilder.filter("", p);
-//			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
-//			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
-//			final SearchResult<ProcessDeploymentInfo> searchRes =
-//			apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());
-//			
-//			if (searchRes.count<1) {
-//				return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "theprocess is unknown"}""");
-//			}
 			
-			Long id = searchRes.result.get(0).processId;
+			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 1);
+			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Solicitud de apoyo educativo");
+			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
+			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
+			final SearchResult<ProcessDeploymentInfo> searchRes = apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());
+			info = searchRes;
+			
+//			Long id = searchRes.result.get(0).processId;
+			
 			resultado.setSuccess(true);
-			resultado.setData(map)
+//			map.add(info);
+			map.add(searchRes);
+			
+			resultado.setData(map);
+			
 			resultado.setError(errorLog);
 			
 		} catch (Exception e) {

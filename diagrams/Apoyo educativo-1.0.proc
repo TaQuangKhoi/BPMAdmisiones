@@ -1199,6 +1199,15 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_KL_bAmdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_KL_bAWdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_KL_bA2dBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_waqVUJphEeyc0ZUA4l06NA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_waqVUZphEeyc0ZUA4l06NA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_xvsOkJphEeyc0ZUA4l06NA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_waqVUpphEeyc0ZUA4l06NA" name="newScript()" content="&quot;Pago socio-económco realizdo&quot;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_waqVU5phEeyc0ZUA4l06NA" type="JAVA_METHOD" expression="setEstatusSolicitud">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_KL_bBGdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_KL_bBWdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_KL_bBmdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2046,6 +2055,15 @@
               <inputTypes>java.lang.Boolean</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_zA7KwJpSEeyc0ZUA4l06NA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_zA7KwZpSEeyc0ZUA4l06NA" name="lstDocumentos" content="lstDocumentos" type="DOCUMENT_REF_TYPE" returnType="java.util.List">
+              <referencedElements xmi:type="process:Document" xmi:id="_zA7KwppSEeyc0ZUA4l06NA" name="lstDocumentos" multiple="true"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_zA7Kw5pSEeyc0ZUA4l06NA" name="lstDocumentosDocumentInput" content="lstDocumentosDocumentInput" type="TYPE_CONTRACT_INPUT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_zA7KxJpSEeyc0ZUA4l06NA" name="lstDocumentosDocumentInput" type="FILE" multiple="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_zA7KxZpSEeyc0ZUA4l06NA" type="DOCUMENT_LIST_SET"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_2cszoX0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_2cszon0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_2cszo30-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2144,6 +2162,7 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_kpJ-FJj7EeyWN94ehuxSKg" name="eliminado" type="BOOLEAN" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_kpJ-FZj7EeyWN94ehuxSKg" name="tieneHijos" type="BOOLEAN" createMode="false"/>
             </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_zA25UJpSEeyc0ZUA4l06NA" name="lstDocumentosDocumentInput" type="FILE" multiple="true" dataReference="lstDocumentos"/>
             <constraints xmi:type="process:ContractConstraint" xmi:id="_kpLzAJj7EeyWN94ehuxSKg" expression="!solicitudApoyoEducativoInput?.caseId || solicitudApoyoEducativoInput?.caseId.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.caseId" name="type_long_solicitudApoyoEducativoInput_caseId">
               <inputNames>solicitudApoyoEducativoInput</inputNames>
             </constraints>
@@ -2703,13 +2722,15 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_CLIAgZBBEeyXi82kBsjAAw" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_WYMEkJXEEeyBUpqt33aMqQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_WYMroJXEEeyBUpqt33aMqQ" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_GpqB8JmwEeyc0ZUA4l06NA" name="initSolicitudApoyoEducativo()" content="def solicitudApoyoEducativoVar = new com.anahuac.SDAE.model.SolicitudApoyoEducativo()&#xD;&#xA;solicitudApoyoEducativoVar.eliminado = solicitudApoyoEducativoInput?.eliminado&#xD;&#xA;return solicitudApoyoEducativoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_GpqB8ZmwEeyc0ZUA4l06NA" name="solicitudApoyoEducativoInput" type="COMPLEX"/>
+        </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_41FZn2dAEeyAHufroJpG_Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_41FZoGdAEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
-      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_41FZoWdAEeyAHufroJpG_Q" type="NONE">
-        <targetForm xmi:type="expression:Expression" xmi:id="_41FZomdAEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_41FZoWdAEeyAHufroJpG_Q">
+        <targetForm xmi:type="expression:Expression" xmi:id="_f4EdEJmuEeyFfKVck0DsiA" name="newForm8" content="f6978204-4b47-4597-8356-b6f000e36d6f" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </overviewFormMapping>
       <connections xmi:type="process:SequenceFlow" xmi:id="_KMB3QGdBEeyAHufroJpG_Q" target="_KL_bAGdBEeyAHufroJpG_Q" source="_HtHk0GdBEeyAHufroJpG_Q">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_KMB3QWdBEeyAHufroJpG_Q"/>
@@ -3071,7 +3092,11 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MCJL9ZAgEeyDfcAdH7wEJg" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MCJL9pAgEeyDfcAdH7wEJg" id="OTHER"/>
       </configurations>
-      <contract xmi:type="process:Contract" xmi:id="_41FZo2dAEeyAHufroJpG_Q"/>
+      <contract xmi:type="process:Contract" xmi:id="_41FZo2dAEeyAHufroJpG_Q">
+        <inputs xmi:type="process:ContractInput" xmi:id="_Gpfp4JmwEeyc0ZUA4l06NA" name="solicitudApoyoEducativoInput" type="COMPLEX" dataReference="solicitudApoyoEducativo">
+          <inputs xmi:type="process:ContractInput" xmi:id="_Gpfp4ZmwEeyc0ZUA4l06NA" name="eliminado" type="BOOLEAN"/>
+        </inputs>
+      </contract>
       <documents xmi:type="process:Document" xmi:id="_g8bDQI68EeyNoa97WwLr-w" name="lstDocumentos" multiple="true">
         <mimeType xmi:type="expression:Expression" xmi:id="_g8bDQY68EeyNoa97WwLr-w" name="" content="" returnTypeFixed="true"/>
         <url xmi:type="expression:Expression" xmi:id="_g8bDQo68EeyNoa97WwLr-w" name="" content="" returnTypeFixed="true"/>

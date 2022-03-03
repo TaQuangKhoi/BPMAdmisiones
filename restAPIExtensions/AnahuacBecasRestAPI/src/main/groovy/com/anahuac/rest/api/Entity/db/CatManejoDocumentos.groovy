@@ -2,6 +2,7 @@ package com.anahuac.rest.api.Entity.db
 
 class CatManejoDocumentos {
 	private Long persistenceId;
+	private String persistenceId_string;
 	private Long idCampus;
 	private Long idTipoApoyo;
 	private Boolean isObligatorio;
@@ -17,6 +18,12 @@ class CatManejoDocumentos {
 	}
 	public void setDescripcionDocumento(String descripcionDocumento) {
 		this.descripcionDocumento = descripcionDocumento;
+	}
+	public String getPersistenceId_string() {
+		return persistenceId_string;
+	}
+	public void setPersistenceId_string(String persistenceId_string) {
+		this.persistenceId_string = persistenceId_string;
 	}
 	public Long getPersistenceId() {
 		return persistenceId;
