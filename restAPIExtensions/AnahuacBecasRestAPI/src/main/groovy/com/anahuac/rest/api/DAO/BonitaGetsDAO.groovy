@@ -881,7 +881,7 @@ class BonitaGetsDAO {
 			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
 //			try {
 //				closeCon = validarConexionBonita()
-//				pstm = con.prepareStatement(" SELECT processid FROM process_definition WHERE NAME = 'Proceso admisiones' and activationstate = 'ENABLED' ");
+//				pstm = con.prepareStatement(" SELECT processid FROM process_definition WHERE NAME = 'Solicitud de apoyo educativo' and activationstate = 'ENABLED' ");
 //				rs = pstm.executeQuery();
 //				if(rs.next()) {
 //					info = apiClient.getProcessAPI().getProcessDeploymentInfo(rs.getLong("processid"));
@@ -892,17 +892,18 @@ class BonitaGetsDAO {
 			
 			
 			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 1);
-			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, p);
-			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE,
-			ActivationState.ENABLED.name());
+			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Solicitud de apoyo educativo");
+			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
 			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
 			final SearchResult<ProcessDeploymentInfo> searchRes = apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());
-//			info = searchRes;
+			info = searchRes;
+			
 //			Long id = searchRes.result.get(0).processId;
 			
 			resultado.setSuccess(true);
 //			map.add(info);
 			map.add(searchRes);
+			
 			resultado.setData(map);
 			
 			resultado.setError(errorLog);

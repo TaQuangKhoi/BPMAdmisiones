@@ -265,6 +265,7 @@ class CatalogosDAO {
 				row.setFechaCreacion(rs.getString("fechacreacion"));
 				row.setIsEliminado(rs.getBoolean("isEliminado"));
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));				
 				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
 
@@ -306,6 +307,7 @@ class CatalogosDAO {
 				while(rs.next()) {
 					objCatGenerico = new CatGenerico();
 					objCatGenerico.setPersistenceId(rs.getLong("PERSISTENCEID"));
+					objCatGenerico.setPersistenceId_string(String.valueOf(objCatGenerico.getPersistenceId()));
 					objCatGenerico.setClave(rs.getString("CLAVE"));
 					objCatGenerico.setDescripcion(rs.getString("DESCRIPCION"));
 					objCatGenerico.setFechaCreacion(rs.getString("FECHACREACION"));
@@ -661,6 +663,7 @@ class CatalogosDAO {
 			while (rs.next()) {
 				row = new CatManejoDocumentos();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
 				row.setIdTipoApoyo(rs.getLong("IDTIPOAPOYO"));
 				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
@@ -719,6 +722,7 @@ class CatalogosDAO {
 			while (rs.next()) {
 				row = new CatTypoApoyo();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setDescripcion(rs.getString("DESCRIPCION"));
 				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
 				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
@@ -885,6 +889,7 @@ class CatalogosDAO {
 				row.setFechaCreacion(rs.getString("fechacreacion"));
 				row.setIsEliminado(rs.getBoolean("isEliminado"));
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
 				row.setRequiereVideo(rs.getBoolean("requierevideo"));
@@ -942,6 +947,7 @@ class CatalogosDAO {
 				row.setFechaCreacion(rs.getString("fechacreacion"));
 				row.setIsEliminado(rs.getBoolean("isEliminadoBool"));
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
 
 				rows.add(row);
@@ -1112,6 +1118,7 @@ class CatalogosDAO {
 			while (rs.next()) {
 				row = new CatManejoDocumentos();
 				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
 				row.setDescripcionDocumento(rs.getString("DESCRIPCIONDOCUMENTO"));
 				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));

@@ -3,6 +3,7 @@ package com.anahuac.rest.api.Entity.db
 class CatGenerico {
 	private Long persistenceId; 
 	private Long persistenceVersion; 
+	private String persistenceId_string;
 	private String clave; 
 	private String descripcion; 
 	private String fechaCreacion; 
@@ -50,6 +51,12 @@ class CatGenerico {
 	}
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
+	}
+	public String getPersistenceId_string() {
+		return persistenceId_string;
+	}
+	public void setPersistenceId_string(String persistenceId_string) {
+		this.persistenceId_string = persistenceId_string;
 	}
 	
 }

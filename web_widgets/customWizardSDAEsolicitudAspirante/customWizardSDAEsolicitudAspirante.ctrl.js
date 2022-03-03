@@ -104,4 +104,10 @@ function ($scope) {
             $scope.setSelected($scope.properties.selectedIndex);
         }
     });
+    
+    $scope.$watchCollection("properties.lastSelectedIndex", function(newValue, oldValue) {
+        if($scope.properties.lastSelectedIndex !== undefined && $scope.properties.lastSelectedIndex >= 0){
+            $scope.setSelected($scope.properties.lastSelectedIndex);
+        }
+    });
 }

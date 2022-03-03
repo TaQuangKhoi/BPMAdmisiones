@@ -2,6 +2,7 @@ package com.anahuac.rest.api.Entity.db
 
 class CatTypoApoyo {
 	private Long persistenceId; 
+	private String persistenceId_string;
 	private Long persistenceVersion; 
 	private String clave; 
 	private String descripcion; 
@@ -71,6 +72,12 @@ class CatTypoApoyo {
 	}
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
+	}
+	public String getPersistenceId_string() {
+		return persistenceId_string;
+	}
+	public void setPersistenceId_string(String persistenceId_string) {
+		this.persistenceId_string = persistenceId_string;
 	}
 	
 }
