@@ -13,6 +13,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DAO.CatalogosDAO
+import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.Entity.Result
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
@@ -215,6 +216,15 @@ class Index implements RestApiController {
 					
 					
 				/*Fin Cat Imagenes socio economico*/
+					
+				case "selectAspirantesEnproceso":
+					result = new ListadoDAO().selectAspirantesEnproceso(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {

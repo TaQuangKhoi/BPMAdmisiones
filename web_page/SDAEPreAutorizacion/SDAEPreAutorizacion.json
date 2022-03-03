@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1645738718308,
+  "lastUpdate" : 1646262915681,
   "rows" : [
     [
       {
@@ -52,7 +52,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Vista de solicitud"
+                  "value" : "Vista de solicitud v2"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -85,7 +85,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -133,7 +133,7 @@
           ],
           [
             {
-              "type" : "fragment",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -148,6 +148,147 @@
                 "hidden" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "735e8c15-5bec-4a6d-85e5-221c6efa160e",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "content" : {
+                        "type" : "variable",
+                        "value" : "lstFiltros"
+                      }
+                    },
+                    "reference" : "74baddbb-e7b9-4d92-99c0-88b2ad60653a",
+                    "hasValidationError" : false,
+                    "id" : "customSDAElistFiltrosBloqueoCampus"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "FOTO",
+                          "SOLICITUD",
+                          "NOMBRE/EMAIL/TELÉFONO",
+                          "PROGRAMA/INGRESO",
+                          "PREPARATORIA/PROCEDENCIA/PROMEDIO",
+                          "FECHA DE ENVÍO",
+                          "ACCIONES"
+                        ]
+                      },
+                      "columnsKey" : {
+                        "type" : "constant"
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "urlPost" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100"
+                      },
+                      "dataToSend" : {
+                        "type" : "variable",
+                        "value" : "dataToSend"
+                      },
+                      "lstContenido" : {
+                        "type" : "variable",
+                        "value" : "lstContenido"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "2723"
+                      },
+                      "campusSeleccionado" : {
+                        "type" : "variable",
+                        "value" : "getCampus"
+                      },
+                      "lstCampus" : {
+                        "type" : "variable",
+                        "value" : "lstCatCampus"
+                      }
+                    },
+                    "reference" : "b985b59b-0470-4bed-a40d-15d2588e3d88",
+                    "hasValidationError" : false,
+                    "id" : "customSDAETablePostSolicitud"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "fragment",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
                 }
               },
               "reference" : "878d0b33-c652-4a9c-9d0e-29e563de1d65",
@@ -3309,6 +3450,58 @@
       "type" : "url",
       "value" : [
         "../{{context.solicitudApoyoEducativo_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "getCampus" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedid"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "dataToSend" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Nuevas solicitudes\",\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"nuevas_solicitudes\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstCatCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=1000"
       ],
       "advancedOptions" : { },
       "exposed" : false
