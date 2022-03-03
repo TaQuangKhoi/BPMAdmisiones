@@ -83,9 +83,8 @@ function ($scope, $http) {
     
     function getCurrentContext(){
         $http.get($scope.properties.urlContext).success((data)=>{
-            debugger;
-            if(data.length){
-                getModelSolicitudApoyoEducativo(data.solicitudApoyoEducativo_ref.link);
+            if(data.solicitudApoyoEducativo_ref){
+                getModelSolicitudApoyoEducativo("../" + data.solicitudApoyoEducativo_ref.link);
             }else{
                 $scope.properties.solicitudApoyoEducativo = [];
                 $scope.properties.solicitudApoyoEducativo = jsonVacioSolicitudApoyoEducativo;
@@ -97,15 +96,13 @@ function ($scope, $http) {
     
     function getModelSolicitudApoyoEducativo(url){
         $http.get(url).success((data)=>{
-            debugger;
-            if(data.length){
+            if(data){
                 $scope.properties.solicitudApoyoEducativo = [];
                 $scope.properties.solicitudApoyoEducativo = data;
-                debugger;
                 let links = $scope.properties.solicitudApoyoEducativo.links;
-                debugger;
+
                 for(let link of links){
-                    getLazyRefModel(link.href, link.rel);
+                    getLazyRefModel(".." + link.href, link.rel);
                 }
             }else{
                 $scope.properties.solicitudApoyoEducativo = [];
@@ -117,11 +114,9 @@ function ($scope, $http) {
     }
 
     function getLazyRefModel(_url, _bdmFieldName){
-        debugger;
         $http.get(_url).success((data)=>{
-            if(data.length){
-                $scope.properties.solicitudApoyoEducativo[_bdmFieldName] = data;
-            }
+            debugger;
+            $scope.properties.solicitudApoyoEducativo[_bdmFieldName] = data;
         }).error((err)=>{
             swal("Error","Error al obtener el model. " + err,"error");
         });
