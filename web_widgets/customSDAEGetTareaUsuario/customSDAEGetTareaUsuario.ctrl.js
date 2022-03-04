@@ -64,7 +64,13 @@ function ($scope, $http) {
     		"urlVideoYouTube":"",
     		"caseIdAdmisiones":0,
     		"eliminado": false,
-    		"tieneHijos":false
+    		"tieneHijos":false,
+    		"catProvienenIngresos_id": 0,
+    		"catTipoApoyo_id": 0,
+    		"catPorcentajeBeca_id": 0,
+    		"catPorcentajeFinanciamiento_id": 0,
+    		"catCasaDondeVives_id": 0,
+    		"catManejoDocumentos_id": []
     	},
     	"isFinalizadaInput":false
     };
