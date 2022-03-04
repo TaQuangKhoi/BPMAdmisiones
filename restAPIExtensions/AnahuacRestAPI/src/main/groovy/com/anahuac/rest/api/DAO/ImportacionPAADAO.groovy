@@ -1987,12 +1987,12 @@ class ImportacionPAADAO {
 				
 				for (Map<String, Object> it : list) {
 					Boolean actualizar = true;
-					/*for (String it2 : list2) {
+					for (String it2 : list2) {
 						if(it2 == it.IDBANNER && actualizar) {
 							actualizar=false;
 							errorLog+=" ||NO:"+it.IDBANNER
 						}
-					}*/
+					}
 					if(actualizar) {
 						errorLog+="||SI:"+it.IDBANNER
 						ids+= (ids.length() == 0?"":",") + it.PERSISTENCEID;
