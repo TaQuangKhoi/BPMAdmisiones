@@ -75,9 +75,12 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='INVP'"></i></span></th>
                             
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHARESULTADO')">Fecha de subida<i class="glyphicon"
+                    <th ng-if="properties.orden == true" > <span style="cursor:pointer" ng-click="setOrderBy('FECHASUBIDA')">Fecha de integracion<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='FECHARESULTADO'"></i></span>
+                            ng-show="properties.dataToSend.orderby=='FECHASUBIDA'"></i></span>
+                            <span style="cursor:pointer" ng-click="setOrderBy('USUARIOSUBIO')">Usuario integro<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='USUARIOSUBIO'"></i></span>
                     </th>
                     <th> Acciones</th>
                 </tr>
@@ -88,10 +91,9 @@
                     <td><input ng-model="dynamicInput['banner']" class="form-control" ng-enter="filterKeyPress('ID BANNER',dynamicInput['banner'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE,EMAIL,CURP',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
-                    <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
                     <td><input ng-model="dynamicInput['id']" class="form-control" ng-enter="filterKeyPress('ID,SESION',dynamicInput['id'])"></td>
                     <td><input ng-model="dynamicInput['puntuaciones']" class="form-control" ng-enter="filterKeyPress('PUNTUACIONES',dynamicInput['puntuaciones'])"></td>
-                    <td><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION',dynamicInput['fecha'])"></td>
+                    <td ng-if="properties.orden == true" ><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DE INTEGRACION, USUARIO QUE INTEGRO',dynamicInput['fecha'])"></td>
                     <td></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
@@ -121,9 +123,10 @@
                         <br ng-show="properties.orden">{{properties.orden?row.invp:""}}
                     </td>
                 
-                    <td class="max-size">
+                    <td ng-if="properties.orden == true" class="max-size">
                         <b>{{row.fechasubida }}</b>
                         <br> 
+                        <b>{{row.usuariosubio}}</b>
                         <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                     </td>
                     <td class="max-size">
