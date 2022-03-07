@@ -53,6 +53,7 @@ import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
 import com.anahuac.rest.api.Entity.db.BusinessAppMenu
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.anahuac.rest.api.Entity.db.Role
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
