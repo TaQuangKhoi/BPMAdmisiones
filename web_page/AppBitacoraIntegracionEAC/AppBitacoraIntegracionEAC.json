@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "AppBitacoraIntegracionEAC",
   "name" : "AppBitacoraIntegracionEAC",
-  "lastUpdate" : 1646327657478,
+  "lastUpdate" : 1646679707344,
   "rows" : [
     [
       {
@@ -154,8 +154,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -163,8 +163,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!VariableCarga.isTI"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -186,6 +186,55 @@
               "reference" : "fcfddd21-731f-4008-8fd4-ce9272370913",
               "hasValidationError" : false,
               "id" : "customWidgetButtonAsignarUnaHoraEAC"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!VariableCarga.isTI"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Reintentar todo"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "cargarEACBANNER"
+                },
+                "urlInfo" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "5568093f-c4ec-4bc6-9ba4-b85bb59ffdf4",
+              "hasValidationError" : false,
+              "id" : "customBtnGetRest"
             }
           ],
           [
@@ -5198,7 +5247,8 @@
       "type" : "json",
       "value" : [
         "{",
-        "    \"view\":false",
+        "    \"view\":false,",
+        "    \"isTI\":false",
         "}"
       ],
       "exposed" : false
@@ -5260,7 +5310,7 @@
       "type" : "json",
       "value" : [
         "{",
-        "    \"completos\":true",
+        "    \"completos\":false",
         "}"
       ],
       "exposed" : false
@@ -5384,7 +5434,35 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=findByIsEliminado&f=isEliminado=false&p=0&c=999"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?p=0&c=100&f=user_id%3d{{userData.user_id}}&d=role_id&d=group_id"
+      ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "isTI" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.lstMembership != null){",
+        "    debugger;",
+        "    for (var x in $data.lstMembership) {",
+        "       if ($data.lstMembership[x].role_id.name.indexOf(\"TI\") != -1) {",
+        "           $data.VariableCarga.isTI = true;",
+        "        } ",
+        "    }",
+        "}else{",
+        "     $data.VariableCarga.isTI = false;",
+        "}"
+      ],
       "exposed" : false
     }
   },

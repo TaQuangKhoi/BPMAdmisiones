@@ -31,7 +31,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         var arr = name.split(":")
                         var datosAEnviar = { "description": "", "value": "0 " + arr[1] + " " + arr[0] + " 1/1 * ? *", "type": "java.lang.String" }
                         doRequest("PUT", "/API/bpm/processParameter/" + processid + "/horaInicio", null, datosAEnviar, function(respuesta) {
-                            window.top.location.href = "/apps/administrativo/BitacoraIntegracionEAC/";
+                            putDesactivarProceso(processid);
                         })
 
                         swal.stopLoading();
@@ -187,6 +187,49 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
+    }
+    
+    function putDesactivarProceso(processId){
+        vm.busy = true;
+        var req = {
+            method: "PUT",
+            url: "../API/bpm/process/"+processId,
+            data: {"activationState":"DISABLED"},
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                setTimeout(putActivarProceso(processId), 2500);
+                
+            })
+            .error(function(data, status) {
+                window.top.location.href = "/apps/administrativo/BitacoraIntegracionEAC/";
+                console.error(data)
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+    
+     function putActivarProceso(processId){
+        vm.busy = true;
+        var req = {
+            method: "PUT",
+            url: "../API/bpm/process/"+processId,
+            data: {"activationState":"ENABLED"},
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                
+            })
+            .error(function(data, status) {
+                console.error(data)
+            })
+            .finally(function() {
+                window.top.location.href = "/apps/administrativo/BitacoraIntegracionEAC/";
+                vm.busy = false;
+            });
     }
 
 }

@@ -2210,7 +2210,11 @@ class BannerDAO {
 				Result[] results = future.get();
 				if(results[0].error_info.length() > 100) {
 					String[] elements = results[0].error_info.toString().split(" ");	
-					idbanner.add(elements[12]);
+					if(elements.length >= 12) {						
+						idbanner.add(elements[12]);
+					}else {
+						errorLog+=" || " + results[0].error_info
+					}
 				}
 				errorLog+=" || " + results[0].error_info
 				

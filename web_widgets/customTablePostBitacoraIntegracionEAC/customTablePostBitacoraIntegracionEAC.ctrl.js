@@ -317,164 +317,23 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   $scope.getCatCampus();
 
   $scope.cargaManual = function(row) {
-      if ($scope.isPeriodoVencido(row.periodofin)) {
-          swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
-
-              $scope.properties.datosAspirante = {
-                  "CIT1": "",
-                  "CIT2": "",
-                  "fechaExamen": "",
-                  "HI1": "",
-                  "HI2": "",
-                  "HI3": "",
-                  "HI4": "",
-                  "HI5": "",
-                  "HI6": "",
-                  "IDBANNER": "",
-                  "LA1": "",
-                  "LA2": "",
-                  "LA3": "",
-                  "LA4": "",
-                  "LEO1": "",
-                  "LEO3": "",
-                  "LEO4": "",
-                  "LEO5": "",
-                  "PAAN": "",
-                  "PAAV": "",
-                  "PARA": "",
-                  "PG1": "",
-                  "PG2": "",
-                  "PG3": "",
-                  "PG4": "",
-                  "PG5": "",
-                  "PV1": "",
-                  "PV4": "",
-                  "TOTAL": "",
-                  "tipoExamen": "",
-                  "CLEX": "",
-                  "MLEX": "",
-                  "HLEX": "",
-                  "INVP": "",
-                  "update": true,
-                  "fecha": "",
-                  "IdSesion": "",
-                  "caseId":""
-              };
-              $scope.properties.datosAspirante.IDBANNER = row.idbanner;
-              $scope.properties.datosAspirante.IdSesion = row.id;
-              $scope.properties.datosAspirante.caseId = row.caseid;
-              $scope.properties.tabla = "fragmento";
-              $scope.properties.view = false;
-              $scope.properties.update = "";
-              var req = {
-                  method: "GET",
-                  url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
-              };
-              return $http(req)
-                  .success(function(data, status) {
-                      cargaDeDatos($scope.properties.datosAspirante, data.data[0]);
-                  })
-                  .error(function(data, status) {
-                      console.error(data);
-                  })
-                  .finally(function() {
-                       $scope.$apply();
-                  });
-          });
-      } else {
-          $scope.properties.datosAspirante = {
-              "CIT1": "",
-              "CIT2": "",
-              "fechaExamen": "",
-              "HI1": "",
-              "HI2": "",
-              "HI3": "",
-              "HI4": "",
-              "HI5": "",
-              "HI6": "",
-              "IDBANNER": "",
-              "LA1": "",
-              "LA2": "",
-              "LA3": "",
-              "LA4": "",
-              "LEO1": "",
-              "LEO3": "",
-              "LEO4": "",
-              "LEO5": "",
-              "PAAN": "",
-              "PAAV": "",
-              "PARA": "",
-              "PG1": "",
-              "PG2": "",
-              "PG3": "",
-              "PG4": "",
-              "PG5": "",
-              "PV1": "",
-              "PV4": "",
-              "TOTAL": "",
-              "tipoExamen": "",
-              "CLEX": "",
-              "MLEX": "",
-              "HLEX": "",
-              "INVP": "",
-              "update": true,
-              "fecha": "",
-              "IdSesion": "",
-              "caseId": ""
-          };
-          $scope.properties.datosAspirante.IDBANNER = row.idbanner;
-          $scope.properties.datosAspirante.IdSesion = row.id;
-          $scope.properties.datosAspirante.caseId = row.caseid;
-          $scope.properties.tabla = "fragmento";
-          $scope.properties.view = false;
-          $scope.properties.update = "";
-          var req = {
-              method: "GET",
-              url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
-          };
-          return $http(req)
+        var req = {
+          method: "GET",
+          url: `../API/extension/AnahuacRestGet?url=cargarEACBANNER_IDBANNER&p=0&c=10&idbanner=${row.idbanner}`
+       };
+      return $http(req)
               .success(function(data, status) {
-                  cargaDeDatos($scope.properties.datosAspirante, data.data[0]);
+                  console.log(data)
+                  doRequest("POST", $scope.properties.urlPost);
               })
               .error(function(data, status) {
                   console.error(data);
               })
               .finally(function() {
                   
-              });
-      }
+              })
   }
 
-  function cargaDeDatos(json, data) {
-      var datos = data;
-      if (datos !== null && datos !== undefined) {
-          let columna = datos;
-          for (var key in columna) {
-
-              if (key != "total" && key != "fechaexamen" && key != "tipoexamen" && key != "lexiumpara" && key != "lexiumpaav" && key != "lexiumpaan" && key != "lexiumtotal") {
-                  json[key.toUpperCase()] = data[key]
-              } else if (key === "total") {
-                  json.Total = data[key]
-              } else if (key == "fechaexamen") {
-                  json.fecha = data[key];
-                  let fecha = `${data[key].slice(3,5)}/${data[key].slice(0,2)}/${data[key].slice(6,10)}`;
-                  json.fechaExamen = new Date(fecha)
-              } else if (key == "tipoexamen") {
-                  json.tipoExamen = data[key];
-                  $scope.properties.update = data[key];
-              } else if (key == "lexiumpara") {
-                  json.HLEX = data[key]
-              } else if (key == "lexiumpaav") {
-                  json.CLEX = data[key]
-              } else if (key == "lexiumpaan") {
-                  json.MLEX = data[key]
-              } else if (key == "lexiumtotal") {
-                  json.LEXIUM_Total = data[key]
-              }
-          }
-
-      }
-  }
   $scope.isPeriodoVencido = function(periodofin) {
       var fecha = new Date(periodofin.slice(0, 10))
       return fecha < new Date();
