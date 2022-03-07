@@ -2190,6 +2190,7 @@ class BannerDAO {
 		String errorLog="[1]"
 		ExecutorService executorService = Executors.newFixedThreadPool(4);
 		List<Callable<Result[]>> callableTasks = new ArrayList<>();
+		List<String> idbanner = new ArrayList<>();
 		try {
 			
 			errorLog+="[2]"
@@ -2207,11 +2208,21 @@ class BannerDAO {
 			for(Future<Result[]> future: futures) {
 				errorLog+="[3]"
 				Result[] results = future.get();
+				if(results[0].error_info.length() > 100) {
+					String[] elements = results[0].error_info.toString().split(" ");	
+					if(elements.length >= 12) {						
+						idbanner.add(elements[12]);
+					}else {
+						errorLog+=" || " + results[0].error_info
+					}
+				}
 				errorLog+=" || " + results[0].error_info
+				
+								
 			}
 			executorService.shutdown();
 			executorService.shutdownNow();
-			result.setSuccess(true)
+			result.setSuccess(true);
 			errorLog+="[4]"
 			}catch(Exception e) {
 				errorLog+="[e]" + e.getMessage()
@@ -2220,6 +2231,7 @@ class BannerDAO {
 		}
 		result.setSuccess(true)
 		result.setError_info(errorLog)
+		result.setAdditional_data(idbanner);
 		return result;
 	}
 	
