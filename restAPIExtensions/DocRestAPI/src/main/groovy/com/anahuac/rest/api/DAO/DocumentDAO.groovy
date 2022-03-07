@@ -19,22 +19,37 @@ class DocumentDAO {
 		String errorLog="";
 		try {
 			def catConfiguracion = context.apiClient.getDAO(CatConfiguracionDAO.class)
-			errorLog+="CatConfiguracionDAO "
+			errorLog+="[1] "
 			def cc = catConfiguracion.findByClave("SASAzure", 0, 1);
 			def fm = new FileManagement()
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			def num = Math.random();
+			if(object?.type!="array") {
+				throw new Exception("400 Bad Request type must be array");
+			}
+			if(object?.items.type!="object") {
+				throw new Exception("400 Bad Request items type must be object");
+			}
+			if(object?.items.properties.Id_banner.type!="string") {
+				throw new Exception("400 Bad Request items properties type must be string");
+			}
+			
+			def records = object?.items.required.findAll { it instanceof  String }
+			if(records.size!=object.items.required.size) {
+				throw new Exception("400 Bad Request items required values must be string");
+			}
+			
 			for(def i =0; i<object.items.required.size; i++) {
 				datos = new HashMap<String, Serializable>();
 				def detalleSolicitud = context.apiClient.getDAO(DetalleSolicitudDAO.class);
-				errorLog+=" | DetalleSolicitudDAO "+ object.items.required[i]
+				errorLog+=" | [2] "+ object.items.required[i]
 				def ds = detalleSolicitud.findByIdBanner(object.items.required[i], 0, 1)
 				if(ds.empty) {
-					throw new Exception("No existe aspirante "+ object.items.required[i])
+					throw new Exception("404 Record not found "+ object.items.required[i])
 				}
 				def solicitudDeAdmision = context.apiClient.getDAO(SolicitudDeAdmisionDAO.class);
-				errorLog+=" | SolicitudDeAdmisionDAO caseId=" + Long.parseLong(ds[0].caseId)
+				errorLog+=" | [3] caseId:" + Long.parseLong(ds[0].caseId)
 				def sda = solicitudDeAdmision.findByCaseId(Long.parseLong(ds[0].caseId), 0, 1);
 				def foto = new HashMap<String, Serializable>();
 				def constancia = new HashMap<String, Serializable>();
@@ -56,9 +71,10 @@ class DocumentDAO {
 				acta.put("content",fm.b64Url(sda[0].urlActaNacimiento + cc[0].valor + "&v="+num))
 				
 				datos.put("idBanner", ds[0].idBanner);
-				datos.put("foto", foto)
+				datos.put("foto", foto);
 				datos.put("constancia", constancia);
-				datos.put("actaNacimiento", acta)
+				datos.put("actaNacimiento", acta);
+				datos.put("psicometrico", "Not available");
 				
 				rows.add(datos)
 			}
