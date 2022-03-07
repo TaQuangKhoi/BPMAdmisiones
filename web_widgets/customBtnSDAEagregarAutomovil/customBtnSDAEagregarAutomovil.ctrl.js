@@ -1,20 +1,19 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
-  'use strict';
+    'use strict';
 
-  var vm = this;
+    var vm = this;
 
-  this.action = function action() {
-    let nuevoItem= {
-    "marca": "",
-    "modelo": "",
-    "ano": 0,
-    "costo_aprox": 0,
-    "situacion_auto": 0
+    this.action = function action() {
+        let nuevoItem = {
+            "persistenceId_string": "",
+            "caseId": "",
+            "marca": "",
+            "modelo": "",
+            "ano": null,
+            "costoAproximado": "",
+            "catSituacionAuto_id": ""
+        };
+        $scope.properties.lst.push(nuevoItem);
     };
-   $scope.properties.lst.push(nuevoItem);
-  };
-
- 
-
 }

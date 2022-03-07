@@ -2060,6 +2060,30 @@
               <inputTypes>java.util.List</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_km2I4ZvpEeyc0ZUA4l06NA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_km2I4pvpEeyc0ZUA4l06NA" name="hermanos" content="hermanos" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_km2I45vpEeyc0ZUA4l06NA" name="hermanos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.HermanosSolicitante"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_km2I5JvpEeyc0ZUA4l06NA" name="hermanosInput" content="def hermanosSolicitanteList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;hermanosInput.each{&#xD;&#xA;&#x9;//Add HermanosSolicitante instance&#xD;&#xA;&#x9;hermanosSolicitanteList.add({ currentHermanosSolicitanteInput ->&#xD;&#xA;&#x9;&#x9;def hermanosSolicitanteVar = hermanos.find { it.persistenceId.toString() == currentHermanosSolicitanteInput.persistenceId_string} ?: new com.anahuac.SDAE.model.HermanosSolicitante()&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.caseId = currentHermanosSolicitanteInput.caseId?.trim() ? currentHermanosSolicitanteInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.nombres = currentHermanosSolicitanteInput.nombres&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.apellidos = currentHermanosSolicitanteInput.apellidos&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.edad = currentHermanosSolicitanteInput.edad&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.isEstudia = currentHermanosSolicitanteInput.isEstudia&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.institucion = currentHermanosSolicitanteInput.institucion&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.isTieneBeca = currentHermanosSolicitanteInput.isTieneBeca&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.porcentajeBecaAsignado = currentHermanosSolicitanteInput.porcentajeBecaAsignado&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.colegiaturaMensual = currentHermanosSolicitanteInput.colegiaturaMensual&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.isTrabaja = currentHermanosSolicitanteInput.isTrabaja&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.empresa = currentHermanosSolicitanteInput.empresa&#xD;&#xA;&#x9;&#x9;hermanosSolicitanteVar.ingresoMensual = currentHermanosSolicitanteInput.ingresoMensual&#xD;&#xA;&#x9;&#x9;return hermanosSolicitanteVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return hermanosSolicitanteList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_km2I5ZvpEeyc0ZUA4l06NA" name="hermanosInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_km2I5pvpEeyc0ZUA4l06NA" name="hermanos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.HermanosSolicitante"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_km2I55vpEeyc0ZUA4l06NA" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_4-CjW5wcEeyc0ZUA4l06NA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_4-CjXJwcEeyc0ZUA4l06NA" name="autos" content="autos" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_4-CjXZwcEeyc0ZUA4l06NA" name="autos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AutosSolicitante"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_4-CjXpwcEeyc0ZUA4l06NA" name="autosInput" content="def autosSolicitanteList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;autosInput.each{&#xD;&#xA;&#x9;//Add AutosSolicitante instance&#xD;&#xA;&#x9;autosSolicitanteList.add({ currentAutosSolicitanteInput ->&#xD;&#xA;&#x9;&#x9;def autosSolicitanteVar = autos.find { it.persistenceId.toString() == currentAutosSolicitanteInput.persistenceId_string} ?: new com.anahuac.SDAE.model.AutosSolicitante()&#xD;&#xA;&#x9;&#x9;autosSolicitanteVar.caseId = currentAutosSolicitanteInput.caseId?.trim() ? currentAutosSolicitanteInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;autosSolicitanteVar.marca = currentAutosSolicitanteInput.marca&#xD;&#xA;&#x9;&#x9;autosSolicitanteVar.modelo = currentAutosSolicitanteInput.modelo&#xD;&#xA;&#x9;&#x9;autosSolicitanteVar.ano = currentAutosSolicitanteInput.ano&#xD;&#xA;&#x9;&#x9;autosSolicitanteVar.costoAproximado = currentAutosSolicitanteInput.costoAproximado?.trim() ? currentAutosSolicitanteInput.costoAproximado.toLong() : null&#xD;&#xA;&#x9;&#x9;autosSolicitanteVar.catSituacionAuto_id = currentAutosSolicitanteInput.catSituacionAuto_id?.trim() ? currentAutosSolicitanteInput.catSituacionAuto_id.toLong() : null&#xD;&#xA;&#x9;&#x9;return autosSolicitanteVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return autosSolicitanteList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_4-CjX5wcEeyc0ZUA4l06NA" name="autosInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_4-CjYJwcEeyc0ZUA4l06NA" name="autos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AutosSolicitante"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_4-CjYZwcEeyc0ZUA4l06NA" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_2cszoX0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_2cszon0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_2cszo30-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2179,65 +2203,38 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_r4GnDJs-Eeyc0ZUA4l06NA" name="catCasaDondeVives_id" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_r4GnDZs-Eeyc0ZUA4l06NA" name="catManejoDocumentos_id" multiple="true" createMode="false"/>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnDps-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.caseId || solicitudApoyoEducativoInput?.caseId.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.caseId" name="type_long_solicitudApoyoEducativoInput_caseId">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_km1h0JvpEeyc0ZUA4l06NA" name="hermanosInput" type="COMPLEX" multiple="true" dataReference="hermanos" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h0ZvpEeyc0ZUA4l06NA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h0pvpEeyc0ZUA4l06NA" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h05vpEeyc0ZUA4l06NA" name="nombres" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h1JvpEeyc0ZUA4l06NA" name="apellidos" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h1ZvpEeyc0ZUA4l06NA" name="edad" type="INTEGER" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h1pvpEeyc0ZUA4l06NA" name="isEstudia" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h15vpEeyc0ZUA4l06NA" name="institucion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h2JvpEeyc0ZUA4l06NA" name="isTieneBeca" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h2ZvpEeyc0ZUA4l06NA" name="porcentajeBecaAsignado" type="INTEGER" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h2pvpEeyc0ZUA4l06NA" name="colegiaturaMensual" type="INTEGER" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h25vpEeyc0ZUA4l06NA" name="isTrabaja" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h3JvpEeyc0ZUA4l06NA" name="empresa" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_km1h3ZvpEeyc0ZUA4l06NA" name="ingresoMensual" type="INTEGER" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_4-CjUJwcEeyc0ZUA4l06NA" name="autosInput" type="COMPLEX" multiple="true" dataReference="autos" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjUZwcEeyc0ZUA4l06NA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjUpwcEeyc0ZUA4l06NA" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjU5wcEeyc0ZUA4l06NA" name="marca" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjVJwcEeyc0ZUA4l06NA" name="modelo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjVZwcEeyc0ZUA4l06NA" name="ano" type="INTEGER" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjVpwcEeyc0ZUA4l06NA" name="costoAproximado" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_4-CjV5wcEeyc0ZUA4l06NA" name="catSituacionAuto_id" createMode="false"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_4-CjWJwcEeyc0ZUA4l06NA" expression="autosInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.caseId" name="type_long_autosInput_caseId">
+              <inputNames>autosInput</inputNames>
             </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnD5s-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.pageIndex || solicitudApoyoEducativoInput?.pageIndex.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.pageIndex" name="type_long_solicitudApoyoEducativoInput_pageIndex">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_4-CjWZwcEeyc0ZUA4l06NA" expression="autosInput?.costoAproximado.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.costoAproximado" name="type_long_autosInput_costoAproximado">
+              <inputNames>autosInput</inputNames>
             </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnEJs-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.costoMensualColegiatura || solicitudApoyoEducativoInput?.costoMensualColegiatura.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.costoMensualColegiatura" name="type_long_solicitudApoyoEducativoInput_costoMensualColegiatura">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnEZs-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.calificacionOficialPreparatoria || solicitudApoyoEducativoInput?.calificacionOficialPreparatoria.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.calificacionOficialPreparatoria" name="type_long_solicitudApoyoEducativoInput_calificacionOficialPreparatoria">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnEps-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.ingresoMensualNetoTutor || solicitudApoyoEducativoInput?.ingresoMensualNetoTutor.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.ingresoMensualNetoTutor" name="type_long_solicitudApoyoEducativoInput_ingresoMensualNetoTutor">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnE5s-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.bienesRaices || solicitudApoyoEducativoInput?.bienesRaices?.persistenceId_string" errorMessage="BienesRaicesSolicitante must reference an existing instance with a persistenceId for SolicitudApoyoEducativo" name="aggregation_solicitudApoyoEducativoInput_bienesRaices">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnFJs-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.bienesRaices?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for BienesRaicesSolicitante.caseId" name="type_long_solicitudApoyoEducativoInput_bienesRaices_caseId">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnFZs-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.bienesRaices?.valor.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for BienesRaicesSolicitante.valor" name="type_long_solicitudApoyoEducativoInput_bienesRaices_valor">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnFps-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.hermanos || solicitudApoyoEducativoInput?.hermanos?.persistenceId_string" errorMessage="HermanosSolicitante must reference an existing instance with a persistenceId for SolicitudApoyoEducativo" name="aggregation_solicitudApoyoEducativoInput_hermanos">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnF5s-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.hermanos?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for HermanosSolicitante.caseId" name="type_long_solicitudApoyoEducativoInput_hermanos_caseId">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnGJs-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.autos || solicitudApoyoEducativoInput?.autos?.persistenceId_string" errorMessage="AutosSolicitante must reference an existing instance with a persistenceId for SolicitudApoyoEducativo" name="aggregation_solicitudApoyoEducativoInput_autos">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnGZs-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.autos?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.caseId" name="type_long_solicitudApoyoEducativoInput_autos_caseId">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnGps-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.autos?.costoAproximado.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.costoAproximado" name="type_long_solicitudApoyoEducativoInput_autos_costoAproximado">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnG5s-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.autos?.catSituacionAuto.flatten().every{!it || it.persistenceId_string}" errorMessage="CatSituacionAuto must reference an existing instance with a persistenceId for AutosSolicitante" name="aggregation_solicitudApoyoEducativoInput_autos_catSituacionAuto">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnHJs-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.catProvienenIngresos_id || solicitudApoyoEducativoInput?.catProvienenIngresos_id.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.catProvienenIngresos_id" name="type_long_solicitudApoyoEducativoInput_catProvienenIngresos_id">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnHZs-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.catTipoApoyo_id || solicitudApoyoEducativoInput?.catTipoApoyo_id.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.catTipoApoyo_id" name="type_long_solicitudApoyoEducativoInput_catTipoApoyo_id">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnHps-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.catPorcentajeBeca_id || solicitudApoyoEducativoInput?.catPorcentajeBeca_id.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.catPorcentajeBeca_id" name="type_long_solicitudApoyoEducativoInput_catPorcentajeBeca_id">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnH5s-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.catPorcentajeFinanciamiento_id || solicitudApoyoEducativoInput?.catPorcentajeFinanciamiento_id.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.catPorcentajeFinanciamiento_id" name="type_long_solicitudApoyoEducativoInput_catPorcentajeFinanciamiento_id">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnIJs-Eeyc0ZUA4l06NA" expression="!solicitudApoyoEducativoInput?.catCasaDondeVives_id || solicitudApoyoEducativoInput?.catCasaDondeVives_id.isLong()" errorMessage="A Long value is expected for SolicitudApoyoEducativo.catCasaDondeVives_id" name="type_long_solicitudApoyoEducativoInput_catCasaDondeVives_id">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_r4GnIZs-Eeyc0ZUA4l06NA" expression="solicitudApoyoEducativoInput?.catManejoDocumentos_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for SolicitudApoyoEducativo.catManejoDocumentos_id" name="type_long_solicitudApoyoEducativoInput_catManejoDocumentos_id">
-              <inputNames>solicitudApoyoEducativoInput</inputNames>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_4-CjWpwcEeyc0ZUA4l06NA" expression="autosInput?.catSituacionAuto_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.catSituacionAuto_id" name="type_long_autosInput_catSituacionAuto_id">
+              <inputNames>autosInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_8AoWQH0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
@@ -2759,6 +2756,15 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_08B6wps9Eeyc0ZUA4l06NA" name="initSolicitudApoyoEducativo()" content="def solicitudApoyoEducativoVar = new com.anahuac.SDAE.model.SolicitudApoyoEducativo()&#xD;&#xA;solicitudApoyoEducativoVar.eliminado = solicitudApoyoEducativoInput?.eliminado&#xD;&#xA;return solicitudApoyoEducativoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
           <referencedElements xmi:type="process:ContractInput" xmi:id="_08B6w5s9Eeyc0ZUA4l06NA" name="solicitudApoyoEducativoInput" type="COMPLEX"/>
         </defaultValue>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_itrAwJvpEeyc0ZUA4l06NA" name="hermanos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.HermanosSolicitante">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_itrAwZvpEeyc0ZUA4l06NA" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_1Eb_4JvtEeyc0ZUA4l06NA" name="bienesRaices" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.BienesRaicesSolicitante">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_1Eb_4ZvtEeyc0ZUA4l06NA" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_24dW4JwcEeyc0ZUA4l06NA" name="autos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AutosSolicitante">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_24dW4ZwcEeyc0ZUA4l06NA" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_41FZn2dAEeyAHufroJpG_Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_41FZoGdAEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
