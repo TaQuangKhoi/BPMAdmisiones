@@ -2084,6 +2084,18 @@
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_cEllMp5gEeyE-qczs0l6Qw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_cEllM55gEeyE-qczs0l6Qw" name="bienesRaices" content="bienesRaices" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_cEllNJ5gEeyE-qczs0l6Qw" name="bienesRaices" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.BienesRaicesSolicitante"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_cEllNZ5gEeyE-qczs0l6Qw" name="bienesRaicesInput" content="def bienesRaicesSolicitanteList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;bienesRaicesInput.each{&#xD;&#xA;&#x9;//Add BienesRaicesSolicitante instance&#xD;&#xA;&#x9;bienesRaicesSolicitanteList.add({ currentBienesRaicesSolicitanteInput ->&#xD;&#xA;&#x9;&#x9;def bienesRaicesSolicitanteVar = bienesRaices.find { it.persistenceId.toString() == currentBienesRaicesSolicitanteInput.persistenceId_string} ?: new com.anahuac.SDAE.model.BienesRaicesSolicitante()&#xD;&#xA;&#x9;&#x9;bienesRaicesSolicitanteVar.caseId = currentBienesRaicesSolicitanteInput.caseId?.trim() ? currentBienesRaicesSolicitanteInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;bienesRaicesSolicitanteVar.catTipoInversionesPosee = currentBienesRaicesSolicitanteInput.catTipoInversionesPosee&#xD;&#xA;&#x9;&#x9;bienesRaicesSolicitanteVar.descripcion = currentBienesRaicesSolicitanteInput.descripcion&#xD;&#xA;&#x9;&#x9;bienesRaicesSolicitanteVar.direccionBanco = currentBienesRaicesSolicitanteInput.direccionBanco&#xD;&#xA;&#x9;&#x9;bienesRaicesSolicitanteVar.valor = currentBienesRaicesSolicitanteInput.valor?.trim() ? currentBienesRaicesSolicitanteInput.valor.toLong() : null&#xD;&#xA;&#x9;&#x9;bienesRaicesSolicitanteVar.catTipoInversionesPosee_id = currentBienesRaicesSolicitanteInput.catTipoInversionesPosee_id?.trim() ? currentBienesRaicesSolicitanteInput.catTipoInversionesPosee_id.toLong() : null&#xD;&#xA;&#x9;&#x9;return bienesRaicesSolicitanteVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return bienesRaicesSolicitanteList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_cEllNp5gEeyE-qczs0l6Qw" name="bienesRaicesInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_cEllN55gEeyE-qczs0l6Qw" name="bienesRaices" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.BienesRaicesSolicitante"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_cEllOJ5gEeyE-qczs0l6Qw" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_2cszoX0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_2cszon0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_2cszo30-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2227,14 +2239,23 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_4-CjVpwcEeyc0ZUA4l06NA" name="costoAproximado" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_4-CjV5wcEeyc0ZUA4l06NA" name="catSituacionAuto_id" createMode="false"/>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_4-CjWJwcEeyc0ZUA4l06NA" expression="autosInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.caseId" name="type_long_autosInput_caseId">
-              <inputNames>autosInput</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_cEdpYJ5gEeyE-qczs0l6Qw" name="bienesRaicesInput" type="COMPLEX" multiple="true" dataReference="bienesRaices" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpYZ5gEeyE-qczs0l6Qw" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpYp5gEeyE-qczs0l6Qw" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpY55gEeyE-qczs0l6Qw" name="catTipoInversionesPosee" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpZJ5gEeyE-qczs0l6Qw" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpZZ5gEeyE-qczs0l6Qw" name="direccionBanco" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpZp5gEeyE-qczs0l6Qw" name="valor" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_cEdpZ55gEeyE-qczs0l6Qw" name="catTipoInversionesPosee_id" createMode="false"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_cEk-IJ5gEeyE-qczs0l6Qw" expression="bienesRaicesInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for BienesRaicesSolicitante.caseId" name="type_long_bienesRaicesInput_caseId">
+              <inputNames>bienesRaicesInput</inputNames>
             </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_4-CjWZwcEeyc0ZUA4l06NA" expression="autosInput?.costoAproximado.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.costoAproximado" name="type_long_autosInput_costoAproximado">
-              <inputNames>autosInput</inputNames>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_cEllMJ5gEeyE-qczs0l6Qw" expression="bienesRaicesInput?.valor.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for BienesRaicesSolicitante.valor" name="type_long_bienesRaicesInput_valor">
+              <inputNames>bienesRaicesInput</inputNames>
             </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_4-CjWpwcEeyc0ZUA4l06NA" expression="autosInput?.catSituacionAuto_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.catSituacionAuto_id" name="type_long_autosInput_catSituacionAuto_id">
-              <inputNames>autosInput</inputNames>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_cEllMZ5gEeyE-qczs0l6Qw" expression="bienesRaicesInput?.catTipoInversionesPosee_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for BienesRaicesSolicitante.catTipoInversionesPosee_id" name="type_long_bienesRaicesInput_catTipoInversionesPosee_id">
+              <inputNames>bienesRaicesInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_8AoWQH0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
