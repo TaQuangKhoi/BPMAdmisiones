@@ -206,7 +206,7 @@
                 <field type="STRING" length="255" name="modelo" nullable="true" collection="false"/>
                 <field type="INTEGER" length="255" name="ano" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="costoAproximado" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatSituacionAuto" fetchType="LAZY" name="catSituacionAuto" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="catSituacionAuto_id" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -301,6 +301,7 @@
                 <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="direccionBanco" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="valor" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="catTipoInversionesPosee_id" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -357,19 +358,12 @@
                 <field type="STRING" length="255" name="viveMismoDocimicilioAlumnoTutor" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="maximoNivelEstudiosTutor" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="ocupacionTutor" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatProvienenIngresos" fetchType="LAZY" name="catProvienenIngresos" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="ingresoMensualNetoTutor" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="empresaTutor" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="puestoTutor" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.model.BienesRaicesSolicitante" fetchType="LAZY" name="bienesRaices" nullable="true" collection="true"/>
                 <field type="BOOLEAN" length="255" name="tieneHermanos" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.model.HermanosSolicitante" fetchType="LAZY" name="hermanos" nullable="true" collection="true"/>
                 <field type="STRING" length="255" name="motivoBeca" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatTipoApoyo" fetchType="LAZY" name="catTipoApoyo" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatPorcentajeBeca" fetchType="LAZY" name="catPorcentajeBeca" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatPorcentajeFinanciamiento" fetchType="LAZY" name="catPorcentajeFinanciamiento" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="cantMensualPagarUni" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatCasaDondeVives" fetchType="LAZY" name="catCasaDondeVives" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="contruccionM2Casa" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="terrenoM2Casa" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="valorAproxCasa" nullable="true" collection="false"/>
@@ -381,7 +375,6 @@
                 <field type="STRING" length="255" name="colonia" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="estado" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="codigoPostal" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.model.AutosSolicitante" fetchType="LAZY" name="autos" nullable="true" collection="true"/>
                 <field type="DOUBLE" length="255" name="ingresoPadre" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="ingresoMadre" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="ingresoHermano" nullable="true" collection="false"/>
@@ -413,7 +406,6 @@
                 <field type="STRING" length="255" name="estatusSolicitud" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="caseIdAdmisiones" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="eliminado" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.SDAE.catalogos.CatManejoDocumentos" fetchType="LAZY" name="catManejoDocumentos" nullable="true" collection="true"/>
                 <field type="BOOLEAN" length="255" name="tieneHijos" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="catProvienenIngresos_id" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="catTipoApoyo_id" nullable="true" collection="false"/>
