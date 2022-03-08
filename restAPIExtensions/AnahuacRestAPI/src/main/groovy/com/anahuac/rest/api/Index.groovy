@@ -773,6 +773,26 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "bitacoraIntegracionEAC":
+					result = new ImportacionPAADAO().bitacoraIntegracionEAC(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getCatEscalaEAC":
+					result = new ImportacionPAADAO().getCatEscalaEAC(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 					case "postGuardarBitacoraErrores":
 					result = new ResultadoComiteDAO().postGuardarBitacoraErroresRC(jsonData, context)
 					responseBuilder.withMediaType("application/json")
@@ -2280,6 +2300,17 @@ class Index implements RestApiController {
 				
 				case "PostUpdateDeleteCatEscalaINVP":
 				result = new SesionesDAO().PostUpdateDeleteCatEscalaINVP(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "PostUpdateDeleteCatEscalaEAC":
+				result = new ImportacionPAADAO().PostUpdateDeleteCatEscalaEAC(jsonData)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

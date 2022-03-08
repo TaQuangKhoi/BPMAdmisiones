@@ -53,6 +53,7 @@ import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
 import com.anahuac.rest.api.Entity.db.BusinessAppMenu
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.anahuac.rest.api.Entity.db.Role
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
@@ -639,7 +640,12 @@ class UsuariosDAO {
 					}
 					where +=" group_.id ";
 					if(filtro.get("operador").equals("Igual a")) {
-						where+="=[valor]"
+						if(filtro.get("valor").toString().contains("(")) {
+							where+="IN [valor]"
+						}else {
+							where+="=[valor]"
+						}
+						
 					}else {
 						where+="=[valor]"
 					}
@@ -1356,7 +1362,7 @@ class UsuariosDAO {
 							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
 								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
 							} else {
-								columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA+"&v="+num);
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString(i) + SSA+"&v="+num)));
 							}
 							
 						} else {
@@ -1366,7 +1372,7 @@ class UsuariosDAO {
 								try {
 									String urlFoto = rs.getString("urlfoto");
 									if(urlFoto != null && !urlFoto.isEmpty()) {
-										columns.put("fotografiab64", rs.getString("urlfoto") +SSA+"&v="+num);
+										columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("urlfoto") + SSA+"&v="+num)));
 									}else {
 										List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 										for(Document doc : doc1) {

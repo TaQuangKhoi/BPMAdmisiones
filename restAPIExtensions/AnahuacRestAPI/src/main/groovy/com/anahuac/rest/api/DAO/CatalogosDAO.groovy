@@ -4777,6 +4777,42 @@ class CatalogosDAO {
         }
         return resultado
     }
+	
+	public Result getValidarEscalaEAC(Integer P, Integer C, String escala, String id) {
+        Result resultado = new Result();
+        Boolean closeCon = false;
+        List < Boolean > lstResultado = new ArrayList < Boolean > ();
+        try {
+            closeCon = validarConexion();
+            String consulta, errorLog = "";
+
+            consulta = Statements.GET_VALIDARESCALAEAC;
+            if (!id.equals(null) && !id.equals(" ") && !id.equals("")) {
+                consulta = consulta.replace("[ID]", (" AND PERSISTENCEID <> " + id))
+            } else {
+                consulta = consulta.replace("[ID]", " ")
+            }
+			errorLog += " " + consulta
+            pstm = con.prepareStatement(consulta)
+            pstm.setString(1, escala);
+            rs = pstm.executeQuery()
+            while (rs.next()) {
+                resultado.setTotalRegistros(rs.getInt("TOTAL"))
+            }
+
+            resultado.setSuccess(true)
+            resultado.setError_info(errorLog)
+        } catch (Exception e) {
+        	LOGGER.error "[ERROR] " + e.getMessage();
+            resultado.setSuccess(false);
+            resultado.setError(e.getMessage());
+        } finally {
+            if (closeCon) {
+                new DBConnect().closeObj(con, stm, rs, pstm)
+            }
+        }
+        return resultado
+    }
 
 
     /***********************JESUS OSUNA FIN********************************/

@@ -1,0 +1,10 @@
+<div class="checkbox">
+    <label>
+        <input ng-change="updateTipoApoyoVideocase()" type="checkbox" name="{{ctrl.name}}" ng-model="properties.value" ng-required="properties.required" ng-disabled="properties.disabled"> <ng-bind-html ng-bind-html="properties.label | uiTranslate"/>
+    </label>
+    <button type="button" class="btn btn-primary" ng-show="properties.value" ng-click="showModalCondiciones()">Fotografías</button>
+    
+    <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
+    
+    <!--<button type="button" class="btn btn-primary" ng-show="properties.value" ng-click="showModalCondiciones()">Condiciones video</button>-->
+</div>
