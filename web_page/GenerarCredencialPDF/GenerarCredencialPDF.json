@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "GenerarCredencialPDF",
   "name" : "GenerarCredencialPDF",
-  "lastUpdate" : 1642541636847,
+  "lastUpdate" : 1645031722813,
   "rows" : [
     [
       {
@@ -1783,8 +1783,9 @@
     "userDataEmail" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+        "../API/extension/RegistroRest?url=getUserIdentity&userId={{userData.user_id}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "caseId" : {
@@ -1804,7 +1805,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseId}}&fstate=ready"
       ],
       "exposed" : false
     },

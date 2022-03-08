@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1642702822833,
+  "lastUpdate" : 1645490255317,
   "rows" : [
     [
       {
@@ -22524,7 +22524,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
@@ -22567,8 +22567,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
+        "../API/extension/RegistroRest?url=process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "processUrl" : {
@@ -22984,8 +22985,9 @@
     "getCaseIdCatCiudad" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getCatCiudadBycaseId" : {
@@ -22998,15 +23000,17 @@
     "objCaseInformationEstados" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "objCaseInformationPaises" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "isDataRegistro" : {
@@ -23387,7 +23391,7 @@
     "urlCurrentTask" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bpm/humanTask?p=0&c=10&f=caseId=\"+$data.getCatRegistro[0].caseId+\"&fstate=ready\""
+        "return \"../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=\"+$data.getCatRegistro[0].caseId+\"&fstate=ready\""
       ],
       "exposed" : false
     },
@@ -23521,8 +23525,13 @@
     "processData" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&f=state=ready&d=processId"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&f=state=ready&name=processId"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "ocultarCamposNuevos" : {

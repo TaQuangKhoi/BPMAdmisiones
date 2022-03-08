@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.46",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1639443196642,
+  "lastUpdate" : 1645048306449,
   "rows" : [
     [
       {
@@ -1030,7 +1030,7 @@
                                     },
                                     "text" : {
                                       "type" : "interpolation",
-                                      "value" : "{{loggedUser.userName}}"
+                                      "value" : "{{loggedUser[0].userName}}"
                                     },
                                     "alignment" : {
                                       "type" : "constant",
@@ -2612,8 +2612,13 @@
     "loggedUser" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user/{{session.user_id}}?d=professional_data"
+        "../API/extension/RegistroRest?url=getUserIdentity&userId={{session.user_id}}&d=professional_data"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "homePage" : {
@@ -2630,7 +2635,7 @@
         "    return '';",
         "}",
         "",
-        "var isCustomIconPath = $data.loggedUser.icon && $data.loggedUser.icon!='icons/default/icon_user.png';",
+        "var isCustomIconPath = $data.loggedUser[0].icon && $data.loggedUser[0].icon!='icons/default/icon_user.png';",
         "",
         "const htmlContentForImage = `<span><img title=\"${$data.userName}\" src=\"${$data.loggedUser.icon}\" alt=\"${uiTranslate('User icon')}\"></span>`;",
         "",
@@ -2666,8 +2671,9 @@
     "currentUserProfileList" : {
       "type" : "url",
       "value" : [
-        "../API/portal/profile?p=0&c=100&f=user_id={{loggedUser.id}}"
+        "../API/portal/profile?p=0&c=100&f=user_id={{loggedUser[0].id}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "languageList" : {
@@ -2966,8 +2972,9 @@
     "memberships" : {
       "type" : "url",
       "value" : [
-        "../API/identity/membership?p=0&c=10&f=user_id%3d{{session.user_id}}&d=role_id&d=group_id"
+        "../API/extension/RegistroRest?url=getUserIdentityMembership&userId={{session.user_id}}&d=role_id&d=group_id"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getCampus" : {
@@ -3036,7 +3043,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
@@ -3057,8 +3064,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?c=100&p=0&f=name=Proceso%20admisiones&f=activationState=ENABLED"
+        "../API/extension/RegistroRest?url=process&c=100&p=0&f=name=Proceso%20admisiones&f=activationState=ENABLED"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "modalNavigationVar" : {
@@ -3108,14 +3116,15 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{taskId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskId" : {
       "type" : "expression",
       "value" : [
-        "return $data.currentTask[0].id;"
+        "return $data.currentTask[0].caseId;"
       ],
       "exposed" : false
     },

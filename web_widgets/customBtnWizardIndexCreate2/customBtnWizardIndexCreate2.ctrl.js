@@ -5502,19 +5502,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //$scope.properties.selectedIndex++;
             })
             .error(function(data, status) {
-                console.log("Error al avanzar tarea")
-                console.log(data);
-                console.log(status);
-                /*$scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });*/
+                getTaskAgain();
             })
             .finally(function() {
                 //vm.busy = false;
@@ -5565,7 +5553,28 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //vm.busy = false;
             });
     }
+        function getTaskAgain() {
 
+        var req = {
+            method: 'GET',
+            url: $scope.properties.urlCurrentTask
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                doRequest('POST', '../API/bpm/userTask/' + data[0].id  + '/execution', null).then(function() {
+                    localStorageService.delete($window.location.href);
+                });
+            })
+            .error(function(data, status) {
+                console.log("Error al avanzar tarea")
+                console.log(data);
+                console.log(status);
+            })
+            .finally(function() {
+                //vm.busy = false;
+            });
+    }
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;

@@ -2821,7 +2821,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.assignTask = function() {
         //$scope.showModal();
-        blockUI.start();
+        //blockUI.start();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
 
         var req = {
@@ -5532,6 +5532,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         cont++;
                     }
                 }
+            })
+            .error(function(data, status) {
+                getTaskAgain();
+            })
+            .finally(function() {
+                //vm.busy = false;
+            });
+    }
+        function getTaskAgain() {
+
+        var req = {
+            method: 'GET',
+            url: $scope.properties.urlCurrentTask
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                doRequest('POST', '../API/bpm/userTask/' + data[0].id  + '/execution', null).then(function() {
+                    localStorageService.delete($window.location.href);
+                });
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")

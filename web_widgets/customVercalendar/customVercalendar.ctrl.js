@@ -464,7 +464,7 @@ function($scope, $http, blockUI, $window) {
                 if (result.isConfirmed) {
                     $scope.sesion_aspirante.username = $scope.properties.usuario[0].correoElectronico
                     doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesionAspirante&p=0&c=10", null, $scope.sesion_aspirante, null, function(datos, extra) {
-                        doRequest("GET", `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
+                        doRequest("GET", `/API/extension/RegistroRest?url=humanTask&caseid=${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
                             var taskId = 0;
                             for (let index = 0; index < datos.length; index++) {
                                 const element = datos[index];
@@ -479,21 +479,42 @@ function($scope, $http, blockUI, $window) {
                                 if (fecha < new Date()) {
                                     Swal.fire("¡Periodo vencido!", "Recuerda que el periodo de ingreso que seleccionaste ha vencido y debes actualizarlo, contacta a tu asesor o a través del chat", "warning")
                                         .then((value) => {
-                                            doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                            doRequest("PUT", `../API/extension/RegistroPut?url=changeTaskId&taskId=${taskId}`, null, {}, null, function(datos, extra) {
+                                                doRequest("POST", `/API/bpm/userTask/${taskId}/execution`, null, {}, null, function(datos, extra) {
 
-                                                Swal.fire({
-                                                        icon: 'success',
-                                                        title: 'Correcto',
-                                                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
-                                                    })
-                                                    ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                                    //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
-                                                    //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
-                                                $scope.VerificarTask();
-                                            })
+                                                    Swal.fire({
+                                                            icon: 'success',
+                                                            title: 'Correcto',
+                                                            text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                                        })
+                                                        ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                                        //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                                        //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                                    $scope.VerificarTask();
+                                                })
+                                            });
+
                                         });
                                 } else {
-                                    doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                    doRequest("PUT", `../API/extension/RegistroPut?url=changeTaskId&taskId=${taskId}`, null, {}, null, function(datos, extra) {
+                                        doRequest("POST", `/API/bpm/userTask/${taskId}/execution`, null, {}, null, function(datos, extra) {
+
+                                            Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Correcto',
+                                                    text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                                                })
+                                                ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                                //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                                //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
+                                            $scope.VerificarTask();
+                                        })
+                                    });
+
+                                }
+                            } catch (e) {
+                                doRequest("PUT", `../API/extension/RegistroPut?url=changeTaskId&taskId=${taskId}`, null, {}, null, function(datos, extra) {
+                                    doRequest("POST", `/API/bpm/userTask/${taskId}/execution`, null, {}, null, function(datos, extra) {
 
                                         Swal.fire({
                                                 icon: 'success',
@@ -505,20 +526,8 @@ function($scope, $http, blockUI, $window) {
                                             //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
                                         $scope.VerificarTask();
                                     })
-                                }
-                            } catch (e) {
-                                doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
+                                });
 
-                                    Swal.fire({
-                                            icon: 'success',
-                                            title: 'Correcto',
-                                            text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
-                                        })
-                                        ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                        //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
-                                        //window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
-                                    $scope.VerificarTask();
-                                })
                             }
 
                         })
@@ -548,24 +557,24 @@ function($scope, $http, blockUI, $window) {
     }
 
     $scope.loadAsistenciaCollegeBoard = function() {
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.usuario[0].caseId + "&name=asistenciaCollegeBoard", null, null, null, function(datos, extra) {
             $scope.asistenciaCollegeBoard = (datos.value === "true");
             $scope.loadAsistenciaPsicometrico();
         })
     }
     $scope.loadAsistenciaPsicometrico = function() {
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaPsicometrico", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.usuario[0].caseId + "&name=asistenciaPsicometrico", null, null, null, function(datos, extra) {
             $scope.asistenciaPsicometrico = (datos.value === "true");
             $scope.loadAsistenciaEntrevista();
         })
     }
     $scope.loadAsistenciaEntrevista = function() {
-        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaEntrevista", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.usuario[0].caseId + "&name=asistenciaEntrevista", null, null, null, function(datos, extra) {
             $scope.asistenciaEntrevista = (datos.value === "true");
         })
     }
     $scope.VerificarTask = function() {
-        doRequest("GET", "/API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.usuario[0].caseId + "&fstate=ready", null, null, null, function(datos, extra) {
+        doRequest("GET", "/API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.properties.usuario[0].caseId + "&fstate=ready", null, null, null, function(datos, extra) {
 
             if ($scope.contadorVerificarTask <= 100) {
                 var isSeleccionar = false;
