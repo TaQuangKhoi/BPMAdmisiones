@@ -66,7 +66,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
     }
 
     $scope.cleandata = function() {
-    debugger
+    
     var objAuxData;
 
     if($scope.properties.catSolicitudDeAdmision.catPais.descripcion != "México"){

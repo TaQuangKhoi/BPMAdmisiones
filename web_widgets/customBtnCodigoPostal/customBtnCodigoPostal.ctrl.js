@@ -17,7 +17,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             submitTask();
         } else if ($scope.properties.action === 'Open modal') {
             closeModal($scope.properties.closeOnSuccess);
-            debugger;
+        
             $scope.properties.esEdicion.esEdicion = true;
             console.log($scope.properties.estado);
             $scope.properties.estado = null;
@@ -26,7 +26,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.asentamiento = "";
             $scope.properties.estadoExtranjero = "";
             openModal($scope.properties.modalId);
-            debugger
+            
             $scope.properties.cp = undefined;
             //$scope.properties.haveCiudad = false;
         } else if ($scope.properties.action === 'Close modal') {

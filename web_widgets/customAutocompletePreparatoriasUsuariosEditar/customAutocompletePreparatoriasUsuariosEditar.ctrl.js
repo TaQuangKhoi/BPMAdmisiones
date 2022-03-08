@@ -52,7 +52,7 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
     }
     
     $scope.$watch("properties.catSolicitudDeAdmision.catBachilleratos.descripcion", function(){
-    debugger
+    
         if(!$scope.llenoEntero){
             if($scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion !== null || $scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion !== undefined){
                 $scope.properties.value = $scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion;

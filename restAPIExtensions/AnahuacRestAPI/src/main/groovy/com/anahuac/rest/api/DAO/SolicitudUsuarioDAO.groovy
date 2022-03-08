@@ -1194,10 +1194,15 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             pstm.setString(1, object.nombre);
             pstm.setString(2, object.parentesco);
             pstm.setString(3, object.telefono);
-			pstm.setString(4, object.telefonoCelular);
-            pstm.setLong(5, object.caseid);
-            pstm.setLong(6, object.parentesco_pid);
-            pstm.setLong(7, object.persistenceid);
+			pstm.setLong(4, object.catCasoDeEmergencia_pid);
+			pstm.setString(5, object.telefonoCelular);
+			pstm.setLong(6, object.parentesco_pid);
+			pstm.setLong(7, object.caseid);
+			pstm.setLong(8, object.persistenceid);
+			
+			
+            
+			
             errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
@@ -1222,7 +1227,83 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
     }
     return resultado
 }
-	
+	public Result InsertViewDownloadSolicitud(Integer parameterP, Integer parameter, String key, String intento, Boolean tipoTabla, String jsonData, RestAPIContext context) { 
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorLog="";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+
+			if(key.equals("CE")){
+			pstm = con.prepareStatement(Statements.INSERT_SECCION_TUTOR);
+			errorLog += "Sección: Agregar información contacto de emergencia | "+pstm;
+            pstm.setString(1, object.nombre);
+            pstm.setString(2, object.parentesco);
+            pstm.setString(3, object.telefono);
+			pstm.setString(4, object.telefonoCelular);
+			pstm.setLong(5, object.parentesco_pid);
+			pstm.setLong(6, object.caseid);
+			pstm.setLong(7, object.catCasoDeEmergencia);
+			pstm.setBoolean(8, false);
+			
+			//pstm.setLong(8, object.persistenceid);
+			
+			}else if(key.equals("IT")){
+			pstm = con.prepareStatement(Statements.INSERT_SECCION_TUTOR);
+			errorLog += "Sección: Agregar información contacto de emergencia | "+pstm;
+            pstm.setString(1, object.titulo_pid);
+			pstm.setString(2, object.parentesco_pid);
+			pstm.setString(3, object.nombre);
+			pstm.setString(4, object.apellidos);
+			pstm.setString(5, object.correoElectronico);
+			pstm.setString(6, object.escolaridad_pid);
+			pstm.setString(7, object.egresoAnahuac_pid);
+			pstm.setString(8, object.campusegreso_pid);
+			pstm.setString(9, object.trabaja_pid);
+			pstm.setString(10, object.empresaTrabaja);
+			pstm.setString(11, object.giro);
+			pstm.setString(12, object.puesto);
+			pstm.setString(13, object.isTutor);
+			pstm.setString(14, object.vive);
+			pstm.setString(15, object.calle);
+			pstm.setString(16, object.pais_pid);
+			pstm.setString(17, object.numeroexterior);
+			pstm.setString(18, object.numerointerior);
+			pstm.setString(19, object.ciudad);
+			pstm.setString(20, object.colonia);
+			pstm.setString(21, object.telefono);
+			pstm.setString(2, object.codigoPostal);
+			pstm.setString(23, object.viveContigo);
+			pstm.setString(24, object.otroParentesco);
+			pstm.setString(25, object.caseid);
+			pstm.setString(26, object.desconozcodatospadres);
+			pstm.setString(27, object.delegacionMunicipio);
+			pstm.setString(28, object.estadoExtranjero);
+			pstm.setString(29, object.vencido);
+			pstm.setString(30, object.countintento);
+
+			}
+
+        	pstm.executeUpdate();
+			errorLog += "Se ejecuto el insert correctamente - Consulta | " + pstm;
+        	con.commit();
+
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			errorLog += "hubo un fallo en el insert correctamente - Consulta | " + e.getMessage();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Result getIsPeriodoVencido(String periodo) {
 		Result resultado = new Result();
@@ -1359,5 +1440,50 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 		return resultado
 	}
 	
+	public Result getlstContactosEmergencia(String caseid,Integer parameterP,Integer parameterC,String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			ContactoEmergenciaEntity row = new ContactoEmergenciaEntity()
+			List<ContactoEmergenciaEntity> rows = new ArrayList<ContactoEmergenciaEntity>();
+			closeCon = validarConexion();
+			assert object instanceof Map;
+			String consulta = Statements.GET_CONTACTO_EMERGENCIA_VENCIDO;
+			errorlog+="consulta:"
+			errorlog+=consulta
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.caseid)
+			rs = pstm.executeQuery()
+			
+			while(rs.next()) {
+				row = new ContactoEmergenciaEntity()
+				row.setPersistenceId(rs.getLong("persistenceId"))
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"))
+				row.setNombre(rs.getString("nombre"))
+				row.setOtroparentesco(rs.getString("otroparentesco"))
+				row.setTelefono(rs.getString("telefono"))
+				row.setTelefonocelular(rs.getString("telefonocelular"))
+				row.setParentesco(rs.getString("parentesco"))
+				rows.add(row)
+			}
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado	
+	}
+	
+
 	
 }

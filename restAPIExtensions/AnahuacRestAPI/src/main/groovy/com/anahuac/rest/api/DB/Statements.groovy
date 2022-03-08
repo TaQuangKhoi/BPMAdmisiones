@@ -587,6 +587,11 @@ class Statements {
 	public static final String UPDATE_SECCION_DOMICILIO_PADRE = "UPDATE [TABLA] SET catpais_pid = ?, codigopostal = ?, estadoExtranjero = ?, catestado_pid = ?, ciudad = ?, delegacionmunicipio = ?, colonia = ?, calle = ?, numeroexterior = ?, numerointerior = ?, telefono = ?, vivecontigo = ? [WHERE]";
 	public static final String UPDATE_SECCION_INFORMACION_MADRE = "UPDATE [TABLA] SET cattitulo_pid = ?, nombre = ?, apellidos = ?, correoelectronico = ?, catescolaridad_pid = ?, categresoanahuac_pid = ?, cattrabaja_pid = ?, giroempresa = ?, puesto = ?  [COLUMN] [WHERE]";
 	public static final String UPDATE_SECCION_DOMICILIO_MADRE = "UPDATE [TABLA] SET catpais_pid = ?, codigopostal = ?, estadoExtranjero = ?, catestado_pid = ?, ciudad = ?, delegacionmunicipio = ?, colonia = ?, calle = ?, numeroexterior = ?, numerointerior = ?, telefono = ?, vivecontigo = ? [WHERE]";
-	public static final String UPDATE_SECCION_CONTACTO_EMERGENCIA = "UPDATE [TABLA] SET nombre = ?, parentesco = ?, telefono = ?, telefonoCelular = ? WHERE caseid = ? AND catparentesco_pid = ? AND persistenceid = ?";
+	public static final String UPDATE_SECCION_CONTACTO_EMERGENCIA = "UPDATE [TABLA] SET nombre = ?, parentesco = ?, telefono = ?, catcasodeemergencia_pid = ? ,telefonoCelular = ? , catparentesco_pid = ? WHERE caseid = ? AND persistenceid = ?";
 	public static final String UPDATE_SECCION_INFORMACION_SOLICITUD = "UPDATE [TABLA] SET catperiodo_pid = ? WHERE caseid = ? AND correoelectronico = ?";
-}
+
+	public static final String INSERT_SECCION_TUTOR = "INSERT INTO ContactoEmergencias (nombre, parentesco, telefono, telefonoCelular, catparentesco_pid, caseid,catcasodeemergencia_pid,vencido,persistenceid) VALUES (?,?,?,?,?,?,?,?, case when (SELECT max(persistenceId)+1 from ContactoEmergencias) is null then 1 else (SELECT max(persistenceId)+1 from ContactoEmergencias)end)";
+	public static final String INSERT_SECCION_INFORMACION_TUTOR = "INSERT INTO [TABLA] SET cattitulo_pid = ?, nombre = ?, apellidos = ?, catparentezco_pid = ?, otroparentesco = ?, correoelectronico = ?, catescolaridad_pid = ?, categresoanahuac_pid = ?, cattrabaja_pid = ?, empresatrabaja = ?, giroempresa = ?, puesto = ?";
+	public static final String GET_LISTA_CONTACTOS_EMERGENCIA = "SELECT * FROM ContactoEmergencias WHERE caseid = ?";
+	
+	}
