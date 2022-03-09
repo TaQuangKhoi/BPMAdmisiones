@@ -78,17 +78,29 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToChange2.escala && $scope.properties.dataToChange2.equivalenteKP ) {
                 let req = {
                     method: 'GET',
-                    url: `/API/extension/AnahuacRestGet?url=getValidarEscalaEAC&p=0&c=10&clave=${$scope.properties.dataToChange2.escala}&id=${$scope.properties.dataToChange2.persistenceId}`,
+                    url: `/API/extension/AnahuacRestGet?url=getValidarEscalaEAC&p=0&c=10&escala=${$scope.properties.dataToChange2.escala}&id=${$scope.properties.dataToChange2.persistenceId}`,
                 };
                 return $http(req).success(function(datos, status) {
                     if (datos.totalRegistros < 1) {
-                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                            doRequest("GET", $scope.properties.url).then(function() {
-                                $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                        if($scope.properties.dataToChange2.persistenceVersion != null){
+                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                doRequest("GET", $scope.properties.url).then(function() {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
                             });
-                            localStorageService.delete($window.location.href);
-                        });
+                        }else{
+                            var prom = doRequest2('POST', '/bonita/API/extension/AnahuacRest?url=PostUpdateDeleteCatEscalaEAC&p=0&c=100', $scope.properties.userId).then(function() {
+                                doRequest("GET", $scope.properties.url).then(function() {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            }); 
+                            
+                        }
+                        
                     } else {
                         swal("¡Aviso!", "Ya se encuentra un registro con esa escala", "warning");
                     }
@@ -143,6 +155,37 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             method: method,
             url: url,
             data: angular.copy($scope.properties.dataToSend),
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.properties.dataFromSuccess = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                    redirectIfNeeded();
+                }
+                closeModal($scope.properties.closeOnSuccess);
+            })
+            .error(function(data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+
+    function doRequest2(method, url, params) {
+        vm.busy = true;
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy($scope.properties.dataToSend.lstCatEscalaEACInput[0]),
             params: params
         };
 
