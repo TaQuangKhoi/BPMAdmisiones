@@ -1669,8 +1669,8 @@ class ImportacionPAADAO {
 				closeCon = validarConexion();
 				con.setAutoCommit(false)
 				pstm = con.prepareStatement(Statements.UPDATE_CATESCALAEAC, Statement.RETURN_GENERATED_KEYS)
-				pstm.setString(1, object.letra);
-				pstm.setString(2, object.equivalente);
+				pstm.setString(1, object.escala);
+				pstm.setString(2, object.equivalenteKP);
 				pstm.setBoolean(3,object.isEliminado);
 				pstm.setInt(4,Integer.valueOf(object.persistenceId));
 				
@@ -1754,6 +1754,35 @@ class ImportacionPAADAO {
 						break;
 						
 					case "EQUIVALENTE":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(equivalentekp) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "EQUIVALENTEKP":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(equivalentekp) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "EQUIVALENTE KP":
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
@@ -2255,7 +2284,7 @@ class ImportacionPAADAO {
 					break;
 					
 					
-					case "FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION":
+				case "FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION":
 					if(where.contains("WHERE")) {
 						where+= " AND "
 					}else {
@@ -2265,6 +2294,17 @@ class ImportacionPAADAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					where +="OR LOWER(PAA.fechaexamen) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					break;
+					
+				case "FECHA DE REGISTRO EN EAC":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" LOWER(PAA.fechaRegistro) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					break;
@@ -2335,6 +2375,19 @@ class ImportacionPAADAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					where +=" OR LOWER(R.descripcion) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "FECHA DE INTEGRACION, USUARIO QUE INTEGRO":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(Bitacora.fechaSubida) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(bitacora.usuarioSubio) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
@@ -2506,7 +2559,7 @@ class ImportacionPAADAO {
 				consulta=consulta.replace("[WHERE]", where);
 				
 				if(object.completos) {
-					pstm = con.prepareStatement(consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin AS periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, Bitacora.PARA,Bitacora.PAAV,Bitacora.PAAN,Bitacora.fechaSubida,PAA.INVP,Bitacora.fechaSubida,PAA.persistenceid,PAA.LEXIUMPAAN,PAA.LEXIUMPAAV,PAA.LEXIUMPARA,da.cbcoincide as Lexium,paa.inBanner, paa.fechaBanner, Bitacora.usuariosubio", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+					pstm = con.prepareStatement(consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin AS periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, Bitacora.PARA,Bitacora.PAAV,Bitacora.PAAN,Bitacora.fechaSubida,PAA.INVP,Bitacora.fechaSubida,PAA.persistenceid,Bitacora.mlex,Bitacora.clex,Bitacora.hlex,da.cbcoincide as Lexium,paa.inBanner, paa.fechaBanner, Bitacora.usuariosubio", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				}else {
 					pstm = con.prepareStatement(consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion,sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin AS periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,PAA.LEXIUMPAAN,PAA.LEXIUMPAAV,PAA.LEXIUMPARA,da.cbcoincide as Lexium,paa.inBanner, paa.fechaBanner", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				}
