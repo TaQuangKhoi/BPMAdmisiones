@@ -40,8 +40,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.verSolicitud = function(rowData) {
-      if ($scope.isPeriodoVencido(rowData.periodofin)) {
-        swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
           var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -49,7 +47,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
         return $http(req).success(function(data, status) {
                 let taskId = data[0].id;
-                var url = "/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=" + rowData.caseid + "&displayConfirmation=false";
+                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
                 //window.location.href = url;
                 window.open(url, '_blank');
             })
@@ -58,7 +56,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function() {});
   
-        });
+      /*
       }else{
         var req = {
             method: "GET",
@@ -75,7 +73,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 console.error(data);
             })
             .finally(function() {});
-          }
+          }*/
     }
   
     $scope.preAsignarTarea = function(rowData) {
