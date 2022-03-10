@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1646870714402,
+  "lastUpdate" : 1646948479782,
   "rows" : [
     [
       {
@@ -3339,11 +3339,11 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput."
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
                             },
                             "type" : {
                               "type" : "constant",
-                              "value" : "text"
+                              "value" : "number"
                             },
                             "min" : {
                               "type" : "constant"
@@ -3367,8 +3367,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
+                            "md" : 12,
+                            "lg" : 12
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3393,68 +3393,9 @@
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Calificación oficial"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : "../API/formFileUpload"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "eb89c835-512f-49bf-9d6a-5a2e5514f487",
-                                "hasValidationError" : false,
-                                "id" : "pbUpload"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -3467,11 +3408,11 @@
                                   },
                                   "type" : {
                                     "type" : "constant",
-                                    "value" : "Process document"
+                                    "value" : "URL"
                                   },
                                   "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
+                                    "type" : "expression",
+                                    "value" : "objSolicitudDeAdmision[0].urlConstancia +  azureTempKeyRes.data[0]"
                                   },
                                   "document" : {
                                     "type" : "variable",
@@ -3479,109 +3420,20 @@
                                   },
                                   "showPreview" : {
                                     "type" : "constant",
-                                    "value" : true
+                                    "value" : false
                                   }
                                 },
                                 "reference" : "b733fd4d-1825-40c5-98e1-ffe4713f69dc",
                                 "hasValidationError" : false,
                                 "id" : "pbFileViewer"
-                              }
-                            ]
-                          ]
-                        },
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "expression",
-                              "value" : "datosUsuario.catBecaPreparatoria.descripcion !== \"Sí\""
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "71f25b23-a991-45ae-933a-dce0e11609f3",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
+                              },
                               {
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Historial académico"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : "../API/formFileUpload"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "79c7aa55-8aa5-47cc-8cf0-da6b00895e06",
-                                "hasValidationError" : false,
-                                "id" : "pbUpload"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -3594,11 +3446,11 @@
                                   },
                                   "type" : {
                                     "type" : "constant",
-                                    "value" : "Process document"
+                                    "value" : "URL"
                                   },
                                   "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
+                                    "type" : "expression",
+                                    "value" : "objSolicitudDeAdmision[0].urlDescuentos+  azureTempKeyRes.data[0]"
                                   },
                                   "document" : {
                                     "type" : "variable",
@@ -3606,7 +3458,7 @@
                                   },
                                   "showPreview" : {
                                     "type" : "constant",
-                                    "value" : true
+                                    "value" : false
                                   }
                                 },
                                 "reference" : "e94d00a1-752a-44bc-8de3-966148a034c6",
@@ -11958,7 +11810,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "formOutputTest.fotoCalleCasaDocumentInput.id"
+                                    "value" : "!formOutputTest.fotoCalleCasaDocumentInput.id"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -12115,7 +11967,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "formOutputTest.fotoFachadaCasaDocumentInput.id"
+                                    "value" : "!formOutputTest.fotoFachadaCasaDocumentInput.id"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -12272,7 +12124,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "formOutputTest.fotoSalaCasaDocumentInput.id"
+                                    "value" : "!formOutputTest.fotoSalaCasaDocumentInput.id"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -12429,7 +12281,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "formOutputTest.fotoComedorCasaDocumentInput.id"
+                                    "value" : "!formOutputTest.fotoComedorCasaDocumentInput.id"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -13823,7 +13675,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatCasaDondeVives?q=find&p=0&c=99"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "catPorcentajeBeca_query" : {
@@ -14539,7 +14395,7 @@
         "    \t\t\"egresoOtros\":0,\r",
         "    \t\t\"egresoTotal\":0,\r",
         "    \t\t\"urlVideoYouTube\":\"\",\r",
-        "    \t\t\"caseIdAdmisiones\":0,\r",
+        "    \t\t\"caseIdAdmisiones\":45046 ,\r",
         "    \t\t\"eliminado\": false,\r",
         "    \t\t\"tieneHijos\":false,\r",
         "    \t\t\"catProvienenIngresos_id\": 0,\r",
@@ -14589,7 +14445,7 @@
         "output.solicitudApoyoEducativoInput.pageIndex = $data.selectedIndex;",
         "output.solicitudApoyoEducativoInput.caseId = $data.caseId;",
         "// output.solicitudApoyoEducativoInput.hermanos = [];",
-        "lstDocumentosDocumentInput",
+        "",
         "if(!output.lstDocumentosDocumentInput){",
         "    output.lstDocumentosDocumentInput = [];",
         "}",
