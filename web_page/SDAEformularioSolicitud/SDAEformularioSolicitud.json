@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1646952640074,
+  "lastUpdate" : 1646956209265,
   "rows" : [
     [
       {
@@ -3201,7 +3201,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "datosUsuario.catBecaPreparatoria"
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
                             }
                           },
                           "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
@@ -3403,8 +3403,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!objSolicitudDeAdmision[0].urlConstancia"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -3441,8 +3441,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!objSolicitudDeAdmision[0].urlDescuentos"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -3836,8 +3836,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "vista"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -3860,7 +3860,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "tutor.telefono"
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.telefonoCasaTutor"
                       },
                       "type" : {
                         "type" : "constant",
@@ -3989,7 +3989,7 @@
                       },
                       "readOnly" : {
                         "type" : "constant",
-                        "value" : true
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -4012,7 +4012,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor"
                       },
                       "type" : {
                         "type" : "constant",
@@ -4743,8 +4743,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "vista"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -7504,8 +7504,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "vista"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -7544,7 +7544,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id"
                       }
                     },
                     "reference" : "be72c8db-79b7-4111-b791-19df7925b9a8",
@@ -9361,11 +9361,11 @@
                       },
                       "minLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 5
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9396,7 +9396,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -9409,9 +9409,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "b4bb595c-00ea-42a0-95e4-fd787d703919",
+                    "reference" : "d844a83d-a7bd-4fb3-9605-c325fe6b9d28",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customCustomInputLimit"
                   }
                 ],
                 [
@@ -14444,6 +14444,7 @@
         "let output = $data.formOutputTest;",
         "output.solicitudApoyoEducativoInput.pageIndex = $data.selectedIndex;",
         "output.solicitudApoyoEducativoInput.caseId = $data.caseId;",
+        "output.solicitudApoyoEducativoInput.caseIdAdmisiones = $data.objSolicitudDeAdmision.caseId;",
         "// output.solicitudApoyoEducativoInput.hermanos = [];",
         "",
         "if(!output.lstDocumentosDocumentInput){",
