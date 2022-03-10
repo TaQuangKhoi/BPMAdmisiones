@@ -22,6 +22,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       closeModal(true);
     } else if ($scope.properties.action) {
       debugger
+      if($scope.properties.objcasosDeEmergencia[0].catParentesco.persistenceId == 145996){
+            //Padre
+            $scope.catCasodeEmergencia = 56; 
+        
+        }else if ($scope.properties.objcasosDeEmergencia[0].catParentesco.persistenceId == 145999){
+            //Padre
+            $scope.catCasodeEmergencia =  55;  
+            
+        }else if($scope.properties.objcasosDeEmergencia[0].catParentesco.persistenceId == 146002){
+            //tutor
+            $scope.catCasodeEmergencia =  54;
+        }else{
+            $scope.catCasodeEmergencia= 57;
+        }
       $scope.properties.objcasosDeEmergencia;
     $scope.ObjetoDomicilioPermanente = {
 
@@ -32,8 +46,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         "telefonoCelular": $scope.properties.objcasosDeEmergencia[0].telefonoCelular,
         "parentesco_pid":$scope.properties.objcasosDeEmergencia[0].catParentesco.persistenceId,
         "caseid":$scope.properties.objcasosDeEmergencia[0].caseId,
-        "persistenceid": $scope.properties.objcasosDeEmergencia[0].persistenceId
-
+        "persistenceid": $scope.properties.objcasosDeEmergencia[0].persistenceId,
+        "catCasoDeEmergencia_pid": $scope.catCasodeEmergencia
     }
 
     

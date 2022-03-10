@@ -8,6 +8,7 @@ import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.Calendario
+import com.anahuac.rest.api.Entity.Custom.ContactoEmergenciaEntity
 import com.anahuac.rest.api.Entity.Custom.PruebaCustom
 import com.anahuac.rest.api.Entity.Custom.PruebasCustom
 import com.anahuac.rest.api.Entity.Custom.ResponsableCustom
@@ -7669,5 +7670,50 @@ class SesionesDAO {
 		calendar.setTime(date);
 		return calendar;
 
+	}
+	
+	public Result getlstContactosEmergencia(String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		errorlog += "Entro antes del parse | "+caseid;
+		Long Caseid = Long.parseLong(caseid);
+		try {
+			//def jsonSlurper = new JsonSlurper();
+			//def object = jsonSlurper.parseText(jsonData);
+			ContactoEmergenciaEntity row = new ContactoEmergenciaEntity()
+			List<ContactoEmergenciaEntity> rows = new ArrayList<ContactoEmergenciaEntity>();
+			closeCon = validarConexion();
+			//assert object instanceof Map;
+			String consulta = Statements.GET_LISTA_CONTACTOS_EMERGENCIA;
+			errorlog+="consulta:"
+			errorlog+=consulta
+			pstm = con.prepareStatement(consulta)
+			pstm.setLong(1, Caseid);
+			rs = pstm.executeQuery()
+			
+			while(rs.next()) {
+				row = new ContactoEmergenciaEntity()
+				
+				row.setNombre(rs.getString("nombre"))
+				row.setTelefono(rs.getString("telefono"))
+				row.setTelefonocelular(rs.getString("telefonocelular"))
+				row.setParentesco(rs.getString("parentesco"))
+				row.setCaseid(rs.getLong("Caseid"));
+				row.setPersistenceId(rs.getLong("persistenceId"));
+			}
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
 	}
 }

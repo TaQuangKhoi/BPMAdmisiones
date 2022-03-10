@@ -68,42 +68,20 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     debugger
     if ($scope.properties.casosDeEmergencia.length > 0) {
       let params = new URLSearchParams(location.search);
-        var caseidvar = params.get('caseId');
+        $scope.caseidvar = params.get('caseId');
         $scope.Caseid = parseInt(caseidvar);
 
-        $scope.getContactosEmergencia(caseidvar);
+        $scope.getContactosEmergencia();
     }
 
 });
 
-
-/*$scope.getContactosEmergencia = function(Caseid) {
-debugger
-  let request = {
-      url: "../API/extension/AnahuacRest?url=getLstContactosEmergencia&p=0&c=100&&caseid="+ Caseid ,
-      "method": 'GET'
-  }
-  return $http(request).success(function(datos) {
-      
-      if (!datos.error) {
-          $scope.properties.lstContatosEmergencia = datos.data[0];
-      }else{
-          console.log("ERROR")
-      }
-  }).error(function() {
-      $.notify("Ha ocurrido un error al cargar datos", {
-          globalPosition: 'top right',
-          className: 'error'
-      });
-  })
-}*/
-
-$scope.getContactosEmergencia = function  doRequest(method, url, params,Caseid) {
+$scope.getContactosEmergencia = function  doRequest(method, url, params) {
   debugger
   vm.busy = true;
   var req = {
     method: method,
-    url: "../API/extension/AnahuacRest?url=getLstContactosEmergencia&p=0&c=100&&caseid="+ $scope.Caseid,
+    url: "../API/extension/AnahuacRestGet?url=getLstContactosEmergencia&caseid="+ $scope.caseidvar,
     data: angular.copy($scope.properties.dataToSend),
     params: params
   };

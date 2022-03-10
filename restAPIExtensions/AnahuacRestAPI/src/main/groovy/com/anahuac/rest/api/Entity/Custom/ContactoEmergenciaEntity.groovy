@@ -9,6 +9,7 @@ class ContactoEmergenciaEntity {
 	private String telefonocelular;
 	private String casoemergencia;
 	private String otroparentesco;
+	private Long caseid;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -57,5 +58,14 @@ class ContactoEmergenciaEntity {
 	public void setOtroparentesco(String otroparentesco) {
 		this.otroparentesco = otroparentesco;
 	}
+	public Long getCaseid() {
+		return caseid;
+	}
+	public void setCaseid(Long caseid) {
+		this.caseid = caseid;
+	}
+	
+	
+	
 	
 }

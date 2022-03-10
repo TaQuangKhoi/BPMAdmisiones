@@ -978,7 +978,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
         } else if (key.equals("IT")) {
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[COLUMN]", replaceColumn).replace("[WHERE]", where));
-                errorLog += "Sección: Información tutor | "+pstm;
+                //errorLog += "Sección: Información tutor | "+pstm;
                 pstm.setLong(1, object.titulo_pid);
                 pstm.setString(2, object.nombre);
                 pstm.setString(3, object.apellidos);
@@ -991,11 +991,23 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
                 pstm.setString(10, object.empresaTrabaja);
                 pstm.setString(11, object.giro);
                 pstm.setString(12, object.puesto);
+				pstm.setLong(13, object.pais_pid);
+				pstm.setString(14, object.codigoPostal);
+				pstm.setString(15, object.estadoExtranjero);
+				pstm.setLong(16, object.estado_pid);
+				pstm.setString(17, object.ciudad);
+				pstm.setString(18, object.delegacionMunicipio);
+				pstm.setString(19, object.colonia);
+				pstm.setString(20, object.calle);
+				pstm.setString(21, object.numExterior);
+				pstm.setString(22, object.numInterior);
+				pstm.setString(23, object.telefono);
+				pstm.setLong(24, object.caseid);
 				
 				if (replaceTablePadresTutor.equals(" PadresTutor ")) {
 					if (object.egresoAnahuac_pid.equals(77)) {
-						pstm.setLong(13, object.caseid);
-						pstm.setLong(14, object.persistenceid);
+						pstm.setLong(25, object.caseid);
+						pstm.setLong(26, object.persistenceid);
 					} else {
 						pstm.setLong(13, object.campusegreso_pid);
 						pstm.setLong(14, object.caseid);
@@ -1005,8 +1017,8 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 					where = " WHERE caseid = ?  AND countintento = ? AND vive_pid IS NULL AND istutor = 't'";
 				} else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
 					if(object.egresoAnahuac_pid.equals(77)) {
-						pstm.setLong(13, object.caseid);
-						pstm.setLong(14, (intento.equals("null") ? 0 : Integer.parseInt(intento)));
+						pstm.setLong(25, object.caseid);
+						pstm.setLong(26, (intento.equals("null") ? 0 : Integer.parseInt(intento)));
 					} else {
 						pstm.setLong(13, object.campusegreso_pid);
 						pstm.setLong(14, object.caseid);
@@ -1018,7 +1030,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
                 pstm.executeUpdate(); 
             }
 
-        } else if (key.equals("DPT")) {
+        } else if (key.equals("DPT")) { //TUTOR PARTE 2
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Domicilio tutor | "+pstm;
@@ -1190,7 +1202,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             }
         } else if (key.equals("CE")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_CONTACTO_EMERGENCIA.replace("[TABLA]", replaceTableContacEmergencia));
-            errorLog += "Sección: Información contacto de emergencia | "+pstm;
+            
             pstm.setString(1, object.nombre);
             pstm.setString(2, object.parentesco);
             pstm.setString(3, object.telefono);
@@ -1200,10 +1212,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 			pstm.setLong(7, object.caseid);
 			pstm.setLong(8, object.persistenceid);
 			
-			
-            
-			
-            errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
+            //errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
         if(key.equals("IP") || key.equals("DP") || key.equals("IB") || key.equals("CE") || key.equals("IS")) {
@@ -1219,6 +1228,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
         resultado.setSuccess(false);
         resultado.setError("| "+e.getMessage()+" | "+errorLog);
         resultado.setError_info(errorLog + " " + e.getMessage() + " | " + pstm)
+		errorLog += "Sección error: Información contacto de emergencia | "+pstm;
         con.rollback();
     } finally {
         if (closeCon) {
@@ -1440,49 +1450,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 		return resultado
 	}
 	
-	public Result getlstContactosEmergencia(String caseid,Integer parameterP,Integer parameterC,String jsonData, RestAPIContext context) {
-		Result resultado = new Result();
-		Boolean closeCon = false;
-		String  errorlog="";
-		try {
-			def jsonSlurper = new JsonSlurper();
-			def object = jsonSlurper.parseText(jsonData);
-			ContactoEmergenciaEntity row = new ContactoEmergenciaEntity()
-			List<ContactoEmergenciaEntity> rows = new ArrayList<ContactoEmergenciaEntity>();
-			closeCon = validarConexion();
-			assert object instanceof Map;
-			String consulta = Statements.GET_CONTACTO_EMERGENCIA_VENCIDO;
-			errorlog+="consulta:"
-			errorlog+=consulta
-			pstm = con.prepareStatement(consulta)
-			pstm.setInt(1, object.caseid)
-			rs = pstm.executeQuery()
-			
-			while(rs.next()) {
-				row = new ContactoEmergenciaEntity()
-				row.setPersistenceId(rs.getLong("persistenceId"))
-				row.setPersistenceVersion(rs.getLong("persistenceVersion"))
-				row.setNombre(rs.getString("nombre"))
-				row.setOtroparentesco(rs.getString("otroparentesco"))
-				row.setTelefono(rs.getString("telefono"))
-				row.setTelefonocelular(rs.getString("telefonocelular"))
-				row.setParentesco(rs.getString("parentesco"))
-				rows.add(row)
-			}
-				resultado.setSuccess(true)
-				resultado.setData(rows)
-				
-			} catch (Exception e) {
-			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
-		}finally {
-			if(closeCon) {
-				new DBConnect().closeObj(con, stm, rs, pstm)
-			}
-		}
-		return resultado	
-	}
+	
 	
 
 	
