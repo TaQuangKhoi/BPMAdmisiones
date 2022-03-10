@@ -8,6 +8,7 @@ import java.sql.RowId
 import java.sql.Statement
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import com.anahuac.rest.api.DB.Statements
 
 import org.bonitasoft.engine.bpm.data.DataDefinition
 import org.bonitasoft.engine.bpm.document.Document
@@ -56,6 +57,332 @@ class ListadoDAO {
 	Statement stm;
 	ResultSet rs;
 	PreparedStatement pstm;
+	
+	public Result selectSolicitudesApoyo(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "",campus = "", orderby = "ORDER BY ", errorlog = ""
+		List < String > lstGrupo = new ArrayList < String > ();
+
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		Map < String, String > objGrupoCampus = new HashMap < String, String > ();
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+
+			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
+
+			userLogged = context.getApiSession().getUserId();
+
+			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for (UserMembership objUserMembership: lstUserMembership) {
+				for (CatCampus rowGrupo: lstCatCampus) {
+					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+
+			assert object instanceof Map;
+			where += " WHERE SDAE.eliminado = false "
+			/*if (object.campus != null) {
+				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
+			}*/
+			
+			if (object.estatusSolicitud != null) {
+				if (object.estatusSolicitud.equals("Solcitud en progreso")) {
+					where += " AND SDAE.estatusSolicitud = 'Solcitud en progreso' "
+				} //else if (object.estatusSolicitud.equals("Solicitud rechazada")) {
+					//where += " AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
+				//} 
+			}
+			
+			/*if (lstGrupo.size() > 0) {
+				campus += " AND ("
+			}
+			for (Integer i = 0; i < lstGrupo.size(); i++) {
+				String campusMiembro = lstGrupo.get(i);
+				campus += "campus.descripcion='" + campusMiembro + "'"
+				if (i == (lstGrupo.size() - 1)) {
+					campus += ") "
+				} else {
+					campus += " OR "
+				}
+			}
+
+			errorlog += "campus" + campus;*/
+
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+
+			String consulta = Statements.GET_SOLICITUDES_APOYO_BY_ESTATUS
+			String consultaCount = Statements.GET_COUNT_SOLICITUDES_APOYO_BY_ESTATUS
+
+			errorlog = consulta + " 2";
+			
+			/*switch (object.orderby) {
+				case "RESIDEICA":
+					orderby += "residensia";
+					break;
+				case "TIPODEADMISION":
+					orderby += "tipoadmision";
+					break;
+				case "TIPODEALUMNO":
+					orderby += "tipoDeAlumno";
+					break;
+				case "FECHAULTIMAMODIFICACION":
+					orderby += "sda.fechaultimamodificacion";
+					break;
+				case "NOMBRE":
+					orderby += "sda.apellidopaterno";
+					break;
+				case "EMAIL":
+					orderby += "sda.correoelectronico";
+					break;
+				case "CURP":
+					orderby += "sda.curp";
+					break;
+				case "CAMPUS":
+					orderby += "campus.DESCRIPCION"
+					break;
+				case "PREPARATORIA":
+					orderby += "prepa.DESCRIPCION"
+					break;
+				case "PROGRAMA":
+					orderby += "gestionescolar.NOMBRE"
+					break;
+				case "INGRESO":
+					orderby += "periodo.DESCRIPCION"
+					break;
+				case "PROCEDENCIA":
+					orderby += "CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
+					break;
+				case "PROMEDIO":
+					orderby += "sda.PROMEDIOGENERAL";
+					break;
+				case "ESTATUS":
+					orderby += "sda.ESTATUSSOLICITUD";
+					break;
+				case "TIPO":
+					orderby += "da.TIPOALUMNO";
+					break;
+				case "TELEFONO":
+					orderby += "sda.telefonocelular";
+					break;
+				case "IDBANNER":
+					orderby += "da.idbanner";
+					break;
+				case "SOLICITUD":
+					orderby += "sda.caseid::INTEGER";
+					break;
+				case "LISTAROJA":
+					orderby += "da.observacionesListaRoja";
+					break;
+				case "RECHAZO":
+					orderby += "da.observacionesRechazo";
+					break;
+				case "FECHASOLICITUD":
+					orderby += "sda.fechasolicitudenviada";
+					break;
+				default:
+					orderby += "sda.persistenceid"
+					break;
+			}
+			*/
+			
+			/*errorlog = consulta + " 3";
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[CAMPUS]", campus)
+			consulta = consulta.replace("[PROGRAMA]", programa)
+			consulta = consulta.replace("[INGRESO]", ingreso)
+			consulta = consulta.replace("[ESTADO]", estado)
+			consulta = consulta.replace("[BACHILLERATO]", bachillerato)
+			consulta = consulta.replace("[TIPOALUMNO]", tipoalumno)
+			
+			where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno
+			errorlog = consulta + " 4";*/
+
+			consulta = consulta.replace("[WHERE]", where);
+			consultaCount = consultaCount.replace("[WHERE]", where);
+
+			pstm = con.prepareStatement(consultaCount)
+			//errorlog = consultaCount + " 6";
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			
+			//consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+			errorlog = consulta + " 7";
+
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			errorlog = consulta + " 8";
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+						String encoded = "";
+						boolean noAzure = false;
+						try {
+							String urlFoto = rs.getString("urlfoto");
+							if (urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+							} else {
+								noAzure = true;
+								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+								for (Document doc: doc1) {
+									encoded = "../API/formsDocumentImage?document=" + doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}
+
+							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								columns.put("fotografiabpm", encoded);
+							}
+
+							/*for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document="+doc.getId();
+								columns.put("fotografiab64", encoded);
+							} */
+						} catch (Exception e) {
+							LOGGER.error "[ERROR] " + e.getMessage();
+							columns.put("fotografiabpm", "");
+							if(noAzure){
+								columns.put("fotografiab64", "");
+							}
+							errorlog += "" + e.getMessage();
+						}
+					}
+				}
+
+				rows.add(columns);
+			}
+			errorlog = consulta + " 9";
+			resultado.setSuccess(true)
+
+			resultado.setError_info(errorlog);
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getSolicitudApoyoByCaseId(int caseid, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = ""
+		
+		try {
+		
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+	
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+	
+			pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CASE_ID)
+			pstm.setInt(1, caseid)
+				
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+						String encoded = "";
+						boolean noAzure = false;
+						try {
+							String urlFoto = rs.getString("urlfoto");
+							if (urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+							} else {
+								noAzure = true;
+								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+								for (Document doc: doc1) {
+									encoded = "../API/formsDocumentImage?document=" + doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}
+
+							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								columns.put("fotografiabpm", encoded);
+							}
+
+							/*for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document="+doc.getId();
+								columns.put("fotografiab64", encoded);
+							} */
+						} catch (Exception e) {
+							LOGGER.error "[ERROR] " + e.getMessage();
+							columns.put("fotografiabpm", "");
+							if(noAzure){
+								columns.put("fotografiab64", "");
+							}
+							errorlog += "" + e.getMessage();
+						}
+					}
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true)
+
+			resultado.setError_info(errorlog);
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result selectAspirantesEnproceso(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -876,6 +1203,24 @@ class ListadoDAO {
 			}
 		}
 		return resultado
+	}
+	
+	public Boolean validarConexion() {
+		Boolean retorno = false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnection();
+			retorno = true
+		}
+		return retorno
+	}
+	
+	public Boolean validarConexionBonita() {
+		Boolean retorno = false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno = true
+		}
+		return retorno
 	}
 
 }
