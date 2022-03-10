@@ -46,8 +46,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
+                debugger;
                 let taskId = data[0].id;
-                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
                 //window.location.href = url;
                 window.open(url, '_blank');
             })
