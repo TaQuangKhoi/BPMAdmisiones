@@ -1,140 +1,142 @@
 function ($scope, $http) {
-    
-    var jsonVacioSolicitudApoyoEducativo = 
-    {
-    	"solicitudApoyoEducativoInput":{
-    
-    		"caseId":"1",
-    		"pageIndex":"",
-    		"costoMensualColegiatura":"4000",
-    		"calificacionOficialPreparatoria":"9",
-    		"nombreTutor":"Jose",
-    		"telefonoCasaTutor":"23452345",
-    		"telefonoOficinaTutor":"23452345",
-    		"telefonoCelularTutor":"23452345",
-    		"parentescoTutor":"2345",
-    		"correoElectronicoTutor":"2345",
-    		"viveMismoDocimicilioAlumnoTutor":"2345",
-    		"maximoNivelEstudiosTutor":"234",
-    		"ocupacionTutor":"2345",
-    		"catProvienenIngresos":null,
-    		"ingresoMensualNetoTutor":"2345",
-    		"empresaTutor":"2345",
-    		"puestoTutor":"2345",
-    		"bienesRaices":[],
-    		"tieneHermanos":false,
-    		"hermanos":[],
-    		"motivoBeca":"2345234523452345",
-    		"catTipoApoyo":null,
-    		"catPorcentajeBeca":null,
-    		"catPorcentajeFinanciamiento":null,
-    		"cantMensualPagarUni":0,
-    		"catCasaDondeVives":null,
-    		"contruccionM2Casa":0,
-    		"terrenoM2Casa":0,
-    		"valorAproxCasa":0,
-    		"calle":"23452345",
-    		"delegacionCiudad":"23452345",
-    		"numExterior":"23452345",
-    		"numInterior":"3245321453245",
-    		"pais":"",
-    		"colonia":"",
-    		"estado":"",
-    		"codigoPostal":"",
-    		"autos":[],
-    		"ingresoPadre":0,
-    		"ingresoMadre":0,
-    		"ingresoHermano":0,
-    		"ingresoTio":0,
-    		"ingresoAbuelo":0,
-    		"ingresoAspirante":0,
-    		"ingresoTotal":0,
-    		"egresoRenta":0,
-    		"egresoServicios":0,
-    		"egresoEducacion":0,
-    		"egresoGastosMedicos":0,
-    		"egresoAlimentacion":0,
-    		"egresoVestido":0,
-    		"egresoSeguro":0,
-    		"egresoDiversion":0,
-    		"egresoAhorro":0,
-    		"egresoCreditos":0,
-    		"egresoOtros":0,
-    		"egresoTotal":0,
-    		"urlVideoYouTube":"",
-    		"caseIdAdmisiones":0,
-    		"eliminado": false,
-    		"tieneHijos":false,
-    		"catProvienenIngresos_id": 0,
-    		"catTipoApoyo_id": 0,
-    		"catPorcentajeBeca_id": 0,
-    		"catPorcentajeFinanciamiento_id": 0,
-    		"catCasaDondeVives_id": 0,
-    		"catManejoDocumentos_id": []
-    	},
-    	"isFinalizadaInput":false
-    };
-    
-    function getCurrentTaskId(){
-        $http.get($scope.properties.url).success((data)=>{
-            if(data.length){
+
+    function getCurrentTaskId() {
+        $http.get($scope.properties.url).success((data) => {
+            if (data.length) {
                 $scope.properties.taskId = data[0].id;
                 $scope.properties.caseId = data[0].caseId;
                 getCurrentContext();
             }
-        }).error((err)=>{
-            swal("Error","Error al obtener las tareas asignadas al usuario. " + err,"error");
+        }).error((err) => {
+            swal("Error", "Error al obtener las tareas asignadas al usuario. " + err, "error");
         });
     }
-    
-    function getCurrentContext(){
-        $http.get($scope.properties.urlContext).success((data)=>{
-            if(data.solicitudApoyoEducativo_ref){
+
+    function getCurrentContext() {
+        $http.get($scope.properties.urlContext).success((data) => {
+            if (data.solicitudApoyoEducativo_ref) {
                 getModelSolicitudApoyoEducativo("../" + data.solicitudApoyoEducativo_ref.link);
-            }else{
-                $scope.properties.solicitudApoyoEducativo = [];
-                $scope.properties.solicitudApoyoEducativo = jsonVacioSolicitudApoyoEducativo;
+                getModelHermanos("../" + data.hermanos_ref.link);
+                getModelAutos("../" + data.autos_ref.link);
+                getModelBienesRaices("../" + data.bienesRaices_ref.link);
+
+                $scope.properties.fotoCalleCasa = addDataToDocuments(data.fotoCalleCasa_ref);
+                $scope.properties.fotoComedorCasa = addDataToDocuments(data.fotoComedorCasa_ref);
+                $scope.properties.fotoFachadaCasa = addDataToDocuments(data.fotoFachadaCasa_ref);
+                $scope.properties.fotoSalaCasa = addDataToDocuments(data.fotoSalaCasa_ref);
+
+                $scope.properties.lstDocumentos = [];
+                $scope.properties.autos = [];
+                let lstDoc = [];
+                let newValue = {
+                    "filename": null,
+                    "tempPath": null,
+                    "contentType": null,
+                    "id": null
+                }
+
+                if (data.lstDocumentos_ref) {
+                    for (documento of data.lstDocumentos_ref) {
+                        newValue.id = documento["id"] + "";
+                        lstDoc.push(angular.copy(newValue));
+                    }
+
+                    $scope.properties.lstDocumentos = lstDoc;
+                }
             }
-        }).error((err)=>{
-            swal("Error","Error al obtener el context. " + err,"error");
+        }).error((err) => {
+            swal("Error", "Error al obtener el context. " + err, "error");
         });
     }
-    
-    function getModelSolicitudApoyoEducativo(url){
-        $http.get(url).success((data)=>{
-            if(data){
+
+    function addDataToDocuments(_document) {
+
+        let newValue = {
+            "filename": _document["fileName"],
+            "tempPath": null,
+            "contentType": _document["contentMimeType"],
+            "id": _document["id"] + ""
+        }
+
+        return newValue;
+    }
+
+    function getModelSolicitudApoyoEducativo(url) {
+        $http.get(url).success((data) => {
+            if (data) {
                 $scope.properties.solicitudApoyoEducativo = [];
                 $scope.properties.solicitudApoyoEducativo = data;
                 let links = $scope.properties.solicitudApoyoEducativo.links;
 
-                for(let link of links){
+                for (let link of links) {
                     getLazyRefModel(".." + link.href, link.rel);
                 }
-            }else{
-                $scope.properties.solicitudApoyoEducativo = [];
-                $scope.properties.solicitudApoyoEducativo = jsonVacioSolicitudApoyoEducativo;
             }
-        }).error((err)=>{
-            swal("Error","Error al obtener el model. " + err,"error");
+        }).error((err) => {
+            swal("Error", "Error al obtener el model. " + err, "error");
         });
     }
 
-    function getLazyRefModel(_url, _bdmFieldName){
-        $http.get(_url).success((data)=>{
-            debugger;
-            $scope.properties.solicitudApoyoEducativo[_bdmFieldName] = data;
-        }).error((err)=>{
-            swal("Error","Error al obtener el model. " + err,"error");
+    function getModelHermanos(url) {
+        $scope.properties.hermanos = [];
+        $http.get(url).success((data) => {
+            if (data) {
+                $scope.properties.hermanos = data;
+            }
+        }).error((err) => {
+            $scope.properties.hermanos = [];
+            // swal("Error","Error al obtener el model. " + err,"error");
+            console.log("hermanos vacío")
         });
     }
-    
-    $scope.$watch("properties.reloadTask", ()=>{
-        if($scope.properties.reloadTask){
-            getCurrentTaskId();
-        } 
+
+    function getModelAutos(url) {
+        $scope.properties.autos = [];
+        $http.get(url).success((data) => {
+            if (data) {
+                $scope.properties.autos = data;
+            }
+        }).error((err) => {
+            $scope.properties.autos = [];
+            // swal("Error","Error al obtener el model. " + err,"error");
+            console.log("autos vacío")
+        });
+    }
+
+    function getModelBienesRaices(url) {
+        $scope.properties.bienesRaices = [];
+        $http.get(url).success((data) => {
+            if (data) {
+                $scope.properties.bienesRaices = data;
+            }
+        }).error((err) => {
+            $scope.properties.bienesRaices = [];
+            // swal("Error","Error al obtener el model. " + err,"error");
+            console.log("bienesRaices vacío")
+        });
+    }
+
+    function getLazyRefModel(_url, _bdmFieldName) {
+        $http.get(_url).success((data) => {
+            $scope.properties.solicitudApoyoEducativo[_bdmFieldName] = data;
+        }).error((err) => {
+            swal("Error", "Error al obtener el model. " + err, "error");
+        });
+    }
+
+    $scope.$watch("properties.taskId", (oldValue, newValue) => {
+        if ($scope.properties.taskId && oldValue !== newValue) {
+            getCurrentContext();
+        }
     });
-    
-     $scope.$watch("properties.url", ()=>{
+
+    $scope.$watch("properties.reloadTask", () => {
+        if ($scope.properties.reloadTask) {
             getCurrentTaskId();
+        }
+    });
+
+    $scope.$watch("properties.url", () => {
+        getCurrentTaskId();
     });
 }
