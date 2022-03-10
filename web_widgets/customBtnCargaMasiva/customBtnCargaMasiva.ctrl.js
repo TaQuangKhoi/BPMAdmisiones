@@ -60,8 +60,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 console.log(data)
                 $scope.properties.tabla = "tabla";
                 $scope.properties.value = [];
-                swal('¡Carga de resultados exitosa!', "", "success")
-                doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
+                //swal('¡Carga de resultados exitosa!', "", "success")
+                //doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
             })
             .error(function(data, status) {
                 swal("¡Carga incorrecta de resultados!", "", "error")
