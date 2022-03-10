@@ -142,11 +142,18 @@
                         <b>{{row.fechaultimamodificacion}}</b>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutapago == ''" ng-click="rutaPagoDownload(row)">
+                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutapago == ''" ng-click="rutaArchivosDownload(row,'rutapago')" data-toggle="tooltip" data-placement="top" title="Pago">
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                         </button>
-                        <button class="btn btn-default" id="rutasolicitudbtn" ng-disabled="row.rutasolicitud == ''" ng-click="rutaSolicitudDownload(row)">
+                        <button class="btn btn-default" id="rutasolicitudbtn" ng-disabled="row.rutasolicitud == ''" ng-click="rutaArchivosDownload(row,'rutasolicitud')" data-toggle="tooltip" data-placement="top" title="Solicitud">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        </button>
+                        <br>
+                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutaactanacimiento == null ||row.rutaactanacimiento == ''" ng-click="rutaArchivosDownload('RUTA_ACTA_NACIMIENTO',row,'rutaactanacimiento')" data-toggle="tooltip" data-placement="top" title="Acta de nacimiento">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                        </button>
+                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutakardex == null || row.rutakardex == ''" ng-click="rutaArchivosDownload('RUTA_KARDEX',row,'rutakardex')" data-toggle="tooltip" data-placement="top" title="Kardex">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                         </button>
                 </td>
                 </tr>
