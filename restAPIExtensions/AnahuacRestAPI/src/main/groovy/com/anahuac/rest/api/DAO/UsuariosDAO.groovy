@@ -3823,12 +3823,6 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(fechaEnvioSolicitud) like lower('%[valor]%') ";
-					/*if (filtro.get("operador").equals("Igual a")) {
-						where += "=LOWER('[valor]')"
-					} else {
-						where += "LIKE LOWER('%[valor]%')"
-					}*/
-
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(fechaPago) like lower('%[valor]%') )";
@@ -3852,7 +3846,7 @@ class UsuariosDAO {
 
 					break;
 					
-				case "RESIDENCIA,ESTATUS":
+				case "PAIS PREPARATORIA,RESIDENCIA,ESTATUS":
 					errorlog += "ESTATUS"
 					if (where.contains("WHERE")) {
 						where += " AND "
@@ -3860,9 +3854,8 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(residencia) like lower('%[valor]%') ";
-					where = where.replace("[valor]", filtro.get("valor"))
-
-					where += " OR LOWER(estatus) like lower('%[valor]%') )";
+					where += " OR LOWER(estatus) like lower('%[valor]%') ";	
+					where += " OR LOWER(paispreparatoria) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				
@@ -3873,11 +3866,6 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(idbanner) like lower('%[valor]%') ";
-					/*if (filtro.get("operador").equals("Igual a")) {
-						where += "=LOWER('[valor]')"
-					} else {
-						where += "LIKE LOWER('%[valor]%')"
-					}*/
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(vpd) like lower('%[valor]%') )";
@@ -3942,9 +3930,9 @@ class UsuariosDAO {
 				case "CORREO":
 					orderby += "correo";
 				break;
-				/*case "CLAVE":
-					orderby += "clavePreparatoria";
-				break;*/
+				case "PAISPREPARATORIA":
+					orderby += "paisPreparatoria";
+				break;
 				default:					
 					orderby += "NOMBRE"
 				break;
