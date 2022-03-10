@@ -975,39 +975,6 @@ class UsuariosDAO {
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
 			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
-			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND
-//				if(object.estatusSolicitud !=null) {
-				
-//					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
-				
-				/*if(object.estatusSolicitud.equals("Solicitud lista roja")) {
-					where+=" AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
-				}
-				else if(object.estatusSolicitud.equals("Solicitud rechazada")) {
-					where+=" AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
-				} else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
-				} else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
-				}else if(object.estatusSolicitud.equals("Solicitud en espera de pago")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en espera de pago')"
-				}
-				else if(object.estatusSolicitud.equals("Solicitud con pago aceptado")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud con pago aceptado')"
-				}
-				else if(object.estatusSolicitud.equals("Autodescripción en proceso")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Autodescripción en proceso')"
-				}
-				else if(object.estatusSolicitud.equals("Elección de pruebas no calendarizado")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Elección de pruebas no calendarizado')"
-				}
-				else if(object.estatusSolicitud.equals("No se ha impreso credencial")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='No se ha impreso credencial')"
-				}
-				else if(object.estatusSolicitud.equals("Ya se imprimió su credencial")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Ya se imprimió su credencial')"
-				}*/
-//			}
 			if(lstGrupo.size()>0) {
 				campus+=" AND ("
 			}
@@ -3856,12 +3823,6 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(fechaEnvioSolicitud) like lower('%[valor]%') ";
-					/*if (filtro.get("operador").equals("Igual a")) {
-						where += "=LOWER('[valor]')"
-					} else {
-						where += "LIKE LOWER('%[valor]%')"
-					}*/
-
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(fechaPago) like lower('%[valor]%') )";
@@ -3885,7 +3846,7 @@ class UsuariosDAO {
 
 					break;
 					
-				case "RESIDENCIA,ESTATUS":
+				case "PAIS PREPARATORIA,RESIDENCIA,ESTATUS":
 					errorlog += "ESTATUS"
 					if (where.contains("WHERE")) {
 						where += " AND "
@@ -3893,9 +3854,8 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(residencia) like lower('%[valor]%') ";
-					where = where.replace("[valor]", filtro.get("valor"))
-
-					where += " OR LOWER(estatus) like lower('%[valor]%') )";
+					where += " OR LOWER(estatus) like lower('%[valor]%') ";	
+					where += " OR LOWER(paispreparatoria) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				
@@ -3906,11 +3866,6 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(idbanner) like lower('%[valor]%') ";
-					/*if (filtro.get("operador").equals("Igual a")) {
-						where += "=LOWER('[valor]')"
-					} else {
-						where += "LIKE LOWER('%[valor]%')"
-					}*/
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(vpd) like lower('%[valor]%') )";
@@ -3975,9 +3930,9 @@ class UsuariosDAO {
 				case "CORREO":
 					orderby += "correo";
 				break;
-				/*case "CLAVE":
-					orderby += "clavePreparatoria";
-				break;*/
+				case "PAISPREPARATORIA":
+					orderby += "paisPreparatoria";
+				break;
 				default:					
 					orderby += "NOMBRE"
 				break;
@@ -3985,7 +3940,7 @@ class UsuariosDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto, paisPreparatoria, rutaActaNacimiento, rutaKardex", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -4000,6 +3955,8 @@ class UsuariosDAO {
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
+			def num = Math.random();
+			
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
@@ -4010,9 +3967,10 @@ class UsuariosDAO {
 					try {
 						String urlfoto = rs.getString("foto");
 						if (urlfoto != null && !urlfoto.isEmpty()) {
-							columns.put("fotografiab64", rs.getString("foto") + SSA);
-							columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
-							columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
+							columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							//columns.put("fotografiab64", rs.getString("foto") + SSA);
+							//columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
+							//columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
 						} else {
 							noAzure = true;
 							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10);
@@ -4046,7 +4004,8 @@ class UsuariosDAO {
 
 				rows.add(columns);
 			}
-			errorlog = consulta + " 9";
+			//errorlog = consulta + " 9";
+			errorlog = " 9";
 			resultado.setSuccess(true)
 
 			resultado.setError_info(errorlog);
@@ -4099,6 +4058,68 @@ class UsuariosDAO {
 			}
 		}
 		return resultado
+	}
+	
+	
+	public Result getB64File(String jsonData) {
+		Boolean closeCon = false;
+		String errorLog = "";
+		Result resultado = new Result();
+		try {
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			List <String> rows = new ArrayList <String> ();
+			closeCon = validarConexion();
+			
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			
+			String consulta = Statements.GET_RUTA_FILE_SMART_CAMPUS.replace("[RUTA]",object.ruta)
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.idbanner)
+			rs = pstm.executeQuery();
+			//rutaPago, rutaSolicitud, rutaActaNacimiento, rutaKardex
+			def num = Math.random();
+			if (rs.next()) {
+				if(object.ruta.equals('rutapago') ){
+					
+					rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					
+				}else if(object.ruta.equals('rutasolicitud')) {
+					rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA")+"&v="+num)));
+					
+				} else if(object.ruta.equals('rutaactanacimiento')) {
+					
+					rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					
+				}else if(object.ruta.equals('rutakardex')) {
+					
+					rows.add( "data:image/png, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+				}
+				
+			}
+
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+		
 	}
 
 }

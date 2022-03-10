@@ -53,15 +53,14 @@
                             style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i
                                 class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> <!--/ <span
-                            style="cursor:pointer" ng-click="setOrderBy('CLAVE')">Clave<i
-                                class="glyphicon"
-                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='CLAVE'"></i></span>--> / <span
+                                ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span
                             style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
                     <th>
+                        <span style="cursor:pointer" ng-click="setOrderBy('PAISPREPARATORIA')">Pais preparatoria<i class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='PAISPREPARATORIA'"></i></span>/
                         <span style="cursor:pointer" ng-click="setOrderBy('RESIDENCIA')">Residencia<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='RESIDENCIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon"
@@ -97,7 +96,7 @@
                             ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])">
                     </td>
                     <td><input ng-model="dynamicInput['estatus']" class="form-control"
-                            ng-enter="filterKeyPress('RESIDENCIA,ESTATUS',dynamicInput['estatus'])"></td>
+                            ng-enter="filterKeyPress('PAIS PREPARATORIA,RESIDENCIA,ESTATUS',dynamicInput['estatus'])"></td>
                     <td><input ng-model="dynamicInput['fechasolicitud']" class="form-control"
                             ng-enter="filterKeyPress('FECHA SOLICITUD, FECHA PAGO',dynamicInput['fechasolicitud'])"></td>
                     <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control"
@@ -130,7 +129,7 @@
                         {{row.preparatoria}}<br>
                         {{row.promedio}}
                     </td>
-                    <td>
+                    <td> <b>{{row.paispreparatoria}}</b><br>
                         <b>{{row.residencia}}</b><br>
                         {{row.estatus}}
                     </td>
@@ -142,11 +141,18 @@
                         <b>{{row.fechaultimamodificacion}}</b>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutapago == ''" ng-click="rutaPagoDownload(row)">
+                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutapago == ''" ng-click="rutaArchivosDownload(row,'rutapago')" data-toggle="tooltip" data-placement="top" title="Pago">
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                         </button>
-                        <button class="btn btn-default" id="rutasolicitudbtn" ng-disabled="row.rutasolicitud == ''" ng-click="rutaSolicitudDownload(row)">
+                        <button class="btn btn-default" id="rutasolicitudbtn" ng-disabled="row.rutasolicitud == ''" ng-click="rutaArchivosDownload(row,'rutasolicitud')" data-toggle="tooltip" data-placement="top" title="Solicitud">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        </button>
+                        <br>
+                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutaactanacimiento == null ||row.rutaactanacimiento == ''" ng-click="rutaArchivosDownload('RUTA_ACTA_NACIMIENTO',row,'rutaactanacimiento')" data-toggle="tooltip" data-placement="top" title="Acta de nacimiento">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                        </button>
+                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutakardex == null || row.rutakardex == ''" ng-click="rutaArchivosDownload('RUTA_KARDEX',row,'rutakardex')" data-toggle="tooltip" data-placement="top" title="Kardex">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                         </button>
                 </td>
                 </tr>

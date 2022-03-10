@@ -1870,7 +1870,16 @@ class Index implements RestApiController {
 					}
 					break;
 					
-					case "updateCorreoElectronico":
+				case "B64File":
+					result = uDAO.getB64File(jsonData);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+				case "updateCorreoElectronico":
 					result = uDAO.updateCorreoElectronico(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
