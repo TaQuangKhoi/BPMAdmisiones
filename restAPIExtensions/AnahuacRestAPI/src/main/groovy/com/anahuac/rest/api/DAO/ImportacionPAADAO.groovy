@@ -1669,8 +1669,8 @@ class ImportacionPAADAO {
 				closeCon = validarConexion();
 				con.setAutoCommit(false)
 				pstm = con.prepareStatement(Statements.UPDATE_CATESCALAEAC, Statement.RETURN_GENERATED_KEYS)
-				pstm.setString(1, object.letra);
-				pstm.setString(2, object.equivalente);
+				pstm.setString(1, object.escala);
+				pstm.setString(2, object.equivalenteKP);
 				pstm.setBoolean(3,object.isEliminado);
 				pstm.setInt(4,Integer.valueOf(object.persistenceId));
 				
@@ -1754,6 +1754,35 @@ class ImportacionPAADAO {
 						break;
 						
 					case "EQUIVALENTE":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(equivalentekp) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "EQUIVALENTEKP":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(equivalentekp) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "EQUIVALENTE KP":
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
@@ -2255,7 +2284,7 @@ class ImportacionPAADAO {
 					break;
 					
 					
-					case "FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION":
+				case "FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION":
 					if(where.contains("WHERE")) {
 						where+= " AND "
 					}else {
@@ -2265,6 +2294,17 @@ class ImportacionPAADAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					where +="OR LOWER(PAA.fechaexamen) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					break;
+					
+				case "FECHA DE REGISTRO EN EAC":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" LOWER(PAA.fechaRegistro) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					break;
