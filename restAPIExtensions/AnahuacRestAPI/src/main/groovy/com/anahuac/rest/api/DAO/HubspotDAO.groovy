@@ -43,6 +43,7 @@ import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.HubSpotData
+import com.anahuac.rest.api.Entity.HubspotConfig
 import com.anahuac.rest.api.Entity.HubspotProperties
 import com.anahuac.rest.api.Entity.Result
 import com.bonitasoft.web.extension.rest.RestAPIContext
@@ -2449,6 +2450,140 @@ class HubspotDAO {
           }
       }
       return resultado
+  }
+  public Result insertUpdateEmail(HubspotConfig config) {
+	  Result result = new Result();
+	  Boolean closeCon=false;
+	  try {
+		  closeCon = validarConexion();
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailAutodescripcion, config.emailHubspotAutodescripcion, "Correo para envío de fallos Hubspot Autodescripción")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailEnviada, config.emailHubspotEnviada,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailEsperaResultado, config.emailHubspotEsperaResultado,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailGenerarCredencial, config.emailHubspotGenerarCredencial,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailModificar, config.emailHubspotModificar,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailNoAsistioPruebas, config.emailHubspotNoAsistioPruebas,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailPago, config.emailHubspotPago,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailRechazoLRoja, config.emailHubspotRechazoLRoja,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailRegistro, config.emailHubspotRegistro,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailRestaurarRechazoLRoja, config.emailHubspotRestaurarRechazoLRoja,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailSeleccionoFechaExamen, config.emailHubspotSeleccionoFechaExamen,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailUsuarioRegistrado, config.emailHubspotUsuarioRegistrado,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailValidar, config.emailHubspotValidar,"")
+		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailTransferirAspirante, config.emailHubspotTransferirAspirante,"")
+		  
+	  }catch(Exception e) {
+		  result.setSuccess(false)
+		  result.setError("Can't set config Hubspot email")
+		  result.setError_info(e.getMessage())
+	  }finally {
+		  if(closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm);
+		  }
+	  }
+	  
+	  return result;
+  }
+  public Result getEmailHubspotConfig() {
+	  Result result = new Result();
+	  List < HubspotConfig > data = new ArrayList < HubspotConfig > ();
+	  HubspotConfig row = new HubspotConfig();
+	  Boolean closeCon = false;
+	  try {
+
+
+		  closeCon = validarConexion();
+
+		  pstm = con.prepareStatement(HubspotConfig.CONFIGURACIONES)
+		  rs = pstm.executeQuery()
+		  while (rs.next()) {
+			  switch (rs.getString("clave")) {
+				  
+					  case "EmailHubspotAutodescripcion":
+					  row.setEmailHubspotAutodescripcion(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotEnviada":
+					  row.setEmailHubspotEnviada(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotEsperaResultado":
+					  row.setEmailHubspotEsperaResultado(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotGenerarCredencial":
+					  row.setEmailHubspotGenerarCredencial(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotModificar":
+					  row.setEmailHubspotModificar(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotNoAsistioPruebas":
+					  row.setEmailHubspotNoAsistioPruebas(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotModificar":
+					  row.setEmailHubspotModificar(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotPago":
+					  row.setEmailHubspotPago(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotRegistro":
+					  row.setEmailHubspotRegistro(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotRestaurarRechazoLRoja":
+					  row.setEmailHubspotRestaurarRechazoLRoja(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotSeleccionoFechaExamen":
+					  row.setEmailHubspotSeleccionoFechaExamen(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotUsuarioRegistrado":
+					  row.setEmailHubspotUsuarioRegistrado(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotValidar":
+					  row.setEmailHubspotValidar(rs.getString("valor"))
+					  break;
+					  case "EmailHubspotTransferirAspirante":
+					  row.setEmailHubspotTransferirAspirante(rs.getString("valor"))
+					  break;
+				  
+	  }
+		  }
+		  data.add(row)
+		  result.setSuccess(true);
+		  result.setData(data)
+	  } catch (Exception exception) {
+		  result.setSuccess(false)
+		  result.setError(exception.getMessage())
+	  } finally {
+		  if (closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm)
+		  }
+	  }
+	  return result;
+  }
+  private void verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail key, String value, String description) {
+	  Boolean closeCon=false;
+	  closeCon = validarConexion();
+	  pstm = con.prepareStatement(HubspotConfig.GET_CONFIGURACIONES_CLAVE)
+	  pstm.setString(1, key)
+	  rs = pstm.executeQuery()
+	  if (rs.next()) {
+		  pstm = con.prepareStatement(HubspotConfig.UPDATE_CONFIGURACIONES)
+		  pstm.setString(1, value)
+		  pstm.setString(2, key)
+		  pstm.executeUpdate()
+	  } else {
+		  pstm = con.prepareStatement(HubspotConfig.INSERT_CONFIGURACIONES)
+		  pstm.setString(1, key)
+		  pstm.setString(2, value)
+		  pstm.setString(3, description)
+		  pstm.executeUpdate()
+	  }
+	  try {
+		  closeCon = validarConexion();
+	  }catch(Exception e) {
+		  throw new Exception (e.getMessage());
+	  }finally {
+		  if(closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm);
+		  }
+	  }
+	  
   }
 }
 

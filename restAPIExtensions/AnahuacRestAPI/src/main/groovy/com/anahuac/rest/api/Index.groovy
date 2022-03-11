@@ -2300,6 +2300,35 @@ class Index implements RestApiController {
 				}
 				break;
 				
+				case "insertEmailHubspotConfig":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+
+					assert object instanceof Map;
+					HubspotConfig row =new HubspotConfig()
+					row.setEmailHubspotAutodescripcion(object.emailHubspotAutodescripcion)
+					row.setEmailHubspotEnviada(object.emailHubspotEnviada)
+					row.setEmailHubspotEsperaResultado(object.emailHubspotEsperaResultado)
+					row.setEmailHubspotGenerarCredencial(object.emailHubspotGenerarCredencial)
+					row.setEmailHubspotModificar(object.emailHubspotModificar)
+					row.setEmailHubspotNoAsistioPruebas(object.emailHubspotNoAsistioPruebas)
+					row.setEmailHubspotModificar(object.emailHubspotModificar)
+					row.setEmailHubspotPago(object.emailHubspotPago)
+					row.setEmailHubspotRegistro(object.emailHubspotRegistro)
+					row.setEmailHubspotRestaurarRechazoLRoja(object.emailHubspotRestaurarRechazoLRoja)
+					row.setEmailHubspotSeleccionoFechaExamen(object.emailHubspotSeleccionoFechaExamen)
+					row.setEmailHubspotUsuarioRegistrado(object.emailHubspotUsuarioRegistrado)
+					row.setEmailHubspotValidar(object.emailHubspotValidar)
+					row.setEmailHubspotTransferirAspirante(object.emailHubspotTransferirAspirante)
+
+					result = new HubspotDAO().insertUpdateEmail(row)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
