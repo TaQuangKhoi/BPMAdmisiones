@@ -47,10 +47,14 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
         return $http(req).success(function(data, status) {
                 debugger;
-                let taskId = data[0].id;
-                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
-                //window.location.href = url;
-                window.open(url, '_blank');
+                rowData.taskId = data[0].id;
+                rowData.taskName = data[0].name;
+                rowData.processId = data[0].processId;
+                $scope.preProcesoAsignarTarea(rowData)
+                
+                //let taskId = data[0].id;
+                //var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
+                //window.open(url, '_blank');
             })
             .error(function(data, status) {
                 console.error(data);
@@ -143,12 +147,16 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
+                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                window.open(url, '_blank');
+                
+                /*
                 var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[NOMBREPROCESO]", rowData.processName);
                 url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
                 url = url.replace("[NOMBRETAREA]", rowData.taskName);
                 url = url.replace("[TASKID]", rowData.taskId);
-                $window.location.assign(url);
+                $window.location.assign(url);*/
             })
             .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
