@@ -50,8 +50,10 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
+import java.util.Base64;
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
@@ -2302,6 +2304,28 @@ class ReactivacionDAO {
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorLog)
 			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	public Result copiarArchivos(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		try {
+			
+			String urlFoto = "https://bpmintegra.blob.core.windows.net/privado/62001/Fot_62001.jpg?sv=2020-04-08&st=2021-05-04T19%3A38%3A43Z&se=2035-02-01T20%3A38%3A00Z&sr=c&sp=r&sig=ZCmK9hcMcFMZRk4PJyDd6BKPtNjRaho3MjCPGVoEnfo%3D"
+			
+			byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url(urlFoto)));
+			
+			DocumentValue doc = new DocumentValue(decodedString, "image/jpeg", "Fot_${caseid}.jpg")
+			
+			context.getApiClient().getProcessAPI().addDocument(caseid,"FotoPasaporte","FotoPasaporte", doc )			
+			
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(e.toString())
 		}
 		return resultado;
 	}
