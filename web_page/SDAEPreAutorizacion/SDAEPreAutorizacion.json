@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1646867684661,
+  "lastUpdate" : 1646955485235,
   "rows" : [
     [
       {
@@ -2466,7 +2466,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Solicitar moeificación"
+                          "value" : "Solicitar modificación"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -2492,7 +2492,8 @@
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "formInput"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -2507,7 +2508,8 @@
                           "value" : ""
                         },
                         "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
+                          "type" : "interpolation",
+                          "value" : "/apps/sdae/bandeja/"
                         },
                         "collectionToModify" : {
                           "type" : "variable"
@@ -3130,7 +3132,8 @@
         "    \"fechaPagoInscripcion\" : null,\r",
         "    \"isPagoRealizado\" : false,\r",
         "    \"descuentoAnticipado\" : 0\r",
-        "  }\r",
+        "  },\r",
+        "  \"varRevisadaInput\" : true\r",
         "}"
       ],
       "exposed" : false
@@ -3236,7 +3239,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.PadresTutor?q=findByCaseId&p=0&c=10&f=caseId={{getSolicitudApoyoEducativo[0].caseidadmisiones}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "caseId" : {
