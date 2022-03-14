@@ -2,60 +2,8 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1646964863700,
+  "lastUpdate" : 1647283453849,
   "rows" : [
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "<pre>{{ formOutputTest | json }}</pre>"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "left"
-          }
-        },
-        "reference" : "3d3a88a0-42ab-4a98-a71a-ee05b1823623",
-        "hasValidationError" : false,
-        "id" : "pbText"
-      }
-    ],
     [
       {
         "type" : "component",
@@ -2174,7 +2122,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "getDatosSolicitante[0].nacionalidad"
+                                    "value" : "objSolicitudDeAdmision[0].catNacionalidad.descripcion"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -2331,7 +2279,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "formOutputTest.catTienesHijos_id"
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.catTienesHijos_id"
                                   }
                                 },
                                 "reference" : "87846e11-80f7-4b87-86dd-0164f6f56f8c",
@@ -2353,7 +2301,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "datosUsuario.catTieneHijos.descripcion !== \"Sí\""
+                                    "value" : "returnCatValue.catTienesHijos.descripcion !== \"Sí\""
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -3061,9 +3009,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "d0da5d26-2f14-47c2-8d39-ce827e1d76ac",
+                          "reference" : "c72fe02e-932b-4c14-93db-5a37dba26d78",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -3299,8 +3247,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -3349,7 +3297,8 @@
                               "type" : "constant"
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 100
                             },
                             "step" : {
                               "type" : "constant",
@@ -3390,10 +3339,10 @@
                           "rows" : [
                             [
                               {
-                                "type" : "component",
+                                "type" : "container",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 6,
+                                  "sm" : 12,
                                   "md" : 6,
                                   "lg" : 6
                                 },
@@ -3406,32 +3355,98 @@
                                     "type" : "expression",
                                     "value" : "!objSolicitudDeAdmision[0].urlConstancia"
                                   },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "URL"
-                                  },
-                                  "url" : {
-                                    "type" : "expression",
-                                    "value" : "objSolicitudDeAdmision[0].urlConstancia +  azureTempKeyRes.data[0]"
-                                  },
-                                  "document" : {
+                                  "repeatedCollection" : {
                                     "type" : "variable",
                                     "value" : ""
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : false
                                   }
                                 },
-                                "reference" : "b733fd4d-1825-40c5-98e1-ffe4713f69dc",
+                                "reference" : "67d050fa-a126-435f-a841-a1bdfd215827",
                                 "hasValidationError" : false,
-                                "id" : "pbFileViewer"
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : "color-orange"
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "text" : {
+                                          "type" : "interpolation",
+                                          "value" : "Certificado oficial"
+                                        },
+                                        "level" : {
+                                          "type" : "constant",
+                                          "value" : "Level 4"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "left"
+                                        }
+                                      },
+                                      "reference" : "24867ad4-3f75-40a2-80e8-e345c812711e",
+                                      "hasValidationError" : false,
+                                      "id" : "pbTitle"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 6,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "URL"
+                                        },
+                                        "url" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision[0].urlConstancia +  azureTempKeyRes.data[0]"
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        }
+                                      },
+                                      "reference" : "b733fd4d-1825-40c5-98e1-ffe4713f69dc",
+                                      "hasValidationError" : false,
+                                      "id" : "pbFileViewer"
+                                    }
+                                  ]
+                                ]
                               },
                               {
-                                "type" : "component",
+                                "type" : "container",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 6,
+                                  "sm" : 12,
                                   "md" : 6,
                                   "lg" : 6
                                 },
@@ -3444,26 +3459,92 @@
                                     "type" : "expression",
                                     "value" : "!objSolicitudDeAdmision[0].urlDescuentos"
                                   },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "URL"
-                                  },
-                                  "url" : {
-                                    "type" : "expression",
-                                    "value" : "objSolicitudDeAdmision[0].urlDescuentos+  azureTempKeyRes.data[0]"
-                                  },
-                                  "document" : {
+                                  "repeatedCollection" : {
                                     "type" : "variable",
                                     "value" : ""
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : false
                                   }
                                 },
-                                "reference" : "e94d00a1-752a-44bc-8de3-966148a034c6",
+                                "reference" : "a61e92ea-b234-436f-aa71-13bb8de9687a",
                                 "hasValidationError" : false,
-                                "id" : "pbFileViewer"
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : "color-orange"
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "text" : {
+                                          "type" : "interpolation",
+                                          "value" : "Historial académico"
+                                        },
+                                        "level" : {
+                                          "type" : "constant",
+                                          "value" : "Level 4"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "left"
+                                        }
+                                      },
+                                      "reference" : "747df1f0-55ca-4043-9e65-ca3c71890678",
+                                      "hasValidationError" : false,
+                                      "id" : "pbTitle"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 6,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "URL"
+                                        },
+                                        "url" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision[0].urlDescuentos+  azureTempKeyRes.data[0]"
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        }
+                                      },
+                                      "reference" : "e94d00a1-752a-44bc-8de3-966148a034c6",
+                                      "hasValidationError" : false,
+                                      "id" : "pbFileViewer"
+                                    }
+                                  ]
+                                ]
                               }
                             ]
                           ]
@@ -3833,7 +3914,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -3864,7 +3945,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -3877,9 +3958,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "080d5fad-dacd-4752-8ccb-532a4b7d53bd",
+                    "reference" : "3ba75631-3460-41f9-94dc-07b42e9c4fa9",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customCustomInputLimit"
                   }
                 ],
                 [
@@ -3913,8 +3994,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "vista"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -3985,7 +4066,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -4016,7 +4097,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -4029,9 +4110,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "645c3e6d-0079-446e-9e0d-546c77394303",
+                    "reference" : "279b9ac6-0bf7-4e42-947a-675e811417a9",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customCustomInputLimit"
                   }
                 ],
                 [
@@ -4644,9 +4725,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "edbfa326-795a-4441-93a4-7ac5dc2d381d",
+                    "reference" : "c1281f97-eb59-4a1b-b73f-61d73a30b37f",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputMoneda"
                   }
                 ],
                 [
@@ -5411,8 +5492,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -5486,8 +5567,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -5563,8 +5644,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -5638,8 +5719,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -5820,8 +5901,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -5897,8 +5978,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -5972,8 +6053,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6049,8 +6130,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6124,8 +6205,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6201,8 +6282,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6276,8 +6357,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6441,8 +6522,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6516,8 +6597,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6593,8 +6674,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6609,8 +6690,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "vista"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -6668,8 +6749,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6850,8 +6931,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -6927,8 +7008,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -7002,8 +7083,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -7079,8 +7160,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -7154,8 +7235,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -7231,8 +7312,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -7306,8 +7387,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "required" : {
                         "type" : "constant",
@@ -9409,7 +9490,7 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "f0f1f4ca-0744-450b-9eb2-6a38fe486628",
+                    "reference" : "11c7363a-adef-473e-9af6-112008cd2841",
                     "hasValidationError" : false,
                     "id" : "customCustomInputLimit"
                   }
@@ -9874,9 +9955,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "d84f3766-e8d6-4391-94f3-d9f352d8b34e",
+                          "reference" : "988a48e6-90cd-47ac-8358-03fbe740e7e9",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -9952,9 +10033,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "5de7458e-7939-4ce2-9ce9-03df32eb5e45",
+                          "reference" : "ac40218d-4e7c-4f9a-89f9-754ef1df06b3",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10030,9 +10111,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "96cb925d-842c-4805-afbc-17de73c561bf",
+                          "reference" : "c4b9e55b-8c6c-4d9d-8947-f592e19212ca",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10108,9 +10189,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "77263619-7a77-4932-8726-8a22b893e7cd",
+                          "reference" : "bd66fb92-6dfb-4473-86df-35019bd8649f",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10186,9 +10267,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "526aafc5-6084-40e5-ac53-8aa5c0938d19",
+                          "reference" : "79d1a1ee-b400-4dc3-bd5b-61cf45f2a1a8",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10264,9 +10345,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "35f74402-24fc-4dfa-933f-c974807dc258",
+                          "reference" : "6624322a-001c-41e3-b1fd-160f5527089b",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10341,9 +10422,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "551e49b4-c554-491d-b4ac-f1de6b789692",
+                          "reference" : "bb91dde8-2094-42e1-9862-1a24094a4f2d",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ]
                     ]
@@ -10483,9 +10564,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "5380afc7-273b-410b-962b-63030ec89326",
+                          "reference" : "e004c4b9-7a55-487c-8fc2-fb8fbe63b7fd",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10561,9 +10642,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "f0cbbaa2-9801-499f-a7a8-a5cf9d0d43d5",
+                          "reference" : "e6a01fbc-6e8c-462f-a4a6-f6b145d34905",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10639,9 +10720,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "406b1e20-3c7d-478c-bbe3-87e876659eb6",
+                          "reference" : "e9f22754-41cb-4c57-bf4d-d55d7e43ccf8",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10717,9 +10798,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "f4a78df2-c02f-492c-a741-9466d36d9ff9",
+                          "reference" : "f52ca9c4-4890-4610-9274-b52b9e4986d3",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10795,9 +10876,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "84f2da2e-e319-4bba-8930-1e0d7d5e6cbc",
+                          "reference" : "555324a3-6faa-4b5f-b7d2-8852d392e72b",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10873,9 +10954,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "603000e6-917f-424f-a7b2-424e58ed4a9d",
+                          "reference" : "b35d5d7f-bb2b-4542-8d67-5817842b6695",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -10951,9 +11032,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "b944d950-d739-4267-b9bd-4e1fe75775fa",
+                          "reference" : "946d2754-de1b-409f-aae1-2417f37b22fb",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -11029,9 +11110,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "c485eb52-c43f-4604-a330-69b71a23ef20",
+                          "reference" : "138607d4-b641-47cb-a5dc-3dab6a3c26f2",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -11107,9 +11188,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "7d27099f-fc7d-4778-abfd-e3ca06dadaf6",
+                          "reference" : "eb915aff-ecd1-40de-8566-d32724b83098",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -11185,9 +11266,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "24bf66d1-f13a-4f83-8cff-5ddf4446385f",
+                          "reference" : "99c51404-fc0c-469d-b7e4-207259025450",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -11263,9 +11344,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "f0781663-46f9-43c3-8125-44f2ec6ed93b",
+                          "reference" : "271c0a42-f88b-44cd-9a50-e242a1842ee8",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
                         }
                       ],
                       [
@@ -11506,7 +11587,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -12811,6 +12892,86 @@
                     "hasValidationError" : false,
                     "id" : "customSDAEVisualizarVideoYouTube"
                   }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Finalizar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : "validar5"
+                      },
+                      "errorMessage" : {
+                        "type" : "expression",
+                        "value" : "errorPaso5"
+                      },
+                      "messageTitle" : {
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso5"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : "returnFormOutput"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : "reloadTask"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      }
+                    },
+                    "reference" : "ec9bb90a-b361-419b-937a-dbdeb142baac",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardFinalizar"
+                  }
                 ]
               ]
             }
@@ -12878,25 +13039,27 @@
                       },
                       "wizardLength" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "wizardContent.length"
                       },
                       "selectedIndex" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "selectedIndex"
                       },
                       "action" : {
                         "type" : "constant",
-                        "value" : "Anterior"
+                        "value" : "Siguiente"
                       },
                       "isValidStep" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "validar5"
                       },
                       "errorMessage" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "errorPaso5"
                       },
                       "messageTitle" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso5"
                       },
                       "formOutput" : {
                         "type" : "variable",
@@ -12904,7 +13067,7 @@
                       },
                       "taskId" : {
                         "type" : "variable",
-                        "value" : "task"
+                        "value" : "taskId"
                       },
                       "reloadTask" : {
                         "type" : "variable",
@@ -13975,7 +14138,7 @@
     "idProceso" : {
       "type" : "constant",
       "value" : [
-        "4726713605757077821"
+        "4740254116221894481"
       ],
       "exposed" : false
     },
@@ -14541,6 +14704,36 @@
       "type" : "json",
       "value" : [
         "{}"
+      ],
+      "exposed" : false
+    },
+    "returnCatValue" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {",
+        "    \"catTienesHijos\": null,",
+        "    \"catBecaPreparatoria\": null",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHijos_id){",
+        "    for(let cat of $data.catTienesHijos_query){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHijos_id){",
+        "            output[\"catTienesHijos\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "            output[\"catBecaPreparatoria\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }
