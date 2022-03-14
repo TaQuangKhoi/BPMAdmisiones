@@ -2313,7 +2313,7 @@ class ReactivacionDAO {
 		String errorLog ="";
 		try {
 			
-			String urlFoto = "https://bpmintegra.blob.core.windows.net/privado/62001/Fot_62001.jpg?sv=2020-04-08&st=2021-05-04T19%3A38%3A43Z&se=2035-02-01T20%3A38%3A00Z&sr=c&sp=r&sig=ZCmK9hcMcFMZRk4PJyDd6BKPtNjRaho3MjCPGVoEnfo%3D"
+			String urlFoto = ""
 			
 			byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url(urlFoto)));
 			
