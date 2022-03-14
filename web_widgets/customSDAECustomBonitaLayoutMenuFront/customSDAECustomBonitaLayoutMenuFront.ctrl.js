@@ -10,15 +10,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             return false;
         } else if (!$scope.properties.isCaseStarted) {
             return true;
-        }
-        // else if (!$scope.properties.isCaseFinished){
-        //     // alert("$scope.properties.isCaseFinished");
-        //     return false;
-        // } 
-
-        //       Generar credencial
-        //       Pase de lista college board
-        else if (name === "Pago" &&
+        } else if (name === "Pago" &&
             (
                 taskName === "Pago de examen" ||
                 taskName === "Esperar pago" ||
@@ -89,20 +81,14 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     ctrl.validateUrl = function(appToken) {
         let outputToken = appToken;
 
-        if (appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Llenar solicitud") {
-            outputToken = "nueva_solicitud";
-        } else if (appToken === "nueva_solicitud" && $scope.properties.currentTaskName !== "Modificar información") {
-            outputToken = "solicitud_iniciada";
+        if (appToken === "nueva_solicitud_SDAE" && $scope.properties.currentTaskName === "Llenado solicitud de apoyo académico") {
+            outputToken = "nueva_solicitud_SDAE";
+        } else if (appToken === "nueva_solicitud_SDAE" && $scope.properties.currentTaskName === "Revisión y control de solicitud de apoyo educativo") {
+            outputToken = "solicitud_completada";
         } else if (appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Modificar información") {
             // outputToken = "modificar_solicitud";
-            outputToken = "modificacion_iniciada";
-        } else if (appToken === "generar_credencial" && $scope.properties.currentTaskName === "Generar credencial") {
-            outputToken = "confirmacion_credencial";
-        }
-        // else if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Pago de examen"){
-        //     outputToken = "verSolicitudAdmision";
-        // } 
-        else {
+            outputToken = "solicitud_completada";
+        } else {
             outputToken = appToken;
         }
 
@@ -221,8 +207,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         return $http.get('../API/living/application-menu/?c=100&f=applicationId%3D' + application.id + '&d=applicationPageId&o=menuIndex+ASC')
             .success(function(data) {
                 ctrl.applicationMenuList = data;
+                debugger;
                 ctrl.applicationMenuList[0].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[0].applicationPageId.token);
-                ctrl.applicationMenuList[4].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[4].applicationPageId.token);
+                // ctrl.applicationMenuList[4].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[4].applicationPageId.token);
             });
     }
 
@@ -261,7 +248,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         } else if ($scope.properties.currentTaskName === "Generar credencial") {
             let array = window.location.href.split("/");
             let appName = array[array.length - 2];
-            debugger;
             if (appName === "generar_credencial") {
                 ctrl.pageToken = "generar_credencial";
             } else {
