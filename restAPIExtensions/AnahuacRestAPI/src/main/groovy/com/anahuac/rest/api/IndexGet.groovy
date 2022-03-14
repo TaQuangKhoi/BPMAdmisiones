@@ -1571,7 +1571,8 @@ class IndexGet implements RestApiController {
 				
 				case "copiarArchivos":
 				String caseid=request.getParameter "caseid"
-				result = new ReactivacionDAO().copiarArchivos(Long.valueOf(caseid),context)
+				String caseidorigen=request.getParameter "caseidorigen"
+				result = new ReactivacionDAO().copiarArchivos(Long.valueOf(caseidorigen),Long.valueOf(caseid),context)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

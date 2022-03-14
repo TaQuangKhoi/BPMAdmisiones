@@ -2223,29 +2223,13 @@ class ReactivacionDAO {
 			con.close()
 			
 			validarConexion()
-			con.setAutoCommit(false)
-			try {
-				String username = "";
-				String password = "";
-				
-				/*-------------------------------------------------------------*/
-				LoadParametros objLoad = new LoadParametros();
-				PropertiesEntity objProperties = objLoad.getParametros();
-				username = objProperties.getUsuario();
-				password = objProperties.getPassword();
-				/*-------------------------------------------------------------*/
-				
-				org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
-				apiClient.login(username, password)
-				String consulta_bonita = "[\"SELECT id,processinstanceid FROM arch_document_mapping WHERE processinstanceid = ${caseIdOrigen} \"]";
-				def bonita = new NotificacionDAO().simpleSelectBonita(0, 0, consulta_bonita, context)?.getData()?.get(0);
-				Document doc = apiClient.getProcessAPI().getArchivedProcessDocument(Long.parseLong(bonita?.id));
-				errorLog+="caso_Archivado:"+bonita?.id;
-				//apiClient.getProcessAPI().updateDocument(101, new DocumentValue(apiClient.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), "Fot_47010.jpg"))
-				apiClient.getProcessAPI().addDocument(Long.parseLong(caseIdDestino),"FotoPasaporte","FotoPasaporte", new DocumentValue(apiClient.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), "Fot_${caseIdDestino}.jpg") )
-				
-			}catch(Exception a) {
-				errorLog+="error:"+a
+			con.setAutoCommit(false);
+			
+			/*Se utiliza cargar los archivos en el nuevo proceso*/
+			Result resultado2 = new Result();
+			resultado2 = copiarArchivos(caseIdOrigen,caseIdDestino,context)
+			if(resultado2.isSuccess()) {
+				errorLog+= "Se subieron archivos"
 			}
 			
 			resultado.setSuccess(true)
@@ -2308,24 +2292,96 @@ class ReactivacionDAO {
 		return resultado;
 	}
 	
-	public Result copiarArchivos(Long caseid,RestAPIContext context) {
+	public Result copiarArchivos(Long caseidOrigen,Long caseid,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
+		Boolean closeCon = false;
 		try {
+			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
 			
-			String urlFoto = ""
+			pstm = con.prepareStatement("SELECT urlFoto,urlConstancia,urlCartaAA,urlResultadoPAA,urlActaNacimiento,urlDescuentos FROM solicitudDeAdmision WHERE caseid = "+caseidOrigen);
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			if(rs.next()) {
+				errorLog ="columnCount = ${columnCount}"
+				for (int i = 1; i <= columnCount; i++) {
+					errorLog+=" || column = ${metaData.getColumnLabel(i).toLowerCase()}"
+					if(rs.getString(i) != null && rs.getString(i) != "null" ) {
+						errorLog+=" || Valor = ${rs.getString(i)}"
+						byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url( (rs.getString(i)+SSA) )));
+						
+						String fileExtencion = "",nombreRecurso = ""; 						
+						switch(metaData.getColumnLabel(i).toLowerCase()) {
+							case  "urlfoto":
+							errorLog+= " IS FOTO ||"
+								fileExtencion = "Fot_"
+								nombreRecurso = "FotoPasaporte"
+							break;
+							
+							case  "urlactanacimiento":
+								fileExtencion = "Act_Nac_"
+								nombreRecurso = "ActaNacimiento"
+							break;
+							
+							case  "urlresultadopaa":
+								fileExtencion = "Punt_Exa_Apt_Con_"
+								nombreRecurso = "ResultadoCB"
+							break;
+							
+							case  "urlconstancia":
+								fileExtencion = "Kar_"
+								nombreRecurso = "Constancia"
+							break;		
+							case  "urldescuentos":
+								fileExtencion = "Des_"
+								nombreRecurso = "Descuento"
+							break;
+						}
+						
+						if(rs.getString(i).toLowerCase().contains(".jpeg")) {
+							DocumentValue doc = new DocumentValue(decodedString, "image/jpeg","${fileExtencion}${caseid}.jpeg")
+							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+						}else if(rs.getString(i).toLowerCase().contains(".png")) {
+							DocumentValue doc = new DocumentValue(decodedString, "image/png","${fileExtencion}${caseid}.png")
+							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+						}else if(rs.getString(i).toLowerCase().contains(".jpg")) {
+							DocumentValue doc = new DocumentValue(decodedString, "image/jpg","${fileExtencion}${caseid}.jpg")
+							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+						}else if(rs.getString(i).toLowerCase().contains(".jfif")) {
+							DocumentValue doc = new DocumentValue(decodedString, "image/jfif","${fileExtencion}${caseid}.jfif")
+							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+						}else if(rs.getString(i).toLowerCase().contains(".pdf")) {
+							DocumentValue doc = new DocumentValue(decodedString, "application/pdf","${fileExtencion}${caseid}.pdf")
+							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+						}
+						
+					}
+					
+				}
+			}
 			
-			byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url(urlFoto)));
 			
-			DocumentValue doc = new DocumentValue(decodedString, "image/jpeg", "Fot_${caseid}.jpg")
-			
-			context.getApiClient().getProcessAPI().addDocument(caseid,"FotoPasaporte","FotoPasaporte", doc )			
+			//byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url(urlFoto)));
+			//DocumentValue doc = new DocumentValue(decodedString, "image/jpeg", "Fot_${caseid}.jpg")
+			//context.getApiClient().getProcessAPI().addDocument(caseid,"FotoPasaporte","FotoPasaporte", doc )
 			
 			resultado.setSuccess(true);
+			resultado.setError_info(errorLog)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(e.toString())
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado;
 	}
