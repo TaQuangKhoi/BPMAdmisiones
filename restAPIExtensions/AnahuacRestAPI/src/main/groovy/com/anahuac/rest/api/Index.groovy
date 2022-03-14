@@ -47,6 +47,7 @@ import com.anahuac.rest.api.Entity.db.CatNotificacionesCampus
 import com.anahuac.rest.api.Entity.db.ResponsableDisponible
 import com.anahuac.rest.api.Entity.db.Role
 import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
+import com.anahuac.rest.api.Entity.HubspotConfig
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
 
@@ -2304,7 +2305,6 @@ class Index implements RestApiController {
 					def jsonSlurper = new JsonSlurper();
 					def object = jsonSlurper.parseText(jsonData);
 
-					assert object instanceof Map;
 					HubspotConfig row =new HubspotConfig()
 					row.setEmailHubspotAutodescripcion(object.emailHubspotAutodescripcion)
 					row.setEmailHubspotEnviada(object.emailHubspotEnviada)
