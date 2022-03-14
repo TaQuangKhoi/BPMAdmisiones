@@ -8,7 +8,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 blockUI.start();
                 submitTask();
             } else {
-
                 swal($scope.properties.messageTitle, $scope.properties.errorMessage, "warning");
             }
         }
@@ -19,7 +18,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         id = $scope.properties.taskId;
         if (id) {
             doRequest('POST', '../API/bpm/userTask/' + id + '/execution').then(function() {
-                window.location.replace(window.loction.protocol + "://" + window.location.hostname + "/apps/aspiranteSDAE/solicitud_completada/")
+                
             });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
@@ -40,6 +39,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
             .success(function(data, status) {
                 // getCurrentTask();
+                window.location.replace(window.loction.protocol + "://" + window.location.hostname + "/apps/aspiranteSDAE/home/");
                 
             })
             .error(function(data, status) {

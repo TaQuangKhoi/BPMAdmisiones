@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1647283453849,
+  "lastUpdate" : 1647288727584,
   "rows" : [
     [
       {
@@ -2267,19 +2267,19 @@
                                   },
                                   "availableValues" : {
                                     "type" : "expression",
-                                    "value" : "catTienesHijos_query"
+                                    "value" : "siNoOpciones"
                                   },
                                   "displayedKey" : {
                                     "type" : "constant",
-                                    "value" : "descripcion"
+                                    "value" : "clave"
                                   },
                                   "returnedKey" : {
                                     "type" : "constant",
-                                    "value" : "persistenceId"
+                                    "value" : "valor"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.catTienesHijos_id"
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.tieneHijos"
                                   }
                                 },
                                 "reference" : "87846e11-80f7-4b87-86dd-0164f6f56f8c",
@@ -2301,7 +2301,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "returnCatValue.catTienesHijos.descripcion !== \"Sí\""
+                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.tieneHijos"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -14734,6 +14734,22 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "siNoOpciones" : {
+      "type" : "json",
+      "value" : [
+        "[",
+        "    {",
+        "        \"clave\": \"Sí\",",
+        "        \"valor\": false",
+        "    }, ",
+        "    {",
+        "        \"clave\": \"No\",",
+        "        \"valor\": false",
+        "    }",
+        "]"
       ],
       "exposed" : false
     }
