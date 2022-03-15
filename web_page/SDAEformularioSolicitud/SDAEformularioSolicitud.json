@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1647303839194,
+  "lastUpdate" : 1647370404712,
   "rows" : [
     [
       {
@@ -9866,7 +9866,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Ingresos"
+                              "value" : "Ingresos ({{returnCatValue.catTipoMoneda.clave}})"
                             },
                             "level" : {
                               "type" : "constant",
@@ -10475,7 +10475,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Egresos"
+                              "value" : "Egresos ({{returnCatValue.catTipoMoneda.clave}})"
                             },
                             "level" : {
                               "type" : "constant",
@@ -14595,7 +14595,9 @@
       "value" : [
         "return {",
         "    \"solicitudApoyoEducativoInput\":{",
-        "        \"eliminado\": false",
+        "        \"eliminado\": false,",
+        "        \"catTipoMoneda_id\": $data.tipoMonedaParam,",
+        "        \"aceptoAvisoPrivacidad\": $data.acceptoAvisoPrivacidad",
         "    }",
         "}"
       ],
@@ -14733,6 +14735,25 @@
         "    }",
         "}",
         "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "            output[\"catBecaPreparatoria\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.tipoMonedaParam){",
+        "    for(let cat of $data.lstTipoMoneda.data){",
+        "        if(cat.persistenceId === $data.tipoMonedaParam){",
+        "            output[\"catTipoMoneda\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "",
         "return output;"
       ],
       "exposed" : false
@@ -14757,6 +14778,21 @@
       "type" : "url",
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.AutodescripcionV2?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "tipoMonedaParam" : {
+      "type" : "urlparameter",
+      "value" : [
+        "tipoMoneda"
+      ],
+      "exposed" : false
+    },
+    "lstTipoMoneda" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
       ],
       "advancedOptions" : { },
       "exposed" : false
