@@ -239,35 +239,35 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     function setApplication() {
         var application = $scope.properties.application;
         ctrl.applicationToken = application.token;
-        if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {
-            ctrl.pageToken = "pago_de_examen";
-        } else if ($scope.properties.currentTaskName === "Autodescripción") {
-            ctrl.pageToken = ($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
-        } else if ($scope.properties.currentTaskName === "Seleccionar cita") {
-            ctrl.pageToken = "verSesiones";
-        } else if ($scope.properties.currentTaskName === "Generar credencial") {
-            let array = window.location.href.split("/");
-            let appName = array[array.length - 2];
-            if (appName === "generar_credencial") {
-                ctrl.pageToken = "generar_credencial";
-            } else {
-                ctrl.pageToken = "confirmacion_credencial";
-            }
-        } else if (
-            $scope.properties.currentTaskName === "Pase de lista Prueba 1" ||
-            $scope.properties.currentTaskName === "Pase de lista Prueba 2" ||
-            $scope.properties.currentTaskName === "Pase de lista Prueba 3"
-        ) {
-            ctrl.pageToken = "generar_credencial";
-        } else if (
-            $scope.properties.currentTaskName === "Carga y consulta de resultados" ||
-            $scope.properties.currentTaskName === "Resultado final de comité" ||
-            $scope.properties.currentTaskName === "Reactivar usuario rechazado"
-        ) {
-            ctrl.pageToken = "Resultado";
-        } else {
-            ctrl.pageToken = $scope.properties.pageToken;
-        }
+        // if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {
+        //     ctrl.pageToken = "pago_de_examen";
+        // } else if ($scope.properties.currentTaskName === "Autodescripción") {
+        //     ctrl.pageToken = ($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
+        // } else if ($scope.properties.currentTaskName === "Seleccionar cita") {
+        //     ctrl.pageToken = "verSesiones";
+        // } else if ($scope.properties.currentTaskName === "Generar credencial") {
+        //     let array = window.location.href.split("/");
+        //     let appName = array[array.length - 2];
+        //     if (appName === "generar_credencial") {
+        //         ctrl.pageToken = "generar_credencial";
+        //     } else {
+        //         ctrl.pageToken = "confirmacion_credencial";
+        //     }
+        // } else if (
+        //     $scope.properties.currentTaskName === "Pase de lista Prueba 1" ||
+        //     $scope.properties.currentTaskName === "Pase de lista Prueba 2" ||
+        //     $scope.properties.currentTaskName === "Pase de lista Prueba 3"
+        // ) {
+        //     ctrl.pageToken = "generar_credencial";
+        // } else if (
+        //     $scope.properties.currentTaskName === "Carga y consulta de resultados" ||
+        //     $scope.properties.currentTaskName === "Resultado final de comité" ||
+        //     $scope.properties.currentTaskName === "Reactivar usuario rechazado"
+        // ) {
+        //     ctrl.pageToken = "Resultado";
+        // } else {
+        //     ctrl.pageToken = $scope.properties.pageToken;
+        // }
 
         $scope.properties.currentToken = ctrl.pageToken;
 
