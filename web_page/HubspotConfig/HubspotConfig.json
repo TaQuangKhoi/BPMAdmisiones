@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "HubspotConfig",
   "name" : "HubspotConfig",
-  "lastUpdate" : 1647275334929,
+  "lastUpdate" : 1647313537014,
   "rows" : [
     [
       {
@@ -1469,20 +1469,20 @@
       "type" : "json",
       "value" : [
         " {\r",
-        "     \"emailHubspotRegistro\":\"\",\r",
-        "     \"emailHubspotEnviada\":\"\",\r",
-        "     \"emailHubspotModificar\":\"\",\r",
-        "     \"emailHubspotValidar\":\"\",\r",
-        "     \"emailHubspotRechazoLRoja\":\"\",\r",
-        "     \"emailHubspotRestaurarRechazoLRoja\":\"\",\r",
-        "     \"emailHubspotPago\":\"\",\r",
-        "     \"emailHubspotAutodescripcion\":\"\",\r",
-        "     \"emailHubspotGenerarCredencial\":\"\",\r",
-        "     \"emailHubspotEsperaResultado\":\"\",\r",
-        "     \"emailHubspotNoAsistioPruebas\":\"\",\r",
-        "     \"emailHubspotSeleccionoFechaExamen\":\"\",\r",
-        "     \"emailHubspotUsuarioRegistrado\":\"\",\r",
-        "     \"emailHubspotTransferirAspirante\":\"\"\r",
+        "     \"emailHubspotRegistro\":null,\r",
+        "     \"emailHubspotEnviada\":null,\r",
+        "     \"emailHubspotModificar\":null,\r",
+        "     \"emailHubspotValidar\":null,\r",
+        "     \"emailHubspotRechazoLRoja\":null,\r",
+        "     \"emailHubspotRestaurarRechazoLRoja\":null,\r",
+        "     \"emailHubspotPago\":null,\r",
+        "     \"emailHubspotAutodescripcion\":null,\r",
+        "     \"emailHubspotGenerarCredencial\":null,\r",
+        "     \"emailHubspotEsperaResultado\":null,\r",
+        "     \"emailHubspotNoAsistioPruebas\":null,\r",
+        "     \"emailHubspotSeleccionoFechaExamen\":null,\r",
+        "     \"emailHubspotUsuarioRegistrado\":null,\r",
+        "     \"emailHubspotTransferirAspirante\":null\r",
         " }"
       ],
       "exposed" : false
@@ -1504,6 +1504,8 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
+        "     console.group(\"JusquerTest\")",
+        "     console.log(\"getInput\",$data.getInput);",
         "     $data.formInput.emailHubspotRegistro = ($data.formInput.emailHubspotRegistro===null)?$data.getInput.emailHubspotRegistro:$data.formInput.emailHubspotRegistro;",
         "     $data.formInput.emailHubspotEnviada = ($data.formInput.emailHubspotEnviada===null)?$data.getInput.emailHubspotEnviada:$data.formInput.emailHubspotEnviada;",
         "     $data.formInput.emailHubspotModificar = ($data.formInput.emailHubspotModificar===null)?$data.getInput.emailHubspotModificar:$data.formInput.emailHubspotModificar;",
@@ -1518,6 +1520,7 @@
         "     $data.formInput.emailHubspotSeleccionoFechaExamen = ($data.formInput.emailHubspotSeleccionoFechaExamen===null)?$data.getInput.emailHubspotSeleccionoFechaExamen:$data.formInput.emailHubspotSeleccionoFechaExamen;",
         "     $data.formInput.emailHubspotUsuarioRegistrado = ($data.formInput.emailHubspotUsuarioRegistrado===null)?$data.getInput.emailHubspotUsuarioRegistrado:$data.formInput.emailHubspotUsuarioRegistrado;",
         "     $data.formInput.emailHubspotTransferirAspirante = ($data.formInput.emailHubspotTransferirAspirante===null)?$data.getInput.emailHubspotTransferirAspirante:$data.formInput.emailHubspotTransferirAspirante;",
+        "console.groupEnd();",
         "return $data.formInput;"
       ],
       "exposed" : false

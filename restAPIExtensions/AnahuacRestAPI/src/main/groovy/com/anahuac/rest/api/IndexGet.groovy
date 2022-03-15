@@ -1618,7 +1618,7 @@ class IndexGet implements RestApiController {
 					result = new HubspotDAO().getEmailHubspotConfig();
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data.get(0)).toString());
 					}else {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}

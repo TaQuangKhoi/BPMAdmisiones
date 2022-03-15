@@ -2499,47 +2499,50 @@ class HubspotDAO {
 		  while (rs.next()) {
 			  switch (rs.getString("clave")) {
 				  
-					  case "EmailHubspotAutodescripcion":
-					  row.setEmailHubspotAutodescripcion(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotEnviada":
-					  row.setEmailHubspotEnviada(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotEsperaResultado":
-					  row.setEmailHubspotEsperaResultado(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotGenerarCredencial":
-					  row.setEmailHubspotGenerarCredencial(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotModificar":
-					  row.setEmailHubspotModificar(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotNoAsistioPruebas":
-					  row.setEmailHubspotNoAsistioPruebas(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotModificar":
-					  row.setEmailHubspotModificar(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotPago":
-					  row.setEmailHubspotPago(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotRegistro":
-					  row.setEmailHubspotRegistro(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotRestaurarRechazoLRoja":
-					  row.setEmailHubspotRestaurarRechazoLRoja(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotSeleccionoFechaExamen":
-					  row.setEmailHubspotSeleccionoFechaExamen(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotUsuarioRegistrado":
-					  row.setEmailHubspotUsuarioRegistrado(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotValidar":
-					  row.setEmailHubspotValidar(rs.getString("valor"))
-					  break;
-					  case "EmailHubspotTransferirAspirante":
-					  row.setEmailHubspotTransferirAspirante(rs.getString("valor"))
+					 case "EmailAutodescripcion":
+                      row.setEmailHubspotAutodescripcion(rs.getString("valor"))
+                      break;
+                      case "EmailEnviada":
+                      row.setEmailHubspotEnviada(rs.getString("valor"))
+                      break;
+                      case "EmailEsperaResultado":
+                      row.setEmailHubspotEsperaResultado(rs.getString("valor"))
+                      break;
+                      case "EmailGenerarCredencial":
+                      row.setEmailHubspotGenerarCredencial(rs.getString("valor"))
+                      break;
+                      case "EmailModificar":
+                      row.setEmailHubspotModificar(rs.getString("valor"))
+                      break;
+                      case "EmailNoAsistioPruebas":
+                      row.setEmailHubspotNoAsistioPruebas(rs.getString("valor"))
+                      break;
+                      case "EmailModificar":
+                      row.setEmailHubspotModificar(rs.getString("valor"))
+                      break;
+                      case "EmailPago":
+                      row.setEmailHubspotPago(rs.getString("valor"))
+                      break;
+                      case "EmailRegistro":
+                      row.setEmailHubspotRegistro(rs.getString("valor"))
+                      break;
+                      case "EmailRestaurarRechazoLRoja":
+                      row.setEmailHubspotRestaurarRechazoLRoja(rs.getString("valor"))
+                      break;
+                      case "EmailSeleccionoFechaExamen":
+                      row.setEmailHubspotSeleccionoFechaExamen(rs.getString("valor"))
+                      break;
+                      case "EmailUsuarioRegistrado":
+                      row.setEmailHubspotUsuarioRegistrado(rs.getString("valor"))
+                      break;
+                      case "EmailValidar":
+                      row.setEmailHubspotValidar(rs.getString("valor"))
+                      break;
+                      case "EmailTransferirAspirante":
+                      row.setEmailHubspotTransferirAspirante(rs.getString("valor"))
+                      break;
+					  case "EmailRechazoLRoja": 
+					  row.setEmailHubspotRechazoLRoja(rs.getString("valor"))
 					  break;
 				  
 	  }
