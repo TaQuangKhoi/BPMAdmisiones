@@ -223,9 +223,9 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotRegistro",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
 			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
@@ -464,7 +464,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotEnviada",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailEnviada",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Enviada Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -543,7 +543,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotModificar",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailModificar",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Modificar Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -645,7 +645,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotValidar",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailValidar",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Validar Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -731,7 +731,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotRechazoLRoja",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRechazoLRoja",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Rechazo Lista Roja Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -780,7 +780,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotRestaurarRechazoLRoja",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRestaurarRechazoLRoja",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Restaurar Rechazo Lista Roja Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -916,7 +916,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotPago",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailPago",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Pago Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -987,7 +987,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotAutodescripcion",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailAutodescripcion",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Autodescripción Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -1060,7 +1060,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotGenerarCredencial",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailGenerarCredencial",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Generar Credencial Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -1132,7 +1132,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotEsperaResultado",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailEsperaResultado",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Espera de resultado Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -1213,7 +1213,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotNoAsistioPruebas",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailNoAsistioPruebas",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot No Asistio Pruebas Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -1332,7 +1332,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotSeleccionoFechaExamen",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailSeleccionoFechaExamen",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Selecciono Fecha Examen Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -1644,7 +1644,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotUsuarioRegistrado",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailUsuarioRegistrado",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Usuario Registrado Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}
@@ -1704,7 +1704,12 @@ class HubspotDAO {
 			strError = strError + " | "+ response.getEntity().getContentType().getName();
 			strError = strError + " | "+ response.getEntity().getContentType().getValue();
 			strError = strError + " | "+ EntityUtils.toString(response.getEntity(), "UTF-8");
+
+			strError += "| statusCode:" + response.getStatusLine().getStatusCode()
 			
+			if(response.getStatusLine().getStatusCode()!=200) {
+				throw new Exception(EntityUtils.toString(response.getEntity(), "UTF-8"))
+			}
 			resultado.setError_info(strError);
 			resultado.setSuccess(true);
 			new LogDAO().insertTransactionLog("POST", "CORRECTO", targetURL, "Log:"+strError, jsonList.toString())
@@ -2430,7 +2435,7 @@ class HubspotDAO {
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailHubspotTransferirAspirante",0,1)
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailTransferirAspirante",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Transferir Aspirante Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
 			}

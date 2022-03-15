@@ -2330,6 +2330,18 @@ class Index implements RestApiController {
 					}
 				break;
 				
+				case "sendEmailPlantilla":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					result = mgDAO.sendEmailPlantilla(object.correo,object.asunto,object.body,"",object.campus,context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
