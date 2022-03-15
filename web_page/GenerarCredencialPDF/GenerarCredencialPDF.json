@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "GenerarCredencialPDF",
   "name" : "GenerarCredencialPDF",
-  "lastUpdate" : 1639508468870,
+  "lastUpdate" : 1645031722813,
   "rows" : [
     [
       {
@@ -900,6 +900,34 @@
           ]
         ]
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "solicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "usuario[0]"
+          }
+        },
+        "reference" : "c3e5d7f4-74fa-44cf-a1a1-84c096d132f5",
+        "hasValidationError" : false,
+        "id" : "customWdgPeriodoVencido"
+      }
     ]
   ],
   "assets" : [
@@ -1755,8 +1783,9 @@
     "userDataEmail" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+        "../API/extension/RegistroRest?url=getUserIdentity&userId={{userData.user_id}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "caseId" : {
@@ -1776,7 +1805,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseId}}&fstate=ready"
       ],
       "exposed" : false
     },

@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.46",
   "id" : "verSesiones",
   "name" : "verSesiones",
-  "lastUpdate" : 1639508464391,
+  "lastUpdate" : 1644986229328,
   "rows" : [
     [
       {
@@ -144,6 +144,10 @@
                 "isMedicina" : {
                   "type" : "variable",
                   "value" : "solicitudAdmicion[0].catGestionEscolar.isMedicina"
+                },
+                "solicitudDeAdmision" : {
+                  "type" : "variable",
+                  "value" : "solicitudAdmicion[0]"
                 }
               },
               "reference" : "3d44c8fe-5870-45b9-a955-fcb042ec8215",
@@ -152,6 +156,34 @@
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "solicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "solicitudAdmicion[0]"
+          }
+        },
+        "reference" : "e2389bf6-a23e-4bf6-a088-768c1601db0d",
+        "hasValidationError" : false,
+        "id" : "customWdgPeriodoVencido"
       }
     ]
   ],
@@ -294,8 +326,9 @@
     "userDataEmail" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+        "../API/extension/RegistroRest?url=getUserIdentity&userId={{userData.user_id}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "detalleSolicitud" : {
@@ -315,7 +348,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
@@ -333,8 +366,9 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{currentTask[0].id}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{getCatRegistro[0].caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "solicitudAdmicion" : {

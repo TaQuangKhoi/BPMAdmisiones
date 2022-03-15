@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1640197568146,
+  "lastUpdate" : 1642703404424,
   "rows" : [
     [
       {
@@ -513,6 +513,66 @@
             ]
           ]
         }
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "objSolicitudDeAdmision"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          },
+          "urlGet" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlParametro" : {
+            "type" : "variable",
+            "value" : "urlParametroGet"
+          },
+          "textMensaje" : {
+            "type" : "constant",
+            "value" : "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso"
+          },
+          "resultadoGet" : {
+            "type" : "constant",
+            "value" : "array"
+          },
+          "datoNombre" : {
+            "type" : "constant",
+            "value" : "isVencido"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "objGetWithModal.isVencido"
+          }
+        },
+        "reference" : "86751674-ae05-4334-8b5c-e779779ac15a",
+        "hasValidationError" : false,
+        "id" : "customGetWithModal"
       }
     ],
     [
@@ -24336,7 +24396,7 @@
                   "headers" : {
                     "type" : "constant",
                     "value" : [
-                      "Solicitud",
+                      "Id Banner",
                       "Nombre",
                       "Licenciatura",
                       "Periodo",
@@ -24344,8 +24404,8 @@
                       "VPD",
                       "Estatus",
                       "Fecha Nacimiento",
+                      "Sexo",
                       "Curp",
-                      "Id Banner",
                       "Acciones"
                     ]
                   },
@@ -24356,7 +24416,7 @@
                   "columnsKey" : {
                     "type" : "constant",
                     "value" : [
-                      "caseid",
+                      "idbanner==null?\"Sin Id Banner\":idbanner",
                       "primernombre + \" \" + segundonombre + \" \" + apellidopaterno + \" \" + apellidomaterno",
                       "licenciatura",
                       "periodo",
@@ -24365,7 +24425,7 @@
                       "estatussolicitud",
                       "fechanacimiento | date:'dd-MM-yyyy'",
                       "curp",
-                      "idbanner",
+                      "sexo",
                       "null"
                     ]
                   },
@@ -26389,6 +26449,7 @@
         "/*if($data.objGetDescuentosCiudadBachillerato == null){\r",
         "    $data.objGetDescuentosCiudadBachillerato = [];\r",
         "}*/\r",
+        "//objGetWithModal.isVencido\r",
         "$data.formOutput.detalleSolicitudInput.isCurpValidado = $data.isCurpValidado;\r",
         "if ($data.descuentoManual) {\r",
         "    console.log(1)\r",
@@ -27698,7 +27759,7 @@
     "lstDocumentoDescuento" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/caseDocument?p=0&c=9999&f=caseId={{caseId}}"
+        "../API/extension/RegistroRest?url=caseDocument&caseid={{caseId}}"
       ],
       "exposed" : false
     },
@@ -28793,16 +28854,20 @@
     "parametros" : {
       "type" : "expression",
       "value" : [
+        "//\"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
+        "//\"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
+        "//\"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "//\"nombre\": $data.NombreAspirante,\r",
         "return {\r",
-        "    \"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
-        "    \"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
         "    \"curp\": $data.curp,\r",
-        "    \"nombre\": $data.NombreAspirante,\r",
-        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
         "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre,\r",
         "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
         "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
-        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno\r",
+        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno,\r",
+        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "    \"sexo\": $data.objSolicitudDeAdmision.catSexo.persistenceId,\r",
+        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "    \"idbanner\":($data.formOutput.detalleSolicitudInput.idBanner == null ?\"\":$data.formOutput.detalleSolicitudInput.idBanner)\r",
         "}"
       ],
       "exposed" : false
@@ -28820,6 +28885,22 @@
         "    }",
         "}else{",
         "    return true;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "urlParametroGet" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.objSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "objGetWithModal" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
         "}"
       ],
       "exposed" : false

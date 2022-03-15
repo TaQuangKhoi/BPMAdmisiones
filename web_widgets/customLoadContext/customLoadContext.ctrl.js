@@ -14,10 +14,23 @@ function loadContextCtrl($scope, $http) {
         })
     }
 
+    $scope.loadContextRest = function(caseId) {
+        console.log("LOAD context");
+        doRequest("GET", "../API/extension/RegistroRest?url=context&caseid="+caseId, {},
+        function(data, status){//SUCCESS
+            $scope.properties.context = data;
+        },
+        function(data, status){//ERROR
+            if($scope.properties.caseId !== undefined){
+                $scope.loadArchivedCase($scope.properties.caseId,true);
+            }
+        })
+    }
+
     $scope.loadArchivedCase = function(caseId,revivida) {
         console.log("LOAD ARCHIVED TASK");
         if ($scope.properties.taskId === undefined || $scope.properties.taskId === "" || revivida) {
-            doRequest("GET", "../API/bpm/archivedCase?c=1&p=0&f=sourceObjectId="+caseId, {},
+            doRequest("GET", "../API/extension/RegistroRest?url=archivedCase&caseid="+caseId, {},
             function(data, status){//SUCCESS
                 $scope.lstArchivedCase = data;
                 if(data.length>0){
@@ -56,14 +69,17 @@ function loadContextCtrl($scope, $http) {
     }
 
     $scope.$watchCollection("properties.taskId", function(newValue, oldValue) {
-        console.log("loadcontext")
+        /*console.log("loadcontext")
         if ($scope.properties.taskId !== undefined && $scope.properties.taskId !== "") {
             $scope.loadContextTask($scope.properties.taskId);
-        }
+        }*/
     });
 
     $scope.$watchCollection("properties.caseId", function(newValue, oldValue) {
         if ($scope.properties.caseId !== undefined) {
+            console.log("loadcontext")
+            $scope.loadContextRest($scope.properties.caseId);
+
             if ($scope.properties.taskId === undefined || $scope.properties.taskId === "") {
                 $scope.loadArchivedCase($scope.properties.caseId,false);
             }

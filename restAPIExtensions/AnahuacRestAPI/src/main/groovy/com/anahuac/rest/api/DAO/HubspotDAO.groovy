@@ -1130,7 +1130,12 @@ class HubspotDAO {
 			
 			Result dataResult = new Result();
 			dataResult = new TransferenciasDAO().GuardarFaltas(object.email);
-			LOGGER.error "dataResult: "+dataResult.getError()
+			LOGGER.error "dataResult: "+dataResult.getError();
+			
+			dataResult = new Result();
+			dataResult = new TransferenciasDAO().ejecutarGenerarCredencial(object.email, context);
+			LOGGER.error "dataResult: "+dataResult.getError();
+			
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();

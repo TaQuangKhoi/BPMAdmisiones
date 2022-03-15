@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1639444072322,
+  "lastUpdate" : 1645462696733,
   "rows" : [
     [
       {
@@ -212,8 +212,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "getPsicometricoFinalizado[0].finalizado != 't'"
                       },
                       "label" : {
                         "type" : "interpolation",
@@ -490,6 +490,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Información general"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "55197010-49d5-4721-9886-a0c9985d4e79",
@@ -1134,6 +1138,10 @@
                                         "fechaINVP" : {
                                           "type" : "expression",
                                           "value" : "getFechaInvp"
+                                        },
+                                        "resultadoInvp" : {
+                                          "type" : "expression",
+                                          "value" : "resultadoINVP.data.length"
                                         }
                                       },
                                       "reference" : "0a3daaf1-12de-4605-bf28-32b6784a6c98",
@@ -1261,6 +1269,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Motivos de ingreso"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "38a29b48-f6ae-4ec2-9a0a-2f72839f9f9e",
@@ -1344,7 +1356,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 3000
+                              "value" : 500
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -1459,6 +1471,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Rasgos observados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "142f2d07-e8e4-4a5f-9af7-d8f1476996bc",
@@ -1619,6 +1635,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Comentarios"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d31386be-86e9-40c7-b4d2-ca935addd77b",
@@ -2165,6 +2185,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Capacidad de adaptación"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "b8a027a2-eafb-4dd9-9c29-7492544c5a2e",
@@ -3996,6 +4020,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Salud"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d239eaef-6fd9-49eb-a89a-363a06ed06e4",
@@ -4801,6 +4829,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Resultados INVP"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "2dcbc423-8fa7-45fc-bb3f-95130bb8f3d5",
@@ -4907,7 +4939,7 @@
                                   },
                                   "targetUrl" : {
                                     "type" : "expression",
-                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid"
+                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid+\"&caseId=\"+caseId"
                                   },
                                   "pageToken" : {
                                     "type" : "constant"
@@ -5286,6 +5318,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Otras opciones y cursos"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "315dd08c-73c0-49d2-a380-fa5181719a98",
@@ -5616,7 +5652,7 @@
                             },
                             "selectedValues" : {
                               "type" : "variable",
-                              "value" : "dataToSend2.testPsicomInput.custosRecomendados"
+                              "value" : "testPsicom.testPsicomInput.custosRecomendados"
                             }
                           },
                           "reference" : "78570692-be6d-4641-adeb-ac00f8b0a0df",
@@ -7532,7 +7568,7 @@
     "testPsicomRasgos" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
+        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{(intentos==null || intentos==\\\"null\\\")?0:intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
       ],
       "exposed" : false
     },
@@ -8588,8 +8624,9 @@
     "getFechaInvp" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&intento={{intentos}}"
+        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&caseid={{caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "finalizado" : {

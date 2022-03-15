@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1639508547766,
+  "lastUpdate" : 1646435469575,
   "rows" : [
     [
       {
@@ -4894,7 +4894,7 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
                               "type" : "constant",
@@ -11455,7 +11455,8 @@
                 "userId" : "users.user_id",
                 "Bachilleratopersistenceid" : "Bachilleratopersistenceid",
                 "userName" : "users.user_name",
-                "urlRedireccion" : "urlDireccion"
+                "urlRedireccion" : "urlDireccion",
+                "isVencido" : "isPeriodoVencido.isVencido"
               }
             }
           ]
@@ -18293,8 +18294,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 1,
-          "lg" : 1
+          "md" : 0,
+          "lg" : 0
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18693,6 +18694,68 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catPeriodo.data"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlInfo" : {
+            "type" : "expression",
+            "value" : "DatoUrlGetInfo"
+          },
+          "urlPost" : {
+            "type" : "constant",
+            "value" : "postUpdatePeriodoVencido"
+          },
+          "caseId" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.caseId"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "isPeriodoVencido.isVencido"
+          }
+        },
+        "reference" : "ffa8d75d-8eef-4ab8-b441-2ff65218ed1d",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfoModalRestrictivo"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
             "value" : "heighcustom"
           },
           "hidden" : {
@@ -18945,7 +19008,7 @@
           },
           "processDefinitionId" : {
             "type" : "variable",
-            "value" : "processDefinitionId.processDefinitionId.id"
+            "value" : "processDefinitionId.id"
           },
           "caseid" : {
             "type" : "variable",
@@ -23128,8 +23191,9 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "redirectCaseStarted" : {
@@ -23185,8 +23249,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
+        "../API/extension/RegistroRest?url=process&p=0&c=10"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "processUrl" : {
@@ -23594,8 +23659,9 @@
     "getCaseIdCatCiudad" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getCatCiudadBycaseId" : {
@@ -23608,15 +23674,17 @@
     "objCaseInformationEstados" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "objCaseInformationPaises" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "isDataRegistro" : {
@@ -23920,13 +23988,15 @@
       "value" : [
         "../API/bpm/userTask/{{taskId}}/context"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "task" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}"
+        "../API/extension/RegistroRest?url=userTask&taskId={{taskId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskId" : {
@@ -23986,7 +24056,7 @@
     "urlCurrentTask" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bpm/humanTask?p=0&c=10&f=caseId=\"+$data.getCatRegistro[0].caseId+\"&f=state=ready&f=name=Llenar%20solicitud\""
+        "return \"../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=\"+$data.getCatRegistro[0].caseId+\"&f=state=ready&f=name=Llenar%20solicitud\""
       ],
       "exposed" : false
     },
@@ -24452,7 +24522,7 @@
     "processDefinitionId" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case/{{getCatRegistro[0].caseId}}?d=processDefinitionId"
+        "../API/extension/RegistroRest?url=caseInstance&caseid={{getCatRegistro[0].caseId}}&d=processDefinitionId"
       ],
       "exposed" : false
     },
@@ -24466,7 +24536,7 @@
     "vericartareas" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
+        "",
         "var retorno = false",
         "try{",
         "    for(var x=0;x<$data.verificarabortadas.length;x++){",
@@ -24483,7 +24553,24 @@
     "verificarabortadas" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/archivedActivity?f=caseId={{getCatRegistro[0].caseId}}&f=state=aborted"
+        "../API/extension/RegistroRest?url=archivedHumanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&f=state=aborted"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "DatoUrlGetInfo" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.catSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
+        "}"
       ],
       "exposed" : false
     }

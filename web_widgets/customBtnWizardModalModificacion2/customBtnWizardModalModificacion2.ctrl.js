@@ -137,7 +137,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             url: "../API/system/session/unusedid",
         };
         return $http(req).success(function(data, status) {
-                let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+                let url = "../API/extension/RegistroPut?url=userTask&task_id=" + $scope.properties.taskId;
+                //let url = "../API/bpm/userTask/" + $scope.properties.taskId;
                 if ($scope.properties.catSolicitudDeAdmision.correoElectronico != data.user_name) {
                     swal("¡Error!", "Su sesion ha expirado", "warning");
                     setTimeout(function() { window.top.location.href = $scope.properties.urlDireccion }, 3000);
@@ -310,66 +311,66 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function gettimmer(variable) {
-        debugger;
+
         blockUI.start();
         var req = {
             method: "GET",
-            url: "../API/bpm/caseVariable/"+$scope.properties.catSolicitudDeAdmision.caseId+"/"+variable,
+            url: "../API/extension/RegistroRest?url=caseVariable&caseid=" + $scope.properties.catSolicitudDeAdmision.caseId + "&name=" + variable,
         };
         return $http(req).success(function(data, status) {
-            var date = new Date();
-            var datetosend = null;
-            var datestr = "";
-            if(variable === "fechaAbandonosolicitud"){
-                datetosend = new Date($scope.properties.catSolicitudDeAdmision.catPeriodo.fechaFin)
-                datetosend = new Date(datetosend.getTime() + ((((3600*1000)*24)*30)*18))
-            }else{
-                datetosend = new Date($scope.properties.catSolicitudDeAdmision.catPeriodo.fechaFin);
-            }
-            if(datetosend.getDay() == 0){
+                var date = new Date();
+                var datetosend = null;
+                var datestr = "";
+                if (variable === "fechaAbandonosolicitud") {
+                    datetosend = new Date($scope.properties.catSolicitudDeAdmision.catPeriodo.fechaFin)
+                    datetosend = new Date(datetosend.getTime() + ((((3600 * 1000) * 24) * 30) * 18))
+                } else {
+                    datetosend = new Date($scope.properties.catSolicitudDeAdmision.catPeriodo.fechaFin);
+                }
+                if (datetosend.getDay() == 0) {
                     datestr = "Sun";
-                } else if(datetosend.getDay() == 1){
+                } else if (datetosend.getDay() == 1) {
                     datestr = "Mon";
-                } else if(datetosend.getDay() == 2){
+                } else if (datetosend.getDay() == 2) {
                     datestr = "Tue";
-                } else if(datetosend.getDay() == 3){
+                } else if (datetosend.getDay() == 3) {
                     datestr = "Wed";
-                } else if(datetosend.getDay() == 4){
+                } else if (datetosend.getDay() == 4) {
                     datestr = "Thu";
-                } else if(datetosend.getDay() == 5){
+                } else if (datetosend.getDay() == 5) {
                     datestr = "Fri";
-                } else if(datetosend.getDay() == 6){
+                } else if (datetosend.getDay() == 6) {
                     datestr = "Sat";
                 }
 
-                if(datetosend.getMonth() == 0){
+                if (datetosend.getMonth() == 0) {
                     datestr = datestr + " Jan";
-                } else if(datetosend.getMonth() == 1){
+                } else if (datetosend.getMonth() == 1) {
                     datestr = datestr + " Feb";
-                } else if(datetosend.getMonth() == 2){
+                } else if (datetosend.getMonth() == 2) {
                     datestr = datestr + " Mar";
-                } else if(datetosend.getMonth() == 3){
+                } else if (datetosend.getMonth() == 3) {
                     datestr = datestr + " Apr";
-                } else if(datetosend.getMonth() == 4){
+                } else if (datetosend.getMonth() == 4) {
                     datestr = datestr + " May";
-                } else if(datetosend.getMonth() == 5){
+                } else if (datetosend.getMonth() == 5) {
                     datestr = datestr + " Jun";
-                } else if(datetosend.getMonth() == 6){
+                } else if (datetosend.getMonth() == 6) {
                     datestr = datestr + " Jul";
-                } else if(datetosend.getMonth() == 7){
+                } else if (datetosend.getMonth() == 7) {
                     datestr = datestr + " Aug";
-                } else if(datetosend.getMonth() == 8){
+                } else if (datetosend.getMonth() == 8) {
                     datestr = datestr + " Sep";
-                } else if(datetosend.getMonth() == 9){
+                } else if (datetosend.getMonth() == 9) {
                     datestr = datestr + " Oct";
-                } else if(datetosend.getMonth() == 10){
+                } else if (datetosend.getMonth() == 10) {
                     datestr = datestr + " Nov";
-                } else if(datetosend.getMonth() == 11){
+                } else if (datetosend.getMonth() == 11) {
                     datestr = datestr + " Dec";
                 }
 
-                datestr = datestr + " "+datetosend.getDate().toString()+ " 00:00:00 CST " + datetosend.getFullYear().toString();
-            updateVariable(data.type,datestr, variable);
+                datestr = datestr + " " + datetosend.getDate().toString() + " 00:00:00 CST " + datetosend.getFullYear().toString();
+                updateVariable(data.type, datestr, variable);
             })
             .error(function(data, status) {
                 swal("¡Error!", data.message, "error");
@@ -382,19 +383,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function updateVariable(type, fechatimmer, variable) {
         //$scope.showModal();
+        var callUrl = "/API/extension/RegistroPut?url=caseVariable&caseVariable=" + $scope.properties.catSolicitudDeAdmision.caseId + "&name=" + variable
         blockUI.start();
         var req = {
             method: "PUT",
-            url: "../API/bpm/caseVariable/"+$scope.properties.catSolicitudDeAdmision.caseId+"/"+variable,
+            url: callUrl, //"../API/bpm/caseVariable/"+$scope.properties.catSolicitudDeAdmision.caseId+"/"+variable,
             data: {
-              "type": type,
-              "value": fechatimmer
+                "type": type,
+                "value": fechatimmer
             }
         };
         return $http(req).success(function(data, status) {
-                if(variable === "fechaAbandonosolicitud"){
+                if (variable === "fechaAbandonosolicitud") {
                     getTask();
-                }else{
+                } else {
                     gettimmer("fechaAbandonosolicitud");
                 }
             })

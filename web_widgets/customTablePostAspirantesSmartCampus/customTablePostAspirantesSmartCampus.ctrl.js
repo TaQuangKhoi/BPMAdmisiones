@@ -2,7 +2,21 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.isArray = Array.isArray;
     
-  
+    /*$scope.disableButton();
+
+    $scope.disableButton = function() {
+        debugger
+        for(let i=0;i<=properties.lstContenido.length;i++){
+            if(properties.lstContenido[i].rutapago == "") {
+                document.getElementById("rutapagobtn").disabled = true;
+            } else if(properties.lstContenido[i].rutasolicitud == "") {
+                document.getElementById("rutasolicitudbtn").disabled = true;
+            } else {
+                console.log("")
+            }
+        }
+    }*/
+    
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
@@ -263,6 +277,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.rutaPagoDownload = function(row) {
+        debugger
         $window.title = "RUTA_PAGO - "+row.idbanner
         $window.open(row.rutaPagob64);
         /*axios({
@@ -283,7 +298,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
     
     $scope.rutaSolicitudDownload = function(row) {
-        $window.open(row.rutaSolicitudb64);
+        $window.open(row.rutasolicitud);
         
         /*axios({
                 url: row.rutaSolicitudb64,

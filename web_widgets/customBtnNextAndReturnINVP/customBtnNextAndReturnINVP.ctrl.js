@@ -16,7 +16,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.searchArray = function(){
         let str = {
             "valor":"",
-            "index":null
+            "index":null,
+            "caseid":0
         }
         $scope.properties.arregloDatos.forEach((datos, index) =>{
             if($scope.properties.datoActual == datos[$scope.properties.campoDato]){
@@ -24,8 +25,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if(index>0 && !$scope.properties.accionNextOrReturn){
                     str.valor == datos[index-1][$scope.properties.campoDato];
                     str.index = index-1;
+                    str.caseid = datos[index-1]["caseid"];
                 }else if(index < ($scope.properties.arregloDatos.length - 1)  && $scope.properties.accionNextOrReturn){
                     str.valor == datos[index+1][$scope.properties.campoDato];
+                    str.caseid = datos[index+1]["caseid"];
                     str.index = index+1;
                 }else{
                     swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"último de la lista ":"primero de la lista "}, no se puede seleccionar otro!`,"","")
@@ -35,6 +38,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         
         $scope.properties.valor = str.valor;
         $scope.properties.posicionDato = str.index;
+        $scope.proterties.caseid = str.caseid;
     }
     
     
@@ -60,6 +64,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }else{
                     
                     $scope.properties.value = data.data[0].idbanner
+                    $scope.properties.caseid =  data.data[0].caseid;
                     //var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+data.data[0].idbanner+"&idsesion="+$scope.properties.sesiones;
                     //window.location.href= url
                 }

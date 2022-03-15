@@ -25,6 +25,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.asentamiento = "";
             $scope.properties.estadoExtranjero = "";
             openModal($scope.properties.modalId);
+            debugger
             $scope.properties.cp = undefined;
             //$scope.properties.haveCiudad = false;
         } else if ($scope.properties.action === 'Close modal') {

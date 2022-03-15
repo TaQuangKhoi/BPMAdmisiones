@@ -75,7 +75,7 @@
                     <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE,EMAIL,CURP',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
-                    <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('ID','SESION',dynamicInput['sesion'])"></td>
+                    <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('ID,SESION',dynamicInput['sesion'])"></td>
                     <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
                     <td></td>
                 </tr>
@@ -113,6 +113,7 @@
                         <b>{{row.estatussolicitud }}</b><br> 
                         <!--{{row.tipoalumno}}-->
                         <br>
+                        <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                     </td>
                     <td class="max-size">
                         <table>

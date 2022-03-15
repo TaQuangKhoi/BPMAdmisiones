@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appAutodescripcionV2concluida",
   "name" : "appAutodescripcionV2concluida",
-  "lastUpdate" : 1639508693541,
+  "lastUpdate" : 1645041888548,
   "rows" : [
     [
       {
@@ -5390,8 +5390,13 @@
     "context" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "catPersonaSaludable_query" : {
@@ -5503,8 +5508,9 @@
     "task" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}"
+        "../API/extension/RegistroRest?url=userTask&taskId={{taskId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "lstIdiomasV2" : {
@@ -5655,7 +5661,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseList[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },

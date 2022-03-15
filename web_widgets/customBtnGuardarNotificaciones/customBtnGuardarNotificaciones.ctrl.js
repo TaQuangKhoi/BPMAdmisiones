@@ -114,6 +114,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         var error = false;
         var texto = "";
         var info = "";
+        $scope.properties.selectedData.clave = $scope.properties.selectedData.codigo;
         if ($scope.properties.selectedData.asunto == "") {
             error = true;
             texto = "Faltó capturar información: Asunto";

@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1640193634115,
+  "lastUpdate" : 1646676600638,
   "rows" : [
     [
       {
@@ -175,6 +175,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Pendientes de resultados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "42dddfd9-6a58-4b81-9b39-4a82741eb6f0",
@@ -922,6 +926,10 @@
                       "lstBanner" : {
                         "type" : "variable",
                         "value" : "lstBanner"
+                      },
+                      "escalaEAC" : {
+                        "type" : "expression",
+                        "value" : "escalaEAC"
                       }
                     },
                     "reference" : "f5edce9c-8d89-49a0-a4e3-ca98d6f1df27",
@@ -1197,7 +1205,7 @@
                             "columnsKey" : {
                               "type" : "constant",
                               "value" : [
-                                "Fecha de examen",
+                                "Fechadeexamen",
                                 "IDBANNER",
                                 "Nombre",
                                 "IdSesion",
@@ -2972,11 +2980,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "valorKP" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PAAN"
                             }
                           },
-                          "reference" : "f58479eb-9cf5-4675-8d11-a73c8c2a821f",
+                          "reference" : "e35a830d-2b7f-4ab1-a7fc-4682d517a365",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
+                          "id" : "customInputEscalaEAC"
                         },
                         {
                           "type" : "component",
@@ -3126,11 +3138,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "valorKP" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PAAV"
                             }
                           },
-                          "reference" : "ae29472a-4bb3-4c27-9e5a-28fcd3b63d9e",
+                          "reference" : "ad145f6e-6aa2-4363-b2b0-9a8de6507bf2",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
+                          "id" : "customInputEscalaEAC"
                         },
                         {
                           "type" : "component",
@@ -3280,11 +3296,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "valorKP" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PARA"
                             }
                           },
-                          "reference" : "47c6b3e8-8f8f-40b4-bf2d-f6bf0240e495",
+                          "reference" : "ba4e7d1f-c59f-4b72-9deb-630330e3fa32",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
+                          "id" : "customInputEscalaEAC"
                         },
                         {
                           "type" : "component",
@@ -6348,7 +6368,7 @@
       "value" : [
         "            [\r",
         "            \"IDBANNER\",\r",
-        "            \"Fecha de examen\",\r",
+        "            \"Fechadeexamen\",\r",
         "            \"IdSesion\",\r",
         "            \"NombreSesion\",\r",
         "            \"CIT1\",\r",
@@ -6418,9 +6438,9 @@
       "type" : "expression",
       "value" : [
         "if( !$data.VariableCarga.view && $data.strAlumno.tipoExamen == \"KP\" ){",
-        "    $data.strAlumno.PAAN = convertirDato($data.strAlumno['MLEX']);",
-        "    $data.strAlumno.PAAV = convertirDato($data.strAlumno['CLEX']);",
-        "    $data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
+        "    //$data.strAlumno.PAAN = convertirDato($data.strAlumno['MLEX']);",
+        "    //$data.strAlumno.PAAV = convertirDato($data.strAlumno['CLEX']);",
+        "    //$data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
         "    ",
         "    $data.strAlumno.LEXIUM_Total = \"\"+(parseFloat($data.strAlumno.MLEX ?$data.strAlumno.MLEX: 0) + parseFloat($data.strAlumno.CLEX ?$data.strAlumno.CLEX: 0) + parseFloat($data.strAlumno.HLEX ?$data.strAlumno.HLEX: 0))",
         "}"
@@ -6448,6 +6468,21 @@
       "value" : [
         ""
       ],
+      "exposed" : false
+    },
+    "strPruebas" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "escalaEAC" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEscalaEAC?q=findByIsEliminado&f=isEliminado=false&p=0&c=999"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
