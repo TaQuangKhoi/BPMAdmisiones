@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1647288727584,
+  "lastUpdate" : 1647303839194,
   "rows" : [
     [
       {
@@ -14607,7 +14607,7 @@
         "let output = $data.formOutputTest;",
         "output.solicitudApoyoEducativoInput.pageIndex = $data.selectedIndex;",
         "output.solicitudApoyoEducativoInput.caseId = $data.caseId;",
-        "output.solicitudApoyoEducativoInput.caseIdAdmisiones = $data.objSolicitudDeAdmision.caseId;",
+        "output.solicitudApoyoEducativoInput.caseIdAdmisiones = $data.objSolicitudDeAdmision[0].caseId;",
         "// output.solicitudApoyoEducativoInput.hermanos = [];",
         "",
         "if(!output.lstDocumentosDocumentInput){",
@@ -14751,6 +14751,14 @@
         "    }",
         "]"
       ],
+      "exposed" : false
+    },
+    "getAutodescripcion" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.AutodescripcionV2?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
