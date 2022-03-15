@@ -2455,30 +2455,31 @@ class HubspotDAO {
 	  Result result = new Result();
 	  Boolean closeCon=false;
 	  try {
-		  closeCon = validarConexion();
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailAutodescripcion, config.emailHubspotAutodescripcion, "Correo para envío de fallos Hubspot Autodescripción")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailEnviada, config.emailHubspotEnviada,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailEsperaResultado, config.emailHubspotEsperaResultado,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailGenerarCredencial, config.emailHubspotGenerarCredencial,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailModificar, config.emailHubspotModificar,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailNoAsistioPruebas, config.emailHubspotNoAsistioPruebas,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailPago, config.emailHubspotPago,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailRechazoLRoja, config.emailHubspotRechazoLRoja,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailRegistro, config.emailHubspotRegistro,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailRestaurarRechazoLRoja, config.emailHubspotRestaurarRechazoLRoja,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailSeleccionoFechaExamen, config.emailHubspotSeleccionoFechaExamen,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailUsuarioRegistrado, config.emailHubspotUsuarioRegistrado,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailValidar, config.emailHubspotValidar,"")
-		  verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail.EmailTransferirAspirante, config.emailHubspotTransferirAspirante,"")
-		  
-	  }catch(Exception e) {
-		  result.setSuccess(false)
-		  result.setError("Can't set config Hubspot email")
-		  result.setError_info(e.getMessage())
-	  }finally {
-		  if(closeCon) {
-			  new DBConnect().closeObj(con, stm, rs, pstm);
-		  }
+			  closeCon = validarConexion();
+	
+			  verifyAndInsertOrUpdate("EmailAutodescripcion", config.emailHubspotAutodescripcion, "Correo para envío de fallos Hubspot Autodescripción")
+	          verifyAndInsertOrUpdate("EmailEnviada", config.emailHubspotEnviada,"")
+	          verifyAndInsertOrUpdate("EmailEsperaResultado", config.emailHubspotEsperaResultado,"")
+	          verifyAndInsertOrUpdate("EmailGenerarCredencial", config.emailHubspotGenerarCredencial,"")
+	          verifyAndInsertOrUpdate("EmailModificar", config.emailHubspotModificar,"")
+	          verifyAndInsertOrUpdate("EmailNoAsistioPruebas", config.emailHubspotNoAsistioPruebas,"")
+	          verifyAndInsertOrUpdate("EmailPago", config.emailHubspotPago,"")
+	          verifyAndInsertOrUpdate("EmailRechazoLRoja", config.emailHubspotRechazoLRoja,"")
+	          verifyAndInsertOrUpdate("EmailRegistro", config.emailHubspotRegistro,"")
+	          verifyAndInsertOrUpdate("EmailRestaurarRechazoLRoja", config.emailHubspotRestaurarRechazoLRoja,"")
+	          verifyAndInsertOrUpdate("EmailSeleccionoFechaExamen", config.emailHubspotSeleccionoFechaExamen,"")
+	          verifyAndInsertOrUpdate("EmailUsuarioRegistrado", config.emailHubspotUsuarioRegistrado,"")
+	          verifyAndInsertOrUpdate("EmailValidar", config.emailHubspotValidar,"")
+	          verifyAndInsertOrUpdate("EmailTransferirAspirante", config.emailHubspotTransferirAspirante,"")
+			  result.setSuccess(true)
+		  }catch(Exception e) {
+			  result.setSuccess(false)
+			  result.setError("Can't set config Hubspot email")
+			  result.setError_info(e.getMessage())
+		  }finally {
+			  if(closeCon) {
+				  new DBConnect().closeObj(con, stm, rs, pstm);
+			  }
 	  }
 	  
 	  return result;
@@ -2556,8 +2557,10 @@ class HubspotDAO {
 	  }
 	  return result;
   }
-  private void verifyAndInsertOrUpdate(HubspotConfig.HubspotEmail key, String value, String description) {
+  private void verifyAndInsertOrUpdate(String key, String value, String description) {
 	  Boolean closeCon=false;
+	  
+	  try {
 	  closeCon = validarConexion();
 	  pstm = con.prepareStatement(HubspotConfig.GET_CONFIGURACIONES_CLAVE)
 	  pstm.setString(1, key)
@@ -2574,8 +2577,8 @@ class HubspotDAO {
 		  pstm.setString(3, description)
 		  pstm.executeUpdate()
 	  }
-	  try {
-		  closeCon = validarConexion();
+	  
+		  
 	  }catch(Exception e) {
 		  throw new Exception (e.getMessage());
 	  }finally {

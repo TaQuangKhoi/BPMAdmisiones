@@ -105,22 +105,5 @@ class HubspotConfig {
 		this.emailHubspotTransferirAspirante = emailHubspotTransferirAspirante;
 	}
 	
-	public enum HubspotEmail{
-		EmailRegistro("EmailRegistro"),
-		EmailEnviada("EmailEnviada"),
-		EmailModificar("EmailModificar"),
-		EmailValidar("EmailValidar"),
-		EmailRechazoLRoja("EmailRechazoLRoja"),
-		EmailRestaurarRechazoLRoja("EmailRestaurarRechazoLRoja"),
-		EmailPago("EmailPago"),
-		EmailAutodescripcion("EmailAutodescripcion"),
-		EmailGenerarCredencial("EmailGenerarCredencial"),
-		EmailEsperaResultado("EmailEsperaResultado"),
-		EmailNoAsistioPruebas("EmailNoAsistioPruebas"),
-		EmailSeleccionoFechaExamen("EmailSeleccionoFechaExamen"),
-		EmailUsuarioRegistrado("EmailUsuarioRegistrado"),
-		EmailTransferirAspirante("EmailTransferirAspirante"),
-	}
-	
 }
 

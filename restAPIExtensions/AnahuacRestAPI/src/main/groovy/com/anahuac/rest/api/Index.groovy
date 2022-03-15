@@ -2320,6 +2320,7 @@ class Index implements RestApiController {
 					row.setEmailHubspotUsuarioRegistrado(object.emailHubspotUsuarioRegistrado)
 					row.setEmailHubspotValidar(object.emailHubspotValidar)
 					row.setEmailHubspotTransferirAspirante(object.emailHubspotTransferirAspirante)
+					row.setEmailHubspotRechazoLRoja(object.emailHubspotRechazoLRoja)
 
 					result = new HubspotDAO().insertUpdateEmail(row)
 					if (result.isSuccess()) {
