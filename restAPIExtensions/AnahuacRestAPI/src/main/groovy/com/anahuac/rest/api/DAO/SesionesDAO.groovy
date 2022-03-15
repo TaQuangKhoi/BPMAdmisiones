@@ -7715,5 +7715,7 @@ class SesionesDAO {
 			}
 		}
 		return resultado
+		errorlog += "Entro antes del parse | "+resultado;
+		
 	}
 }

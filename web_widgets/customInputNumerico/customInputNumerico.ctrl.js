@@ -9,19 +9,18 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   'use strict';
 
   this.name = widgetNameFactory.getName('pbInput');
-
   if (!$scope.properties.isBound('value')) {
     $log.error('the pbInput property named "value" need to be bound to a variable');
   }
-  
+    debugger
     $scope.forceKeyPressUppercase = function(e)
   {
-      
     var charInput = e.keyCode;
     var limite = $scope.properties.maxLength === 1?250:$scope.properties.maxLength;
     if((charInput >=48) && (charInput <=57)&&(e.target.value.length) <limite){
 
     }else{
+    debugger    
         var start = e.target.selectionStart;
         var end = e.target.selectionEnd;
         e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
@@ -31,6 +30,8 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   }
   
   $scope.validar = function(e){
+      debugger;
+      
        if(window.mobileAndTabletCheck()){
 
            if($scope.properties.value.length > $scope.properties.maxLength){

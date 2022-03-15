@@ -22,33 +22,40 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       closeModal(true);
     } else if ($scope.properties.action) {
       debugger
+
+      if($scope.properties.jsonTutor[0].catParentezco.persistenceId != 0){
+        $scope.catParentezco_pid = $scope.properties.jsonTutor[0].catParentezco.persistenceId;
+      }else{
+        $scope.catParentezco_pid = parseInt($scope.properties.jsonTutor[0].catParentezco.persistenceId_string);
+      } 
  
     $scope.ObjetoInformacionTutor = {
-      "cattitulo_pid": $scope.properties.jsonTutor[0].catTitulo.persistenceId,
+      "titulo_pid": $scope.properties.jsonTutor[0].catTitulo.persistenceId,
       "nombre": $scope.properties.jsonTutor[0].nombre,
       "apellidos":$scope.properties.jsonTutor[0].apellidos,
-      "catparentezco_pid":parseInt($scope.properties.jsonTutor[0].catParentezco.persistenceId_string),
-      "otroparentesco": "",
-      "correoelectronico": $scope.properties.jsonTutor[0].correoElectronico,
-      "catescolaridad_pid": $scope.properties.jsonTutor[0].catEscolaridad.persistenceId,
-      "categresoanahuac_pid": $scope.properties.jsonTutor[0].catEgresoAnahuac.persistenceId,
-      "cattrabaja_pid": $scope.properties.jsonTutor[0].catTrabaja.persistenceId,
-      "empresatrabaja": $scope.properties.jsonTutor[0].empresaTrabaja,
-      "giroempresa": $scope.properties.jsonTutor[0].giroEmpresa,
+      "parentesco_pid": $scope.catParentezco_pid,
+      "otroParentesco": "",
+      "correoElectronico": $scope.properties.jsonTutor[0].correoElectronico,
+      "escolaridad_pid": $scope.properties.jsonTutor[0].catEscolaridad.persistenceId,
+      "egresoAnahuac_pid": $scope.properties.jsonTutor[0].catEgresoAnahuac.persistenceId,
+      "trabaja_pid": $scope.properties.jsonTutor[0].catTrabaja.persistenceId,
+      "empresaTrabaja": $scope.properties.jsonTutor[0].empresaTrabaja,
+      "giro": $scope.properties.jsonTutor[0].giroEmpresa,
       "puesto": $scope.properties.jsonTutor[0].puesto,
-      "catpais_pid": $scope.properties.jsonTutor[0].catPais.persistenceId,
-      "codigopostal": $scope.properties.jsonTutor[0].codigoPostal,
+      "pais_pid": $scope.properties.jsonTutor[0].catPais.persistenceId,
+      "codigoPostal": $scope.properties.jsonTutor[0].codigoPostal,
       "estadoExtranjero": $scope.properties.jsonTutor[0].estadoExtranjero,
-      "catestado_pid": $scope.properties.jsonTutor[0].catEstado.persistenceId,
+      "estado_pid": $scope.properties.jsonTutor[0].catEstado.persistenceId,
       "ciudad": $scope.properties.jsonTutor[0].ciudad,
-      "delegacionmunicipio": $scope.properties.jsonTutor[0].delegacionMunicipio,
+      "delegacionMunicipio": $scope.properties.jsonTutor[0].delegacionMunicipio,
       "colonia": $scope.properties.jsonTutor[0].colonia,
       "calle": $scope.properties.jsonTutor[0].calle,
-      "numeroexterior": $scope.properties.jsonTutor[0].numeroExterior,
-      "numerointerior": $scope.properties.jsonTutor[0].numeroInterior,       
+      "numExterior": $scope.properties.jsonTutor[0].numeroExterior,
+      "numInterior": $scope.properties.jsonTutor[0].numeroInterior,       
       "telefono": $scope.properties.jsonTutor[0].telefono,
-      "caseid": $scope.properties.jsonTutor[0].caseid,
+      "caseid": $scope.properties.jsonTutor[0].caseId,
       "persistenceid": $scope.properties.jsonTutor[0].persistenceId
+      
       }
       
       doRequest($scope.properties.action);
