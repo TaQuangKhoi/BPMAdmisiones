@@ -5,27 +5,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        if(validateImagen()){
+        if ($scope.properties.action === 'Remove from collection') {
+            removeFromCollection();
+            closeModal($scope.properties.closeOnSuccess);
+        } else if ($scope.properties.action === 'Add to collection') {
+            addToCollection();
+            closeModal($scope.properties.closeOnSuccess);
+        } else if ($scope.properties.action === 'Start process') {
+            startProcess();
+        } else if ($scope.properties.action === 'Submit task') {
+            submitTask();
+        } else if ($scope.properties.action === 'Open modal') {
+            closeModal($scope.properties.closeOnSuccess);
+            openModal($scope.properties.modalId);
+        } else if ($scope.properties.action === 'Close modal') {
+            closeModal(true);
+        } else if ($scope.properties.url) {
             doRequest($scope.properties.action, $scope.properties.url);
         }
     };
-
-    function validateImagen() {
-        let output = true;
-        let messageTitle = "", errorMessage = "";
-        let objValidate = angular.copy($scope.properties.dataToSend);
-        if(!objValidate.descripcion){
-            messageTitle = "¡Descripción!";
-            errorMessage = "El campo 'Descripción' no debe ir vacío";
-            output = false;
-        } 
-
-        if(!output){
-            swal(messageTitle, errorMessage, "warning");
-        }
-
-        return output;
-    }
 
     function openModal(modalId) {
         modalService.open(modalId);
@@ -91,15 +89,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      */
     function doRequest(method, url, params) {
         vm.busy = true;
+        let _data = angular.copy($scope.properties.dataToSend);
+        _data.idCampus = $scope.properties.idCampus;
+        
         var req = {
             method: method,
             url: url,
-            data: angular.copy($scope.properties.dataToSend),
+            data: _data,
             params: params
         };
 
         return $http(req)
             .success(function (data, status) {
+                swal("Ok", "Condiciones del video actualizadas", "success");
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -107,13 +109,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                     redirectIfNeeded();
                 }
-                
-                $scope.properties.dataToSend = angular.copy($scope.properties.resetImagen);
-                $scope.properties.reloadTable = true;
-                swal("¡Ok!","Documento guardado exitósamente.","success");
                 closeModal($scope.properties.closeOnSuccess);
             })
             .error(function (data, status) {
+                swal("Error", "No se han podido actualizar las condiciones del video", "error");
                 $scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromSuccess = undefined;

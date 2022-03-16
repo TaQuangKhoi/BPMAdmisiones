@@ -725,7 +725,7 @@ class CatalogosDAO {
 				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setDescripcion(rs.getString("DESCRIPCION"));
 				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
-				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
+				row.setCondicionesVideo(rs.getString("CONICIONESVIDEO"));
 				row.setEsSocioEconomico(rs.getBoolean("ESSOCIOECONOMICO"));
 
 				rows.add(row);
@@ -1169,7 +1169,8 @@ class CatalogosDAO {
 			pstm.setBoolean(1, objCatGenerico.requiereVideo);
 			pstm.setString(2, objCatGenerico.condicionesVideo);
 			pstm.setBoolean(3, objCatGenerico.esSocioEconomico);
-			pstm.setLong(4, objCatGenerico.persistenceId);
+			pstm.setLong(4, objCatGenerico.idCampus);
+			pstm.setLong(5, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
@@ -1285,10 +1286,8 @@ class CatalogosDAO {
 
 			errorLog+= "UPDATE CatManejoDocumentos SET isEliminado = true WHERE PERSISTENCEID = ?"
 			errorLog = errorLog.replace("?", persistenceid);
-			
 			pstm.setLong(1, Long.valueOf(persistenceid));
 			pstm.execute();
-			
 			resultado.setSuccess(true);
 			resultado.setError_info(errorLog);
 		} catch (Exception e) {
@@ -1471,4 +1470,85 @@ class CatalogosDAO {
 		}
 		return resultado;
 	}
+	
+	/**
+	 * Obtiene la lista de registros del catálogo detipo de apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getCatTipoAoyoByCampus(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			String consulta = StatementsCatalogos.GET_CAT_TIPO_APOYO;
+			CatTypoApoyo row = new CatTypoApoyo();
+			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
+			closeCon = validarConexion();
+			where += " WHERE isEliminado = false";
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[WHERE]", where);
+			consulta = consulta.replace("[CATALOGO]", object.catalogo);
+
+			String consultaCount = StatementsCatalogos.GET_COUNT_CATGENERICO;
+			consultaCount = consultaCount.replace("[WHERE]", where);
+			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo);
+			errorLog +=" 4";
+			pstm = con.prepareStatement(consultaCount);
+			rs = pstm.executeQuery();
+			
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"));
+			}
+			
+			errorLog +=" 4";
+			consulta = consulta.replace("[ORDERBY]", orderby);
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+
+			errorLog +=" 5";
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new CatTypoApoyo();
+				row.setClave(rs.getString("clave"))
+				row.setDescripcion(rs.getString("descripcion"));
+				row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+//				row.setRequiereVideo(rs.getBoolean("requierevideo"));
+//				row.setCondicionesVideo(rs.getString("condicionesvideo"));
+//				row.setEsSocioEconomico(rs.getBoolean("esSocioEconomico"));
+
+				rows.add(row);
+			}
+			errorLog +=" 6";
+			//resultado.setError_info(errorLog);
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 }

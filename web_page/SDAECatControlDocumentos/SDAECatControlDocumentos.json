@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1643322069656,
+  "lastUpdate" : 1647470167442,
   "rows" : [
     [
       {
@@ -300,6 +300,10 @@
                       "tipoApoyoSeleccionado" : {
                         "type" : "variable",
                         "value" : "tipoApoyoSeleccionado"
+                      },
+                      "idCampus" : {
+                        "type" : "expression",
+                        "value" : "selectedCampusOperations"
                       }
                     },
                     "reference" : "f038df1b-a731-417f-8845-0a7d1c6b235d",
@@ -366,6 +370,10 @@
                       "objetoReinicioImagen" : {
                         "type" : "variable",
                         "value" : "resetImagen"
+                      },
+                      "idCampus" : {
+                        "type" : "expression",
+                        "value" : "selectedCampusOperations"
                       }
                     },
                     "reference" : "f40f2b34-5222-4c1e-a66c-67891bf216b1",
@@ -468,7 +476,7 @@
                         "value" : false
                       },
                       "url" : {
-                        "type" : "interpolation"
+                        "type" : "constant"
                       },
                       "responseStatusCode" : {
                         "type" : "variable",
@@ -1087,7 +1095,7 @@
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation"
+                          "type" : "constant"
                         },
                         "responseStatusCode" : {
                           "type" : "variable",
@@ -1168,21 +1176,23 @@
                         },
                         "action" : {
                           "type" : "constant",
-                          "value" : "Submit task"
+                          "value" : "POST"
                         },
                         "assign" : {
                           "type" : "constant",
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation"
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=updateTipoApoyoVideo&p=0&c=0"
                         },
                         "responseStatusCode" : {
                           "type" : "variable",
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "tipoApoyoSeleccionado"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -1215,11 +1225,19 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
+                        },
+                        "navBar" : {
+                          "type" : "variable",
+                          "value" : "accion"
+                        },
+                        "idCampus" : {
+                          "type" : "expression",
+                          "value" : "selectedCampusOperations"
                         }
                       },
-                      "reference" : "8b91c6da-15de-4543-ab4f-49bc362d06b9",
+                      "reference" : "203e4f10-eecb-4d1e-989c-48da250da824",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEBtnSaveCondicionesVideo"
                     }
                   ]
                 ]
@@ -1718,7 +1736,7 @@
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation"
+                          "type" : "constant"
                         },
                         "responseStatusCode" : {
                           "type" : "variable",
@@ -1806,7 +1824,7 @@
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation",
+                          "type" : "constant",
                           "value" : "{{urlInsertDocumento}}"
                         },
                         "responseStatusCode" : {
@@ -1852,6 +1870,10 @@
                         "reloadTable" : {
                           "type" : "variable",
                           "value" : "reloadTablaDocumentos"
+                        },
+                        "urlPost" : {
+                          "type" : "expression",
+                          "value" : "urlInsertDocumento"
                         }
                       },
                       "reference" : "e2cf9a33-e43a-4e74-b90e-fb70ef4da545",
@@ -2117,7 +2139,7 @@
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation",
+                          "type" : "constant",
                           "value" : "../API/extension/AnahuacBecasRest?url=insertImagenSocioEconomico&p=0&c=0&"
                         },
                         "responseStatusCode" : {
@@ -2348,7 +2370,7 @@
                           "value" : false
                         },
                         "url" : {
-                          "type" : "interpolation"
+                          "type" : "constant"
                         },
                         "responseStatusCode" : {
                           "type" : "variable",
@@ -2807,7 +2829,7 @@
         "",
         "function getIdCampus(campus){",
         "    let output = 0;",
-        "    debugger;",
+        "    ",
         "    for(let i = 0; i< $data.lstCatCampus.length; i++){",
         "        if($data.lstCatCampus[i].grupoBonita === campus){",
         "            output = $data.lstCatCampus[i].persistenceId",
