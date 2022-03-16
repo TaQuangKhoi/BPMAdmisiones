@@ -33,6 +33,15 @@ class PadresTutorEntity {
 	private String trabaja;
 	private String vive;
 	private Boolean vencido;
+	private Long catpais_pid;
+	private Long categresoanahuac_pid;
+	private Long catcampusegreso_pid;
+	private Long cattrabaja_pid;
+	private Long vive_pid;
+	private Long catestado_pid;
+	private Long cattitulo_pid;
+	private Long catparentezco_pid;
+	private Long catescolaridad_pid;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -225,4 +234,62 @@ class PadresTutorEntity {
 	public void setVencido(Boolean vencido) {
 		this.vencido = vencido;
 	}
+	public Long getCatpais_pid() {
+		return catpais_pid;
+	}
+	public void setCatpais_pid(Long catpais_pid) {
+		this.catpais_pid = catpais_pid;
+	}
+	public Long getCategresoanahuac_pid() {
+		return categresoanahuac_pid;
+	}
+	public void setCategresoanahuac_pid(Long categresoanahuac_pid) {
+		this.categresoanahuac_pid = categresoanahuac_pid;
+	}
+	public Long getCatcampusegreso_pid() {
+		return catcampusegreso_pid;
+	}
+	public void setCatcampusegreso_pid(Long catcampusegreso_pid) {
+		this.catcampusegreso_pid = catcampusegreso_pid;
+	}
+	public Long getCattrabaja_pid() {
+		return cattrabaja_pid;
+	}
+	public void setCattrabaja_pid(Long cattrabaja_pid) {
+		this.cattrabaja_pid = cattrabaja_pid;
+	}
+	public Long getVive_pid() {
+		return vive_pid;
+	}
+	public void setVive_pid(Long vive_pid) {
+		this.vive_pid = vive_pid;
+	}
+	public Long getCatestado_pid() {
+		return catestado_pid;
+	}
+	public void setCatestado_pid(Long catestado_pid) {
+		this.catestado_pid = catestado_pid;
+	}
+	public Long getCattitulo_pid() {
+		return cattitulo_pid;
+	}
+	public void setCattitulo_pid(Long cattitulo_pid) {
+		this.cattitulo_pid = cattitulo_pid;
+	}
+	public Long getCatparentezco_pid() {
+		return catparentezco_pid;
+	}
+	public void setCatparentezco_pid(Long catparentezco_pid) {
+		this.catparentezco_pid = catparentezco_pid;
+	}
+	public Long getCatescolaridad_pid() {
+		return catescolaridad_pid;
+	}
+	public void setCatescolaridad_pid(Long catescolaridad_pid) {
+		this.catescolaridad_pid = catescolaridad_pid;
+	}
+	
+	
+	
+	
 }

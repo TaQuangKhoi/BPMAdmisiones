@@ -9,6 +9,7 @@ import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.Calendario
 import com.anahuac.rest.api.Entity.Custom.ContactoEmergenciaEntity
+import com.anahuac.rest.api.Entity.Custom.PadresTutorEntity
 import com.anahuac.rest.api.Entity.Custom.PruebaCustom
 import com.anahuac.rest.api.Entity.Custom.PruebasCustom
 import com.anahuac.rest.api.Entity.Custom.ResponsableCustom
@@ -7716,6 +7717,77 @@ class SesionesDAO {
 		}
 		return resultado
 		errorlog += "Entro antes del parse | "+resultado;
+		
+	}
+	
+	public Result getlstTutores(String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		errorlog += "Entro antes del parse | "+caseid;
+		Long Caseid = Long.parseLong(caseid);
+		try {
+			//def jsonSlurper = new JsonSlurper();
+			//def object = jsonSlurper.parseText(jsonData);
+			PadresTutorEntity row = new PadresTutorEntity()
+			List<PadresTutorEntity> rows = new ArrayList<PadresTutorEntity>();
+			closeCon = validarConexion();
+			//assert object instanceof Map;
+			String consulta = Statements.GET_LISTA_TUTORES;
+			errorlog+="consulta:"
+			errorlog+=consulta
+			pstm = con.prepareStatement(consulta)
+			pstm.setLong(1, Caseid);
+			rs = pstm.executeQuery()
+			errorlog+="consulta:"+pstm;
+			while(rs.next()) {
+				row = new PadresTutorEntity()
+				row.setCattitulo_pid(rs.getLong("cattitulo_pid"));
+				row.setNombre(rs.getString("nombre"));
+				row.setApellidos(rs.getString("apellidos"));
+			    row.setCorreoelectronico(rs.getString("correoelectronico"));
+				row.setCatescolaridad_pid(rs.getLong("catescolaridad_pid"));
+				row.setCategresoanahuac_pid(rs.getLong("categresoanahuac_pid"));
+				row.setCatcampusegreso_pid(rs.getLong("catcampusegreso_pid"));
+				row.setCattrabaja_pid(rs.getLong("cattrabaja_pid"));
+				row.setEmpresatrabaja(rs.getString("empresatrabaja"));
+				row.setGiroempresa(rs.getString(" giroEmpresa"));
+				row.setPuesto(rs.getString("puesto"));
+				row.setIstutor(rs.getBoolean("istutor"));
+				row.setVive_pid(rs.getLong("vive_pid"));
+				row.setCalle(rs.getString("calle"));
+				row.setCatpais_pid(rs.getLong("catpais_pid"));
+				row.setNumeroexterior(rs.getString("numeroexterior"));
+				row.setNumerointerior(rs.getString("numerointerior"));
+				row.setCatestado_pid(rs.getLong("catestado_pid"));
+				row.setCiudad(rs.getString("ciudad"));
+				row.setColonia(rs.getString("colonia"));	
+				row.setTelefono(rs.getString("telefono"));
+				row.setCodigopostal(rs.getString("codigopostal"));
+				row.setVivecontigo(rs.getString("viveContigo"));
+				row.setOtroparentesco(rs.getString("otroparentesco"));	
+				row.setCaseid(rs.getLong("caseid"));
+				row.setDesconozcodatospadres(rs.getLong("desconozcoDatosPadres"));
+				row.setDelegacionmunicipio(rs.getString("delegacionmunicipio"));
+				row.setEstadoextranjero(rs.getString("estadoExtranjero"));
+				row.setVencido(rs.getBoolean("vencido"));
+				row.setPersistenceId(rs.getLong("persistenceId"));	
+								
+			    resultado.setSuccess(true)
+				resultado.setData(rows)
+			}
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+		errorlog += "termino la consulta | "+resultado;
 		
 	}
 }

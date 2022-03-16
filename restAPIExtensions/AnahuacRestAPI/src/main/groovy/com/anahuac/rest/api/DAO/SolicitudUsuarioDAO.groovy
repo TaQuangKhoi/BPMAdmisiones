@@ -1226,7 +1226,7 @@ class SolicitudUsuarioDAO {
 			con.setAutoCommit(false);
 
 			if(key.equals("CE")){
-				pstm = con.prepareStatement(Statements.INSERT_SECCION_TUTOR);
+				pstm = con.prepareStatement(Statements.INSERT_SECCION_CONTACTO_EMERGENCIA);
 				errorLog += "Sección: Agregar información contacto de emergencia | "+pstm;
 				pstm.setString(1, object.nombre);
 				pstm.setString(2, object.parentesco);
@@ -1237,38 +1237,44 @@ class SolicitudUsuarioDAO {
 				pstm.setLong(7, object.catCasoDeEmergencia);
 				pstm.setBoolean(8, false);
 
-				//pstm.setLong(8, object.persistenceid);
-
 			}else if(key.equals("IT")){
-				pstm = con.prepareStatement(Statements.INSERT_SECCION_TUTOR);
+				pstm = con.prepareStatement(Statements.INSERT_SECCION_INFORMACION_TUTOR);
 				errorLog += "ENTRO AL IT";
-				//errorLog += "Sección: Agregar información del tutor | "+pstm;
+				errorLog += "Sección: Agregar información del tutor | "+pstm;
 				pstm.setLong(1, object.titulo_pid);
-				pstm.setString(2, object.nombre);
-				pstm.setString(3, object.apellidos);
-				pstm.setLong(4, object.parentesco_pid);
-				pstm.setString(5, object.otroParentesco);
-				pstm.setString(6, object.correoElectronico);
-				pstm.setLong(7, object.escolaridad_pid);
-				pstm.setLong(8, object.egresoAnahuac_pid);
+				pstm.setLong(2, object.parentesco_pid);
+				pstm.setString(3, object.nombre);
+				pstm.setString(4, object.apellidos);
+				pstm.setString(5, object.correoElectronico);
+				pstm.setLong(6, object.escolaridad_pid);
+				pstm.setLong(7, object.egresoAnahuac_pid);
+				pstm.setLong(8,object.campusegreso_pid);
 				pstm.setLong(9, object.trabaja_pid);
 				pstm.setString(10, object.empresaTrabaja);
 				pstm.setString(11, object.giro);
 				pstm.setString(12, object.puesto);
-				pstm.setLong(13, object.pais_pid);
-				pstm.setString(14, object.codigoPostal);
-				pstm.setString(15, object.estadoExtranjero);
-				pstm.setLong(16, object.estado_pid);
-				pstm.setString(17, object.ciudad);
-				pstm.setString(18, object.delegacionMunicipio);
-				pstm.setString(19, object.colonia);
-				pstm.setString(20, object.calle);
-				pstm.setString(21, object.numExterior);
-				pstm.setString(22, object.numInterior);
-				pstm.setString(23, object.telefono);
-				pstm.setLong(24, object.caseid);
+				pstm.setBoolean(13, object.istutor);
+				pstm.setLong(14, object.vive_pid);
+				pstm.setString(15, object.calle);
+				pstm.setLong(16, object.pais_pid);
+				pstm.setString(17, object.numExterior);
+				pstm.setString(18, object.numInterior);
+				pstm.setLong(19, object.estado_pid);
+				pstm.setString(20, object.ciudad);
+				pstm.setString(21, object.colonia);
+				pstm.setString(22, object.telefono);
+				pstm.setString(23, object.codigoPostal);
+				pstm.setBoolean(24, object.viveContigo);
+				pstm.setString(25, object.otroParentesco);
+				pstm.setLong(26, object.caseid);
+				pstm.setBoolean(27, object.desconozcodatospadres);
+				pstm.setString(28, object.delegacionMunicipio);
+				pstm.setString(29, object.estadoExtranjero);
+				pstm.setBoolean(30, object.vencido);
+				
 
-				if (object.egresoAnahuac_pid.equals(77)) {
+
+				/*if (object.egresoAnahuac_pid.equals(77)) {
 					pstm.setLong(25, object.caseid);
 					pstm.setLong(26, object.persistenceid);
 				} else {
@@ -1305,10 +1311,10 @@ class SolicitudUsuarioDAO {
 					 pstm.setString(27, object.delegacionMunicipio);
 					 pstm.setString(28, object.estadoExtranjero);
 					 pstm.setString(29, object.vencido);
-					 pstm.setString(30, object.countintento);*/
+					 pstm.setString(30, object.countintento);
 
 
-				}
+				}*/
 			}
 
 			pstm.executeUpdate();

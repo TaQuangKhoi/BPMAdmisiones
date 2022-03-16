@@ -1554,6 +1554,18 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				
+				break;
+				case "getLstTutores":
+				String caseid = request.getParameter "caseid";
+				result = new SesionesDAO().getlstTutores(caseid)
+				
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
 				break;
 				case "formateoVariablesPaseListaProceso":
 				String caseid=request.getParameter "caseid"

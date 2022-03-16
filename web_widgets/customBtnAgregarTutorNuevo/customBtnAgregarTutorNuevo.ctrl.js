@@ -27,50 +27,54 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let params = new URLSearchParams(location.search);
         var caseidvar = params.get('caseId');
         $scope.Caseid = parseInt(caseidvar);
-        if($scope.properties.dataToSend.catParentesco.persistenceId == 145996){
+        if($scope.properties.dataToSend.catParentezco.persistenceId == 145996){
             //Padre
             $scope.catCasodeEmergencia = 56; 
         
-        }else if ($scope.properties.dataToSend.catParentesco.persistenceId == 145999){
+        }else if ($scope.properties.dataToSend.catParentezco.persistenceId == 145999){
             //Padre
             $scope.catCasodeEmergencia =  55;  
             
-        }else if($scope.properties.dataToSend.catParentesco.persistenceId == 146002){
+        }else if($scope.properties.dataToSend.catParentezco.persistenceId == 146002){
             //tutor
             $scope.catCasodeEmergencia =  54;
         }else{
             $scope.catCasodeEmergencia= 57;
         }
-        debugger;
+    
         $scope.ObjetoInformacionTutor = {
-            "titulo_pid": $scope.properties.dataToSend.catTitulo.persistenceId,
-            "nombre": $scope.properties.dataToSend.nombre,
+            "titulo_pid":$scope.properties.dataToSend.catTitulo.persistenceId,
+            "parentesco_pid": $scope.properties.dataToSend.catParentezco.persistenceId,
+            "nombre":$scope.properties.dataToSend.nombre,
             "apellidos":$scope.properties.dataToSend.apellidos,
-            "parentesco_pid": $scope.catParentezco_pid,
-            "otroParentesco": "",
-            "correoElectronico": $scope.properties.dataToSend.correoElectronico,
-            "escolaridad_pid": $scope.properties.dataToSend.catEscolaridad.persistenceId,
-            "egresoAnahuac_pid": $scope.properties.dataToSend.catEgresoAnahuac.persistenceId,
+            "correoElectronico":$scope.properties.dataToSend.correoElectronico,
+            "escolaridad_pid":$scope.properties.dataToSend.catEscolaridad.persistenceId,
+            "egresoAnahuac_pid":$scope.properties.dataToSend.catEgresoAnahuac.persistenceId,
+            "campusegreso_pid":$scope.properties.dataToSend.catCampusEgreso.persistenceId,
             "trabaja_pid": $scope.properties.dataToSend.catTrabaja.persistenceId,
-            "empresaTrabaja": $scope.properties.dataToSend.empresaTrabaja,
+            "empresaTrabaja":$scope.properties.dataToSend.empresaTrabaja,
             "giro": $scope.properties.dataToSend.giroEmpresa,
             "puesto": $scope.properties.dataToSend.puesto,
-            "pais_pid": $scope.properties.dataToSend.catPais.persistenceId,
-            "codigoPostal": $scope.properties.dataToSend.codigoPostal,
-            "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
-            "estado_pid": $scope.properties.dataToSend.catEstado.persistenceId,
-            "ciudad": $scope.properties.dataToSend.ciudad,
-            "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
-            "colonia": $scope.properties.dataToSend.colonia,
-            "calle": $scope.properties.dataToSend.calle,
+            "istutor":$scope.properties.dataToSend.isTutor,
+            "vive_pid": 145289,
+            "calle":$scope.properties.dataToSend.calle,
+            "pais_pid":$scope.properties.dataToSend.catPais.persistenceId,
             "numExterior": $scope.properties.dataToSend.numeroExterior,
-            "numInterior": $scope.properties.dataToSend.numeroInterior,       
+            "numInterior": $scope.properties.dataToSend.numeroInterior,  
+            "estado_pid":$scope.properties.dataToSend.catEstado.persistenceId,
+            "ciudad": $scope.properties.dataToSend.ciudad,
+            "colonia": $scope.properties.dataToSend.colonia,
             "telefono": $scope.properties.dataToSend.telefono,
-            "caseid": $scope.properties.dataToSend.caseId,
-            "persistenceid": $scope.properties.dataToSend.persistenceId
-            
+            "codigoPostal":$scope.properties.dataToSend.codigoPostal,
+            "viveContigo":$scope.properties.dataToSend.viveContigo,
+            "otroParentesco":$scope.properties.dataToSend.otroParentesco,
+            "caseid": $scope.Caseid ,
+            "desconozcodatospadres":false,
+            "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
+            "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
+            "vencido": false
             }
-debugger;
+            
       doRequest($scope.properties.action, $scope.properties.url);
     }
   };
@@ -143,6 +147,7 @@ debugger;
     vm.busy = true;
     var req = {
       method: method,
+      
       url: "../API/extension/AnahuacRest?url=InsertViewDownloadSolicitud&p=0&c=100&&key=IT&intento=null&tipoTabla=true",
       data: angular.copy($scope.ObjetoInformacionTutor),
       params: params
