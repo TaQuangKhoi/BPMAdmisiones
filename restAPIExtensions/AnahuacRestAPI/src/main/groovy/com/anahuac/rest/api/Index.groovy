@@ -47,6 +47,7 @@ import com.anahuac.rest.api.Entity.db.CatNotificacionesCampus
 import com.anahuac.rest.api.Entity.db.ResponsableDisponible
 import com.anahuac.rest.api.Entity.db.Role
 import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
+import com.anahuac.rest.api.Entity.HubspotConfig
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
 
@@ -2298,6 +2299,47 @@ class Index implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				
+				case "insertEmailHubspotConfig":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+
+					HubspotConfig row =new HubspotConfig()
+					row.setEmailHubspotAutodescripcion(object.emailHubspotAutodescripcion)
+					row.setEmailHubspotEnviada(object.emailHubspotEnviada)
+					row.setEmailHubspotEsperaResultado(object.emailHubspotEsperaResultado)
+					row.setEmailHubspotGenerarCredencial(object.emailHubspotGenerarCredencial)
+					row.setEmailHubspotModificar(object.emailHubspotModificar)
+					row.setEmailHubspotNoAsistioPruebas(object.emailHubspotNoAsistioPruebas)
+					row.setEmailHubspotModificar(object.emailHubspotModificar)
+					row.setEmailHubspotPago(object.emailHubspotPago)
+					row.setEmailHubspotRegistro(object.emailHubspotRegistro)
+					row.setEmailHubspotRestaurarRechazoLRoja(object.emailHubspotRestaurarRechazoLRoja)
+					row.setEmailHubspotSeleccionoFechaExamen(object.emailHubspotSeleccionoFechaExamen)
+					row.setEmailHubspotUsuarioRegistrado(object.emailHubspotUsuarioRegistrado)
+					row.setEmailHubspotValidar(object.emailHubspotValidar)
+					row.setEmailHubspotTransferirAspirante(object.emailHubspotTransferirAspirante)
+					row.setEmailHubspotRechazoLRoja(object.emailHubspotRechazoLRoja)
+
+					result = new HubspotDAO().insertUpdateEmail(row)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				
+				case "sendEmailPlantilla":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					result = mgDAO.sendEmailPlantilla(object.correo,object.asunto,object.body,"",object.campus,context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
 				break;
 				
 				default:
