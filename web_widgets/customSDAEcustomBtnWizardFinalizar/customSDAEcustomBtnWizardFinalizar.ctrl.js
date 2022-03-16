@@ -28,7 +28,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function doRequest(method, url) {
         let dataToSend = angular.copy($scope.properties.formOutput);
         dataToSend.solicitudApoyoEducativoInput.pageIndex = $scope.properties.selectedIndex;
-        dataToSend.solicitudApoyoEducativoInput.isFinalizadaInput = true;
+        dataToSend.isFinalizadaInput = true;
         var req = {
             method: method,
             url: url,
@@ -38,9 +38,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                // getCurrentTask();
-                window.location.replace(window.loction.protocol + "://" + window.location.hostname + "/apps/aspiranteSDAE/home/");
                 
+                let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+                debugger;
+                window.location.replace(newUrl);
             })
             .error(function(data, status) {
                 console.log("task failed")

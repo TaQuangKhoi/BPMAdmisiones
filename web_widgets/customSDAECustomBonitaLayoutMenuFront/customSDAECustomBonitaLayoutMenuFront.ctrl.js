@@ -269,6 +269,11 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         //     ctrl.pageToken = $scope.properties.pageToken;
         // }
 
+        if ($scope.properties.currentTaskName === "Llenado solicitud de apoyo académico") {
+            ctrl.pageToken = "nueva_solicitud_SDAE";
+        } else{
+            ctrl.pageToken = "home";
+        }
         $scope.properties.currentToken = ctrl.pageToken;
 
         ctrl.applicationName = $scope.properties.application.displayName;

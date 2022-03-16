@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1647369482647,
+  "lastUpdate" : 1647389650717,
   "rows" : [
     [
       {
@@ -83,7 +83,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "userData.solicitudesCurso[0]"
+                  "value" : "objSolicitudApoyo"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -126,8 +126,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!objSolicitudApoyo"
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -162,8 +162,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!objSolicitudApoyo"
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -208,7 +208,7 @@
                 },
                 "contenido" : {
                   "type" : "variable",
-                  "value" : "lstContenido"
+                  "value" : "buildContent"
                 }
               },
               "reference" : "6cefa9fb-8b15-46f6-b2ea-8ef15fc11741",
@@ -430,7 +430,7 @@
                         },
                         "returnedKey" : {
                           "type" : "constant",
-                          "value" : "clave"
+                          "value" : "persistenceId"
                         },
                         "value" : {
                           "type" : "variable",
@@ -704,11 +704,78 @@
       "value" : [
         "../API/system/session/unusedId"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "tipoMoneda" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "userDataEmail" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "objSolicitudDeAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "objSolicitudApoyo" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.SDAE.model.SolicitudApoyoEducativo?q=findByCaseIdAdmisiones&p=0&c=10&f=caseIdAdmisiones={{objSolicitudDeAdmision[0].caseId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "buildContent" : {
+      "type" : "expression",
+      "value" : [
+        "let output = [];",
+        "",
+        "if($data.objSolicitudDeAdmision && $data.objSolicitudApoyo){",
+        "    let object = {",
+        "        \"folio\": $data.objSolicitudApoyo[0].caseId,",
+        "        \"periodo\": $data.objSolicitudDeAdmision[0].catPeriodo.descripcion,",
+        "        \"nombre\": buildName($data.objSolicitudDeAdmision[0]),",
+        "        \"estado\": $data.objSolicitudDeAdmision[0].catCampusEstudio.estado.descripcion",
+        "    }    ",
+        "    ",
+        "    output.push(object);",
+        "}",
+        "",
+        "",
+        "",
+        "return output;",
+        "",
+        "function buildName(objSolicitud){",
+        "    let output = objSolicitud.primerNombre;",
+        "    if(objSolicitud.segundoNombre){",
+        "        output += \" \" + objSolicitud.segundoNombre;",
+        "    }",
+        "    output += \" \" + objSolicitud.apellidoPaterno;",
+        "    if(objSolicitud.apellidoMaterno){",
+        "        output += \" \" + objSolicitud.apellidoMaterno;",
+        "    }",
+        "",
+        "    return output;",
+        "}"
+      ],
       "exposed" : false
     }
   },

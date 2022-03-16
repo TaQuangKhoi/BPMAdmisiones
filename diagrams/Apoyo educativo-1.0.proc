@@ -2183,6 +2183,17 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_BUrZcKS1EeydlpW9zcd1oA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_BUsAgKS1EeydlpW9zcd1oA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_CCHuQKS1EeydlpW9zcd1oA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_BUsnkKS1EeydlpW9zcd1oA" name="solicitudApoyoEducativoInput.caseIdAdmisiones" content="solicitudApoyoEducativoInput?.caseIdAdmisiones?.trim() ? solicitudApoyoEducativoInput.caseIdAdmisiones.toLong() : null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_JLb6UKS1EeydlpW9zcd1oA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_BUsnkaS1EeydlpW9zcd1oA" type="JAVA_METHOD" expression="setCaseIdAdmisiones">
+              <inputTypes>java.lang.Long</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_2cszoX0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_2cszon0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_2cszo30-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2293,6 +2304,9 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_JEWt4KPkEey7ftDc2AHl-A" name="catSexTutor_id">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_JEWt4aPkEey7ftDc2AHl-A"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_aPpUIKSzEeydlpW9zcd1oA" name="caseIdAdmisiones">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_aPpUIaSzEeydlpW9zcd1oA"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_km1h0JvpEeyc0ZUA4l06NA" name="hermanosInput" type="COMPLEX" multiple="true" dataReference="hermanos" createMode="false">
@@ -3012,8 +3026,8 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_CLIAgZBBEeyXi82kBsjAAw" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_k-36gJs9Eeyc0ZUA4l06NA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_08B6wps9Eeyc0ZUA4l06NA" name="initSolicitudApoyoEducativo()" content="def solicitudApoyoEducativoVar = new com.anahuac.SDAE.model.SolicitudApoyoEducativo()&#xD;&#xA;solicitudApoyoEducativoVar.eliminado = solicitudApoyoEducativoInput?.eliminado&#xD;&#xA;return solicitudApoyoEducativoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_08B6w5s9Eeyc0ZUA4l06NA" name="solicitudApoyoEducativoInput" type="COMPLEX"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_08B6wps9Eeyc0ZUA4l06NA" name="initSolicitudApoyoEducativo()" content="def solicitudApoyoEducativoVar = new com.anahuac.SDAE.model.SolicitudApoyoEducativo()&#xD;&#xA;solicitudApoyoEducativoVar.eliminado = solicitudApoyoEducativoInput?.eliminado&#xD;&#xA;solicitudApoyoEducativoVar.aceptoAvisoPrivacidad = solicitudApoyoEducativoInput?.aceptoAvisoPrivacidad&#xD;&#xA;solicitudApoyoEducativoVar.catTipoMoneda_id = Long.valueOf(solicitudApoyoEducativoInput?.catTipoMoneda_id);&#xD;&#xA;return solicitudApoyoEducativoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_bWItAKSxEeydlpW9zcd1oA" name="solicitudApoyoEducativoInput" type="COMPLEX"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_itrAwJvpEeyc0ZUA4l06NA" name="hermanos" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.HermanosSolicitante">
