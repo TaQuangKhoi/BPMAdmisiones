@@ -9,6 +9,7 @@ import java.sql.Statement
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.bpm.document.DocumentNotFoundException
 import org.bonitasoft.engine.bpm.document.DocumentValue
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
@@ -1972,6 +1973,45 @@ class ReactivacionDAO {
 			respuesta = updateDatosSolicitud(object.caseid,caseId.toString(),context);
 			errorLog ="Update:"+ respuesta;
 			
+			def document = simpleSelectBonita(0,0, Statements.GET_ID_DOCUMENT.replace("?", "${caseId}"), context)?.getData()
+			
+			if(document?.size()>0) {
+				document.each{
+					map = [];
+					Map<String, Serializable> documentos = new HashMap<String, Serializable>();
+					documentos.put("contentType",null);
+					documentos.put("fileName",null);
+					documentos.put("id",it.documentid);
+					documentos.put("tempPath",null);
+					map.add(documentos);
+					switch(it.name) {
+						case "FotoPasaporte":
+						  contract.put("fotoPasaporteDocumentInput",map);
+						break;
+
+						case "Constancia":
+						  contract.put("constanciaDocumentInput",map);
+						break;
+						
+						case "ResultadoCB":
+						  contract.put("resultadoCBDocumentInput",map);
+						break;
+						
+						case "Descuento":
+						  contract.put("descuentoDocumentInput",map);
+						break;
+						
+						case "ActaNacimiento":
+						  contract.put("actaNacimientoDocumentInput",map);
+						break;
+					}
+				}
+				
+			}
+			
+			
+			
+			
 			List < String> rows = new ArrayList <String> ();
 			rows.add("${caseId}")
 			
@@ -2065,7 +2105,7 @@ class ReactivacionDAO {
 	}
 	
 	
-	public Result updateDatosSolicitud(String caseIdOrigen,caseIdDestino,RestAPIContext context) {
+	public Result updateDatosSolicitud(String caseIdOrigen,String caseIdDestino,RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -2076,7 +2116,7 @@ class ReactivacionDAO {
 			
 			con.setAutoCommit(false)
 			// INSERTAR ISELIMINADO
-			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catConcluisteProceso_pid = sda.catConcluisteProceso_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, urlConstancia = sda.urlConstancia, urlCartaAA = sda.urlCartaAA, urlResultadoPAA = sda.urlResultadoPAA, urlActaNacimiento = sda.urlActaNacimiento, urldescuentos = sda.urldescuentos, isEliminado = false  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catConcluisteProceso_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos,urlConstancia,urlCartaAA,urlResultadoPAA,urlActaNacimiento,urldescuentos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
+			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catConcluisteProceso_pid = sda.catConcluisteProceso_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, isEliminado = false  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catConcluisteProceso_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
 			pstm.executeUpdate();
 			errorLog+="solicitud";
 			
@@ -2232,6 +2272,7 @@ class ReactivacionDAO {
 				errorLog+= "Se subieron archivos"
 			}
 			
+			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog)
 		} catch (Exception e) {
@@ -2288,6 +2329,60 @@ class ReactivacionDAO {
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorLog)
 			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	public Result getUserArchived(Long caseId,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		try {
+			List<Map<String, Serializable>> rows = new ArrayList<Map<String, Serializable>>();
+			Map<String, Serializable> contract = new HashMap<String, Serializable>();
+			String consulta = "[\"${Statements.GET_ID_DOCUMENT} \"]".replace("[VALOR]", "${caseId}")
+			def document = simpleSelectBonita(0,0, , context)?.getData()
+			errorLog = document.toString()
+			if(document?.size()>0) {
+				document.each{
+					def map = [];
+					Map<String, Serializable> documentos = new HashMap<String, Serializable>();
+					documentos.put("contentType",null);
+					documentos.put("fileName",null);
+					documentos.put("id",it.documentid);
+					documentos.put("tempPath",null);
+					map.add(documentos);
+					switch(it.name) {
+						case "FotoPasaporte":
+						  contract.put("fotoPasaporteDocumentInput",map);
+						break;
+
+						case "Constancia":
+						  contract.put("constanciaDocumentInput",map);
+						break;
+						
+						case "ResultadoCB":
+						  contract.put("resultadoCBDocumentInput",map);
+						break;
+						
+						case "Descuento":
+						  contract.put("descuentoDocumentInput",map);
+						break;
+						
+						case "ActaNacimiento":
+						  contract.put("actaNacimientoDocumentInput",map);
+						break;
+					}
+				}
+				
+			}
+			rows.add(contract);
+			resultado.setSuccess(true);
+			resultado.setData(rows)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
 		}
 		return resultado;
 	}
@@ -2385,6 +2480,105 @@ class ReactivacionDAO {
 		}
 		return resultado;
 	}
+	
+	
+	
+	public Result actualizarProcessoArchivo(Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
+		Result resultado = new Result();
+		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+		CatRegistro objCatRegistro = new CatRegistro();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
+			apiClient.login(username, password)
+			
+			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Llenar solicitud");
+			
+			final SearchOptions searchOptions = searchBuilder.done();
+			SearchResult<HumanTaskInstance>  SearchHumanTaskInstanceSearch = apiClient.getProcessAPI().searchHumanTaskInstances(searchOptions);
+			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			def catRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
+				lstCatRegistro = catRegistroDAO.findByCaseId(objHumanTaskInstance.getRootContainerId(), 0, 1)
+				if(lstCatRegistro != null) {
+					if(lstCatRegistro.size() > 0) {
+						objCatRegistro = new CatRegistro();
+						objCatRegistro = lstCatRegistro.get(0);
+						if(objCatRegistro.getCaseId().equals(caseid)) {
+							apiClient.getProcessAPI().assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+							apiClient.getProcessAPI().executeFlowNode(objHumanTaskInstance.getId());
+						}
+					}
+				}
+			}
+			
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	
+	public Result simpleSelectBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexionBonita();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false
