@@ -3971,18 +3971,8 @@ class UsuariosDAO {
 							//columns.put("fotografiab64", rs.getString("foto") + SSA);
 							//columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
 							//columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
-						} else {
-							noAzure = true;
-							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10);
-							for (Document doc: doc1) {
-									encoded = "../API/formsDocumentImage?document=" + doc.getId();
-									columns.put("fotografiab64", encoded);
-								}
 						}
-						for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								columns.put("fotografiabpm", encoded);
-							}
+						 
 					}
 					catch(Exception e) {
 						LOGGER.error "[ERROR] " + e.getMessage();
@@ -3992,14 +3982,6 @@ class UsuariosDAO {
 						}
 						errorlog += "" + e.getMessage();
 					}
-					
-				
-
-					/*if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
-						columns.put("foto", rs.getString(i) + SSA);
-					}else {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}*/
 				}
 
 				rows.add(columns);
@@ -4088,21 +4070,18 @@ class UsuariosDAO {
 			//rutaPago, rutaSolicitud, rutaActaNacimiento, rutaKardex
 			def num = Math.random();
 			if (rs.next()) {
-				if(object.ruta.equals('rutapago') ){
-					
-					rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
-					
-				}else if(object.ruta.equals('rutasolicitud')) {
-					rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA")+"&v="+num)));
-					
-				} else if(object.ruta.equals('rutaactanacimiento')) {
-					
-					rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
-					
-				}else if(object.ruta.equals('rutakardex')) {
-					
-					rows.add( "data:image/png, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
-				}
+				
+				if(rs.getString("RUTA").toLowerCase().contains(".jpeg")) {
+						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					}else if(rs.getString("RUTA").toLowerCase().contains(".png")) {
+						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
+						rows.add( "data:image/jpg;base64,, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
+						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+					}
 				
 			}
 
