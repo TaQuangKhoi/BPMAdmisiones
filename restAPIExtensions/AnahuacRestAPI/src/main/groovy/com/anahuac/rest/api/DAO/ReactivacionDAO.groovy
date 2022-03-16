@@ -1967,47 +1967,12 @@ class ReactivacionDAO {
 			
 			sleep(5000);
 			
-			respuesta = validarAspirante(caseId, context,contract);
+			respuesta = validarAspirante(Long.valueOf(object.caseid),caseId, context,contract);
 			errorLog +=", tarea:"+ respuesta;
 			sleep(5000);
 			respuesta = updateDatosSolicitud(object.caseid,caseId.toString(),context);
-			errorLog ="Update:"+ respuesta;
+			errorLog +="Update:"+ respuesta;
 			
-			def document = simpleSelectBonita(0,0, Statements.GET_ID_DOCUMENT.replace("?", "${caseId}"), context)?.getData()
-			
-			if(document?.size()>0) {
-				document.each{
-					map = [];
-					Map<String, Serializable> documentos = new HashMap<String, Serializable>();
-					documentos.put("contentType",null);
-					documentos.put("fileName",null);
-					documentos.put("id",it.documentid);
-					documentos.put("tempPath",null);
-					map.add(documentos);
-					switch(it.name) {
-						case "FotoPasaporte":
-						  contract.put("fotoPasaporteDocumentInput",map);
-						break;
-
-						case "Constancia":
-						  contract.put("constanciaDocumentInput",map);
-						break;
-						
-						case "ResultadoCB":
-						  contract.put("resultadoCBDocumentInput",map);
-						break;
-						
-						case "Descuento":
-						  contract.put("descuentoDocumentInput",map);
-						break;
-						
-						case "ActaNacimiento":
-						  contract.put("actaNacimientoDocumentInput",map);
-						break;
-					}
-				}
-				
-			}
 			
 			
 			
@@ -2031,7 +1996,7 @@ class ReactivacionDAO {
 		return resultado;
 	}
 	
-	public Result validarAspirante(Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
+	public Result validarAspirante(Long caseidOrigen,Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
 		Result resultado = new Result();
 		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
 		CatRegistro objCatRegistro = new CatRegistro();
@@ -2072,8 +2037,56 @@ class ReactivacionDAO {
 				}
 			}
 			
-			sleep(5000);
+			try {
+				
+				/*Se utiliza cargar los archivos en el nuevo proceso*/
+				Result resultado2 = new Result();
+				resultado2 = copiarArchivos(Long.valueOf(caseidOrigen),Long.valueOf(caseid),context)
+				if(resultado2.isSuccess()) {
+					errorLog+= "Se subieron archivos"
+				}
+				
+				String consultaDoc = "[\"${Statements.GET_ID_DOCUMENT} \"]".replace("[VALOR]", "${caseid}")
+				def document = simpleSelectBonita(0,0, consultaDoc, context)?.getData()
+				
+				if(document?.size()>0) {
+					document.each{
+						def map = [];
+						Map<String, Serializable> documentos = new HashMap<String, Serializable>();
+						documentos.put("contentType",null);
+						documentos.put("fileName",null);
+						documentos.put("id",it.documentid);
+						documentos.put("tempPath",null);
+						map.add(documentos);
+						switch(it.name) {
+							case "FotoPasaporte":
+							  contract.put("fotoPasaporteDocumentInput",map);
+							break;
+	
+							case "Constancia":
+							  contract.put("constanciaDocumentInput",map);
+							break;
+							
+							case "ResultadoCB":
+							  contract.put("resultadoCBDocumentInput",map);
+							break;
+							
+							case "Descuento":
+							  contract.put("descuentoDocumentInput",map);
+							break;
+							
+							case "ActaNacimiento":
+							  contract.put("actaNacimientoDocumentInput",map);
+							break;
+						}
+					}
+					
+				}
+			}catch(Exception a) {
+				errorLog += "fallo en las imagenes"
+			}
 			
+			sleep(5000);
 			searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Llenar solicitud");
 			final SearchOptions searchOptions2 = searchBuilder.done();
@@ -2095,6 +2108,7 @@ class ReactivacionDAO {
 			}
 			
 			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
@@ -2265,13 +2279,6 @@ class ReactivacionDAO {
 			validarConexion()
 			con.setAutoCommit(false);
 			
-			/*Se utiliza cargar los archivos en el nuevo proceso*/
-			Result resultado2 = new Result();
-			resultado2 = copiarArchivos(caseIdOrigen,caseIdDestino,context)
-			if(resultado2.isSuccess()) {
-				errorLog+= "Se subieron archivos"
-			}
-			
 			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog)
@@ -2340,7 +2347,7 @@ class ReactivacionDAO {
 			List<Map<String, Serializable>> rows = new ArrayList<Map<String, Serializable>>();
 			Map<String, Serializable> contract = new HashMap<String, Serializable>();
 			String consulta = "[\"${Statements.GET_ID_DOCUMENT} \"]".replace("[VALOR]", "${caseId}")
-			def document = simpleSelectBonita(0,0, , context)?.getData()
+			def document = simpleSelectBonita(0,0, consulta, context)?.getData()
 			errorLog = document.toString()
 			if(document?.size()>0) {
 				document.each{
