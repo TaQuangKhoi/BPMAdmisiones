@@ -61,8 +61,8 @@ function PbTableCtrl($scope, $http, modalService) {
         }).then((value) => {
             if(value){
                 row.isDeleted = true;
-                debugger;
-                doRequest('POST', "../API/extension/AnahuacBecasRest?url=deleteCatTipoApoyo&p=0&c=0", row);
+                
+                doRequest('POST', "../API/extension/AnahuacBecasRest?url=deleteCatTipoApoyo&p=0&c=0&id=" + row.persistenceId, row);
                 $scope.properties.accion = 'tabla';
             }
         }); 
