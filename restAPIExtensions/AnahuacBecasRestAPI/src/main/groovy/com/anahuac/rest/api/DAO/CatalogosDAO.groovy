@@ -1280,12 +1280,8 @@ class CatalogosDAO {
 		try {
 			closeCon = validarConexion();
 			
-			errorLog+= " update ID " + persistenceid;
-			closeCon = validarConexion();
 			pstm = con.prepareStatement(StatementsCatalogos.DELETE_CAT_TIPO_APOYO);
 
-			errorLog+= "UPDATE CatManejoDocumentos SET isEliminado = true WHERE PERSISTENCEID = ?"
-			errorLog = errorLog.replace("?", persistenceid);
 			pstm.setLong(1, Long.valueOf(persistenceid));
 			pstm.execute();
 			resultado.setSuccess(true);
