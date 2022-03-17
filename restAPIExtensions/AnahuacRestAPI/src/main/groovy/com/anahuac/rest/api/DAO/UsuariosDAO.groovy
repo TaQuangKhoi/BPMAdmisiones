@@ -3967,7 +3967,18 @@ class UsuariosDAO {
 					try {
 						String urlfoto = rs.getString("foto");
 						if (urlfoto != null && !urlfoto.isEmpty()) {
-							columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							
+							
+							if(rs.getString("foto").toLowerCase().contains(".jpeg")) {
+								columns.put("fotografiab64", "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}else if(rs.getString("foto").toLowerCase().contains(".png")) {
+								columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}else if(rs.getString("foto").toLowerCase().contains(".jpg")) {
+								columns.put("fotografiab64", "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}else if(rs.getString("foto").toLowerCase().contains(".jfif")) {
+								columns.put("fotografiab64", "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}
+							
 							//columns.put("fotografiab64", rs.getString("foto") + SSA);
 							//columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
 							//columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
@@ -4080,7 +4091,7 @@ class UsuariosDAO {
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
 						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
 					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
-						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA"))));
 					}
 				
 			}
