@@ -4091,7 +4091,7 @@ class UsuariosDAO {
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
 						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
 					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
-						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA"))));
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA")+ SSA+"&v="+num)));
 					}
 				
 			}
