@@ -164,7 +164,8 @@ class Index implements RestApiController {
 					}
 					break;
 				case "deleteCatTipoApoyo":
-					result = new CatalogosDAO().deleteCatTipoApoyo(jsonData, context);
+					String persistenceid = request.getParameter "id"
+					result = new CatalogosDAO().deleteCatTipoApoyo(persistenceid, context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

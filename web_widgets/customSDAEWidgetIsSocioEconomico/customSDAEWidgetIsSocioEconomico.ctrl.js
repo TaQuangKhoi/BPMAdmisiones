@@ -15,10 +15,13 @@ function PbCheckboxCtrl($scope, $log, widgetNameFactory, modalService, $http) {
     }
     
     $scope.updateTipoApoyoVideocase = function(){
+        let _data = angular.copy($scope.properties.tipoApoyoSeleccionado);
+        _data.idCampus = $scope.properties.idCampus;
+        
         var req = {
             method: "POST",
             url: $scope.properties.url,
-            data: angular.copy($scope.properties.tipoApoyoSeleccionado)
+            data: _data
         };
 
         return $http(req)
