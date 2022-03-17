@@ -7724,7 +7724,6 @@ class SesionesDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String  errorlog="";
-		errorlog += "Entro antes del parse | "+caseid;
 		Long Caseid = Long.parseLong(caseid);
 		try {
 			//def jsonSlurper = new JsonSlurper();
@@ -7751,7 +7750,6 @@ class SesionesDAO {
 				row.setCatcampusegreso_pid(rs.getLong("catcampusegreso_pid"));
 				row.setCattrabaja_pid(rs.getLong("cattrabaja_pid"));
 				row.setEmpresatrabaja(rs.getString("empresatrabaja"));
-				row.setGiroempresa(rs.getString(" giroEmpresa"));
 				row.setPuesto(rs.getString("puesto"));
 				row.setIstutor(rs.getBoolean("istutor"));
 				row.setVive_pid(rs.getLong("vive_pid"));
