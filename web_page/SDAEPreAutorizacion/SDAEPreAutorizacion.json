@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1647043321924,
+  "lastUpdate" : 1647555152366,
   "rows" : [
     [
       {
@@ -71,6 +71,58 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{context}}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "78af1e0e-f702-45be-b9c1-f7c668faa19a",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
               "type" : "fragment",
               "dimension" : {
                 "xs" : 12,
@@ -88,16 +140,22 @@
                   "value" : false
                 }
               },
-              "reference" : "878d0b33-c652-4a9c-9d0e-29e563de1d65",
+              "reference" : "9e6b560d-c767-45ff-a54c-b4b299121b23",
               "hasValidationError" : false,
-              "id" : "frgSDAEInformacionDelSolicitante",
+              "id" : "frgSDAEInfoSolicitanteCheck",
               "binding" : {
                 "wizardContent" : "wizardContent",
                 "selectedIndex" : "selectedIndex",
                 "getInformacionEscolar" : "getInformacionEscolar",
                 "getInformacionPersonal" : "getInformacionPersonal",
                 "getInformacionPadres" : "getInformacionPadres",
-                "solicitudApoyoEducativo" : "getSolicitudApoyoEducativo"
+                "solicitudApoyoEducativo" : "getSolicitudApoyoEducativo",
+                "modificarInfoPersonal" : "formInput.solicitudApoyoEducativoInput.modificarInfoPersonal",
+                "modificarInfoFamiliar" : "formInput.solicitudApoyoEducativoInput.modificarInfoFamiliar",
+                "modificarMotivoSol" : "formInput.solicitudApoyoEducativoInput.modificarMotivoSol",
+                "modificarInfoSocioEco" : "formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco",
+                "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
+                "context" : "context"
               }
             }
           ]
@@ -1740,7 +1798,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>[[USUARIO]]</b>"
+                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -1980,7 +2038,8 @@
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "formInputRechazo"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -1995,7 +2054,8 @@
                           "value" : ""
                         },
                         "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
+                          "type" : "interpolation",
+                          "value" : "/apps/sdae/bandeja/"
                         },
                         "collectionToModify" : {
                           "type" : "variable"
@@ -2060,7 +2120,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<br>Esta acción será notificada por correo a <b>[[CORREO DEL USUARIO]]</b>"
+                          "value" : "<br>Esta acción será notificada por correo a <b>{{getInformacionPersonal[0].correoElectronico}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -2252,7 +2312,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación los cambios que solicitas al registrode <b>[[USUARIO]]</b>"
+                          "value" : "Escribe  a continuación los cambios que solicitas al registro de <b><b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b></b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -2574,7 +2634,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<br>Esta acción será notificada por correo a <b>[[CORREO DEL USUARIO]]</b>"
+                          "value" : "<br>Esta acción será notificada por correo a <b>{{getInformacionPersonal[0].correoElectronico}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -3051,7 +3111,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<br>Esta acción será notificada por correo a <b>[[CORREO DEL USUARIO]]</b>"
+                          "value" : "<br>Esta acción será notificada por correo a <b>{{getInformacionPersonal[0].correoElectronico}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -3137,7 +3197,15 @@
         "  \"varModificarInput\" : true,\r",
         "  \"varDeportivaInput\" : false,\r",
         "  \"varArtisticaInput\" : false,\r",
-        "  \"varFinanaciamientoInput\" : false\r",
+        "  \"varFinanaciamientoInput\" : false,\r",
+        "  \"solicitudApoyoEducativoInput\" : {\r",
+        "    \"estatusSolicitud\" : \"Pre-autorización solicita modificaciones\",\r",
+        "    \"modificarInfoPersonal\" :  false,\r",
+        "    \"modificarInfoFamiliar\" :  false,\r",
+        "    \"modificarMotivoSol\" :  false,\r",
+        "    \"modificarInfoSocioEco\" :  false,\r",
+        "    \"modificarDocumentos\" :  false\r",
+        "  }\r",
         "}"
       ],
       "exposed" : false
@@ -3287,6 +3355,39 @@
         "statusCode" : "",
         "failedResponseValue" : ""
       },
+      "exposed" : false
+    },
+    "formInputRechazo" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"preAutorizacionInput\" : {\r",
+        "    \"isPreautorizada\" : false,\r",
+        "    \"cambiosSolicitudPreAutorizacion\" : \"\",\r",
+        "    \"motivoRechazoPreAutorizacion\" : \"\",\r",
+        "    \"porcentajeCreditoPreAutorizacion\" : 0,\r",
+        "    \"porcentajeBeca\" : 0,\r",
+        "    \"porcentajeCredito\" : 0,\r",
+        "    \"promedioMinimoPreAutorizacion\" : 0,\r",
+        "    \"fechaPagoInscripcion\" : null,\r",
+        "    \"isPagoRealizado\" : false,\r",
+        "    \"descuentoAnticipado\" : 0\r",
+        "  },\r",
+        "  \"varRevisadaInput\" : false,\r",
+        "  \"varModificarInput\" : true,\r",
+        "  \"varDeportivaInput\" : false,\r",
+        "  \"varArtisticaInput\" : false,\r",
+        "  \"varFinanaciamientoInput\" : false,\r",
+        "  \"solicitudApoyoEducativoInput\" : {\r",
+        "    \"estatusSolicitud\" : \"Solicitud Rechazada\",\r",
+        "    \"modificarInfoPersonal\" :  false,\r",
+        "    \"modificarInfoFamiliar\" :  false,\r",
+        "    \"modificarMotivoSol\" :  false,\r",
+        "    \"modificarInfoSocioEco\" :  false,\r",
+        "    \"modificarDocumentos\" :  false\r",
+        "  }\r",
+        "}"
+      ],
       "exposed" : false
     }
   },
