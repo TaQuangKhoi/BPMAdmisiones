@@ -8,7 +8,8 @@ function ($scope, $http) {
                 getCurrentContext();
             }
         }).error((err) => {
-            swal("Error", "Error al obtener las tareas asignadas al usuario. " + err, "error");
+            // swal("Error", "Error al obtener las tareas asignadas al usuario. " + err, "error");
+            console.log("Error al obtener las tareas asignadas al usuario" + JSON.stringify(err));
         });
     }
 
@@ -45,7 +46,8 @@ function ($scope, $http) {
                 }
             }
         }).error((err) => {
-            swal("Error", "Error al obtener el context. " + err, "error");
+            // swal("Error", "Error al obtener el context. " + err, "error");
+            console.log("Error al obtener el context")
         });
     }
 
@@ -120,7 +122,8 @@ function ($scope, $http) {
         $http.get(_url).success((data) => {
             $scope.properties.solicitudApoyoEducativo[_bdmFieldName] = data;
         }).error((err) => {
-            swal("Error", "Error al obtener el model. " + err, "error");
+            // swal("Error", "Error al obtener el model. " + err, "error");
+            console.log(" vacío")
         });
     }
 

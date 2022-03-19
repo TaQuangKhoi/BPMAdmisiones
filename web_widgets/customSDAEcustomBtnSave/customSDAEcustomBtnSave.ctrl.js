@@ -42,8 +42,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function getCurrentTask() {
         let contador = 0;
         let limite = 99
-
-        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready";
+        let url = "/API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=" + $scope.properties.userId+ "&f=name=Llenado%20solicitud%20de%20apoyo%20acad%C3%A9mico&p=0"
+        // let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready";
 
         var req = {
             method: "GET",

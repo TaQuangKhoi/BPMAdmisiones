@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1647555986750,
+  "lastUpdate" : 1647651691529,
   "rows" : [
     [
       {
@@ -44,14 +44,14 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<pre>{{ returnCatValue | json }}</pre>"
+            "value" : "<pre>{{ formOutputTest | json }}</pre>"
           },
           "alignment" : {
             "type" : "constant",
             "value" : "left"
           }
         },
-        "reference" : "0f5735a3-ce40-4d23-acba-44ab3096bbc7",
+        "reference" : "55aacc44-3c5e-4957-bc7d-7cb08f8d3c56",
         "hasValidationError" : false,
         "id" : "pbText"
       }
@@ -951,11 +951,15 @@
                             "caseId" : {
                               "type" : "variable",
                               "value" : "caseId"
+                            },
+                            "userId" : {
+                              "type" : "expression",
+                              "value" : "userData.user_id"
                             }
                           },
-                          "reference" : "5f0254f1-1576-4305-91ae-07263dd493bf",
+                          "reference" : "848d31f8-4ab0-4d90-a4eb-65714704630a",
                           "hasValidationError" : false,
-                          "id" : "customSDAEcustomBtnWizardValidation"
+                          "id" : "customSDAEcustomBtnWizardValidationTask"
                         }
                       ],
                       [
@@ -1230,7 +1234,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objSolicitudDeAdmision[0].primerApellido"
+                                    "value" : "objSolicitudDeAdmision[0].apellidoPaterno"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1307,7 +1311,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objSolicitudDeAdmision[0].segundoApellido"
+                                    "value" : "objSolicitudDeAdmision[0].apellidoMaterno"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -2388,11 +2392,11 @@
                                         },
                                         "minLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 2
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -2429,16 +2433,17 @@
                                           "type" : "constant"
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 10
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "ac310e42-50f3-480a-8553-92683598f441",
+                                      "reference" : "f5cbef73-20b9-4ccb-9a82-c6542f0934d8",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customSDAEInputLimit"
                                     },
                                     {
                                       "type" : "component",
@@ -2463,11 +2468,11 @@
                                         },
                                         "minLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 50
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -2498,7 +2503,7 @@
                                         },
                                         "type" : {
                                           "type" : "constant",
-                                          "value" : "text"
+                                          "value" : "number"
                                         },
                                         "min" : {
                                           "type" : "constant"
@@ -2511,9 +2516,9 @@
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "8f216c98-8d2f-40b8-adf3-7b78a8d6ddbf",
+                                      "reference" : "24dfb13a-137f-4170-ac14-b3d6fbcbf1af",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customSDAEInputLimit"
                                     }
                                   ]
                                 ]
@@ -2665,7 +2670,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "getInformacionEscolar[0].preparatoria"
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2740,7 +2745,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "getInformacionEscolar[0].promedio"
+                              "value" : "getInformacionEscolar[0].promedioGeneral"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2817,7 +2822,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "getInformacionEscolar[0].clave"
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.clave"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2892,7 +2897,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "getInformacionEscolar[0].ciudad"
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.ciudad"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2969,7 +2974,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "objSolicitudDeAdmision[0].bachillerato"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3121,7 +3126,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "getInformacionEscolar[0].pais"
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.pais"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3264,7 +3269,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "usuario.catBachilleratos.estado"
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.estado"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3357,9 +3362,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "ce781f76-1e76-4fb8-a007-1be445e066ff",
+                          "reference" : "0de2623b-ca98-47e1-a45f-49cec9732b6f",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputLimit"
                         }
                       ],
                       [
@@ -3784,11 +3789,15 @@
                       "caseId" : {
                         "type" : "variable",
                         "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
                       }
                     },
-                    "reference" : "2ca8051b-21a5-478f-b8ac-58a848786918",
+                    "reference" : "f89e5169-7311-4531-bcf7-040c9be6a3b9",
                     "hasValidationError" : false,
-                    "id" : "customSDAEcustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidationTask"
                   }
                 ],
                 [
@@ -4010,9 +4019,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "3ba75631-3460-41f9-94dc-07b42e9c4fa9",
+                    "reference" : "8649a78d-1db4-4977-93ac-a70822334e38",
                     "hasValidationError" : false,
-                    "id" : "customCustomInputLimit"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -4162,9 +4171,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "279b9ac6-0bf7-4e42-947a-675e811417a9",
+                    "reference" : "3b9540c1-ea83-4fb7-b5d5-f470edae51e3",
                     "hasValidationError" : false,
-                    "id" : "customCustomInputLimit"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -5623,7 +5632,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -5654,7 +5663,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -5667,9 +5676,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "ec9ed44f-aa2e-45c0-b30d-484d8a6205ef",
+                    "reference" : "58f552bf-5b7a-4ec1-92cd-4a0ba3b0418f",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -6034,7 +6043,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -6065,7 +6074,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -6078,9 +6087,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "0552959c-1650-4554-b3ef-d432dc5b76f4",
+                    "reference" : "55e6a7be-5a2f-48c1-831b-886507527983",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   },
                   {
                     "type" : "component",
@@ -6653,7 +6662,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -6684,7 +6693,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -6697,9 +6706,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "8639f177-b5c2-4ce0-b1ec-1b62a63e18ba",
+                    "reference" : "4e814d52-682f-4646-a2fb-43189cf12c15",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -7095,7 +7104,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -7720,8 +7729,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "returnCatValue.catTienesHermanos.descripcion !== \"Sí\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -8033,11 +8042,15 @@
                       "caseId" : {
                         "type" : "variable",
                         "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
                       }
                     },
-                    "reference" : "28865642-d219-4bcf-b3d4-10bcb6132cbe",
+                    "reference" : "957240d5-f275-4607-ad71-5fcd432c1e20",
                     "hasValidationError" : false,
-                    "id" : "customSDAEcustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidationTask"
                   }
                 ],
                 [
@@ -8408,9 +8421,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "fba4bc88-1188-4dee-a440-0bc8d1fddb50",
+                    "reference" : "6fe8236b-7433-4495-881d-eacd6c318350",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputMoneda"
                   }
                 ]
               ]
@@ -8592,11 +8605,15 @@
                       "caseId" : {
                         "type" : "variable",
                         "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
                       }
                     },
-                    "reference" : "1f241410-9df9-4706-a765-745cf8a4e016",
+                    "reference" : "7225ba7c-c2a8-4410-83b2-5cb25693383e",
                     "hasValidationError" : false,
-                    "id" : "customSDAEcustomBtnWizardValidation"
+                    "id" : "customSDAEcustomBtnWizardValidationTask"
                   }
                 ],
                 [
@@ -8729,7 +8746,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -8760,7 +8777,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -8773,9 +8790,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "d7ba5844-91b0-4010-9167-e0c22d24b5f0",
+                    "reference" : "4548a953-acb3-4f49-bc1e-1e3ab02a1556",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -8806,7 +8823,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -8850,9 +8867,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "3487d8e4-899a-46de-88ac-9c93bac52726",
+                    "reference" : "160bc54e-afb7-437d-a81d-188a366074d7",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   },
                   {
                     "type" : "component",
@@ -8925,9 +8942,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "cab0450a-483c-4625-a4fb-e73809b0cad1",
+                    "reference" : "3685877e-e68b-4f6f-a407-97b20d41de4f",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputMoneda"
                   }
                 ],
                 [
@@ -9002,9 +9019,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "7bc6884c-5c8d-404c-9b6d-51c8ecff0012",
+                    "reference" : "0f6f5bbf-2ce8-4610-a8f2-fea5f0bd31b7",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   },
                   {
                     "type" : "component",
@@ -9077,9 +9094,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "917f0ba8-e1aa-4395-ae18-32f1f0420587",
+                    "reference" : "c2870397-c061-4e76-b4cd-5e20562a74d7",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -9110,7 +9127,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9141,7 +9158,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -9154,9 +9171,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "84bb5a7a-d94a-49ef-a365-11d2fb7f7694",
+                    "reference" : "73622cae-96b3-4a69-8956-43743aacb505",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   },
                   {
                     "type" : "component",
@@ -9185,7 +9202,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9216,7 +9233,7 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
                         "type" : "constant"
@@ -9229,9 +9246,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "046178f7-52e5-4c7f-8259-72d92fa29998",
+                    "reference" : "1a256d85-77e0-4b5a-a067-019a477ed34d",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   },
                   {
                     "type" : "component",
@@ -9260,7 +9277,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 30
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9304,9 +9321,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "5c26f903-0c98-4ea6-b04d-23b0ebb280c8",
+                    "reference" : "da35ee18-c49c-4909-afed-69202a0f9c40",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -9337,7 +9354,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 50
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9381,9 +9398,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "8b2de1a4-16d7-4293-8d96-22fa8810000a",
+                    "reference" : "a05590e0-ac77-493e-bf11-c3ff6482491c",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   },
                   {
                     "type" : "component",
@@ -9412,7 +9429,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 50
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9456,9 +9473,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "1f76a53c-c510-4069-8d77-154de12f276d",
+                    "reference" : "51c5f00d-1dc1-405b-8634-9e8516336d65",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -9523,19 +9540,21 @@
                         "value" : "number"
                       },
                       "min" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 1
                       },
                       "max" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 99999
                       },
                       "step" : {
                         "type" : "constant",
                         "value" : 1
                       }
                     },
-                    "reference" : "11c7363a-adef-473e-9af6-112008cd2841",
+                    "reference" : "fb844173-1701-4a17-b83f-9da5ac2f631c",
                     "hasValidationError" : false,
-                    "id" : "customCustomInputLimit"
+                    "id" : "customSDAEInputLimit"
                   }
                 ],
                 [
@@ -13045,7 +13064,7 @@
                         "value" : "caseId"
                       }
                     },
-                    "reference" : "ec9bb90a-b361-419b-937a-dbdeb142baac",
+                    "reference" : "33c4567e-29e3-4330-bf3d-f75c0bdb2b9a",
                     "hasValidationError" : false,
                     "id" : "customSDAEcustomBtnWizardFinalizar"
                   }
@@ -13153,6 +13172,10 @@
                       "caseId" : {
                         "type" : "variable",
                         "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
                       }
                     },
                     "reference" : "e8b45a40-8a5c-4dc7-b082-73efc9c5b2e1",
@@ -13297,25 +13320,17 @@
     "userDataEmail" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+        "../API/identity/user/{{userData.user_id}}"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "usuario" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail.userName}}"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "lstInversionesAspirante" : {
@@ -13375,13 +13390,9 @@
     "objSolicitudDeAdmision" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail.userName}}"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "objPadre" : {
@@ -13652,13 +13663,9 @@
     "getDatosSolicitante" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userDataEmail[0].userName}}"
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userDataEmail.userName}}"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getDatosPadres" : {
@@ -14199,26 +14206,41 @@
     "idProceso" : {
       "type" : "constant",
       "value" : [
-        "7752384505362323139"
+        "4833346606718510456"
       ],
       "exposed" : false
     },
     "validar1" : {
       "type" : "expression",
       "value" : [
-        "let output =  true; ",
-        "",
-        "/*",
-        "if(!$data.solicitudApoyoEducativoInput){",
-        "    output = false;",
-        "    $data.errorPaso1 = \"Debes llenar todos los campos requeridos en el formulario\";",
-        "    $data.tituloErrorPaso1 = \"Datos de la solicitud\";",
-        "} else if(!$data.solicitudApoyoEducativoInput.calle){",
-        "    output = false;",
-        "    $data.errorPaso1 = \"Campo 'Calle' no debe ir vacío\";",
-        "    $data.tituloErrorPaso1 = \"Datos de la solicitud\";",
-        "}*/",
-        "",
+        "let output =  true; \r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos === null){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Debes  seleccionar un valor en el campo '¿Tienes hijos?'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información personal\";\r",
+        "} else if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos && !$data.formOutputTest.solicitudApoyoEducativoInput.cuantosHijosTienes){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Tienes hijos?' debes llenar el campo '¿Cuántos hijos tienes?'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información personal\";\r",
+        "} else if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos && !$data.formOutputTest.solicitudApoyoEducativoInput.edadHijos){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Tienes hijos?' debes llenar el campo 'Edad de los hijos'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información personal\";\r",
+        "} if(!$data.formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Costo mensual de colegiatura' no debe ir vacío y debe contener un valor numérico.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Debes  seleccionar un valor en el campo '¿Contó con beca en la preparatoria anterior?'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
+        "}  else if($data.returnCatValue.catBecaPreparatoria.descripcion === \"Sí\" && !$data.formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Contó con beca en la preparatoria anterior?' debes llenar el campo 'Indica el porcentaje de beca:'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
+        "} \r",
+        "\r",
         "return output;"
       ],
       "exposed" : false
@@ -14252,21 +14274,66 @@
     "validar2" : {
       "type" : "expression",
       "value" : [
-        "let output =  true; ",
-        "",
-        "",
-        "/*",
-        "if(!$data.solicitudApoyoEducativoInput){",
-        "    output = false;",
-        "    $data.errorPaso2 = \"Debes llenar todos los campos requeridos en el formulario\";",
-        "    $data.tituloErrorPaso2 = \"Datos de la solicitud\";",
-        "} else if(!$data.solicitudApoyoEducativoInput.calle){",
-        "    output = false;",
-        "    $data.errorPaso2 = \"Campo 'Calle' no debe ir vacío\";",
-        "    $data.tituloErrorPaso2 = \"Datos de la solicitud\";",
-        "}*/",
-        "",
-        "return output;"
+        "let output =  true; \r",
+        "\r",
+        "if(!$data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaTutor){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Teléfono de casa' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de tutor\";\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Teléfono de oficina' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de tutor\";\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.catSexTutor_id){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Debes  seleccionar un valor en el campo 'Sexo del tutor'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de tutor\";\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoMensualNetoTutor){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Ingreso mensual neto' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de tutor\";\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.catProvienenIngresos_id){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Ingreso mensual neto' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de tutor\";\r",
+        "} else if(validateBienesRaices()){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Si  agregaste un valor a la tabla de bienes raices, todos los datos de este deben ser llenados.\";\r",
+        "    $data.tituloErrorPaso1 = \"Menciona los bienes raíces o las inversiones que posea:\";\r",
+        "} else if($data.padre.vive === \"Sí\" && !$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Teléfono de oficina' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de padre\";\r",
+        "} else if($data.padre.vive === \"Sí\" && !$data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasanaPadre){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Teléfono de casa' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de padre\";\r",
+        "} else if($data.madre.vive === \"Sí\" && !$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Teléfono de oficina' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de madre\";\r",
+        "} else if($data.madre.vive === \"Sí\" && !$data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasanaMadre){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"El campo 'Teléfono de casa' no debe ir vacío.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información de madre\";\r",
+        "}\r",
+        "\r",
+        "\r",
+        "return output;\r",
+        "\r",
+        "\r",
+        "function validateBienesRaices(){\r",
+        "    let output = true;\r",
+        "\r",
+        "    for(let bien of $data.formOutputTest.bienesRaicesInput){\r",
+        "        if(!bien.catTipoInversionesPosee_id || !bien.descripcion || !bien.direccionBanco || !bien.valor){\r",
+        "            output = false;\r",
+        "            break;   \r",
+        "        }\r",
+        "    }\r",
+        "\r",
+        "    return output;\r",
+        "}"
       ],
       "exposed" : false
     },
@@ -14777,8 +14844,18 @@
         "    \"catTienesHijos\": null,",
         "    \"catBecaPreparatoria\": null,",
         "    \"catTipoApoyo\": null,",
-        "    \"catTipoMoneda\": null",
+        "    \"catTipoMoneda\": null,",
+        "    \"catTienesHermanos\": null",
         "};",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "    for(let cat of $data.lstCatTienesHermanos.data){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "            output[\"catTienesHermanos\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
         "",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
         "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
@@ -14832,7 +14909,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.AutodescripcionV2?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "tipoMonedaParam" : {
