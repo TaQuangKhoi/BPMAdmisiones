@@ -1,0 +1,35 @@
+function ($scope, $http) {
+    
+    var urlCargada = false;
+    var objetoCargado = false;
+
+    function getImagenesSocioeconomico() {
+        $http.post($scope.properties.url, $scope.properties.dataToSend).success((data) => {
+            $scope.properties.imagenesSocioEconomico = data;
+        }).error((err) => {
+            swal("Error", "Error al obtener el model. " + err, "error");
+        });
+    }
+
+    $scope.$watch("properties.url", ()=>{
+        if($scope.properties.url){
+            debugger;
+            urlCargada = true;
+
+            if(urlCargada && objetoCargado){
+                getImagenesSocioeconomico();
+            }
+        }
+    });
+
+    $scope.$watch("properties.dataToSend", ()=>{
+        if($scope.properties.dataToSend){
+            debugger;
+            objetoCargado = true;
+
+            if(urlCargada && objetoCargado){
+                getImagenesSocioeconomico();
+            }
+        }
+    });
+}
