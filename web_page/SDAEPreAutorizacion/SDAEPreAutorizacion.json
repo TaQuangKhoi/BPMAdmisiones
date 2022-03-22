@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1647555152366,
+  "lastUpdate" : 1647993057568,
   "rows" : [
     [
       {
@@ -772,6 +772,10 @@
                         "value" : {
                           "type" : "variable",
                           "value" : "formInput.preAutorizacionInput.isPreautorizada"
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
                         }
                       },
                       "reference" : "6e326d9b-e17e-461f-ad8e-968c99e208de",
@@ -1478,7 +1482,8 @@
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "formInputAprobar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -1513,9 +1518,9 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "1d1883c6-2ef0-4368-9efe-619eb227f6cb",
+                      "reference" : "f1ff0fa1-9caa-43e0-abd2-95214fb069ee",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCloseWindow"
                     }
                   ],
                   [
@@ -2075,9 +2080,9 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "d60d38fc-f835-4ce2-b1fe-4035e2df8c63",
+                      "reference" : "17ef2f9a-a009-4e47-9e66-6430e34e1c3c",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCloseWindow"
                     }
                   ],
                   [
@@ -2589,9 +2594,9 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "7c27ad82-41c9-4ee0-861b-d6250f5ea2d9",
+                      "reference" : "64d11d3c-4260-4814-94bb-354744fd56c1",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCloseWindow"
                     }
                   ],
                   [
@@ -3066,9 +3071,9 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "a90be415-e263-4204-9673-1e7d827b9e9a",
+                      "reference" : "099e6d51-83c7-46d1-b424-119c58fc470c",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCloseWindow"
                     }
                   ],
                   [
@@ -3380,6 +3385,39 @@
         "  \"varFinanaciamientoInput\" : false,\r",
         "  \"solicitudApoyoEducativoInput\" : {\r",
         "    \"estatusSolicitud\" : \"Solicitud Rechazada\",\r",
+        "    \"modificarInfoPersonal\" :  false,\r",
+        "    \"modificarInfoFamiliar\" :  false,\r",
+        "    \"modificarMotivoSol\" :  false,\r",
+        "    \"modificarInfoSocioEco\" :  false,\r",
+        "    \"modificarDocumentos\" :  false\r",
+        "  }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formInputAprobar" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"preAutorizacionInput\" : {\r",
+        "    \"isPreautorizada\" : false,\r",
+        "    \"cambiosSolicitudPreAutorizacion\" : \"\",\r",
+        "    \"motivoRechazoPreAutorizacion\" : \"\",\r",
+        "    \"porcentajeCreditoPreAutorizacion\" : 0,\r",
+        "    \"porcentajeBeca\" : 0,\r",
+        "    \"porcentajeCredito\" : 0,\r",
+        "    \"promedioMinimoPreAutorizacion\" : 0,\r",
+        "    \"fechaPagoInscripcion\" : null,\r",
+        "    \"isPagoRealizado\" : false,\r",
+        "    \"descuentoAnticipado\" : 0\r",
+        "  },\r",
+        "  \"varRevisadaInput\" : true,\r",
+        "  \"varModificarInput\" : false,\r",
+        "  \"varDeportivaInput\" : false,\r",
+        "  \"varArtisticaInput\" : false,\r",
+        "  \"varFinanaciamientoInput\" : false,\r",
+        "  \"solicitudApoyoEducativoInput\" : {\r",
+        "    \"estatusSolicitud\" : \"Esperando Autorización\",\r",
         "    \"modificarInfoPersonal\" :  false,\r",
         "    \"modificarInfoFamiliar\" :  false,\r",
         "    \"modificarMotivoSol\" :  false,\r",
