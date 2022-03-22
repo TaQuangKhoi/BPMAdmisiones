@@ -94,9 +94,10 @@ class ListadoDAO {
 			}*/
 			
 			if (object.estatusSolicitud != null) {
-				if (object.estatusSolicitud.equals("Solcitud en progreso")) {
-					where += " AND SDAE.estatusSolicitud = 'Solcitud en progreso' "
-				} //else if (object.estatusSolicitud.equals("Solicitud rechazada")) {
+				where += " AND SDAE.estatusSolicitud = '"+object.estatusSolicitud+"' "
+				//if (object.estatusSolicitud.equals("Solcitud en progreso")) {
+					//where += " AND SDAE.estatusSolicitud = 'Solcitud en progreso' "
+				//} //else if (object.estatusSolicitud.equals("Solicitud rechazada")) {
 					//where += " AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
 				//} 
 			}

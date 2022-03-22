@@ -284,6 +284,10 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "preAutorizacion";
         }else if (appName === "catControlDocumental") {
             ctrl.pageToken = "catControlDocumental";
+        }else if (appName === "bandejaSolicitudesRechazadas") {
+            ctrl.pageToken = "bandejaSolicitudesRechazadas";
+        }else if (appName === "solicitudRechazada") {
+            ctrl.pageToken = "solicitudRechazada";
         }
         
         
