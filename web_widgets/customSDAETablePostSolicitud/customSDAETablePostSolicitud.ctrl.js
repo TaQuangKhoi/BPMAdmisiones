@@ -147,7 +147,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
                 window.open(url, '_blank');
                 
                 /*

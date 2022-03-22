@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "frgSDAEInformacionDelSolicitante",
   "name" : "frgSDAEInformacionDelSolicitante",
-  "lastUpdate" : 1646868158133,
+  "lastUpdate" : 1647637862606,
   "rows" : [
     [
       {
@@ -9573,12 +9573,12 @@
                           "rows" : [
                             [
                               {
-                                "type" : "component",
+                                "type" : "container",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
+                                  "md" : 6,
+                                  "lg" : 6
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -9589,26 +9589,56 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "Process document"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "document" : {
+                                  "repeatedCollection" : {
                                     "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : true
+                                    "value" : "context.lstDocumentos_ref"
                                   }
                                 },
-                                "reference" : "b8e417be-aaf2-45c9-98e3-0590339d528e",
+                                "reference" : "c60907c5-2cc6-41e8-912c-b68c6805f63e",
                                 "hasValidationError" : false,
-                                "id" : "pbFileViewer"
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "Process document"
+                                        },
+                                        "url" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : "context.lstDocumentos_ref[$index]"
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        }
+                                      },
+                                      "reference" : "b8e417be-aaf2-45c9-98e3-0590339d528e",
+                                      "hasValidationError" : false,
+                                      "id" : "pbFileViewer"
+                                    }
+                                  ]
+                                ]
                               }
                             ],
                             [
@@ -9772,6 +9802,13 @@
       "exposed" : true
     },
     "solicitudApoyoEducativo" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "context" : {
       "type" : "constant",
       "value" : [
         ""
