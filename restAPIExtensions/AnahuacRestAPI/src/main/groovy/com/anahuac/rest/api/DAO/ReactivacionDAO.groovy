@@ -1966,16 +1966,20 @@ class ReactivacionDAO {
 			contract.put("contactoEmergenciaInput",contacto);
 			
 			sleep(5000);
-			
 			respuesta = validarAspirante(Long.valueOf(object.caseid),caseId, context,contract);
-			errorLog +=", tarea:"+ respuesta;
+			errorLog =", tarea:"+ respuesta;
+			
 			sleep(5000);
 			respuesta = updateDatosSolicitud(object.caseid,caseId.toString(),context);
 			errorLog +="Update:"+ respuesta;
 			
-			
-			
-			
+			Result resultado2 = new Result();
+			resultado2 = copiarArchivos(Long.valueOf(object.caseid,),caseId,context)
+			if(resultado2.isSuccess()) {
+				errorLog+= "Se subieron archivos"
+			}else {
+				errorLog+= "Errorsubieron archivos:"+resultado2
+			}
 			
 			List < String> rows = new ArrayList <String> ();
 			rows.add("${caseId}")
@@ -2035,56 +2039,7 @@ class ReactivacionDAO {
 						}
 					}
 				}
-			}
-			
-			try {
-				
-				/*Se utiliza cargar los archivos en el nuevo proceso*/
-				Result resultado2 = new Result();
-				resultado2 = copiarArchivos(Long.valueOf(caseidOrigen),Long.valueOf(caseid),context)
-				if(resultado2.isSuccess()) {
-					errorLog+= "Se subieron archivos"
-				}
-				
-				String consultaDoc = "[\"${Statements.GET_ID_DOCUMENT} \"]".replace("[VALOR]", "${caseid}")
-				def document = simpleSelectBonita(0,0, consultaDoc, context)?.getData()
-				
-				if(document?.size()>0) {
-					document.each{
-						def map = [];
-						Map<String, Serializable> documentos = new HashMap<String, Serializable>();
-						documentos.put("contentType",null);
-						documentos.put("fileName",null);
-						documentos.put("id",it.documentid);
-						documentos.put("tempPath",null);
-						map.add(documentos);
-						switch(it.name) {
-							case "FotoPasaporte":
-							  contract.put("fotoPasaporteDocumentInput",map);
-							break;
-	
-							case "Constancia":
-							  contract.put("constanciaDocumentInput",map);
-							break;
-							
-							case "ResultadoCB":
-							  contract.put("resultadoCBDocumentInput",map);
-							break;
-							
-							case "Descuento":
-							  contract.put("descuentoDocumentInput",map);
-							break;
-							
-							case "ActaNacimiento":
-							  contract.put("actaNacimientoDocumentInput",map);
-							break;
-						}
-					}
-					
-				}
-			}catch(Exception a) {
-				errorLog += "fallo en las imagenes"
-			}
+			}		
 			
 			sleep(5000);
 			searchBuilder = new SearchOptionsBuilder(0, 99999);
@@ -2362,26 +2317,43 @@ class ReactivacionDAO {
 						case "FotoPasaporte":
 						  contract.put("fotoPasaporteDocumentInput",map);
 						break;
+						case "fotoPasaporte":
+							contract.put("fotoPasaporteDocumentInput",map);
+						break;
 
 						case "Constancia":
 						  contract.put("constanciaDocumentInput",map);
 						break;
 						
+						case "constancia":
+							contract.put("constanciaDocumentInput",map);
+						break;
+						
 						case "ResultadoCB":
 						  contract.put("resultadoCBDocumentInput",map);
+						break;
+						case "resultadoCB":
+							contract.put("resultadoCBDocumentInput",map);
 						break;
 						
 						case "Descuento":
 						  contract.put("descuentoDocumentInput",map);
 						break;
+						case "descuento":
+							contract.put("descuentoDocumentInput",map);
+						break;
 						
 						case "ActaNacimiento":
 						  contract.put("actaNacimientoDocumentInput",map);
+						break;
+						case "actaNacimiento":
+							contract.put("actaNacimientoDocumentInput",map);
 						break;
 					}
 				}
 				
 			}
+			
 			rows.add(contract);
 			resultado.setSuccess(true);
 			resultado.setData(rows)
@@ -2399,6 +2371,7 @@ class ReactivacionDAO {
 		String errorLog ="";
 		Boolean closeCon = false;
 		try {
+			List<DocumentValue> lstDocuments = new ArrayList<DocumentValue>();
 			closeCon = validarConexion();
 			String SSA = "";
 			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
@@ -2411,71 +2384,67 @@ class ReactivacionDAO {
 			rs = pstm.executeQuery();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
+			List <String> tipo = new ArrayList<String>();
+			List <String> mineType = new ArrayList<String>();
+			List <String> cualArchivo = new ArrayList<String>(); 
+			List <byte[]> archivo = new ArrayList<byte[]>();
+			
 			if(rs.next()) {
 				errorLog ="columnCount = ${columnCount}"
 				for (int i = 1; i <= columnCount; i++) {
 					errorLog+=" || column = ${metaData.getColumnLabel(i).toLowerCase()}"
 					if(rs.getString(i) != null && rs.getString(i) != "null" ) {
-						errorLog+=" || Valor = ${rs.getString(i)}"
-						byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url( (rs.getString(i)+SSA) )));
-						
+						String url = rs.getString(i)+SSA
+						byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url( url )));
 						String fileExtencion = "",nombreRecurso = ""; 						
 						switch(metaData.getColumnLabel(i).toLowerCase()) {
 							case  "urlfoto":
 							errorLog+= " IS FOTO ||"
 								fileExtencion = "Fot_"
-								nombreRecurso = "FotoPasaporte"
+								nombreRecurso = "fotoPasaporte"
 							break;
 							
 							case  "urlactanacimiento":
 								fileExtencion = "Act_Nac_"
-								nombreRecurso = "ActaNacimiento"
+								nombreRecurso = "actaNacimiento"
 							break;
 							
 							case  "urlresultadopaa":
 								fileExtencion = "Punt_Exa_Apt_Con_"
-								nombreRecurso = "ResultadoCB"
+								nombreRecurso = "resultadoCB"
 							break;
 							
 							case  "urlconstancia":
 								fileExtencion = "Kar_"
-								nombreRecurso = "Constancia"
+								nombreRecurso = "constancia"
 							break;		
 							case  "urldescuentos":
 								fileExtencion = "Des_"
-								nombreRecurso = "Descuento"
+								nombreRecurso = "descuento"
 							break;
 						}
 						
 						if(rs.getString(i).toLowerCase().contains(".jpeg")) {
-							DocumentValue doc = new DocumentValue(decodedString, "image/jpeg","${fileExtencion}${caseid}.jpeg")
-							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.jpeg", "image/jpeg" , decodedString)
 						}else if(rs.getString(i).toLowerCase().contains(".png")) {
-							DocumentValue doc = new DocumentValue(decodedString, "image/png","${fileExtencion}${caseid}.png")
-							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.png", "image/png" , decodedString)
 						}else if(rs.getString(i).toLowerCase().contains(".jpg")) {
-							DocumentValue doc = new DocumentValue(decodedString, "image/jpg","${fileExtencion}${caseid}.jpg")
-							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.jpg", "image/jpg" , decodedString)
 						}else if(rs.getString(i).toLowerCase().contains(".jfif")) {
-							DocumentValue doc = new DocumentValue(decodedString, "image/jfif","${fileExtencion}${caseid}.jfif")
-							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.jfif", "image/jfif" , decodedString)
 						}else if(rs.getString(i).toLowerCase().contains(".pdf")) {
-							DocumentValue doc = new DocumentValue(decodedString, "application/pdf","${fileExtencion}${caseid}.pdf")
-							context.getApiClient().getProcessAPI().addDocument(caseid,nombreRecurso,nombreRecurso, doc )
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.pdf", "application/pdf" , decodedString)
 						}
+						
 						
 					}
 					
 				}
 			}
 			
-			
-			//byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url(urlFoto)));
-			//DocumentValue doc = new DocumentValue(decodedString, "image/jpeg", "Fot_${caseid}.jpg")
-			//context.getApiClient().getProcessAPI().addDocument(caseid,"FotoPasaporte","FotoPasaporte", doc )
-			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)
+			resultado.setError_info(errorLog);
+			resultado.setData(lstDocuments);	
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -2525,7 +2494,7 @@ class ReactivacionDAO {
 						objCatRegistro = lstCatRegistro.get(0);
 						if(objCatRegistro.getCaseId().equals(caseid)) {
 							apiClient.getProcessAPI().assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
-							apiClient.getProcessAPI().executeFlowNode(objHumanTaskInstance.getId());
+							apiClient.getProcessAPI().executeFlowNode(objHumanTaskInstance.getId(), contract);
 						}
 					}
 				}
