@@ -13,7 +13,6 @@ function ($scope, $log, widgetNameFactory) {
         var limite = $scope.properties.maxLength === 1 ? 250 : $scope.properties.maxLength;
         let valid = true;
         
-        debugger;
         if($scope.properties.type === "number"){
             if((e.keyCode > 47 && e.keyCode < 59) || (e.keyCode > 96 && e.keyCode <106)){
                 valid = true;
