@@ -1904,6 +1904,13 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_CA9oaWdDEeyAHufroJpG_Q" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_CA9oamdDEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
+          <filters xmi:type="process:ActorFilter" xmi:id="_8n-pAKrDEeyTC64WoItamQ" documentation="Usuario que inicio el proceso e inicio la solicitud" name="Aspirante solicitante" definitionId="bonita-actorfilter-initiator" definitionVersion="1.0">
+            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_8n_QEKrDEeyTC64WoItamQ" definitionId="bonita-actorfilter-initiator" version="1.0">
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8n_QEarDEeyTC64WoItamQ" key="autoAssign">
+                <expression xmi:type="expression:Expression" xmi:id="_8n_QEqrDEeyTC64WoItamQ" name="true" content="true" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+              </parameters>
+            </configuration>
+          </filters>
           <contract xmi:type="process:Contract" xmi:id="_CA9oaGdDEeyAHufroJpG_Q">
             <inputs xmi:type="process:ContractInput" xmi:id="_41lhYKYhEeydlpW9zcd1oA" name="solicitudApoyoEducativoInput" type="COMPLEX" dataReference="solicitudApoyoEducativo" createMode="false">
               <inputs xmi:type="process:ContractInput" xmi:id="_41lhYaYhEeydlpW9zcd1oA" name="costoMensualColegiatura" createMode="false"/>
@@ -2808,34 +2815,6 @@
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
-          <operations xmi:type="expression:Operation" xmi:id="__DNxkJ8sEeyE-qczs0l6Qw">
-            <leftOperand xmi:type="expression:Expression" xmi:id="__DOYoJ8sEeyE-qczs0l6Qw" name="fotoCalleCasa" content="fotoCalleCasa" type="DOCUMENT_REF_TYPE">
-              <referencedElements xmi:type="process:Document" xmi:id="__DOYoZ8sEeyE-qczs0l6Qw" name="fotoCalleCasa"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="__DOYop8sEeyE-qczs0l6Qw" name="" content=""/>
-            <operator xmi:type="expression:Operator" xmi:id="__DOYpJ8sEeyE-qczs0l6Qw" type="DOCUMENT_CREATE_UPDATE"/>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_A_M9IZ8tEeyE-qczs0l6Qw">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_A_M9Ip8tEeyE-qczs0l6Qw" name="fotoFachadaCasa" content="fotoFachadaCasa" type="DOCUMENT_REF_TYPE">
-              <referencedElements xmi:type="process:Document" xmi:id="_A_M9I58tEeyE-qczs0l6Qw" name="fotoFachadaCasa"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_A_M9JJ8tEeyE-qczs0l6Qw" name="" content=""/>
-            <operator xmi:type="expression:Operator" xmi:id="_A_M9Jp8tEeyE-qczs0l6Qw" type="DOCUMENT_CREATE_UPDATE"/>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_CR-zoZ8tEeyE-qczs0l6Qw">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_CR-zop8tEeyE-qczs0l6Qw" name="fotoSalaCasa" content="fotoSalaCasa" type="DOCUMENT_REF_TYPE">
-              <referencedElements xmi:type="process:Document" xmi:id="_CR-zo58tEeyE-qczs0l6Qw" name="fotoSalaCasa"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_CR-zpJ8tEeyE-qczs0l6Qw" name="" content=""/>
-            <operator xmi:type="expression:Operator" xmi:id="_CR-zpp8tEeyE-qczs0l6Qw" type="DOCUMENT_CREATE_UPDATE"/>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_DVQ1kZ8tEeyE-qczs0l6Qw">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_DVQ1kp8tEeyE-qczs0l6Qw" name="fotoComedorCasa" content="fotoComedorCasa" type="DOCUMENT_REF_TYPE">
-              <referencedElements xmi:type="process:Document" xmi:id="_DVQ1k58tEeyE-qczs0l6Qw" name="fotoComedorCasa"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_DVQ1lJ8tEeyE-qczs0l6Qw" name="" content=""/>
-            <operator xmi:type="expression:Operator" xmi:id="_DVQ1lp8tEeyE-qczs0l6Qw" type="DOCUMENT_CREATE_UPDATE"/>
-          </operations>
           <operations xmi:type="expression:Operation" xmi:id="_Qff88KDHEeyTN-GcXdFBog">
             <leftOperand xmi:type="expression:Expression" xmi:id="_Qff88aDHEeyTN-GcXdFBog" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_RYKDQKDHEeyTN-GcXdFBog" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
@@ -3068,6 +3047,12 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_aPpUIKSzEeydlpW9zcd1oA" name="caseIdAdmisiones">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_aPpUIaSzEeydlpW9zcd1oA"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_C4KhwKrREeyTC64WoItamQ" name="catTipoApoyoCAT" type="COMPLEX">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_C4KhwarREeyTC64WoItamQ"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_qKl_UKrREeyTC64WoItamQ" name="persistenceId_string">
+                  <mapping xmi:type="process:ContractInputMapping" xmi:id="_qKl_UarREeyTC64WoItamQ"/>
+                </inputs>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_km1h0JvpEeyc0ZUA4l06NA" name="hermanosInput" type="COMPLEX" multiple="true" dataReference="hermanos" createMode="false">
