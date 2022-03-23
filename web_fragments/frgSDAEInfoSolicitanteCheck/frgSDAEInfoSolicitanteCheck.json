@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "frgSDAEInfoSolicitanteCheck",
   "name" : "frgSDAEInfoSolicitanteCheck",
-  "lastUpdate" : 1647555067381,
+  "lastUpdate" : 1648072109826,
   "rows" : [
     [
       {
@@ -7903,15 +7903,15 @@
                             "headers" : {
                               "type" : "constant",
                               "value" : [
-                                "Marca",
-                                "Modelo",
-                                "Año",
-                                "Costo aproximado",
-                                "Situación del auto"
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
                               ]
                             },
                             "content" : {
-                              "type" : "constant"
+                              "type" : "expression",
+                              "value" : "getAutosSolicitante"
                             },
                             "columnsKey" : {
                               "type" : "constant"
@@ -7931,11 +7931,15 @@
                             "bordered" : {
                               "type" : "constant",
                               "value" : false
+                            },
+                            "lstSituacionAuto" : {
+                              "type" : "variable",
+                              "value" : "getCatSituacionAuto"
                             }
                           },
-                          "reference" : "d52ba37b-93b3-4061-b041-6b67f32fa2ac",
+                          "reference" : "ef16c347-d8f4-4ba7-930b-54666a575dda",
                           "hasValidationError" : false,
-                          "id" : "pbTable"
+                          "id" : "customTblSDAEinformacionAutomoviles"
                         }
                       ],
                       [
@@ -10044,6 +10048,20 @@
       "exposed" : true
     },
     "context" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "getAutosSolicitante" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "getCatSituacionAuto" : {
       "type" : "constant",
       "value" : [
         ""

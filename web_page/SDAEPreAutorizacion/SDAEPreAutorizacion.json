@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1648057379732,
+  "lastUpdate" : 1648072860671,
   "rows" : [
     [
       {
@@ -109,6 +109,58 @@
                 },
                 "text" : {
                   "type" : "interpolation",
+                  "value" : "{{getAutosSolicitantes}}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "0db98f77-7cc4-4d90-80ad-6b7030235332",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
                   "value" : "{{context}}"
                 },
                 "alignment" : {
@@ -155,7 +207,9 @@
                 "modificarMotivoSol" : "formInput.solicitudApoyoEducativoInput.modificarMotivoSol",
                 "modificarInfoSocioEco" : "formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco",
                 "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
-                "context" : "context"
+                "context" : "context",
+                "getAutosSolicitante" : "getAutosSolicitantes",
+                "getCatSituacionAuto" : "getCatSituacionAuto"
               }
             }
           ]
@@ -3425,6 +3479,34 @@
         "    \"modificarDocumentos\" :  false\r",
         "  }\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "getAutosSolicitantes" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.autos_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getCatSituacionAuto" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        " {\r",
+        "    \"persistenceId\": \"1\",\r",
+        "    \"descripcion\": \"Excelente\"\r",
+        " },\r",
+        " {\r",
+        "    \"persistenceId\": \"2\",\r",
+        "    \"descripcion\": \"Bueno\"\r",
+        " },\r",
+        " {\r",
+        "    \"persistenceId\": \"3\",\r",
+        "    \"descripcion\": \"Malo\"\r",
+        " }\r",
+        "]"
       ],
       "exposed" : false
     }
