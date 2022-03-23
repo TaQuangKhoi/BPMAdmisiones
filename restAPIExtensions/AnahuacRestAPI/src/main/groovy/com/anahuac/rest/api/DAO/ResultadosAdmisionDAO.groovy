@@ -1031,6 +1031,7 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
+			errorlog += "||||||"+ countQuery
 			resultado.setError_info(errorlog);
 			resultado.setData(rows);
 			
@@ -1552,6 +1553,7 @@ class ResultadosAdmisionDAO {
             }
              
             countQuery = countQuery.replace("[WHERE]", where);
+			countQuery += " AND InfoC.persistenceid is null"
             pstm = con.prepareStatement(countQuery);
             rs= pstm.executeQuery();
             
@@ -1607,6 +1609,7 @@ class ResultadosAdmisionDAO {
             }
             resultado.setSuccess(true);
             
+			errorlog = countQuery+"||||||"+consulta;
             resultado.setError_info(errorlog);
             resultado.setData(rows);
             
