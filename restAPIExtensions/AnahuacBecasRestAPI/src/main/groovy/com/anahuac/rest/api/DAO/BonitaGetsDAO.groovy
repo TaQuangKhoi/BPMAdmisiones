@@ -874,17 +874,26 @@ class BonitaGetsDAO {
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
-			
-			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();//context.getApiClient();
 			apiClient.login(username, password)
 			
 			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 100);
 			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Agregar ActualmenteTrabajas");
 			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
-			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
-//			final SearchResult<ProcessDeploymentInfo> searchRes = apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());			
+			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);			
 			List<Long> data2 = new ArrayList<Long>();
 			data2.add(apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done()).getResult().get(0));
+			
+			/*SearchOptionsBuilder searchOptions = new SearchOptionsBuilder(0,100);
+			searchOptions.filter( ProcessDeploymentInfoSearchDescriptor.NAME, "Solicitud de apoyo educativo");
+			searchOptions.filter( ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
+			searchOptions.sort( ProcessDeploymentInfoSearchDescriptor.DEPLOYMENT_DATE, Order.DESC);
+			
+			SearchResult<ProcessDeploymentInfo> searchResult = processAPI.searchProcessDeploymentInfos( searchOptions.done());
+			List<String> data2 = new ArrayList<String>();
+			if (searchResult.getCount()>0) {
+				data2.add(searchResult.getResult().get(0).getProcessId().toString());
+			}*/
 			
 			resultado.setData(data2);
 			resultado.setSuccess(true);
