@@ -879,7 +879,7 @@ class BonitaGetsDAO {
 			apiClient.login(username, password)
 			
 			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 100);
-			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Solicitud de apoyo educativo");
+			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Agregar ActualmenteTrabajas");
 			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
 			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
 //			final SearchResult<ProcessDeploymentInfo> searchRes = apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());			
@@ -889,6 +889,7 @@ class BonitaGetsDAO {
 			resultado.setData(data2);
 			resultado.setSuccess(true);
 			resultado.setError(errorLog);
+			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
