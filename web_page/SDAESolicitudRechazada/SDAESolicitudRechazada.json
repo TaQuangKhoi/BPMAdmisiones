@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudRechazada",
   "name" : "SDAESolicitudRechazada",
-  "lastUpdate" : 1647990577338,
+  "lastUpdate" : 1648056265269,
   "rows" : [
     [
       {
@@ -86,6 +86,66 @@
                 "hidden" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Motivo de Rechazo"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "getInfoPreAutorizacion.motivoRechazoPreAutorizacion"
+                }
+              },
+              "reference" : "4068f4ba-08f3-4c12-9392-a4df24df66e9",
+              "hasValidationError" : false,
+              "id" : "pbTextarea"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -726,9 +786,9 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "48e90bc8-5d60-47f3-94a3-9d28f1ddfacb",
+                      "reference" : "7bd7b008-506a-4dd9-9ac6-9bb6f6193a4e",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCloseWindow"
                     }
                   ],
                   [
@@ -1048,6 +1108,14 @@
         "  }\r",
         "}"
       ],
+      "exposed" : false
+    },
+    "getInfoPreAutorizacion" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.preAutorizacion_ref.link}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
