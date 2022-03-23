@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1647993341588,
+  "lastUpdate" : 1647995051507,
   "rows" : [
     [
       {
@@ -455,6 +455,46 @@
                     "reference" : "5d4815be-da74-4445-86f4-127f048b4ae4",
                     "hasValidationError" : false,
                     "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Modificar información personal"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.modificarInfoPersonal"
+                      }
+                    },
+                    "reference" : "a6af9784-651c-4fc6-aa77-70af82869869",
+                    "hasValidationError" : false,
+                    "id" : "pbCheckbox"
                   }
                 ],
                 [
@@ -1753,8 +1793,8 @@
                               "value" : false
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "!formOutputTest.modificarInfoPersonal"
                             },
                             "required" : {
                               "type" : "constant",
@@ -1858,8 +1898,8 @@
                                     "value" : 2
                                   },
                                   "readOnly" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.modificarInfoPersonal"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -1934,8 +1974,8 @@
                                     "value" : 50
                                   },
                                   "readOnly" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.modificarInfoPersonal"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",

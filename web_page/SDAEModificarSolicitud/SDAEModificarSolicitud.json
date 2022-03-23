@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1647452385365,
+  "lastUpdate" : 1647994861143,
   "rows" : [
     [
       {
@@ -159,16 +159,22 @@
                   "value" : false
                 }
               },
-              "reference" : "548357c6-1058-48f2-80d5-cad708f3f751",
+              "reference" : "c86ea887-2123-4463-92e3-46dc3720cfa2",
               "hasValidationError" : false,
-              "id" : "frgSDAEInfoModificarSolicitud",
+              "id" : "SDAEFrgSolicitudApoyoAcademico",
               "binding" : {
-                "wizardContent" : "wizardContent",
-                "selectedIndex" : "selectedIndex",
-                "getInformacionEscolar" : "",
-                "getInformacionPersonal" : "",
-                "getInformacionPadres" : "",
-                "solicitudApoyoEducativo" : "formOutputTest.solicitudApoyoAcademico"
+                "objSolicitudDeAdmision" : "objSolicitudDeAdmision",
+                "rutaFotoUsuario" : "rutaFotoUsuario",
+                "getTipoAdmision" : "getTipoAdmision",
+                "formOutputTest" : "formOutputTest",
+                "getInformacionEscolar" : "getInformacionEscolar",
+                "tutor" : "tutor",
+                "lstCatTipoInversionesPosee" : "lstCatTipoInversionesPosee",
+                "padre" : "padre",
+                "madre" : "madre",
+                "imagenesSocioEconomico" : "imagenesSocioEconomico",
+                "getDocumentosByTipoApoyo" : "getDocumentosByTipoApoyo",
+                "returnCatValue" : "returnCatValue"
               }
             }
           ]
@@ -1885,6 +1891,20 @@
         "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "imagenesSocioEconomico" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "urlIMagenesSocioEconomico" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" + $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita;"
+      ],
       "exposed" : false
     }
   },
