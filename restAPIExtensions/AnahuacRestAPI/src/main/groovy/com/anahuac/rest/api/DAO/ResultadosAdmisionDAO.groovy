@@ -1299,9 +1299,9 @@ class ResultadosAdmisionDAO {
                  }else{
                       consulta = Statements.GET_INFO_CONSULTA_RESULTADOS_MANUAL;
                      if(object.tipoResultado.equals("AceptadoManual")) {
-                        where+=" WHERE SOLAD.aceptado = true ";
+                        where+=" WHERE SOLAD.aceptado = true  AND InfoC.persistenceid is null ";
                      }else if(object.tipoResultado.equals("Rechazada")){
-                        where+="  AND (carta='Rechazado') ";
+                        where+="  AND (carta='Rechazado')  AND InfoC.persistenceid is null ";
                      }
                  }
              
@@ -1553,7 +1553,6 @@ class ResultadosAdmisionDAO {
             }
              
             countQuery = countQuery.replace("[WHERE]", where);
-			countQuery += " AND InfoC.persistenceid is null"
             pstm = con.prepareStatement(countQuery);
             rs= pstm.executeQuery();
             
