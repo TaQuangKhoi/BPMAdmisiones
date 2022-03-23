@@ -4064,6 +4064,7 @@ class UsuariosDAO {
 			def object = jsonSlurper.parseText(jsonData);
 			
 			List <String> rows = new ArrayList <String> ();
+			List <String> tipo = new ArrayList <String> ();
 			closeCon = validarConexion();
 			
 			String SSA = "";
@@ -4084,21 +4085,26 @@ class UsuariosDAO {
 				
 				if(rs.getString("RUTA").toLowerCase().contains(".jpeg")) {
 						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".png")) {
 						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
 						rows.add( "data:image/jpg;base64,, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
 						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
 						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA")+ SSA+"&v="+num)));
+						tipo.add("archivo");
 					}
 				
 			}
 
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			resultado.setAdditional_data(tipo);
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
