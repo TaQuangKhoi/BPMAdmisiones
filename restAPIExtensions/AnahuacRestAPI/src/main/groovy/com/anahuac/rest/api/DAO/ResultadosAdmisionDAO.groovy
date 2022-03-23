@@ -706,9 +706,9 @@ class ResultadosAdmisionDAO {
 				consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
 				where+=" WHERE INFTEMP.persistenceid IS NOT null";
 				if(object.tipoResultado.equals("Aceptado")) {
-					where+="  AND (carta='Aceptado') ";
+					where+="  AND (carta='Aceptado') AND SOLAD.aceptado is true ";
 				}else if(object.tipoResultado.equals("Rechazada")){
-					where+="  AND (carta='Rechazado') ";
+					where+="  AND (carta='Rechazado') AND SOLAD.aceptado is not true ";
 				}
 			}
 			errorlog=errorlog+" | INICIO";
