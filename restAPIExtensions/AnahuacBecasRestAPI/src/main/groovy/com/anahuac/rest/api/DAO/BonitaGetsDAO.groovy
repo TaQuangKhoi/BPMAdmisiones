@@ -902,10 +902,11 @@ class BonitaGetsDAO {
 			
 			resultado.setSuccess(true);
 //			map.add(info);
-			map.add(searchRes);
+//			map.add(searchRes);
 			
-			resultado.setData(map);
+//			resultado.setData(map);
 			
+			resultado.setData(searchRes.result);
 			resultado.setError(errorLog);
 			
 		} catch (Exception e) {
