@@ -878,37 +878,17 @@ class BonitaGetsDAO {
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
 			apiClient.login(username, password)
 			
-			//org.bonitasoft.engine.api.APIClient apiClient = context.getApiClient();
-//			try {
-//				closeCon = validarConexionBonita()
-//				pstm = con.prepareStatement(" SELECT processid FROM process_definition WHERE NAME = 'Solicitud de apoyo educativo' and activationstate = 'ENABLED' ");
-//				rs = pstm.executeQuery();
-//				if(rs.next()) {
-//					info = apiClient.getProcessAPI().getProcessDeploymentInfo(rs.getLong("processid"));
-//				}
-//			}catch(Exception ex) {
-//				errorLog += ex;
-//			}
-			
-			
-			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 1);
+			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 100);
 			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Solicitud de apoyo educativo");
 			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
 			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
-			final SearchResult<ProcessDeploymentInfo> searchRes = apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());
-			info = searchRes;
+//			final SearchResult<ProcessDeploymentInfo> searchRes = apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done());			
+			List<Long> data2 = new ArrayList<Long>();
+			data2.add(apiClient.getProcessAPI().searchProcessDeploymentInfos(searchProcessBuilder.done()).getResult().get(0));
 			
-//			Long id = searchRes.result.get(0).processId;
-			
+			resultado.setData(data2);
 			resultado.setSuccess(true);
-//			map.add(info);
-//			map.add(searchRes);
-			
-//			resultado.setData(map);
-			
-			resultado.setData(searchRes.result);
 			resultado.setError(errorLog);
-			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
