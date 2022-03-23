@@ -4090,7 +4090,7 @@ class UsuariosDAO {
 						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
-						rows.add( "data:image/jpg;base64,, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
 						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
