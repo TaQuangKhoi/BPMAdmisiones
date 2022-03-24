@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1648072860671,
+  "lastUpdate" : 1648161299406,
   "rows" : [
     [
       {
@@ -67,6 +67,89 @@
               "hasValidationError" : false,
               "id" : "pbTitle",
               "description" : ""
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "campusSeleccionado" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "abrirPagina" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "7f2309b3-066b-441a-986c-8e5af9b2e4a6",
+              "hasValidationError" : false,
+              "id" : "customSDAETablePostSolicitudByCaseId"
             }
           ],
           [
@@ -3507,6 +3590,22 @@
         "    \"descripcion\": \"Malo\"\r",
         " }\r",
         "]"
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "dataToSend" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"caseId\":$data.caseId,\r",
+        "};\r"
       ],
       "exposed" : false
     }

@@ -94,12 +94,23 @@ class ListadoDAO {
 			}*/
 			
 			if (object.estatusSolicitud != null) {
-				where += " AND SDAE.estatusSolicitud = '"+object.estatusSolicitud+"' "
+				where += " AND SDAE.estatusSolicitud IN ("+object.estatusSolicitud+") "
+				//where += " AND SDAE.estatusSolicitud = '"+object.estatusSolicitud+"' "
 				//if (object.estatusSolicitud.equals("Solcitud en progreso")) {
 					//where += " AND SDAE.estatusSolicitud = 'Solcitud en progreso' "
 				//} //else if (object.estatusSolicitud.equals("Solicitud rechazada")) {
 					//where += " AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
 				//} 
+			}
+			
+			if (object.caseId != null) {
+				where += " AND SDAE.caseId = "+object.caseId +" "
+				//where += " AND SDAE.estatusSolicitud = '"+object.estatusSolicitud+"' "
+				//if (object.estatusSolicitud.equals("Solcitud en progreso")) {
+					//where += " AND SDAE.estatusSolicitud = 'Solcitud en progreso' "
+				//} //else if (object.estatusSolicitud.equals("Solicitud rechazada")) {
+					//where += " AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
+				//}
 			}
 			
 			/*if (lstGrupo.size() > 0) {
