@@ -311,7 +311,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req)
             .success(function(data, status) {
                 let pdfWindow = window.open("")
-                pdfWindow.document.write("<iframe width='100%' height='100%' src='"+ data.data[0]+ "'></iframe>")
+                if(data.additional_data[0] == "imagen"){
+                    pdfWindow.document.write("<img width='50%' height='100%' src='"+ data.data[0]+ "'>")
+                }else{
+                    
+                    pdfWindow.document.write('<embed src="'+data.data[0]+'" width="50%" height="100%">')
+                }
                 //console.log(data);
             })
             .error(function(data, status) {
