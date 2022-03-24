@@ -878,7 +878,7 @@ class BonitaGetsDAO {
 			apiClient.login(username, password)
 			
 			SearchOptionsBuilder searchProcessBuilder = new SearchOptionsBuilder(0, 100);
-			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Agregar ActualmenteTrabajas");
+			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Solicitud de apoyo educativo");
 			searchProcessBuilder.filter(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, ActivationState.ENABLED.name());
 			searchProcessBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);			
 			List<Long> data2 = new ArrayList<Long>();

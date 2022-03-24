@@ -727,6 +727,10 @@ class CatalogosDAO {
 				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
 				row.setCondicionesVideo(rs.getString("CONICIONESVIDEO"));
 				row.setEsSocioEconomico(rs.getBoolean("ESSOCIOECONOMICO"));
+				row.setIsArtistica(rs.getBoolean("ISARTISTICA"));
+				row.setIsDeportiva(rs.getBoolean("ISDEPORTIVA"));
+				row.setIsFinanciamiento(rs.getBoolean("ISFINANCIAMIENTO"));
+				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
 
 				rows.add(row);
 			}
@@ -892,6 +896,10 @@ class CatalogosDAO {
 				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
 				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+				row.setIsArtistica(rs.getBoolean("ISARTISTICA"));
+				row.setIsDeportiva(rs.getBoolean("ISDEPORTIVA"));
+				row.setIsFinanciamiento(rs.getBoolean("ISFINANCIAMIENTO"));
+				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
 //				row.setRequiereVideo(rs.getBoolean("requierevideo"));
 //				row.setCondicionesVideo(rs.getString("condicionesvideo"));
 //				row.setEsSocioEconomico(rs.getBoolean("esSocioEconomico"));
@@ -1232,16 +1240,14 @@ class CatalogosDAO {
 			if(objCatGenerico.persistenceId != 0) {
 				errorLog+= " update";
 				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CAT_TIPO_APOYO);
-
-//				CLAVE = ?, DESCRIPCION = ?, ISELIMINADO = ?, REQUIEREVIDEO = ?, 
-//				CONDICIONESVIDEO = ?, ESSOCIOECONOMICO = ? WHERE PERSISTENCEID = ?;
 				pstm.setString(1, objCatGenerico.clave.toString());
 				pstm.setString(2, objCatGenerico.descripcion);
 				pstm.setBoolean(3, objCatGenerico.isEliminado);
-//				pstm.setString(4, objCatGenerico.requiereVideo.toString());
-//				pstm.setString(5, objCatGenerico.condicionesVideo);
-//				pstm.setBoolean(6, objCatGenerico.esSocioEconomico);
-				pstm.setLong(4, objCatGenerico.persistenceId);
+				pstm.setBoolean(4, objCatGenerico.isArtistica);
+				pstm.setBoolean(5, objCatGenerico.isDeportiva);
+				pstm.setBoolean(6, objCatGenerico.isAcademica);
+				pstm.setBoolean(7, objCatGenerico.isFinanciamiento);
+				pstm.setLong(8, objCatGenerico.persistenceId);
 				pstm.execute();
 			}else {
 				errorLog+= " insert";
@@ -1249,10 +1255,10 @@ class CatalogosDAO {
 				pstm.setString(1, objCatGenerico.clave.toString());
 				pstm.setString(2, objCatGenerico.descripcion);
 				pstm.setString(3, objCatGenerico.usuarioCreacion);
-//				pstm.setString(4, objCatGenerico.requiereVideo.toString());
-//				pstm.setString(5, objCatGenerico.condicionesVideo);
-//				pstm.setBoolean(6, objCatGenerico.esSocioEconomico);
-				
+				pstm.setBoolean(4, objCatGenerico.isArtistica);
+				pstm.setBoolean(5, objCatGenerico.isDeportiva);
+				pstm.setBoolean(6, objCatGenerico.isAcademica);
+				pstm.setBoolean(7, objCatGenerico.isFinanciamiento);
 				pstm.execute();
 			}
 			errorLog+= " salio";
