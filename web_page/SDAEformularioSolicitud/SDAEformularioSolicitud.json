@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1648072615718,
+  "lastUpdate" : 1648161916914,
   "rows" : [
     [
       {
@@ -8209,11 +8209,11 @@
                       },
                       "returnedKey" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : "persistenceId_string"
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catTipoApoyoCAT"
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id"
                       }
                     },
                     "reference" : "7ffbecfb-6c22-4a9c-8062-0e50d1c4401c",
@@ -8283,6 +8283,73 @@
                       }
                     },
                     "reference" : "daa8eab1-5f27-4419-a416-79e3373ecb2b",
+                    "hasValidationError" : false,
+                    "id" : "pbSelect"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Tipo de apoyo solicitado:"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation",
+                        "value" : "Select an option"
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "getCatTipoApoyoByCampus.data"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.solicitudCatalogosInput.catTipoApoyoCAT"
+                      }
+                    },
+                    "reference" : "81fb1ee3-883e-41f1-a888-04af9686e832",
                     "hasValidationError" : false,
                     "id" : "pbSelect"
                   }
@@ -14281,7 +14348,7 @@
     "idProceso" : {
       "type" : "constant",
       "value" : [
-        "9218852309432749427"
+        "5763005958282290753"
       ],
       "exposed" : false
     },
@@ -14936,11 +15003,11 @@
         "    \t},\r",
         "    \t\"isFinalizadaInput\":false,\r",
         "    \t\"hermanosInput\":[],\r",
-        "    \t\"fotoCalleCasaDocumentInput\": null,\r",
-        "    \t\"fotoFachadaCasaDocumentInput\": null,\r",
-        "    \t\"fotoSalaCasaDocumentInput\": null,\r",
-        "    \t\"fotoComedorCasaDocumentInput\": null,\r",
-        "    \t\"catTipoApoyoCAT\": null\r",
+        "    \t\"lstFotosSocioEconomicoDocumentInput\":[],\r",
+        "    \t\"solicitudCatalogosInput\": {\r",
+        "    \t    \"catTipoApoyoCAT\":null, \r",
+        "    \t    \"imagenesSocioEconomico\":[]\r",
+        "    \t}\r",
         "    }"
       ],
       "exposed" : false
@@ -14982,8 +15049,6 @@
         "if(!output.lstDocumentosDocumentInput){",
         "    output.lstDocumentosDocumentInput = [];",
         "}",
-        "",
-        "output.solicitudApoyoEducativoInput.catTipoApoyoCAT = $data.returnFormOutput.catTipoApoyo",
         "",
         "return output;"
       ],

@@ -11,13 +11,41 @@ class CatTypoApoyo {
 	private Boolean isEliminado;
 	private Boolean requiereVideo;
 	private String condicionesVideo;
-	private boolean esSocioEconomico;
+	private Boolean esSocioEconomico;
+	private Boolean isArtistica;
+	private Boolean isDeportiva;
+	private Boolean isFinanciamiento;
+	private Boolean isAcademica;
 	
-	public boolean isEsSocioEconomico() {
+	public Boolean getEsSocioEconomico() {
 		return esSocioEconomico;
 	}
-	public void setEsSocioEconomico(boolean esSocioEconomico) {
+	public void setEsSocioEconomico(Boolean esSocioEconomico) {
 		this.esSocioEconomico = esSocioEconomico;
+	}
+	public Boolean getIsArtistica() {
+		return isArtistica;
+	}
+	public void setIsArtistica(Boolean isArtistica) {
+		this.isArtistica = isArtistica;
+	}
+	public Boolean getIsDeportiva() {
+		return isDeportiva;
+	}
+	public void setIsDeportiva(Boolean isDeportiva) {
+		this.isDeportiva = isDeportiva;
+	}
+	public Boolean getIsFinanciamiento() {
+		return isFinanciamiento;
+	}
+	public void setIsFinanciamiento(Boolean isFinanciamiento) {
+		this.isFinanciamiento = isFinanciamiento;
+	}
+	public Boolean getIsAcademica() {
+		return isAcademica;
+	}
+	public void setIsAcademica(Boolean isAcademica) {
+		this.isAcademica = isAcademica;
 	}
 	public Boolean getRequiereVideo() {
 		return requiereVideo;
