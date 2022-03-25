@@ -30,7 +30,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.text.NumberFormat
 
-
+import com.anahuac.catalogos.CatConfiguracion
+import com.anahuac.catalogos.CatConfiguracionDAO
 import com.anahuac.catalogos.CatRegistro
 import com.anahuac.catalogos.CatRegistroDAO
 import com.anahuac.model.DetalleSolicitud
@@ -42,6 +43,7 @@ import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.HubSpotData
+import com.anahuac.rest.api.Entity.HubspotConfig
 import com.anahuac.rest.api.Entity.HubspotProperties
 import com.anahuac.rest.api.Entity.Result
 import com.bonitasoft.web.extension.rest.RestAPIContext
@@ -217,6 +219,14 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -450,7 +460,14 @@ class HubspotDAO {
 			else {
 				strError = strError + " | nulo";
 			}
-	
+			
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailEnviada",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Enviada Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			resultado.setError_info(strError);
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
@@ -523,6 +540,13 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailModificar",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Modificar Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -618,6 +642,13 @@ class HubspotDAO {
 				}
 			}
 			
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailValidar",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Validar Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
@@ -697,6 +728,13 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRechazoLRoja",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Rechazo Lista Roja Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -739,6 +777,13 @@ class HubspotDAO {
 			strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRestaurarRechazoLRoja",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Restaurar Rechazo Lista Roja Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
@@ -868,6 +913,13 @@ class HubspotDAO {
 
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			resultado.setSuccess(true);
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailPago",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Pago Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
@@ -932,6 +984,13 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailAutodescripcion",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Autodescripción Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -940,6 +999,7 @@ class HubspotDAO {
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
 		}
+		
 		return resultado
 	}
 	
@@ -997,6 +1057,13 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailGenerarCredencial",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Generar Credencial Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -1062,6 +1129,13 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailEsperaResultado",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Espera de resultado Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -1134,8 +1208,15 @@ class HubspotDAO {
 			
 			dataResult = new Result();
 			dataResult = new TransferenciasDAO().ejecutarGenerarCredencial(object.email, context);
-			LOGGER.error "dataResult: "+dataResult.getError();
 			
+			LOGGER.error "dataResult: "+dataResult.getError();
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailNoAsistioPruebas",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot No Asistio Pruebas Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -1248,6 +1329,13 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailSeleccionoFechaExamen",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Selecciono Fecha Examen Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -1553,6 +1641,14 @@ class HubspotDAO {
 				
 			}
 			
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailUsuarioRegistrado",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Usuario Registrado Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
+			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 
 		} catch (Exception e) {
@@ -1608,7 +1704,12 @@ class HubspotDAO {
 			strError = strError + " | "+ response.getEntity().getContentType().getName();
 			strError = strError + " | "+ response.getEntity().getContentType().getValue();
 			strError = strError + " | "+ EntityUtils.toString(response.getEntity(), "UTF-8");
+
+			strError += "| statusCode:" + response.getStatusLine().getStatusCode()
 			
+			if(response.getStatusLine().getStatusCode()!=200) {
+				throw new Exception(EntityUtils.toString(response.getEntity(), "UTF-8"))
+			}
 			resultado.setError_info(strError);
 			resultado.setSuccess(true);
 			new LogDAO().insertTransactionLog("POST", "CORRECTO", targetURL, "Log:"+strError, jsonList.toString())
@@ -1880,7 +1981,9 @@ class HubspotDAO {
 		  
 		  resultado = createOrUpdateHubspot(object.correoelectronico, apikeyHubspot, objHubSpotData);
 		  strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
-
+		  
+		 
+		  
 		  resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 		  resultado.setSuccess(true);
 	  } catch (Exception e) {
@@ -2329,6 +2432,13 @@ class HubspotDAO {
         
             resultado = createOrUpdateHubspot(correoElectronico, apikeyHubspotCambio, objHubSpotData);
             
+			if (!resultado.success) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailTransferirAspirante",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Transferir Aspirante Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context);
+			}
           
 
           resultado.setData(data)
@@ -2345,6 +2455,146 @@ class HubspotDAO {
           }
       }
       return resultado
+  }
+  public Result insertUpdateEmail(HubspotConfig config) {
+	  Result result = new Result();
+	  Boolean closeCon=false;
+	  try {
+			  closeCon = validarConexion();
+	
+			  verifyAndInsertOrUpdate("EmailAutodescripcion", config.emailHubspotAutodescripcion, "Correo para envío de fallos Hubspot Autodescripción")
+	          verifyAndInsertOrUpdate("EmailEnviada", config.emailHubspotEnviada,"")
+	          verifyAndInsertOrUpdate("EmailEsperaResultado", config.emailHubspotEsperaResultado,"")
+	          verifyAndInsertOrUpdate("EmailGenerarCredencial", config.emailHubspotGenerarCredencial,"")
+	          verifyAndInsertOrUpdate("EmailModificar", config.emailHubspotModificar,"")
+	          verifyAndInsertOrUpdate("EmailNoAsistioPruebas", config.emailHubspotNoAsistioPruebas,"")
+	          verifyAndInsertOrUpdate("EmailPago", config.emailHubspotPago,"")
+	          verifyAndInsertOrUpdate("EmailRechazoLRoja", config.emailHubspotRechazoLRoja,"")
+	          verifyAndInsertOrUpdate("EmailRegistro", config.emailHubspotRegistro,"")
+	          verifyAndInsertOrUpdate("EmailRestaurarRechazoLRoja", config.emailHubspotRestaurarRechazoLRoja,"")
+	          verifyAndInsertOrUpdate("EmailSeleccionoFechaExamen", config.emailHubspotSeleccionoFechaExamen,"")
+	          verifyAndInsertOrUpdate("EmailUsuarioRegistrado", config.emailHubspotUsuarioRegistrado,"")
+	          verifyAndInsertOrUpdate("EmailValidar", config.emailHubspotValidar,"")
+	          verifyAndInsertOrUpdate("EmailTransferirAspirante", config.emailHubspotTransferirAspirante,"")
+			  result.setSuccess(true)
+		  }catch(Exception e) {
+			  result.setSuccess(false)
+			  result.setError("Can't set config Hubspot email")
+			  result.setError_info(e.getMessage())
+		  }finally {
+			  if(closeCon) {
+				  new DBConnect().closeObj(con, stm, rs, pstm);
+			  }
+	  }
+	  
+	  return result;
+  }
+  public Result getEmailHubspotConfig() {
+	  Result result = new Result();
+	  List < HubspotConfig > data = new ArrayList < HubspotConfig > ();
+	  HubspotConfig row = new HubspotConfig();
+	  Boolean closeCon = false;
+	  try {
+
+
+		  closeCon = validarConexion();
+
+		  pstm = con.prepareStatement(HubspotConfig.CONFIGURACIONES)
+		  rs = pstm.executeQuery()
+		  while (rs.next()) {
+			  switch (rs.getString("clave")) {
+				  
+					 case "EmailAutodescripcion":
+                      row.setEmailHubspotAutodescripcion(rs.getString("valor"))
+                      break;
+                      case "EmailEnviada":
+                      row.setEmailHubspotEnviada(rs.getString("valor"))
+                      break;
+                      case "EmailEsperaResultado":
+                      row.setEmailHubspotEsperaResultado(rs.getString("valor"))
+                      break;
+                      case "EmailGenerarCredencial":
+                      row.setEmailHubspotGenerarCredencial(rs.getString("valor"))
+                      break;
+                      case "EmailModificar":
+                      row.setEmailHubspotModificar(rs.getString("valor"))
+                      break;
+                      case "EmailNoAsistioPruebas":
+                      row.setEmailHubspotNoAsistioPruebas(rs.getString("valor"))
+                      break;
+                      case "EmailModificar":
+                      row.setEmailHubspotModificar(rs.getString("valor"))
+                      break;
+                      case "EmailPago":
+                      row.setEmailHubspotPago(rs.getString("valor"))
+                      break;
+                      case "EmailRegistro":
+                      row.setEmailHubspotRegistro(rs.getString("valor"))
+                      break;
+                      case "EmailRestaurarRechazoLRoja":
+                      row.setEmailHubspotRestaurarRechazoLRoja(rs.getString("valor"))
+                      break;
+                      case "EmailSeleccionoFechaExamen":
+                      row.setEmailHubspotSeleccionoFechaExamen(rs.getString("valor"))
+                      break;
+                      case "EmailUsuarioRegistrado":
+                      row.setEmailHubspotUsuarioRegistrado(rs.getString("valor"))
+                      break;
+                      case "EmailValidar":
+                      row.setEmailHubspotValidar(rs.getString("valor"))
+                      break;
+                      case "EmailTransferirAspirante":
+                      row.setEmailHubspotTransferirAspirante(rs.getString("valor"))
+                      break;
+					  case "EmailRechazoLRoja": 
+					  row.setEmailHubspotRechazoLRoja(rs.getString("valor"))
+					  break;
+				  
+	  }
+		  }
+		  data.add(row)
+		  result.setSuccess(true);
+		  result.setData(data)
+	  } catch (Exception exception) {
+		  result.setSuccess(false)
+		  result.setError(exception.getMessage())
+	  } finally {
+		  if (closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm)
+		  }
+	  }
+	  return result;
+  }
+  private void verifyAndInsertOrUpdate(String key, String value, String description) {
+	  Boolean closeCon=false;
+	  
+	  try {
+	  closeCon = validarConexion();
+	  pstm = con.prepareStatement(HubspotConfig.GET_CONFIGURACIONES_CLAVE)
+	  pstm.setString(1, key)
+	  rs = pstm.executeQuery()
+	  if (rs.next()) {
+		  pstm = con.prepareStatement(HubspotConfig.UPDATE_CONFIGURACIONES)
+		  pstm.setString(1, value)
+		  pstm.setString(2, key)
+		  pstm.executeUpdate()
+	  } else {
+		  pstm = con.prepareStatement(HubspotConfig.INSERT_CONFIGURACIONES)
+		  pstm.setString(1, key)
+		  pstm.setString(2, value)
+		  pstm.setString(3, description)
+		  pstm.executeUpdate()
+	  }
+	  
+		  
+	  }catch(Exception e) {
+		  throw new Exception (e.getMessage());
+	  }finally {
+		  if(closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm);
+		  }
+	  }
+	  
   }
 }
 

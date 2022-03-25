@@ -75,11 +75,19 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='INVP'"></i></span></th>
                             
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHARESULTADO')">Fecha de subida<i class="glyphicon"
+                    <th ng-if="properties.orden == false" > <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMA')">Fecha de registro en EAC<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='FECHARESULTADO'"></i></span>
+                            ng-show="properties.dataToSend.orderby=='FECHAULTIMA'"></i></span>
                     </th>
-                    <th> Acciones</th>
+                    
+                    <th ng-if="properties.orden == true" > <span style="cursor:pointer" ng-click="setOrderBy('FECHASUBIDA')">Fecha de integración<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='FECHASUBIDA'"></i></span>/
+                            <span style="cursor:pointer" ng-click="setOrderBy('USUARIOSUBIO')">Usuario que integro<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='USUARIOSUBIO'"></i></span>
+                    </th>
+                    <th ng-if="properties.orden == false && properties.isTI == true" > Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -88,11 +96,11 @@
                     <td><input ng-model="dynamicInput['banner']" class="form-control" ng-enter="filterKeyPress('ID BANNER',dynamicInput['banner'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE,EMAIL,CURP',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
-                    <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
                     <td><input ng-model="dynamicInput['id']" class="form-control" ng-enter="filterKeyPress('ID,SESION',dynamicInput['id'])"></td>
                     <td><input ng-model="dynamicInput['puntuaciones']" class="form-control" ng-enter="filterKeyPress('PUNTUACIONES',dynamicInput['puntuaciones'])"></td>
-                    <td><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION',dynamicInput['fecha'])"></td>
-                    <td></td>
+                    <td ng-if="properties.orden == false" ><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DE REGISTRO EN EAC',dynamicInput['fecha'])"></td>
+                    <td ng-if="properties.orden == true" ><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DE INTEGRACION, USUARIO QUE INTEGRO',dynamicInput['fecha'])"></td>
+                    <td ng-if="properties.orden == false && properties.isTI == true"></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td class="max-size">
@@ -121,13 +129,21 @@
                         <br ng-show="properties.orden">{{properties.orden?row.invp:""}}
                     </td>
                 
-                    <td class="max-size">
-                        <b>{{row.fechasubida }}</b>
+                    <td ng-if="properties.orden == false" class="max-size">
+                        <b>{{row.fecharegistro }}</b>
                         <br> 
                         <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                     </td>
-                    <td class="max-size">
-                        <table ng-if="properties.orden == false">
+                    
+                    <td ng-if="properties.orden == true" class="max-size">
+                        <b>{{row.fechasubida }}</b>
+                        <br> 
+                        <b>{{row.usuariosubio}}</b>
+                        <br>
+                        <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
+                    </td>
+                    <td class="max-size" ng-if="properties.orden == false && properties.isTI == true">
+                        <table>
                             <tr>
                                 <td>
                                     <button class="btn btn-default" ng-click="cargaManual(row)">
