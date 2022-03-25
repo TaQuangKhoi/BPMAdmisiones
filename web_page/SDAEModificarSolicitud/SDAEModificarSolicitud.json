@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1648057841653,
+  "lastUpdate" : 1648168381734,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "url" : {
             "type" : "expression",
-            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&f=name=Llenado solicitud de apoyo académico&p=0\""
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&f=name=Modificar solicitud&p=0\""
           },
           "reloadTask" : {
             "type" : "variable",
@@ -100,7 +100,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "labelHidden" : {
             "type" : "constant",
@@ -124,7 +124,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<pre>Aquí va a ir el error </pre>"
+            "value" : "<pre>{{formOutputTest | json}}</pre>"
           },
           "alignment" : {
             "type" : "constant",
@@ -226,7 +226,19 @@
                 "madre" : "madre",
                 "imagenesSocioEconomico" : "imagenesSocioEconomico",
                 "getDocumentosByTipoApoyo" : "getDocumentosByTipoApoyo",
-                "returnCatValue" : "returnCatValue"
+                "returnCatValue" : "returnCatValue",
+                "wizardContent" : "wizardContent",
+                "selectedIndex" : "selectedIndex",
+                "siNoOpciones" : "siNoOpciones",
+                "lstCatContoBecaPreparatoria" : "lstCatContoBecaPreparatoria",
+                "catSexo" : "catSexo",
+                "lstCatProvienenIngresos" : "lstCatProvienenIngresos",
+                "lstCatSDAEEstadoCivilPadres" : "lstCatSDAEEstadoCivilPadres",
+                "lstCatTienesHermanos" : "lstCatTienesHermanos",
+                "getCatTipoApoyoByCampus" : "getCatTipoApoyoByCampus",
+                "lstCatPorcentajeBeca" : "lstCatPorcentajeBeca",
+                "lstCatPorcentajeFinanciamiento" : "lstCatPorcentajeFinanciamiento",
+                "catCasaDondeVives_query" : "catCasaDondeVives_query"
               }
             }
           ]
@@ -1957,6 +1969,21 @@
       "value" : [
         "return \"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" + $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita;"
       ],
+      "exposed" : false
+    },
+    "catSexo" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatSexo [com.anahuac.catalogos.CatSexo]\",\"businessObjectName\":\"CatSexo\",\"query\":{\"name\":\"getCatSexo\",\"displayName\":\"getCatSexo\"},\"id\":\"com.anahuac.catalogos.CatSexo\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "getCatTipoApoyoByCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatTipoAoyoByCampus&p=0&c=0&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
