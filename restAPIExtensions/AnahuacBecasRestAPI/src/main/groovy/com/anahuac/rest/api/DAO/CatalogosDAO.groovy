@@ -1553,4 +1553,59 @@ class CatalogosDAO {
 		return resultado
 	}
 	
+	/**
+	 * Obtiene un registro por Id del catálogo de tipo de apoyo 
+	 * @author José Angel González Zazueta 
+	 * @param persistenceId (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getCatTipoApoyoByPersistenceId(String persistenceId, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+
+			CatTypoApoyo row = new CatTypoApoyo();
+			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
+			closeCon = validarConexion();
+
+			pstm = con.prepareStatement(StatementsCatalogos.GET_CAT_TIPO_APOYO_BY_ID);
+			pstm.setInt(1, Integer.parseInt(persistenceId));
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new CatTypoApoyo();
+				row.setClave(rs.getString("clave"))
+				row.setDescripcion(rs.getString("descripcion"));
+				row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceId_string(String.valueOf(row.getPersistenceId()));
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
+				row.setIsArtistica(rs.getBoolean("ISARTISTICA"));
+				row.setIsDeportiva(rs.getBoolean("ISDEPORTIVA"));
+				row.setIsFinanciamiento(rs.getBoolean("ISFINANCIAMIENTO"));
+				rows.add(row);
+			}
+			
+			//resultado.setError_info(errorLog);
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 }

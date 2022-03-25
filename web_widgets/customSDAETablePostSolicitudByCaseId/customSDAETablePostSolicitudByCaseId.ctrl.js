@@ -26,7 +26,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                //$scope.value = data.totalRegistros;
+                $scope.properties.lstContenido = data.data;
+                $scope.value = data.totalRegistros;
             })
             .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
@@ -49,6 +50,4 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         console.log($scope.properties.dataToSend);
     });
-  
-    //$scope.getCatCampus();
   }
