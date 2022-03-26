@@ -1825,7 +1825,7 @@ class UsuariosDAO {
 		
 		try {
 		
-				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				List<Map<String, Boolean>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexionBonita();
 				pstm = con.prepareStatement(Statements.GET_USERS_BY_USERNAME)
 				pstm.setString(1, username)
@@ -1834,14 +1834,8 @@ class UsuariosDAO {
 				rows = new ArrayList<Map<String, Object>>();
 				ResultSetMetaData metaData = rs.getMetaData();
 				int columnCount = metaData.getColumnCount();
-				while(rs.next()) {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-	
-					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}
-	
-					rows.add(columns);
+				while(rs.next()) {	
+					rows.add(true);
 				}
 				resultado.setSuccess(true)
 				
