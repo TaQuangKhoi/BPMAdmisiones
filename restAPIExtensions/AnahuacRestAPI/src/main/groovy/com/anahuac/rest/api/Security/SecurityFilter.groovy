@@ -106,6 +106,8 @@ class SecurityFilter {
 				break;
 				case "getFechaINVP":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Usuario Auxiliar")
+				if(allow){break;}
 				break;
 				case "getFechaSesion":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -248,6 +250,8 @@ class SecurityFilter {
 				if(allow){break;}
 				break;
 				case "getValidarEscalaINVP":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Usuario Auxiliar")
 				if(allow){break;}
 				break;
 				case "getValidarOrden":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -396,11 +400,17 @@ class SecurityFilter {
 				break;
 				case "getResultadoINVP":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Usuario Auxiliar")
+				if(allow){break;}
 				break;
 				case "getEscalaINVPSexo":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Usuario Auxiliar")
+				if(allow){break;}
 				break;
 				case "getResultadosINVPIndividuales":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Usuario Auxiliar")
 				if(allow){break;}
 				break;
 				case "formateoVariablesPaseListaProceso":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -413,6 +423,8 @@ class SecurityFilter {
 				if(allow){break;}
 				break;
 				case "getExistsIdBannerINVP":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Usuario Auxiliar")
 				if(allow){break;}
 				break;
 				case "getGetFechaPsicometrico":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -1481,6 +1493,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getExcelTransferencias":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1679,18 +1695,30 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getSesionesINVPTabla":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getSesionesINVPTablaProcesadas":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getUsersByPrueba":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1709,12 +1737,20 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertRespuesta":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "postSelectAspirantePrueba":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1739,6 +1775,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "PostUpdateDeleteCatEscalaEAC":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
