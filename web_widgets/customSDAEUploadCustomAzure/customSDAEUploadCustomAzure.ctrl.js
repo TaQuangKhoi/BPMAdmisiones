@@ -37,10 +37,8 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                 var binaryData = e.target.result;
                 //Converting Binary Data to base 64
                 var base64String = window.btoa(binaryData);
-                debugger;
-                $scope.documetObject["b64"] = base64String;
-                //showing file converted to base64
-                document.getElementById('base64').value = base64String;
+                $scope.documetObject["b64"] = $scope.documetObject["filetype"] +  "," +  base64String;
+                
                 doRequest("POST", "../API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=0", null);
             };
         })(f);
@@ -55,7 +53,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
    * @return {void}
    */
     function doRequest(method, url, params) {
-        vm.busy = true;
         var req = {
             method: method,
             url: url,
@@ -83,7 +80,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function () {
-                vm.busy = false;
+                
             });
     }
     this.forceSubmit = function (event) {
@@ -94,7 +91,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         handleFileSelect(event);
         // $scope.documetObject["b64"] = window.btoa(event.target.files[0]);
         $scope.documetObject["filename"] = event.target.files[0].name;
-        $scope.documetObject["filetype"] = event.target.files[0].name.split('.').pop();
+        $scope.documetObject["filetype"] = event.target.files[0].type;
         $scope.documetObject["contenedor"] = "privado";
 
         if (event.target.files[0].type === "image/jpeg") {
