@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1648251375211,
+  "lastUpdate" : 1648508397615,
   "rows" : [
     [
       {
@@ -77,6 +77,22 @@
           "fotoSalaCasa" : {
             "type" : "variable",
             "value" : "formOutputTest.fotoSalaCasaDocumentInput"
+          },
+          "documentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.documentosSolicitanteInput"
+          },
+          "imagenesSocioEco" : {
+            "type" : "variable",
+            "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
+          },
+          "lstDocumentosByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "getDocumentosByTipoApoyo.data"
+          },
+          "lstImagenesByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "imagenesSocioEconomico.data"
           }
         },
         "reference" : "8e36a0e2-2288-48b4-afc9-b660a6a3c9dd",
@@ -12055,512 +12071,6 @@
                 ],
                 [
                   {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : "returnCatValue.catTipoApoyo.esSocioEconomico"
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "repeatedCollection" : {
-                        "type" : "variable",
-                        "value" : ""
-                      }
-                    },
-                    "reference" : "f5c1f8cd-e333-4119-b4b8-2a149d86b4b2",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "02ae1106-7869-49ba-8cd3-bbe0ff0dbd77",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Subir documento"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : "../API/formFileUpload"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "formOutputTest.fotoCalleCasaDocumentInput"
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "urlretorno" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isImagen" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isPDF" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "documentName" : {
-                                    "type" : "constant",
-                                    "value" : "Foto de la calle donde aparezca tu casa"
-                                  },
-                                  "documentDescription" : {
-                                    "type" : "constant"
-                                  },
-                                  "documentoInfo" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isObligatorio" : {
-                                    "type" : "constant"
-                                  }
-                                },
-                                "reference" : "77aa6b97-7bcc-475d-9b71-5d5b61584154",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEUploadCustom"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "!formOutputTest.fotoCalleCasaDocumentInput.id"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "Process document"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "document" : {
-                                    "type" : "variable",
-                                    "value" : "context.fotoCalleCasa_ref"
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "idmodal" : {
-                                    "type" : "constant",
-                                    "value" : "idmodal1"
-                                  },
-                                  "label" : {
-                                    "type" : "constant"
-                                  }
-                                },
-                                "reference" : "69f1dad2-e63a-442f-92a5-c13051dd6194",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEFileViewerPopupUpdate"
-                              }
-                            ]
-                          ]
-                        },
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "92f18c5c-fc25-4dbb-a9f2-d1d940a15c1b",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Subir documento"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : "../API/formFileUpload"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "formOutputTest.fotoFachadaCasaDocumentInput"
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "urlretorno" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isImagen" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isPDF" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "documentName" : {
-                                    "type" : "constant",
-                                    "value" : "Foto de la fachada de tu casa por fuera"
-                                  },
-                                  "documentDescription" : {
-                                    "type" : "constant"
-                                  },
-                                  "documentoInfo" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "292781d7-44a6-4703-885a-68a7c9e2e0e9",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEUploadCustom"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "!formOutputTest.fotoFachadaCasaDocumentInput.id"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "Process document"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "document" : {
-                                    "type" : "variable",
-                                    "value" : "context.fotoFachadaCasa_ref"
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "idmodal" : {
-                                    "type" : "constant",
-                                    "value" : "idmodal1"
-                                  },
-                                  "label" : {
-                                    "type" : "constant"
-                                  }
-                                },
-                                "reference" : "02bb5421-cad7-4168-8014-aae9655afb6b",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEFileViewerPopupUpdate"
-                              }
-                            ]
-                          ]
-                        },
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "b0ebe1e2-2c07-4440-a275-c1d52dad9eed",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Subir documento"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : "../API/formFileUpload"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "formOutputTest.fotoSalaCasaDocumentInput"
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "urlretorno" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isImagen" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isPDF" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "documentName" : {
-                                    "type" : "constant",
-                                    "value" : "Foto completa de la sala de tu casa"
-                                  },
-                                  "documentDescription" : {
-                                    "type" : "constant"
-                                  },
-                                  "documentoInfo" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "5471d9eb-b0e0-4bfc-ab2b-b834e1839589",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEUploadCustom"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "!formOutputTest.fotoSalaCasaDocumentInput.id"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "Process document"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "document" : {
-                                    "type" : "variable",
-                                    "value" : "context.fotoSalaCasa_ref"
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "idmodal" : {
-                                    "type" : "constant",
-                                    "value" : "idmodal1"
-                                  },
-                                  "label" : {
-                                    "type" : "constant"
-                                  }
-                                },
-                                "reference" : "bc209a29-b572-4f55-8086-48cab060718c",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEFileViewerPopupUpdate"
-                              }
-                            ]
-                          ]
-                        }
-                      ]
-                    ]
-                  }
-                ],
-                [
-                  {
                     "type" : "component",
                     "dimension" : {
                       "xs" : 12,
@@ -12693,7 +12203,7 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 6,
-                      "md" : 6,
+                      "md" : 4,
                       "lg" : 4
                     },
                     "propertyValues" : {
@@ -12704,6 +12214,165 @@
                       "hidden" : {
                         "type" : "constant",
                         "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.documentosSolicitanteInput"
+                      }
+                    },
+                    "reference" : "64d99a27-7077-49c6-b9e6-77d3d6f51243",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "$item.catManejoDocumentos.nombreDocumento"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "url" : {
+                              "type" : "constant",
+                              "value" : "../API/formFileUpload"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "urlretorno" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "documentName" : {
+                              "type" : "constant"
+                            },
+                            "documentDescription" : {
+                              "type" : "constant"
+                            },
+                            "documentoInfo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isObligatorio" : {
+                              "type" : "expression",
+                              "value" : "$item.catManejoDocumentos.isObligatorio"
+                            },
+                            "urlAzure" : {
+                              "type" : "variable",
+                              "value" : "$item.urlDocumento"
+                            }
+                          },
+                          "reference" : "0c40cffa-00f0-408f-ac2b-d000891ac330",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEUploadCustomAzure"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<pre>{{ $item | json }}</pre>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "a68504f2-374b-4860-82ad-92bbcae8ba44",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 6,
+                      "md" : 6,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -12771,6 +12440,97 @@
                             "hidden" : {
                               "type" : "constant",
                               "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "url" : {
+                              "type" : "constant",
+                              "value" : "../API/formFileUpload"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "errorContent" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "urlretorno" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isImagen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isPDF" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "documentName" : {
+                              "type" : "expression",
+                              "value" : "getDocumentosByTipoApoyo.data[$index].nombreDocumento"
+                            },
+                            "documentDescription" : {
+                              "type" : "expression",
+                              "value" : "getDocumentosByTipoApoyo.data[$index].descripcionDocumento"
+                            },
+                            "documentoInfo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isObligatorio" : {
+                              "type" : "expression",
+                              "value" : "$item.isObligatorio"
+                            },
+                            "urlAzure" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "b8bf84fa-d1a3-4d83-83c8-724df97348c0",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEUploadCustomAzure"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : true
                             },
                             "required" : {
                               "type" : "constant",
@@ -14955,7 +14715,9 @@
         "    \t\"solicitudCatalogosInput\": {\r",
         "    \t    \"catTipoApoyoCAT\":null, \r",
         "    \t    \"imagenesSocioEconomico\":[]\r",
-        "    \t}\r",
+        "    \t}, \r",
+        "    \t\"documentosSolicitanteInput\":[],\r",
+        "    \t\"imagenesSocEcoSolicitanteInput\":[]\r",
         "    }"
       ],
       "exposed" : false
@@ -15191,7 +14953,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getCatTipoAoyoByCampus&p=0&c=0&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "imagenesSocioEconomico" : {

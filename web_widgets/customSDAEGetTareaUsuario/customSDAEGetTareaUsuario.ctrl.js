@@ -20,6 +20,8 @@ function ($scope, $http) {
                 getModelHermanos("../" + data.hermanos_ref.link);
                 getModelAutos("../" + data.autos_ref.link);
                 getModelBienesRaices("../" + data.bienesRaices_ref.link);
+                getModelDocumentos("../" + data.documentosSolicitante_ref.link);
+                getModelImagenesSocioEco("../" + data.imagenesSocEcoSolicitante_ref.link);
 
                 $scope.properties.fotoCalleCasa = addDataToDocuments(data.fotoCalleCasa_ref);
                 $scope.properties.fotoComedorCasa = addDataToDocuments(data.fotoComedorCasa_ref);
@@ -117,6 +119,63 @@ function ($scope, $http) {
             console.log("bienesRaices vacío")
         });
     }
+
+    function getModelDocumentos(url) {
+        $scope.properties.documentos = [];
+        $http.get(url).success((data) => {
+            if (data) {
+                $scope.properties.documentos = data;
+            }
+        }).error((err) => {
+            $scope.properties.documentos = buildDocumentList();
+
+        });
+    }
+
+    function buildDocumentList(){
+        let list = [];
+        for(let documentObject of $scope.properties.lstDocumentosByTipoApoyo){
+            let templateObject = {
+                "persistenceId_string":"",
+                "catManejoDocumentos": documentObject,
+                "urlDocumento":"",
+                "caseId": $scope.properties.caseId
+            }   
+
+            list.push(templateObject);
+
+        }
+        
+        return list;
+    }
+
+    function getModelImagenesSocioEco(url) {
+        $scope.properties.imagenesSocioEco = [];
+        $http.get(url).success((data) => {
+            if (data) {
+                $scope.properties.imagenesSocioEco = data;
+            }
+        }).error((err) => {
+            $scope.properties.imagenesSocioEco = buildImagesList();
+        });
+    }
+
+    function buildImagesList(){
+        let list = [];
+        for(let imageObject of $scope.properties.lstImagenesByTipoApoyo){
+            let templateObject = {
+                "persistenceId_string":"",
+                "catManejoDocumentos": imageObject,
+                "urlDocumento":"",
+                "caseId": $scope.properties.caseId
+            }   
+
+            list.push(templateObject);
+
+        }
+
+        return list;
+   }
 
     function getLazyRefModel(_url, _bdmFieldName) {
         $http.get(_url).success((data) => {

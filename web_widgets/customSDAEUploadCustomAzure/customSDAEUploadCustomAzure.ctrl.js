@@ -62,7 +62,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
         return $http(req)
             .success(function (data, status) {
-                debugger;
+                $scope.properties.urlAzure = data[0];
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -73,7 +73,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                 closeModal($scope.properties.closeOnSuccess);
             })
             .error(function (data, status) {
-                debugger;
                 $scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromSuccess = undefined;

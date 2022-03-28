@@ -16,7 +16,14 @@ class CatTypoApoyo {
 	private Boolean isDeportiva;
 	private Boolean isFinanciamiento;
 	private Boolean isAcademica;
+	private Boolean isObligatorioDoc;
 	
+	public Boolean getIsObligatorioDoc() {
+		return isObligatorioDoc;
+	}
+	public void setIsObligatorioDoc(Boolean isObligatorioDoc) {
+		this.isObligatorioDoc = isObligatorioDoc;
+	}
 	public Boolean getEsSocioEconomico() {
 		return esSocioEconomico;
 	}
