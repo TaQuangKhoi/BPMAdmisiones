@@ -234,4 +234,44 @@ class SolicitudDeAdmisionDAO {
 		
 		return resultado
 	}
+	
+	public Result getLinkAzureDescarga(String urlAzure, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = ""
+		
+		try {
+		
+			closeCon = validarConexion();
+	
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+	
+			List<String> rows = new ArrayList<String>();
+			if (urlAzure != null && !urlAzure.isEmpty()) {
+				rows.add(urlAzure + SSA);
+			}else {
+				errorlog = "La URL viene vacía";
+			}
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(errorlog);
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }
