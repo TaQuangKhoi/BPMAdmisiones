@@ -89,10 +89,14 @@ class SecurityFilter {
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"ASPIRANTE")
+				if(allow){break;}
 				break;
 				case "getCatPeriodoActivo":allow=bonitaRolFilter(context,"EXTERIOR")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ASPIRANTE")
 				if(allow){break;}
 				break;
 				case "getPsicometricoCompleto":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -1082,6 +1086,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"ASPIRANTE")
+			if(allow){break;}
 		    break;
 		  case "ejecutarEsperarPago":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1242,6 +1248,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"ASPIRANTE")
+			if(allow){break;}
 		    break;
 		  case "insertSesionAspirante":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
