@@ -108,6 +108,7 @@ class HubspotDAO {
 		
 		DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		try {
+			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
