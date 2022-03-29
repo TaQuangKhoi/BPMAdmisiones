@@ -358,7 +358,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFont(fontparam, 'normal');
         $scope.salud = convertToPlain($scope.datosSaludSSeccion[0].salud);
         doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
-        let count = Math.ceil(($scope.salud.length / 180))
+        let count = 0;
+        $scope.salud.forEach(element =>{
+            count = Math.ceil((element.length / 180))
+        })
         yValor += (count * 7) + 3;
 
         yValor += 10;
@@ -446,7 +449,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontText);
         yValor += 7
         capacidades.forEach((data, index) =>{
-            count = Math.ceil(($scope.datosCapacidad[0][data.nombre].length / 180))
+            $scope.datosCapacidad[0][data.nombre] = convertToPlain($scope.datosCapacidad[0][data.nombre]);
+            $scope.datosCapacidad[0][data.nombre].forEach(element =>{
+                count = Math.ceil((element.length / 180))
+            })
 
             let yTemporal = (yValor + (count * 7) + 3);
             yTemporal=nuevaHoja(yTemporal,doc,true);
@@ -458,9 +464,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             doc.text(margenPrimeraFila, yValor, capacidadesTitulo[index]);
             yValor=nuevaHoja(yValor,doc,true);
 
+            /*lines = doc.setFont(fontparam, 'normal')
+            .setFontSize(fontText)
+            .splitTextToSize($scope.datosCapacidad[0][data.nombre], 180)*/
+            
+            
             doc.setFont(fontparam, 'normal');
-            $scope.datosCapacidad[0][data.nombre] = convertToPlain($scope.datosCapacidad[0][data.nombre]);
-            doc.text($scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8, { maxWidth: 180, align: "justify" });
+            doc.text( $scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8,{ maxWidth: 180,align:'justify'} );
 
             yValor += (count * 7) + 3;
 
@@ -484,7 +494,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         $scope.conclusiones_recomendaciones = convertToPlain($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
         //doc.internal.write(-2, "Tw")
         doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "justify" });
-        count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
+        $scope.conclusiones_recomendaciones.forEach(element =>{
+            count = Math.ceil((element.length / 180))
+        })
+        //count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
         yValor += (count * 7) + 3;
         yValor += 10;
 
@@ -505,7 +518,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 8,
 
         $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
-        count = Math.ceil(($scope.interpretacion.length / 180))
+        $scope.interpretacion.forEach(element =>{
+            count = Math.ceil((element.length / 180))
+        })
+        //count = Math.ceil(($scope.interpretacion.length / 180))
         let yTempInter = (yValor + (count * 7) + 3)+10;
         yTempInter=nuevaHoja(yTempInter,doc,true);
         if(yTempInter == 15){
@@ -584,7 +600,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
          for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
  
              $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
-             count = Math.ceil(($scope.comentarios[i].length / 180))
+             $scope.comentarios[i].forEach(element =>{
+                count = Math.ceil((element.length / 180))
+            })
+             //count = Math.ceil(($scope.comentarios[i].length / 180))
              let yTemp = (yValor + (count * 7) + 3);
              yTemp=nuevaHoja(yTemp,doc,true);
              if(yTemp == 15){
@@ -601,19 +620,30 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     }
 
     function convertToPlain(html) {
+        html = html.replaceAll(' style="color: rgb(44, 62, 80);background-color: rgb(255, 255, 255);"', "");
+        html = html.replaceAll('float: none;', "");
+        html = html.replaceAll("&#34;", '"');
         html = html.replace(/<style([\s\S]*?)<\/style>/gi, '');
         html = html.replace(/<script([\s\S]*?)<\/script>/gi, '');
-        html = html.replace(/<\/div>/ig, '\n');
-        html = html.replace(/<\/li>/ig, '\n');
+        html = html.replace(/<\/div>/ig, '');
+        html = html.replace(/<\/li>/ig, '');
         html = html.replace(/<li>/ig, '  *  ');
-        html = html.replace(/<\/ul>/ig, '\n');
-        html = html.replace(/<\/p>/ig, '\n');
+        html = html.replace(/<\/ul>/ig, '');
+        html = html.replace(/<\/p>/ig, '');
         html = html.replace(/<br\s*[\/]?>/gi, "\n");
         html = html.replace(/<[^>]+>/ig, '');
-        html = html.replaceAll("&#34;", '"');
         html = html.replace(/(<([^>]+)>)/ig, '');
+        html = html.replace(/\\par[d]?/g, "");
+        html = html.replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, "").trim();
+        let texto = html.split("\n");
+        html = [];
+        texto.forEach( element =>{
+            if(element.toString().trim().length >= 0){
+                html.push(element.toString().trim());
+            }
+        })
+        return html
 
-        return html.trim();
     }
 
     function recResize(texto) {
