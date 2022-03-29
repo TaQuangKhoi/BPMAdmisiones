@@ -1130,7 +1130,7 @@ class CatalogosDAO {
 				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
 				row.setDescripcionDocumento(rs.getString("DESCRIPCIONDOCUMENTO"));
 				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));
-				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIODOC"));
+				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIODOC").toString());
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
 				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
 				row.setIsObligatorioDoc(rs.getBoolean("ISOBLIGATORIODOC"));
