@@ -12,6 +12,7 @@ class CatManejoDocumentos {
 	private String fechaCreacion;
 	private String usuarioCreacion;
 	private String descripcionDocumento;
+	private Boolean isObligatorioDoc;
 	
 	public String getDescripcionDocumento() {
 		return descripcionDocumento;
@@ -79,6 +80,11 @@ class CatManejoDocumentos {
 	public void setUsuarioCreacion(String usuarioCreacion) {
 		this.usuarioCreacion = usuarioCreacion;
 	}
-	
+	public Boolean getIsObligatorioDoc() {
+		return isObligatorioDoc;
+	}
+	public void setIsObligatorioDoc(Boolean isObligatorioDoc) {
+		this.isObligatorioDoc = isObligatorioDoc;
+	}
 	
 }

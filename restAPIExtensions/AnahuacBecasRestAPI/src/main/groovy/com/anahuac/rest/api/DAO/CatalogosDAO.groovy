@@ -1133,6 +1133,7 @@ class CatalogosDAO {
 				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIODOC"));
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
 				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
+				row.setIsObligatorioDoc(rs.getBoolean("ISOBLIGATORIODOC"));
 //				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));)
 
 				rows.add(row);
