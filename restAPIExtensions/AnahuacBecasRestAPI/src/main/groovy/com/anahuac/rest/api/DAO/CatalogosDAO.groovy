@@ -1597,7 +1597,7 @@ class CatalogosDAO {
 			resultado.setData(rows);
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			resultado.setError_info(e.getMessage());
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
