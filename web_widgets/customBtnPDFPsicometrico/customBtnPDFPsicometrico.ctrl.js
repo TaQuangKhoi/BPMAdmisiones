@@ -357,10 +357,12 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
         $scope.salud = convertToPlain($scope.datosSaludSSeccion[0].salud);
-        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
-        let count = 0;
+        //doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        let count = 0,yValorAux = yValor;
         $scope.salud.forEach(element =>{
-            count = Math.ceil((element.length / 180))
+            doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+            count += Math.ceil((element.length / 180))
+            yValorAux += 7;
         })
         yValor += (count * 7) + 3;
 
@@ -450,8 +452,9 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 7
         capacidades.forEach((data, index) =>{
             $scope.datosCapacidad[0][data.nombre] = convertToPlain($scope.datosCapacidad[0][data.nombre]);
+            count = 0;
             $scope.datosCapacidad[0][data.nombre].forEach(element =>{
-                count = Math.ceil((element.length / 180))
+                count += Math.ceil((element.length / 180))
             })
 
             let yTemporal = (yValor + (count * 7) + 3);
@@ -470,9 +473,14 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             
             
             doc.setFont(fontparam, 'normal');
-            doc.text( $scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8,{ maxWidth: 180,align:'justify'} );
-
-            yValor += (count * 7) + 3;
+            //doc.text( $scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8,{ maxWidth: 180,align:'justify'} );
+            yValorAux = yValor+=8;
+            $scope.datosCapacidad[0][data.nombre].forEach(element =>{
+                //count += Math.ceil((element.length / 180))
+                doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+                yValorAux += 7;
+            })
+            yValor += (count * 7) + 5;
 
             doc.text(165, yValor, "Puntiación:");
             doc.text(185, yValor, $scope.datosCapacidad[0][data.calificacion]);
@@ -493,9 +501,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFont(fontparam, 'normal');
         $scope.conclusiones_recomendaciones = convertToPlain($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
         //doc.internal.write(-2, "Tw")
-        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "justify" });
+        //doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "justify" });
+        count = 0;
+        yValorAux = yValor;
         $scope.conclusiones_recomendaciones.forEach(element =>{
-            count = Math.ceil((element.length / 180))
+            doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+            count += Math.ceil((element.length / 180))
+            yValorAux+=7;
         })
         //count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
         yValor += (count * 7) + 3;
@@ -518,8 +530,9 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 8,
 
         $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
+        count = 0;
         $scope.interpretacion.forEach(element =>{
-            count = Math.ceil((element.length / 180))
+            count += Math.ceil((element.length / 180))
         })
         //count = Math.ceil(($scope.interpretacion.length / 180))
         let yTempInter = (yValor + (count * 7) + 3)+10;
@@ -537,7 +550,12 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFont(fontparam, 'normal');
         
         
-        doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        //doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        yValorAux = yValor;
+        $scope.interpretacion.forEach(element =>{
+            doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+            yValorAux+=7;
+        });
         yValor += (count * 7) + 3;
 
         yValor = nuevaHoja(yValor,doc,false);
@@ -600,8 +618,9 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
          for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
  
              $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
+             count = 0;
              $scope.comentarios[i].forEach(element =>{
-                count = Math.ceil((element.length / 180))
+                count += Math.ceil((element.length / 180))
             })
              //count = Math.ceil(($scope.comentarios[i].length / 180))
              let yTemp = (yValor + (count * 7) + 3);
@@ -610,9 +629,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 yValor = yTemp;
              }
 
-             doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
-    
-             
+             //doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+             yValorAux = yValor;
+             $scope.comentarios[i].forEach(element =>{
+                doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+                yValorAux += 7;
+            })
+
              yValor += (count * 7) + 3; 
          }
 
@@ -638,7 +661,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         let texto = html.split("\n");
         html = [];
         texto.forEach( element =>{
-            if(element.toString().trim().length >= 0){
+            if(element.toString().trim().length >= 1){
                 html.push(element.toString().trim());
             }
         })
