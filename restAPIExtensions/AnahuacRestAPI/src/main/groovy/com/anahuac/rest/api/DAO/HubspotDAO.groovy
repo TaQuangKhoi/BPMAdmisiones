@@ -103,7 +103,11 @@ class HubspotDAO {
 		String estadoExamen = "";
 		String ciudadExamen ="";
 		String apikeyHubspot ="";
-		
+		Boolean nfcarrera = false;
+		Boolean nffp = false;
+		Boolean nffi = false;
+		String msjNF = "";
+
 		Date fecha = new Date();
 		
 		DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -150,6 +154,9 @@ class HubspotDAO {
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 								objHubSpotData.put("carrera", lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave());
+							}else{
+								nfcarrera = true;
+								msjNF = "No se encontro la propiedad carrera";
 							}
 						}
 					}
@@ -163,6 +170,13 @@ class HubspotDAO {
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
 								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}else{
+								nffp = true;
+								if(nfcarrera){
+									msjNF = msjNF + ", periodo_propedeutico_bpm";	
+								}else{
+									msjNF = "No se encontro la propiedad periodo_propedeutico_bpm";	
+								}
 							}
 						}
 					}
@@ -177,6 +191,13 @@ class HubspotDAO {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
 								objHubSpotData.put("periodo_de_ingreso_bpm", lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave());
+							}else{
+								nffi = true;
+								if(nfcarrera || nffp){
+									msjNF = msjNF + ", periodo_de_ingreso_bpm";	
+								}else{
+									msjNF = "No se encontro la propiedad periodo_de_ingreso_bpm";	
+								}
 							}
 						}
 					}
@@ -228,6 +249,14 @@ class HubspotDAO {
 				MailGunDAO mgd = new MailGunDAO();
 				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
 			}
+
+			if (nfcarrera || nffp || nffi) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+			}
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -256,6 +285,10 @@ class HubspotDAO {
 		String catLugarExamenDescripcion = "";
 		String lugarExamen = "";
 		String apikeyHubspot = "";
+		Boolean nfcarrera = false;
+		Boolean nffp = false;
+		Boolean nffi = false;
+		String msjNF = "";
 		try {
 			strError = strError + " | try 1";
 			def jsonSlurper = new JsonSlurper();
@@ -300,6 +333,9 @@ class HubspotDAO {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): " + lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 								objHubSpotData.put("carrera", lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave());
 								strError = strError + " | objHubSpotData: " + objHubSpotData.get("carrera");
+							}else{
+								nfcarrera = true;
+								msjNF = "No se encontro la propiedad carrera";
 							}
 						}
 					}
@@ -313,6 +349,13 @@ class HubspotDAO {
 							if (lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): " + lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
 								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}else{
+								nffp = true;
+								if(nfcarrera){
+									msjNF = msjNF + ", periodo_propedeutico_bpm";	
+								}else{
+									msjNF = "No se encontro la propiedad periodo_propedeutico_bpm";	
+								}
 							}
 						}
 					}
@@ -327,6 +370,13 @@ class HubspotDAO {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
 								objHubSpotData.put("periodo_de_ingreso_bpm", lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave());
+							}else{
+								nffi = true;
+								if(nfcarrera || nffp){
+									msjNF = msjNF + ", periodo_de_ingreso_bpm";	
+								}else{
+									msjNF = "No se encontro la propiedad periodo_de_ingreso_bpm";	
+								}
 							}
 						}
 					}
@@ -462,6 +512,14 @@ class HubspotDAO {
 				strError = strError + " | nulo";
 			}
 			
+			if (nfcarrera || nffp || nffi) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+			}
+
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
@@ -1507,7 +1565,10 @@ class HubspotDAO {
 		String residencia = "";
 		String nombreUsuario = "";
 		String correoElectronico = "";
-		
+		Boolean nfcarrera = false;
+		Boolean nffp = false;
+		Boolean nffi = false;
+		String msjNF = "";
 		Date fecha = new Date();
 		Date fechaNacimiento = new Date();
 		
@@ -1574,6 +1635,9 @@ class HubspotDAO {
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 								objHubSpotData.put("carrera", lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave());
+							}else{
+								nfcarrera = true;
+								msjNF = "No se encontro la propiedad carrera";
 							}
 						}
 					}
@@ -1587,6 +1651,13 @@ class HubspotDAO {
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
 								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}else{
+								nffp = true;
+								if(nfcarrera){
+									msjNF = msjNF + ", periodo_propedeutico_bpm";	
+								}else{
+									msjNF = "No se encontro la propiedad periodo_propedeutico_bpm";	
+								}
 							}
 						}
 					}
@@ -1601,6 +1672,13 @@ class HubspotDAO {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
 								objHubSpotData.put("periodo_de_ingreso_bpm", lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave());
+							}else{
+								nffi = true;
+								if(nfcarrera || nffp){
+									msjNF = msjNF + ", periodo_de_ingreso_bpm";	
+								}else{
+									msjNF = "No se encontro la propiedad periodo_de_ingreso_bpm";	
+								}
 							}
 						}
 					}
@@ -1642,6 +1720,14 @@ class HubspotDAO {
 				
 			}
 			
+			if (nfcarrera || nffp || nffi) {
+				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				
+				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				MailGunDAO mgd = new MailGunDAO();
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+			}
+
 			if (!resultado.success) {
 				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
 				
@@ -1927,7 +2013,10 @@ class HubspotDAO {
 				  strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
 				  if(lstValueProperties.contains(object.catGestionEscolar.clave)) {
 					  objHubSpotData.put("carrera", object.catGestionEscolar.clave);
-				  }
+				  }else{
+					nfcarrera = true;
+					msjNF = "No se encontro la propiedad carrera";
+				}
 			  }
 		  }
 		  
@@ -1950,7 +2039,14 @@ class HubspotDAO {
 			  lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
 			  if(lstValueProperties.contains(object.catPropedeutico.clave)) {
 				  objHubSpotData.put("periodo_propedeutico_bpm", object.catPropedeutico.clave);
-			  }
+			  }else{
+					nffp = true;
+				if(nfcarrera){
+					msjNF = msjNF + ", periodo_propedeutico_bpm";	
+				}else{
+					msjNF = "No se encontro la propiedad periodo_propedeutico_bpm";	
+				}
+			}
 		  }
 		  
 		 /* if(object.catPropedeutico !=null && object.propedeutico != null) {

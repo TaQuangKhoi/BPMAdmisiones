@@ -160,6 +160,16 @@ class SecurityFilter {
 				case "getPsicologoSesiones":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
+				case "getUserByCaseIdINVP":
+				allow = bonitaRolFilter(context, "ADMISIONES");
+				if (allow) {
+				  break;
+				}
+				allow = bonitaRolFilter(context, "Usuario Auxiliar");
+				if (allow) {
+				  break;
+				}
+				break;
 				case "getPsicologoSesiones":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
