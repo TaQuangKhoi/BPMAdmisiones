@@ -1884,6 +1884,30 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_5hG1ErBdEeythp1IDODlLA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_5hG1E7BdEeythp1IDODlLA" name="documentosSolicitante" content="documentosSolicitante" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_5hG1FLBdEeythp1IDODlLA" name="documentosSolicitante" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.DocumentosSolicitante"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_5hG1FbBdEeythp1IDODlLA" name="documentosSolicitanteInput" content="def documentosSolicitanteList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;documentosSolicitanteInput.each{&#xD;&#xA;&#x9;//Add DocumentosSolicitante instance&#xD;&#xA;&#x9;documentosSolicitanteList.add({ currentDocumentosSolicitanteInput ->&#xD;&#xA;&#x9;&#x9;def documentosSolicitanteVar = documentosSolicitante.find { it.persistenceId.toString() == currentDocumentosSolicitanteInput.persistenceId_string} ?: new com.anahuac.SDAE.model.DocumentosSolicitante()&#xD;&#xA;&#x9;&#x9;documentosSolicitanteVar.urlDocumento = currentDocumentosSolicitanteInput.urlDocumento&#xD;&#xA;&#x9;&#x9;documentosSolicitanteVar.caseId = currentDocumentosSolicitanteInput.caseId?.trim() ? currentDocumentosSolicitanteInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;documentosSolicitanteVar.catManejoDocumentos_id = currentDocumentosSolicitanteInput.catManejoDocumentos_id?.trim() ? currentDocumentosSolicitanteInput.catManejoDocumentos_id.toLong() : null&#xD;&#xA;&#x9;&#x9;return documentosSolicitanteVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return documentosSolicitanteList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_5hG1FrBdEeythp1IDODlLA" name="documentosSolicitanteInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_5hG1F7BdEeythp1IDODlLA" name="documentosSolicitante" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.DocumentosSolicitante"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_5hG1GLBdEeythp1IDODlLA" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_-UtuB7BdEeythp1IDODlLA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_-UtuCLBdEeythp1IDODlLA" name="imagenesSocEcoSolicitante" content="imagenesSocEcoSolicitante" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_-UtuCbBdEeythp1IDODlLA" name="imagenesSocEcoSolicitante" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.ImagenesSocioEcoSolicitante"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_-UtuCrBdEeythp1IDODlLA" name="imagenesSocEcoSolicitanteInput" content="def imagenesSocioEcoSolicitanteList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;imagenesSocEcoSolicitanteInput.each{&#xD;&#xA;&#x9;//Add ImagenesSocioEcoSolicitante instance&#xD;&#xA;&#x9;imagenesSocioEcoSolicitanteList.add({ currentImagenesSocioEcoSolicitanteInput ->&#xD;&#xA;&#x9;&#x9;def imagenesSocioEcoSolicitanteVar = imagenesSocEcoSolicitante.find { it.persistenceId.toString() == currentImagenesSocioEcoSolicitanteInput.persistenceId_string} ?: new com.anahuac.SDAE.model.ImagenesSocioEcoSolicitante()&#xD;&#xA;&#x9;&#x9;imagenesSocioEcoSolicitanteVar.caseId = currentImagenesSocioEcoSolicitanteInput.caseId?.trim() ? currentImagenesSocioEcoSolicitanteInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;imagenesSocioEcoSolicitanteVar.urlImagen = currentImagenesSocioEcoSolicitanteInput.urlImagen&#xD;&#xA;&#x9;&#x9;imagenesSocioEcoSolicitanteVar.imagenSocioEconomico_id = currentImagenesSocioEcoSolicitanteInput.imagenSocioEconomico_id?.trim() ? currentImagenesSocioEcoSolicitanteInput.imagenSocioEconomico_id.toLong() : null&#xD;&#xA;&#x9;&#x9;return imagenesSocioEcoSolicitanteVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return imagenesSocioEcoSolicitanteList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_-UtuC7BdEeythp1IDODlLA" name="imagenesSocEcoSolicitanteInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_-UtuDLBdEeythp1IDODlLA" name="imagenesSocEcoSolicitante" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.ImagenesSocioEcoSolicitante"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_-UtuDbBdEeythp1IDODlLA" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_BmyN1GdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_BmyN1WdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_BmyN1mdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1993,15 +2017,23 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_9MR01qYhEeydlpW9zcd1oA" name="costoAproximado" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_9MR016YhEeydlpW9zcd1oA" name="catSituacionAuto_id" createMode="false"/>
             </inputs>
-            <inputs xmi:type="process:ContractInput" xmi:id="_A1EgcKYiEeydlpW9zcd1oA" name="lstDocumentosDocumentInput" type="FILE" multiple="true" createMode="false"/>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_9MR02KYhEeydlpW9zcd1oA" expression="autosInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.caseId" name="type_long_autosInput_caseId">
-              <inputNames>autosInput</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_5hGOALBdEeythp1IDODlLA" name="documentosSolicitanteInput" type="COMPLEX" multiple="true" dataReference="documentosSolicitante" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_5hGOAbBdEeythp1IDODlLA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_5hGOArBdEeythp1IDODlLA" name="urlDocumento" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_5hGOA7BdEeythp1IDODlLA" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_5hGOBLBdEeythp1IDODlLA" name="catManejoDocumentos_id" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_-UtuALBdEeythp1IDODlLA" name="imagenesSocEcoSolicitanteInput" type="COMPLEX" multiple="true" dataReference="imagenesSocEcoSolicitante" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_-UtuAbBdEeythp1IDODlLA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_-UtuArBdEeythp1IDODlLA" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_-UtuA7BdEeythp1IDODlLA" name="urlImagen" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_-UtuBLBdEeythp1IDODlLA" name="imagenSocioEconomico_id" createMode="false"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_-UtuBbBdEeythp1IDODlLA" expression="imagenesSocEcoSolicitanteInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for ImagenesSocioEcoSolicitante.caseId" name="type_long_imagenesSocEcoSolicitanteInput_caseId">
+              <inputNames>imagenesSocEcoSolicitanteInput</inputNames>
             </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_9MR02aYhEeydlpW9zcd1oA" expression="autosInput?.costoAproximado.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.costoAproximado" name="type_long_autosInput_costoAproximado">
-              <inputNames>autosInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_9MR02qYhEeydlpW9zcd1oA" expression="autosInput?.catSituacionAuto_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AutosSolicitante.catSituacionAuto_id" name="type_long_autosInput_catSituacionAuto_id">
-              <inputNames>autosInput</inputNames>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_-UtuBrBdEeythp1IDODlLA" expression="imagenesSocEcoSolicitanteInput?.imagenSocioEconomico_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for ImagenesSocioEcoSolicitante.imagenSocioEconomico_id" name="type_long_imagenesSocEcoSolicitanteInput_imagenSocioEconomico_id">
+              <inputNames>imagenesSocEcoSolicitanteInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_CA9oa2dDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
