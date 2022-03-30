@@ -6,12 +6,23 @@ function PbButtonCtrl($scope, modalService, blockUI, $q) {
         $scope.properties.idsDivGrafica.forEach(data => {
             //document.getElementById(data.id).classList.remove('chart-container')
             document.getElementById(data.id).style.height = "509px";
-            document.getElementById(data.id).style.width = "960px";
+            document.getElementById(data.id).style.width = "760px";
         })
        
         
         var element = document.querySelector($scope.properties.elementSelector);
-    
+        element.style.width = "720px";
+        
+        var doc = new jspdf.jsPDF('l', 'mm', 'a1'); ;
+        doc.html(element, {
+                callback: function (doc) {
+                    doc.save('Generated.pdf')
+                    }
+                });
+
+        //doc.save('Generated.pdf');
+        
+        /*
         var opt = {
             margin: [5,5,1,5],
             filename: $scope.properties.idBanner+"_"+$scope.properties.fileName + ".pdf",
@@ -37,7 +48,7 @@ function PbButtonCtrl($scope, modalService, blockUI, $q) {
             blockUI.stop();
         }, function(error) {
             $scope.mensaje="Se ha producido un error al obtener el dato:"+error;
-        });
+        });*/
     }
     
     // html2pdf(element, opt); 
