@@ -1,202 +1,176 @@
-function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, gettextCatalog, $http) {
-    var ctrl = this;
-    this.name = widgetNameFactory.getName('pbInput');
-    this.filename = '';
-    this.filemodel = '';
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
-    $scope.documetObject = {
-        "b64": "",
-        "filename": "",
-        "filetype": "",
-        "contenedor": ""
+  'use strict';
+
+  var vm = this;
+
+  this.action = function action() {
+    if ($scope.properties.action === 'Remove from collection') {
+      removeFromCollection();
+      closeModal($scope.properties.closeOnSuccess);
+    } else if ($scope.properties.action === 'Add to collection') {
+      addToCollection();
+      closeModal($scope.properties.closeOnSuccess);
+    } else if ($scope.properties.action === 'Start process') {
+      startProcess();
+    } else if ($scope.properties.action === 'Submit task') {
+      submitTask();
+    } else if ($scope.properties.action === 'Open modal') {
+      closeModal($scope.properties.closeOnSuccess);
+      openModal($scope.properties.modalId);
+    } else if ($scope.properties.action === 'Close modal') {
+      closeModal(true);
+    } else if ($scope.properties.url) {
+      doRequest($scope.properties.action, $scope.properties.url);
     }
+  };
 
-    this.clear = clear;
-    this.startUploading = startUploading;
-    this.uploadError = uploadError;
-    this.uploadComplete = uploadComplete;
+  function openModal(modalId) {
+    modalService.open(modalId);
+  }
 
-    this.name = widgetNameFactory.getName('pbUpload');
+  function closeModal(shouldClose) {
+    if(shouldClose)
+    {modalService.close();}
+  }
 
-    this.preventFocus = function ($event) {
-        $event.target.blur();
-    };
+  function removeFromCollection() {
+    if ($scope.properties.collectionToModify) {
+      if (!Array.isArray($scope.properties.collectionToModify)) {
+        throw 'Collection property for widget button should be an array, but was ' + $scope.properties.collectionToModify;
+      }
+      var index = -1;
+      if ($scope.properties.collectionPosition === 'First') {
+        index = 0;
+      } else if ($scope.properties.collectionPosition === 'Last') {
+        index = $scope.properties.collectionToModify.length - 1;
+      } else if ($scope.properties.collectionPosition === 'Item') {
+        index = $scope.properties.collectionToModify.indexOf($scope.properties.removeItem);
+      }
 
-    this.submitForm = function () {
-        // var form = $element.find('form');
-        // form.triggerHandler('submit');
-        // form[0].submit();
-    };
-
-    function handleFileSelect(evt) {
-        var f = evt.target.files[0]; // FileList object
-        var reader = new FileReader();
-        // Closure to capture the file information.
-        reader.onload = (function (theFile) {
-            return function (e) {
-                var binaryData = e.target.result;
-                //Converting Binary Data to base 64
-                var base64String = window.btoa(binaryData);
-                debugger;
-                $scope.documetObject["b64"] = base64String;
-                //showing file converted to base64
-                document.getElementById('base64').value = base64String;
-                doRequest("POST", "../API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=0", null);
-            };
-        })(f);
-        // Read in the image file as a data URL.
-        reader.readAsBinaryString(f);
+      // Only remove element for valid index
+      if (index !== -1) {
+        $scope.properties.collectionToModify.splice(index, 1);
+      }
     }
+  }
 
+  function addToCollection() {
+    if (!$scope.properties.collectionToModify) {
+      $scope.properties.collectionToModify = [];
+    }
+    if (!Array.isArray($scope.properties.collectionToModify)) {
+      throw 'Collection property for widget button should be an array, but was ' + $scope.properties.collectionToModify;
+    }
+    var item = angular.copy($scope.properties.valueToAdd);
 
-    /**
+    if ($scope.properties.collectionPosition === 'First') {
+      $scope.properties.collectionToModify.unshift(item);
+    } else {
+      $scope.properties.collectionToModify.push(item);
+    }
+  }
+
+  function startProcess() {
+    var id = getUrlParam('id');
+    if (id) {
+      var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
+        localStorageService.delete($window.location.href);
+      });
+
+    } else {
+      $log.log('Impossible to retrieve the process definition id value from the URL');
+    }
+  }
+
+  /**
    * Execute a get/post request to an URL
    * It also bind custom data from success|error to a data
    * @return {void}
    */
-    function doRequest(method, url, params) {
-        vm.busy = true;
-        var req = {
-            method: method,
-            url: url,
-            data: angular.copy($scope.documetObject),
-            params: params
-        };
-
-        return $http(req)
-            .success(function (data, status) {
-                debugger;
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
-            })
-            .error(function (data, status) {
-                debugger;
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                vm.busy = false;
-            });
-    }
-    this.forceSubmit = function (event) {
-        $scope.procesar = false;
-        //$scope.properties.urlretorno = window.btoa(event.target.files[0]);
-
-        // console.log(event.target.files[0]);
-        handleFileSelect(event);
-        // $scope.documetObject["b64"] = window.btoa(event.target.files[0]);
-        $scope.documetObject["filename"] = event.target.files[0].name;
-        $scope.documetObject["filetype"] = event.target.files[0].name.split('.').pop();
-        $scope.documetObject["contenedor"] = "privado";
-
-        if (event.target.files[0].type === "image/jpeg") {
-            $scope.properties.isImagen = "true";
-            $scope.properties.isPDF = "false";
-            $scope.procesar = true;
-        } else if (event.target.files[0].type === "image/png") {
-            $scope.properties.isImagen = "true";
-            $scope.properties.isPDF = "false";
-            $scope.procesar = true;
-        } else if (event.target.files[0].type === "application/pdf") {
-            $scope.properties.isPDF = "true";
-            $scope.properties.isImagen = "false";
-            $scope.procesar = true;
-        } else {
-            swal("!Formato no valido!", "Solo puede agregar archivos PDF o imagenes JPG y PNG", "warning");
-            $scope.properties.isPDF = "true";
-            $scope.properties.isImagen = "true";
-            $scope.properties.urlretorno = "";
-        }
-
-        if ($scope.procesar === true) {
-            $scope.properties.urlretorno = URL.createObjectURL(event.target.files[0]);
-            /* var reader = new FileReader();
-             reader.readAsDataURL(event.target.files[0]); 
-             reader.onloadend = function() {
-                 
-                 $scope.properties.urlretorno  = reader.result;                
-                 //console.log(base64data);
-                 acept
-             }*/
-            if (!event.target.value) {
-                return;
-            }
-            ctrl.submitForm();
-            event.target.value = null;
-        }
-
+  function doRequest(method, url, params) {
+    vm.busy = true;
+    var req = {
+      method: method,
+      url: url,
+      data: angular.copy($scope.properties.dataToSend),
+      params: params
     };
 
-    var input = $element.find('input');
-    input.on('change', ctrl.forceSubmit);
-    $scope.$on('$destroy', function () {
-        input.off('change', ctrl.forceSubmit);
-    });
-
-    $scope.$watch('properties.url', function (newUrl, oldUrl) {
-        ctrl.url = $sce.trustAsResourceUrl(newUrl);
-        if (newUrl === undefined) {
-            $log.warn('you need to define a url for pbUpload');
+    return $http(req)
+      .success(function(data, status) {
+        $scope.properties.dataFromSuccess = data;
+        $scope.properties.responseStatusCode = status;
+        $scope.properties.dataFromError = undefined;
+        notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+          //redirectIfNeeded();
+          $window.close(); 
         }
-    });
+        closeModal($scope.properties.closeOnSuccess);
+      })
+      .error(function(data, status) {
+        $scope.properties.dataFromError = data;
+        $scope.properties.responseStatusCode = status;
+        $scope.properties.dataFromSuccess = undefined;
+        notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
+      })
+      .finally(function() {
+        vm.busy = false;
+      });
+  }
 
-    //the filename displayed is not bound to the value as a bidirectionnal
-    //bond, thus, in case the value is updated, it is not reflected
-    //to the filename (example with the BS-14498)
-    //we watch the value to update the filename and the upload widget state
-    $scope.$watch(function () { return $scope.properties.value; }, function (newValue) {
-        if (newValue && newValue.filename) {
-            ctrl.filemodel = true;
-            ctrl.filename = newValue.filename;
-        } else if (!angular.isDefined(newValue)) {
-            delete ctrl.filemodel;
-            delete ctrl.filename;
-        } else {
-            $scope.properties.urlretorno = "";
-            $scope.properties.isPDF = "true";
-            $scope.properties.isImagen = "true";
-        }
-    });
-
-    if (!$scope.properties.isBound('value')) {
-        $log.error('the pbUpload property named "value" need to be bound to a variable');
+  function redirectIfNeeded() {
+    var iframeId = $window.frameElement ? $window.frameElement.id : null;
+    //Redirect only if we are not in the portal or a living app
+    if (!iframeId || iframeId && iframeId.indexOf('bonitaframe') !== 0) {
+      $window.location.assign($scope.properties.targetUrlOnSuccess);
     }
+  }
 
-    function clear() {
-        ctrl.filename = '';
-        ctrl.filemodel = '';
-        $scope.properties.value = {};
+  function notifyParentFrame(additionalProperties) {
+    if ($window.parent !== $window.self) {
+      var dataToSend = angular.extend({}, $scope.properties, additionalProperties);
+      $window.parent.postMessage(JSON.stringify(dataToSend), '*');
     }
+  }
 
-    function uploadError(error) {
-        $log.warn('upload fails too', error);
-        ctrl.filemodel = '';
-        ctrl.filename = gettextCatalog.getString('Upload failed');
+  function getUserParam() {
+    var userId = getUrlParam('user');
+    if (userId) {
+      return { 'user': userId };
     }
+    return {};
+  }
 
-    function startUploading() {
-        ctrl.filemodel = '';
-        ctrl.filename = gettextCatalog.getString('Uploading...');
+  /**
+   * Extract the param value from a URL query
+   * e.g. if param = "id", it extracts the id value in the following cases:
+   *  1. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?id=8880000
+   *  2. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?param=value&id=8880000&locale=en
+   *  3. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?param=value&id=8880000&locale=en#hash=value
+   * @returns {id}
+   */
+  function getUrlParam(param) {
+    var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
+    if (paramValue) {
+      return paramValue[1];
     }
+    return '';
+  }
 
-    function uploadComplete(response) {
-        //when the upload widget return a String, it means an error has occurred (with a html document as a response)
-        //if it's not a string, we test if it contains some error message
-        if (angular.isString(response) || (response && response.type && response.message)) {
-            $log.warn('upload failed');
-            ctrl.filemodel = '';
-            ctrl.filename = gettextCatalog.getString('Upload failed');
-            $scope.properties.errorContent = angular.isString(response) ? response : response.message;
-            return;
-        }
-        $scope.properties.value = response;
+  function submitTask() {
+    var id;
+    id = getUrlParam('id');
+    if (id) {
+      var params = getUserParam();
+	    params.assign = $scope.properties.assign;
+      doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
+        localStorageService.delete($window.location.href);
+      });
+    } else {
+      $log.log('Impossible to retrieve the task id value from the URL');
     }
+  }
+
 }
