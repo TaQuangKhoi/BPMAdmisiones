@@ -5,18 +5,20 @@ function PbButtonCtrl($scope, modalService, blockUI, $q) {
         //blockUI.start();
         $scope.properties.idsDivGrafica.forEach(data => {
             //document.getElementById(data.id).classList.remove('chart-container')
-            document.getElementById(data.id).style.height = "509px";
-            document.getElementById(data.id).style.width = "760px";
+            document.getElementById(data.id).style.height = "209px";
+            document.getElementById(data.id).style.width = "360px";
         })
        
-        
-        var element = document.querySelector($scope.properties.elementSelector);
-        element.style.width = "720px";
+        var doc = new jspdf.jsPDF('l', 'mm', 'a4'); ;
+        //var element = document.querySelector($scope.properties.elementSelector);
+        //element.style.width = "720px";
         var canvas = document.getElementById("chartjs1")
-        var imgData = canvas.toDataURL('image/jpeg'); 
-        
-        var doc = new jspdf.jsPDF('l', 'mm', 'a1'); ;
-        doc.setImage(imgData,'JPEG',15,15,280,150)
+        var imgData = canvas.toDataURL('image/png'); 
+        doc.addImage(imgData,'PNG',15,15,135,150,'chart1')
+        //doc.addPage();
+        var canvas2 = document.getElementById("chartjs2")
+        var imgData2 = canvas2.toDataURL('image/png'); 
+        doc.addImage(imgData2,'PNG',155,15,135,150,'chart2')
 
         doc.save('Generated.pdf');
         
