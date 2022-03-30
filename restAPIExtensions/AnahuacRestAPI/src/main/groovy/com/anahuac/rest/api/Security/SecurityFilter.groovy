@@ -12,7 +12,7 @@ class SecurityFilter {
 		List<UserMembership> uMemberships=context.apiClient.identityAPI.getUserMemberships(context.apiSession.userId, 0, 100, UserMembershipCriterion.ROLE_NAME_ASC);
 		uMemberships.each{
 			it ->
-			if(it.roleName.toLowerCase().equals(roleName.toLowerCase()) || it.roleName.equals("ADMINISTRADOR") || it.roleName.equals("TI SERUA")) {
+			if(it.roleName.toLowerCase().equals(roleName.toLowerCase()) || it.roleName.equals("ADMINISTRADOR") || it.roleName.equals("TI SERUA") || it.roleName.equals("SERUA") || it.roleName.equals("TI CAMPUS") || it.roleName.equals("PSICOLOGO") || it.roleName.equals("PSICOLOGO SUPERVISOR") || it.roleName.equals("PASE DE LISTA")) {
 				valid=true
 			}
 		}
@@ -65,6 +65,8 @@ class SecurityFilter {
 				if(allow){break;}
 				break;
 				case "getMenuAdministrativo":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"SERUA")
 				if(allow){break;}
 				break;
 				case "getUniversidadSmartCampus":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -163,6 +165,16 @@ class SecurityFilter {
 				break;
 				case "getPsicologoSesiones":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				break;
+				case "getUserByCaseIdINVP":
+				allow = bonitaRolFilter(context, "ADMISIONES");
+				if (allow) {
+				  break;
+				}
+				allow = bonitaRolFilter(context, "Usuario Auxiliar");
+				if (allow) {
+				  break;
+				}
 				break;
 				case "getPsicologoSesiones":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -368,6 +380,8 @@ class SecurityFilter {
 				break;
 				case "getPropedeuticosNoFecha":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"SERUA")
+				if(allow){break;}
 				break;
 				case "getActiveProcess":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -558,6 +572,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"SERUA")
+			if(allow){break;}
 		    break;
 		  case "selectAspirantesEnRed":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
