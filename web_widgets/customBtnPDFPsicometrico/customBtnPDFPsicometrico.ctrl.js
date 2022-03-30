@@ -360,9 +360,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         //doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
         let count = 0,yValorAux = yValor;
         $scope.salud.forEach(element =>{
+            if (yValorAux >= 275) {
+                doc.addPage();
+                yValorAux = 15;
+            }
             doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
             count += Math.ceil((element.length / 180))
-            yValorAux += 7;
+            yValorAux += (Math.ceil((element.length / 180)) * 7);
         })
         yValor += (count * 7) + 3;
 
@@ -478,7 +482,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             $scope.datosCapacidad[0][data.nombre].forEach(element =>{
                 //count += Math.ceil((element.length / 180))
                 doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
-                yValorAux += 7;
+                yValorAux += (Math.ceil((element.length / 180)) * 7)
             })
             yValor += (count * 7) + 5;
 
@@ -507,7 +511,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         $scope.conclusiones_recomendaciones.forEach(element =>{
             doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
             count += Math.ceil((element.length / 180))
-            yValorAux+=7;
+            yValorAux+=(Math.ceil((element.length / 180)) * 7);
         })
         //count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
         yValor += (count * 7) + 3;
@@ -554,7 +558,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValorAux = yValor;
         $scope.interpretacion.forEach(element =>{
             doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
-            yValorAux+=7;
+
+            yValorAux += (Math.ceil((element.length / 180)) * 7);
         });
         yValor += (count * 7) + 3;
 
@@ -633,7 +638,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
              yValorAux = yValor;
              $scope.comentarios[i].forEach(element =>{
                 doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
-                yValorAux += 7;
+                yValorAux += (Math.ceil((element.length / 180)) * 7)
             })
 
              yValor += (count * 7) + 3; 
@@ -661,7 +666,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         let texto = html.split("\n");
         html = [];
         texto.forEach( element =>{
-            if(element.toString().trim().length >= 1){
+            if(element.toString().trim().length >= 0){
                 html.push(element.toString().trim());
             }
         })
