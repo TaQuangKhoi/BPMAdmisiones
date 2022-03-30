@@ -12,15 +12,13 @@ function PbButtonCtrl($scope, modalService, blockUI, $q) {
         
         var element = document.querySelector($scope.properties.elementSelector);
         element.style.width = "720px";
+        var canvas = document.getElementById("chartjs1")
+        var imgData = canvas.toDataURL('image/jpeg'); 
         
         var doc = new jspdf.jsPDF('l', 'mm', 'a1'); ;
-        doc.html(element, {
-                callback: function (doc) {
-                    doc.save('Generated.pdf')
-                    }
-                });
+        doc.setImage(imgData,'JPEG',15,15,280,150)
 
-        //doc.save('Generated.pdf');
+        doc.save('Generated.pdf');
         
         /*
         var opt = {
