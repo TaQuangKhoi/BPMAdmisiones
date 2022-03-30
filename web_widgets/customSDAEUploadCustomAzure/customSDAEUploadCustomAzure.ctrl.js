@@ -29,6 +29,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     };
 
     function handleFileSelect(evt) {
+        startUploading();
         var f = evt.target.files[0]; // FileList object
         var reader = new FileReader();
         // Closure to capture the file information.
@@ -62,7 +63,8 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
         return $http(req)
             .success(function (data, status) {
-                $scope.properties.urlAzure = data[0];
+                $scope.properties.urlAzure = data.data[0];
+                uploadComplete(data);
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -82,6 +84,35 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                 
             });
     }
+
+     /**
+   * Execute a get/post request to an URL
+   * It also bind custom data from success|error to a data
+   * @return {void}
+   */
+      function getFile() {
+        var req = {
+            method: "GET",
+            url: $scope.properties.urlDownloadFile,
+            // data: angular.copy($scope.documetObject),
+            // params: params
+        };
+
+        return $http(req)
+            .success(function (data, status) {
+                console.log(data);
+            })
+            .error(function (data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+            });
+    }
+
     this.forceSubmit = function (event) {
         $scope.procesar = false;
         //$scope.properties.urlretorno = window.btoa(event.target.files[0]);

@@ -3,7 +3,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
             $scope.properties.selectedIndex--;
         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-            $scope.properties.selectedIndex++;
+            if ($scope.properties.isValidStep) {
+                $scope.properties.selectedIndex++;
+                blockUI.start();
+            } else {
+                swal($scope.properties.messageTitle, $scope.properties.errorMessage, "warning");
+            }
         }
     }
 }

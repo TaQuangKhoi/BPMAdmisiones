@@ -13,7 +13,6 @@ function ($scope, $http) {
 
     $scope.$watch("properties.url", ()=>{
         if($scope.properties.url){
-            debugger;
             urlCargada = true;
 
             if(urlCargada && objetoCargado){
@@ -24,7 +23,6 @@ function ($scope, $http) {
 
     $scope.$watch("properties.dataToSend", ()=>{
         if($scope.properties.dataToSend){
-            debugger;
             objetoCargado = true;
 
             if(urlCargada && objetoCargado){

@@ -5,13 +5,14 @@ class CatManejoDocumentos {
 	private String persistenceId_string;
 	private Long idCampus;
 	private Long idTipoApoyo;
-	private Boolean isObligatorio;
+	private String isObligatorio;
 	private String nombreDocumento;
 	private String urlDocumentoAzure;
 	private Boolean isEliminado;
 	private String fechaCreacion;
 	private String usuarioCreacion;
 	private String descripcionDocumento;
+	private Boolean isObligatorioDoc;
 	
 	public String getDescripcionDocumento() {
 		return descripcionDocumento;
@@ -43,12 +44,6 @@ class CatManejoDocumentos {
 	public void setIdTipoApoyo(Long idTipoApoyo) {
 		this.idTipoApoyo = idTipoApoyo;
 	}
-	public Boolean getIsObligatorio() {
-		return isObligatorio;
-	}
-	public void setIsObligatorio(Boolean isObligatorio) {
-		this.isObligatorio = isObligatorio;
-	}
 	public String getNombreDocumento() {
 		return nombreDocumento;
 	}
@@ -79,6 +74,17 @@ class CatManejoDocumentos {
 	public void setUsuarioCreacion(String usuarioCreacion) {
 		this.usuarioCreacion = usuarioCreacion;
 	}
-	
+	public Boolean getIsObligatorioDoc() {
+		return isObligatorioDoc;
+	}
+	public void setIsObligatorioDoc(Boolean isObligatorioDoc) {
+		this.isObligatorioDoc = isObligatorioDoc;
+	}
+	public String getIsObligatorio() {
+		return isObligatorio;
+	}
+	public void setIsObligatorio(String isObligatorio) {
+		this.isObligatorio = isObligatorio;
+	}
 	
 }

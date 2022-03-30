@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1648508397615,
+  "lastUpdate" : 1648668002438,
   "rows" : [
     [
       {
@@ -539,7 +539,8 @@
                   "value" : "selectedIndex"
                 },
                 "lastSelectedIndex" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "formOutputTest.solicitudApoyoEducativoInput.pageIndex"
                 }
               },
               "reference" : "85a62214-dfcd-4778-a8ba-3106182ca7e1",
@@ -8267,73 +8268,6 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : true
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Tipo de apoyo solicitado:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Select an option"
-                      },
-                      "availableValues" : {
-                        "type" : "expression",
-                        "value" : "getCatTipoApoyoByCampus.data"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant",
-                        "value" : "descripcion"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudCatalogosInput.catTipoApoyoCAT"
-                      }
-                    },
-                    "reference" : "81fb1ee3-883e-41f1-a888-04af9686e832",
-                    "hasValidationError" : false,
-                    "id" : "pbSelect"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
                         "value" : false
                       },
                       "disabled" : {
@@ -11896,7 +11830,7 @@
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "imagenesSocioEconomico.data"
+                        "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
                       }
                     },
                     "reference" : "06028cd1-9073-42bd-90fd-cafc7610147b",
@@ -11958,7 +11892,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Subir documento"
+                                    "value" : "Default label"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -11977,27 +11911,15 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "formOutputTest.fotoComedorCasaDocumentInput"
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
                                     "value" : ""
                                   },
                                   "urlretorno" : {
                                     "type" : "variable",
                                     "value" : ""
                                   },
-                                  "isImagen" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isPDF" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
                                   "documentName" : {
                                     "type" : "expression",
-                                    "value" : "$item.descripcion"
+                                    "value" : "$item.imagenSocioEconomico.descripcion"
                                   },
                                   "documentDescription" : {
                                     "type" : "constant"
@@ -12009,58 +11931,19 @@
                                   "isObligatorio" : {
                                     "type" : "expression",
                                     "value" : "true"
-                                  }
-                                },
-                                "reference" : "8e26b6f4-3df3-4ce4-b87b-521ed93cb1f8",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEUploadCustom"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
                                   },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "!formOutputTest.fotoComedorCasaDocumentInput.id"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "Process document"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "document" : {
+                                  "urlAzure" : {
                                     "type" : "variable",
-                                    "value" : "context.fotoSalaCasa_ref"
+                                    "value" : "$item.urlImagen"
                                   },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "idmodal" : {
-                                    "type" : "constant",
-                                    "value" : "idmodal1"
-                                  },
-                                  "label" : {
-                                    "type" : "constant"
+                                  "urlDownloadFile" : {
+                                    "type" : "expression",
+                                    "value" : "urlDownloadFileAzure"
                                   }
                                 },
-                                "reference" : "c942a31d-9bff-41d9-9aa2-d7e5e60842c6",
+                                "reference" : "a7e77fd9-3813-46fb-ab31-e289f4fc0935",
                                 "hasValidationError" : false,
-                                "id" : "customSDAEFileViewerPopupUpdate"
+                                "id" : "customSDAEUploadCustomAzure"
                               }
                             ]
                           ]
@@ -12248,11 +12131,11 @@
                             },
                             "labelHidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "$item.catManejoDocumentos.nombreDocumento"
+                              "value" : "{{}}"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -12278,10 +12161,12 @@
                               "value" : ""
                             },
                             "documentName" : {
-                              "type" : "constant"
+                              "type" : "expression",
+                              "value" : "$item.catManejoDocumentos.nombreDocumento"
                             },
                             "documentDescription" : {
-                              "type" : "constant"
+                              "type" : "expression",
+                              "value" : "$item.catManejoDocumentos.descripcionDocumento"
                             },
                             "documentoInfo" : {
                               "type" : "variable",
@@ -12294,311 +12179,15 @@
                             "urlAzure" : {
                               "type" : "variable",
                               "value" : "$item.urlDocumento"
+                            },
+                            "urlDownloadFile" : {
+                              "type" : "expression",
+                              "value" : "urlDownloadFileAzure"
                             }
                           },
                           "reference" : "0c40cffa-00f0-408f-ac2b-d000891ac330",
                           "hasValidationError" : false,
                           "id" : "customSDAEUploadCustomAzure"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "<pre>{{ $item | json }}</pre>"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "a68504f2-374b-4860-82ad-92bbcae8ba44",
-                          "hasValidationError" : false,
-                          "id" : "pbText"
-                        }
-                      ]
-                    ]
-                  }
-                ],
-                [
-                  {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 6,
-                      "md" : 6,
-                      "lg" : 4
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "repeatedCollection" : {
-                        "type" : "variable",
-                        "value" : "getDocumentosByTipoApoyo.data"
-                      }
-                    },
-                    "reference" : "faff7a29-4b4c-476c-8bff-21e261b7dc8b",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Obligatorio"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "$item.isObligatorio"
-                            }
-                          },
-                          "reference" : "b425884d-1c95-4432-8330-b8a7000961bc",
-                          "hasValidationError" : false,
-                          "id" : "pbCheckbox"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "url" : {
-                              "type" : "constant",
-                              "value" : "../API/formFileUpload"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "errorContent" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "urlretorno" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "isImagen" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "isPDF" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "documentName" : {
-                              "type" : "expression",
-                              "value" : "getDocumentosByTipoApoyo.data[$index].nombreDocumento"
-                            },
-                            "documentDescription" : {
-                              "type" : "expression",
-                              "value" : "getDocumentosByTipoApoyo.data[$index].descripcionDocumento"
-                            },
-                            "documentoInfo" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "isObligatorio" : {
-                              "type" : "expression",
-                              "value" : "$item.isObligatorio"
-                            },
-                            "urlAzure" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "b8bf84fa-d1a3-4d83-83c8-724df97348c0",
-                          "hasValidationError" : false,
-                          "id" : "customSDAEUploadCustomAzure"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : ""
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "url" : {
-                              "type" : "constant",
-                              "value" : "../API/formFileUpload"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "formOutputTest.lstDocumentosDocumentInput[$index]"
-                            },
-                            "errorContent" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "urlretorno" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "isImagen" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "isPDF" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "documentName" : {
-                              "type" : "expression",
-                              "value" : "getDocumentosByTipoApoyo.data[$index].nombreDocumento"
-                            },
-                            "documentDescription" : {
-                              "type" : "expression",
-                              "value" : "getDocumentosByTipoApoyo.data[$index].descripcionDocumento"
-                            },
-                            "documentoInfo" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "isObligatorio" : {
-                              "type" : "expression",
-                              "value" : "getDocumentosByTipoApoyo.data[$index].isObligatorio"
-                            }
-                          },
-                          "reference" : "9a9cdd50-0cca-4353-bce1-6f401ccd7558",
-                          "hasValidationError" : false,
-                          "id" : "customSDAEUploadCustom"
                         }
                       ]
                     ]
@@ -14408,6 +13997,10 @@
         "    output = false;\r",
         "    $data.errorPaso5 = \"Debes aceptar el reglamento de becas y financiamiento para poder continuar\";\r",
         "    $data.tituloErrorPaso5 = \"Carga de documentos\";\r",
+        "}  else if (!validarImagenes()){\r",
+        "    output = false;\r",
+        "    $data.errorPaso5 = \"Debes subir todas las imagenes dle estudio socio económico\";\r",
+        "    $data.tituloErrorPaso5 = \"Carga de documentos\";\r",
         "} else if (!validarDocumentos()){\r",
         "    output = false;\r",
         "    $data.errorPaso5 = \"Debes subir todos  los documentos  marcados como obligatorios\";\r",
@@ -14424,12 +14017,25 @@
         "function validarDocumentos(){\r",
         "    let output = true;\r",
         "\r",
-        "    // for(let i = 0; i< $data.getDocumentosByTipoApoyo.data.length; i++){\r",
-        "    //     if(!$data.formOutputTest.lstDocumentosDocumentInput[i] && $data.getDocumentosByTipoApoyo.data.isObligatorioDoc){\r",
-        "    //         output = false;\r",
-        "    //         break;   \r",
-        "    //     }\r",
-        "    // }\r",
+        "    for(let document  of $data.formOutputTest.documentosSolicitanteInput){\r",
+        "            if(!document.urlDocumento && document.catManejoDocumentos.isObligatorioDoc){\r",
+        "                output = false;\r",
+        "                break;   \r",
+        "            }\r",
+        "        }\r",
+        "\r",
+        "    return output;\r",
+        "}\r",
+        "\r",
+        "function validarImagenes(){\r",
+        "    let output = true;\r",
+        "\r",
+        "    for(let imagen  of $data.formOutputTest.imagenesSocEcoSolicitanteInput){\r",
+        "        if(!imagen.urlImagen){\r",
+        "            output = false;\r",
+        "            break;   \r",
+        "        }\r",
+        "    }\r",
         "\r",
         "    return output;\r",
         "}"
@@ -14981,6 +14587,17 @@
       "value" : [
         "return \"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" + $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita;"
       ],
+      "exposed" : false
+    },
+    "lstDocumentos" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "urlDownloadFileAzure" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
