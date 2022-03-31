@@ -222,12 +222,15 @@ class MailGunDAO {
 				objGrupoCampus.put("descripcion", objCatCampus.getDescripcion());
 				objGrupoCampus.put("valor", objCatCampus.getGrupoBonita());
 				lstGrupoCampus.add(objGrupoCampus);
+				errorlog += " CAMPUS " + " valor " + objCatCampus.getGrupoBonita()
 			}
 			
-			errorlog += ", for Comparar"
+			errorlog += ", for Comparar  "  + lstGrupoCampus.size() + campus
 			for(Map<String, String> row : lstGrupoCampus) {
+				errorlog += row.get("valor") + campus
 				if(row.get("valor").equals(campus)) {
 					objGrupoSelected = row;
+					errorlog += " OBJGRUPOSELECTED " + row
 				}
 			}
 			String correoDe =""

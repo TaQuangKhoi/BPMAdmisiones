@@ -239,12 +239,12 @@ class HubspotDAO {
 				}
 				
 			}
+			strError = " antes del envio de correo "
 			
-			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			
 			if (!resultado.success) {
 				//def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
-				
+				strError = strError + " en el if del correo 1 "
 				String correo = "";
 				closeCon = validarConexion();
 				pstm = con.prepareStatement(Statements.GET_CORREO_BY_CLAVE)
@@ -257,10 +257,12 @@ class HubspotDAO {
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				strError = strError + " ya se mando el 1 "
 			}
 
 			if (nfcarrera || nffp || nffi) {
 				//def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				strError = strError + " en el if del correo 2 "
 				String correo = "";
 				closeCon = validarConexion();
 				pstm = con.prepareStatement(Statements.GET_CORREO_BY_CLAVE)
@@ -271,8 +273,12 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				strError = strError + " ANTES DEL RESULTADO "
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupo(), context)
+				
+				strError = strError + " ya se mando el 2 " + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 			}
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
