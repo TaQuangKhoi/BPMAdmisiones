@@ -1471,13 +1471,13 @@ class HubspotDAO {
 				}
 			}
 			
-			resultado.setError_info(errorlog);
+			
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1891,13 +1891,13 @@ class HubspotDAO {
 			  apikey = rs.getString("crispchat");
 		  }
 		  lstResultado.add(apikey);
-		  resultado.setError_info(errorlog);
+		  
 		  resultado.setSuccess(true);
 		  resultado.setData(lstResultado);
 	  } catch (Exception e) {
 		  resultado.setSuccess(false);
 		  resultado.setError(e.getMessage());
-		  resultado.setError_info(errorlog)
+		  
 	  }finally {
 		  if(closeCon) {
 			  new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1992,7 +1992,7 @@ class HubspotDAO {
 	  catch(Exception e) {
 		  resultado.setSuccess(false);
 		  resultado.setError(e.getMessage());
-		  resultado.setError_info(errorlog)
+		  
 	  }
 	  
 	  return resultado;

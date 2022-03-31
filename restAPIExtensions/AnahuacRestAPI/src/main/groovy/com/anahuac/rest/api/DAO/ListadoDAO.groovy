@@ -1408,12 +1408,12 @@ class ListadoDAO {
             errorlog = consulta + " 9";
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -1979,12 +1979,12 @@ class ListadoDAO {
             errorlog = consulta + " 9";
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -2440,12 +2440,12 @@ class ListadoDAO {
             }
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3228,7 +3228,7 @@ class ListadoDAO {
 
 
             errorlog += consulta;
-            resultado.setError_info(errorlog);
+            
 
             pstm = con.prepareStatement(consulta)
             errorlog = object.limit;
@@ -3308,7 +3308,7 @@ class ListadoDAO {
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -4446,12 +4446,12 @@ class ListadoDAO {
             }
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -4828,7 +4828,7 @@ class ListadoDAO {
             }
             resultado.setData(lstResultado);
             resultado.setSuccess(true);
-            resultado.setError_info(errorLog);
+            
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
@@ -6659,12 +6659,12 @@ class ListadoDAO {
             lstResultado.add(encodeFileToBase64Binary("Report.xls"));
             resultado.setSuccess(true);
             resultado.setData(lstResultado);
-            resultado.setError_info(errorlog)
+            
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
-            resultado.setError_info(errorlog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
             e.printStackTrace();
@@ -8363,13 +8363,13 @@ class ListadoDAO {
             lstResultado.add(encodeFileToBase64Binary("ReportPaseLista.xls"));
             resultado.setSuccess(true);
             resultado.setData(lstResultado);
-            resultado.setError_info(errorLog);
+            
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorLog);
+            
             e.printStackTrace();
         }
 
@@ -9111,13 +9111,13 @@ class ListadoDAO {
             }
 
             resultado.setSuccess(true);
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorLog);
+            
             e.printStackTrace();
         } finally {
             if (closeCon) {
