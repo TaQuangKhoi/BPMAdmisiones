@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1648684053199,
+  "lastUpdate" : 1648768863457,
   "rows" : [
     [
       {
@@ -368,6 +368,58 @@
               "reference" : "76c6b091-4ab3-407e-88b7-58275c6f5c36",
               "hasValidationError" : false,
               "id" : "customBtnSDAEcontinuarAvisoPrivacidadv2"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<pre>{{ processStartContract | json}}</pre>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "88aeda8c-97d5-4231-b50e-dea8ea041d44",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -14347,8 +14399,9 @@
         "    \"solicitudApoyoEducativoInput\":{",
         "        \"eliminado\": false,",
         "        \"catTipoMoneda_id\": $data.tipoMonedaParam,",
-        "        \"aceptoAvisoPrivacidad\": $data.acceptoAvisoPrivacidad",
-        "    }",
+        "        \"aceptoAvisoPrivacidad\": $data.acceptoAvisoPrivacidad,",
+        "    },",
+        "    \"idAspiranteInput\": $data.userData.user_id",
         "}"
       ],
       "exposed" : false
@@ -14598,6 +14651,9 @@
     },
     "urlDownloadFileAzure" : {
       "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByPersistenceId&p=0&c=100&persistenceId="
+      ],
       "exposed" : false
     }
   },

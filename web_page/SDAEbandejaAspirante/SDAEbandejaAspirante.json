@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1648157026907,
+  "lastUpdate" : 1648763131385,
   "rows" : [
     [
       {
@@ -79,11 +79,11 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : "objSolicitudApoyo"
+                  "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "activeCases.length > 0"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -119,6 +119,49 @@
                 "sm" : 12,
                 "md" : 12,
                 "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "objSolicitudApoyo[0].estatusSolicitud !== \"Pre-autorización solicita modificaciones\""
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Modificar solicitud"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "danger"
+                },
+                "modalId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "825bc33e-c776-4eba-8e4f-096ad05000c8",
+              "hasValidationError" : false,
+              "id" : "customBtnSDAEnuevaSolicitudAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -214,6 +257,58 @@
               "reference" : "6cefa9fb-8b15-46f6-b2ea-8ef15fc11741",
               "hasValidationError" : false,
               "id" : "customTablaSolicitudApoyoEducativoAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<pre>{{ objSolicitudDeAdmision | json }}</pre>\n<pre>{{ objSolicitudApoyo | json }}</pre>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "127e2c24-4d49-4a8f-8364-e232d4eb9045",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ]
         ]
@@ -726,7 +821,7 @@
     "objSolicitudDeAdmision" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userData.user_name}}"
       ],
       "advancedOptions" : {
         "headers" : "",
@@ -740,7 +835,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.SDAE.model.SolicitudApoyoEducativo?q=findByCaseIdAdmisiones&p=0&c=10&f=caseIdAdmisiones={{objSolicitudDeAdmision[0].caseId}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "buildContent" : {
@@ -753,7 +852,8 @@
         "        \"folio\": $data.objSolicitudApoyo[0].caseId,",
         "        \"periodo\": $data.objSolicitudDeAdmision[0].catPeriodo.descripcion,",
         "        \"nombre\": buildName($data.objSolicitudDeAdmision[0]),",
-        "        \"estado\": $data.objSolicitudDeAdmision[0].catCampusEstudio.estado.descripcion",
+        "        // \"estado\": $data.objSolicitudDeAdmision[0].catCampusEstudio.estado.descripcion",
+        "        \"estado\": $data.objSolicitudApoyo[0].estatusSolicitud",
         "    }    ",
         "    ",
         "    output.push(object);",
@@ -776,6 +876,14 @@
         "    return output;",
         "}"
       ],
+      "exposed" : false
+    },
+    "activeCases" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=1&p=0&f=started_by={{userData.user_id}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
