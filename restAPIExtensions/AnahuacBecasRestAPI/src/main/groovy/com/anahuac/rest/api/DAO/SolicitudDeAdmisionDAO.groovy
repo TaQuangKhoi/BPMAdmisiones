@@ -23,6 +23,7 @@ import com.anahuac.rest.api.Entity.db.CatTypoApoyo
 import com.anahuac.rest.api.Entity.db.InformacionEscolar
 import com.anahuac.rest.api.Entity.db.PadresTutor
 import com.anahuac.rest.api.Entity.db.SolicitudDeAdmision
+import com.anahuac.rest.api.Utilities.FileDownload;
 
 import groovy.json.JsonSlurper
 
@@ -269,6 +270,62 @@ class SolicitudDeAdmisionDAO {
 			resultado.setError(e.getMessage());
 		} finally {
 			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getB64FileByPersistenceId(String persistenceId) {
+		Boolean closeCon = false;
+		String errorLog = "";
+		Result resultado = new Result();
+		try {
+			
+			List <String> rows = new ArrayList <String> ();
+			List <String> tipo = new ArrayList <String> ();
+			closeCon = validarConexion();
+			
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			pstm = con.prepareStatement(Statements.GET_DOCUMENTO_BASE64_BY_PERSISTENCE_ID);
+			pstm.setString(1, persistenceId)
+			rs = pstm.executeQuery();
+
+			def num = Math.random();
+			if (rs.next()) {
+				
+				if(rs.getString("urlDocumento").toLowerCase().contains(".jpeg")) {
+						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
+						rows.add( "extension",".jpeg");
+					}else if(rs.getString("urlDocumento").toLowerCase().contains(".png")) {
+						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
+						rows.add( "extension",".png");
+					}else if(rs.getString("urlDocumento").toLowerCase().contains(".jpg")) {
+						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
+						rows.add( "extension",".jpg");
+					}else if(rs.getString("urlDocumento").toLowerCase().contains(".jfif")) {
+						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
+						rows.add( "extension",".jfif");
+					}else if(rs.getString("urlDocumento").toLowerCase().contains(".pdf")) {
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
+						rows.add( "extension",".pdf");
+					}
+			}
+
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
