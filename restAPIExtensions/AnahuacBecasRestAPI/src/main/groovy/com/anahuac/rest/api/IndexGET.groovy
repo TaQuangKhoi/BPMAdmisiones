@@ -179,7 +179,7 @@ class IndexGET implements RestApiController {
 					break;
 				case "getB64FileByPersistenceId":
 					String persistenceId = request.getParameter "persistenceId"
-					result = new SolicitudDeAdmisionDAO().getB64FileByPersistenceId(persistenceId);
+					result = new SolicitudDeAdmisionDAO().getB64FileByPersistenceId(Integer.parseInt(persistenceId));
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
