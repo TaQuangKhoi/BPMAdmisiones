@@ -2,8 +2,44 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1648666572976,
+  "lastUpdate" : 1648761937573,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "color-orange"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Modificar solicitud de apoyo"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 3"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "bc9da272-0948-48f5-81dc-de320804ddad",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -77,6 +113,22 @@
           "fotoSalaCasa" : {
             "type" : "variable",
             "value" : "formOutputTest.fotoSalaCasaDocumentInput"
+          },
+          "documentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.documentosSolicitanteInput"
+          },
+          "imagenesSocioEco" : {
+            "type" : "variable",
+            "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
+          },
+          "lstDocumentosByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "getDocumentosByTipoApoyo.data"
+          },
+          "lstImagenesByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "imagenesSocioEconomico.data"
           }
         },
         "reference" : "ea7caa6c-0acd-4101-b2e6-d3913a9c7472",
@@ -100,7 +152,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : true
+            "value" : false
           },
           "labelHidden" : {
             "type" : "constant",
@@ -124,11 +176,11 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<pre>{{formOutputTest | json}}</pre>"
+            "value" : "<pre class=\"pre-danger\">{{preAutorizacion_ref.cambiosSolicitudPreAutorizacion}}</pre>"
           },
           "alignment" : {
             "type" : "constant",
-            "value" : "left"
+            "value" : "center"
           }
         },
         "reference" : "03da15bc-2f1e-44ab-a179-585deedbaeca",
@@ -238,7 +290,27 @@
                 "getCatTipoApoyoByCampus" : "getCatTipoApoyoByCampus",
                 "lstCatPorcentajeBeca" : "lstCatPorcentajeBeca",
                 "lstCatPorcentajeFinanciamiento" : "lstCatPorcentajeFinanciamiento",
-                "catCasaDondeVives_query" : "catCasaDondeVives_query"
+                "catCasaDondeVives_query" : "catCasaDondeVives_query",
+                "validar1" : "validar1",
+                "validar2" : "validar2",
+                "validar3" : "validar3",
+                "validar4" : "validar4",
+                "validar5" : "validar5",
+                "tituloErrorPaso1" : "tituloErrorPaso1",
+                "tituloErrorPaso2" : "tituloErrorPaso2",
+                "tituloErrorPaso3" : "tituloErrorPaso3",
+                "tituloErrorPaso4" : "tituloErrorPaso4",
+                "tituloErrorPaso5" : "tituloErrorPaso5",
+                "errorPaso1" : "errorPaso1",
+                "errorPaso2" : "errorPaso2",
+                "errorPaso3" : "errorPaso3",
+                "errorPaso4" : "errorPaso4",
+                "errorPaso5" : "errorPaso5",
+                "urlDownloadFileAzure" : "urlDownloadFileAzure",
+                "taskid" : "taskId",
+                "reload" : "reloadTask",
+                "caseId" : "caseId",
+                "reloadTask" : "reloadTask"
               }
             }
           ]
@@ -917,35 +989,11 @@
       "exposed" : false
     },
     "getDocumentosByTipoApoyo" : {
-      "type" : "json",
+      "type" : "url",
       "value" : [
-        "[\r",
-        "    {\r",
-        "      \"urlDocumentoAzure\": \"\",\r",
-        "      \"isObligatorio\": false,\r",
-        "      \"persistenceId\": 16,\r",
-        "      \"isEliminado\": null,\r",
-        "      \"nombreDocumento\": \"Este es el nuevo documento  de pruebas para el insert\",\r",
-        "      \"idCampus\": 145884,\r",
-        "      \"fechaCreacion\": null,\r",
-        "      \"usuarioCreacion\": null,\r",
-        "      \"descripcionDocumento\": \"<ol><li>Pruebas 1</li><li>prebas 2</li><li>pruebas 3</li></ol>\",\r",
-        "      \"idTipoApoyo\": 1\r",
-        "    },\r",
-        "    {\r",
-        "      \"urlDocumentoAzure\": \"\",\r",
-        "      \"isObligatorio\": false,\r",
-        "      \"persistenceId\": 6,\r",
-        "      \"isEliminado\": null,\r",
-        "      \"nombreDocumento\": \"documento de pruebas 3\",\r",
-        "      \"idCampus\": 145884,\r",
-        "      \"fechaCreacion\": null,\r",
-        "      \"usuarioCreacion\": null,\r",
-        "      \"descripcionDocumento\": \"<p>este es otro documento </p><p><br/></p>\",\r",
-        "      \"idTipoApoyo\": 1\r",
-        "    }\r",
-        "]"
+        "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id}}&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "acceptoAvisoPrivacidad" : {
@@ -1874,13 +1922,16 @@
       "value" : [
         "let output = {",
         "    \"catTienesHijos\": null,",
-        "    \"catBecaPreparatoria\": null",
-        "}",
+        "    \"catBecaPreparatoria\": null,",
+        "    \"catTipoApoyo\": null,",
+        "    \"catTipoMoneda\": null,",
+        "    \"catTienesHermanos\": null",
+        "};",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHijos_id){",
-        "    for(let cat of $data.catTienesHijos_query){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHijos_id){",
-        "            output[\"catTienesHijos\"] =  cat;",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "    for(let cat of $data.lstCatTienesHermanos.data){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "            output[\"catTienesHermanos\"] =  cat;",
         "            break;",
         "        }    ",
         "    }",
@@ -1895,10 +1946,10 @@
         "    }",
         "}",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "            output[\"catBecaPreparatoria\"] =  cat;",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
+        "            output[\"catTipoApoyo\"] =  cat;",
         "            break;",
         "        }    ",
         "    }",
@@ -1912,7 +1963,6 @@
         "        }    ",
         "    }",
         "}",
-        "",
         "",
         "return output;"
       ],
@@ -1984,6 +2034,21 @@
         "../API/extension/AnahuacBecasRestGET?url=getCatTipoAoyoByCampus&p=0&c=0&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "preAutorizacion_ref" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.preAutorizacion_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "urlDownloadFileAzure" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByPersistenceId&p=0&c=100&persistenceId="
+      ],
       "exposed" : false
     }
   },
