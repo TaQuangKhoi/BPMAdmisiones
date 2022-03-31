@@ -970,8 +970,8 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_ApvscYniEeyveuxYpeB7zg" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <data xmi:type="process:Data" xmi:id="_GqBOoI6JEeyNoa97WwLr-w" name="caseidSolicitudApoyo" dataType="_PpGy32c7EeyAHufroJpG_Q">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_GqBOoY6JEeyNoa97WwLr-w" name="caseidSolicitudApoyoInput" content="caseidSolicitudApoyoInput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Long">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_RbDIQI6JEeyNoa97WwLr-w" name="caseidSolicitudApoyoInput" type="LONG">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_GqBOoY6JEeyNoa97WwLr-w" name="caseidSolicitudApoyoInput" content="caseidSolicitudApoyoInput" type="TYPE_CONTRACT_INPUT">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_RbDIQI6JEeyNoa97WwLr-w" name="caseidSolicitudApoyoInput">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_RbDIQY6JEeyNoa97WwLr-w"/>
           </referencedElements>
         </defaultValue>
@@ -1162,7 +1162,7 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKrppAgEeyDfcAdH7wEJg" id="OTHER"/>
       </configurations>
       <contract xmi:type="process:Contract" xmi:id="_PpGyzGc7EeyAHufroJpG_Q">
-        <inputs xmi:type="process:ContractInput" xmi:id="_NOXscI6JEeyNoa97WwLr-w" name="caseidSolicitudApoyoInput" type="LONG">
+        <inputs xmi:type="process:ContractInput" xmi:id="_NOXscI6JEeyNoa97WwLr-w" name="caseidSolicitudApoyoInput">
           <mapping xmi:type="process:ContractInputMapping" xmi:id="_NOXscY6JEeyNoa97WwLr-w"/>
         </inputs>
       </contract>
@@ -1879,7 +1879,7 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_MJHyIaYjEeydlpW9zcd1oA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_NCTc4KYjEeydlpW9zcd1oA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_MJHyIqYjEeydlpW9zcd1oA" name="newScript()" content="'Modificación realizada'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_MJHyIqYjEeydlpW9zcd1oA" name="newScript()" content="'Correcciones realizadas'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
             <operator xmi:type="expression:Operator" xmi:id="_MJHyI6YjEeydlpW9zcd1oA" type="JAVA_METHOD" expression="setEstatusSolicitud">
               <inputTypes>java.lang.String</inputTypes>
             </operator>
@@ -3481,12 +3481,12 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_mMyMR2dBEeyAHufroJpG_Q" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_mMyMRmdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <inputMappings xmi:type="process:InputMapping" xmi:id="_mDu5II6tEeyNoa97WwLr-w" subprocessTarget="caseidSolicitudApoyoInput">
-            <processSource xmi:type="expression:Expression" xmi:id="_mDu5IY6tEeyNoa97WwLr-w" name="getRootProcessInstanceId()" content="return rootProcessInstanceId;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
-              <referencedElements xmi:type="expression:Expression" xmi:id="_PcPSYI6uEeyNoa97WwLr-w" name="rootProcessInstanceId" content="rootProcessInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+            <processSource xmi:type="expression:Expression" xmi:id="_mDu5IY6tEeyNoa97WwLr-w" name="getRootProcessInstanceId()" content="return rootProcessInstanceId.toString();" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_MkA-4LEaEeythp1IDODlLA" name="rootProcessInstanceId" content="rootProcessInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
             </processSource>
           </inputMappings>
           <calledActivityName xmi:type="expression:Expression" xmi:id="_nKw3dGdBEeyAHufroJpG_Q" name="Financiamiento educativo" content="Financiamiento educativo" returnTypeFixed="true"/>
-          <calledActivityVersion xmi:type="expression:Expression" xmi:id="_nKxegGdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <calledActivityVersion xmi:type="expression:Expression" xmi:id="_nKxegGdBEeyAHufroJpG_Q" name="1.0" content="1.0" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:EndEvent" xmi:id="_vg6qEGdBEeyAHufroJpG_Q" name="Fin3" incoming="_si7O8GdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_si4LoWdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
