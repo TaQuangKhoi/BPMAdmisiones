@@ -270,7 +270,7 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 			}
@@ -541,7 +541,7 @@ class HubspotDAO {
 				
 				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
 			}
 
 			if (!resultado.success) {
@@ -582,7 +582,7 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 			}
@@ -1787,7 +1787,7 @@ class HubspotDAO {
 				
 				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
 			}
 
 			if (!resultado.success) {
@@ -1828,7 +1828,7 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 			}
@@ -2212,7 +2212,7 @@ class HubspotDAO {
 			  }
 			  //List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 			  MailGunDAO mgd = new MailGunDAO();
-			  Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+			  Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 			  
 			  strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 		  }
@@ -2725,7 +2725,7 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 			}
