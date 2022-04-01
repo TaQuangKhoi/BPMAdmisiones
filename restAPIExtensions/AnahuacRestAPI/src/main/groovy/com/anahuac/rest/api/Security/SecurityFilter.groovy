@@ -1616,6 +1616,16 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		case "getUserByCaseIdINVP":
+			allow = bonitaRolFilter(context, "ADMISIONES");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "getContactoEmergencia":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
