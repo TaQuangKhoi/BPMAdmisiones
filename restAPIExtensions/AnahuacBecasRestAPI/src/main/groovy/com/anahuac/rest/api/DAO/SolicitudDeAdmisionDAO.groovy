@@ -276,14 +276,15 @@ class SolicitudDeAdmisionDAO {
 		return resultado
 	}
 	
-	public Result getB64FileByPersistenceId(String persistenceId) {
+	public Result getB64FileByPersistenceId(int persistenceId) {
 		Boolean closeCon = false;
 		String errorLog = "";
 		Result resultado = new Result();
 		try {
 			
-			List <String> rows = new ArrayList <String> ();
-			List <String> tipo = new ArrayList <String> ();
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+			
 			closeCon = validarConexion();
 			
 			String SSA = "";
@@ -294,28 +295,41 @@ class SolicitudDeAdmisionDAO {
 			}
 			
 			pstm = con.prepareStatement(Statements.GET_DOCUMENTO_BASE64_BY_PERSISTENCE_ID);
-			pstm.setString(1, persistenceId)
+			pstm.setInt(1, persistenceId)
 			rs = pstm.executeQuery();
 
 			def num = Math.random();
 			if (rs.next()) {
 				
-				if(rs.getString("urlDocumento").toLowerCase().contains(".jpeg")) {
-						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
-						rows.add( "extension",".jpeg");
-					}else if(rs.getString("urlDocumento").toLowerCase().contains(".png")) {
-						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
-						rows.add( "extension",".png");
-					}else if(rs.getString("urlDocumento").toLowerCase().contains(".jpg")) {
-						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
-						rows.add( "extension",".jpg");
-					}else if(rs.getString("urlDocumento").toLowerCase().contains(".jfif")) {
-						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
-						rows.add( "extension",".jfif");
-					}else if(rs.getString("urlDocumento").toLowerCase().contains(".pdf")) {
-						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("urlDocumento") + SSA+"&v="+num)));
-						rows.add( "extension",".pdf");
-					}
+				//String urlAzure = URLDecoder.decode(rs.getString("urlDocumento"), "UTF-8");
+				//String urlAzure = URLEncoder.encode(rs.getString("urlDocumento"), "UTF-8");
+				
+				//String urlAzure =rs.getString("urlDocumento") + SSA + "&v=" + num;
+				String urlAzure = URLDecoder.decode(rs.getString("urlDocumento"), "UTF-8");
+				
+				columns.put("urlAzure", urlAzure);
+				columns.put("nombreDocumento", rs.getString("nombreDocumento"));
+				columns.put("descripcionDocumento", rs.getString("descripcionDocumento"));
+				columns.put("isObligatorioDoc", rs.getBoolean("isObligatorioDoc"));
+				
+				if(urlAzure.toLowerCase().contains(".jpeg")) {
+					columns.put("extension", ".jpeg");
+					columns.put("b64", "data:image/jpeg;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+				}else if(urlAzure.toLowerCase().contains(".png")) {
+					columns.put("extension", ".png");
+					columns.put("b64", "data:image/png;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+				}else if(urlAzure.toLowerCase().contains(".jpg")) {
+					columns.put("extension", ".jpg");
+					columns.put("b64", "data:image/jpg;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+				}else if(urlAzure.toLowerCase().contains(".jfif")) {
+					columns.put("extension", ".jfif");
+					columns.put("b64", "data:image/jfif;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+				}else if(urlAzure.toLowerCase().contains(".pdf")) {
+					columns.put("extension", ".pdf");
+					columns.put("b64", "data:application/pdf;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+				}
+				
+				rows.add(columns);
 			}
 
 			resultado.setSuccess(true)

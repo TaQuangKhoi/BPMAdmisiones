@@ -2,8 +2,13 @@ package com.anahuac.rest.api.Utilities
 import org.apache.poi.util.IOUtils
 
 class FileDownload {
-	public byte[]  getByteFromUrl(String imageUrl) throws IOException {
-		URL url = new URL(imageUrl);
+	public byte[]  getByteFromUrl(String imageUrl, String SSA) throws IOException {
+		if(imageUrl.contains(" "))
+			imageUrl = imageUrl.replace(" ", "%20");
+			
+		//imageUrl = URLEncoder.encode(imageUrl, "UTF-8");
+			
+		URL url = new URL(imageUrl + SSA);
 		InputStream is = url.openStream();
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 	   
@@ -16,9 +21,9 @@ class FileDownload {
 		return buffer.toByteArray();
 	}
 	
-	public String b64Url(imageUrl) {
+	public String b64Url(imageUrl, SSA) {
 		
-		String imgString = Base64.getEncoder().encodeToString(getByteFromUrl(imageUrl))
+		String imgString = Base64.getEncoder().encodeToString(getByteFromUrl(imageUrl, SSA))
 		return imgString
 	}
 }

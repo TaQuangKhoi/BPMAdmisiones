@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1648660114684,
+  "lastUpdate" : 1648754384551,
   "rows" : [
     [
       {
@@ -2983,7 +2983,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "formInput.preAutorizacionInput.porcentajeCreditoPreAutorizacion"
+                          "value" : "formInputFinanciamiento.preAutorizacionInput.porcentajeCreditoPreAutorizacion"
                         },
                         "type" : {
                           "type" : "constant",
@@ -3173,7 +3173,8 @@
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "formInputFinanciamiento"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -3608,6 +3609,39 @@
         "    \"limit\":20,\r",
         "    \"offset\":0\r",
         "};\r"
+      ],
+      "exposed" : false
+    },
+    "formInputFinanciamiento" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"preAutorizacionInput\" : {\r",
+        "    \"isPreautorizada\" : false,\r",
+        "    \"cambiosSolicitudPreAutorizacion\" : \"\",\r",
+        "    \"motivoRechazoPreAutorizacion\" : \"\",\r",
+        "    \"porcentajeCreditoPreAutorizacion\" : 0,\r",
+        "    \"porcentajeBeca\" : 0,\r",
+        "    \"porcentajeCredito\" : 0,\r",
+        "    \"promedioMinimoPreAutorizacion\" : 0,\r",
+        "    \"fechaPagoInscripcion\" : null,\r",
+        "    \"isPagoRealizado\" : false,\r",
+        "    \"descuentoAnticipado\" : 0\r",
+        "  },\r",
+        "  \"varRevisadaInput\" : true,\r",
+        "  \"varModificarInput\" : false,\r",
+        "  \"varDeportivaInput\" : false,\r",
+        "  \"varArtisticaInput\" : false,\r",
+        "  \"varFinanaciamientoInput\" : true,\r",
+        "  \"solicitudApoyoEducativoInput\" : {\r",
+        "    \"estatusSolicitud\" : \"Solicitud de Financiamiento\",\r",
+        "    \"modificarInfoPersonal\" :  false,\r",
+        "    \"modificarInfoFamiliar\" :  false,\r",
+        "    \"modificarMotivoSol\" :  false,\r",
+        "    \"modificarInfoSocioEco\" :  false,\r",
+        "    \"modificarDocumentos\" :  false\r",
+        "  }\r",
+        "}"
       ],
       "exposed" : false
     }
