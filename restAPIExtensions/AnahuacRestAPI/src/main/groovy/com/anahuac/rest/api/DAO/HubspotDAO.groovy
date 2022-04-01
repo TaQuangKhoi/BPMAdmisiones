@@ -89,7 +89,7 @@ class HubspotDAO {
 	public Result createOrUpdateRegistro(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Result resultadoApiKey = new Result();
-		
+		Boolean closeCon = false;
 		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
 		List<SolicitudDeAdmision> lstSolicitudDeAdmision = new ArrayList<SolicitudDeAdmision>();
 		List<String> lstValueProperties = new ArrayList<String>();
@@ -239,24 +239,46 @@ class HubspotDAO {
 				}
 				
 			}
+			strError = " antes del envio de correo "
 			
-			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			
 			if (!resultado.success) {
-				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
-				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				//def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				strError = strError + " en el if del correo 1 "
+				String correo = "";
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.GET_CORREO_BY_CLAVE)
+				pstm.setString(1, "EmailRegistro")
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					correo = rs.getString("valor");
+				}
+			
+				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				strError = strError + " ya se mando el 1 "
 			}
 
 			if (nfcarrera || nffp || nffi) {
-				def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
-				
-				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				//def objCatConfiguracionDAO = context.apiClient.getDAO(CatConfiguracionDAO.class)
+				strError = strError + " en el if del correo 2 "
+				String correo = "";
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.GET_CORREO_BY_CLAVE)
+				pstm.setString(1, "EmailRegistro")
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					correo = rs.getString("valor");
+				}
+				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				strError = strError + " ANTES DEL RESULTADO "
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + objHubSpotData.toString(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupo(), context)
+				
+				strError = strError + " ya se mando el 2 " + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
 			}
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
@@ -265,7 +287,12 @@ class HubspotDAO {
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
 			new LogDAO().insertTransactionLog("POST", "FALLIDO", "Error inesperado", "Log:"+strError, e.getMessage())
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
+		
 		return resultado
 	}
 	

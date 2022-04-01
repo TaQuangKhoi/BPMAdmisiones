@@ -461,6 +461,10 @@ class SecurityFilter {
 		Boolean allow = false;
 	
 		switch (url) {
+			case "getUsuariosTransferencia":
+				allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+			break;
 		  case "test":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
