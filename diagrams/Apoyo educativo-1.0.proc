@@ -2997,8 +2997,8 @@
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_2cszo30-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_2cszpX0-EeyzGaQRlIj8SQ" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_2cszpH0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <formMapping xmi:type="process:FormMapping" xmi:id="_8AnvOX0-EeyzGaQRlIj8SQ">
-            <targetForm xmi:type="expression:Expression" xmi:id="_IMGfkJTjEeySDOngIntJ0Q" name="SDAEformularioSolicitud" content="64278ef9-d43f-4640-bc30-9769821c5b81" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+          <formMapping xmi:type="process:FormMapping" xmi:id="_8AnvOX0-EeyzGaQRlIj8SQ" type="NONE">
+            <targetForm xmi:type="expression:Expression" xmi:id="_IMGfkJTjEeySDOngIntJ0Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <filters xmi:type="process:ActorFilter" xmi:id="_9ezpEJBFEeyXi82kBsjAAw" name="Asprante iniciador" definitionId="bonita-actorfilter-initiator" definitionVersion="1.0">
             <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_9ezpEZBFEeyXi82kBsjAAw" definitionId="bonita-actorfilter-initiator" version="1.0">
@@ -3847,7 +3847,11 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_4YiK8a7SEeythp1IDODlLA" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <data xmi:type="process:Data" xmi:id="_eVnRELFCEeythp1IDODlLA" name="idAspirante" dataType="_PpGy32c7EeyAHufroJpG_Q">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_eVnREbFCEeythp1IDODlLA" name="init_idAspirante()" content="return idAspiranteInput.toLong();" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_eVnREbFCEeythp1IDODlLA" name="init_idAspirante()" content="idAspiranteInput.toLong()" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_Bsl2oLFMEeythp1IDODlLA" name="idAspiranteInput">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_BsmdsLFMEeythp1IDODlLA"/>
+          </referencedElements>
+        </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_41FZn2dAEeyAHufroJpG_Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_41FZoGdAEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>

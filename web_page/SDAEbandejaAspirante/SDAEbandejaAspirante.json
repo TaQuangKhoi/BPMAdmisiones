@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1648763131385,
+  "lastUpdate" : 1648776509437,
   "rows" : [
     [
       {
@@ -127,7 +127,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "objSolicitudApoyo[0].estatusSolicitud !== \"Pre-autorización solicita modificaciones\""
+                  "value" : "buildContent[0].estado !== \"Pre-autorización solicita modificaciones\""
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -147,11 +147,15 @@
                 },
                 "modalId" : {
                   "type" : "constant"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "/portal/resource/app/aspiranteSDAE/modificar_solicitud_apoyo/content/?app=aspiranteSDAE"
                 }
               },
-              "reference" : "825bc33e-c776-4eba-8e4f-096ad05000c8",
+              "reference" : "ce09bdf5-8f41-4db4-b656-384e116a0ee8",
               "hasValidationError" : false,
-              "id" : "customBtnSDAEnuevaSolicitudAspirante"
+              "id" : "customBtnSDAEredirect"
             }
           ],
           [
@@ -306,7 +310,7 @@
                   "value" : "left"
                 }
               },
-              "reference" : "127e2c24-4d49-4a8f-8364-e232d4eb9045",
+              "reference" : "7beef264-01bb-405d-8320-73a4a1df321d",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -853,7 +857,7 @@
         "        \"periodo\": $data.objSolicitudDeAdmision[0].catPeriodo.descripcion,",
         "        \"nombre\": buildName($data.objSolicitudDeAdmision[0]),",
         "        // \"estado\": $data.objSolicitudDeAdmision[0].catCampusEstudio.estado.descripcion",
-        "        \"estado\": $data.objSolicitudApoyo[0].estatusSolicitud",
+        "        \"estado\": $data.objSolicitudApoyo[$data.objSolicitudApoyo.length - 1].estatusSolicitud",
         "    }    ",
         "    ",
         "    output.push(object);",
