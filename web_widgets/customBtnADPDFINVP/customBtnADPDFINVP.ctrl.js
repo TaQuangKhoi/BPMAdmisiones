@@ -3,11 +3,11 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
       
     $scope.generatePDF = function() {
         //blockUI.start();
-        $scope.properties.idsDivGrafica.forEach(data => {
+        //$scope.properties.idsDivGrafica.forEach(data => {
             //document.getElementById(data.id).classList.remove('chart-container')
-            document.getElementById(data.id).style.height = "509px";
-            document.getElementById(data.id).style.width = "960px";
-        })
+            //document.getElementById(data.id).style.height = "509px";
+            //document.getElementById(data.id).style.width = "960px";
+        //})
        
        
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
