@@ -1,0 +1,83 @@
+{
+  "modelVersion" : "2.2",
+  "id" : "SDAEConfirmacionApoyoAspirante",
+  "name" : "SDAEConfirmacionApoyoAspirante",
+  "lastUpdate" : 1648853622096,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "color-orange"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Confirmación de apoyo educativo"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 3"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "d160e79f-7ad3-47dd-b8c3-8ae0edfc8c52",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "711dc7b0-fcfe-4875-8c35-ce598af48aca",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "52fad818-3169-4f24-b0fb-fb245de6f213",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "caseInfo" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?p=0&c=1&f=started_by={{userData.user_id}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/1"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "c0f4c0eb-5cf1-45d7-a76a-456e930b6608",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}
