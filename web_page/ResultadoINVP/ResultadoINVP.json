@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "ResultadoINVP",
   "name" : "ResultadoINVP",
-  "lastUpdate" : 1643998787277,
+  "lastUpdate" : 1648688806205,
   "rows" : [
     [
       {
@@ -187,6 +187,18 @@
           "idBanner" : {
             "type" : "variable",
             "value" : "aspiranteData.id_siu"
+          },
+          "datosUsuario" : {
+            "type" : "expression",
+            "value" : "aspiranteData"
+          },
+          "respuesta" : {
+            "type" : "expression",
+            "value" : "getResultadoINVP.data"
+          },
+          "userName" : {
+            "type" : "expression",
+            "value" : "userData.user_name"
           }
         },
         "reference" : "81b9e457-a431-4ef3-8e85-8c92ed820176",
@@ -864,7 +876,7 @@
                   "value" : ""
                 },
                 "respuesta" : {
-                  "type" : "variable",
+                  "type" : "expression",
                   "value" : "getResultadoINVP.data"
                 },
                 "sexo" : {
@@ -1617,6 +1629,14 @@
       "value" : [
         "caseId"
       ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

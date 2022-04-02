@@ -56,19 +56,19 @@ class DocumentDAO {
 				def acta = new HashMap<String, Serializable>();
 				
 				String[] extension = sda[0].urlFoto.replace(".", "-").split('-')
-				foto.put("url", sda[0].urlFoto)
+				//foto.put("url", sda[0].urlFoto)
 				foto.put("extension",extension[extension.length-1] )
-				//foto.put("content", fm.b64Url(sda[0].urlFoto + cc[0].valor + "&v="+num))
+				foto.put("content", fm.b64Url(sda[0].urlFoto + cc[0].valor + "&v="+num))
 				
 				String [] constanciaExt = sda[0].urlConstancia.replace('.', '-').split('-');
-				constancia.put("url", sda[0].urlConstancia);
+				//constancia.put("url", sda[0].urlConstancia);
 				constancia.put("extension",constanciaExt[constanciaExt.length-1])
-				//constancia.put("content",fm.b64Url(sda[0].urlConstancia + cc[0].valor + "&v="+num))
+				constancia.put("content",fm.b64Url(sda[0].urlConstancia + cc[0].valor + "&v="+num))
 				
 				String [] actaExt = sda[0].urlActaNacimiento.replace('.', '-').split('-');
-				acta.put("url", sda[0].urlActaNacimiento);
+				//acta.put("url", sda[0].urlActaNacimiento);
 				acta.put("extension", actaExt[actaExt.length-1])
-				//acta.put("content",fm.b64Url(sda[0].urlActaNacimiento + cc[0].valor + "&v="+num))
+				acta.put("content",fm.b64Url(sda[0].urlActaNacimiento + cc[0].valor + "&v="+num))
 				
 				datos.put("idBanner", ds[0].idBanner);
 				datos.put("foto", foto);
