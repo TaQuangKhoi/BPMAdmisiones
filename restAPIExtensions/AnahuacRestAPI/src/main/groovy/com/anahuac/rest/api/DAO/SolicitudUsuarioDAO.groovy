@@ -135,7 +135,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -199,11 +199,11 @@ class SolicitudUsuarioDAO {
 			}
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				
+				resultado.setError_info(errorlog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -271,7 +271,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -314,7 +314,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -359,7 +359,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -406,11 +406,11 @@ class SolicitudUsuarioDAO {
 			}
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				
+				resultado.setError_info(errorlog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -454,7 +454,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -498,7 +498,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -542,7 +542,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -584,7 +584,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -628,7 +628,7 @@ class SolicitudUsuarioDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -658,7 +658,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -716,11 +716,11 @@ public Result getDuplicados(String curp,
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -759,11 +759,11 @@ public Result getDuplicados(String curp,
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -803,11 +803,11 @@ public Result getDuplicados(String curp,
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -847,11 +847,11 @@ public Result getDuplicados(String curp,
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1241,11 +1241,11 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1335,11 +1335,11 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
 			
 			resultado.setSuccess(true);
 			//resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 			if(executar) {
 				con.rollback();
 			}

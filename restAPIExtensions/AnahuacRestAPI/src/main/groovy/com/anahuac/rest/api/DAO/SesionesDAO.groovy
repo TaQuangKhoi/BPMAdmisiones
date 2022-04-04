@@ -131,7 +131,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -187,13 +187,13 @@ class SesionesDAO {
 				contador++;
 			}
 			
-			
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -287,7 +287,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -516,7 +516,7 @@ class SesionesDAO {
 	
 					rows.add(columns);
 				}
-				
+				resultado.setError_info(errorlog)
 				resultado.setSuccess(true)
 				
 				resultado.setData(rows)
@@ -524,7 +524,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1368,7 +1368,7 @@ class SesionesDAO {
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
-			
+			resultado.setError_info(errorlog)
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
@@ -2056,7 +2056,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2383,7 +2383,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2736,7 +2736,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -3122,7 +3122,7 @@ class SesionesDAO {
 				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
 				
 				resultado.setSuccess(true)
-				
+				resultado.setError_info(errorLog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -3158,7 +3158,7 @@ class SesionesDAO {
 				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
 				
 				resultado.setSuccess(true)
-				
+				resultado.setError_info(errorLog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -3213,6 +3213,7 @@ class SesionesDAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				String consulta = Statements.GET_ASPIRANTEPRUEBAASISTIOYREAGENDO;
+				//AND CAST(S.fecha_inicio P.aplicacion AS DATE) < CAST([FECHA] AS DATE)
 				SesionesAspiranteCustom row = new SesionesAspiranteCustom();
 				List<SesionesAspiranteCustom> rows = new ArrayList<SesionesAspiranteCustom>();
 				List<Map<String, Object>> aspirante = new ArrayList<Map<String, Object>>();
@@ -3444,10 +3445,12 @@ class SesionesDAO {
 					
 				}
 										
+				//orderby+="SA.username"
 				orderby+=" "+object.orientation;
 				errorlog+="order by = "+orderby
 				consulta=consulta.replace("[WHERE]", where);
 				if(tipo == 1) {
+					//consulta=consulta.replace("[ENTREVISTA]", "AND RD.responsableid ="+object.usuario)
 					consulta=consulta.replace("[ENTREVISTA]", "");
 					if(object.reporte && object.type == null) {
 						consulta=consulta.replace("[REPORTE]", "AND rd.responsableid = "+object.usuario)
@@ -3522,7 +3525,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4052,7 +4055,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4301,7 +4304,7 @@ class SesionesDAO {
 				}
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				
+				resultado.setError_info(errorLog)
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -4551,11 +4554,26 @@ class SesionesDAO {
 										
 				
 				orderby+=" "+object.orientation;
-				consulta=consulta.replace("[WHERE]", where);				
+				consulta=consulta.replace("[WHERE]", where);
+				
 				consulta=consulta.replace("[ENTREVISTA]", "")
 				consulta=consulta.replace("[REPORTE]", "")
+				/*if(tipo == 1) {
+					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
+				}else {
+					consulta=consulta.replace("[ENTREVISTA]", "")
+				}*/
+				
+				//String HavingGroup ="GROUP BY p.persistenceid,sa.username,sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato"
+				//String Group = "GROUP BY p.persistenceid,sa.username,sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
+				
 				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				//consulta=consulta.replace("[HAVING]", HavingGroup)
+				//consulta=consulta.replace("[GROUPBY]", Group)
+				//consulta=consulta.replace("[COUNT]", "")
+				//consulta=consulta.replace("[COUNTFIN]", "")
+				
 				
 				errorlog+=" consulta :"+consulta
 				pstm = con.prepareStatement(consulta)
@@ -4565,6 +4583,8 @@ class SesionesDAO {
 				pstm.setInt(4, object.offset);
 				
 				rs = pstm.executeQuery()
+				
+				
 				
 				errorlog+="otra llamada "
 				aspirante = new ArrayList<Map<String, Object>>();
@@ -4913,11 +4933,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4959,11 +4979,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5016,11 +5036,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5073,11 +5093,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5370,7 +5390,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5628,7 +5648,15 @@ class SesionesDAO {
 						
 				orderby+=" "+object.orientation;
 				consulta=consulta.replace("[WHERE]", where);
-				consulta=consulta.replace("[ENTREVISTA]", "");
+				
+				//String Group = "GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato, sda.urlfoto";
+				/*if(tipo == 1) {
+					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
+				}else {
+					consulta=consulta.replace("[ENTREVISTA]", "")
+				}*/
+				
+				consulta=consulta.replace("[ENTREVISTA]", "")
 				
 				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", "count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				pstm.setInt(1, object.prueba);
@@ -5693,7 +5721,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5938,7 +5966,7 @@ class SesionesDAO {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorlog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -6238,12 +6266,12 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			
+			resultado.setError_info(errorlog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorlog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -6499,7 +6527,7 @@ class SesionesDAO {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorlog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -6944,7 +6972,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				
+				resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -7330,11 +7358,11 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows2)
-			
+			resultado.setError_info(errorLog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorLog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -7374,11 +7402,11 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -7449,7 +7477,7 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			
+			resultado.setError_info(errorLog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
@@ -7487,7 +7515,7 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			
+			resultado.setError_info(errorLog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
@@ -7526,7 +7554,7 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			
+			resultado.setError_info(errorLog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
@@ -7610,7 +7638,7 @@ class SesionesDAO {
 				con.commit();
 				
 				resultado.setSuccess(true)
-				
+				resultado.setError_info(errorLog);
 			} catch (Exception e) {
 			String es = e.getMessage();
 			resultado.setSuccess(false);

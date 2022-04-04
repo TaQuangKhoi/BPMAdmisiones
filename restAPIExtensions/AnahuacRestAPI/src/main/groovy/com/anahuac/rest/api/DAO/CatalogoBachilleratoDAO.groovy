@@ -391,11 +391,11 @@ class CatalogoBachilleratoDAO {
 				resultado.setData(rows)
 					
 					resultado.setSuccess(true)
-					
+					resultado.setError_info(errorLog)
 					resultado.setData(rows)
 					
 				} catch (Exception e) {
-					
+					resultado.setError_info(errorLog)
 					resultado.setSuccess(false);
 					resultado.setError(e.getMessage());
 			}finally {

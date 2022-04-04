@@ -477,11 +477,11 @@ class TransferenciasDAO {
             }
             resultado.setSuccess(true)
 
-            
+            resultado.setError_info(errorlog);
             resultado.setData(rows)
 
         } catch (Exception e) {
-            
+            resultado.setError_info(errorlog)
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -593,7 +593,7 @@ class TransferenciasDAO {
             resultado.setSuccess(true)
             resultado.setError_info(errorLog+ " || rHdao.getError_info()");
         } catch (Exception ex) {
-            
+            resultado.setError_info(errorLog);
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
             con.rollback();
@@ -641,10 +641,10 @@ class TransferenciasDAO {
 
             resultado.setSuccess(true);
             resultado.setData(data)
-            
+            resultado.setError_info(errorlog);
         } catch (Exception e) {
             errorlog += " falle " + e.getMessage()
-            
+            resultado.setError_info(errorlog);
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -1019,7 +1019,7 @@ class TransferenciasDAO {
                 rows.add(row);
             }
             resultado.setSuccess(true);
-            
+            resultado.setError_info(errorlog);
             resultado.setData(rows);
 
         } catch (Exception e) {
@@ -1027,7 +1027,7 @@ class TransferenciasDAO {
             resultado.setError(e.getMessage());
             errorlog += " ERROR "
             e.getMessage();
-            
+            resultado.setError_info(errorlog)
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1131,9 +1131,9 @@ class TransferenciasDAO {
 				 con.commit();*/
 			}
             resultado.setSuccess(true)
-            
+            resultado.setError_info(errorLog);
         } catch (Exception ex) {
-            
+            resultado.setError_info(errorLog);
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
             //con.rollback();
@@ -1188,7 +1188,7 @@ class TransferenciasDAO {
 			con.commit();
 			
 		}catch (Exception ex) {
-            
+            resultado.setError_info(errorLog);
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
             con.rollback();

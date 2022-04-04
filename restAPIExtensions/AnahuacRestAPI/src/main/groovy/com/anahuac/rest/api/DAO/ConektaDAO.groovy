@@ -938,14 +938,14 @@ class ConektaDAO {
 				rows.add(row);
 			}
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -994,14 +994,14 @@ class ConektaDAO {
 				rows.add(row);
 			}
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

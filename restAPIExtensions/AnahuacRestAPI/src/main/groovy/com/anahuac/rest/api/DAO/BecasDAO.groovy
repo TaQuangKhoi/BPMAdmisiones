@@ -294,13 +294,13 @@ class BecasDAO {
 			//lstResultado.add(encodeFileToBase64Binary(nameFile));
 			resultado.setSuccess(true);
 			//resultado.setData(lstResultado);
-			
+			resultado.setError_info(errorLog);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 			e.printStackTrace();
 		}
 		
@@ -394,13 +394,13 @@ class BecasDAO {
 			
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 			e.printStackTrace();
 		}
 		
@@ -460,13 +460,13 @@ class BecasDAO {
 			
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
-			
+			resultado.setError_info(errorLog);
 			ex.printStackTrace();
 		} finally {
 			try {
@@ -736,13 +736,13 @@ class BecasDAO {
 			
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
-			
+			resultado.setError_info(errorLog);
 			ex.printStackTrace();
 		} finally {
 			try {
@@ -1134,11 +1134,11 @@ class BecasDAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				
+				resultado.setError_info(errorlog);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			
+			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1173,11 +1173,11 @@ class BecasDAO {
 					throw new Exception("Fallo en Hermanos:"+dataResult.getError());
 				}
 				resultado.setSuccess(true);
-				
+				resultado.setError_info(errorLog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

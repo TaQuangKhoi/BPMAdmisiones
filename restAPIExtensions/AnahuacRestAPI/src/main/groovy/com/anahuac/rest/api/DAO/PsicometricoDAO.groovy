@@ -1343,12 +1343,12 @@ class PsicometricoDAO {
 			errorLog += "INTEGRACION SUBIDA "+nombreDato +": "+resultado.isSuccess()+",ERROR:"+resultado.getError()+",ERROR_INFO:"+resultado.getError_info();
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 			
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 		}
 		
 		return resultado;
@@ -2318,12 +2318,12 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			
+			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3028,12 +3028,12 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			
+			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3739,12 +3739,12 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			
+			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3782,7 +3782,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3823,7 +3823,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3873,7 +3873,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3910,7 +3910,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3973,9 +3973,9 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			}
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			
+			resultado.setError_info(errorLog);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4026,9 +4026,9 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			}
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			
+			resultado.setError_info(errorLog);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4067,7 +4067,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4133,7 +4133,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4169,7 +4169,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4204,7 +4204,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4262,7 +4262,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4301,7 +4301,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4341,7 +4341,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			
+			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {

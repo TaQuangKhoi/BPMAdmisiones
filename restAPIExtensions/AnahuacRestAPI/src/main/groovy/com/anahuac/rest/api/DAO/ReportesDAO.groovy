@@ -173,13 +173,13 @@ class ReportesDAO {
 
             resultado.setSuccess(true);
             //resultado.setData(lstResultado);
-            
+            resultado.setError_info(errorLog);
 
         } catch (Exception e) {
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            
+            resultado.setError_info(errorLog);
             e.printStackTrace();
         } finally {
             if (closeCon) {
@@ -373,13 +373,13 @@ class ReportesDAO {
 
             resultado.setSuccess(true);
             //resultado.setData(lstResultado);
-            
+            resultado.setError_info(errorLog);
 
         } catch (Exception e) {
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            
+            resultado.setError_info(errorLog);
             e.printStackTrace();
         } finally {
             if (closeCon) {
@@ -526,13 +526,13 @@ class ReportesDAO {
 
             resultado.setSuccess(true);
             //resultado.setData(lstResultado);
-            
+            resultado.setError_info(errorLog);
 
         } catch (Exception e) {
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            
+            resultado.setError_info(errorLog);
             e.printStackTrace();
         } finally {
             if (closeCon) {
@@ -720,13 +720,13 @@ class ReportesDAO {
 
             resultado.setSuccess(true);
             //resultado.setData(lstResultado);
-            
+            resultado.setError_info(errorLog);
 
         } catch (Exception e) {
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            
+            resultado.setError_info(errorLog);
             e.printStackTrace();
         } finally {
             if (closeCon) {
@@ -998,13 +998,13 @@ class ReportesDAO {
 
 			resultado.setSuccess(true);
 			//resultado.setData(lstResultado);
-			
+			resultado.setError_info(errorLog);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 			e.printStackTrace();
 		} finally {
 			if (closeCon) {

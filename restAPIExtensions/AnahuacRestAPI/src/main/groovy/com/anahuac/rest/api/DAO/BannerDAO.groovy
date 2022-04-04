@@ -1540,11 +1540,11 @@ class BannerDAO {
 			resultado.setData(lstEducationalInstitutions);
 
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 
 		} catch (Exception e) {
 			resultado.setSuccess(false);
-			
+			resultado.setError_info(errorLog);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
 		} finally {
@@ -1988,14 +1988,14 @@ class BannerDAO {
 				insertStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,codeScore.equals("MMPI"))
 			}
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog)
 			//resultadoGetConsumeJSON.setSuccess(true);
 		} catch (Exception e) {
 			errorLog += " | " + e.getMessage();
 			e.printStackTrace()
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorLog)
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2147,7 +2147,7 @@ class BannerDAO {
 			
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog)
 			
 			//resultadoGetConsumeJSON.setSuccess(true);
 		} catch (Exception e) {
@@ -2155,7 +2155,7 @@ class BannerDAO {
 			e.printStackTrace()
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorLog)
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

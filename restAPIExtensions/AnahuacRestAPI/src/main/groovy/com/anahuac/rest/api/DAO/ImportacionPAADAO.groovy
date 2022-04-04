@@ -169,7 +169,7 @@ class ImportacionPAADAO {
 					/*Result resultado2 = new Result();
 					resultado2 = subirDatosBannerEthos(jsonData,context);
 					errorLog += "INTEGRACION:"+resultado2.isSuccess()+"ERROR:"+resultado2.getError()+"ERROR_INFO:"+resultado2.getError_info();*/
-					//
+					//resultado.setError_info(errorLog);
 				}
 				resultado.setSuccess(true);
 				//resultado.setData(estatus)
@@ -390,7 +390,7 @@ class ImportacionPAADAO {
 					errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();*/
 				}
 				resultado.setSuccess(true);
-				
+				resultado.setError_info(errorLog);
 				
 			}
 			resultado = new BannerDAO().multiThread(machine)
@@ -398,7 +398,7 @@ class ImportacionPAADAO {
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 		}
 		
 		return resultado;
@@ -494,11 +494,11 @@ class ImportacionPAADAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				
+				resultado.setError_info(errorLog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -554,11 +554,11 @@ class ImportacionPAADAO {
 				con.commit();
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				
+				resultado.setError_info(errorLog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog)
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -992,11 +992,11 @@ class ImportacionPAADAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				
+				resultado.setError_info(errorlog);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-				
+			resultado.setError_info(errorlog)	
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1041,11 +1041,11 @@ class ImportacionPAADAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorlog);
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1522,11 +1522,11 @@ class ImportacionPAADAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				
+				resultado.setError_info(errorlog);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-				
+			resultado.setError_info(errorlog)	
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1645,13 +1645,13 @@ class ImportacionPAADAO {
 			lstResultado.add( new ListadoDAO().encodeFileToBase64Binary("ReportImportacionEAC.xls"));
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
-			
+			resultado.setError_info(errorLog);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 			e.printStackTrace();
 		}
 		
@@ -2034,7 +2034,7 @@ class ImportacionPAADAO {
 			}
 			errorLog+= "|| info machine"+machine
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 			
 			if(machine.size() > 0) {
 				resultado = new BannerDAO().multiThread(machine);
@@ -2044,7 +2044,7 @@ class ImportacionPAADAO {
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog);
 		}
 		
 		return resultado;
@@ -2610,11 +2610,11 @@ class ImportacionPAADAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				
+				resultado.setError_info(errorlog);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			
+			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {

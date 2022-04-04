@@ -189,10 +189,10 @@ class ResultadosAdmisionDAO {
 			pstm.executeUpdate();
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorlog);
 			
 		} catch (Exception e) {
-			
+			resultado.setError_info(errorlog)
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -433,10 +433,10 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows);
 		} catch (Exception e) {
-			
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			LOGGER.error e.getMessage();
@@ -652,10 +652,10 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows);
 		} catch (Exception e) {
-			
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			LOGGER.error e.getMessage();
@@ -1031,11 +1031,11 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
-			
+			resultado.setError_info(errorlog);
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
-			
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			LOGGER.error e.getMessage();
@@ -1081,9 +1081,9 @@ class ResultadosAdmisionDAO {
 			pstm.executeUpdate();
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
-			
+			resultado.setError_info(errorlog)
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1215,9 +1215,9 @@ class ResultadosAdmisionDAO {
 			
 			resultado.setData(lstData);
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorlog);
 		} catch (Exception e) {
-			
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1607,11 +1607,11 @@ class ResultadosAdmisionDAO {
             }
             resultado.setSuccess(true);
             
-            
+            resultado.setError_info(errorlog);
             resultado.setData(rows);
             
         } catch (Exception e) {
-            
+            resultado.setError_info(errorlog);
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
             LOGGER.error e.getMessage();
