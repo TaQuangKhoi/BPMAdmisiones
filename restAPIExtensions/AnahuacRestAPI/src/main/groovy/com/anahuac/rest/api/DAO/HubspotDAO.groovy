@@ -1630,6 +1630,7 @@ class HubspotDAO {
 		Boolean nfcarrera = false;
 		Boolean nffp = false;
 		Boolean nffi = false;
+		Boolean closeCon = false;
 		String msjNF = "";
 		Date fecha = new Date();
 		Date fechaNacimiento = new Date();
