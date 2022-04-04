@@ -512,11 +512,11 @@ class ReactivacionDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -605,9 +605,9 @@ class ReactivacionDAO {
 			//errorLog += "Formateo: "+formateo.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+formateo.getError_info();
 			
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception ex) {
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			if(autoCommit) {
@@ -724,11 +724,11 @@ class ReactivacionDAO {
 			
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 		}finally {
 			if (closeCon) {
@@ -753,12 +753,12 @@ class ReactivacionDAO {
 			errorLog += " Respaldo: "+resultado2.isSuccess().toString()+" Errores: "+resultado2.getError()+" Error_info: "+resultado2.getError_info();
 			
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -816,11 +816,11 @@ class ReactivacionDAO {
 			errorLog+="9"
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 			
 		}finally {
@@ -1252,12 +1252,12 @@ class ReactivacionDAO {
 			errorlog = consulta + " 9" + consultaCount;
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -1476,14 +1476,14 @@ class ReactivacionDAO {
 				}
 	        }
 
-	        resultado.setError_info(errorlog);
+	        
 	        resultado.setSuccess(true);
 	        resultado.setData(lstResultado);
 	    } catch (Exception e) {
 	    	errorlog += " | Exception: "+e;
 	        resultado.setSuccess(false);
 	        resultado.setError(e.getMessage());
-	        resultado.setError_info(errorlog)
+	        
 	    } finally {
 	        if (closeCon) {
 	            new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1561,7 +1561,7 @@ class ReactivacionDAO {
 			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
 			resultado.setSuccess(false);
 			resultado.setError(loginApi.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}
 		return resultado;
 	}
@@ -1974,13 +1974,13 @@ class ReactivacionDAO {
 			rows.add("${caseId}")
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			
 			resultado.setData(rows);
 		} catch (Exception loginApi) {
 			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
 			resultado.setSuccess(false);
 			resultado.setError(loginApi.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2247,11 +2247,11 @@ class ReactivacionDAO {
 			}
 			
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 		}finally {
 			if (closeCon) {
@@ -2295,12 +2295,12 @@ class ReactivacionDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows)
-			resultado.setError_info(errorLog);
+			
 			} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
