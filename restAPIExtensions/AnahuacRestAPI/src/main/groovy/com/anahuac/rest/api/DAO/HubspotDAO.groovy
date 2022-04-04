@@ -269,8 +269,9 @@ class HubspotDAO {
 					correo = rs.getString("valor");
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				msjNF += " en el catalogo de HubSpot"
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br><br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
@@ -581,8 +582,9 @@ class HubspotDAO {
 					correo = rs.getString("valor");
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				msjNF += " en el catalogo de HubSpot"
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error - Propiedad no encotrada", msjNF + "<br><br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
@@ -1828,9 +1830,9 @@ class HubspotDAO {
 					correo = rs.getString("valor");
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				msjNF += " en el catalogo de HubSpot"
 				MailGunDAO mgd = new MailGunDAO();
-				
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br><br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
@@ -2213,8 +2215,9 @@ class HubspotDAO {
 				  correo = rs.getString("valor");
 			  }
 			  //List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+			  msjNF += " en el catalogo de HubSpot"
 			  MailGunDAO mgd = new MailGunDAO();
-			  Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+			  Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error - Propiedad no encotrada", msjNF + "<br><br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 			  
 			  strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 		  }
@@ -2726,8 +2729,9 @@ class HubspotDAO {
 					correo = rs.getString("valor");
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
+				msjNF += " en el catalogo de HubSpot"
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error - Propiedad no encotrada", msjNF + "<br><br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
 				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
