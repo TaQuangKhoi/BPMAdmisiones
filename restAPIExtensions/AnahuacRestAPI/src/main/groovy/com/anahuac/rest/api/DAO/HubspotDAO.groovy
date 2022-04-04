@@ -254,7 +254,7 @@ class HubspotDAO {
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				Result correoenviado =mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 				//resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context).getData().get(0)
 			}
 
@@ -270,9 +270,9 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			//resultado.setSuccess(true);
@@ -541,7 +541,7 @@ class HubspotDAO {
 				
 				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
 			}
 
 			if (!resultado.success) {
@@ -566,7 +566,7 @@ class HubspotDAO {
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				Result correoenviado =mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 				//resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context).getData().get(0)
 			}
 
@@ -582,9 +582,9 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Solicitud enviada Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
 			resultado.setError_info(strError);
 			//resultado.setSuccess(true);
@@ -1788,7 +1788,7 @@ class HubspotDAO {
 				
 				List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
+				resultado.error+="|email:"+config.get(0).getValor()+"|response:"+mgd.sendEmailPlantilla(config.get(0).getValor(), "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getClave(), context).getData().get(0)
 			}
 
 			if (!resultado.success) {
@@ -1813,7 +1813,7 @@ class HubspotDAO {
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				Result correoenviado =mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 				//resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context).getData().get(0)
 			}
 
@@ -1829,9 +1829,10 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Registro Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
@@ -2197,7 +2198,7 @@ class HubspotDAO {
 			  //List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 			  MailGunDAO mgd = new MailGunDAO();
 			  Result correoenviado =mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
-			  strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+			  strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			  //resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context).getData().get(0)
 		  }
 
@@ -2213,9 +2214,9 @@ class HubspotDAO {
 			  }
 			  //List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 			  MailGunDAO mgd = new MailGunDAO();
-			  Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+			  Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Usuario registrado Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 			  
-			  strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+			  strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 		  }
 		 
 		  
@@ -2710,7 +2711,7 @@ class HubspotDAO {
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
 				Result correoenviado =mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 				//resultado.error+="|email:"+correo+"|response:"+mgd.sendEmailPlantilla(correo, "Hubspot Registro Error", resultado.getError(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context).getData().get(0)
 			}
 
@@ -2726,9 +2727,9 @@ class HubspotDAO {
 				}
 				//List<CatConfiguracion> config =objCatConfiguracionDAO.findByClave("EmailRegistro",0,1)
 				MailGunDAO mgd = new MailGunDAO();
-				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error - Propiedad no encotrada", msjNF + "<br>" + strError, "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
+				Result correoenviado = mgd.sendEmailPlantilla(correo, "Hubspot Transferir Aspirante Error - Propiedad no encotrada", msjNF + "<br>" + resultado.getError_info(), "",lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context)
 				
-				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getError_info();
+				strError += strError + correoenviado.isSuccess().toString() + " | " + correoenviado.getInfo();
 			}
 
           resultado.setData(data)
