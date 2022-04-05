@@ -415,7 +415,7 @@ class UsuariosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -800,7 +800,7 @@ class UsuariosDAO {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1360,13 +1360,13 @@ class UsuariosDAO {
 				}
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				//resultado.setError(consulta);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1671,10 +1671,10 @@ class UsuariosDAO {
 			
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();
@@ -1744,10 +1744,10 @@ class UsuariosDAO {
 			pstm.execute();
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();
@@ -1825,7 +1825,7 @@ class UsuariosDAO {
 		
 		try {
 		
-				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				List<Map<String, Boolean>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexionBonita();
 				pstm = con.prepareStatement(Statements.GET_USERS_BY_USERNAME)
 				pstm.setString(1, username)
@@ -1834,14 +1834,8 @@ class UsuariosDAO {
 				rows = new ArrayList<Map<String, Object>>();
 				ResultSetMetaData metaData = rs.getMetaData();
 				int columnCount = metaData.getColumnCount();
-				while(rs.next()) {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-	
-					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}
-	
-					rows.add(columns);
+				while(rs.next()) {	
+					rows.add(true);
 				}
 				resultado.setSuccess(true)
 				
@@ -2482,12 +2476,12 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -2938,12 +2932,12 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3638,12 +3632,12 @@ class UsuariosDAO {
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3684,7 +3678,7 @@ class UsuariosDAO {
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
-			resultado.setError_info(errorlog)
+			
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
@@ -3713,7 +3707,7 @@ class UsuariosDAO {
 				
 				con.commit();
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -4001,12 +3995,12 @@ class UsuariosDAO {
 			errorlog = " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4040,7 +4034,7 @@ class UsuariosDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
@@ -4104,7 +4098,7 @@ class UsuariosDAO {
 
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setAdditional_data(tipo);	
+			resultado.setAdditional_data(tipo);
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")

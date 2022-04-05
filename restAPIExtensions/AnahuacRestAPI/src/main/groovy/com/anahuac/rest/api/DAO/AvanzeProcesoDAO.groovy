@@ -535,7 +535,7 @@ class AvanzeProcesoDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)
+			
 		}catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(errorLog)

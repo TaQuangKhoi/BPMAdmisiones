@@ -963,12 +963,12 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 				insertCatBitacoraCorreos(catBitacoraCorreo)
 			}
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorlog)
+			
 			e.printStackTrace()
 		}
 		
@@ -1446,7 +1446,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				} catch (Exception e) {
 					resultado.setSuccess(false);
 					resultado.setError(e.getMessage());
-					resultado.setError_info(errorlog)
+					
 			}finally {
 				if(closeCon) {
 					new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1906,11 +1906,11 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				resultado.setSuccess(true)
 				
 				resultado.setData(rows)
-				resultado.setError_info(errorlog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
