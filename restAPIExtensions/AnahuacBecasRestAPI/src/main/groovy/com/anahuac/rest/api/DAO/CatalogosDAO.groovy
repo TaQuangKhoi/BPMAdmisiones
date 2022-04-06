@@ -1060,8 +1060,6 @@ class CatalogosDAO {
 			if(rs.next()) {
 				if(object.isDelete) {
 					pstm = con.prepareStatement(StatementsCatalogos.DELETE_CAMPUS_TIPO_APOYO_EXIST);
-					pstm.setLong(1, object.idCampus);
-					pstm.setLong(2, object.idTipoApoyo);
 				} else {
 					throw new Exception("El registro ya existe");
 				}
@@ -1069,17 +1067,13 @@ class CatalogosDAO {
 			} else {
 				if(!object.isDelete) {
 					pstm = con.prepareStatement(StatementsCatalogos.INSERT_CAMPUS_TIPO_APOYO_EXIST);
-					pstm.setLong(1, object.idCampus);
-					pstm.setLong(2, object.idTipoApoyo);
-					pstm.setBoolean(3, false);
-					pstm.setBoolean(4, false);
-					pstm.setBoolean(5, false);
-					
 				} else {
 					throw new Exception("No se puede eliminar un registro que no existe");
 				}
 			}
 			
+			pstm.setLong(1, object.idCampus);
+			pstm.setLong(2, object.idTipoApoyo);
 			
 			pstm.executeUpdate();
 			
