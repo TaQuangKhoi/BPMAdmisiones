@@ -608,6 +608,7 @@ class ReactivacionDAO {
 			//errorLog += "Formateo: "+formateo.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+formateo.getError_info();
 			
 			resultado.setSuccess(true)
+			resultado.setError_info(errorLog)
 			
 		} catch (Exception ex) {
 			
@@ -1985,7 +1986,7 @@ class ReactivacionDAO {
 			rows.add("${caseId}")
 			
 			resultado.setSuccess(true);
-			
+			resultado.setError_info(errorLog);
 			resultado.setData(rows);
 		} catch (Exception loginApi) {
 			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
@@ -2085,7 +2086,7 @@ class ReactivacionDAO {
 			
 			con.setAutoCommit(false)
 			// INSERTAR ISELIMINADO
-			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catConcluisteProceso_pid = sda.catConcluisteProceso_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, isEliminado = false  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catConcluisteProceso_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
+			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catConcluisteProceso_pid = sda.catConcluisteProceso_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, isEliminado = false, selectedindex = 1  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catConcluisteProceso_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
 			pstm.executeUpdate();
 			errorLog+="solicitud";
 			
@@ -2170,12 +2171,26 @@ class ReactivacionDAO {
 			}
 			
 			/*for(int i = 0; i<contexto?.lstInformacionEscolar_ref?.storageIds?.size(); i++) {
-				pstm = con.prepareStatement("UPDATE EscuelasHasEstado SET anofin = pt.anofin, anoinicio = pt.anoinicio, caseid = ${caseIdDestino}, ciudad = pt.ciudad, estadostring = pt.estadostring, otraescuela = pt.otraescuela, persistenceversion = pt.persistenceversion, promedio = pt.promedio, escuela_pid = pt.escuela_pid, estado_pid = pt.estado_pid, grado_pid = pt.grado_pid, pais_pid = pt.pais_pid, tipo_pid = pt.tipo_pid, vencido = pt.vencido FROM (SELECT anofin, anoinicio, caseid, ciudad estadostring, otraescuela, persistenceversion, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido FROM EscuelasHasEstado WHERE persistenceId = ${contexto?.lstInformacionEscolar_ref?.storageIds[i]} ) as pt WHERE EscuelasHasEstado.persistenceId = "+contexto2?.lstInformacionEscolar_ref?.storageIds[i]);
+				pstm = con.prepareStatement("INSERT INTO EscuelasHasEstado (persistenceid, anofin, anoinicio, caseid, ciudad, estadostring, otraescuela, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido) SELECT (case when (SELECT max(persistenceId)+1 from EscuelasHasEstado ) is null then 1 else (SELECT max(persistenceId)+1 from EscuelasHasEstado) end) AS persistenceid, pt.anofin, pt.anoinicio, ${caseIdDestino} as caseid,pt.ciudad,pt.estadostring,pt.otraescuela,pt.promedio,pt.escuela_pid,pt.estado_pid,pt.grado_pid,pt.pais_pid,pt.tipo_pid,pt.vencido FROM EscuelasHasEstado as PT WHERE pt.persistenceid =  ${contexto2?.lstInformacionEscolar_ref?.storageIds[i]}");
 				pstm.executeUpdate();
 				errorLog+=", lstInformacionEscolar_ref";
 			}*/
 			
+			pstm = con.prepareStatement("UPDATE sesionaspirante SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", sesionaspirante";
 			
+			pstm = con.prepareStatement("UPDATE CatBitacoraSesiones SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", CatBitacoraSesiones";
+			
+			pstm = con.prepareStatement("UPDATE AspirantesPruebas SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", AspirantesPruebas";
+			
+			pstm = con.prepareStatement("UPDATE paseLista SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", paseLista";
 			
 			
 			con.commit();
@@ -2191,27 +2206,33 @@ class ReactivacionDAO {
 			while(rs.next()) {
 				lstEscuelasHasEstadoids.add(rs.getLong("data_id"))
 			}
-			
+			if(lstEscuelasHasEstadoids.size() < 1) {
+				pstm = con.prepareStatement("SELECT  md.data_id FROM arch_ref_biz_data_inst data  INNER JOIN arch_multi_biz_data md on md.id=data.id where orig_proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					lstEscuelasHasEstadoids.add(rs.getLong("data_id"))
+				}
+			}
+			errorLog+=",autodescripcion";
 			pstm = con.prepareStatement("UPDATE REF_BIZ_DATA_INST SET data_id=? where proc_inst_id=${caseIdDestino} and name='autodescripcionV2' ")
 			pstm.setLong(1,autodescripcionId)
-
 			pstm.executeUpdate();
 			
+			errorLog+=",detalleSolicitud";
 			pstm = con.prepareStatement("UPDATE REF_BIZ_DATA_INST SET data_id=? where proc_inst_id=${caseIdDestino} and name='detalleSolicitud' ")
 			pstm.setLong(1,detalleSolicitudId)
-
 			pstm.executeUpdate();
 			
 			con.commit();
 			
 			con.close()
-			
+			errorLog+=",INICIO2 lstInformacionEscolar_ref";
 			validarConexion()
 			con.setAutoCommit(false)
 			List<Long> lstEscuelasHasEstadoDestinoids = new ArrayList()
 			for(Long escuelasHasEstadoId: lstEscuelasHasEstadoids) {
 				
-				pstm = con.prepareStatement("INSERT INTO EscuelasHasEstado (persistenceid,anofin, anoinicio, ciudad estadostring, otraescuela, persistenceversion, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido,caseid) SELECT (case when (SELECT max(persistenceId)+1 from EscuelasHasEstado ) is null then 1 else (SELECT max(persistenceId)+1 from EscuelasHasEstado) end) AS persistenceid,anofin, anoinicio, ciudad estadostring, otraescuela, persistenceversion, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido, '${caseIdDestino}' as caseid FROM EscuelasHasEstado WHERE persistenceid = '"+escuelasHasEstadoId+"' RETURNING persistenceid")
+				pstm = con.prepareStatement("INSERT INTO EscuelasHasEstado (persistenceid, anofin, anoinicio, caseid, ciudad, estadostring, otraescuela, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido) SELECT (case when (SELECT max(persistenceId)+1 from EscuelasHasEstado ) is null then 1 else (SELECT max(persistenceId)+1 from EscuelasHasEstado) end) AS persistenceid, pt.anofin, pt.anoinicio, ${caseIdDestino} as caseid,pt.ciudad,pt.estadostring,pt.otraescuela,pt.promedio,pt.escuela_pid,pt.estado_pid,pt.grado_pid,pt.pais_pid,pt.tipo_pid,pt.vencido FROM EscuelasHasEstado as PT WHERE pt.persistenceid = ${escuelasHasEstadoId} RETURNING persistenceid")
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					lstEscuelasHasEstadoDestinoids.add(rs.getLong("persistenceid"))
@@ -2234,13 +2255,13 @@ class ReactivacionDAO {
 			validarConexion()
 			con.setAutoCommit(false);
 			
-			
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(true)
 			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			
+			resultado.setError_info(errorLog);
 			con.rollback();
 		}finally {
 			if (closeCon) {

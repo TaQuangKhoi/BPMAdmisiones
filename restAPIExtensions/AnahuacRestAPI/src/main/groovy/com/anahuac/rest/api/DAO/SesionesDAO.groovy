@@ -2783,6 +2783,7 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	
 	public Result getPsicologoSesiones(Long id) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -7610,11 +7611,12 @@ class SesionesDAO {
 				con.commit();
 				
 				resultado.setSuccess(true)
-				
+				resultado.setError_info(errorLog)
 			} catch (Exception e) {
 			String es = e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(es);
+			resultado.setError_info(errorLog)
 			con.rollback();
 		}finally {
 			if(closeCon) {
