@@ -2035,7 +2035,7 @@ class HubspotDAO {
 		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() )
 		  String error = "";
 		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
-		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", "${error} ${urlParaVisitar}", e.getMessage(), campus, context)
+		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", "${error}", e.getMessage(), campus, context)
 		  throw new Exception( e.getMessage() )
 	  }
 	  
@@ -2086,7 +2086,7 @@ class HubspotDAO {
 		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() );
 		  String error = "";
 		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
-		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", " ${error} (${urlParaVisitar})", e.getMessage(), campus, context);
+		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", " ${error}", e.getMessage(), campus, context);
 		  throw new Exception( e.getMessage() )
 	  }
 	  
