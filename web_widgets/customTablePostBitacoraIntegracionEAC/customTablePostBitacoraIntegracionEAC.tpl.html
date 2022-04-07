@@ -87,7 +87,7 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='USUARIOSUBIO'"></i></span>
                     </th>
-                    <th ng-if="properties.orden == false && properties.isTI == true" > Acciones</th>
+                    <th ng-if="(properties.orden == false && properties.isTI == true)" > Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -142,7 +142,7 @@
                         <br>
                         <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                     </td>
-                    <td class="max-size" ng-if="properties.orden == false && properties.isTI == true">
+                    <td class="max-size" ng-if="(properties.orden == false && properties.isTI == true)">
                         <table>
                             <tr>
                                 <td>
