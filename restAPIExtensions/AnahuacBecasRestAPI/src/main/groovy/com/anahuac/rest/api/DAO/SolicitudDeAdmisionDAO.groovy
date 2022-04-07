@@ -100,9 +100,9 @@ class SolicitudDeAdmisionDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
-			resultado.setError_info(errorLog)
+			
 			LOGGER.error "[ERROR] " + e.getMessage()
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
@@ -157,9 +157,9 @@ class SolicitudDeAdmisionDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -221,9 +221,9 @@ class SolicitudDeAdmisionDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
-			resultado.setError_info(errorLog)
+			
 			LOGGER.error "[ERROR] " + e.getMessage()
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())

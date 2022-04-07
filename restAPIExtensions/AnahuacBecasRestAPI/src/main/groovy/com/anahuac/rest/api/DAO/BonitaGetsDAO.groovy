@@ -122,7 +122,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -167,7 +167,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -236,7 +236,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -313,7 +313,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		finally {
@@ -365,7 +365,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		} 
 		finally {
@@ -446,7 +446,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		finally {
@@ -686,7 +686,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -726,7 +726,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -791,7 +791,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -836,7 +836,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -877,7 +877,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		finally {
