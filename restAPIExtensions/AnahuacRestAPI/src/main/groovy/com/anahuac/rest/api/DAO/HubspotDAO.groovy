@@ -149,7 +149,7 @@ class HubspotDAO {
 						if(!lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave().equals("")) {
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 //							lstValueProperties = getLstValueProperties("carrera");
-							lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("carrera", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
@@ -166,7 +166,7 @@ class HubspotDAO {
 						if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
-							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("periodo_propedeutico_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
 								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
@@ -186,7 +186,7 @@ class HubspotDAO {
 						if(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
-							lstValueProperties = getLstValueProperties("periodo_de_ingreso_bpm", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("periodo_de_ingreso_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave())) {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
@@ -331,7 +331,7 @@ class HubspotDAO {
 			resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 			apikeyHubspot = (String) resultadoApiKey.getData().get(0);
 			strError = strError + " | try 3";
-			List < HubspotProperties > lstHubspotProperties = getLstHubspotProperties("importacion_estados", apikeyHubspot);
+			List < HubspotProperties > lstHubspotProperties = getLstHubspotProperties2("importacion_estados", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 	
 			//Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 			Date fechaNacimiento = new Date();
@@ -352,7 +352,7 @@ class HubspotDAO {
 						strError = strError + " | ";
 						if (!lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave().equals("")) {
 							strError = strError + " | !vacio";
-							lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("carrera", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							//strError = strError + " | "+lstValueProperties.join("--");
 							if (lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): " + lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
@@ -370,7 +370,7 @@ class HubspotDAO {
 						if (lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): " + lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
-							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("periodo_propedeutico_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if (lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): " + lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
 								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
@@ -390,7 +390,7 @@ class HubspotDAO {
 						if(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
-							lstValueProperties = getLstValueProperties("periodo_de_ingreso_bpm", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("periodo_de_ingreso_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave())) {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
@@ -411,7 +411,7 @@ class HubspotDAO {
 						if(lstSolicitudDeAdmision.get(0).getCatEstado().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatEstado().getClave(): "+lstSolicitudDeAdmision.get(0).getCatEstado().getClave();
-							lstValueProperties = getLstValueProperties("importacion_estados", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("importacion_estados", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatEstado().getClave())) {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatEstado().getClave(): "+lstSolicitudDeAdmision.get(0).getCatEstado().getClave();
@@ -1538,6 +1538,7 @@ class HubspotDAO {
 		}
 		rd.close();
 		
+		
 		jsonData = resultado.toString()
 		
 		def jsonSlurper = new JsonSlurper();
@@ -1546,6 +1547,7 @@ class HubspotDAO {
 		if(object.options != null) {
 			assert object.options instanceof List;
 		}
+		
 		
 		
 		for(def row: object.options) {
@@ -1579,6 +1581,7 @@ class HubspotDAO {
 		}
 		rd.close();
 		
+		
 		jsonData = resultado.toString()
 		
 		def jsonSlurper = new JsonSlurper();
@@ -1604,6 +1607,8 @@ class HubspotDAO {
 				lstResultado.add(objHubspotProperties);
 			}
 		}
+		
+		
 		
 		return lstResultado;
 	}
@@ -1695,7 +1700,7 @@ class HubspotDAO {
 						strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave():------- "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 						if(!lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave().equals("")) {
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
-							lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("carrera", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
@@ -1712,7 +1717,7 @@ class HubspotDAO {
 						if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
-							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("periodo_propedeutico_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
 								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
@@ -1732,7 +1737,7 @@ class HubspotDAO {
 						if(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave() != null) {
 							strError = strError + " | tiene clave";
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
-							lstValueProperties = getLstValueProperties("periodo_de_ingreso_bpm", apikeyHubspot);
+							lstValueProperties = getLstValueProperties2("periodo_de_ingreso_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave())) {
 								strError = strError + " | entro al if";
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
@@ -1976,6 +1981,147 @@ class HubspotDAO {
 	  return resultado
   }
   
+  public Result enviarCorreoError(String titulo, String msjNF,String Error,String campus,RestAPIContext context) {
+	  Result resultado = new Result();
+	  Boolean closeCon = false;
+
+	  String errorlog="";
+	  String apikey = "";
+	  List<String> lstResultado = new ArrayList<String>();
+
+	  try {
+		  closeCon = validarConexion();
+
+		  String correo = "";
+		  pstm = con.prepareStatement(Statements.GET_CORREO_BY_CLAVE)
+		  pstm.setString(1, "EmailRegistro")
+		  rs = pstm.executeQuery()
+		  while(rs.next()) {
+			  correo = rs.getString("valor");
+		  }
+		  
+		  MailGunDAO mgd = new MailGunDAO();
+		  resultado = mgd.sendEmailPlantilla(correo, titulo, msjNF + "<br><br>" + Error, "",campus, context)
+	  } catch (Exception e) {
+		  resultado.setSuccess(false);
+		  resultado.setError(e.getMessage());		  
+	  }finally {
+		  if(closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm)
+		  }
+	  }
+	  return resultado
+  }
+  
+  public List<String> getLstValueProperties2(String campo, String apikeyHubspot,String campus,RestAPIContext context) throws Exception {
+	  List<String> lstResultado = new ArrayList<String>();
+	  String jsonData = "";
+//		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99";
+//		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
+	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
+
+	  StringBuilder resultado = new StringBuilder();
+	  try {
+		  URL url = new URL(urlParaVisitar);
+		  HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+		  conexion.setRequestMethod("GET");
+		  BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+		  String linea;
+		  while ((linea = rd.readLine()) != null) {
+			  resultado.append(linea);
+		  }
+		  rd.close();
+	  }catch(IOException e) {
+		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() )
+		  String error = "";
+		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
+		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", "${error} ${urlParaVisitar}", e.getMessage(), campus, context)
+		  throw new Exception( e.getMessage() )
+	  }
+	  
+	  
+	  jsonData = resultado.toString()
+	  
+	  def jsonSlurper = new JsonSlurper();
+	  def object = jsonSlurper.parseText(jsonData);
+	  assert object instanceof Map;
+	  if(object.options != null) {
+		  assert object.options instanceof List;
+	  }
+	  
+	  
+	  
+	  for(def row: object.options) {
+		  assert row instanceof Map;
+		  if(!row.value.equals("")){
+			  lstResultado.add(row.value);
+		  }
+	  }
+	  
+	  return lstResultado;
+  }
+  
+  public List<HubspotProperties> getLstHubspotProperties2(String campo, String apikeyHubspot,String campus,RestAPIContext context) throws Exception {
+	  List<HubspotProperties> lstResultado = new ArrayList<HubspotProperties>();
+	  HubspotProperties objHubspotProperties =  new HubspotProperties();
+	  String jsonData = "";
+
+//		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
+//		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
+	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
+
+	  StringBuilder resultado = new StringBuilder();
+	  
+	  try {
+		  URL url = new URL(urlParaVisitar);
+		  HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+		  conexion.setRequestMethod("GET");
+		  BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+		  String linea;
+		  while ((linea = rd.readLine()) != null) {
+			  resultado.append(linea);
+		  }
+		  rd.close();
+	  }catch(IOException e) {
+		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() );
+		  String error = "";
+		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
+		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", " ${error} (${urlParaVisitar})", e.getMessage(), campus, context);
+		  throw new Exception( e.getMessage() )
+	  }
+	  
+	  
+	  jsonData = resultado.toString()
+	  
+	  def jsonSlurper = new JsonSlurper();
+	  def object = jsonSlurper.parseText(jsonData);
+	  assert object instanceof Map;
+	  if(object.options != null) {
+		  assert object.options instanceof List;
+	  }
+	  
+	  
+	  for(def row: object.options) {
+		  assert row instanceof Map;
+		  if(!row.value.equals("")){
+			  
+			  objHubspotProperties =  new HubspotProperties();
+			  objHubspotProperties.setHidden(Boolean.valueOf(row.hidden == null ? "false" : row.hidden.toString()));
+			  objHubspotProperties.setReadOnly(Boolean.valueOf(row.readOnly == null ? "false" : row.readOnly.toString()));
+			  objHubspotProperties.setLabel(String.valueOf(row.label == null ? "" : row.label.toString()));
+			  objHubspotProperties.setDescription(String.valueOf(row.label == null ? "" : row.label.toString()));
+			  objHubspotProperties.setDisplayOrder(Long.valueOf(row.displayOrder == null ? "0" : row.displayOrder.toString()));
+			  objHubspotProperties.setValue(String.valueOf(row.value == null ? "" : row.value.toString()));
+			  
+			  lstResultado.add(objHubspotProperties);
+		  }
+	  }
+	  
+	  
+	  
+	  return lstResultado;
+  }
+  
   public Result replicarProperties(String nombreUsuario, String correoElectronico, String apikeyHubspot) {
 	  Result resultado = new Result();
 	  List<String> lstNoHubspot = new ArrayList<String>();
@@ -2116,7 +2262,7 @@ class HubspotDAO {
 		  
 		  if(object.catGestionEscolar != null) {
 			  if(!object.catGestionEscolar.clave.equals("")) {
-				  lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
+				  lstValueProperties = getLstValueProperties2("carrera", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 				  strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
 				  if(lstValueProperties.contains(object.catGestionEscolar.clave)) {
 					  objHubSpotData.put("carrera", object.catGestionEscolar.clave);
@@ -2130,7 +2276,7 @@ class HubspotDAO {
 		  //objHubSpotData.put("carrera",object.catGestionEscolar.clave);
 		  
 		  if(object.catPeriodo != null) {
-			  lstValueProperties = getLstValueProperties("periodo_de_ingreso_bpm", apikeyHubspot);
+			  lstValueProperties = getLstValueProperties2("periodo_de_ingreso_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 			  strError+= " | lstValueProperties:"+lstValueProperties
 			  if(lstValueProperties.contains(object.catPeriodo.clave)) {
 				  strError = strError + " | entro al if";
@@ -2143,7 +2289,7 @@ class HubspotDAO {
 		  //objHubSpotData.put("periodo_de_ingreso_bpm",object.catPeriodo.clave);
 		  
 		  if(object.catPropedeutico !=null && object.propedeutico != null) {
-			  lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+			  lstValueProperties = getLstValueProperties2("periodo_propedeutico_bpm", apikeyHubspot,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
 			  if(lstValueProperties.contains(object.catPropedeutico.clave)) {
 				  objHubSpotData.put("periodo_propedeutico_bpm", object.catPropedeutico.clave);
 			  }else{
@@ -2427,7 +2573,7 @@ class HubspotDAO {
                         if(!lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave().equals("")) {
                             strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 //                          lstValueProperties = getLstValueProperties("carrera");
-                            lstValueProperties = getLstValueProperties("carrera", apikeyHubspotOriginal);
+                            lstValueProperties = getLstValueProperties2("carrera", apikeyHubspotOriginal,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
                             strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
                             if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
                                 strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
@@ -2444,7 +2590,7 @@ class HubspotDAO {
                         if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
                             strError = strError + " | tiene clave";
                             strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
-                            lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspotOriginal);
+                            lstValueProperties = getLstValueProperties2("periodo_propedeutico_bpm", apikeyHubspotOriginal,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
                             if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
                                 strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
                                 objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
@@ -2464,7 +2610,7 @@ class HubspotDAO {
                         if(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave() != null) {
                             strError = strError + " | tiene clave";
                             strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
-                            lstValueProperties = getLstValueProperties("periodo_de_ingreso_bpm", apikeyHubspotOriginal);
+                            lstValueProperties = getLstValueProperties2("periodo_de_ingreso_bpm", apikeyHubspotOriginal,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
                             if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave())) {
                                 strError = strError + " | entro al if";
                                 strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave();
@@ -2502,7 +2648,7 @@ class HubspotDAO {
                     if(lstSolicitudDeAdmision.get(0).getCatEstado().getClave() != null) {
                         strError = strError + " | tiene clave";
                         strError = strError + " | lstSolicitudDeAdmision.get(0).getCatEstado().getClave(): "+lstSolicitudDeAdmision.get(0).getCatEstado().getClave();
-                        lstValueProperties = getLstValueProperties("importacion_estados", apikeyHubspotOriginal);
+                        lstValueProperties = getLstValueProperties2("importacion_estados", apikeyHubspotOriginal,lstSolicitudDeAdmision.get(0).getCatCampus().getGrupoBonita(), context);
                         if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatEstado().getClave())) {
                             strError = strError + " | entro al if";
                             strError = strError + " | lstSolicitudDeAdmision.get(0).getCatEstado().getClave(): "+lstSolicitudDeAdmision.get(0).getCatEstado().getClave();
