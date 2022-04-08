@@ -988,7 +988,8 @@ class TransferenciasDAO {
 				errorlog += " Antes de la foto "
 				if(urlFoto != null && !urlFoto.isEmpty()) {
 					errorlog += " foto azure "
-					encoded = rs.getString("urlfoto") +SSA;
+					//encoded = rs.getString("urlfoto") +SSA;
+					encoded = base64Imagen((rs.getString("urlfoto") + SSA));
 					row.setImg(encoded);
 				}else {
 					errorlog += " foto bdm "
