@@ -1201,12 +1201,12 @@ class ListadoDAO {
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {

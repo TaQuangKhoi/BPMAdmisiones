@@ -215,6 +215,12 @@ class SecurityFilter {
 				allow=bonitaRolFilter(context,"ASPIRANTE")
 				if(allow){break;}
 				break;
+				case "getDatosSesionId":
+				allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ASPIRANTE")
+				if(allow){break;}
+				break;
 				case "getPaletteColor":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;

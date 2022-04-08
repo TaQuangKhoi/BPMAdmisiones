@@ -272,12 +272,12 @@ class CatalogosDAO {
 				rows.add(row)
 			}
 			errorLog +=" 6";
-			//resultado.setError_info(errorLog);
+			//
 			resultado.setSuccess(true)
 			resultado.setData(rows)
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -362,12 +362,12 @@ class CatalogosDAO {
 					errorLog+= " salio";
 					con.commit();
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog);
+				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
-				resultado.setError_info(errorLog);
+				
 			} finally {
 				if(closeCon) {
 					new DBConnect().closeObj(con, stm, rs, pstm)
@@ -415,12 +415,12 @@ class CatalogosDAO {
 			errorLog+= " salio";
 //			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -460,12 +460,12 @@ class CatalogosDAO {
 					errorLog+= " salio";
 					con.commit();
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog);
+				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
-				resultado.setError_info(errorLog);
+				
 			} finally {
 				if(closeCon) {
 					new DBConnect().closeObj(con, stm, rs, pstm)
@@ -512,12 +512,12 @@ class CatalogosDAO {
 			}
 			con.commit();
 			resultado.setSuccess(true)
-			//resultado.setError_info(errorLog);
+			//
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertUpdateCatGenerico] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -680,7 +680,7 @@ class CatalogosDAO {
 			resultado.setData(rows);
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -737,10 +737,10 @@ class CatalogosDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -907,12 +907,12 @@ class CatalogosDAO {
 				rows.add(row);
 			}
 			errorLog +=" 6";
-			//resultado.setError_info(errorLog);
+			//
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -962,12 +962,12 @@ class CatalogosDAO {
 			}
 			
 			errorLog +=" 6";
-			//resultado.setError_info(errorLog);
+			//
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1016,10 +1016,10 @@ class CatalogosDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1079,10 +1079,10 @@ class CatalogosDAO {
 			
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1141,10 +1141,10 @@ class CatalogosDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1182,12 +1182,12 @@ class CatalogosDAO {
 			pstm.setLong(5, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1210,12 +1210,12 @@ class CatalogosDAO {
 			pstm.setLong(1, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1265,12 +1265,12 @@ class CatalogosDAO {
 			errorLog+= " salio";
 //			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1297,7 +1297,7 @@ class CatalogosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1343,10 +1343,10 @@ class CatalogosDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1397,12 +1397,12 @@ class CatalogosDAO {
 			errorLog+= " salio";
 //			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1459,10 +1459,10 @@ class CatalogosDAO {
 			
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
-			resultado.setError_info(errorLog);
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());

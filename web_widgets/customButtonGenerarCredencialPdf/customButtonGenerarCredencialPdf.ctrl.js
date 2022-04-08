@@ -15,7 +15,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().from(element).set(opt).save();
-            Swal.fire("¡Descarga!", "La descarga comenzara en breve, no cierres ni actualices la página.", "success");
+            Swal.fire("¡Descarga!", "La descarga comenzará en breve, no cierres ni actualices la página.", "success");
             //blockUI.stop()
             if ($scope.properties.isCorrectTask) {
                 // document.getElementById('btnDescargar').disabled= 'disabled'; 

@@ -1134,11 +1134,11 @@ class BecasDAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1173,11 +1173,11 @@ class BecasDAO {
 					throw new Exception("Fallo en Hermanos:"+dataResult.getError());
 				}
 				resultado.setSuccess(true);
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

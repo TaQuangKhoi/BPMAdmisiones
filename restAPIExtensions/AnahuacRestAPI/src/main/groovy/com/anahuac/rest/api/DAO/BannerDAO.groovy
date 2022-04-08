@@ -2147,7 +2147,7 @@ class BannerDAO {
 			
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)
+			
 			
 			//resultadoGetConsumeJSON.setSuccess(true);
 		} catch (Exception e) {
@@ -2155,7 +2155,7 @@ class BannerDAO {
 			e.printStackTrace()
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
