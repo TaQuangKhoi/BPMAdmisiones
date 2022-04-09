@@ -1325,11 +1325,11 @@ class UsuariosDAO {
 					for (int i = 1; i <= columnCount; i++) {
 						
 						String label = metaData.getColumnLabel(i).toLowerCase();
-						if(label.equals("urlfoto") || label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
+						if(label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
 							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
 								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
 							} else {
-								columns.put(metaData.getColumnLabel(i).toLowerCase(), "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString(i) + SSA+"&v="+num)));
+								columns.put(metaData.getColumnLabel(i).toLowerCase(),  rs.getString("urlfoto") + SSA+"&v="+num );
 							}
 							
 						} else {
@@ -1339,7 +1339,7 @@ class UsuariosDAO {
 								try {
 									String urlFoto = rs.getString("urlfoto");
 									if(urlFoto != null && !urlFoto.isEmpty()) {
-										columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("urlfoto") + SSA+"&v="+num)));
+										columns.put("fotografiab64",  base64Imagen((rs.getString("urlfoto") + SSA+"&v="+num)) );
 									}else {
 										List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 										for(Document doc : doc1) {
