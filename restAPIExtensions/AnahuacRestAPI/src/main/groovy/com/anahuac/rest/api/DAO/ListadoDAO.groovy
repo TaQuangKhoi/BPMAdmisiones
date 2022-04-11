@@ -57,6 +57,7 @@ import com.anahuac.rest.api.Entity.Custom.PruebasCustom
 import com.anahuac.rest.api.Entity.Custom.SolicitudAdmisionCustom
 import com.anahuac.rest.api.Entity.Custom.SesionesAspiranteCustom
 import com.anahuac.rest.api.DB.Statements;
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.bonitasoft.engine.bpm.parameter.ParameterCriterion
 import com.bonitasoft.engine.bpm.process.impl.ProcessInstanceSearchDescriptor
 import com.bonitasoft.web.extension.rest.RestAPIContext
@@ -1373,7 +1374,8 @@ class ListadoDAO {
                         try {
                             String urlFoto = rs.getString("urlfoto");
                             if (urlFoto != null && !urlFoto.isEmpty()) {
-                                columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+								columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+                                //columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
                             } else {
                                 noAzure = true;
                                 List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
@@ -3272,7 +3274,8 @@ class ListadoDAO {
                             try {
                                 String urlFoto = rs.getString("urlfoto");
                                 if (urlFoto != null && !urlFoto.isEmpty()) {
-                                    columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+                                    //columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
                                 } else {
                                     List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
                                     for (Document doc: doc1) {
@@ -3825,6 +3828,20 @@ class ListadoDAO {
         }
         return resultado
     }
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
+	}
 
     public Result selectSolicitudesEnProceso(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
@@ -4421,7 +4438,8 @@ class ListadoDAO {
 
                             String urlFoto = rs.getString("urlfoto");
                             if (urlFoto != null && !urlFoto.isEmpty()) {
-                                columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+							columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+                                //columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
                             } else {
                                 List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
                                 for (Document doc: doc1) {

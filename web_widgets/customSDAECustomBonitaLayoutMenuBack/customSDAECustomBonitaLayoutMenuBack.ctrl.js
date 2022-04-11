@@ -298,6 +298,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "revisionAreaArtistica";
         }else if (appName === "bandejaBecas") {
             ctrl.pageToken = "bandejaBecas";
+        }else if (appName === "BandejaFinanzas") {
+            ctrl.pageToken = "BandejaFinanzas";
         }
         
         

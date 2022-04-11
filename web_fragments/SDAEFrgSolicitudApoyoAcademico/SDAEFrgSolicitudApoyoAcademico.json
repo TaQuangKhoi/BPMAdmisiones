@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1648683751826,
+  "lastUpdate" : 1649465417782,
   "rows" : [
     [
       {
@@ -297,7 +297,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -800,7 +800,7 @@
                             },
                             "correoUsuario" : {
                               "type" : "variable",
-                              "value" : "userDataEmail[0]"
+                              "value" : "userData.username"
                             }
                           },
                           "reference" : "f0cd46b7-9a08-46e7-b96d-0f3d3ce97852",
@@ -3179,7 +3179,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -7475,7 +7475,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -8081,7 +8081,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -11402,6 +11402,14 @@
                       "urlDownloadFile" : {
                         "type" : "expression",
                         "value" : "urlDownloadFileAzure"
+                      },
+                      "isMostrar" : {
+                        "type" : "expression",
+                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                      },
+                      "idDocumento" : {
+                        "type" : "expression",
+                        "value" : "$item.persistenceId"
                       }
                     },
                     "reference" : "eabba872-8ee9-43b9-8e20-b38d1402ef47",
@@ -11480,7 +11488,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -11643,11 +11651,71 @@
                       "urlDownloadFile" : {
                         "type" : "expression",
                         "value" : "urlDownloadFileAzure"
+                      },
+                      "isMostrar" : {
+                        "type" : "expression",
+                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                      },
+                      "idDocumento" : {
+                        "type" : "expression",
+                        "value" : "$item.persistenceId"
                       }
                     },
                     "reference" : "6fcb902f-3583-4537-8255-0ec96ccb4297",
                     "hasValidationError" : false,
                     "id" : "customSDAEUploadCustomAzure"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "{{!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos}}\n\n{{formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos}}"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "d03f9f8d-1621-40ed-8ce0-19a20c47014d",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -11822,6 +11890,58 @@
                         "type" : "constant",
                         "value" : false
                       },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "{{ returnCatValue.catTipoApoyo.condicionesVideo }}"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "282518e8-5f61-4ebd-88d6-37e13e355dc9",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
                       "required" : {
                         "type" : "constant",
                         "value" : false
@@ -11882,86 +12002,6 @@
                   }
                 ]
               ]
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Finalizar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "wizardLength" : {
-                  "type" : "variable",
-                  "value" : "wizardContent.length"
-                },
-                "selectedIndex" : {
-                  "type" : "variable",
-                  "value" : "selectedIndex"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Siguiente"
-                },
-                "isValidStep" : {
-                  "type" : "variable",
-                  "value" : "validar5"
-                },
-                "errorMessage" : {
-                  "type" : "expression",
-                  "value" : "errorPaso5"
-                },
-                "messageTitle" : {
-                  "type" : "expression",
-                  "value" : "tituloErrorPaso5"
-                },
-                "formOutput" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest"
-                },
-                "taskId" : {
-                  "type" : "variable",
-                  "value" : "taskid"
-                },
-                "reloadTask" : {
-                  "type" : "variable",
-                  "value" : "reloadTask"
-                },
-                "caseId" : {
-                  "type" : "variable",
-                  "value" : "caseId"
-                }
-              },
-              "reference" : "0f5cad51-0e86-4e1d-bc99-1b2ebb7c641a",
-              "hasValidationError" : false,
-              "id" : "customSDAEcustomBtnWizardFinalizar"
             }
           ]
         ]

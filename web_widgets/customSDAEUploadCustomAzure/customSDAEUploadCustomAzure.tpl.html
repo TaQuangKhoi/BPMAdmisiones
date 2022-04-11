@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="upload-file-customized-footer2">
-        <div ng-class="{
+        <div ng-hide="properties.isMostrar" ng-class="{
             'form-horizontal': properties.labelPosition === 'left' && !properties.labelHidden,
             'row': properties.labelPosition === 'top' && !properties.labelHidden || properties.labelHidden
             }">
@@ -56,7 +56,7 @@
         <div class="col-12 text-center m-top" ng-if="properties.urlAzure" ng-click="downloadFile()">
             <button class="btn btn-primary"> Descargar archivo </button>
         </div>
-        <div class="col-12 text-center obligatorio" ng-if="properties.isObligatorio">
+        <div class="col-12 text-center obligatorio" ng-if="properties.isObligatorio" ng-hide="properties.isMostrar">
             <label>Obligatorio</label>
         </div>
         <div class="col-12 text-center no-obligatorio" ng-if="!properties.isObligatorio">

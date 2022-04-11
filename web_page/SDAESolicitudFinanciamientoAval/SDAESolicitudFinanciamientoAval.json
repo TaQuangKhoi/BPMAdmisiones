@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1649271817230,
+  "lastUpdate" : 1649464865909,
   "rows" : [
     [
       {
@@ -43,6 +43,102 @@
         "hasValidationError" : false,
         "id" : "pbTitle",
         "description" : ""
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\" + userData.user_id"
+          },
+          "reloadTask" : {
+            "type" : "variable",
+            "value" : true
+          },
+          "taskId" : {
+            "type" : "variable",
+            "value" : "taskId"
+          },
+          "caseId" : {
+            "type" : "variable",
+            "value" : "caseId"
+          },
+          "urlContext" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/userTask/\"+taskId+\"/context\""
+          },
+          "solicitudApoyoEducativo" : {
+            "type" : "variable",
+            "value" : "formOutputTest.solicitudApoyoEducativoInput"
+          },
+          "hermanos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.hermanosInput"
+          },
+          "lstDocumentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.lstDocumentosDocumentInput"
+          },
+          "autos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.autosInput"
+          },
+          "bienesRaices" : {
+            "type" : "variable",
+            "value" : "formOutputTest.bienesRaicesInput"
+          },
+          "fotoCalleCasa" : {
+            "type" : "variable",
+            "value" : "formOutputTest.fotoCalleCasaDocumentInput"
+          },
+          "fotoComedorCasa" : {
+            "type" : "variable",
+            "value" : "formOutputTest.fotoComedorCasaDocumentInput"
+          },
+          "fotoFachadaCasa" : {
+            "type" : "variable",
+            "value" : "formOutputTest.fotoFachadaCasaDocumentInput"
+          },
+          "fotoSalaCasa" : {
+            "type" : "variable",
+            "value" : "formOutputTest.fotoSalaCasaDocumentInput"
+          },
+          "documentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.documentosSolicitanteInput"
+          },
+          "imagenesSocioEco" : {
+            "type" : "variable",
+            "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
+          },
+          "lstDocumentosByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "getDocumentosByTipoApoyo.data"
+          },
+          "lstImagenesByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "imagenesSocioEconomico.data"
+          }
+        },
+        "reference" : "bbc1cb89-3cf3-4000-9430-39f38474e22c",
+        "hasValidationError" : false,
+        "id" : "customSDAEGetTareaUsuario"
       }
     ],
     [
@@ -117,7 +213,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -247,8 +343,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "selectedIndex !== 5"
                 }
               },
               "reference" : "c0f072aa-8458-412c-a4cf-ba13e0208042",
@@ -327,7 +423,7 @@
                               },
                               "buttonStyle" : {
                                 "type" : "constant",
-                                "value" : "default"
+                                "value" : "info"
                               },
                               "wizardLength" : {
                                 "type" : "variable",
@@ -429,7 +525,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -441,7 +537,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Default label"
+                                "value" : "validateInfoPersonal"
                               },
                               "value" : {
                                 "type" : "variable",
@@ -1429,7 +1525,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -1441,7 +1537,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Default label"
+                                "value" : "validateInfoLaboral"
                               },
                               "value" : {
                                 "type" : "variable",
@@ -2892,7 +2988,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -2904,7 +3000,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Default label"
+                                "value" : "validateInfoInmueble"
                               },
                               "value" : {
                                 "type" : "variable",
@@ -2923,7 +3019,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -2998,7 +3094,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3073,7 +3169,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3148,7 +3244,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3223,7 +3319,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3298,7 +3394,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3373,7 +3469,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 5
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3448,7 +3544,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 6,
-                              "lg" : 1
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -3578,7 +3674,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "disabled" : {
                           "type" : "constant",
@@ -3590,7 +3686,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Default label"
+                          "value" : "validateInfoPropiedad"
                         },
                         "value" : {
                           "type" : "variable",
@@ -4384,7 +4480,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "disabled" : {
                           "type" : "constant",
@@ -4396,7 +4492,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Default label"
+                          "value" : "validateInfoReferenciasBancarias"
                         },
                         "value" : {
                           "type" : "variable",
@@ -4446,6 +4542,103 @@
                       "reference" : "76d4e9ce-da0b-4f8b-a005-12a77ae49311",
                       "hasValidationError" : false,
                       "id" : "pbTitle",
+                      "description" : ""
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "md" : 12,
+                        "sm" : 12,
+                        "xs" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "removeItem" : {
+                          "type" : "variable"
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "primary"
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add AvalReferencia"
+                        },
+                        "dataToSend" : {
+                          "type" : "expression"
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant"
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Add to collection"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable",
+                          "value" : "avalReferenciasBancariasModel"
+                        },
+                        "valueToAdd" : {
+                          "type" : "expression",
+                          "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"banco\" : \"\",\r\n  \"tipoCuenta\" : \"\",\r\n  \"numeroCuenta\" : \"\",\r\n  \"saldoPromedio\" : \"\"\r\n}"
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "dimension" : {
+                          "type" : "constant",
+                          "value" : 12
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable"
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "683792b1-4191-422c-ae98-27a99ecc14da",
+                      "hasValidationError" : false,
+                      "id" : "pbButton",
                       "description" : ""
                     }
                   ],
@@ -4871,79 +5064,6 @@
                         "lg" : 12
                       },
                       "propertyValues" : {
-                        "removeItem" : {
-                          "type" : "variable"
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "primary"
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add AvalReferencia"
-                        },
-                        "dataToSend" : {
-                          "type" : "expression"
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant"
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Add to collection"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable",
-                          "value" : "avalReferenciasBancariasModel"
-                        },
-                        "valueToAdd" : {
-                          "type" : "expression",
-                          "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"banco\" : \"\",\r\n  \"tipoCuenta\" : \"\",\r\n  \"numeroCuenta\" : \"\",\r\n  \"saldoPromedio\" : \"\"\r\n}"
-                        },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
-                        },
-                        "dimension" : {
-                          "type" : "constant",
-                          "value" : 12
-                        }
-                      },
-                      "reference" : "683792b1-4191-422c-ae98-27a99ecc14da",
-                      "hasValidationError" : false,
-                      "id" : "pbButton",
-                      "description" : ""
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
-                        "xs" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
                         "hidden" : {
                           "type" : "constant",
                           "value" : false
@@ -4991,7 +5111,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "disabled" : {
                           "type" : "constant",
@@ -5003,7 +5123,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Default label"
+                          "value" : "validateInfoReferenciasCredito"
                         },
                         "value" : {
                           "type" : "variable",
@@ -5013,6 +5133,103 @@
                       "reference" : "99399c3e-994e-497d-9596-dd6fef6b2d55",
                       "hasValidationError" : false,
                       "id" : "pbCheckbox"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "md" : 12,
+                        "sm" : 12,
+                        "xs" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "removeItem" : {
+                          "type" : "variable"
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "primary"
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add AvalReferencia"
+                        },
+                        "dataToSend" : {
+                          "type" : "expression"
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant"
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Add to collection"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable",
+                          "value" : "avalReferenciaCreditoModel"
+                        },
+                        "valueToAdd" : {
+                          "type" : "expression",
+                          "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"banco\" : \"\",\r\n  \"tipoCuenta\" : \"\",\r\n  \"numeroCuenta\" : \"\",\r\n  \"saldoPromedio\" : \"\"\r\n}"
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "dimension" : {
+                          "type" : "constant",
+                          "value" : 12
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable"
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "c62f1e69-8f2c-4b76-b55c-4d91716d96ad",
+                      "hasValidationError" : false,
+                      "id" : "pbButton",
+                      "description" : ""
                     }
                   ],
                   [
@@ -5431,73 +5648,80 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
                         "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
                         "lg" : 12
                       },
                       "propertyValues" : {
-                        "removeItem" : {
-                          "type" : "variable"
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
                         },
                         "hidden" : {
                           "type" : "constant",
                           "value" : false
                         },
-                        "cssClasses" : {
+                        "disabled" : {
                           "type" : "constant",
-                          "value" : ""
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Finalizar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "right"
                         },
                         "buttonStyle" : {
                           "type" : "constant",
                           "value" : "primary"
                         },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add AvalReferencia"
+                        "wizardLength" : {
+                          "type" : "variable",
+                          "value" : "wizardContent.length"
                         },
-                        "dataToSend" : {
-                          "type" : "expression"
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant"
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
+                        "selectedIndex" : {
+                          "type" : "variable",
+                          "value" : "selectedIndex"
                         },
                         "action" : {
                           "type" : "constant",
-                          "value" : "Add to collection"
+                          "value" : "Siguiente"
                         },
-                        "collectionToModify" : {
+                        "isValidStep" : {
                           "type" : "variable",
-                          "value" : "avalReferenciaCreditoModel"
+                          "value" : "validateStep1"
                         },
-                        "valueToAdd" : {
+                        "errorMessage" : {
                           "type" : "expression",
-                          "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"banco\" : \"\",\r\n  \"tipoCuenta\" : \"\",\r\n  \"numeroCuenta\" : \"\",\r\n  \"saldoPromedio\" : \"\"\r\n}"
+                          "value" : "errorMessage"
                         },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
+                        "messageTitle" : {
+                          "type" : "expression",
+                          "value" : "titleMessage"
                         },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
+                        "formOutput" : {
+                          "type" : "variable",
+                          "value" : "formOutput"
                         },
-                        "dimension" : {
-                          "type" : "constant",
-                          "value" : 12
+                        "taskId" : {
+                          "type" : "variable",
+                          "value" : "taskId"
+                        },
+                        "reloadTask" : {
+                          "type" : "variable",
+                          "value" : "reloadTask"
+                        },
+                        "caseId" : {
+                          "type" : "variable",
+                          "value" : "caseId"
                         }
                       },
-                      "reference" : "c62f1e69-8f2c-4b76-b55c-4d91716d96ad",
+                      "reference" : "0b42f1db-70e2-4c4f-a0d8-49133b0564b1",
                       "hasValidationError" : false,
-                      "id" : "pbButton",
-                      "description" : ""
+                      "id" : "customSDAEcustomBtnWizardFinalizarAval"
                     }
                   ],
                   [
@@ -5515,7 +5739,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "cssClasses" : {
                           "type" : "constant",
@@ -5933,6 +6157,10 @@
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Apellido paterno' no debe ir vacío\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
+        "} else if(!$data.avalInfoPersonalModel.calleYNumero){\r",
+        "    output = false;\r",
+        "\t$data.errorMEssageInfoPersonal = \"Campo 'Calle y número' no debe ir vacío\";\r",
+        "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
         "} else if(!$data.avalInfoPersonalModel.apellidoMaterno){\r",
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Apellido materno' no debe ir vacío\";\r",
@@ -5980,8 +6208,26 @@
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMEssageInfoPersonal);",
         "    $data.titleMessage = angular.copy($data.titleMEssageInfoPersonal);",
-        "} else if (!$data.validateInfoPersonal){",
-        "    ",
+        "} else if (!$data.validateInfoLaboral){",
+        "    output = false;",
+        "    $data.errorMessage = angular.copy($data.errorMessageInfoLaboral);",
+        "    $data.titleMessage = angular.copy($data.titleMessageInfoLaboral);",
+        "} else if (!$data.validateInfoInmueble){",
+        "    output = false;",
+        "    $data.errorMessage = angular.copy($data.validateInfoInmueble);",
+        "    $data.titleMessage = angular.copy($data.titleMessageInfoInmueble);",
+        "} else if (!$data.validateInfoPropiedad){",
+        "    output = false;",
+        "    $data.errorMessage = angular.copy($data.errorMessageInfoPropiedad);",
+        "    $data.titleMessage = angular.copy($data.titleMessageInfoPropiedad);",
+        "} else if (!$data.validateReferenciasBancarias){",
+        "    output = false;",
+        "    $data.errorMessage = angular.copy($data.errorMessageReferenciasBancarias);",
+        "    $data.titleMessage = angular.copy($data.titleMessageReferenciasBancarias);",
+        "} else if (!$data.validateInfoReferenciasCredito){",
+        "    output = false;",
+        "    $data.errorMessage = angular.copy($data.errorMessageReferenciasCredito);",
+        "    $data.titleMessage = angular.copy($data.titleMessageReferenciasCredito);",
         "}",
         "",
         "return output;"
@@ -6216,7 +6462,35 @@
     "validateReferenciasBancarias" : {
       "type" : "expression",
       "value" : [
-        "return true;"
+        "let output = true;\r",
+        "\r",
+        "if(!$data.avalReferenciaCreditoModel){\r",
+        "    output = false;\r",
+        "    $data.errorMessageReferenciasCredito = \"Debes introducir por lo menos  un regfistro en 'Referencias bancarias'\";\r",
+        "\t$data.titleMessageReferenciasCredito = \"Referencias del aval\";\r",
+        "} else {\r",
+        "\tfor(let i = 0; i < $data.avalReferenciaCreditoModel.length; i++){\r",
+        "\t\tif(!$data.avalReferenciaCreditoModel[i].banco){\r",
+        "\t\t\toutput = false;\r",
+        "\t\t\t$data.errorMessageReferenciasCredito = \"El campo 'Banco' en alguna de las referencias de crédito introducidas está vacío.\";\r",
+        "\t\t\t$data.titleMessageReferenciasCredito = \"Referencias del aval\";\r",
+        "\t\t} else if(!$data.avalReferenciaCreditoModel[i].tipoCuenta){\r",
+        "\t\t\toutput = false;\r",
+        "\t\t\t$data.errorMessageReferenciasCredito = \"El campo 'Tipo de cuenta' en alguna de las referencias de crédito introducidas está vacío.\";\r",
+        "\t\t\t$data.titleMessageReferenciasCredito = \"Referencias del aval\";\r",
+        "\t\t} else if(!$data.avalReferenciaCreditoModel[i].numeroCuenta){\r",
+        "\t\t\toutput = false;\r",
+        "\t\t\t$data.errorMessageReferenciasCredito = \"El campo 'Número de cuenta' en alguna de las referencias de crédito introducidas está vacío.\";\r",
+        "\t\t\t$data.titleMessageReferenciasCredito = \"Referencias del aval\";\r",
+        "\t\t} else if(!$data.avalReferenciaCreditoModel[i].saldoPromedio){\r",
+        "\t\t\toutput = false;\r",
+        "\t\t\t$data.errorMessageReferenciasCredito = \"El campo 'Saldo promedio' en alguna de las referencias de crédito introducidas está vacío.\";\r",
+        "\t\t\t$data.titleMessageReferenciasCredito = \"Referencias del aval\";\r",
+        "\t\t}\r",
+        "\t}\r",
+        "}\r",
+        "\r",
+        "return output;"
       ],
       "exposed" : false
     },
@@ -6336,85 +6610,16 @@
       "exposed" : false
     },
     "formOutputTest" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "  {\r",
-        "    \t\"solicitudApoyoEducativoInput\":{\r",
-        "    \t\t\"caseId\": null,\r",
-        "    \t\t\"pageIndex\":\"\",\r",
-        "    \t\t\"costoMensualColegiatura\":\"\",\r",
-        "    \t\t\"calificacionOficialPreparatoria\":\"\",\r",
-        "    \t\t\"nombreTutor\":\"\",\r",
-        "    \t\t\"telefonoCasaTutor\":\"\",\r",
-        "    \t\t\"telefonoOficinaTutor\":\"\",\r",
-        "    \t\t\"telefonoCelularTutor\":\"\",\r",
-        "    \t\t\"parentescoTutor\":\"\",\r",
-        "    \t\t\"correoElectronicoTutor\":\"\",\r",
-        "    \t\t\"viveMismoDocimicilioAlumnoTutor\":\"\",\r",
-        "    \t\t\"maximoNivelEstudiosTutor\":\"\",\r",
-        "    \t\t\"ocupacionTutor\":\"\",\r",
-        "    \t\t\"catProvienenIngresos\":null,\r",
-        "    \t\t\"ingresoMensualNetoTutor\":\"\",\r",
-        "    \t\t\"empresaTutor\":\"\",\r",
-        "    \t\t\"puestoTutor\":\"\",\r",
-        "    \t\t\"bienesRaices\":[],\r",
-        "    \t\t\"tieneHermanos\":false,\r",
-        "    \t\t\"hermanos\":[],\r",
-        "    \t\t\"motivoBeca\":\"\",\r",
-        "    \t\t\"catTipoApoyo\":null,\r",
-        "    \t\t\"catPorcentajeBeca\":null,\r",
-        "    \t\t\"catPorcentajeFinanciamiento\":null,\r",
-        "    \t\t\"cantMensualPagarUni\":0,\r",
-        "    \t\t\"catCasaDondeVives\":null,\r",
-        "    \t\t\"contruccionM2Casa\":0,\r",
-        "    \t\t\"terrenoM2Casa\":0,\r",
-        "    \t\t\"valorAproxCasa\":0,\r",
-        "    \t\t\"calle\":\"\",\r",
-        "    \t\t\"delegacionCiudad\":\"\",\r",
-        "    \t\t\"numExterior\":\"\",\r",
-        "    \t\t\"numInterior\":\"\",\r",
-        "    \t\t\"pais\":\"\",\r",
-        "    \t\t\"colonia\":\"\",\r",
-        "    \t\t\"estado\":\"\",\r",
-        "    \t\t\"codigoPostal\":\"\",\r",
-        "    \t\t\"autos\":[],\r",
-        "    \t\t\"ingresoPadre\":0,\r",
-        "    \t\t\"ingresoMadre\":0,\r",
-        "    \t\t\"ingresoHermano\":0,\r",
-        "    \t\t\"ingresoTio\":0,\r",
-        "    \t\t\"ingresoAbuelo\":0,\r",
-        "    \t\t\"ingresoAspirante\":0,\r",
-        "    \t\t\"ingresoTotal\":0,\r",
-        "    \t\t\"egresoRenta\":0,\r",
-        "    \t\t\"egresoServicios\":0,\r",
-        "    \t\t\"egresoEducacion\":0,\r",
-        "    \t\t\"egresoGastosMedicos\":0,\r",
-        "    \t\t\"egresoAlimentacion\":0,\r",
-        "    \t\t\"egresoVestido\":0,\r",
-        "    \t\t\"egresoSeguro\":0,\r",
-        "    \t\t\"egresoDiversion\":0,\r",
-        "    \t\t\"egresoAhorro\":0,\r",
-        "    \t\t\"egresoCreditos\":0,\r",
-        "    \t\t\"egresoOtros\":0,\r",
-        "    \t\t\"egresoTotal\":0,\r",
-        "    \t\t\"urlVideoYouTube\":\"\",\r",
-        "    \t\t\"caseIdAdmisiones\":45046 ,\r",
-        "    \t\t\"eliminado\": false,\r",
-        "    \t\t\"tieneHijos\":false,\r",
-        "    \t\t\"catProvienenIngresos_id\": 0,\r",
-        "    \t\t\"catTipoApoyo_id\": 0,\r",
-        "    \t\t\"catPorcentajeBeca_id\": 0,\r",
-        "    \t\t\"catPorcentajeFinanciamiento_id\": 0,\r",
-        "    \t\t\"catCasaDondeVives_id\": 0,\r",
-        "    \t\t\"catManejoDocumentos_id\": []\r",
-        "    \t},\r",
-        "    \t\"isFinalizadaInput\":false,\r",
-        "    \t\"hermanosInput\":[],\r",
-        "    \t\"fotoCalleCasaDocumentInput\": null,\r",
-        "    \t\"fotoFachadaCasaDocumentInput\": null,\r",
-        "    \t\"fotoSalaCasaDocumentInput\": null,\r",
-        "    \t\"fotoComedorCasaDocumentInput\": null\r",
-        "    }"
+        "return   {\r",
+        "\t\"solicitudApoyoEducativoInput\": $data.solicitudDeApoyo[0],\r",
+        "\t\"hermanosInput\": $data.hermanos,\r",
+        "\t\"autosInput\":$data.autos,\r",
+        "\t\"bienesRaicesInput\": $data.bienesRaices,\r",
+        "\t\"documentosSolicitanteInput\": $data.documentos,\r",
+        "\t\"imagenesSocEcoSolicitanteInput\": $data.imagenes,\r",
+        "};"
       ],
       "exposed" : false
     },
@@ -6657,9 +6862,59 @@
     "userData" : {
       "type" : "url",
       "value" : [
-        "./API/system/session/unusedId"
+        "../API/system/session/unusedId"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "solicitudDeApoyo" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseIdAdmisiones [com.anahuac.SDAE.model.SolicitudApoyoEducativo]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAdmisiones\",\"displayName\":\"findByCaseIdAdmisiones\"},\"id\":\"com.anahuac.SDAE.model.SolicitudApoyoEducativo\",\"filters\":[{\"name\":\"caseIdAdmisiones\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{objSolicitudDeAdmision[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "hermanos" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.HermanosSolicitante]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.HermanosSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "autos" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.AutosSolicitante]\",\"businessObjectName\":\"AutosSolicitante\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.AutosSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "bienesRaices" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.BienesRaicesSolicitante]\",\"businessObjectName\":\"BienesRaicesSolicitante\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.BienesRaicesSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "documentos" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.DocumentosSolicitante]\",\"businessObjectName\":\"DocumentosSolicitante\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.DocumentosSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "imagenes" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.ImagenesSocioEcoSolicitante]\",\"businessObjectName\":\"ImagenesSocioEcoSolicitante\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.ImagenesSocioEcoSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "errorMessageReferenciasCredito" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "titleMessageReferenciasCredito" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

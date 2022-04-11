@@ -28,22 +28,54 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         // form[0].submit();
     };
 
+
+    $scope.downloadFile = function(){
+        var req = {
+            method: "GET",
+            url: $scope.properties.urlDownloadFile + $scope.properties.idDocumento,
+            // data: angular.copy($scope.documetObject),
+            // params: params
+        };
+
+        return $http(req)
+            .success(function (data, status) {
+                downloadFile(data[0]);
+            })
+            .error(function (data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+            });
+    };
+    
+    function downloadFile(_document) {
+        let urlSplitted = _document.urlAzure.split("/");
+        const linkSource = _document.b64;
+        const downloadLink = document.createElement("a");
+        const fileName = urlSplitted[urlSplitted.length - 1] + "." + _document.extension;
+    
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+
     function handleFileSelect(evt) {
         startUploading();
-        var f = evt.target.files[0]; // FileList object
+        var f = evt.target.files[0];
         var reader = new FileReader();
-        // Closure to capture the file information.
         reader.onload = (function (theFile) {
             return function (e) {
                 var binaryData = e.target.result;
-                //Converting Binary Data to base 64
                 var base64String = window.btoa(binaryData);
                 $scope.documetObject["b64"] = $scope.documetObject["filetype"] +  "," +  base64String;
                 
                 doRequest("POST", "../API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=0", null);
             };
         })(f);
-        // Read in the image file as a data URL.
         reader.readAsBinaryString(f);
     }
 
@@ -115,11 +147,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
     this.forceSubmit = function (event) {
         $scope.procesar = false;
-        //$scope.properties.urlretorno = window.btoa(event.target.files[0]);
-
-        // console.log(event.target.files[0]);
         handleFileSelect(event);
-        // $scope.documetObject["b64"] = window.btoa(event.target.files[0]);
         $scope.documetObject["filename"] = event.target.files[0].name;
         $scope.documetObject["filetype"] = event.target.files[0].type;
         $scope.documetObject["contenedor"] = "privado";
@@ -145,14 +173,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
         if ($scope.procesar === true) {
             $scope.properties.urlretorno = URL.createObjectURL(event.target.files[0]);
-            /* var reader = new FileReader();
-             reader.readAsDataURL(event.target.files[0]); 
-             reader.onloadend = function() {
-                 
-                 $scope.properties.urlretorno  = reader.result;                
-                 //console.log(base64data);
-                 acept
-             }*/
+
             if (!event.target.value) {
                 return;
             }
@@ -175,10 +196,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         }
     });
 
-    //the filename displayed is not bound to the value as a bidirectionnal
-    //bond, thus, in case the value is updated, it is not reflected
-    //to the filename (example with the BS-14498)
-    //we watch the value to update the filename and the upload widget state
     $scope.$watch(function () { return $scope.properties.value; }, function (newValue) {
         if (newValue && newValue.filename) {
             ctrl.filemodel = true;
@@ -223,6 +240,9 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
             ctrl.filename = gettextCatalog.getString('Upload failed');
             $scope.properties.errorContent = angular.isString(response) ? response : response.message;
             return;
+        } else {
+            let array = data.data[0].urlAzure.split("/");
+            ctrl.filename = gettextCatalog.getString(array[array.length - 1]);
         }
         $scope.properties.value = response;
     }

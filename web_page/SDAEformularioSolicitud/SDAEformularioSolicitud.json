@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1649201971197,
+  "lastUpdate" : 1649463442870,
   "rows" : [
     [
       {
@@ -1445,12 +1445,64 @@
                                   },
                                   "correoUsuario" : {
                                     "type" : "variable",
-                                    "value" : "userDataEmail[0]"
+                                    "value" : "userData.username"
                                   }
                                 },
                                 "reference" : "f0cd46b7-9a08-46e7-b96d-0f3d3ce97852",
                                 "hasValidationError" : false,
                                 "id" : "customImageSDAEviewFotoUsuario"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "{{rutaFotoUsuario}}"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "30842fa0-9c67-4600-ba45-4c0f56af182e",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
                               }
                             ]
                           ]
@@ -11939,6 +11991,14 @@
                                   "urlDownloadFile" : {
                                     "type" : "expression",
                                     "value" : "urlDownloadFileAzure"
+                                  },
+                                  "isMostrar" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "idDocumento" : {
+                                    "type" : "expression",
+                                    "value" : "$item.persistenceId"
                                   }
                                 },
                                 "reference" : "a7e77fd9-3813-46fb-ab31-e289f4fc0935",
@@ -12183,6 +12243,14 @@
                             "urlDownloadFile" : {
                               "type" : "expression",
                               "value" : "urlDownloadFileAzure"
+                            },
+                            "isMostrar" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "idDocumento" : {
+                              "type" : "expression",
+                              "value" : "$item.persistenceId"
                             }
                           },
                           "reference" : "0c40cffa-00f0-408f-ac2b-d000891ac330",
@@ -12342,6 +12410,58 @@
                           "reference" : "58be4a31-738c-45f4-90cc-bab388debbfb",
                           "hasValidationError" : false,
                           "id" : "pbTitle"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "{{ returnCatValue.catTipoApoyo.condicionesVideo }}"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "bd1125ba-8aaf-4430-aab8-6d059e27508e",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
                         }
                       ],
                       [
