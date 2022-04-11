@@ -1357,8 +1357,7 @@ class ListadoDAO {
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
-
-						//filtrado utilizado en lista roja y rechazado
+						
 					case "NOMBRE,EMAIL,CURP":
 						errorlog += "NOMBRE,EMAIL,CURP"
 						if (where.contains("WHERE")) {
@@ -1376,7 +1375,7 @@ class ListadoDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 
-					case "CAMPUS,PROGRAMA,INGRESO":
+					case "PROGRAMA,INGRESO,CAMPUS":
 						errorlog += "PROGRAMA,INGRESO,CAMPUS"
 						if (where.contains("WHERE")) {
 							where += " AND "
@@ -1394,33 +1393,16 @@ class ListadoDAO {
 
 						break;
 
-					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
-						errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
+					case "TIPO APOYO,PROMEDIO":
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
 							where += " WHERE "
 						}
-						where += "( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
+						where += " ( LOWER(tipoapoyo.descripcion) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 
-						where += " OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
 						where += " OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-
-					case "ESTATUS,TIPO":
-						errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " ( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(R.descripcion) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
@@ -1453,12 +1435,38 @@ class ListadoDAO {
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
+					case "NÚMERO DE SOLICITUD":
+						errorlog += "SOLICITUD"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(CAST(sda.caseid AS varchar)) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ESTATUS":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(sda.ESTATUSSOLICITUD) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
 
 					default:
-
-						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-						//consulta=consulta.replace("[WHERE]", where);
-
 						break;
 				}
 
