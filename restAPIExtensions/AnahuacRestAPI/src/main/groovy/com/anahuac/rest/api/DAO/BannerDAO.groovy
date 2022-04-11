@@ -69,6 +69,7 @@ class BannerDAO {
 
 		String errorLog = "";
 		String barrerToken = "";
+		String barrerTokenUbicaciones = "";
 		String jsonResultado = "";
 		String strGetConsumeJSON = "";
 		Integer intentos = 5;
@@ -76,6 +77,7 @@ class BannerDAO {
 			while(intentos>0) {
 				errorLog += " | " + ("START JSON======================================");
 				barrerToken = getBarreToken();
+				barrerTokenUbicaciones = getBarreTokenUbicaciones();
 				//errorLog += " | " + barrerToken;
 				errorLog += " | " + ("================================================");
 	
@@ -201,6 +203,46 @@ class BannerDAO {
 			e.printStackTrace();
 			LOGGER.error "[ERROR]" + e.getMessage();
 			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerToken:" + barrerKey.replace("-.-.-", ""))
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado.toString();
+	}
+	
+	private String getBarreTokenUbicaciones() {
+		String urlParaVisitar = "https://integrate.elluciancloud.com/auth";
+		String barrerKey = "Bearer ";
+		StringBuilder resultado = new StringBuilder();
+		Boolean closeCon = false;
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "BannerTokenUbicaciones")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+
+				barrerKey += rs.getString("valor")
+			}
+
+			URL url = new URL(urlParaVisitar);
+			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+			conexion.setRequestProperty("Authorization", barrerKey.replace("-.-.-", ""));
+			conexion.setRequestMethod("POST");
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+			String linea;
+			while ((linea = rd.readLine()) != null) {
+				resultado.append(linea);
+			}
+			rd.close();
+			//System.out.println(urlParaVisitar);
+			//System.out.println(resultado.toString());
+			new LogDAO().insertTransactionLog("POST", "CORRECTO", "https://integrate.elluciancloud.com/auth", resultado.toString(), "Autenticarse para obtener el token de acceso, BannerTokenUbicaciones:" + barrerKey.replace("-.-.-", ""))
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error "[ERROR]" + e.getMessage();
+			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerTokenUbicaciones:" + barrerKey.replace("-.-.-", ""))
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
