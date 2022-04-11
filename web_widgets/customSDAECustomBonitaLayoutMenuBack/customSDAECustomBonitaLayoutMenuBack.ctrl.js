@@ -235,7 +235,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         var userIdentity = '../API/identity/user/' + $scope.properties.userId;
         return $http.get(userIdentity);
     }
-
+    
     function setApplication() {
         var application = $scope.properties.application;
         ctrl.applicationToken = application.token;
@@ -288,6 +288,16 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "bandejaSolicitudesRechazadas";
         }else if (appName === "solicitudRechazada") {
             ctrl.pageToken = "solicitudRechazada";
+        }else if (appName === "bandejaAreaDeportiva") {
+            ctrl.pageToken = "bandejaAreaDeportiva";
+        }else if (appName === "bandejaAreaArtistica") {
+            ctrl.pageToken = "bandejaAreaArtistica";
+        }else if (appName === "revisionAreaDeportiva") {
+            ctrl.pageToken = "revisionAreaDeportiva";
+        }else if (appName === "revisionAreaArtistica") {
+            ctrl.pageToken = "revisionAreaArtistica";
+        }else if (appName === "bandejaBecas") {
+            ctrl.pageToken = "bandejaBecas";
         }
         
         

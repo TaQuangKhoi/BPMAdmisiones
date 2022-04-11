@@ -103,9 +103,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         $scope.properties.responseStatusCode = status;
         $scope.properties.dataFromError = undefined;
         notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+        
+        $window.close();
         if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           //redirectIfNeeded();
-          $window.close(); 
         }
         closeModal($scope.properties.closeOnSuccess);
       })
