@@ -1257,6 +1257,18 @@ class ListadoDAO {
 				where += " AND SDAE.caseId = "+object.caseId +" "
 			}
 			
+			if (lstGrupo.size() > 0) {
+				where += " AND ("
+			}
+			for (Integer i = 0; i < lstGrupo.size(); i++) {
+				String campusMiembro = lstGrupo.get(i);
+				where += "campus.descripcion='" + campusMiembro + "'"
+				if (i == (lstGrupo.size() - 1)) {
+					where += ") "
+				} else {
+					where += " OR "
+				}
+			}
 			
 
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
@@ -1411,7 +1423,36 @@ class ListadoDAO {
 						where += " OR LOWER(R.descripcion) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
+						
+					case "CAMPUS":
+						errorlog += "CAMPUS"
+						where += " AND LOWER(campus.DESCRIPCION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ULTIMA MODIFICACION":
+						errorlog += "FECHAULTIMAMODIFICACION"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " (LOWER(fechaultimamodificacion) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where += "LIKE LOWER('%[valor]%'))";
 
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
 
 					default:
 
