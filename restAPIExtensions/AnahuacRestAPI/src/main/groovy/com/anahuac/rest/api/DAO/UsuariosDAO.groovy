@@ -4078,21 +4078,29 @@ class UsuariosDAO {
 			//rutaPago, rutaSolicitud, rutaActaNacimiento, rutaKardex
 			def num = Math.random();
 			if (rs.next()) {
+				String[] elements = rs.getString("RUTA").split("/")
+				
+				def ruta = java.net.URLEncoder.encode(elements[elements.length-1], "UTF-8");
+				
+				String url = "";
+				elements.eachWithIndex{it,index ->
+					url += (url.length() == 0?"":"/")+"${(index == elements.length-1 ? ruta : it)}";
+				}
 				
 				if(rs.getString("RUTA").toLowerCase().contains(".jpeg")) {
-						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".png")) {
-						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
-						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
-						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
-						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA")+ SSA+"&v="+num)));
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(url+ SSA+"&v="+num)));
 						tipo.add("archivo");
 					}
 				
