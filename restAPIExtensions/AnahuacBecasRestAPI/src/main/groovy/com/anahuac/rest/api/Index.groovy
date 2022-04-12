@@ -12,6 +12,7 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.rest.api.DAO.BitacoraDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.Entity.Result
@@ -228,32 +229,40 @@ class Index implements RestApiController {
 				break;
 				
 				case "selectSolicitudesApoyo":
-				result = new ListadoDAO().selectSolicitudesApoyo(parameterP, parameterC, jsonData, context);
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
+					result = new ListadoDAO().selectSolicitudesApoyo(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
 				break;
 				
 				case "getSolicitudApoyoByCaseId":
-				result = new ListadoDAO().getSolicitudApoyoByCaseId(jsonData, context);
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
+					result = new ListadoDAO().getSolicitudApoyoByCaseId(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
 				break;
 				
 				case "selectSolicitudesApoyoFinanzas":
-				result = new ListadoDAO().selectSolicitudesApoyoFinanzas(parameterP, parameterC, jsonData, context);
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				break;
+					result = new ListadoDAO().selectSolicitudesApoyoFinanzas(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
 				
+				break;
+				case "insertComentario":
+					result = new BitacoraDAO().insertComentario(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
@@ -261,7 +270,7 @@ class Index implements RestApiController {
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
-					break;
+				break;
 			}
 			
 		} catch (Exception e) {

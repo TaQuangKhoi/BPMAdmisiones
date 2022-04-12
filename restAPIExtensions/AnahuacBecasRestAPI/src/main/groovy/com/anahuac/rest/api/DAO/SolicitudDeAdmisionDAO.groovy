@@ -366,11 +366,6 @@ class SolicitudDeAdmisionDAO {
 			def num = Math.random();
 			errorLog += urlAzure;
 			if (rs.next()) {
-//				columns.put("urlAzure", urlAzure);
-//				columns.put("nombreDocumento", rs.getString("nombreDocumento"));
-//				columns.put("descripcionDocumento", rs.getString("descripcionDocumento"));
-//				columns.put("isObligatorioDoc", rs.getBoolean("isObligatorioDoc"));
-				errorLog += "SIENTRO ";
 				if(urlAzure.toLowerCase().contains(".jpeg")) {
 					errorLog += "jpeg ";
 					columns.put("extension", ".jpeg");
