@@ -1305,76 +1305,6 @@ class ListadoDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 
-					case "PROGRAMA,PERÍODO DE INGRESO,CAMPUS INGRESO":
-						errorlog += "PROGRAMA, PERÍODO DE INGRESO, CAMPUS INGRESO"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " ( LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						break;
-
-					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
-						errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += "( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += "  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-					case "ULTIMA MODIFICACION":
-						errorlog += "FECHAULTIMAMODIFICACION"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " (LOWER(fechaultimamodificacion) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')"
-						} else {
-							where += "LIKE LOWER('%[valor]%')"
-						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-						where += "LIKE LOWER('%[valor]%'))";
-
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-						
-					case "NOMBRE,EMAIL,CURP":
-						errorlog += "NOMBRE,EMAIL,CURP"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-
 					case "PROGRAMA,INGRESO,CAMPUS":
 						errorlog += "PROGRAMA,INGRESO,CAMPUS"
 						if (where.contains("WHERE")) {
@@ -1424,25 +1354,25 @@ class ListadoDAO {
 						} else {
 							where += " WHERE "
 						}
-						where += " (LOWER(fechaultimamodificacion) ";
+						where += " (LOWER(SDAE.fechaultimamodificacion) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
 							where += "LIKE LOWER('%[valor]%')"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
 						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
-					case "NÚMERO DE SOLICITUD":
+					case "# EXPEDIENTE":
 						errorlog += "SOLICITUD"
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
 							where += " WHERE "
 						}
-						where += " LOWER(CAST(sda.caseid AS varchar)) ";
+						where += " LOWER(CAST(SDAE.caseid AS varchar)) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
@@ -1457,7 +1387,7 @@ class ListadoDAO {
 						} else {
 							where += " WHERE "
 						}
-						where += " LOWER(sda.ESTATUSSOLICITUD) ";
+						where += " LOWER(SDAE.estatusSolicitud) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {

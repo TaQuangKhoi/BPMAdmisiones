@@ -300,7 +300,10 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "bandejaBecas";
         }else if (appName === "BandejaFinanzas") {
             ctrl.pageToken = "BandejaFinanzas";
+        }else if (appName === "BandejaComiteFinanzas") {
+            ctrl.pageToken = "BandejaComiteFinanzas";
         }
+        
         
         
         /*if ($scope.properties.currentTaskName === "Llenado solicitud de apoyo académico") {
