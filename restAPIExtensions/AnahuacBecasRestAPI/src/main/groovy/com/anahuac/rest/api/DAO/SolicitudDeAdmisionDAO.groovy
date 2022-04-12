@@ -302,13 +302,20 @@ class SolicitudDeAdmisionDAO {
 			if (rs.next()) {
 				
 				//String urlAzure = URLDecoder.decode(rs.getString("urlDocumento"), "UTF-8");
-				String[] elements = rs.getString("urlDocumento").split("/");
+				
+				String urlDecodificada = "";
+				urlDecodificada = rs.getString("urlDocumento").replace("%20", " ");
+				String[] elements = urlDecodificada.split("/");
 				String url = java.net.URLEncoder.encode(elements[elements.length-1], "UTF-8");
 				
 				String urlAzure = "";
 				elements.eachWithIndex{it,index ->
 					urlAzure += (urlAzure.length() == 0?"":"/")+"${(index == elements.length-1 ? url : it)}";
 				}
+				
+				urlAzure = urlAzure.replace("+", "%20");
+				
+				
 				
 				columns.put("urlAzure", urlAzure);
 				columns.put("nombreDocumento", rs.getString("nombreDocumento"));
