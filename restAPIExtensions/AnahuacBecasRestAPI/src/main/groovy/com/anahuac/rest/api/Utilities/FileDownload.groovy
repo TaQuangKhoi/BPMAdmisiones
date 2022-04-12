@@ -3,10 +3,8 @@ import org.apache.poi.util.IOUtils
 
 class FileDownload {
 	public byte[]  getByteFromUrl(String imageUrl, String SSA) throws IOException {
-		if(imageUrl.contains(" "))
-			imageUrl = imageUrl.replace(" ", "%20");
-			
-		//imageUrl = URLEncoder.encode(imageUrl, "UTF-8");
+		/*if(imageUrl.contains(" "))
+			imageUrl = imageUrl.replace(" ", "%20");*/
 			
 		URL url = new URL(imageUrl + SSA);
 		InputStream is = url.openStream();
