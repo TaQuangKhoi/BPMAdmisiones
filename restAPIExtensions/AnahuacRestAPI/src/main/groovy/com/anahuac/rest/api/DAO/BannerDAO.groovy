@@ -71,7 +71,9 @@ class BannerDAO {
 		String barrerToken = "";
 		String barrerTokenUbicaciones = "";
 		String jsonResultado = "";
+		String jsonResultadoUbicaciones = "";
 		String strGetConsumeJSON = "";
+		String strGetConsumeJSONUbicaciones = "";
 		Integer intentos = 5;
 		try {
 			while(intentos>0) {
@@ -81,7 +83,12 @@ class BannerDAO {
 				//errorLog += " | " + barrerToken;
 				errorLog += " | " + ("================================================");
 	
+				// PREPAS
 				jsonResultado = getConsumePrepa(barrerToken);
+				
+				// UBICACIONES
+				jsonResultadoUbicaciones = getConsumePrepa(barrerTokenUbicaciones);
+				
 				
 				//JSON PRUEBA ANGEL CREATE
 				//jsonResultado = "[{\"id\":\"329\",\"published\":\"2021-12-08 01:33:33.630727+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"330\",\"published\":\"2021-12-08 01:34:40.980862+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 1\",\"linea 2\"],\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"02400\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 1\",\"streetLine2\":null,\"streetLine3\":\"linea 2\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
@@ -103,10 +110,10 @@ class BannerDAO {
 				//PROBLEMA
 				//jsonResultado = "[{\"id\":\"132\",\"published\":\"2021-06-17 18:36:38.890122+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"f1a6ad1e-9ed1-4692-92fa-6df7582650b1\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"title\":\"Instituto Americano\",\"type\":\"secondarySchool\",\"code\":\"9680\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 				
-				errorLog += " | jsonResultado: " + jsonResultado;
+				errorLog += " | jsonResultado Prepas: " + jsonResultado;
 				errorLog += " | " + ("END JSON========================================");
 				
-				if(jsonResultado.equals("[]")){
+				if(jsonResultado.equals("[]") || jsonResultado.equals("")){
 					intentos=0;
 					resultadoGetConsumeJSON.setSuccess(true)
 				}else {
@@ -114,6 +121,21 @@ class BannerDAO {
 					intentos--;
 				}
 				errorLog += " | " + strGetConsumeJSON;
+				
+				// ----------------------------------------
+				
+				errorLog += " | jsonResultado Ubicaciones: " + jsonResultadoUbicaciones;
+				errorLog += " | " + ("END JSON Ubicaciones ========================================");
+				
+				if(jsonResultadoUbicaciones.equals("[]")  || jsonResultadoUbicaciones.equals("")){
+					intentos=0;
+					resultadoGetConsumeJSON.setSuccess(true)
+				}else {
+					resultadoGetConsumeJSON = getConsumeJSON(jsonResultadoUbicaciones, context, operacion, barrerTokenUbicaciones);
+					intentos--;
+				}
+				errorLog += " | " + strGetConsumeJSONUbicaciones;
+				
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
 			}
