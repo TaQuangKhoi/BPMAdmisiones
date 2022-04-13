@@ -216,10 +216,8 @@ class ListadoDAO {
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
-							where += "LIKE LOWER('%[valor]%')"
+							where += "LIKE LOWER('%[valor]%'))"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
@@ -261,15 +259,6 @@ class ListadoDAO {
 			}
 			errorlog = consulta + " 2";
 			switch (object.orderby) {
-				case "RESIDEICA":
-					orderby += "residensia";
-					break;
-				case "TIPODEADMISION":
-					orderby += "tipoadmision";
-					break;
-				case "TIPODEALUMNO":
-					orderby += "tipoDeAlumno";
-					break;
 				case "FECHAULTIMAMODIFICACION":
 					orderby += "sda.fechaultimamodificacion";
 					break;
@@ -294,41 +283,26 @@ class ListadoDAO {
 				case "INGRESO":
 					orderby += "periodo.DESCRIPCION"
 					break;
-				case "PROCEDENCIA":
-					orderby += "CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
-					break;
 				case "PROMEDIO":
 					orderby += "sda.PROMEDIOGENERAL";
 					break;
 				case "ESTATUS":
-					orderby += "sda.ESTATUSSOLICITUD";
+					orderby += "SDAE.estatusSolicitud";
 					break;
-				case "TIPO":
-					orderby += "da.TIPOALUMNO";
+				case "TIPOBECA":
+					orderby += "tipoapoyo.descripcion";
 					break;
-				case "TELEFONO":
-					orderby += "sda.telefonocelular";
-					break;
-				case "IDBANNER":
-					orderby += "da.idbanner";
-					break;
-				case "SOLICITUD":
+				case "EXPEDIENTE":
 					orderby += "sda.caseid::INTEGER";
 					break;
-				case "LISTAROJA":
-					orderby += "da.observacionesListaRoja";
-					break;
-				case "RECHAZO":
-					orderby += "da.observacionesRechazo";
-					break;
-				case "FECHASOLICITUD":
-					orderby += "sda.fechasolicitudenviada";
+				case "FECHAULTIMAMODIFICACION":
+					orderby += "SDAE.fechaultimamodificacion";
 					break;
 				default:
-					orderby += "sda.persistenceid"
+					orderby += "SDAE.caseid"
 					break;
 			}
-			
+			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			consultaCount = consultaCount.replace("[WHERE]", where);
 
@@ -339,7 +313,7 @@ class ListadoDAO {
 				resultado.setTotalRegistros(rs.getInt("registros"))
 			}
 			
-			//consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[ORDERBY]", orderby)
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 			errorlog = consulta + " 7";
 
@@ -1462,10 +1436,8 @@ class ListadoDAO {
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
-							where += "LIKE LOWER('%[valor]%')"
+							where += "LIKE LOWER('%[valor]%'))"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
@@ -1507,15 +1479,6 @@ class ListadoDAO {
 			}
 			errorlog = consulta + " 2";
 			switch (object.orderby) {
-				case "RESIDEICA":
-					orderby += "residensia";
-					break;
-				case "TIPODEADMISION":
-					orderby += "tipoadmision";
-					break;
-				case "TIPODEALUMNO":
-					orderby += "tipoDeAlumno";
-					break;
 				case "FECHAULTIMAMODIFICACION":
 					orderby += "sda.fechaultimamodificacion";
 					break;
@@ -1540,42 +1503,27 @@ class ListadoDAO {
 				case "INGRESO":
 					orderby += "periodo.DESCRIPCION"
 					break;
-				case "PROCEDENCIA":
-					orderby += "CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
-					break;
 				case "PROMEDIO":
 					orderby += "sda.PROMEDIOGENERAL";
 					break;
 				case "ESTATUS":
-					orderby += "sda.ESTATUSSOLICITUD";
+					orderby += "SDAE.estatusSolicitud";
 					break;
-				case "TIPO":
-					orderby += "da.TIPOALUMNO";
+				case "TIPOBECA":
+					orderby += "tipoapoyo.descripcion";
 					break;
-				case "TELEFONO":
-					orderby += "sda.telefonocelular";
-					break;
-				case "IDBANNER":
-					orderby += "da.idbanner";
-					break;
-				case "SOLICITUD":
+				case "EXPEDIENTE":
 					orderby += "sda.caseid::INTEGER";
 					break;
-				case "LISTAROJA":
-					orderby += "da.observacionesListaRoja";
-					break;
-				case "RECHAZO":
-					orderby += "da.observacionesRechazo";
-					break;
-				case "FECHASOLICITUD":
-					orderby += "sda.fechasolicitudenviada";
+				case "FECHAULTIMAMODIFICACION":
+					orderby += "SDAE.fechaultimamodificacion";
 					break;
 				default:
-					orderby += "sda.persistenceid"
+					orderby += "SDAE.caseid"
 					break;
 			}
 			
-
+			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			consultaCount = consultaCount.replace("[WHERE]", where);
 
@@ -1586,7 +1534,7 @@ class ListadoDAO {
 				resultado.setTotalRegistros(rs.getInt("registros"))
 			}
 			
-			//consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[ORDERBY]", orderby)
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 			errorlog = consulta + " 7";
 

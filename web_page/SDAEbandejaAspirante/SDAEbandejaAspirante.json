@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1649807273792,
+  "lastUpdate" : 1649878487621,
   "rows" : [
     [
       {
@@ -127,6 +127,50 @@
                 },
                 "hidden" : {
                   "type" : "expression",
+                  "value" : "activeCases.length === 0 && buildContent[0].estado !== \"Solcitud en progreso\""
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Continuar solicitud"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "url" : {
+                  "type" : "expression",
+                  "value" : "\"/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=\" + tipoMoneda"
+                }
+              },
+              "reference" : "77869e3f-5a9f-4b34-8277-1c8d72ba3e47",
+              "hasValidationError" : false,
+              "id" : "customBtnSDAEredirect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
                   "value" : "buildContent[0].estado !== \"Pre-autorización solicita modificaciones\""
                 },
                 "disabled" : {
@@ -174,7 +218,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "!objSolicitudApoyo"
+                  "value" : "!objSolicitudApoyo || activeCases.length === 0"
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -210,7 +254,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "!objSolicitudApoyo"
+                  "value" : "!objSolicitudApoyo || activeCases.length === 0"
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -967,6 +1011,39 @@
         "return {",
         "    \"solicitudApoyoEducativoInput\": $data.objSolicitudApoyo[0]",
         "}"
+      ],
+      "exposed" : false
+    },
+    "wizardContent" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "    {\r",
+        "        \"title\" : \"Información personal\",\r",
+        "        \"value\" : \"personalInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Información familiar\",\r",
+        "        \"value\" : \"familiarInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Motivos\",\r",
+        "        \"value\" : \"motivosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Información económica\",\r",
+        "        \"value\" : \"economicaInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Documentos\",\r",
+        "        \"value\" : \"documentosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    }\r",
+        "]"
       ],
       "exposed" : false
     }
