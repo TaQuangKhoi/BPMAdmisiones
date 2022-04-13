@@ -216,10 +216,8 @@ class ListadoDAO {
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
-							where += "LIKE LOWER('%[valor]%')"
+							where += "LIKE LOWER('%[valor]%'))"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'DD-MM-YYYYTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
@@ -1438,10 +1436,8 @@ class ListadoDAO {
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
-							where += "LIKE LOWER('%[valor]%')"
+							where += "LIKE LOWER('%[valor]%'))"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'DD-MM-YYYYTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
