@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1649870570278,
+  "lastUpdate" : 1649870974270,
   "rows" : [
     [
       {
@@ -1422,53 +1422,6 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "srcType" : {
-                                    "type" : "constant",
-                                    "value" : "URL"
-                                  },
-                                  "url" : {
-                                    "type" : "expression",
-                                    "value" : "rutaFotoUsuario"
-                                  },
-                                  "assetName" : {
-                                    "type" : "constant"
-                                  },
-                                  "alt" : {
-                                    "type" : "interpolation",
-                                    "value" : "No foto"
-                                  },
-                                  "userData" : {
-                                    "type" : "variable",
-                                    "value" : "userData"
-                                  },
-                                  "correoUsuario" : {
-                                    "type" : "variable",
-                                    "value" : "userData.username"
-                                  }
-                                },
-                                "reference" : "f0cd46b7-9a08-46e7-b96d-0f3d3ce97852",
-                                "hasValidationError" : false,
-                                "id" : "customImageSDAEviewFotoUsuario"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
                                     "value" : false
                                   },
                                   "labelHidden" : {
@@ -1493,66 +1446,14 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<img src=\"{{fotoB64.data[0].b64}}\">"
+                                    "value" : "<img class=\"miniatura-pic\" src=\"{{fotoB64.data[0].b64}}\">\n<h4>Fotografía</j4>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
                                     "value" : "center"
                                   }
                                 },
-                                "reference" : "9d2941d2-e29d-47e2-ad6b-0f7ed73f3fb5",
-                                "hasValidationError" : false,
-                                "id" : "pbText"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Default label"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "allowHTML" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "text" : {
-                                    "type" : "interpolation",
-                                    "value" : ""
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "left"
-                                  }
-                                },
-                                "reference" : "30842fa0-9c67-4600-ba45-4c0f56af182e",
+                                "reference" : "c1fef361-8772-4f49-9eee-d33f36ac272a",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
                               }
@@ -3535,7 +3436,7 @@
                                       "type" : "component",
                                       "dimension" : {
                                         "xs" : 12,
-                                        "sm" : 6,
+                                        "sm" : 12,
                                         "md" : 12,
                                         "lg" : 12
                                       },
@@ -3547,6 +3448,58 @@
                                         "hidden" : {
                                           "type" : "constant",
                                           "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Default label"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "allowHTML" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "text" : {
+                                          "type" : "interpolation",
+                                          "value" : "<img class=\"miniatura-pic\" src=\"{{constancia.data[0].b64}}\">"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "center"
+                                        }
+                                      },
+                                      "reference" : "981c6194-235b-40ce-8b92-2a062ec2531e",
+                                      "hasValidationError" : false,
+                                      "id" : "pbText"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 6,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : true
                                         },
                                         "type" : {
                                           "type" : "constant",
@@ -3586,8 +3539,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "!objSolicitudDeAdmision[0].urlDescuentos"
+                                    "type" : "constant",
+                                    "value" : true
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -13057,33 +13010,6 @@
       ],
       "exposed" : false
     },
-    "azureTempKeyRes" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
-      ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
-      "exposed" : false
-    },
-    "rutaFotoUsuario" : {
-      "type" : "expression",
-      "value" : [
-        "// return $data.usuario[0].foto;",
-        "",
-        "let url = \"\";",
-        "",
-        "if($data.usuario !==  undefined && $data.azureTempKeyRes !== undefined){",
-        "    url = $data.usuario[0].urlFoto  + $data.azureTempKeyRes.data[0] ",
-        "}",
-        "",
-        "return url;"
-      ],
-      "exposed" : false
-    },
     "objSolicitudDeAdmision" : {
       "type" : "url",
       "value" : [
@@ -14875,6 +14801,26 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{usuario[0].urlFoto}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "constancia" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "historialAcademico" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
       ],
       "advancedOptions" : { },
       "exposed" : false
