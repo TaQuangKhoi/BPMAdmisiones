@@ -372,6 +372,7 @@ class SolicitudDeAdmisionDAO {
 			
 			if (rs.next()) {
 				SSA = rs.getString("valor");
+				urlAzure = urlAzure.replace("%20"," ");
 				if(urlAzure.toLowerCase().contains(".jpeg")) {
 					errorLog += "jpeg ";
 					columns.put("extension", ".jpeg");
