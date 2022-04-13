@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1649463442870,
+  "lastUpdate" : 1649808864056,
   "rows" : [
     [
       {
@@ -1493,7 +1493,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "{{rutaFotoUsuario}}"
+                                    "value" : ""
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -12086,6 +12086,96 @@
                         "type" : "constant",
                         "value" : false
                       },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Descargar reglamento"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "link"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "constant"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      }
+                    },
+                    "reference" : "17173cca-54f8-46a8-bfcd-a06cf2cadc35",
+                    "hasValidationError" : false,
+                    "id" : "pbButton"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
                       "required" : {
                         "type" : "constant",
                         "value" : false
@@ -14011,71 +14101,71 @@
         "    $data.tituloErrorPaso4 = \"Automóviles\";\r",
         "} \r",
         "\r",
-        "else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre >= 0){\r",
+        "else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Ingresos de padre' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de la madre' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de hermano' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Tio(a)' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de abuelo(a)' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante && $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de aspirante' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta && $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta && $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Renta o Hipoteca' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios && $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios && $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Servicios: Agua, luz, tel. Otros' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion && $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion && $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Educación' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos && $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos && $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Gastos médicos' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion && $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion && $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Alimentación' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido && $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido && $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Vestido' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\"; \r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro && $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro && $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Seguros' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion && $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion && $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Diversión' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro && $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro && $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Ahorro' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos && $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos && $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Créditos/impuestos' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros && $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros >= 0){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros && $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros !== 0){\r",
         "    output = false;\r",
         "    $data.errorPaso4 = \"El campo 'Egresos de Otros' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso4 = \"Distribución de Ingresos y Gastos Mensuales\";\r",
@@ -14585,7 +14675,8 @@
         "    \"catTienesHermanos\": null",
         "};",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){",
         "    for(let cat of $data.lstCatTienesHermanos.data){",
         "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
         "            output[\"catTienesHermanos\"] =  cat;",
@@ -14594,7 +14685,7 @@
         "    }",
         "}",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){",
         "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
         "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
         "            output[\"catBecaPreparatoria\"] =  cat;",
@@ -14603,7 +14694,7 @@
         "    }",
         "}",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){",
         "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
         "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
         "            output[\"catTipoApoyo\"] =  cat;",
@@ -14612,7 +14703,7 @@
         "    }",
         "}",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){",
         "    for(let cat of $data.lstTipoMoneda.data){",
         "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
         "            output[\"catTipoMoneda\"] =  cat;",
@@ -14665,7 +14756,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "catSexo" : {
