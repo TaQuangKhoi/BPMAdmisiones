@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBandejaSolicitudes",
   "name" : "SDAEBandejaSolicitudes",
-  "lastUpdate" : 1649406853360,
+  "lastUpdate" : 1649872762953,
   "rows" : [
     [
       {
@@ -161,6 +161,34 @@
                               "type" : "constant",
                               "value" : false
                             },
+                            "content" : {
+                              "type" : "variable",
+                              "value" : "lstFiltros"
+                            }
+                          },
+                          "reference" : "a6ed53bc-c787-40bd-8e8e-5953a5d55ccd",
+                          "hasValidationError" : false,
+                          "id" : "customListFiltrosBloqueoCampus"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
                             "allowHTML" : {
                               "type" : "constant",
                               "value" : true
@@ -294,6 +322,34 @@
                               "type" : "constant",
                               "value" : false
                             },
+                            "content" : {
+                              "type" : "variable",
+                              "value" : "lstFiltrosCorregidas"
+                            }
+                          },
+                          "reference" : "46d96128-9ecc-42b9-b522-46d1017c506b",
+                          "hasValidationError" : false,
+                          "id" : "customListFiltrosBloqueoCampus"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
                             "allowHTML" : {
                               "type" : "constant",
                               "value" : true
@@ -406,6 +462,34 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "content" : {
+                              "type" : "variable",
+                              "value" : "lstFiltrosArchivadas"
+                            }
+                          },
+                          "reference" : "dcc6ce0f-7473-482b-914a-870438ff83ef",
+                          "hasValidationError" : false,
+                          "id" : "customListFiltrosBloqueoCampus"
+                        }
+                      ],
                       [
                         {
                           "type" : "component",
@@ -601,14 +685,14 @@
         "return {\r",
         "    \"estatusSolicitud\":\"'Correcciones realizadas'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"lstFiltro\": $data.lstFiltrosCorregidas,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "    \"campus\":$data.getCampusCorregidas != null? ($data.getCampusCorregidas+\"\"):$data.getCampusCorregidas\r",
         "};\r"
       ],
       "exposed" : false
@@ -630,14 +714,14 @@
         "return {\r",
         "    \"estatusSolicitud\":\"'Solicitud Rechazada'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"lstFiltro\": $data.lstFiltrosArchivadas,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "    \"campus\":$data.getCampusArchivadas != null? ($data.getCampusArchivadas+\"\"):$data.getCampusArchivadas\r",
         "};\r"
       ],
       "exposed" : false
@@ -651,6 +735,20 @@
     },
     "getCampusArchivadas" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "lstFiltrosArchivadas" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltrosCorregidas" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
       "exposed" : false
     }
   },

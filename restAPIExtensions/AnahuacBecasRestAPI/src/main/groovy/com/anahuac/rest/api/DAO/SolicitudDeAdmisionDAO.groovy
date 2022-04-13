@@ -360,54 +360,47 @@ class SolicitudDeAdmisionDAO {
 		Boolean closeCon = false;
 		String errorLog = "";
 		Result resultado = new Result();
+        String SSA = "";
+
 		try {
-			
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-			
 			closeCon = validarConexion();
-			
-			String SSA = "";
-			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA);
 			rs = pstm.executeQuery();
-			if (rs.next()) {
-				SSA = rs.getString("valor")
-			}
 			def num = Math.random();
-			errorLog += urlAzure;
+			
 			if (rs.next()) {
-//				columns.put("urlAzure", urlAzure);
-//				columns.put("nombreDocumento", rs.getString("nombreDocumento"));
-//				columns.put("descripcionDocumento", rs.getString("descripcionDocumento"));
-//				columns.put("isObligatorioDoc", rs.getBoolean("isObligatorioDoc"));
-				errorLog += "SIENTRO ";
+				SSA = rs.getString("valor");
+				urlAzure = urlAzure.replace("%20"," ");
 				if(urlAzure.toLowerCase().contains(".jpeg")) {
 					errorLog += "jpeg ";
 					columns.put("extension", ".jpeg");
-					columns.put("b64", "data:image/jpeg;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jpeg;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".png")) {
 					errorLog += "png ";
 					columns.put("extension", ".png");
-					columns.put("b64", "data:image/png;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/png;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".jpg")) {
 					errorLog += "jpg ";
 					columns.put("extension", ".jpg");
-					columns.put("b64", "data:image/jpg;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jpg;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".jfif")) {
 					errorLog += "jfif ";
 					columns.put("extension", ".jfif");
-					columns.put("b64", "data:image/jfif;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jfif;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".pdf")) {
 					errorLog += "pdf ";
 					columns.put("extension", ".pdf");
-					columns.put("b64", "data:application/pdf;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:application/pdf;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}
 				
 				rows.add(columns);
 			}
 
-			resultado.setSuccess(true)
-			resultado.setData(rows)
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError(errorLog);
 		} catch (Exception e) {
 			errorLog += e.toString();
 			resultado.setSuccess(false)
@@ -418,6 +411,7 @@ class SolicitudDeAdmisionDAO {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
-		return resultado
+		
+		return resultado;
 	}
 }
