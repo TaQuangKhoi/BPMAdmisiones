@@ -360,42 +360,38 @@ class SolicitudDeAdmisionDAO {
 		Boolean closeCon = false;
 		String errorLog = "";
 		Result resultado = new Result();
+        String SSA = "";
+
 		try {
-			
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-			
 			closeCon = validarConexion();
-			
-			String SSA = "";
 			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA);
 			rs = pstm.executeQuery();
 			def num = Math.random();
 			
 			if (rs.next()) {
 				SSA = rs.getString("valor");
-				errorLog += SSA + "::";
-				errorLog += urlAzure;
 				if(urlAzure.toLowerCase().contains(".jpeg")) {
 					errorLog += "jpeg ";
 					columns.put("extension", ".jpeg");
-					columns.put("b64", "data:image/jpeg;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jpeg;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".png")) {
 					errorLog += "png ";
 					columns.put("extension", ".png");
-					columns.put("b64", "data:image/png;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/png;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".jpg")) {
 					errorLog += "jpg ";
 					columns.put("extension", ".jpg");
-					columns.put("b64", "data:image/jpg;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jpg;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".jfif")) {
 					errorLog += "jfif ";
 					columns.put("extension", ".jfif");
-					columns.put("b64", "data:image/jfif;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jfif;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".pdf")) {
 					errorLog += "pdf ";
 					columns.put("extension", ".pdf");
-					columns.put("b64", "data:application/pdf;base64, "+(new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:application/pdf;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
 				}
 				
 				rows.add(columns);
