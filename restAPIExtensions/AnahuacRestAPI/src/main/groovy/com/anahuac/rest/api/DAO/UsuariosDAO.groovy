@@ -1325,11 +1325,11 @@ class UsuariosDAO {
 					for (int i = 1; i <= columnCount; i++) {
 						
 						String label = metaData.getColumnLabel(i).toLowerCase();
-						if(label.equals("urlfoto") || label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
+						if(label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
 							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
 								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
 							} else {
-								columns.put(metaData.getColumnLabel(i).toLowerCase(), "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString(i) + SSA+"&v="+num)));
+								columns.put(metaData.getColumnLabel(i).toLowerCase(),  rs.getString("urlfoto") + SSA+"&v="+num );
 							}
 							
 						} else {
@@ -1339,7 +1339,7 @@ class UsuariosDAO {
 								try {
 									String urlFoto = rs.getString("urlfoto");
 									if(urlFoto != null && !urlFoto.isEmpty()) {
-										columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("urlfoto") + SSA+"&v="+num)));
+										columns.put("fotografiab64",  base64Imagen((rs.getString("urlfoto") + SSA+"&v="+num)) );
 									}else {
 										List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 										for(Document doc : doc1) {
@@ -3602,7 +3602,9 @@ class UsuariosDAO {
 						try {
 							String urlFoto = rs.getString("urlfoto");
 							if (urlFoto != null && !urlFoto.isEmpty()) {
-								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+								
+								columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+								//columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
 							} else {
 								noAzure = true;
 								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
@@ -4076,21 +4078,29 @@ class UsuariosDAO {
 			//rutaPago, rutaSolicitud, rutaActaNacimiento, rutaKardex
 			def num = Math.random();
 			if (rs.next()) {
+				String[] elements = rs.getString("RUTA").split("/")
+				
+				def ruta = java.net.URLEncoder.encode(elements[elements.length-1], "UTF-8");
+				
+				String url = "";
+				elements.eachWithIndex{it,index ->
+					url += (url.length() == 0?"":"/")+"${(index == elements.length-1 ? ruta : it)}";
+				}
 				
 				if(rs.getString("RUTA").toLowerCase().contains(".jpeg")) {
-						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".png")) {
-						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
-						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
-						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("RUTA") + SSA+"&v="+num)));
+						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
-						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(rs.getString("RUTA")+ SSA+"&v="+num)));
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(url+ SSA+"&v="+num)));
 						tipo.add("archivo");
 					}
 				
@@ -4110,6 +4120,20 @@ class UsuariosDAO {
 		}
 		return resultado
 		
+	}
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
 	}
 
 }
