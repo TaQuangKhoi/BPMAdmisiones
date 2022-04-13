@@ -258,49 +258,53 @@ class ListadoDAO {
 
 			}
 			errorlog = consulta + " 2";
-			switch (object.orderby) {
-				case "FECHAULTIMAMODIFICACION":
-					orderby += "sda.fechaultimamodificacion";
-					break;
-				case "NOMBRE":
-					orderby += "sda.apellidopaterno";
-					break;
-				case "EMAIL":
-					orderby += "sda.correoelectronico";
-					break;
-				case "CURP":
-					orderby += "sda.curp";
-					break;
-				case "CAMPUS":
-					orderby += "campus.DESCRIPCION"
-					break;
-				case "PREPARATORIA":
-					orderby += "prepa.DESCRIPCION"
-					break;
-				case "PROGRAMA":
-					orderby += "gestionescolar.NOMBRE"
-					break;
-				case "INGRESO":
-					orderby += "periodo.DESCRIPCION"
-					break;
-				case "PROMEDIO":
-					orderby += "sda.PROMEDIOGENERAL";
-					break;
-				case "ESTATUS":
-					orderby += "SDAE.estatusSolicitud";
-					break;
-				case "TIPOBECA":
-					orderby += "tipoapoyo.descripcion";
-					break;
-				case "EXPEDIENTE":
-					orderby += "sda.caseid::INTEGER";
-					break;
-				case "FECHAULTIMAMODIFICACION":
-					orderby += "SDAE.fechaultimamodificacion";
-					break;
-				default:
-					orderby += "SDAE.caseid"
-					break;
+			if (object.caseId != null) {
+				orderby = "";
+			}else {
+				switch (object.orderby) {
+					case "FECHAULTIMAMODIFICACION":
+						orderby += "sda.fechaultimamodificacion";
+						break;
+					case "NOMBRE":
+						orderby += "sda.apellidopaterno";
+						break;
+					case "EMAIL":
+						orderby += "sda.correoelectronico";
+						break;
+					case "CURP":
+						orderby += "sda.curp";
+						break;
+					case "CAMPUS":
+						orderby += "campus.DESCRIPCION"
+						break;
+					case "PREPARATORIA":
+						orderby += "prepa.DESCRIPCION"
+						break;
+					case "PROGRAMA":
+						orderby += "gestionescolar.NOMBRE"
+						break;
+					case "INGRESO":
+						orderby += "periodo.DESCRIPCION"
+						break;
+					case "PROMEDIO":
+						orderby += "sda.PROMEDIOGENERAL";
+						break;
+					case "ESTATUS":
+						orderby += "SDAE.estatusSolicitud";
+						break;
+					case "TIPOBECA":
+						orderby += "tipoapoyo.descripcion";
+						break;
+					case "EXPEDIENTE":
+						orderby += "sda.caseid::INTEGER";
+						break;
+					case "FECHAULTIMAMODIFICACION":
+						orderby += "SDAE.fechaultimamodificacion";
+						break;
+					default:
+						orderby += "SDAE.caseid"
+						break;
+				}
 			}
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
