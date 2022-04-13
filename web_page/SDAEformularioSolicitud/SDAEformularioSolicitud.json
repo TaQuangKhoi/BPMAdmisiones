@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1649808864056,
+  "lastUpdate" : 1649870570278,
   "rows" : [
     [
       {
@@ -1422,7 +1422,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "srcType" : {
                                     "type" : "constant",
@@ -1451,6 +1451,58 @@
                                 "reference" : "f0cd46b7-9a08-46e7-b96d-0f3d3ce97852",
                                 "hasValidationError" : false,
                                 "id" : "customImageSDAEviewFotoUsuario"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<img src=\"{{fotoB64.data[0].b64}}\">"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "center"
+                                  }
+                                },
+                                "reference" : "9d2941d2-e29d-47e2-ad6b-0f7ed73f3fb5",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
                               }
                             ],
                             [
@@ -14817,6 +14869,14 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByPersistenceId&p=0&c=100&persistenceId="
       ],
+      "exposed" : false
+    },
+    "fotoB64" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{usuario[0].urlFoto}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

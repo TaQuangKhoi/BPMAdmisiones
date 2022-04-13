@@ -368,14 +368,14 @@ class SolicitudDeAdmisionDAO {
 			closeCon = validarConexion();
 			
 			String SSA = "";
-			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA);
 			rs = pstm.executeQuery();
-			if (rs.next()) {
-				SSA = rs.getString("valor")
-			}
 			def num = Math.random();
-			errorLog += urlAzure;
+			
 			if (rs.next()) {
+				SSA = rs.getString("valor");
+				errorLog += SSA + "::";
+				errorLog += urlAzure;
 				if(urlAzure.toLowerCase().contains(".jpeg")) {
 					errorLog += "jpeg ";
 					columns.put("extension", ".jpeg");
@@ -401,8 +401,9 @@ class SolicitudDeAdmisionDAO {
 				rows.add(columns);
 			}
 
-			resultado.setSuccess(true)
-			resultado.setData(rows)
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError(errorLog);
 		} catch (Exception e) {
 			errorLog += e.toString();
 			resultado.setSuccess(false)
@@ -413,6 +414,7 @@ class SolicitudDeAdmisionDAO {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
-		return resultado
+		
+		return resultado;
 	}
 }
