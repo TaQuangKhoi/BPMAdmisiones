@@ -372,27 +372,33 @@ class SolicitudDeAdmisionDAO {
 			
 			if (rs.next()) {
 				SSA = rs.getString("valor");
-				urlAzure = urlAzure.replace("%20"," ");
+				String urlDecodificada = "";
+				urlDecodificada = urlAzure.replace("%20", " ");
+				String[] elements = urlDecodificada.split("/");
+				String url = java.net.URLEncoder.encode(elements[elements.length-1], "UTF-8");
+				
+				String finalURL = "";
+				elements.eachWithIndex{it,index ->
+					finalURL += (finalURL.length() == 0?"":"/")+"${(index == elements.length-1 ? url : it)}";
+				}
+				
+				finalURL = finalURL.replace("+", "%20");
+				
 				if(urlAzure.toLowerCase().contains(".jpeg")) {
-					errorLog += "jpeg ";
 					columns.put("extension", ".jpeg");
-					columns.put("b64", "data:image/jpeg;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jpeg;base64, " + (new FileDownload().b64Url(finalURL, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".png")) {
-					errorLog += "png ";
 					columns.put("extension", ".png");
-					columns.put("b64", "data:image/png;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/png;base64, " + (new FileDownload().b64Url(finalURL, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".jpg")) {
-					errorLog += "jpg ";
 					columns.put("extension", ".jpg");
-					columns.put("b64", "data:image/jpg;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jpg;base64, " + (new FileDownload().b64Url(finalURL, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".jfif")) {
-					errorLog += "jfif ";
 					columns.put("extension", ".jfif");
-					columns.put("b64", "data:image/jfif;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:image/jfif;base64, " + (new FileDownload().b64Url(finalURL, SSA + "&v=" + num)));
 				}else if(urlAzure.toLowerCase().contains(".pdf")) {
-					errorLog += "pdf ";
 					columns.put("extension", ".pdf");
-					columns.put("b64", "data:application/pdf;base64, " + (new FileDownload().b64Url(urlAzure, SSA + "&v=" + num)));
+					columns.put("b64", "data:application/pdf;base64, " + (new FileDownload().b64Url(finalURL, SSA + "&v=" + num)));
 				}
 				
 				rows.add(columns);
