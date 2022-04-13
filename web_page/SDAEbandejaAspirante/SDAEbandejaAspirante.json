@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1648776509437,
+  "lastUpdate" : 1649807273792,
   "rows" : [
     [
       {
@@ -16,7 +16,7 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "color-orange"
           },
           "hidden" : {
             "type" : "constant",
@@ -256,63 +256,15 @@
                 "contenido" : {
                   "type" : "variable",
                   "value" : "buildContent"
+                },
+                "modalVerSolicitud" : {
+                  "type" : "constant",
+                  "value" : "modalVerSolicitud"
                 }
               },
               "reference" : "6cefa9fb-8b15-46f6-b2ea-8ef15fc11741",
               "hasValidationError" : false,
               "id" : "customTablaSolicitudApoyoEducativoAspirante"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<pre>{{ objSolicitudDeAdmision | json }}</pre>\n<pre>{{ objSolicitudApoyo | json }}</pre>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "7beef264-01bb-405d-8320-73a4a1df321d",
-              "hasValidationError" : false,
-              "id" : "pbText"
             }
           ]
         ]
@@ -608,8 +560,8 @@
                           "value" : ""
                         },
                         "hidden" : {
-                          "type" : "constant",
-                          "value" : false
+                          "type" : "expression",
+                          "value" : "!tipoMoneda"
                         },
                         "disabled" : {
                           "type" : "constant",
@@ -740,6 +692,121 @@
                     }
                   ]
                 ]
+              }
+            ]
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modalVerSolicitud"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "967499eb-5087-4740-a41b-0d0ba34849c0",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "acf14dc1-7248-4339-9310-dcc73b745c7f",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "fragment",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  }
+                },
+                "reference" : "09d14d25-7b3f-4c9b-b945-97dc84192e56",
+                "hasValidationError" : false,
+                "id" : "SDAEFrgSolicitudApoyoAcademico",
+                "binding" : {
+                  "objSolicitudDeAdmision" : "objSolicitudDeAdmision",
+                  "rutaFotoUsuario" : "",
+                  "getTipoAdmision" : "",
+                  "formOutputTest" : "formOutputTest",
+                  "getInformacionEscolar" : "",
+                  "tutor" : "",
+                  "lstCatTipoInversionesPosee" : "",
+                  "padre" : "",
+                  "madre" : "",
+                  "imagenesSocioEconomico" : "",
+                  "getDocumentosByTipoApoyo" : "",
+                  "returnCatValue" : "",
+                  "wizardContent" : "wizardContent",
+                  "selectedIndex" : "selectedIndex",
+                  "siNoOpciones" : "",
+                  "lstCatContoBecaPreparatoria" : "",
+                  "catSexo" : "",
+                  "lstCatProvienenIngresos" : "",
+                  "lstCatSDAEEstadoCivilPadres" : "",
+                  "lstCatTienesHermanos" : "",
+                  "getCatTipoApoyoByCampus" : "",
+                  "lstCatPorcentajeBeca" : "",
+                  "lstCatPorcentajeFinanciamiento" : "",
+                  "catCasaDondeVives_query" : "",
+                  "validar1" : "false",
+                  "validar2" : "false",
+                  "validar3" : "false",
+                  "validar4" : "false",
+                  "validar5" : "false",
+                  "tituloErrorPaso1" : "\"\"",
+                  "tituloErrorPaso2" : "\"\"",
+                  "tituloErrorPaso3" : "\"\"",
+                  "tituloErrorPaso4" : "\"\"",
+                  "tituloErrorPaso5" : "\"\"",
+                  "errorPaso1" : "\"\"",
+                  "errorPaso2" : "\"\"",
+                  "errorPaso3" : "\"\"",
+                  "errorPaso4" : "\"\"",
+                  "errorPaso5" : "\"\"",
+                  "urlDownloadFileAzure" : "",
+                  "taskid" : "",
+                  "reload" : "false",
+                  "caseId" : "",
+                  "reloadTask" : "false",
+                  "isModificar" : "false"
+                }
               }
             ]
           ]
@@ -888,6 +955,19 @@
         "../API/bpm/case?c=1&p=0&f=started_by={{userData.user_id}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "selectedIndex" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "formOutputTest" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"solicitudApoyoEducativoInput\": $data.objSolicitudApoyo[0]",
+        "}"
+      ],
       "exposed" : false
     }
   },

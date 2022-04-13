@@ -121,7 +121,7 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.documentos = data;
                 for(let i = 0; i< $scope.properties.documentos.length; i++){
-                    $scope.properties.documentos[i].catManejoDocumentos = $scope.properties.lstDocumentosByTipoApoyo[i];
+                    $scope.properties.documentos[i].catManejoDocumentos = $scope.properties.lstDocumentosByTipoApoyo ? $scope.properties.lstDocumentosByTipoApoyo[i] : null;
                 }
             }
         }).error((err) => {
@@ -153,7 +153,7 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.imagenesSocioEco = data;
                 for(let i = 0; i< $scope.properties.imagenesSocioEco.length; i++){
-                    $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo[i];
+                    $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo ? $scope.properties.lstImagenesByTipoApoyo[i] : null;
                 }
             }
         }).error((err) => {

@@ -48,13 +48,16 @@ class BitacoraDAO {
 		Boolean closeCon = false;
 		Comentarios comentario = new Comentarios();
 		List<Comentarios> lstComentarios = new ArrayList<Comentarios>();
-		
+		String errorLog = "";
 		try {
 			closeCon = validarConexion();
 			String consulta = Statements.GET_COMENTARIOS_BITACORA;
 			pstm = con.prepareStatement(consulta);
 			pstm.setLong(1, caseId);
 			
+			rs = pstm.executeQuery();
+			errorLog += consulta;
+			errorLog += " " + caseId.toString();
 			while(rs.next()) {
 				comentario = new Comentarios();
 				comentario.setComentario(rs.getString("COMENTARIO"));
@@ -62,11 +65,12 @@ class BitacoraDAO {
 				comentario.setModulo(rs.getString("MODULO"));
 				comentario.setUsuarioComentario(rs.getString("USUARIOCOMENTARIO"));
 				comentario.setUsuario(rs.getString("USUARIO"));
-				comentario.setCaseId(rs.getLong("COMENTARIO"));
+				comentario.setCaseId(rs.getLong("CASEID"));
 				
 				lstComentarios.add(comentario);
 			}
-			
+
+			resultado.setError(errorLog);
 			resultado.setData(lstComentarios);
 			resultado.setSuccess(true);
 		} catch (Exception e) {
