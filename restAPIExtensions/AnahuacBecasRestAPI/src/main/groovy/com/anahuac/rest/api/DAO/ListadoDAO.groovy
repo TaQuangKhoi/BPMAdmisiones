@@ -113,20 +113,19 @@ class ListadoDAO {
 				//}
 			}
 			
-			/*if (lstGrupo.size() > 0) {
-				campus += " AND ("
+			if (lstGrupo.size() > 0) {
+				where += " AND ("
 			}
 			for (Integer i = 0; i < lstGrupo.size(); i++) {
 				String campusMiembro = lstGrupo.get(i);
-				campus += "campus.descripcion='" + campusMiembro + "'"
+				where += "campus.descripcion='" + campusMiembro + "'"
 				if (i == (lstGrupo.size() - 1)) {
-					campus += ") "
+					where += ") "
 				} else {
-					campus += " OR "
+					where += " OR "
 				}
 			}
 
-			errorlog += "campus" + campus;*/
 
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
@@ -143,7 +142,125 @@ class ListadoDAO {
 
 			errorlog = consulta + " 2";
 			
-			/*switch (object.orderby) {
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				errorlog = consulta + " 1";
+				switch (filtro.get("columna")) {
+
+					case "NOMBRE,EMAIL,CURP":
+						errorlog += "NOMBRE,EMAIL,CURP"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+
+					case "PROGRAMA,INGRESO,CAMPUS":
+						errorlog += "PROGRAMA,INGRESO,CAMPUS"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						break;
+
+					case "TIPO APOYO,PROMEDIO":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(tipoapoyo.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "CAMPUS":
+						errorlog += "CAMPUS"
+						where += " AND LOWER(campus.DESCRIPCION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ULTIMA MODIFICACION":
+						errorlog += "FECHAULTIMAMODIFICACION"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " (LOWER(SDAE.fechaultimamodificacion) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where += "LIKE LOWER('%[valor]%'))";
+
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "# EXPEDIENTE":
+						errorlog += "SOLICITUD"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(CAST(SDAE.caseid AS varchar)) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ESTATUS":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(SDAE.estatusSolicitud) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+
+					default:
+						break;
+				}
+
+			}
+			errorlog = consulta + " 2";
+			switch (object.orderby) {
 				case "RESIDEICA":
 					orderby += "residensia";
 					break;
@@ -211,20 +328,7 @@ class ListadoDAO {
 					orderby += "sda.persistenceid"
 					break;
 			}
-			*/
 			
-			/*errorlog = consulta + " 3";
-			orderby += " " + object.orientation;
-			consulta = consulta.replace("[CAMPUS]", campus)
-			consulta = consulta.replace("[PROGRAMA]", programa)
-			consulta = consulta.replace("[INGRESO]", ingreso)
-			consulta = consulta.replace("[ESTADO]", estado)
-			consulta = consulta.replace("[BACHILLERATO]", bachillerato)
-			consulta = consulta.replace("[TIPOALUMNO]", tipoalumno)
-			
-			where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno
-			errorlog = consulta + " 4";*/
-
 			consulta = consulta.replace("[WHERE]", where);
 			consultaCount = consultaCount.replace("[WHERE]", where);
 
