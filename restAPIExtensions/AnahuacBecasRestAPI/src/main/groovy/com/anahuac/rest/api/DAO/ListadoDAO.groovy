@@ -285,9 +285,6 @@ class ListadoDAO {
 				case "INGRESO":
 					orderby += "periodo.DESCRIPCION"
 					break;
-				case "PROCEDENCIA":
-					orderby += "CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
-					break;
 				case "PROMEDIO":
 					orderby += "sda.PROMEDIOGENERAL";
 					break;
@@ -1509,9 +1506,6 @@ class ListadoDAO {
 					break;
 				case "INGRESO":
 					orderby += "periodo.DESCRIPCION"
-					break;
-				case "PROCEDENCIA":
-					orderby += "CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
 					break;
 				case "PROMEDIO":
 					orderby += "sda.PROMEDIOGENERAL";
