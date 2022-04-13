@@ -218,7 +218,7 @@ class ListadoDAO {
 						} else {
 							where += "LIKE LOWER('%[valor]%')"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'DD-MM-YYYYTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
 						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
@@ -1440,7 +1440,7 @@ class ListadoDAO {
 						} else {
 							where += "LIKE LOWER('%[valor]%')"
 						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(SDAE.fechaultimamodificacion, 'DD-MM-YYYYTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
 						where += "LIKE LOWER('%[valor]%'))";
 
 						where = where.replace("[valor]", filtro.get("valor"))
