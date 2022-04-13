@@ -3685,6 +3685,17 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_GOz-UWdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_GOz-UGdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_GOz-UmdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_1jVRQLt8EeyVx8UZqxGLuw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_1jVRQbt8EeyVx8UZqxGLuw" name="varAutorizada" content="varAutorizada" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_3O-6wLt8EeyVx8UZqxGLuw" name="varAutorizada" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_1jVRQrt8EeyVx8UZqxGLuw" name="varAutorizadaInput" content="varAutorizadaInput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_3zvNoLt8EeyVx8UZqxGLuw" name="varAutorizadaInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_3zvNobt8EeyVx8UZqxGLuw"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_1jVRQ7t8EeyVx8UZqxGLuw" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_GOz-U2dCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_GOz-VGdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_GOz-VWdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -3693,7 +3704,11 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_4UhGWGdEEeyAHufroJpG_Q" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_4UhGWWdEEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_4UhGV2dEEeyAHufroJpG_Q"/>
+          <contract xmi:type="process:Contract" xmi:id="_4UhGV2dEEeyAHufroJpG_Q">
+            <inputs xmi:type="process:ContractInput" xmi:id="_vAoZQLt8EeyVx8UZqxGLuw" name="varAutorizadaInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_vAoZQbt8EeyVx8UZqxGLuw"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_4UhGWmdEEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:ServiceTask" xmi:id="_n2aesGdQEeyAHufroJpG_Q" name="Notificar aspirante y áreas asignadas rechazo de apoyo" outgoing="_rVtHsGdeEeyAHufroJpG_Q" incoming="_n294UGdQEeyAHufroJpG_Q">
