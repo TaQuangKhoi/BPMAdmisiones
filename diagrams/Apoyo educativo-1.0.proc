@@ -3456,6 +3456,15 @@
               <inputTypes>java.lang.Long</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_Cv1K8LuBEeyVx8UZqxGLuw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_Cv1K8buBEeyVx8UZqxGLuw" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Dc6TYLuBEeyVx8UZqxGLuw" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Cv1K8ruBEeyVx8UZqxGLuw" name="newScript()" content="import java.time.LocalDateTime&#xD;&#xA;return LocalDateTime.now();" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.time.LocalDateTime"/>
+            <operator xmi:type="expression:Operator" xmi:id="_Cv1K87uBEeyVx8UZqxGLuw" type="JAVA_METHOD" expression="setFechaUltimaModificacion">
+              <inputTypes>java.time.LocalDateTime</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_WW-xNGdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_WW-xNWdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_WW-xNmdBEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -3662,6 +3671,17 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_WCAKQGdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_WB_jMWdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_WCAKQWdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_L3JfULuCEeyVx8UZqxGLuw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_L3JfUbuCEeyVx8UZqxGLuw" name="varReactivada" content="varReactivada" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_M8AOkLuCEeyVx8UZqxGLuw" name="varReactivada" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_L3JfUruCEeyVx8UZqxGLuw" name="varReactivadainput" content="varReactivadainput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_ST9KsLuCEeyVx8UZqxGLuw" name="varReactivadainput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_ST9KsbuCEeyVx8UZqxGLuw"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_L3JfU7uCEeyVx8UZqxGLuw" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_WCAKQmdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_WCAKQ2dCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_WCAKRGdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -3673,7 +3693,11 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_Ysk6KWdCEeyAHufroJpG_Q" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_Ysk6KmdCEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_Ysk6KGdCEeyAHufroJpG_Q"/>
+          <contract xmi:type="process:Contract" xmi:id="_Ysk6KGdCEeyAHufroJpG_Q">
+            <inputs xmi:type="process:ContractInput" xmi:id="_IKmVELuCEeyVx8UZqxGLuw" name="varReactivadainput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_IKmVEbuCEeyVx8UZqxGLuw"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_Ysk6K2dCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:EndTerminatedEvent" xmi:id="_b9AJEGdCEeyAHufroJpG_Q" name="Fin4" incoming="_b9ClUGdCEeyAHufroJpG_Q">
@@ -3685,6 +3709,17 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_GOz-UWdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_GOz-UGdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_GOz-UmdCEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_1jVRQLt8EeyVx8UZqxGLuw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_1jVRQbt8EeyVx8UZqxGLuw" name="varAutorizada" content="varAutorizada" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_3O-6wLt8EeyVx8UZqxGLuw" name="varAutorizada" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_1jVRQrt8EeyVx8UZqxGLuw" name="varAutorizadaInput" content="varAutorizadaInput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_3zvNoLt8EeyVx8UZqxGLuw" name="varAutorizadaInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_3zvNobt8EeyVx8UZqxGLuw"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_1jVRQ7t8EeyVx8UZqxGLuw" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_GOz-U2dCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_GOz-VGdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_GOz-VWdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -3693,7 +3728,11 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_4UhGWGdEEeyAHufroJpG_Q" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_4UhGWWdEEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_4UhGV2dEEeyAHufroJpG_Q"/>
+          <contract xmi:type="process:Contract" xmi:id="_4UhGV2dEEeyAHufroJpG_Q">
+            <inputs xmi:type="process:ContractInput" xmi:id="_vAoZQLt8EeyVx8UZqxGLuw" name="varAutorizadaInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_vAoZQbt8EeyVx8UZqxGLuw"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_4UhGWmdEEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:ServiceTask" xmi:id="_n2aesGdQEeyAHufroJpG_Q" name="Notificar aspirante y áreas asignadas rechazo de apoyo" outgoing="_rVtHsGdeEeyAHufroJpG_Q" incoming="_n294UGdQEeyAHufroJpG_Q">
@@ -3992,6 +4031,9 @@
       <data xmi:type="process:Data" xmi:id="_rK-6ALtTEeyVx8UZqxGLuw" name="varAutorizada" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
         <defaultValue xmi:type="expression:Expression" xmi:id="_rK-6AbtTEeyVx8UZqxGLuw" content="" returnType="java.lang.Boolean"/>
       </data>
+      <data xmi:type="process:Data" xmi:id="_BFEc0LuCEeyVx8UZqxGLuw" name="varReactivada" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_BFEc0buCEeyVx8UZqxGLuw" content="" returnType="java.lang.Boolean"/>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_41FZn2dAEeyAHufroJpG_Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_41FZoGdAEeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
@@ -4038,8 +4080,8 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_ioyEkGdCEeyAHufroJpG_Q" target="_4UgfQGdEEeyAHufroJpG_Q" source="_gnmmQGdeEeyAHufroJpG_Q">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_ioyEkWdCEeyAHufroJpG_Q"/>
-        <condition xmi:type="expression:Expression" xmi:id="_ioyEkmdCEeyAHufroJpG_Q" name="varAdmitido" content="varAdmitido" type="TYPE_VARIABLE" returnType="java.lang.Boolean" returnTypeFixed="true">
-          <referencedElements xmi:type="process:Data" xmi:id="_iGu2sGdeEeyAHufroJpG_Q" name="varAdmitido" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+        <condition xmi:type="expression:Expression" xmi:id="_ioyEkmdCEeyAHufroJpG_Q" name="varReactivada" content="varReactivada" type="TYPE_VARIABLE" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:Data" xmi:id="_GdUT4LuCEeyVx8UZqxGLuw" name="varReactivada" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
         </condition>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_li8voGdCEeyAHufroJpG_Q" target="_aNw1gGdBEeyAHufroJpG_Q" source="_gnmmQGdeEeyAHufroJpG_Q" isDefault="true">

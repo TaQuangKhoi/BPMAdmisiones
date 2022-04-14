@@ -1,8 +1,8 @@
 {
   "modelVersion" : "2.2",
-  "id" : "SDAERevisionDeportiva",
-  "name" : "SDAERevisionDeportiva",
-  "lastUpdate" : 1649895199864,
+  "id" : "SDAEAutorizacionApoyo",
+  "name" : "SDAEAutorizacionApoyo",
+  "lastUpdate" : 1649892214906,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
             "value" : ""
           }
         },
-        "reference" : "3d987740-bcee-40bd-8c3f-812bd2d5b4ac",
+        "reference" : "a96a28ba-b61c-4221-b124-7e8085736aee",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -52,7 +52,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Revisión de Habilidades Deportivas"
+                  "value" : "Autorización de Apoyo"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -63,7 +63,7 @@
                   "value" : 12
                 }
               },
-              "reference" : "7c0f558f-5fcc-44a0-8989-9fef8da9721b",
+              "reference" : "5a03d44f-738a-4207-a747-9a754ebbab09",
               "hasValidationError" : false,
               "id" : "pbTitle",
               "description" : ""
@@ -71,7 +71,7 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "fragment",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -86,100 +86,59 @@
                 "hidden" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "headers" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Id",
-                    "Name",
-                    "Description",
-                    "Date"
-                  ]
-                },
-                "columnsKey" : {
-                  "type" : "constant"
-                },
-                "selectedRow" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "striped" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "condensed" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "bordered" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "urlPost" : {
-                  "type" : "constant",
-                  "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
-                },
-                "dataToSend" : {
-                  "type" : "variable",
-                  "value" : "dataToSend"
-                },
-                "lstContenido" : {
-                  "type" : "variable",
-                  "value" : "lstContenido"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "campusSeleccionado" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "lstCampus" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "abrirPagina" : {
-                  "type" : "constant"
                 }
               },
-              "reference" : "1beba3be-60df-4826-a10b-af9fb44b84d9",
+              "reference" : "01db6452-e943-4fc8-b6ac-681d6fe3f923",
               "hasValidationError" : false,
-              "id" : "customSDAETablePostSolicitudByCaseId"
+              "id" : "frgSDAEInfoSolicitanteCheck",
+              "binding" : {
+                "wizardContent" : "wizardContent",
+                "selectedIndex" : "selectedIndex",
+                "getInformacionEscolar" : "getInformacionEscolar",
+                "getInformacionPersonal" : "getInformacionPersonal",
+                "getInformacionPadres" : "getInformacionPadres",
+                "solicitudApoyoEducativo" : "getSolicitudApoyoEducativo",
+                "modificarInfoPersonal" : "formInput.solicitudApoyoEducativoInput.modificarInfoPersonal",
+                "modificarInfoFamiliar" : "formInput.solicitudApoyoEducativoInput.modificarInfoFamiliar",
+                "modificarMotivoSol" : "formInput.solicitudApoyoEducativoInput.modificarMotivoSol",
+                "modificarInfoSocioEco" : "formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco",
+                "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
+                "context" : "context",
+                "getAutosSolicitante" : "getAutosSolicitantes",
+                "getCatSituacionAuto" : "getCatSituacionAuto"
+              }
             }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "expression",
-                  "value" : "getSolicitudApoyoEducativo[0].urlvideoyoutube"
-                }
-              },
-              "reference" : "82b99ba3-17cd-4659-84f6-d05a43428e23",
-              "hasValidationError" : false,
-              "id" : "customSDAEVisualizarVideoYouTube2"
-            }
-          ],
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "selectedIndex != 5"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "fc44e28f-72f4-4ed8-88b9-d76073db0b86",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
           [
             {
               "type" : "component",
@@ -204,7 +163,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Rechazar solicitud"
+                  "value" : "Archivar solicitud"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -265,7 +224,7 @@
                   "type" : "variable"
                 }
               },
-              "reference" : "5d814bec-982f-4c51-ae8c-374dfc1bd0b2",
+              "reference" : "851119a6-8a79-40e4-b9e1-edc019b022f7",
               "hasValidationError" : false,
               "id" : "pbButton"
             },
@@ -292,7 +251,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Aprobar solicitud"
+                  "value" : "Autorizar solicitud"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -353,7 +312,7 @@
                   "type" : "variable"
                 }
               },
-              "reference" : "be2cc889-a466-4fe1-a7e9-26a6a73a7784",
+              "reference" : "99639635-b3bd-48cd-b709-a655a399bad9",
               "hasValidationError" : false,
               "id" : "pbButton"
             }
@@ -388,7 +347,7 @@
             "value" : true
           }
         },
-        "reference" : "0dba68d9-77e3-4aca-ae22-22ab79943479",
+        "reference" : "58553332-62aa-4f1f-bda5-2310e79f485f",
         "hasValidationError" : false,
         "id" : "pbModalContainer",
         "container" : {
@@ -397,7 +356,7 @@
             "xs" : 12
           },
           "propertyValues" : { },
-          "reference" : "8764e69e-8cf2-47e8-9cf6-b71ea47db659",
+          "reference" : "a43b6469-f4c0-4592-9024-f716950ed496",
           "hasValidationError" : false,
           "id" : "pbContainer",
           "rows" : [
@@ -424,7 +383,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "f014d7ff-583e-4cbf-805b-53df503f1003",
+                "reference" : "5ec96234-6e3c-4c25-b140-6a4d4381bd9e",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
@@ -448,7 +407,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Aprobar solicitud"
+                          "value" : "Autorizar solicitud"
                         },
                         "level" : {
                           "type" : "constant",
@@ -459,7 +418,7 @@
                           "value" : "center"
                         }
                       },
-                      "reference" : "9f6a541e-9c07-4f78-9c63-21f8ac6b6751",
+                      "reference" : "06db6f17-799f-4c42-b2ca-4556a653c06c",
                       "hasValidationError" : false,
                       "id" : "pbTitle"
                     }
@@ -494,7 +453,7 @@
                     "value" : 12
                   }
                 },
-                "reference" : "bde789ce-f9f1-4e15-842d-23abb3f01415",
+                "reference" : "40de1d8f-bd78-4d25-979d-a97e9ee79c29",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
@@ -538,76 +497,16 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Aprobar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>"
+                          "value" : "¿Desea  <b>Autorizar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>?"
                         },
                         "alignment" : {
                           "type" : "constant",
                           "value" : "left"
                         }
                       },
-                      "reference" : "ae250c56-42cf-4036-91a5-a5b4502890b0",
+                      "reference" : "79bb9c9c-2b86-4ec8-b770-279ed4ac37d1",
                       "hasValidationError" : false,
                       "id" : "pbText"
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : ""
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : ""
-                        }
-                      },
-                      "reference" : "ac3810ab-e0eb-44ab-92c7-201fdbbae527",
-                      "hasValidationError" : false,
-                      "id" : "pbTextarea"
                     }
                   ]
                 ]
@@ -636,7 +535,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "7905402c-654c-428f-8c2e-20a44f67eebc",
+                "reference" : "0e8a6ced-27d9-4ae6-9238-505cc4ba4330",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
@@ -725,7 +624,7 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "6135dd5d-c34c-455b-9826-8e0bff9e6ed4",
+                      "reference" : "faf2e949-2660-4ead-b12d-ff920d023182",
                       "hasValidationError" : false,
                       "id" : "pbButton"
                     },
@@ -752,7 +651,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Aprobar solicitud"
+                          "value" : "Enviar a autorizar"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -760,7 +659,7 @@
                         },
                         "buttonStyle" : {
                           "type" : "constant",
-                          "value" : "success"
+                          "value" : "primary"
                         },
                         "action" : {
                           "type" : "constant",
@@ -814,7 +713,7 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "3cd539fe-cd05-4b9d-9020-f5d838e8109d",
+                      "reference" : "ed221fa7-d5a5-46ed-9063-eba408f00a89",
                       "hasValidationError" : false,
                       "id" : "customSDAEButtonCloseWindow"
                     }
@@ -823,52 +722,100 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
                         "md" : 12,
+                        "sm" : 12,
+                        "xs" : 12,
                         "lg" : 12
                       },
                       "propertyValues" : {
+                        "removeItem" : {
+                          "type" : "variable"
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
                         "cssClasses" : {
                           "type" : "constant",
                           "value" : ""
                         },
-                        "hidden" : {
+                        "buttonStyle" : {
                           "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : true
+                          "value" : "primary"
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Default label"
+                          "value" : "Submit"
                         },
-                        "labelPosition" : {
+                        "dataToSend" : {
+                          "type" : "expression",
+                          "value" : "formOutput"
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : "formOutput._submitError"
+                        },
+                        "labelHidden" : {
                           "type" : "constant",
-                          "value" : "top"
+                          "value" : false
                         },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
+                        "collectionPosition" : {
+                          "type" : "constant"
                         },
-                        "allowHTML" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "text" : {
+                        "targetUrlOnSuccess" : {
                           "type" : "interpolation",
-                          "value" : "<br>Esta acción será notificada por correo al área de becas"
+                          "value" : "/bonita"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Submit task"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "valueToAdd" : {
+                          "type" : "expression"
+                        },
+                        "disabled" : {
+                          "type" : "expression",
+                          "value" : "$form.$invalid"
                         },
                         "alignment" : {
                           "type" : "constant",
-                          "value" : "left"
+                          "value" : "center"
+                        },
+                        "dimension" : {
+                          "type" : "constant",
+                          "value" : 12
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
                         }
                       },
-                      "reference" : "644c4d95-5c7e-4464-90f5-ae4723cf5e98",
+                      "reference" : "1c5ae619-acf4-487a-b29b-655f54551ce6",
                       "hasValidationError" : false,
-                      "id" : "pbText"
+                      "id" : "pbButton",
+                      "description" : ""
                     }
                   ]
                 ]
@@ -905,7 +852,7 @@
             "value" : true
           }
         },
-        "reference" : "98fd5a60-3692-46af-aa71-8932f7d3215b",
+        "reference" : "7c2b738f-29b2-46b9-a54b-d718ba704550",
         "hasValidationError" : false,
         "id" : "pbModalContainer",
         "container" : {
@@ -914,7 +861,7 @@
             "xs" : 12
           },
           "propertyValues" : { },
-          "reference" : "5965c716-d6f3-4566-9753-6a160b37740f",
+          "reference" : "98848db8-6036-4d28-a03d-7146bd6081d5",
           "hasValidationError" : false,
           "id" : "pbContainer",
           "rows" : [
@@ -941,7 +888,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "adf94b02-0458-42c0-a3c4-e77b49141b1d",
+                "reference" : "0cc2e42d-a5f2-4481-8733-6b97ae471a19",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
@@ -965,7 +912,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
+                          "value" : "Archivar solicitud"
                         },
                         "level" : {
                           "type" : "constant",
@@ -976,7 +923,7 @@
                           "value" : "center"
                         }
                       },
-                      "reference" : "450d03a1-839f-466d-9263-7cc616d91ea4",
+                      "reference" : "af9d871e-ac15-46f8-94a8-8022b7e2951e",
                       "hasValidationError" : false,
                       "id" : "pbTitle"
                     }
@@ -1007,7 +954,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "291bcf9d-2ee0-4629-8bb8-6df532bc0132",
+                "reference" : "54c74ad9-e769-477a-acde-c9cf2cbd3210",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
@@ -1051,14 +998,14 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>"
+                          "value" : "¿Desea  <b>Archivar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>?"
                         },
                         "alignment" : {
                           "type" : "constant",
                           "value" : "left"
                         }
                       },
-                      "reference" : "04c93c6d-fbd5-4970-8701-344a4c9d3a7c",
+                      "reference" : "69fb9f29-9cd5-44a8-9466-20888bc255b1",
                       "hasValidationError" : false,
                       "id" : "pbText"
                     }
@@ -1079,7 +1026,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "readOnly" : {
                           "type" : "constant",
@@ -1118,7 +1065,7 @@
                           "value" : "formInputRechazo.preAutorizacionInput.motivoRechazoPreAutorizacion"
                         }
                       },
-                      "reference" : "0b4a251b-2057-413b-bf2c-c3ca3c0f3111",
+                      "reference" : "5b215fdf-73e2-413e-879e-812f53983a5d",
                       "hasValidationError" : false,
                       "id" : "customCustomTextAreaLimit"
                     }
@@ -1149,7 +1096,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "d8c22a1f-4164-456d-8497-a5b9daeb3215",
+                "reference" : "fb013f7d-4e05-4275-8926-7190847fb9d0",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
@@ -1238,7 +1185,7 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "70f3aa39-84a0-4d56-bc13-c1c58f24d16b",
+                      "reference" : "4ad0ebb8-6659-41b5-89f6-31a0a8f026a5",
                       "hasValidationError" : false,
                       "id" : "pbButton"
                     },
@@ -1328,7 +1275,7 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "1805aa6b-90a6-4c00-a647-67f26b9179d2",
+                      "reference" : "01e22acc-cbb3-447a-9653-6930e784524c",
                       "hasValidationError" : false,
                       "id" : "customSDAEButtonCloseWindow"
                     }
@@ -1349,7 +1296,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -1373,14 +1320,14 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<br>Esta acción será notificada por correo al área de pre-autorización"
+                          "value" : "<br>Esta acción será notificada por correo a <b>{{getInformacionPersonal[0].correoElectronico}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
                           "value" : "center"
                         }
                       },
-                      "reference" : "80ce0979-1def-4315-bc19-52fa40f73f92",
+                      "reference" : "2c58f2df-a95a-40f9-a1f5-0ab842a89911",
                       "hasValidationError" : false,
                       "id" : "pbText"
                     }
@@ -1439,6 +1386,39 @@
       ],
       "exposed" : false
     },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"preAutorizacionInput\" : {\r",
+        "    \"isPreautorizada\" : false,\r",
+        "    \"cambiosSolicitudPreAutorizacion\" : \"\",\r",
+        "    \"motivoRechazoPreAutorizacion\" : \"\",\r",
+        "    \"porcentajeCreditoPreAutorizacion\" : 0,\r",
+        "    \"porcentajeBeca\" : 0,\r",
+        "    \"porcentajeCredito\" : 0,\r",
+        "    \"promedioMinimoPreAutorizacion\" : 0,\r",
+        "    \"fechaPagoInscripcion\" : null,\r",
+        "    \"isPagoRealizado\" : false,\r",
+        "    \"descuentoAnticipado\" : 0\r",
+        "  },\r",
+        "  \"varRevisadaInput\" : true,\r",
+        "  \"varModificarInput\" : true,\r",
+        "  \"varDeportivaInput\" : false,\r",
+        "  \"varArtisticaInput\" : false,\r",
+        "  \"varFinanaciamientoInput\" : false,\r",
+        "  \"solicitudApoyoEducativoInput\" : {\r",
+        "    \"estatusSolicitud\" : \"Pre-autorización solicita modificaciones\",\r",
+        "    \"modificarInfoPersonal\" :  false,\r",
+        "    \"modificarInfoFamiliar\" :  false,\r",
+        "    \"modificarMotivoSol\" :  false,\r",
+        "    \"modificarInfoSocioEco\" :  false,\r",
+        "    \"modificarDocumentos\" :  false\r",
+        "  }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
     "submit_errors_list" : {
       "type" : "expression",
       "value" : [
@@ -1477,10 +1457,68 @@
       ],
       "exposed" : false
     },
+    "selectedIndex" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "wizardContent" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "    {\r",
+        "        \"title\" : \"Información personal\",\r",
+        "        \"value\" : \"personalInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Información familiar\",\r",
+        "        \"value\" : \"familiarInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Motivos\",\r",
+        "        \"value\" : \"motivosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Información económica\",\r",
+        "        \"value\" : \"economicaInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Documentos\",\r",
+        "        \"value\" : \"documentosInfo\",\r",
+        "        \"isValid\": true\r",
+        "    },\r",
+        "    {\r",
+        "        \"title\" : \"Pre-autorización\",\r",
+        "        \"value\" : \"preAutorizacion\",\r",
+        "        \"isValid\": true\r",
+        "    }\r",
+        "]"
+      ],
+      "exposed" : false
+    },
     "getInformacionPersonal" : {
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{getSolicitudApoyoEducativo[0].correoelectronico}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getInformacionEscolar" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getInfrmacionEscolar&p=0&c=100&email={{getSolicitudApoyoEducativo[0].correoelectronico}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getInformacionPadres" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.PadresTutor?q=findByCaseId&p=0&c=10&f=caseId={{getSolicitudApoyoEducativo[0].caseidadmisiones}}"
       ],
       "advancedOptions" : {
         "headers" : "",
@@ -1532,7 +1570,7 @@
       "type" : "json",
       "value" : [
         "{\r",
-        "  \"varRegresarRevisionInput\" : true\r",
+        "  \"varAutorizadaInput\" : false\r",
         "}"
       ],
       "exposed" : false
@@ -1540,9 +1578,35 @@
     "formInputAprobar" : {
       "type" : "json",
       "value" : [
-        "{\r",
-        "  \"varRegresarRevisionInput\" : false\r",
-        "}"
+        "{ \"varAutorizadaInput\" : true }"
+      ],
+      "exposed" : false
+    },
+    "getAutosSolicitantes" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.autos_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getCatSituacionAuto" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        " {\r",
+        "    \"persistenceId\": \"1\",\r",
+        "    \"descripcion\": \"Excelente\"\r",
+        " },\r",
+        " {\r",
+        "    \"persistenceId\": \"2\",\r",
+        "    \"descripcion\": \"Bueno\"\r",
+        " },\r",
+        " {\r",
+        "    \"persistenceId\": \"3\",\r",
+        "    \"descripcion\": \"Malo\"\r",
+        " }\r",
+        "]"
       ],
       "exposed" : false
     },
@@ -1559,16 +1623,14 @@
         "return {\r",
         "    \"caseId\":$data.caseId,\r",
         "    \"limit\":20,\r",
-        "    \"offset\":0,\r",
-        "    \"orientation\":\"\",\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "    \"offset\":0\r",
         "};\r"
       ],
       "exposed" : false
     }
   },
   "hasValidationError" : false,
-  "uuid" : "4f2b04c2-d138-4945-a43b-8b22cc3388d3",
+  "uuid" : "8c682705-d001-4c84-9158-9b775f3bc603",
   "type" : "page",
   "description" : "Page generated with Bonita UI designer"
 }
