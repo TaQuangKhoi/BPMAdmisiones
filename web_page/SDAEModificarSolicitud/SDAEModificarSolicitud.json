@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1649806879417,
+  "lastUpdate" : 1649886545237,
   "rows" : [
     [
       {
@@ -311,7 +311,9 @@
                 "reload" : "reloadTask",
                 "caseId" : "caseId",
                 "reloadTask" : "reloadTask",
-                "isModificar" : "true"
+                "isModificar" : "true",
+                "constancia" : "constacia",
+                "fotoB64" : "fotoB64"
               }
             }
           ],
@@ -2098,6 +2100,22 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByPersistenceId&p=0&c=100&persistenceId="
       ],
+      "exposed" : false
+    },
+    "fotoB64" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{usuario[0].urlFoto}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "constacia" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

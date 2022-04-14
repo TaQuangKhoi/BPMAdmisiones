@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1649806912001,
+  "lastUpdate" : 1649895904703,
   "rows" : [
     [
       {
@@ -779,33 +779,38 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "srcType" : {
+                            "labelHidden" : {
                               "type" : "constant",
-                              "value" : "URL"
+                              "value" : true
                             },
-                            "url" : {
-                              "type" : "expression",
-                              "value" : "rutaFotoUsuario"
-                            },
-                            "assetName" : {
-                              "type" : "constant"
-                            },
-                            "alt" : {
+                            "label" : {
                               "type" : "interpolation",
-                              "value" : "No foto"
+                              "value" : "Default label"
                             },
-                            "userData" : {
-                              "type" : "variable",
-                              "value" : "userData"
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
                             },
-                            "correoUsuario" : {
-                              "type" : "variable",
-                              "value" : "userData.username"
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<img class=\"miniatura-pic\" src=\"{{fotoB64.data[0].b64}}\">\n<h4>Fotografía</j4>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "center"
                             }
                           },
-                          "reference" : "f0cd46b7-9a08-46e7-b96d-0f3d3ce97852",
+                          "reference" : "a73531fd-ca08-46a2-baa6-9e71f149bf45",
                           "hasValidationError" : false,
-                          "id" : "customImageSDAEviewFotoUsuario"
+                          "id" : "pbText"
                         }
                       ]
                     ]
@@ -2786,7 +2791,7 @@
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 6,
+                                  "sm" : 12,
                                   "md" : 12,
                                   "lg" : 12
                                 },
@@ -2798,6 +2803,110 @@
                                   "hidden" : {
                                     "type" : "constant",
                                     "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<img class=\"miniatura-pic\" src=\"{{constancia.data[0].b64}}\">"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "center"
+                                  }
+                                },
+                                "reference" : "07176041-e5ec-408e-a5df-ec288ee034f3",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<embed\n src=\"{{constancia.data[0].b64}}\"\n type=\"application/pdf\"/>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "center"
+                                  }
+                                },
+                                "reference" : "a8bcfcf0-c73f-41bf-9923-1f7a19e69f37",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 6,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : true
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -12398,6 +12507,20 @@
       "exposed" : true
     },
     "isModificar" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "constancia" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "fotoB64" : {
       "type" : "constant",
       "value" : [
         ""
