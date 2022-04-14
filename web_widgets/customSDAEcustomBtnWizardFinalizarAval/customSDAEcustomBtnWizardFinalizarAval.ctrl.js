@@ -22,13 +22,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function doRequest(method, url) {
+        debugger;
         let dataToSend = angular.copy($scope.properties.formOutput);
-        dataToSend.solicitudApoyoEducativoInput.pageIndex = $scope.properties.selectedIndex;
-        dataToSend.isFinalizadaInput = true;
         var req = {
             method: method,
             url: url,
-            // data: angular.copy($scope.properties.formOutput)
             data: dataToSend
         };
 
@@ -43,40 +41,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 console.log("task failed")
             });
     }
-
-    // function getCurrentTask() {
-    //     let contador = 0;
-    //     let limite = 99
-
-    //     let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready";
-
-    //     var req = {
-    //         method: "GET",
-    //         url: url
-    //     };
-
-    //     return $http(req)
-    //         .success(function(data, status) {
-    //             if (data.length === 0) {
-    //                 console.log("retry, no task found");
-    //                 getCurrentTask();
-    //             } else if (data[0].id === $scope.properties.taskId) {
-    //                 console.log("retry, same id");
-    //                 getCurrentTask();
-    //             } else {
-    //                 $scope.properties.taskId = data[0].id;
-    //                 console.log("Nueva tarea", $scope.properties.taskId);
-    //                 blockUI.stop();
-    //             }
-    //         })
-    //         .error(function(data, status) {
-    //             getCurrentTask();
-    //             if (contador <= limite) {
-    //                 contador++;
-    //                 getCurrentTask();
-    //             } else {
-    //                 blockUI.stop();
-    //             }
-    //         });
-    // }
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1649878487621,
+  "lastUpdate" : 1649892203512,
   "rows" : [
     [
       {
@@ -127,7 +127,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "activeCases.length === 0 && buildContent[0].estado !== \"Solcitud en progreso\""
+                  "value" : "activeCases.length === 0 || buildContent[0].estado !== \"Solcitud en progreso\""
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -254,7 +254,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "!objSolicitudApoyo || activeCases.length === 0"
+                  "value" : "!objSolicitudApoyo"
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -309,6 +309,134 @@
               "reference" : "6cefa9fb-8b15-46f6-b2ea-8ef15fc11741",
               "hasValidationError" : false,
               "id" : "customTablaSolicitudApoyoEducativoAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "5503fcf1-ebff-40ab-be12-78130a22341b",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Tareas pendientes:"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "cfdd78c8-1119-4359-9c96-d2ee6464ab7c",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "ID",
+                          "Nombre"
+                        ]
+                      },
+                      "content" : {
+                        "type" : "expression",
+                        "value" : "assignedTask"
+                      },
+                      "columnsKey" : {
+                        "type" : "constant",
+                        "value" : [
+                          "id",
+                          "name"
+                        ]
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : false
+                      }
+                    },
+                    "reference" : "6b54cf22-a78a-478f-a103-dd1be71293ee",
+                    "hasValidationError" : false,
+                    "id" : "customSDAETablaTareas"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -1045,6 +1173,18 @@
         "    }\r",
         "]"
       ],
+      "exposed" : false
+    },
+    "assignedTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{userData.user_id}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     }
   },

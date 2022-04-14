@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEConfirmacionApoyoAspirante",
   "name" : "SDAEConfirmacionApoyoAspirante",
-  "lastUpdate" : 1649198868813,
+  "lastUpdate" : 1649888098679,
   "rows" : [
     [
       {
@@ -1700,13 +1700,17 @@
       "value" : [
         "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{userData.user_id}}&f=name=Confirmación de apoyo asignado&p=0"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "taskId" : {
-      "type" : "expression",
+      "type" : "urlparameter",
       "value" : [
-        "return $data.taskList[0].id;"
+        "id"
       ],
       "exposed" : false
     }
