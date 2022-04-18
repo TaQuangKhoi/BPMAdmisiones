@@ -1329,7 +1329,7 @@ class UsuariosDAO {
 							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
 								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
 							} else {
-								columns.put(metaData.getColumnLabel(i).toLowerCase(),  rs.getString("urlfoto") + SSA+"&v="+num );
+								columns.put(metaData.getColumnLabel(i).toLowerCase(),  rs.getString(label) + SSA+"&v="+num );
 							}
 							
 						} else {
