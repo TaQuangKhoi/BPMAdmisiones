@@ -3339,9 +3339,9 @@
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_A5fO9b9nEeygG9_kY1ideA" key="body">
-                <expression xmi:type="expression:Expression" xmi:id="_A5fO9r9nEeygG9_kY1ideA" name="body()" content="String payload = &quot;{\&quot;campus\&quot;: \&quot;[CAMPUS]\&quot;, \&quot;correo\&quot;:\&quot;[CORREO]\&quot;, \&quot;codigo\&quot;: \&quot;[CODIGO]\&quot;, \&quot;isEnviar\&quot;:true }&quot;;&#xD;&#xA;payload = payload.replace(&quot;[CAMPUS]&quot;, solicitudDeAdmisionDAO.findByPersistenceId(solicitudApoyoEducativo.caseIdAdmisiones).getCatCampus().getGrupoBonita());&#xD;&#xA;payload = payload.replace(&quot;[CORREO]&quot;, solicitudDeAdmisionDAO.findByPersistenceId(solicitudApoyoEducativo.caseIdAdmisiones).getCorreoElectronico());&#xD;&#xA;payload = payload.replace(&quot;[CODIGO]&quot;, &quot;carta-bc-solicitud-proceso&quot;);&#xD;&#xA;return payload;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
-                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_QpBsEL92EeygG9_kY1ideA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
-                  <referencedElements xmi:type="expression:Expression" xmi:id="_QpCTIL92EeygG9_kY1ideA" name="solicitudDeAdmisionDAO" content="solicitudDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.SolicitudDeAdmisionDAO" returnTypeFixed="true"/>
+                <expression xmi:type="expression:Expression" xmi:id="_A5fO9r9nEeygG9_kY1ideA" name="body()" content="String payload = &quot;{\&quot;campus\&quot;: \&quot;[CAMPUS]\&quot;, \&quot;correo\&quot;:\&quot;[CORREO]\&quot;, \&quot;codigo\&quot;: \&quot;[CODIGO]\&quot;, \&quot;isEnviar\&quot;:true }&quot;;&#xD;&#xA;payload = payload.replace(&quot;[CAMPUS]&quot;, solicitudDeAdmisionDAO.findByEliminados(solicitudApoyoEducativo.caseIdAdmisiones, false).getCatCampus().getGrupoBonita());&#xD;&#xA;payload = payload.replace(&quot;[CORREO]&quot;, solicitudDeAdmisionDAO.findByEliminados(solicitudApoyoEducativo.caseIdAdmisiones, false).getCorreoElectronico());&#xD;&#xA;payload = payload.replace(&quot;[CODIGO]&quot;, &quot;carta-bc-solicitud-proceso&quot;);&#xD;&#xA;return payload;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_HiFpkMAiEeys9-ziWaUN-A" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+                  <referencedElements xmi:type="expression:Expression" xmi:id="_HiFpkcAiEeys9-ziWaUN-A" name="solicitudDeAdmisionDAO" content="solicitudDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.SolicitudDeAdmisionDAO" returnTypeFixed="true"/>
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_A5fO979nEeygG9_kY1ideA" key="do_not_follow_redirect">
@@ -3414,41 +3414,6 @@
                 <expression xmi:type="expression:Expression" xmi:id="_A5fPJL9nEeygG9_kY1ideA" name="DEFAULT" content="DEFAULT" returnTypeFixed="true"/>
               </parameters>
             </configuration>
-            <outputs xmi:type="expression:Operation" xmi:id="_A5fPJb9nEeygG9_kY1ideA">
-              <leftOperand xmi:type="expression:Expression" xmi:id="_A5fPJr9nEeygG9_kY1ideA"/>
-              <rightOperand xmi:type="expression:Expression" xmi:id="_A5fPJ79nEeygG9_kY1ideA" name="bodyAsString" content="bodyAsString" type="CONNECTOR_OUTPUT_TYPE">
-                <referencedElements xmi:type="definition:Output" xmi:id="_A5fPKL9nEeygG9_kY1ideA" name="bodyAsString" type="java.lang.String"/>
-              </rightOperand>
-              <operator xmi:type="expression:Operator" xmi:id="_A5fPKb9nEeygG9_kY1ideA" type="ASSIGNMENT"/>
-            </outputs>
-            <outputs xmi:type="expression:Operation" xmi:id="_A5fPKr9nEeygG9_kY1ideA">
-              <leftOperand xmi:type="expression:Expression" xmi:id="_A5fPK79nEeygG9_kY1ideA"/>
-              <rightOperand xmi:type="expression:Expression" xmi:id="_A5fPLL9nEeygG9_kY1ideA" name="bodyAsObject" content="bodyAsObject" type="CONNECTOR_OUTPUT_TYPE" returnType="java.lang.Object">
-                <referencedElements xmi:type="definition:Output" xmi:id="_A5fPLb9nEeygG9_kY1ideA" name="bodyAsObject" type="java.lang.Object"/>
-              </rightOperand>
-              <operator xmi:type="expression:Operator" xmi:id="_A5fPLr9nEeygG9_kY1ideA" type="ASSIGNMENT"/>
-            </outputs>
-            <outputs xmi:type="expression:Operation" xmi:id="_A5fPL79nEeygG9_kY1ideA">
-              <leftOperand xmi:type="expression:Expression" xmi:id="_A5fPML9nEeygG9_kY1ideA"/>
-              <rightOperand xmi:type="expression:Expression" xmi:id="_A5fPMb9nEeygG9_kY1ideA" name="headers" content="headers" type="CONNECTOR_OUTPUT_TYPE" returnType="java.util.Map">
-                <referencedElements xmi:type="definition:Output" xmi:id="_A5fPMr9nEeygG9_kY1ideA" name="headers" type="java.util.Map"/>
-              </rightOperand>
-              <operator xmi:type="expression:Operator" xmi:id="_A5fPM79nEeygG9_kY1ideA" type="ASSIGNMENT"/>
-            </outputs>
-            <outputs xmi:type="expression:Operation" xmi:id="_A5fPNL9nEeygG9_kY1ideA">
-              <leftOperand xmi:type="expression:Expression" xmi:id="_A5fPNb9nEeygG9_kY1ideA"/>
-              <rightOperand xmi:type="expression:Expression" xmi:id="_A5fPNr9nEeygG9_kY1ideA" name="status_code" content="status_code" type="CONNECTOR_OUTPUT_TYPE" returnType="java.lang.Integer">
-                <referencedElements xmi:type="definition:Output" xmi:id="_A5fPN79nEeygG9_kY1ideA" name="status_code" type="java.lang.Integer"/>
-              </rightOperand>
-              <operator xmi:type="expression:Operator" xmi:id="_A5fPOL9nEeygG9_kY1ideA" type="ASSIGNMENT"/>
-            </outputs>
-            <outputs xmi:type="expression:Operation" xmi:id="_A5fPOb9nEeygG9_kY1ideA">
-              <leftOperand xmi:type="expression:Expression" xmi:id="_A5fPOr9nEeygG9_kY1ideA"/>
-              <rightOperand xmi:type="expression:Expression" xmi:id="_A5fPO79nEeygG9_kY1ideA" name="status_message" content="status_message" type="CONNECTOR_OUTPUT_TYPE">
-                <referencedElements xmi:type="definition:Output" xmi:id="_A5fPPL9nEeygG9_kY1ideA" name="status_message" type="java.lang.String"/>
-              </rightOperand>
-              <operator xmi:type="expression:Operator" xmi:id="_A5fPPb9nEeygG9_kY1ideA" type="ASSIGNMENT"/>
-            </outputs>
           </connectors>
           <operations xmi:type="expression:Operation" xmi:id="_JTJrEKADEeyTN-GcXdFBog">
             <leftOperand xmi:type="expression:Expression" xmi:id="_JTJrEaADEeyTN-GcXdFBog" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
