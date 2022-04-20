@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1649892203512,
+  "lastUpdate" : 1650414701907,
   "rows" : [
     [
       {
@@ -1092,7 +1092,7 @@
         "",
         "if($data.objSolicitudDeAdmision && $data.objSolicitudApoyo){",
         "    let object = {",
-        "        \"folio\": $data.objSolicitudApoyo[0].caseId,",
+        "        \"folio\": $data.objSolicitudApoyo[$data.objSolicitudApoyo.length - 1].caseId,",
         "        \"periodo\": $data.objSolicitudDeAdmision[0].catPeriodo.descripcion,",
         "        \"nombre\": buildName($data.objSolicitudDeAdmision[0]),",
         "        // \"estado\": $data.objSolicitudDeAdmision[0].catCampusEstudio.estado.descripcion",

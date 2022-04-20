@@ -97,14 +97,14 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
             .success(function (data, status) {
                 $scope.properties.urlAzure = data.data[0];
                 uploadComplete(data);
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
+                // $scope.properties.dataFromSuccess = data;
+                // $scope.properties.responseStatusCode = status;
+                // $scope.properties.dataFromError = undefined;
+                // notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+                // if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                //     redirectIfNeeded();
+                // }
+                // closeModal($scope.properties.closeOnSuccess);
             })
             .error(function (data, status) {
                 $scope.properties.dataFromError = data;
@@ -117,17 +117,15 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
             });
     }
 
-     /**
-   * Execute a get/post request to an URL
-   * It also bind custom data from success|error to a data
-   * @return {void}
-   */
-      function getFile() {
+    /**
+    * Execute a get/post request to an URL
+    * It also bind custom data from success|error to a data
+    * @return {void}
+    */
+    function getFile() {
         var req = {
             method: "GET",
             url: $scope.properties.urlDownloadFile,
-            // data: angular.copy($scope.documetObject),
-            // params: params
         };
 
         return $http(req)
@@ -232,18 +230,24 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     }
 
     function uploadComplete(response) {
-        //when the upload widget return a String, it means an error has occurred (with a html document as a response)
-        //if it's not a string, we test if it contains some error message
-        if (angular.isString(response) || (response && response.type && response.message)) {
-            $log.warn('upload failed');
-            ctrl.filemodel = '';
-            ctrl.filename = gettextCatalog.getString('Upload failed');
-            $scope.properties.errorContent = angular.isString(response) ? response : response.message;
-            return;
-        } else {
-            let array = data.data[0].urlAzure.split("/");
-            ctrl.filename = gettextCatalog.getString(array[array.length - 1]);
-        }
+        // if (angular.isString(response) || (response && response.type && response.message)) {
+        //     $log.warn('upload failed');
+        //     ctrl.filemodel = '';
+        //     ctrl.filename = gettextCatalog.getString('Upload failed');
+        //     $scope.properties.errorContent = angular.isString(response) ? response : response.message;
+        //     return;
+        // } else {
+        //     let array = response.data[0].split("/");
+        //     ctrl.filename = array[array.length - 1];
+        //     this.uploadComplete = true;
+        // }
         $scope.properties.value = response;
     }
+
+    $scope.$watch("properties.urlAzure", (_new, _old)=>{
+        if(_old !== _new){
+            let array = _new.split("/");
+            ctrl.filename = array[array.length - 1];
+        }
+    });
 }

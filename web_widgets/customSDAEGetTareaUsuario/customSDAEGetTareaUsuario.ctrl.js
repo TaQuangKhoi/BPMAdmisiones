@@ -22,10 +22,10 @@ function ($scope, $http) {
                 getModelDocumentos("../" + data.documentosSolicitante_ref.link);
                 getModelImagenesSocioEco("../" + data.imagenesSocEcoSolicitante_ref.link);
 
-                $scope.properties.fotoCalleCasa = addDataToDocuments(data.fotoCalleCasa_ref);
-                $scope.properties.fotoComedorCasa = addDataToDocuments(data.fotoComedorCasa_ref);
-                $scope.properties.fotoFachadaCasa = addDataToDocuments(data.fotoFachadaCasa_ref);
-                $scope.properties.fotoSalaCasa = addDataToDocuments(data.fotoSalaCasa_ref);
+                // $scope.properties.fotoCalleCasa = addDataToDocuments(data.fotoCalleCasa_ref);
+                // $scope.properties.fotoComedorCasa = addDataToDocuments(data.fotoComedorCasa_ref);
+                // $scope.properties.fotoFachadaCasa = addDataToDocuments(data.fotoFachadaCasa_ref);
+                // $scope.properties.fotoSalaCasa = addDataToDocuments(data.fotoSalaCasa_ref);
 
                 $scope.properties.lstDocumentos = [];
                 $scope.properties.autos = [];
@@ -208,8 +208,6 @@ function ($scope, $http) {
             for(let i = 0; i< $scope.properties.documentos.length; i++){
                 $scope.properties.documentos[i].catManejoDocumentos = $scope.properties.lstDocumentosByTipoApoyo[i];
             }
-
-            console.log($scope.properties.documentos);
         }
     });
 
@@ -218,8 +216,6 @@ function ($scope, $http) {
             for(let i = 0; i< $scope.properties.imagenesSocioEco.length; i++){
                 $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo[i];
             }
-
-            console.log($scope.properties.imagenesSocioEco);
         }
     });
 }
