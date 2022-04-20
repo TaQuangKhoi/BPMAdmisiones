@@ -41,6 +41,9 @@ class SecurityFilter {
 				case "getDescuentosCiudadBachilleratoById":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
+				case "correcionNuevoCampoSesion":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				break;
 				case "getDescuentosCampana":
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}

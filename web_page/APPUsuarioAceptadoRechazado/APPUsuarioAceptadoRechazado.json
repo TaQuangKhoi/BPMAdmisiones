@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "APPUsuarioAceptadoRechazado",
   "name" : "APPUsuarioAceptadoRechazado",
-  "lastUpdate" : 1645032250843,
+  "lastUpdate" : 1650327210646,
   "rows" : [
     [
       {
@@ -173,6 +173,54 @@
     ],
     [
       {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "userData" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "03a72f50-3e77-471b-b397-375c7ab2ec64",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfoUser"
+      }
+    ],
+    [
+      {
         "type" : "container",
         "dimension" : {
           "xs" : 1,
@@ -279,7 +327,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "infouser[0].aceptado != true"
+                  "value" : "infouser[0].aceptado != true || (infouser[0].catPropedeutico != null && infouser[0].aceptado == true)"
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -295,6 +343,42 @@
                 }
               },
               "reference" : "d72acd46-5b2a-4b65-be5d-59eaf5ca648d",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "infouser[0].catPropedeutico == null||(infouser[0].catPropedeutico == null && infouser[0].aceptado != true) || (infouser[0].catPropedeutico != null && infouser[0].aceptado != true)"
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Estimad{{infouser[0].catSexo.descripcion == \"Masculino\"?\"o\":\"a\"}} {{datosUsuario[0].segundonombre.length >=1 ? \"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].segundonombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno:\"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno}}, nos complace decirle que ha sido aceptado al propedéutico <b>{{infouser[0].catPropedeutico.descripcion| lowercase}}</b>."
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "23655e95-55eb-437a-8a0d-790a3ed0e079",
               "hasValidationError" : false,
               "id" : "pbTitle"
             }
@@ -633,7 +717,11 @@
       "value" : [
         "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "objectDetalleSolicitud" : {

@@ -11,7 +11,12 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
        
        
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
+        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
+        
         getTexto(doc);
+        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         var canvas = document.getElementById("chartjs1")
         var imgData = canvas.toDataURL('image/png'); 
         doc.addImage(imgData,'PNG',2,5,200,145,'chart1')
@@ -19,20 +24,34 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         var canvas2 = document.getElementById("chartjs2")
         var imgData2 = canvas2.toDataURL('image/png'); 
         doc.addImage(imgData2,'PNG',2,150,200,145,'chart2')
-
-        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V1.pdf");
         
+        doc.setFontSize(14);
+        doc.text('Gráfica escalas básicas', 80, 10);
+        doc.text('Gráfica escala de contenido', 80, 153)
+
+        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName);
+       
+       /* 
         doc = new jspdf.jsPDF('l', 'mm', 'a4');
+        width = doc.internal.pageSize.getWidth();
+        height = doc.internal.pageSize.getHeight();
+        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         getTexto(doc);
+        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         canvas = document.getElementById("chartjs1")
         imgData = canvas.toDataURL('image/png'); 
         doc.addImage(imgData,'PNG',15,15,280,150,'chart1')
+        doc.setFontSize(20);
+        doc.text('Gráfica escalas básicas', 120, 13);
+        
         doc.addPage();
+        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         canvas2 = document.getElementById("chartjs2")
         imgData2 = canvas2.toDataURL('image/png'); 
         doc.addImage(imgData2,'PNG',15,15,280,150,'chart2')
+        doc.text('Gráfica escala de contenido', 120, 13)
         
-        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V2.pdf");
+        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V2.pdf");*/
         
         /*
         var element = document.querySelector($scope.properties.elementSelector);
