@@ -9,6 +9,7 @@
                 <th>Año</th>
                 <th>Costo aproximado</th>
                 <th>Situación del auto</th>
+                <th ng-if="properties.editar">Acciones</th>
             </tr>
         </thead>
         <tbody ng-if="properties.content">
@@ -23,13 +24,18 @@
                     <input class="form-control" ng-model="row.ano" type="number">
                 </td>
                 <td style="display: inline-flex; position: relative">
-                    <label class="moneda-display">$</label><input class="form-control" ng-model="row.costoAproximado" type="number">
+                    <label class="moneda-display2">$</label><input class="form-control moneda-display2-input" ng-model="row.costoAproximado" type="number">
                 </td>
                 <td>
                     <select class="form-control" name="" id="" ng-model="row.catSituacionAuto_id">
                         <option value="">Seleccionar</option>
                         <option ng-repeat="option in properties.lstSituacionAuto" value="{{option.persistenceId}}">{{option.descripcion}}</option>
                     </select>
+                </td>
+                <td ng-if="properties.editar">
+                    <button class="btn btn-danger" ng-click="removeItem(row)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
                 </td>
             </tr>
         </tbody>

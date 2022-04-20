@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1649896324487,
+  "lastUpdate" : 1650302550879,
   "rows" : [
     [
       {
@@ -5981,7 +5981,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "repeatedCollection" : {
                           "type" : "variable",
@@ -6045,6 +6045,58 @@
                           }
                         ]
                       ]
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<b>José García- Finanzas comentó el 12/04/2022</b>  <br>\nEste es un comentario de pruebas.\n\n<br>\n<b>José García- Finanzas comentó el 12/04/2022</b>  <br>\nEste es un comentario de pruebas.\n<br>\n<b>José García- Finanzas comentó el 12/04/2022</b>  <br>\nEste es un comentario de pruebas."
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "391d8e79-3512-419c-9002-8e1ad9d79db3",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
                     }
                   ],
                   [
@@ -6261,7 +6313,7 @@
                         },
                         "action" : {
                           "type" : "constant",
-                          "value" : "Submit task"
+                          "value" : "POST"
                         },
                         "assign" : {
                           "type" : "constant",
@@ -6311,9 +6363,9 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "5390eddc-fc5b-4568-8add-fec6c7d752ed",
+                      "reference" : "7d6039cd-d12d-4c5e-9b20-e887968c2177",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonAgregarComentario"
                     }
                   ]
                 ]
@@ -6496,7 +6548,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe a continuación la razón por la cual vas a rechazar  el registro de <b>[NOMBRE-ASPIRANTE]</b>"
+                          "value" : "Escribe a continuación la razón por la cual vas a rechazar  el registro de <b>{{returnNombre}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -6817,7 +6869,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Esta acción será notificada por correo a: <b>[CORREO-ASPIRANTE]</b>"
+                          "value" : "Esta acción será notificada por correo a: <b>{{objSolicitudDeAdmision[0].correoElectronico}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7009,7 +7061,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe a continuación llos cambios que solicitas en  el registro de <b>[NOMBRE-ASPIRANTE]</b>"
+                          "value" : "Escribe a continuación llos cambios que solicitas en  el registro de <b>{{returnNombre}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7330,7 +7382,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Esta acción será notificada por correo a: <b>[CORREO-ASPIRANTE]</b>"
+                          "value" : "Esta acción será notificada por correo a: <b>{{objSolicitudDeAdmision[0].correoElectronico}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -9154,6 +9206,21 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "returnNombre" : {
+      "type" : "expression",
+      "value" : [
+        "let objeto = $data.objSolicitudDeAdmision[0];",
+        "let output = \"\";",
+        "",
+        "output += objeto.primerNombre;",
+        "objeto.segundoNombre ? output += objeto.segundoNombre + \" \" : output += \" \";",
+        "output += objeto.apellidoPaterno;",
+        "objeto.apellidoMaterno ? output += objeto.apellidoMaterno + \" \" : output += \" \";",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1649895904703,
+  "lastUpdate" : 1650415673238,
   "rows" : [
     [
       {
@@ -4785,6 +4785,10 @@
                 "lstTipoInversionesPosee" : {
                   "type" : "variable",
                   "value" : "lstCatTipoInversionesPosee.data"
+                },
+                "editar" : {
+                  "type" : "expression",
+                  "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
                 }
               },
               "reference" : "d5ad83f5-aeb0-452d-90e6-1867da43c343",
@@ -7329,6 +7333,10 @@
                       "bordered" : {
                         "type" : "constant",
                         "value" : true
+                      },
+                      "editar" : {
+                        "type" : "expression",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
                       }
                     },
                     "reference" : "c2d407e8-6d3c-404c-927c-620591fc5aa3",
@@ -9352,6 +9360,10 @@
                 "lstSituacionAuto" : {
                   "type" : "variable",
                   "value" : "lstAutomoviles"
+                },
+                "editar" : {
+                  "type" : "expression",
+                  "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
                 }
               },
               "reference" : "fcf8abb1-6fa6-4d89-8d4e-cc581d1abdb5",
@@ -11519,6 +11531,10 @@
                       "idDocumento" : {
                         "type" : "expression",
                         "value" : "$item.persistenceId"
+                      },
+                      "editar" : {
+                        "type" : "expression",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
                       }
                     },
                     "reference" : "eabba872-8ee9-43b9-8e20-b38d1402ef47",
@@ -11768,63 +11784,15 @@
                       "idDocumento" : {
                         "type" : "expression",
                         "value" : "$item.persistenceId"
+                      },
+                      "editar" : {
+                        "type" : "expression",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
                       }
                     },
                     "reference" : "6fcb902f-3583-4537-8255-0ec96ccb4297",
                     "hasValidationError" : false,
                     "id" : "customSDAEUploadCustomAzure"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "{{!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos}}\n\n{{formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos}}"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      }
-                    },
-                    "reference" : "d03f9f8d-1621-40ed-8ce0-19a20c47014d",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
                   }
                 ]
               ]
@@ -12137,7 +12105,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Finalizar"
+                  "value" : "Enviar solicitud"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -12164,10 +12132,12 @@
                   "value" : "validar5"
                 },
                 "errorMessage" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "errorPaso5"
                 },
                 "messageTitle" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "tituloErrorPaso5"
                 },
                 "formOutput" : {
                   "type" : "variable",
