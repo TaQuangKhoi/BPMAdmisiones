@@ -51,4 +51,6 @@ class StatementsCatalogos {
 	
 	public static final String GET_CAT_TIENES_HIJOS = "SELECT PERSISTENCEID, CLAVE, DESCRIPCION, FECHACREACION, isEliminadoBool,  USUARIOCREACION FROM CATTIENESHIJOS WHERE isEliminadoBool = false ORDER BY  PERSISTENCEID";
 	public static final String GET_COUNT_CAT_TIENES_HIJOS = "SELECT COUNT(PERSISTENCEID) AS total FROM CATTIENESHIJOS WHERE isEliminadoBool = false";
+	
+	public static final String UPDATE_ESTATUS_SOLICITUD = "UPDATE SolicitudApoyoEducativo SET estatusSolicitud = ? WHERE caseId = ?";
 }
