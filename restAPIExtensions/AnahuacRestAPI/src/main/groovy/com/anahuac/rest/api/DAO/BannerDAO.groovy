@@ -120,7 +120,7 @@ class BannerDAO {
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
 			}
-			while(intentos2>0) {
+			while(intentos2>0&&intentos==0) {
 				errorLog += " | " + ("START UBICACIONES JSON======================================");
 				barrerTokenUbicaciones = getBarreTokenUbicaciones();
 				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
@@ -1502,10 +1502,11 @@ class BannerDAO {
 							objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
 							objCatBachilleratosInput.put("region", null);
 							objCatBachilleratosInput.put("caseId", null);
-							if(objRow.getClave() == null){
-								String clave = "";
+							String clave = "";
+							if(objRow.getClave() == null || objRow.getClave().equals("null")){
 								object.each{
 									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.id?.toString()){
+										errorLog +="| Clave content: "+it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
 										clave = it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
 									}
 								}
@@ -1514,6 +1515,7 @@ class BannerDAO {
 							}else{
 								objCatBachilleratosInput.put("clave", objRow.getClave());	
 							}
+							errorLog +="| Clave: "+clave+"|Clave2:"+objRow.getClave()
 							objCatBachilleratosInput.put("fechaImportacion", null);
 							objCatBachilleratosInput.put("fechaCreacion", null);
 							objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
