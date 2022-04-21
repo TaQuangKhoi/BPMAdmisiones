@@ -57,6 +57,7 @@ import com.anahuac.rest.api.Entity.Custom.PruebasCustom
 import com.anahuac.rest.api.Entity.Custom.SolicitudAdmisionCustom
 import com.anahuac.rest.api.Entity.Custom.SesionesAspiranteCustom
 import com.anahuac.rest.api.DB.Statements;
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.bonitasoft.engine.bpm.parameter.ParameterCriterion
 import com.bonitasoft.engine.bpm.process.impl.ProcessInstanceSearchDescriptor
 import com.bonitasoft.web.extension.rest.RestAPIContext
@@ -1373,7 +1374,8 @@ class ListadoDAO {
                         try {
                             String urlFoto = rs.getString("urlfoto");
                             if (urlFoto != null && !urlFoto.isEmpty()) {
-                                columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+								columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+                                //columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
                             } else {
                                 noAzure = true;
                                 List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
@@ -1408,12 +1410,12 @@ class ListadoDAO {
             errorlog = consulta + " 9";
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -1979,12 +1981,12 @@ class ListadoDAO {
             errorlog = consulta + " 9";
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -2440,12 +2442,12 @@ class ListadoDAO {
             }
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3228,7 +3230,7 @@ class ListadoDAO {
 
 
             errorlog += consulta;
-            resultado.setError_info(errorlog);
+            
 
             pstm = con.prepareStatement(consulta)
             errorlog = object.limit;
@@ -3272,7 +3274,8 @@ class ListadoDAO {
                             try {
                                 String urlFoto = rs.getString("urlfoto");
                                 if (urlFoto != null && !urlFoto.isEmpty()) {
-                                    columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+                                    //columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
                                 } else {
                                     List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
                                     for (Document doc: doc1) {
@@ -3308,7 +3311,7 @@ class ListadoDAO {
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3825,6 +3828,20 @@ class ListadoDAO {
         }
         return resultado
     }
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
+	}
 
     public Result selectSolicitudesEnProceso(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
@@ -4421,7 +4438,8 @@ class ListadoDAO {
 
                             String urlFoto = rs.getString("urlfoto");
                             if (urlFoto != null && !urlFoto.isEmpty()) {
-                                columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+							columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+                                //columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
                             } else {
                                 List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
                                 for (Document doc: doc1) {
@@ -4446,12 +4464,12 @@ class ListadoDAO {
             }
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -4828,7 +4846,7 @@ class ListadoDAO {
             }
             resultado.setData(lstResultado);
             resultado.setSuccess(true);
-            resultado.setError_info(errorLog);
+            
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
@@ -6659,12 +6677,12 @@ class ListadoDAO {
             lstResultado.add(encodeFileToBase64Binary("Report.xls"));
             resultado.setSuccess(true);
             resultado.setData(lstResultado);
-            resultado.setError_info(errorlog)
+            
 
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
-            resultado.setError_info(errorlog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
             e.printStackTrace();
@@ -8363,13 +8381,13 @@ class ListadoDAO {
             lstResultado.add(encodeFileToBase64Binary("ReportPaseLista.xls"));
             resultado.setSuccess(true);
             resultado.setData(lstResultado);
-            resultado.setError_info(errorLog);
+            
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorLog);
+            
             e.printStackTrace();
         }
 
@@ -9111,13 +9129,13 @@ class ListadoDAO {
             }
 
             resultado.setSuccess(true);
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorLog);
+            
             e.printStackTrace();
         } finally {
             if (closeCon) {

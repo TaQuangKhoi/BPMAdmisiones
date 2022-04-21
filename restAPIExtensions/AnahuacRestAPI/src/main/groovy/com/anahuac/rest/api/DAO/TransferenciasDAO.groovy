@@ -32,6 +32,7 @@ import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Transferencias
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
@@ -457,7 +458,8 @@ class TransferenciasDAO {
                         try {
                             String urlFoto = rs.getString("urlfoto");
 							if(urlFoto != null && !urlFoto.isEmpty()) {
-								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+								//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
 							}else {
 								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 								for(Document doc : doc1) {
@@ -477,11 +479,11 @@ class TransferenciasDAO {
             }
             resultado.setSuccess(true)
 
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -593,7 +595,7 @@ class TransferenciasDAO {
             resultado.setSuccess(true)
             resultado.setError_info(errorLog+ " || rHdao.getError_info()");
         } catch (Exception ex) {
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
             con.rollback();
@@ -641,10 +643,10 @@ class TransferenciasDAO {
 
             resultado.setSuccess(true);
             resultado.setData(data)
-            resultado.setError_info(errorlog);
+            
         } catch (Exception e) {
             errorlog += " falle " + e.getMessage()
-            resultado.setError_info(errorlog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -986,7 +988,8 @@ class TransferenciasDAO {
 				errorlog += " Antes de la foto "
 				if(urlFoto != null && !urlFoto.isEmpty()) {
 					errorlog += " foto azure "
-					encoded = rs.getString("urlfoto") +SSA;
+					//encoded = rs.getString("urlfoto") +SSA;
+					encoded = base64Imagen((rs.getString("urlfoto") + SSA));
 					row.setImg(encoded);
 				}else {
 					errorlog += " foto bdm "
@@ -1001,25 +1004,12 @@ class TransferenciasDAO {
 							errorlog += "" + e.getMessage();
 						}
 				}
-
-					
-						/*
-						try {
-							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString("caseid")), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								row.setImg(encoded);
-							}
-						} catch (Exception e) {
-							row.setImg("");
-							errorlog += "" + e.getMessage();
-						}*/
-
 				
 				
                 rows.add(row);
             }
             resultado.setSuccess(true);
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows);
 
         } catch (Exception e) {
@@ -1027,7 +1017,7 @@ class TransferenciasDAO {
             resultado.setError(e.getMessage());
             errorlog += " ERROR "
             e.getMessage();
-            resultado.setError_info(errorlog)
+            
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1131,9 +1121,9 @@ class TransferenciasDAO {
 				 con.commit();*/
 			}
             resultado.setSuccess(true)
-            resultado.setError_info(errorLog);
+            
         } catch (Exception ex) {
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
             //con.rollback();
@@ -1188,7 +1178,7 @@ class TransferenciasDAO {
 			con.commit();
 			
 		}catch (Exception ex) {
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(ex.getMessage());
             con.rollback();
@@ -1244,6 +1234,20 @@ class TransferenciasDAO {
 		}
 
 		return resultado;
+	}
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
 	}
 	
 	

@@ -28,6 +28,7 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.engine.api.APIClient
 import com.bonitasoft.web.extension.rest.RestAPIContext
@@ -189,10 +190,10 @@ class ResultadosAdmisionDAO {
 			pstm.executeUpdate();
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorlog);
+			
 			
 		} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -433,10 +434,10 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows);
 		} catch (Exception e) {
-			resultado.setError_info(errorlog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			LOGGER.error e.getMessage();
@@ -652,10 +653,10 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows);
 		} catch (Exception e) {
-			resultado.setError_info(errorlog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			LOGGER.error e.getMessage();
@@ -1010,7 +1011,8 @@ class ResultadosAdmisionDAO {
 							try {
 								String urlFoto = rs.getString("urlfoto");
 								if(urlFoto != null && !urlFoto.isEmpty()) {
-									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+									//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
 								}else {
 									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 									for(Document doc : doc1) {
@@ -1031,11 +1033,11 @@ class ResultadosAdmisionDAO {
 			}
 			resultado.setSuccess(true);
 			
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
-			resultado.setError_info(errorlog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			LOGGER.error e.getMessage();
@@ -1081,9 +1083,9 @@ class ResultadosAdmisionDAO {
 			pstm.executeUpdate();
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1215,9 +1217,9 @@ class ResultadosAdmisionDAO {
 			
 			resultado.setData(lstData);
 			resultado.setSuccess(true);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
-			resultado.setError_info(errorlog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1587,7 +1589,8 @@ class ResultadosAdmisionDAO {
                             String encoded = "";
                             try {
 								if(urlFoto != null && !urlFoto.isEmpty()) {
-									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+									//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
 								}else {
 	                                for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 	                                    encoded = "../API/formsDocumentImage?document="+doc.getId();
@@ -1607,11 +1610,11 @@ class ResultadosAdmisionDAO {
             }
             resultado.setSuccess(true);
             
-            resultado.setError_info(errorlog);
+            
             resultado.setData(rows);
             
         } catch (Exception e) {
-            resultado.setError_info(errorlog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
             LOGGER.error e.getMessage();
@@ -1622,4 +1625,18 @@ class ResultadosAdmisionDAO {
         }
         return resultado
     }
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
+	}
 }

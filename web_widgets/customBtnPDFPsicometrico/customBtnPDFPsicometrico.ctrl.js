@@ -101,6 +101,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
     $scope.generatePDF = function () {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
+        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
         var i = 0;
@@ -265,6 +266,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         });
 
         doc.addPage();
+        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297)
         /*----------------------------------------------------------------- FIN PRIMERA HOJA-----------------------------------------------------------------*/
 
         doc.setFontSize(fontSubTitle);
@@ -283,6 +285,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                     yvalue += 5;
                     if (yvalue >= 275) {
                         doc.addPage();
+                        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297)
                         yvalue = 30;
                     }
                 });
@@ -294,6 +297,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 yvalue += (count * 7) + 3;
                 if (yvalue >= 275) {
                     doc.addPage();
+                    doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297)
                     yvalue = 30;
                 }
             }
@@ -308,11 +312,12 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         let yValor = yvalue;
         if ((295 - yvalue) < 143) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 30;
         }
 
-        doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor, 190, 100, 'F');
+        //doc.setFillColor(228, 212, 200)
+        //doc.rect(10, yValor, 190, 100, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
@@ -322,6 +327,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 10;
         respuestasPrimeraFila += 5;
         doc.setFontSize(fontText);
+        yValorRagos = yValor;
         $scope.datosRasgos.forEach(element => {
             if (i > 10) {
                 doc.setFont(fontparam, 'bold')
@@ -344,6 +350,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 7;
         if (yValor >= 230) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
         debugger
@@ -357,13 +364,24 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
         $scope.salud = convertToPlain($scope.datosSaludSSeccion[0].salud);
-        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
-        let count = Math.ceil(($scope.salud.length / 180))
+        //doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        let count = 0,yValorAux = yValor;
+        $scope.salud.forEach(element =>{
+            if (yValorAux >= 275) {
+                doc.addPage();
+                doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
+                yValorAux = 15;
+            }
+            doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+            count += Math.ceil((element.length / 180))
+            yValorAux += (Math.ceil((element.length / 180)) * 7);
+        })
         yValor += (count * 7) + 3;
 
         yValor += 10;
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -377,6 +395,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -404,6 +423,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -418,6 +438,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -446,7 +467,11 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontText);
         yValor += 7
         capacidades.forEach((data, index) =>{
-            count = Math.ceil(($scope.datosCapacidad[0][data.nombre].length / 180))
+            $scope.datosCapacidad[0][data.nombre] = convertToPlain($scope.datosCapacidad[0][data.nombre]);
+            count = 0;
+            $scope.datosCapacidad[0][data.nombre].forEach(element =>{
+                count += Math.ceil((element.length / 180))
+            })
 
             let yTemporal = (yValor + (count * 7) + 3);
             yTemporal=nuevaHoja(yTemporal,doc,true);
@@ -458,11 +483,20 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
             doc.text(margenPrimeraFila, yValor, capacidadesTitulo[index]);
             yValor=nuevaHoja(yValor,doc,true);
 
+            /*lines = doc.setFont(fontparam, 'normal')
+            .setFontSize(fontText)
+            .splitTextToSize($scope.datosCapacidad[0][data.nombre], 180)*/
+            
+            
             doc.setFont(fontparam, 'normal');
-            $scope.datosCapacidad[0][data.nombre] = convertToPlain($scope.datosCapacidad[0][data.nombre]);
-            doc.text($scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8, { maxWidth: 180, align: "justify" });
-
-            yValor += (count * 7) + 3;
+            //doc.text( $scope.datosCapacidad[0][data.nombre], margenPrimeraFila, yValor+=8,{ maxWidth: 180,align:'justify'} );
+            yValorAux = yValor+=8;
+            $scope.datosCapacidad[0][data.nombre].forEach(element =>{
+                //count += Math.ceil((element.length / 180))
+                doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+                yValorAux += (Math.ceil((element.length / 180)) * 7)
+            })
+            yValor += (count * 7) + 5;
 
             doc.text(165, yValor, "Puntiación:");
             doc.text(185, yValor, $scope.datosCapacidad[0][data.calificacion]);
@@ -483,8 +517,15 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFont(fontparam, 'normal');
         $scope.conclusiones_recomendaciones = convertToPlain($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
         //doc.internal.write(-2, "Tw")
-        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "justify" });
-        count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
+        //doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 177, align: "justify" });
+        count = 0;
+        yValorAux = yValor;
+        $scope.conclusiones_recomendaciones.forEach(element =>{
+            doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+            count += Math.ceil((element.length / 180))
+            yValorAux+=(Math.ceil((element.length / 180)) * 7);
+        })
+        //count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
         yValor += (count * 7) + 3;
         yValor += 10;
 
@@ -505,7 +546,11 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 8,
 
         $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
-        count = Math.ceil(($scope.interpretacion.length / 180))
+        count = 0;
+        $scope.interpretacion.forEach(element =>{
+            count += Math.ceil((element.length / 180))
+        })
+        //count = Math.ceil(($scope.interpretacion.length / 180))
         let yTempInter = (yValor + (count * 7) + 3)+10;
         yTempInter=nuevaHoja(yTempInter,doc,true);
         if(yTempInter == 15){
@@ -521,7 +566,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFont(fontparam, 'normal');
         
         
-        doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        //doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        yValorAux = yValor;
+        $scope.interpretacion.forEach(element =>{
+            doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+
+            yValorAux += (Math.ceil((element.length / 180)) * 7);
+        });
         yValor += (count * 7) + 3;
 
         yValor = nuevaHoja(yValor,doc,false);
@@ -570,6 +621,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         //COMENTARIOS 
          doc.addPage();
+         doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
          yValor = 15;
          doc.setFontSize(fontSubTitle);
          doc.setFont(fontparam, 'bold')
@@ -584,16 +636,24 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
          for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
  
              $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
-             count = Math.ceil(($scope.comentarios[i].length / 180))
+             count = 0;
+             $scope.comentarios[i].forEach(element =>{
+                count += Math.ceil((element.length / 180))
+            })
+             //count = Math.ceil(($scope.comentarios[i].length / 180))
              let yTemp = (yValor + (count * 7) + 3);
              yTemp=nuevaHoja(yTemp,doc,true);
              if(yTemp == 15){
                 yValor = yTemp;
              }
 
-             doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
-    
-             
+             //doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+             yValorAux = yValor;
+             $scope.comentarios[i].forEach(element =>{
+                doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
+                yValorAux += (Math.ceil((element.length / 180)) * 7)
+            })
+
              yValor += (count * 7) + 3; 
          }
 
@@ -601,19 +661,30 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     }
 
     function convertToPlain(html) {
+        html = html.replaceAll(' style="color: rgb(44, 62, 80);background-color: rgb(255, 255, 255);"', "");
+        html = html.replaceAll('float: none;', "");
+        html = html.replaceAll("&#34;", '"');
         html = html.replace(/<style([\s\S]*?)<\/style>/gi, '');
         html = html.replace(/<script([\s\S]*?)<\/script>/gi, '');
-        html = html.replace(/<\/div>/ig, '\n');
-        html = html.replace(/<\/li>/ig, '\n');
+        html = html.replace(/<\/div>/ig, '');
+        html = html.replace(/<\/li>/ig, '');
         html = html.replace(/<li>/ig, '  *  ');
-        html = html.replace(/<\/ul>/ig, '\n');
-        html = html.replace(/<\/p>/ig, '\n');
+        html = html.replace(/<\/ul>/ig, '');
+        html = html.replace(/<\/p>/ig, '');
         html = html.replace(/<br\s*[\/]?>/gi, "\n");
         html = html.replace(/<[^>]+>/ig, '');
-        html = html.replaceAll("&#34;", '"');
         html = html.replace(/(<([^>]+)>)/ig, '');
+        html = html.replace(/\\par[d]?/g, "");
+        html = html.replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, "").trim();
+        let texto = html.split("\n");
+        html = [];
+        texto.forEach( element =>{
+            if(element.toString().trim().length >= 0){
+                html.push(element.toString().trim());
+            }
+        })
+        return html
 
-        return html.trim();
     }
 
     function recResize(texto) {
@@ -631,6 +702,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     function nuevaHoja( yValor, doc, white = false){
       if ( ((yValor + 30) >= 275 && white) || (yValor + 30) >= 230 && (!white) ) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
       return  yValor;

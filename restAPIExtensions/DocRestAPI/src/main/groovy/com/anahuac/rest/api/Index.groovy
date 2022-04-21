@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 import org.apache.http.HttpHeaders
+import org.bonitasoft.engine.identity.UserMembership
+import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.web.extension.ResourceProvider
 import org.bonitasoft.web.extension.rest.RestApiResponse
 import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
@@ -44,6 +46,9 @@ class Index implements RestApiController {
         // Prepare the result
 		Result result  = new Result();
 		String jsonData = null 
+		if(!bonitaRolFilter(context)) {
+			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "Permission denied"}""")
+		}
 		try {
 			jsonData=request.reader.readLines().join("\n")
 		}catch(Exception ex) {
@@ -111,5 +116,16 @@ class Index implements RestApiController {
         }
         props
     }
-
+	
+	private Boolean bonitaRolFilter(RestAPIContext context) {
+		Boolean valid = false;
+		List<UserMembership> uMemberships=context.apiClient.identityAPI.getUserMemberships(context.apiSession.userId, 0, 100, UserMembershipCriterion.ROLE_NAME_ASC);
+		uMemberships.each{
+			it ->
+			if((it.roleName.equals("EXTERIOR") && it.groupName.equals("CAMPUS-PUEBLA")) || it.roleName.equals("ADMINISTRADOR") || it.roleName.equals("TI SERUA")) {
+				valid=true
+			}
+		}
+		return valid;
+	}
 }

@@ -133,7 +133,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -195,13 +195,13 @@ class SolicitudUsuarioDAO {
 				row.setVencido(rs.getBoolean("vencido"))
 				rows.add(row)
 			}
-			resultado.setSuccess(true)
-			resultado.setData(rows)
-			resultado.setError_info(errorlog)
-		} catch (Exception e) {
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -268,7 +268,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -310,7 +310,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -354,7 +354,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -405,7 +405,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -448,7 +448,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -491,7 +491,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -534,7 +534,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -575,7 +575,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -618,7 +618,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -648,7 +648,7 @@ class SolicitudUsuarioDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -705,11 +705,11 @@ class SolicitudUsuarioDAO {
 
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -748,11 +748,11 @@ class SolicitudUsuarioDAO {
 
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -792,11 +792,11 @@ class SolicitudUsuarioDAO {
 
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -836,11 +836,11 @@ class SolicitudUsuarioDAO {
 
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1359,11 +1359,11 @@ class SolicitudUsuarioDAO {
 
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1453,11 +1453,11 @@ class SolicitudUsuarioDAO {
 
 			resultado.setSuccess(true);
 			//resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 			if(executar) {
 				con.rollback();
 			}

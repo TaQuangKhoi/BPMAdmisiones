@@ -120,7 +120,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -165,7 +165,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -234,7 +234,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -311,7 +311,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		finally {
@@ -363,7 +363,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		} 
 		finally {
@@ -444,7 +444,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		finally {
@@ -529,14 +529,59 @@ class BonitaGetsDAO {
 				}
 				
 			}catch(ProcessInstanceNotFoundException ex) {
-				
+				String consulta = "[\"SELECT * FROM ARCH_PROCESS_INSTANCE WHERE sourceobjectid = ${caseid} \"]"
+				def bonita = simpleSelectBonita(0, 0, consulta, context)?.getData()?.get(0);
+				contexto = apiClient.getProcessAPI().getProcessInstanceExecutionContext(caseid);
+				boolean link = false
+				for ( prop in contexto ) {
+					
+					contextoDetalle = new HashMap<String, Serializable>();
+					
+					if(prop.key == "fotoPasaporte_ref" || prop.key == "actaNacimiento_ref" || prop.key == "constancia_ref" || prop.key == "descuento_ref" || prop.key == "resultadoCB_ref" || prop.key == "cartaAA_ref" ) {
+						foto = new ArrayList < Map < String, Serializable >> ();
+						if(contexto[prop.key][0]?.processInstanceId != null) {
+							contextoDetalle.put("id", contexto[prop.key][0]?.id);
+							contextoDetalle.put("processInstanceId", contexto[prop.key][0]?.processInstanceId);
+							contextoDetalle.put("author", contexto[prop.key][0]?.author);
+							contextoDetalle.put("creationDate", contexto[prop.key][0]?.creationDate);
+							contextoDetalle.put("fileName", contexto[prop.key][0]?.fileName);
+							contextoDetalle.put("contentMimeType", contexto[prop.key][0]?.contentMimeType);
+							contextoDetalle.put("contentStorageId", contexto[prop.key][0]?.contentStorageId);
+							contextoDetalle.put("url", contexto[prop.key][0]?.url);
+							contextoDetalle.put("description", contexto[prop.key][0]?.description);
+							contextoDetalle.put("version", contexto[prop.key][0]?.version);
+							contextoDetalle.put("index", contexto[prop.key][0]?.index);
+							contextoDetalle.put("contentFileName", contexto[prop.key][0]?.contentFileName);
+							foto.add(contextoDetalle);
+						}
+						contexto2.put(prop.key, foto)
+					}else {
+						
+						contextoDetalle.put("name", contexto[prop.key]?.name);
+						contextoDetalle.put("type", contexto[prop.key]?.type);
+						try {
+							contextoDetalle.put("storageId", contexto[prop.key]?.storageId);
+							contextoDetalle.put("storageId_string", contexto[prop.key]?.storageIdAsString);
+							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/"+ (contexto[prop.key]?.storageId != null ?contexto[prop.key]?.storageId: "" ));
+						}catch(Exception ex2) {
+							contextoDetalle.put("storageIds", contexto[prop.key]?.storageIds);
+							contextoDetalle.put("storageIds_string", contexto[prop.key]?.storageIdsAsString);
+							contextoDetalle.put("link", "API/bdm/businessData/"+contexto[prop.key]?.type+"/findByIds?ids="+ (contexto[prop.key]?.storageIds?.join(",")));
+							
+						}
+						
+						contexto2.put(prop.key, contextoDetalle)
+					
+					}
+					 
+					 
+				}
 			}
 			
 			/**/
 			rows.add(contexto2);	
 			resultado.setSuccess(true);
 			resultado.setData(rows)
-			resultado.setError_info( errorLog)
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
@@ -550,6 +595,50 @@ class BonitaGetsDAO {
 			}
 		}
 		return resultado;
+	}
+	
+	public Result simpleSelectBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexionBonita();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
 	}
 	
 	public Result getUserArchivedContext(Long caseid,RestAPIContext context) {
@@ -684,7 +773,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -724,7 +813,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -789,7 +878,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -838,7 +927,7 @@ class BonitaGetsDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
