@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudCompletada",
   "name" : "SDAESolicitudCompletada",
-  "lastUpdate" : 1646870783310,
+  "lastUpdate" : 1650474209948,
   "rows" : [
     [
       {
@@ -43,7 +43,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -107,7 +107,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Tu solicitud ha sido completada y ha sido enviada al área correspondiente"
+                  "value" : "<hr>\nSe está revisando la información proporcionada, una vez que este proceso concluya en recibirás un correo electrónico a <b>{{session.user_name}}</b> con las instrucciones para continuar con tu proceso de solicitud de apoyo educativo."
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -117,6 +117,50 @@
               "reference" : "99eb7314-0170-4b32-97bf-790c97f0f5b0",
               "hasValidationError" : false,
               "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Regresar a la bandeja"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE"
+                }
+              },
+              "reference" : "e919e40e-a3ff-4f28-b144-e53b271fa406",
+              "hasValidationError" : false,
+              "id" : "customBtnSDAEredirect"
             }
           ]
         ]
@@ -137,10 +181,26 @@
       "type" : "json",
       "order" : 0,
       "external" : false
+    },
+    {
+      "id" : "f96c7780-dcf4-4158-80f2-71d786b372b8",
+      "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
     }
   ],
   "inactiveAssets" : [ ],
-  "variables" : { },
+  "variables" : {
+    "session" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/1"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    }
+  },
   "hasValidationError" : false,
   "uuid" : "d653a8d0-2935-49da-8ed4-4767245b9e03",
   "type" : "page",

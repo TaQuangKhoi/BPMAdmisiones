@@ -1609,4 +1609,43 @@ class CatalogosDAO {
 		return resultado
 	}
 	
+	/**
+	 * Actualia el estatus de una solicitud
+	 * @author José Carlos García Romero
+	 * @param caseid (Long), nuevoEstatus(String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result updateEstatusSolicitudApoyo(Long caseid, String nuevoEstatus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		try {
+			def jsonSlurper = new JsonSlurper();
+
+			String consulta = StatementsCatalogos.UPDATE_ESTATUS_SOLICITUD;
+			CatGenerico row = new CatGenerico();
+			List < CatGenerico > rows = new ArrayList < CatGenerico > ();
+			closeCon = validarConexion();
+
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, caseid);
+			pstm.setString(2, nuevoEstatus);
+			rs = pstm.execute();
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }

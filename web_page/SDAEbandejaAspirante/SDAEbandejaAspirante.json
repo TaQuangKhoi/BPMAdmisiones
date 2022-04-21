@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1650414701907,
+  "lastUpdate" : 1650498630480,
   "rows" : [
     [
       {
@@ -91,7 +91,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Nueva solicitud"
+                  "value" : "Iniciar solicitud"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -118,97 +118,6 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "activeCases.length === 0 || buildContent[0].estado !== \"Solcitud en progreso\""
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Continuar solicitud"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "url" : {
-                  "type" : "expression",
-                  "value" : "\"/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=\" + tipoMoneda"
-                }
-              },
-              "reference" : "77869e3f-5a9f-4b34-8277-1c8d72ba3e47",
-              "hasValidationError" : false,
-              "id" : "customBtnSDAEredirect"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "buildContent[0].estado !== \"Pre-autorización solicita modificaciones\""
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Modificar solicitud"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "danger"
-                },
-                "modalId" : {
-                  "type" : "constant"
-                },
-                "url" : {
-                  "type" : "constant",
-                  "value" : "/portal/resource/app/aspiranteSDAE/modificar_solicitud_apoyo/content/?app=aspiranteSDAE"
-                }
-              },
-              "reference" : "ce09bdf5-8f41-4db4-b656-384e116a0ee8",
-              "hasValidationError" : false,
-              "id" : "customBtnSDAEredirect"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
                 "lg" : 6
               },
               "propertyValues" : {
@@ -217,8 +126,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "!objSolicitudApoyo || activeCases.length === 0"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -253,8 +162,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "!objSolicitudApoyo"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -309,6 +218,58 @@
               "reference" : "6cefa9fb-8b15-46f6-b2ea-8ef15fc11741",
               "hasValidationError" : false,
               "id" : "customTablaSolicitudApoyoEducativoAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "buildContent"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<h3>Sin Solicitudes en curso</h3>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "89084722-2b8b-4b80-a887-18891bbe79a9",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -434,6 +395,58 @@
                     "reference" : "6b54cf22-a78a-478f-a103-dd1be71293ee",
                     "hasValidationError" : false,
                     "id" : "customSDAETablaTareas"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!assignedTask"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<h3>Sin tareas pendientes</h3>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "c3769dda-2c9e-4e4d-868d-a8440f97dccc",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -977,7 +990,10 @@
                   "reload" : "false",
                   "caseId" : "",
                   "reloadTask" : "false",
-                  "isModificar" : "false"
+                  "isModificar" : "false",
+                  "constancia" : "",
+                  "fotoB64" : "",
+                  "userDataEmail" : ""
                 }
               }
             ]
