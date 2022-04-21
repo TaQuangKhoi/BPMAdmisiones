@@ -83,7 +83,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             )
         ) {
             return false;
-        } else if (name === "Solicita tu Apoyo" &&
+        } else if (name === "Solicitud de apoyo educativo" &&
             (
                 taskName === "Pase de lista Prueba 1" ||
                 taskName === "Pase de lista Prueba 2" ||
