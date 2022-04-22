@@ -80,7 +80,7 @@ class IndexGet implements RestApiController {
 				}
 				
 				SecurityFilter security = new SecurityFilter();
-				if(!security.allowedUrlPost(context,url)){
+				if(!security.allowedUrl(context,url)){
 					return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
 				}
 						
