@@ -101,6 +101,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
     $scope.generatePDF = function () {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
+        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
         var i = 0;
@@ -265,6 +266,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         });
 
         doc.addPage();
+        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297)
         /*----------------------------------------------------------------- FIN PRIMERA HOJA-----------------------------------------------------------------*/
 
         doc.setFontSize(fontSubTitle);
@@ -283,6 +285,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                     yvalue += 5;
                     if (yvalue >= 275) {
                         doc.addPage();
+                        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297)
                         yvalue = 30;
                     }
                 });
@@ -294,6 +297,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                 yvalue += (count * 7) + 3;
                 if (yvalue >= 275) {
                     doc.addPage();
+                    doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297)
                     yvalue = 30;
                 }
             }
@@ -308,11 +312,12 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         let yValor = yvalue;
         if ((295 - yvalue) < 143) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 30;
         }
 
-        doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor, 190, 100, 'F');
+        //doc.setFillColor(228, 212, 200)
+        //doc.rect(10, yValor, 190, 100, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
@@ -322,6 +327,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 10;
         respuestasPrimeraFila += 5;
         doc.setFontSize(fontText);
+        yValorRagos = yValor;
         $scope.datosRasgos.forEach(element => {
             if (i > 10) {
                 doc.setFont(fontparam, 'bold')
@@ -344,6 +350,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 7;
         if (yValor >= 230) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
         debugger
@@ -362,6 +369,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         $scope.salud.forEach(element =>{
             if (yValorAux >= 275) {
                 doc.addPage();
+                doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
                 yValorAux = 15;
             }
             doc.text(element, margenPrimeraFila, yValorAux, { maxWidth: 180, align: "justify" });
@@ -373,6 +381,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         yValor += 10;
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -386,6 +395,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -413,6 +423,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -427,6 +438,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         if (yValor >= 275) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
 
@@ -609,6 +621,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         //COMENTARIOS 
          doc.addPage();
+         doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
          yValor = 15;
          doc.setFontSize(fontSubTitle);
          doc.setFont(fontparam, 'bold')
@@ -689,6 +702,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     function nuevaHoja( yValor, doc, white = false){
       if ( ((yValor + 30) >= 275 && white) || (yValor + 30) >= 230 && (!white) ) {
             doc.addPage();
+            doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, 210, 297);
             yValor = 15;
         }
       return  yValor;
