@@ -895,7 +895,7 @@ class SolicitudUsuarioDAO {
 			if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ")  && object.egresoAnahuac_pid != 77 || replaceTablePadresTutor.equals(" PadresTutor ") && object.egresoAnahuac_pid != 77) {
 				replaceColumn = ", catcampusegreso_pid = ?";
 			}
-			if(key.equals("IP") && fechaNacimiento != null || key.equals("IP") && object.fechaNacimiento != "") {
+			if(key.equals("IP") && object.fechaNacimiento != null || key.equals("IP") && object.fechaNacimiento != "") {
 				fechaOutput = object.fechaNacimiento;
 				SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 				Date formatoFechaNacimiento = output.parse(fechaOutput);

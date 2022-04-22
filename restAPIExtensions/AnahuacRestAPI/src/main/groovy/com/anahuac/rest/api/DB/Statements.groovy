@@ -625,4 +625,3 @@ class Statements {
 	//public static final String UPDATE_SECCION_CONTACTO_EMERGENCIA = "UPDATE [TABLA] SET nombre = ?, parentesco = ?, telefono = ?, telefonoCelular = ? WHERE caseid = ? AND catparentesco_pid = ? AND persistenceid = ?";
 	
 	//public static final String GET_CORREO_BY_CLAVE = "SELECT valor FROM CatConfiguracion WHERE clave = ?";
-}
