@@ -41,6 +41,7 @@ import com.anahuac.rest.api.Entity.Custom.SesionCustom
 import com.anahuac.rest.api.Entity.db.Responsable
 import com.anahuac.rest.api.Entity.db.CatTipoPrueba
 import com.anahuac.rest.api.Entity.db.Sesion
+import com.anahuac.rest.api.Security.SecurityFilter
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
 
@@ -76,6 +77,11 @@ class IndexGet implements RestApiController {
 				
 				if (url == null) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
+				}
+				
+				SecurityFilter security = new SecurityFilter();
+				if(!security.allowedUrlPost(context,url)){
+					return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
 				}
 						
 				Integer parameterP = Integer.valueOf(p);
