@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1650581239874,
+  "lastUpdate" : 1650649741485,
   "rows" : [
     [
       {
@@ -139,6 +139,74 @@
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                }
+              },
+              "reference" : "93fb06d2-68af-482d-9c86-e09a467e34ae",
+              "hasValidationError" : false,
+              "id" : "customSDAETablePostSolicitudByCaseId"
+            }
+          ],
           [
             {
               "type" : "component",
@@ -3420,7 +3488,9 @@
         "return {\r",
         "    \"caseId\":$data.caseId,\r",
         "    \"limit\":20,\r",
-        "    \"offset\":0\r",
+        "    \"offset\":0,\r",
+        "    \"orientation\":\"\",\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "};\r"
       ],
       "exposed" : false
