@@ -69,16 +69,21 @@ class BannerDAO {
 
 		String errorLog = "";
 		String barrerToken = "";
+		String barrerTokenUbicaciones = "";
 		String jsonResultado = "";
+		String jsonResultadoUbicaciones = "";
 		String strGetConsumeJSON = "";
+		String strGetConsumeJSONUbicaciones = "";
 		Integer intentos = 5;
+		Integer intentos2 = 5;
 		try {
 			while(intentos>0) {
 				errorLog += " | " + ("START JSON======================================");
 				barrerToken = getBarreToken();
-				//errorLog += " | " + barrerToken;
+				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
 				errorLog += " | " + ("================================================");
 	
+				// PREPAS
 				jsonResultado = getConsumePrepa(barrerToken);
 				
 				//JSON PRUEBA ANGEL CREATE
@@ -101,20 +106,44 @@ class BannerDAO {
 				//PROBLEMA
 				//jsonResultado = "[{\"id\":\"132\",\"published\":\"2021-06-17 18:36:38.890122+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"f1a6ad1e-9ed1-4692-92fa-6df7582650b1\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"title\":\"Instituto Americano\",\"type\":\"secondarySchool\",\"code\":\"9680\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 				
-				errorLog += " | jsonResultado: " + jsonResultado;
+				errorLog += " | jsonResultado Prepas: " + jsonResultado;
 				errorLog += " | " + ("END JSON========================================");
 				
-				if(jsonResultado.equals("[]")){
+				if(jsonResultado.equals("[]") || jsonResultado.equals("")){
 					intentos=0;
 					resultadoGetConsumeJSON.setSuccess(true)
 				}else {
 					resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
 					intentos--;
 				}
-				errorLog += " | " + strGetConsumeJSON;
+				errorLog += " | " + strGetConsumeJSON;				
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
 			}
+			while(intentos2>0&&intentos==0) {
+				errorLog += " | " + ("START UBICACIONES JSON======================================");
+				barrerTokenUbicaciones = getBarreTokenUbicaciones();
+				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
+				errorLog += " | " + ("================================================");
+				
+				jsonResultadoUbicaciones = getConsumePrepa(barrerTokenUbicaciones);
+				errorLog += " | jsonResultado Ubicaciones: " + jsonResultadoUbicaciones;
+				errorLog += " | " + ("END JSON Ubicaciones ========================================");
+				
+				if(jsonResultadoUbicaciones.equals("[]")  || jsonResultadoUbicaciones.equals("") || jsonResultadoUbicaciones?.trim().length()<=1){
+					intentos2=0;
+					resultadoGetConsumeJSON.setSuccess(true)
+				}else {
+					errorLog += " | " + ("entro a direcciones");
+					resultadoGetConsumeJSON = getConsumeJSON(jsonResultadoUbicaciones, context, operacion, barrerTokenUbicaciones);
+					intentos2--;
+				}
+				errorLog += " | " + strGetConsumeJSONUbicaciones;
+				
+				//resultadoGetConsumeJSON.setSuccess(true);
+				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
+			}
+		
 		} catch (Exception e) {
 			errorLog += " | " + e.getMessage();
 			resultadoGetConsumeJSON.setError_info(errorLog);
@@ -201,6 +230,46 @@ class BannerDAO {
 			e.printStackTrace();
 			LOGGER.error "[ERROR]" + e.getMessage();
 			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerToken:" + barrerKey.replace("-.-.-", ""))
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado.toString();
+	}
+	
+	private String getBarreTokenUbicaciones() {
+		String urlParaVisitar = "https://integrate.elluciancloud.com/auth";
+		String barrerKey = "Bearer ";
+		StringBuilder resultado = new StringBuilder();
+		Boolean closeCon = false;
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "BannerTokenMapeada")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+
+				barrerKey += rs.getString("valor")
+			}
+
+			URL url = new URL(urlParaVisitar);
+			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+			conexion.setRequestProperty("Authorization", barrerKey.replace("-.-.-", ""));
+			conexion.setRequestMethod("POST");
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+			String linea;
+			while ((linea = rd.readLine()) != null) {
+				resultado.append(linea);
+			}
+			rd.close();
+			//System.out.println(urlParaVisitar);
+			//System.out.println(resultado.toString());
+			new LogDAO().insertTransactionLog("POST", "CORRECTO", "https://integrate.elluciancloud.com/auth", resultado.toString(), "Autenticarse para obtener el token de acceso, BannerTokenUbicaciones:" + barrerKey.replace("-.-.-", ""))
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error "[ERROR]" + e.getMessage();
+			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerTokenUbicaciones:" + barrerKey.replace("-.-.-", ""))
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1433,7 +1502,20 @@ class BannerDAO {
 							objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
 							objCatBachilleratosInput.put("region", null);
 							objCatBachilleratosInput.put("caseId", null);
-							objCatBachilleratosInput.put("clave", objRow.getClave());
+							String clave = "";
+							if(objRow.getClave() == null || objRow.getClave().equals("null")){
+								object.each{
+									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.id?.toString()){
+										errorLog +="| Clave content: "+it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
+										clave = it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
+									}
+								}
+								//object.get(i).content.educationalInstitutionsExtended.get(0).id.toString()
+								objCatBachilleratosInput.put("clave", clave);
+							}else{
+								objCatBachilleratosInput.put("clave", objRow.getClave());	
+							}
+							errorLog +="| Clave: "+clave+"|Clave2:"+objRow.getClave()
 							objCatBachilleratosInput.put("fechaImportacion", null);
 							objCatBachilleratosInput.put("fechaCreacion", null);
 							objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
@@ -2245,7 +2327,7 @@ class BannerDAO {
 			@Override
 			public Result[] call() {
 				Result[] arrayResult = new Result[1];
-				arrayResult[0]= new BannerDAO().integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
+				arrayResult[0]= integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
 				return arrayResult
 			}
 	 }
