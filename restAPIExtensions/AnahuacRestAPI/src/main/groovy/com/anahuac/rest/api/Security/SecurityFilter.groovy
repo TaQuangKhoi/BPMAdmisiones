@@ -1794,7 +1794,7 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
-			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1810,6 +1810,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "postGetIdSesionByCaseId":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1826,6 +1830,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "PostUpdateDeleteCatEscalaEAC":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1838,6 +1846,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertEmailHubspotConfig":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
