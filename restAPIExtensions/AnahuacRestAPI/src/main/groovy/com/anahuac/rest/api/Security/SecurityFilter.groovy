@@ -1746,6 +1746,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getSesionesINVPTabla":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1756,6 +1760,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getSesionesINVPTablaProcesadas":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1763,6 +1771,10 @@ class SecurityFilter {
 		      break;
 		    }
 			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1788,13 +1800,17 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertRespuesta":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
-			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1810,7 +1826,7 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
-			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1830,7 +1846,7 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
-			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1846,7 +1862,7 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
-			allow = bonitaRolFilter(context, "Usuario Auxiliar Proveedor");
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
