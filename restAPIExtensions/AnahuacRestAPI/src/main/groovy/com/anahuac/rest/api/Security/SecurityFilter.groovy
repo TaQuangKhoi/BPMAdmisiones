@@ -1147,6 +1147,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "EXTERIOR");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "recuperarPasswordAdministrativo":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
