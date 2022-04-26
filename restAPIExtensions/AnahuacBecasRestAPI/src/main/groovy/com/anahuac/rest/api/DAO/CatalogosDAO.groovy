@@ -1648,4 +1648,299 @@ class CatalogosDAO {
 		}
 		return resultado
 	}
+	
+	/**
+	 * Creacion de los nuevos datos de GestionEscolar
+	 * @author Jesus Angel Osuna Padilla
+	 * @param jsonData(String)
+	 * @return resultado (Result)
+	 */
+	public Result insertSDAEGestionEscolar(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			String consulta = StatementsCatalogos.INSERT_SDAECAT_GESTION_ESCOLAR;
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.parcialidad);
+			pstm.setInt(2, object.creditoSemestre );
+			pstm.setString(3, object.manejoApoyo);
+			pstm.setLong(4, object.catgestionEscolar_pid);
+			rs = pstm.execute();
+			
+			con.commit();
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updateSDAEGestionEscolar(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			String consulta = StatementsCatalogos.UPDATE_SDAECAT_GESTION_ESCOLAR;
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.parcialidad);
+			pstm.setInt(2, object.creditoSemestre );
+			pstm.setString(3, object.manejoApoyo);
+			pstm.setLong(4, object.persistenceid);
+			rs = pstm.execute();
+			
+			con.commit();
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result insertSDAECreditoGE(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			String consulta = StatementsCatalogos.INSERT_SDAECAT_CREDITO_GE;
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.creditoEnero);
+			pstm.setString(2, object.creditoMayo);
+			pstm.setString(3, object.creditoAgosto);
+			pstm.setString(4, object.creditoSeptiembre);
+			pstm.setString(5, object.fecha);
+			pstm.setLong(6, object.sdaeCatGestionEscolar_pid);
+			rs = pstm.execute();
+			
+			con.commit();
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updateSDAECreditoGE(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			String consulta = StatementsCatalogos.UPDATE_SDAECAT_CREDITO_GE;
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.creditoEnero);
+			pstm.setString(2, object.creditoMayo);
+			pstm.setString(3, object.creditoAgosto);
+			pstm.setString(4, object.creditoSeptiembre);
+			pstm.setLong(5, object.persistenceid);
+			rs = pstm.execute();
+			
+			con.commit();
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getExisteSDAEGestionEscolar(Long GestionEscolar_pid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			String consulta = StatementsCatalogos.GET_EXISTE_SDAECAT_GESTION_ESCOLAR;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, GestionEscolar_pid);
+			rs= pstm.executeQuery();
+			List<Boolean> info = new ArrayList<Boolean>();
+			if(rs.next()) {
+				info.add(true);
+			}else {
+				info.add(false);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getExisteSDAECreditoGE(Long SDAEGestionEscolar_pid,String fecha) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			String consulta = StatementsCatalogos.GET_EXISTE_SDAECAT_GESTION_ESCOLAR;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, SDAEGestionEscolar_pid);
+			pstm.setString(2, fecha);
+			rs= pstm.executeQuery();
+			List<Boolean> info = new ArrayList<Boolean>();
+			if(rs.next()) {
+				info.add(true);
+			}else {
+				info.add(false);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getSDAEGestionEscolar(Long SDAEGestionEscolar_pid,String fecha) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			String consulta = StatementsCatalogos.GET_SDAECAT_GESTION_ESCOLAR;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, SDAEGestionEscolar_pid);
+			pstm.setString(2, fecha);
+			rs = pstm.executeQuery()
+			
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));						
+					}
+					
+					rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getCreditoGE(Long SDAEGestionEscolar_pid,String fecha) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		try {
+			String consulta = StatementsCatalogos.GET_SDAECAT_CREDITO_GE;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, SDAEGestionEscolar_pid);
+			pstm.setString(2, fecha);
+			rs = pstm.executeQuery()
+			
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+					
+					rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 }

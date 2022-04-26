@@ -208,6 +208,35 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "getExisteSDAEGestionEscolar":
+					String pid = request.getParameter "sdaeGE"
+					Long id = 0L;
+					if(!pid.equals(null) && !pid.equals("") && !pid.equals("null")) {
+						id.valueOf(pid)
+					}
+					result = new CatalogosDAO().getExisteSDAEGestionEscolar(id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getExisteSDAECreditoGE":
+					String pid = request.getParameter "sdaeGE"
+					String fecha = request.getParameter "fecha"
+					Long id = 0L;
+					if(!pid.equals(null) && !pid.equals("") && !pid.equals("null")) {
+						id.valueOf(pid)
+					}
+					result = new CatalogosDAO().getExisteSDAECreditoGE(id,fecha);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
