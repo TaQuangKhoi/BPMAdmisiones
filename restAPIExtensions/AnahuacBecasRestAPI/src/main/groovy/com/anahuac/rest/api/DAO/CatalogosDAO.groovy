@@ -1818,7 +1818,6 @@ class CatalogosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			con.rollback();
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1832,7 +1831,7 @@ class CatalogosDAO {
 		Boolean closeCon = false;;
 		String where = "";
 		try {
-			String consulta = StatementsCatalogos.GET_EXISTE_SDAECAT_GESTION_ESCOLAR;
+			String consulta = StatementsCatalogos.GET_EXISTE_SDAECAT_CREDITO_GE;
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(consulta);
 			pstm.setLong(1, SDAEGestionEscolar_pid);
@@ -1851,7 +1850,6 @@ class CatalogosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			con.rollback();
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1886,12 +1884,11 @@ class CatalogosDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setData(info);
+			resultado.setData(rows);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			con.rollback();
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1927,12 +1924,11 @@ class CatalogosDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setData(info);
+			resultado.setData(rows);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			con.rollback();
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
