@@ -1860,7 +1860,7 @@ class CatalogosDAO {
 		return resultado
 	}
 	
-	public Result getSDAEGestionEscolar(Long SDAEGestionEscolar_pid,String fecha) {
+	public Result getSDAEGestionEscolar(Long SDAEGestionEscolar_pid) {
 		Result resultado = new Result();
 		Boolean closeCon = false;;
 		String where = "";
@@ -1869,7 +1869,6 @@ class CatalogosDAO {
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(consulta);
 			pstm.setLong(1, SDAEGestionEscolar_pid);
-			pstm.setString(2, fecha);
 			rs = pstm.executeQuery()
 			
 			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();

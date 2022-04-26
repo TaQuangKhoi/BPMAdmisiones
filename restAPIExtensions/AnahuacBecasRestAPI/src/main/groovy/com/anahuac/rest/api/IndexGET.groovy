@@ -209,7 +209,7 @@ class IndexGET implements RestApiController {
 					}
 					break;
 				case "getExisteSDAEGestionEscolar":
-					String pid = request.getParameter "sdaeGE"
+					String pid = request.getParameter "id"
 					Long id = 0L;
 					if(!pid.equals(null) && !pid.equals("") && !pid.equals("null")) {
 						id.valueOf(pid)
@@ -230,6 +230,35 @@ class IndexGET implements RestApiController {
 						id.valueOf(pid)
 					}
 					result = new CatalogosDAO().getExisteSDAECreditoGE(id,fecha);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getSDAEGestionEscolar":
+					String pid = request.getParameter "id"
+					Long id = 0L;
+					if(!pid.equals(null) && !pid.equals("") && !pid.equals("null")) {
+						id.valueOf(pid)
+					}
+					result = new CatalogosDAO().getSDAEGestionEscolar(id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getCreditoGE":
+					String pid = request.getParameter "sdaeGE"
+					String fecha = request.getParameter "fecha"
+					Long id = 0L;
+					if(!pid.equals(null) && !pid.equals("") && !pid.equals("null")) {
+						id.valueOf(pid)
+					}
+					result = new CatalogosDAO().getCreditoGE(id,fecha);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())

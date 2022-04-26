@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAECatGestionEscolarAcciones",
   "name" : "SDAECatGestionEscolarAcciones",
-  "lastUpdate" : 1650999342249,
+  "lastUpdate" : 1651002924076,
   "rows" : [
     [
       {
@@ -5256,7 +5256,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "values"
+                  "value" : "datos"
                 },
                 "url" : {
                   "type" : "expression",
@@ -7619,16 +7619,17 @@
     "urlsGetParametros" : {
       "type" : "expression",
       "value" : [
+        "",
         "return [",
         "    `&id=${$data.catGestionEscolar_selected.persistenceId}`,",
-        "    `&sdaeGE=${$data.catGestionEscolar_selected.persistenceId}&fecha=${$data.fecha}`,",
+        "    `&sdaeGE=${$data.catGestionEscolar_selected.persistenceId}&fecha=${$data.fecha[0]}`,",
         "    `&id=${$data.catGestionEscolar_selected.persistenceId}`,",
-        "    `&sdaeGE=${$data.catGestionEscolar_selected.persistenceId}&fecha=${$data.fecha}`",
+        "    `&sdaeGE=${$data.catGestionEscolar_selected.persistenceId}&fecha=${$data.fecha[0]}`",
         "]"
       ],
       "exposed" : false
     },
-    "values" : {
+    "datos" : {
       "type" : "json",
       "value" : [
         "[]"

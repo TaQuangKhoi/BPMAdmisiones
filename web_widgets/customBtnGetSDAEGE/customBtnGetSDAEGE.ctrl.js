@@ -11,7 +11,7 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
         }
     });*/
     
-    $scope.$watch("properties.urlParametro", function(newValue, oldValue) {
+    $scope.$watch("properties.urlParameter", function(newValue, oldValue) {
         if (newValue !== undefined) {
             //if($scope.properties.lstContenido.length >1){return }
             $scope.properties.url.forEach( (info,index) =>{
