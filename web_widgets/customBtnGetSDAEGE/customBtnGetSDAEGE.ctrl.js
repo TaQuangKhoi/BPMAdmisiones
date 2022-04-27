@@ -4,26 +4,18 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
 
     var vm = this;
 
-   /* $scope.$watch("properties.urlInfo", function(newValue, oldValue) {
-        if (newValue !== undefined) {
-            //if($scope.properties.lstContenido.length >1){return }
-            doRequest();
-        }
-    });*/
-    
     $scope.$watch("properties.urlParameter", function(newValue, oldValue) {
         if (newValue !== undefined) {
             //if($scope.properties.lstContenido.length >1){return }
-            $scope.properties.url.forEach( (info,index) =>{
-                doRequest(info,$scope.properties.urlParameter[index]);    
-            })
-            
+            $scope.properties.value = [];
+            doRequest("AnahuacBecasRestGET?url=getExisteSDAEGestionEscolar",$scope.properties.urlParameter[0],1);           
         }
     });
 
 
-    function doRequest(url,parameter,index) {
+    function doRequest(url,parameter,numero) {
 
+        debugger
         blockUI.start();
         var req = {
             method: "GET",
@@ -32,8 +24,46 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                $scope.properties.value[index] = (data.data == null ? data: data.data);
-                console.log(data);
+                 switch (numero) {
+                    case 1:
+                        if (data.length > 0) {
+                            $scope.properties.value[numero-1] = data[0];
+                        }
+                        if($scope.properties.value[numero-1] == true){
+                            doRequest("AnahuacBecasRestGET?url=getSDAEGestionEscolar",$scope.properties.urlParameter[numero], 2);
+                        }else{
+                            $scope.properties.value[1] = [];
+                            $scope.properties.value[2] = false;
+                            $scope.properties.value[3] = [{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha":$scope.properties.fecha},{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha": parseInt($scope.properties.fecha)+1+""}];
+                        }
+                        break;
+                    case 2:
+                        if (data.length > 0) {
+                            $scope.properties.value[numero-1] = data[0];
+                            if($scope.properties.value[numero-1].manejoapoyo != null){
+                                $scope.properties.value[numero-1].manejoapoyo = ($scope.properties.value[numero-1].manejoapoyo == 't'?true:false)
+                            }
+                        }
+                        doRequest("AnahuacBecasRestGET?url=getExisteSDAECreditoGE",$scope.properties.urlParameter[numero].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 3);
+                        break;
+                    case 3:
+                        if (data.length > 0) {
+                            $scope.properties.value[numero-1] = data[0];
+                        }
+                        doRequest("AnahuacBecasRestGET?url=getCreditoGE",$scope.properties.urlParameter[numero].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 4);
+                        break;
+                    case 4:
+                        if (data.length > 0) {
+                            $scope.properties.value[numero-1] = data[0];
+                        }else{
+                            $scope.properties.value[numero-1] = [{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha":$scope.properties.fecha},{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha":parseInt($scope.properties.fecha)+1+""}];
+                            if( $scope.properties.value[0]){
+                                $scope.properties.value[numero-1][0].sdaecatgestionescolar_pid =   $scope.properties.value[1].persistenceid;
+                                $scope.properties.value[numero-1][1].sdaecatgestionescolar_pid =   $scope.properties.value[1].persistenceid;
+                            }
+                        }
+                        break;
+                }
             })
             .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

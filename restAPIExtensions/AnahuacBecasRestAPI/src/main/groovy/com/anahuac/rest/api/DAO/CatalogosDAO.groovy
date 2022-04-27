@@ -1666,15 +1666,20 @@ class CatalogosDAO {
 			closeCon = validarConexion();
 			con.setAutoCommit(false)
 			
-			pstm = con.prepareStatement(consulta);
+			pstm = con.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, object.parcialidad);
-			pstm.setInt(2, object.creditoSemestre );
-			pstm.setString(3, object.manejoApoyo);
-			pstm.setLong(4, object.catgestionEscolar_pid);
-			rs = pstm.execute();
-			
+			pstm.setInt(2, Integer.parseInt(object.creditosemestre));
+			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
+			pstm.setLong(4, Long.parseLong(object.catgestionescolar_pid));
+			pstm.executeUpdate();
 			con.commit();
+			rs = pstm.getGeneratedKeys();
+			List<String> info = new ArrayList<String>();
+			if(rs.next()) {
+				info.add( rs.getString("persistenceid"))
+			}
 			resultado.setSuccess(true);
+			resultado.setData(info);
 		} catch (Exception e) {
 			
 			LOGGER.error "[ERROR] " + e.getMessage();
@@ -1702,10 +1707,10 @@ class CatalogosDAO {
 			
 			pstm = con.prepareStatement(consulta);
 			pstm.setString(1, object.parcialidad);
-			pstm.setInt(2, object.creditoSemestre );
-			pstm.setString(3, object.manejoApoyo);
-			pstm.setLong(4, object.persistenceid);
-			rs = pstm.execute();
+			pstm.setInt(2, Integer.parseInt(object.creditosemestre));
+			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
+			pstm.setLong(4, Long.parseLong(object.persistenceid));
+			pstm.executeUpdate();
 			
 			con.commit();
 			resultado.setSuccess(true);
@@ -1734,14 +1739,17 @@ class CatalogosDAO {
 			closeCon = validarConexion();
 			con.setAutoCommit(false)
 			
-			pstm = con.prepareStatement(consulta);
-			pstm.setString(1, object.creditoEnero);
-			pstm.setString(2, object.creditoMayo);
-			pstm.setString(3, object.creditoAgosto);
-			pstm.setString(4, object.creditoSeptiembre);
-			pstm.setString(5, object.fecha);
-			pstm.setLong(6, object.sdaeCatGestionEscolar_pid);
-			rs = pstm.execute();
+			object.each{
+				pstm = con.prepareStatement(consulta);
+				pstm.setString(1, it.creditoenero);
+				pstm.setString(2, it.creditomayo);
+				pstm.setString(3, it.creditoagosto);
+				pstm.setString(4, it.creditoseptiembre);
+				pstm.setString(5, it.fecha);
+				pstm.setLong(6, Long.parseLong(object.sdaecatgestionescolar_pid));
+				pstm.executeUpdate();
+			}
+			
 			
 			con.commit();
 			resultado.setSuccess(true);
@@ -1769,14 +1777,16 @@ class CatalogosDAO {
 			String consulta = StatementsCatalogos.UPDATE_SDAECAT_CREDITO_GE;
 			closeCon = validarConexion();
 			con.setAutoCommit(false)
+			object.each{
+				pstm = con.prepareStatement(consulta);
+				pstm.setString(1, it.creditoenero);
+				pstm.setString(2, it.creditomayo);
+				pstm.setString(3, it.creditoagosto);
+				pstm.setString(4, it.creditoseptiembre);
+				pstm.setLong(5, Long.parseLong(it.persistenceid));
+				rs = pstm.execute();
+			}
 			
-			pstm = con.prepareStatement(consulta);
-			pstm.setString(1, object.creditoEnero);
-			pstm.setString(2, object.creditoMayo);
-			pstm.setString(3, object.creditoAgosto);
-			pstm.setString(4, object.creditoSeptiembre);
-			pstm.setLong(5, object.persistenceid);
-			rs = pstm.execute();
 			
 			con.commit();
 			resultado.setSuccess(true);
@@ -1885,6 +1895,7 @@ class CatalogosDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
+			resultado.setError_info(SDAEGestionEscolar_pid.toString())
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
@@ -1931,6 +1942,38 @@ class CatalogosDAO {
 			resultado.setError(e.getMessage());
 		} finally {
 			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getFechaServidor() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(StatementsCatalogos.GET_YEAR)
+				rs = pstm.executeQuery()
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+				
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+					info.add(columns)
+				}
+				resultado.setData(info)
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
