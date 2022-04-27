@@ -74,11 +74,14 @@
                     {{row.updateDate}}
                 </td-->
                 <td class="text-center">
-                    <button class="btn btn-default" ng-click="verSolicitud(row)">
+                    <button class="btn btn-default" ng-show="row.estatussolicitud == 'Esperando Pre-Autorización'" ng-click="verSolicitud(row)">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </button>
-                    <button class="btn btn-default" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="avanzarSolicitud(row)">
-                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="archivarSolicitud(row)">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-success" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="avanzarSolicitud(row)">
+                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                     </button>
                 </td>
             </tr>
@@ -112,4 +115,20 @@
         <div class="col-md-6"><button class="btn btn-danger" ng-click="envelopeCancel()">Cancelar</button></div>
         <div class="col-md-6"><button class="btn btn-info" ng-click="sendMail(selectedrow,mensaje)">Enviar recordatorio</button></div>
     </div>
+</div>
+<div id="modalEnviarDictamen" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mensaje de Confirmación</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea enviar la solicitud a dictamen?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="enviarTareaDictamen()">Enviar a Dictamen</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>
