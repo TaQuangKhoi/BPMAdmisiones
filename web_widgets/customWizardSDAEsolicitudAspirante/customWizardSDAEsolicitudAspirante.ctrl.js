@@ -106,7 +106,7 @@ function ($scope) {
     });
     
     $scope.$watchCollection("properties.lastSelectedIndex", function(newValue, oldValue) {
-        if($scope.properties.lastSelectedIndex !== undefined && $scope.properties.lastSelectedIndex >= 0){
+        if($scope.properties.lastSelectedIndex){
             $scope.setSelected($scope.properties.lastSelectedIndex);
         }
     });
