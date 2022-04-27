@@ -1668,9 +1668,9 @@ class CatalogosDAO {
 			
 			pstm = con.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, object.parcialidad);
-			pstm.setInt(2, Integer.parseInt(object.creditosemestre));
+			pstm.setInt(2, Integer.parseInt(object.creditosemestre.toString()));
 			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
-			pstm.setLong(4, Long.parseLong(object.catgestionescolar_pid));
+			pstm.setLong(4, Long.parseLong(object.catgestionescolar_pid.toString()));
 			pstm.executeUpdate();
 			con.commit();
 			rs = pstm.getGeneratedKeys();
@@ -1707,9 +1707,9 @@ class CatalogosDAO {
 			
 			pstm = con.prepareStatement(consulta);
 			pstm.setString(1, object.parcialidad);
-			pstm.setInt(2, Integer.parseInt(object.creditosemestre));
+			pstm.setInt(2, Integer.parseInt(object.creditosemestre.toString()));
 			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
-			pstm.setLong(4, Long.parseLong(object.persistenceid));
+			pstm.setLong(4, Long.parseLong(object.persistenceid.toString()));
 			pstm.executeUpdate();
 			
 			con.commit();
@@ -1746,7 +1746,7 @@ class CatalogosDAO {
 				pstm.setString(3, it.creditoagosto);
 				pstm.setString(4, it.creditoseptiembre);
 				pstm.setString(5, it.fecha);
-				pstm.setLong(6, Long.parseLong(it.sdaecatgestionescolar_pid));
+				pstm.setLong(6, Long.parseLong(it.sdaecatgestionescolar_pid.toString()));
 				pstm.executeUpdate();
 			}
 			
@@ -1783,7 +1783,7 @@ class CatalogosDAO {
 				pstm.setString(2, it.creditomayo);
 				pstm.setString(3, it.creditoagosto);
 				pstm.setString(4, it.creditoseptiembre);
-				pstm.setLong(5, Long.parseLong(it.persistenceid));
+				pstm.setLong(5, Long.parseLong(it.persistenceid.toString()));
 				rs = pstm.execute();
 			}
 			

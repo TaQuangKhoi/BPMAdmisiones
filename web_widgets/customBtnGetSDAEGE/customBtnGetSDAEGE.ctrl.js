@@ -32,7 +32,7 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
                         if($scope.properties.value[numero-1] == true){
                             doRequest("AnahuacBecasRestGET?url=getSDAEGestionEscolar",$scope.properties.urlParameter[numero], 2);
                         }else{
-                            $scope.properties.value[1] = [];
+                            $scope.properties.value[1] = {"catgestionescolar_pid":$scope.properties.id};
                             $scope.properties.value[2] = false;
                             $scope.properties.value[3] = [{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha":$scope.properties.fecha},{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha": parseInt($scope.properties.fecha)+1+""}];
                         }
