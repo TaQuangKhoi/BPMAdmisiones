@@ -14,8 +14,6 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
 
 
     function doRequest(url,parameter,numero) {
-
-        debugger
         blockUI.start();
         var req = {
             method: "GET",
@@ -40,8 +38,8 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
                     case 2:
                         if (data.length > 0) {
                             $scope.properties.value[numero-1] = data[0];
-                            if($scope.properties.value[numero-1].manejoapoyo != null){
-                                $scope.properties.value[numero-1].manejoapoyo = ($scope.properties.value[numero-1].manejoapoyo == 't'?true:false)
+                            if($scope.properties.value[numero-1].manejaapoyo != null){
+                                $scope.properties.value[numero-1].manejaapoyo = ($scope.properties.value[numero-1].manejaapoyo == 't'?true:false)
                             }
                         }
                         doRequest("AnahuacBecasRestGET?url=getExisteSDAECreditoGE",$scope.properties.urlParameter[numero].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 3);
@@ -50,17 +48,24 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
                         if (data.length > 0) {
                             $scope.properties.value[numero-1] = data[0];
                         }
-                        doRequest("AnahuacBecasRestGET?url=getCreditoGE",$scope.properties.urlParameter[numero].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 4);
+                        doRequest("AnahuacBecasRestGET?url=getCreditoGE",$scope.properties.urlParameter[numero-1].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 4);
                         break;
                     case 4:
                         if (data.length > 0) {
-                            $scope.properties.value[numero-1] = data[0];
+                            $scope.properties.value[numero-1] = [{},{}];
+                            $scope.properties.value[numero-1][0] = data[0];
+                            doRequest("AnahuacBecasRestGET?url=getCreditoGE",$scope.properties.urlParameter[numero-1].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 5);
                         }else{
                             $scope.properties.value[numero-1] = [{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha":$scope.properties.fecha},{"creditoenero":"","creditomayo":"","creditoagosto":"","creditoseptiembre":"","fecha":parseInt($scope.properties.fecha)+1+""}];
                             if( $scope.properties.value[0]){
                                 $scope.properties.value[numero-1][0].sdaecatgestionescolar_pid =   $scope.properties.value[1].persistenceid;
                                 $scope.properties.value[numero-1][1].sdaecatgestionescolar_pid =   $scope.properties.value[1].persistenceid;
                             }
+                        }
+                        break;
+                    case 5:
+                        if (data.length > 0) {
+                            $scope.properties.value[3][1] = data[0];
                         }
                         break;
                 }

@@ -1784,7 +1784,7 @@ class CatalogosDAO {
 				pstm.setString(3, it.creditoagosto);
 				pstm.setString(4, it.creditoseptiembre);
 				pstm.setLong(5, Long.parseLong(it.persistenceid.toString()));
-				rs = pstm.execute();
+				pstm.executeUpdate();
 			}
 			
 			

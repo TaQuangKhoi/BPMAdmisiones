@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAECatGestionEscolarAcciones",
   "name" : "SDAECatGestionEscolarAcciones",
-  "lastUpdate" : 1651094401404,
+  "lastUpdate" : 1651100568163,
   "rows" : [
     [
       {
@@ -3280,8 +3280,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura == undefined || catGestionEscolar_selected.tipoLicenciatura == \"Anual\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3355,8 +3355,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura != \"Cuatrimestral\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3430,8 +3430,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura == undefined || catGestionEscolar_selected.tipoLicenciatura == \"Cuatrimestral\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3505,8 +3505,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura != \"Cuatrimestral\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3582,8 +3582,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura == undefined || catGestionEscolar_selected.tipoLicenciatura == \"Anual\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3657,8 +3657,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura != \"Cuatrimestral\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3732,8 +3732,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura == undefined || catGestionEscolar_selected.tipoLicenciatura == \"Cuatrimestral\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -3807,8 +3807,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "catGestionEscolar_selected.tipoLicenciatura != \"Cuatrimestral\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -5398,7 +5398,7 @@
         "    `&id=${$data.catGestionEscolar_selectedNR.persistenceId}`,",
         "    `&id=${$data.catGestionEscolar_selectedNR.persistenceId}`,",
         "    `&sdaeGE=[SDAEGE]&fecha=${$data.fecha[0].fecha}`,",
-        "    `&sdaeGE=[SDAEGE]&fecha=${$data.fecha[0].fecha}`",
+        "    `&sdaeGE=[SDAEGE]&fecha=${(parseInt(angular.copy($data.fecha[0].fecha)))+1}`",
         "]"
       ],
       "exposed" : false
@@ -5413,7 +5413,32 @@
     "siguienteYear" : {
       "type" : "expression",
       "value" : [
-        "return (parseInt($data.fecha[0].fecha) + 1);"
+        "return (parseInt(angular.copy($data.fecha[0].fecha)) + 1);"
+      ],
+      "exposed" : false
+    },
+    "cambio_zero" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.editable  === \"editar\"){",
+        "    debugger",
+        "    if($data.catGestionEscolar_selected.tipoLicenciatura === \"Cuatrimestral\"){",
+        "        $data.datos[3][0].creditoagosto = \"0\";",
+        "        $data.datos[3][1].creditoagosto = \"0\";",
+        "    }else if($data.catGestionEscolar_selected.tipoLicenciatura === \"Anual\"){",
+        "        $data.datos[3][0].creditoenero = \"0\";",
+        "        $data.datos[3][0].creditomayo = \"0\";",
+        "        $data.datos[3][0].creditoseptiembre = \"0\";",
+        "        $data.datos[3][1].creditoenero = \"0\";",
+        "        $data.datos[3][1].creditomayo = \"0\";",
+        "        $data.datos[3][1].creditoseptiembre = \"0\";",
+        "    }else if($data.catGestionEscolar_selected.tipoLicenciatura === \"Semestral\"){",
+        "        $data.datos[3][0].creditomayo = \"0\"",
+        "        $data.datos[3][0].creditoseptiembre = \"0\"",
+        "        $data.datos[3][1].creditomayo = \"0\"",
+        "        $data.datos[3][1].creditoseptiembre = \"0\"",
+        "    }",
+        "}"
       ],
       "exposed" : false
     }

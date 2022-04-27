@@ -118,6 +118,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req).success(function(data, status) {
             if(tipo == 1 && index == 1){
                 $scope.properties.dataToChange2[3][0].sdaecatgestionescolar_pid = parseInt(data.data[0]);
+                $scope.properties.dataToChange2[3][1].sdaecatgestionescolar_pid = parseInt(data.data[0]);
             }
             console.log(data);
             })
