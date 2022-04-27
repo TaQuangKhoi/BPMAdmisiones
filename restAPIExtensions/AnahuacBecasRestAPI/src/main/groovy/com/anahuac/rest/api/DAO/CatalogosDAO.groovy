@@ -1746,7 +1746,7 @@ class CatalogosDAO {
 				pstm.setString(3, it.creditoagosto);
 				pstm.setString(4, it.creditoseptiembre);
 				pstm.setString(5, it.fecha);
-				pstm.setLong(6, Long.parseLong(object.sdaecatgestionescolar_pid));
+				pstm.setLong(6, Long.parseLong(it.sdaecatgestionescolar_pid));
 				pstm.executeUpdate();
 			}
 			
