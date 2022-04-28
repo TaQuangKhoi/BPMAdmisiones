@@ -2019,7 +2019,6 @@ class HubspotDAO {
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99";
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
 	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
-
 	  StringBuilder resultado = new StringBuilder();
 	  try {
 		  URL url = new URL(urlParaVisitar);
@@ -2035,7 +2034,7 @@ class HubspotDAO {
 		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() )
 		  String error = "";
 		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
-		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", "${error}", e.getMessage(), campus, context)
+		  enviarCorreoError("Error en la consulta", "${error}", e.getMessage().replace(urlParaVisitar,""), campus, context)
 		  throw new Exception( e.getMessage() )
 	  }
 	  
@@ -2069,7 +2068,6 @@ class HubspotDAO {
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
 	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
-
 	  StringBuilder resultado = new StringBuilder();
 	  
 	  try {
@@ -2086,7 +2084,7 @@ class HubspotDAO {
 		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() );
 		  String error = "";
 		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
-		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", " ${error}", e.getMessage(), campus, context);
+		  enviarCorreoError("Error en la cosulta", " ${error}", e.getMessage().replace(urlParaVisitar,""), campus, context);
 		  throw new Exception( e.getMessage() )
 	  }
 	  
