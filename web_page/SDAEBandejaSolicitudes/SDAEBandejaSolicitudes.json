@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBandejaSolicitudes",
   "name" : "SDAEBandejaSolicitudes",
-  "lastUpdate" : 1651256146145,
+  "lastUpdate" : 1651261645626,
   "rows" : [
     [
       {
@@ -166,9 +166,9 @@
                               "value" : "lstFiltros"
                             }
                           },
-                          "reference" : "a6ed53bc-c787-40bd-8e8e-5953a5d55ccd",
+                          "reference" : "0aa82d5e-9800-42f2-bf5a-6826bc871720",
                           "hasValidationError" : false,
-                          "id" : "customListFiltrosBloqueoCampus"
+                          "id" : "customSDAElistFiltrosBloqueoCampus"
                         }
                       ],
                       [
@@ -251,13 +251,170 @@
                             "abrirPagina" : {
                               "type" : "constant",
                               "value" : "preAutorizacion"
-                            },
-                            "modalEnviarDictamen" : {
-                              "type" : "constant",
-                              "value" : "modalEnviarDictamen"
                             }
                           },
-                          "reference" : "57d3e984-51e8-4626-a447-7bcfbbe94236",
+                          "reference" : "97184d10-3303-4b47-9ba5-d5e9290e13df",
+                          "hasValidationError" : false,
+                          "id" : "customSDAETablePostSolicitud"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "type" : "tabContainer",
+                  "dimension" : {
+                    "xs" : 12,
+                    "sm" : 12,
+                    "md" : 12,
+                    "lg" : 12
+                  },
+                  "propertyValues" : {
+                    "cssClasses" : {
+                      "type" : "constant",
+                      "value" : ""
+                    },
+                    "hidden" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "disabled" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "title" : {
+                      "type" : "interpolation",
+                      "value" : "En espera de resultado"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
+                    }
+                  },
+                  "reference" : "4347302d-8739-467a-bd03-adfa6d6128eb",
+                  "hasValidationError" : false,
+                  "id" : "pbTabContainer",
+                  "container" : {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12
+                    },
+                    "propertyValues" : { },
+                    "reference" : "4eadb2c8-6d5e-46b9-a5a5-919425def149",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "content" : {
+                              "type" : "variable",
+                              "value" : "lstFiltrosEsperaEvaluacion"
+                            }
+                          },
+                          "reference" : "58dfa304-e77a-41d1-aae5-9171178bf409",
+                          "hasValidationError" : false,
+                          "id" : "customSDAElistFiltrosBloqueoCampus"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
+                              ]
+                            },
+                            "columnsKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "dataToSendEsperaResultado"
+                            },
+                            "lstContenido" : {
+                              "type" : "variable",
+                              "value" : "lstContenidoEsperaResultado"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "campusSeleccionado" : {
+                              "type" : "variable",
+                              "value" : "getCampusEsperaResultado"
+                            },
+                            "lstCampus" : {
+                              "type" : "variable",
+                              "value" : "lstCatCampus"
+                            },
+                            "abrirPagina" : {
+                              "type" : "constant",
+                              "value" : "verSolicitud"
+                            },
+                            "modalEnviarDictamen" : {
+                              "type" : "constant"
+                            }
+                          },
+                          "reference" : "bef6468a-b47f-4164-8960-8b455d64ac0b",
                           "hasValidationError" : false,
                           "id" : "customSDAETablePostSolicitudv2"
                         }
@@ -387,11 +544,12 @@
                               "value" : false
                             },
                             "urlPost" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
                             },
                             "dataToSend" : {
                               "type" : "variable",
-                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                              "value" : "dataToSendEsperaEvaluacion"
                             },
                             "lstContenido" : {
                               "type" : "variable",
@@ -411,61 +569,14 @@
                             },
                             "abrirPagina" : {
                               "type" : "constant",
-                              "value" : "preAutorizacion"
+                              "value" : "verSolicitud"
                             }
                           },
-                          "reference" : "ad269ca8-68bc-4ffa-bb58-b01a70b4164b",
+                          "reference" : "5a23002b-4d73-499d-8380-983bd2e5167f",
                           "hasValidationError" : false,
-                          "id" : "customSDAETablePostSolicitud"
+                          "id" : "customSDAETablePostVerSolicitud"
                         }
                       ]
-                    ]
-                  }
-                },
-                {
-                  "type" : "tabContainer",
-                  "dimension" : {
-                    "xs" : 12,
-                    "sm" : 12,
-                    "md" : 12,
-                    "lg" : 12
-                  },
-                  "propertyValues" : {
-                    "cssClasses" : {
-                      "type" : "constant",
-                      "value" : ""
-                    },
-                    "hidden" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "disabled" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "title" : {
-                      "type" : "interpolation",
-                      "value" : "En espera de resultado"
-                    },
-                    "active" : {
-                      "type" : "variable",
-                      "value" : ""
-                    }
-                  },
-                  "reference" : "4347302d-8739-467a-bd03-adfa6d6128eb",
-                  "hasValidationError" : false,
-                  "id" : "pbTabContainer",
-                  "container" : {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12
-                    },
-                    "propertyValues" : { },
-                    "reference" : "4eadb2c8-6d5e-46b9-a5a5-919425def149",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [ ]
                     ]
                   }
                 },
@@ -535,9 +646,9 @@
                               "value" : "lstFiltrosCorregidas"
                             }
                           },
-                          "reference" : "46d96128-9ecc-42b9-b522-46d1017c506b",
+                          "reference" : "157e12c6-7eef-499a-a97c-eff9d414b5f0",
                           "hasValidationError" : false,
-                          "id" : "customListFiltrosBloqueoCampus"
+                          "id" : "customSDAElistFiltrosBloqueoCampus"
                         }
                       ],
                       [
@@ -619,7 +730,7 @@
                               "value" : "verSolicitud"
                             }
                           },
-                          "reference" : "5a69b92e-682e-4198-af6a-86d171ab436f",
+                          "reference" : "67c9f998-0d07-46f6-91d9-381353af91be",
                           "hasValidationError" : false,
                           "id" : "customSDAETablePostVerSolicitud"
                         }
@@ -693,9 +804,9 @@
                               "value" : "lstFiltrosArchivadas"
                             }
                           },
-                          "reference" : "dcc6ce0f-7473-482b-914a-870438ff83ef",
+                          "reference" : "46ccd232-dcba-484b-a9a1-bc3d8942c25c",
                           "hasValidationError" : false,
-                          "id" : "customListFiltrosBloqueoCampus"
+                          "id" : "customSDAElistFiltrosBloqueoCampus"
                         }
                       ],
                       [
@@ -861,7 +972,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Esperando Pre-Autorización', 'En espera de resultado'\",\r",
+        "    \"estatusSolicitud\":\"'Esperando Pre-Autorización', 'Correcciones realizadas'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
@@ -970,16 +1081,16 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Esperando Pre-Autorización', 'En espera de resultado'\",\r",
+        "    \"estatusSolicitud\":\"'Esperando revisión área deportiva', 'Esperando revisión área artistica'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"lstFiltro\": $data.lstFiltrosEsperaEvaluacion,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "    \"campus\":$data.getCampusEsperaEvaluacion != null? ($data.getCampusEsperaEvaluacion+\"\"):$data.getCampusEsperaEvaluacion\r",
         "};\r"
       ],
       "exposed" : false
@@ -992,6 +1103,42 @@
       "exposed" : false
     },
     "getCampusEsperaEvaluacion" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "lstFiltrosEsperaResultado" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "dataToSendEsperaResultado" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"'Esperando Pre-Autorización', 'En espera de resultado'\",\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltrosEsperaEvaluacion,\r",
+        "    \"type\": \"nuevas_solicitudes\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};\r"
+      ],
+      "exposed" : false
+    },
+    "lstContenidoEsperaResultado" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "getCampusEsperaResultado" : {
       "type" : "constant",
       "exposed" : false
     }

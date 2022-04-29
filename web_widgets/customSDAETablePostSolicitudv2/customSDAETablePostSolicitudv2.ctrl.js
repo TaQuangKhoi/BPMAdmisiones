@@ -175,7 +175,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }else{
             if($scope.avanzarSolicitud){
                 
-                var contrato = {};
+                var contrato = {
+                    "varRegresarRevisionInput" : false,
+                    "varAdmitidoInput" : true
+                };
                 var params = getUserParam();
                 doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato).then(function() {
                    console.log("tarea avanzada");
@@ -576,6 +579,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 console.error(data);
             })
             .finally(function() {});
+    }
+    
+    $scope.abrirSolicitud = function(row) {
+        debugger;
+        var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&caseId=" + row.caseid;
+        window.open(url, '_blank');
     }
   
     $scope.getCatCampus();
