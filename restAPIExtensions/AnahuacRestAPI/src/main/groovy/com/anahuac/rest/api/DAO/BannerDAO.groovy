@@ -75,12 +75,12 @@ class BannerDAO {
 		String strGetConsumeJSON = "";
 		String strGetConsumeJSONUbicaciones = "";
 		Integer intentos = 5;
+		Integer intentos2 = 5;
 		try {
 			while(intentos>0) {
 				errorLog += " | " + ("START JSON======================================");
 				barrerToken = getBarreToken();
-				barrerTokenUbicaciones = getBarreTokenUbicaciones();
-				//errorLog += " | " + barrerToken;
+				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
 				errorLog += " | " + ("================================================");
 	
 				// PREPAS
@@ -120,25 +120,34 @@ class BannerDAO {
 					resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
 					intentos--;
 				}
-				errorLog += " | " + strGetConsumeJSON;
+				errorLog += " | " + strGetConsumeJSON;				
+				//resultadoGetConsumeJSON.setSuccess(true);
+				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
+			}
+			while(intentos2>0&&intentos==0) {
+				errorLog += " | " + ("START UBICACIONES JSON======================================");
+				barrerTokenUbicaciones = getBarreTokenUbicaciones();
+				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
+				errorLog += " | " + ("================================================");
 				
-				// ----------------------------------------
-				
+				jsonResultadoUbicaciones = getConsumePrepa(barrerTokenUbicaciones);
 				errorLog += " | jsonResultado Ubicaciones: " + jsonResultadoUbicaciones;
 				errorLog += " | " + ("END JSON Ubicaciones ========================================");
 				
-				if(jsonResultadoUbicaciones.equals("[]")  || jsonResultadoUbicaciones.equals("")){
-					intentos=0;
+				if(jsonResultadoUbicaciones.equals("[]")  || jsonResultadoUbicaciones.equals("") || jsonResultadoUbicaciones?.trim().length()<=1){
+					intentos2=0;
 					resultadoGetConsumeJSON.setSuccess(true)
 				}else {
+					errorLog += " | " + ("entro a direcciones");
 					resultadoGetConsumeJSON = getConsumeJSON(jsonResultadoUbicaciones, context, operacion, barrerTokenUbicaciones);
-					intentos--;
+					intentos2--;
 				}
 				errorLog += " | " + strGetConsumeJSONUbicaciones;
 				
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
 			}
+		
 		} catch (Exception e) {
 			errorLog += " | " + e.getMessage();
 			resultadoGetConsumeJSON.setError_info(errorLog);
@@ -241,7 +250,7 @@ class BannerDAO {
 		try {
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
-			pstm.setString(1, "BannerTokenUbicaciones")
+			pstm.setString(1, "BannerTokenMapeada")
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 
@@ -1497,7 +1506,20 @@ class BannerDAO {
 							objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
 							objCatBachilleratosInput.put("region", null);
 							objCatBachilleratosInput.put("caseId", null);
-							objCatBachilleratosInput.put("clave", objRow.getClave());
+							String clave = "";
+							if(objRow.getClave() == null || objRow.getClave().equals("null")){
+								object.each{
+									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.id?.toString()){
+										errorLog +="| Clave content: "+it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
+										clave = it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
+									}
+								}
+								//object.get(i).content.educationalInstitutionsExtended.get(0).id.toString()
+								objCatBachilleratosInput.put("clave", clave);
+							}else{
+								objCatBachilleratosInput.put("clave", objRow.getClave());	
+							}
+							errorLog +="| Clave: "+clave+"|Clave2:"+objRow.getClave()
 							objCatBachilleratosInput.put("fechaImportacion", null);
 							objCatBachilleratosInput.put("fechaCreacion", null);
 							objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
@@ -2309,7 +2331,7 @@ class BannerDAO {
 			@Override
 			public Result[] call() {
 				Result[] arrayResult = new Result[1];
-				arrayResult[0]= new BannerDAO().integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
+				arrayResult[0]= integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
 				return arrayResult
 			}
 	 }

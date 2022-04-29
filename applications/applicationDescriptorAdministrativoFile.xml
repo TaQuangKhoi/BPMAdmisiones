@@ -201,6 +201,8 @@
             <applicationPage customPage="custompage_Cartas" token="cartas"/>
             <applicationPage customPage="custompage_SDAECatControlDocumentos" token="CatControlDocumentos"/>
             <applicationPage customPage="custompage_SDAERevisarSolicitudFinanciamiento" token="RevisarSolicitudFinanciamiento"/>
+            <applicationPage customPage="custompage_SDAECatGestionEscolarAcciones" token="SDAEGestionEscolar"/>
+            <applicationPage customPage="custompage_SDAECatCampusAcciones" token="SDAECampus"/>
         </applicationPages>
         <applicationMenus>
             <applicationMenu>
@@ -455,11 +457,25 @@
                 <displayName>Reportes</displayName>
             </applicationMenu>
             <applicationMenu>
-                <displayName>Catálogos SDAE</displayName>
+                <displayName>Configuraciones Generales SDAE</displayName>
                 <applicationMenus>
+                    <applicationMenu applicationPage="SDAEGestionEscolar">
+                        <displayName>Gestion Escolar SDAE</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="SDAECampus">
+                        <displayName>Campus SDAE</displayName>
+                    </applicationMenu>
                     <applicationMenu applicationPage="CatTipoApoyo">
                         <displayName>Tipo apoyo</displayName>
                     </applicationMenu>
+                    <applicationMenu applicationPage="home">
+                        <displayName>Documentos y textos</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>Catálogos de Registro SDAE</displayName>
+                <applicationMenus>
                     <applicationMenu applicationPage="CatTipoInversionesPosee">
                         <displayName>Tipo de inversiones</displayName>
                     </applicationMenu>
@@ -487,9 +503,6 @@
                     <applicationMenu applicationPage="CatContoBecaPreparatoria">
                         <displayName>Conto beca preparatoria</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="CatControlDocumentos">
-                        <displayName>Control de documentos </displayName>
-                    </applicationMenu>
                 </applicationMenus>
             </applicationMenu>
             <applicationMenu>
@@ -499,7 +512,7 @@
                         <displayName>Bandeja de pre-autorización</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="bandejaBecas">
-                        <displayName>Bandeja de becas</displayName>
+                        <displayName>Autorización de apoyo</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="bandejaAreaDeportiva">
                         <displayName>Bandeja de área deportiva</displayName>
