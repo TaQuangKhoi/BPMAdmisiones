@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1650924625982,
+  "lastUpdate" : 1651091295226,
   "rows" : [
     [
       {
@@ -303,7 +303,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Iniciar Proceso"
+                  "value" : "Iniciar solicitud"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -3455,7 +3455,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "expression",
-                                          "value" : "constancia.data[0].extension !== \".pdf\""
+                                          "value" : "constancia[0].extension !== \".pdf\""
                                         },
                                         "labelHidden" : {
                                           "type" : "constant",
@@ -3507,7 +3507,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "constant",
-                                          "value" : true
+                                          "value" : false
                                         },
                                         "disabled" : {
                                           "type" : "constant",
@@ -3523,7 +3523,7 @@
                                         },
                                         "value" : {
                                           "type" : "variable",
-                                          "value" : ""
+                                          "value" : "formOutputTest.solicitudApoyoEducativoInput.nuevoKardex"
                                         }
                                       },
                                       "reference" : "fd5fa4f9-d577-49c2-a49d-52137ae0db48",
@@ -3547,8 +3547,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : true
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.nuevoKardex"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -3593,6 +3593,108 @@
                                       "reference" : "747df1f0-55ca-4043-9e65-ca3c71890678",
                                       "hasValidationError" : false,
                                       "id" : "pbTitle"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Nuevo Kardex"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "url" : {
+                                          "type" : "constant",
+                                          "value" : "../API/formFileUpload"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "urlretorno" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "documentName" : {
+                                          "type" : "constant",
+                                          "value" : "Nuevo Kardex"
+                                        },
+                                        "documentDescription" : {
+                                          "type" : "constant",
+                                          "value" : "Kardex actualizado de la prepa donde egresaste"
+                                        },
+                                        "documentoInfo" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "isObligatorio" : {
+                                          "type" : "expression",
+                                          "value" : "false"
+                                        },
+                                        "urlAzure" : {
+                                          "type" : "variable",
+                                          "value" : "formOutputTest.solicitudApoyoEducativoInput.urlNuevoKardex"
+                                        },
+                                        "urlDownloadFile" : {
+                                          "type" : "expression",
+                                          "value" : "urlDownloadFileAzure"
+                                        },
+                                        "isMostrar" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "idDocumento" : {
+                                          "type" : "constant"
+                                        },
+                                        "editar" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "idModal" : {
+                                          "type" : "constant",
+                                          "value" : "modalDocumentoPV"
+                                        },
+                                        "selectedFile" : {
+                                          "type" : "variable",
+                                          "value" : "selectedFile"
+                                        }
+                                      },
+                                      "reference" : "afeec24c-f050-4b28-9933-b3fdef54ff02",
+                                      "hasValidationError" : false,
+                                      "id" : "customSDAEUploadCustomAzure"
                                     }
                                   ]
                                 ]
@@ -3689,7 +3791,7 @@
                             },
                             "wizardLength" : {
                               "type" : "variable",
-                              "value" : ".lengthwizardContent"
+                              "value" : "wizardContent.length"
                             },
                             "selectedIndex" : {
                               "type" : "variable",
@@ -8170,7 +8272,7 @@
                       },
                       "wizardLength" : {
                         "type" : "variable",
-                        "value" : "wizardContent,length"
+                        "value" : "wizardContent.length"
                       },
                       "selectedIndex" : {
                         "type" : "variable",
@@ -8506,12 +8608,12 @@
                 ],
                 [
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -8522,263 +8624,291 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "vista"
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Tipo de apoyo solicitado:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Selecciona una opción"
-                      },
-                      "availableValues" : {
-                        "type" : "expression",
-                        "value" : "getCatTipoApoyoByCampus.data"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant",
-                        "value" : "descripcion"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant",
-                        "value" : "persistenceId"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id"
+                        "value" : ""
                       }
                     },
-                    "reference" : "7ffbecfb-6c22-4a9c-8062-0e50d1c4401c",
+                    "reference" : "b5665f57-aeb6-434d-ae3e-6bbeebdfcac9",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "vista"
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "% de beca solicitado:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Selecciona una opción"
-                      },
-                      "availableValues" : {
-                        "type" : "expression",
-                        "value" : "lstCatPorcentajeBeca.data"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant",
-                        "value" : "descripcion"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant",
-                        "value" : "persistenceId"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id"
-                      }
-                    },
-                    "reference" : "daa8eab1-5f27-4419-a416-79e3373ecb2b",
-                    "hasValidationError" : false,
-                    "id" : "pbSelect"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "vista"
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "% de financiamiento educativo solicitado:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Selecciona una opción"
-                      },
-                      "availableValues" : {
-                        "type" : "expression",
-                        "value" : "lstCatPorcentajeFinanciamiento.data"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant",
-                        "value" : "descripcion"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant",
-                        "value" : "persistenceId"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id"
-                      }
-                    },
-                    "reference" : "6aac67e3-6e32-4584-826e-917a4f1773de",
-                    "hasValidationError" : false,
-                    "id" : "pbSelect"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "expression",
-                        "value" : "vista"
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "¿Qué cantidad mensual puedes pagar por la universidad?"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      }
-                    },
-                    "reference" : "6fe8236b-7433-4495-881d-eacd6c318350",
-                    "hasValidationError" : false,
-                    "id" : "customSDAEInputMoneda"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 6,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "expression",
+                              "value" : "vista"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Tipo de apoyo solicitado:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "getCatTipoApoyoByCampus.data"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant",
+                              "value" : "persistenceId"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id"
+                            }
+                          },
+                          "reference" : "7ffbecfb-6c22-4a9c-8062-0e50d1c4401c",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 6,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "!returnCatValue.catTipoApoyo.isArtistica && !returnCatValue.catTipoApoyo.isDeportiva && !returnCatValue.catTipoApoyo.isAcademica"
+                            },
+                            "disabled" : {
+                              "type" : "expression",
+                              "value" : "vista"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "% de beca solicitado:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "lstCatPorcentajeBeca.data"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant",
+                              "value" : "persistenceId"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id"
+                            }
+                          },
+                          "reference" : "daa8eab1-5f27-4419-a416-79e3373ecb2b",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 6,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "!returnCatValue.catTipoApoyo.isFinanciamiento"
+                            },
+                            "disabled" : {
+                              "type" : "expression",
+                              "value" : "vista"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "% de financiamiento educativo solicitado:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "lstCatPorcentajeFinanciamiento.data"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant",
+                              "value" : "persistenceId"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id"
+                            }
+                          },
+                          "reference" : "6aac67e3-6e32-4584-826e-917a4f1773de",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 6,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "vista"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Qué cantidad mensual puedes pagar por la universidad?"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "6fe8236b-7433-4495-881d-eacd6c318350",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputMoneda"
+                        }
+                      ]
+                    ]
                   }
                 ],
                 [
@@ -11730,7 +11860,7 @@
                                   "xs" : 12,
                                   "sm" : 12,
                                   "md" : 4,
-                                  "lg" : 6
+                                  "lg" : 4
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -11810,7 +11940,7 @@
                                   "xs" : 12,
                                   "sm" : 12,
                                   "md" : 8,
-                                  "lg" : 6
+                                  "lg" : 8
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -15168,6 +15298,14 @@
                                   "editar" : {
                                     "type" : "constant",
                                     "value" : true
+                                  },
+                                  "idModal" : {
+                                    "type" : "constant",
+                                    "value" : "modalDocumentoPV"
+                                  },
+                                  "selectedFile" : {
+                                    "type" : "variable",
+                                    "value" : "selectedFile"
                                   }
                                 },
                                 "reference" : "a7e77fd9-3813-46fb-ab31-e289f4fc0935",
@@ -15384,6 +15522,14 @@
                             "editar" : {
                               "type" : "constant",
                               "value" : true
+                            },
+                            "idModal" : {
+                              "type" : "constant",
+                              "value" : "modalDocumentoPV"
+                            },
+                            "selectedFile" : {
+                              "type" : "variable",
+                              "value" : "selectedFile"
                             }
                           },
                           "reference" : "0c40cffa-00f0-408f-ac2b-d000891ac330",
@@ -15867,7 +16013,7 @@
                       },
                       "formOutput" : {
                         "type" : "variable",
-                        "value" : "returnFormOutput"
+                        "value" : "formOutputTest"
                       },
                       "taskId" : {
                         "type" : "variable",
@@ -15882,7 +16028,7 @@
                         "value" : "caseId"
                       }
                     },
-                    "reference" : "33c4567e-29e3-4330-bf3d-f75c0bdb2b9a",
+                    "reference" : "e8f5fb65-1c5c-40af-8689-89b4d2f08998",
                     "hasValidationError" : false,
                     "id" : "customSDAEcustomBtnWizardFinalizar"
                   }
@@ -16057,6 +16203,370 @@
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modalDocumentoPV"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "f4b2cb51-6844-4a43-b2b9-a28acafda87f",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "0bf976f5-939a-482a-846c-5bd7261f3ddf",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-header"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "8a1d907b-39a7-43ef-89d3-ac1561f19d86",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : "color-orange"
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "{{ selectedFile.fileName}}"
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 4"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        }
+                      },
+                      "reference" : "a71a764d-3387-4193-818f-15121ef71d12",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-body"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "ea4b741d-1972-4dc0-baff-da09d5ba99b1",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension === \"pdf\""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<img class=\"miniatura-pic\" src=\"{{selectedFile.linkSource}}\">"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        }
+                      },
+                      "reference" : "05373c34-62b3-48c1-b40a-b79020fdbae0",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension !== \"pdf\""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{selectedFile.linkSource}}\"\n type=\"application/pdf\"/>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        }
+                      },
+                      "reference" : "b99aab96-8785-4858-8f4e-097b92e3c88f",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-footer"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "b2310e03-77aa-4997-beed-c20b656a316c",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Cerrar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "right"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "info"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Close modal"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "constant"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "619c0b8d-d9bd-4e07-b108-b49190bb5467",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
       }
     ]
   ],
@@ -17707,7 +18217,7 @@
     "urlDownloadFileAzure" : {
       "type" : "constant",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getB64FileByPersistenceId&p=0&c=100&persistenceId="
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
       ],
       "exposed" : false
     },
@@ -17741,6 +18251,17 @@
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "selectedFile" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"linkSource\": \"\",\r",
+        "    \"fileName\": \"\",\r",
+        "    \"extension\": \"\"\r",
+        "}"
+      ],
       "exposed" : false
     }
   },

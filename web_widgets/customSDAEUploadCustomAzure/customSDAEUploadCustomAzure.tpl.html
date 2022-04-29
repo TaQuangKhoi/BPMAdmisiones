@@ -6,10 +6,6 @@
         <div class="upload-file-customized-text-container2">
             <p class="upload-file-customized-text2" ng-bind-html="properties.documentDescription | uiTranslate"></p>
         </div>
-        <div class="file-show-icon2">
-            <span ng-if="!this.uploadComplete" class="glyphicon glyphicon-cloud-upload icon-centeted2"></span>
-            <span ng-if="this.uploadComplete" class="glyphicon glyphicon-file icon-centeted2"></span>
-        </div>
     </div>
     <div class="upload-file-customized-footer2">
         <div ng-hide="properties.isMostrar" ng-class="{
@@ -17,52 +13,53 @@
             'row': properties.labelPosition === 'top' && !properties.labelHidden || properties.labelHidden
             }">
             <div class="form-group">
-                <label
-                    ng-if="!properties.labelHidden"
-                    ng-class="{ 'control-label--required': properties.required }"
-                    class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
-                    ng-bind-html="properties.label | uiTranslate">
-                </label>
-                <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
-                   <form action="{{ctrl.url}}"
-                        ng-upload="ctrl.uploadComplete(content)"
-                        ng-upload-loading="ctrl.startUploading()"
-                        error-catcher="ctrl.uploadError(error)"
-                        upload-options-enable-csrf
-                        upload-options-csrf-param="CSRFToken">
+
+                <button class="btn btn-link" ng-click="openModalFile()">{{ctrl.filename}}</button>
+
+                <div
+                    class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+                    <form action="{{ctrl.url}}" ng-upload="ctrl.uploadComplete(content)"
+                        ng-upload-loading="ctrl.startUploading()" error-catcher="ctrl.uploadError(error)"
+                        upload-options-enable-csrf upload-options-csrf-param="CSRFToken">
                         <div class="input-group file-upload paddingpx">
-                            <input ng-disabled="!properties.editar" type="text" ng-focus="ctrl.preventFocus($event)" placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}" class="form-control">
-        
-                            <button ng-disabled="!properties.editar" type="button" ng-if="ctrl.filemodel" ng-click="ctrl.clear()" class="file-upload-clear">
+                            <input ng-disabled="!properties.editar" type="text" ng-focus="ctrl.preventFocus($event)"
+                                placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}"
+                                class="form-control">
+
+                            <button ng-disabled="!properties.editar" type="button" ng-if="ctrl.filemodel"
+                                ng-click="ctrl.clear()" class="file-upload-clear">
                                 <i class="glyphicon glyphicon-remove-circle"></i>
                                 <span class="hide" translate>Close</span>
                             </button>
                             <span class="input-group-btn">
-                                <span class="btn" ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}">
-                                    <input  ng-disabled="!properties.editar"
-                                            class="file-upload-input"
-                                            ng-class="{'file-upload-input--disabled':$isUploading}"
-                                            name="{{ctrl.name}}" type="file"
-                                            ng-required="properties.required"
-                                            ng-model="ctrl.filemodel" 
-                                            accept="image/jpg, image/jpeg, image/png, application/pdf"/>
-                                    <i class="glyphicon" ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}"></i>
+                                <span class="btn"
+                                    ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}">
+                                    <input ng-disabled="!properties.editar" class="file-upload-input"
+                                        ng-class="{'file-upload-input--disabled':$isUploading}" name="{{ctrl.name}}"
+                                        type="file" ng-required="properties.required" ng-model="ctrl.filemodel"
+                                        accept="image/jpg, image/jpeg, image/png, application/pdf" />
+                                    <i class="glyphicon"
+                                        ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}"></i>
                                 </span>
                             </span>
                         </div>
                     </form>
-                    <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
+                    <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error "
+                        ng-messages-include="forms-generic-errors.html" role="alert"></div>
                 </div>
             </div>
         </div>
-        <div class="col-12 text-center m-top" ng-if="properties.urlAzure" ng-click="downloadFile()">
-            <button class="btn btn-primary"> Descargar archivo </button>
+        <div class="col-12 text-center ">
+            <img ng-if="extension !== 'pdf'" class="miniatura-pic" src="{{linkSource}}"
+                style="max-width: 100%; max-height: 210px; height: auto; width: auto;">
+            <embed ng-if="extension === 'pdf'" style="max-width: 100%; max-height: 210px; height: auto; width: auto;"
+                src="{{linkSource}}" type="application/pdf" />
         </div>
         <div class="col-12 text-center obligatorio" ng-if="properties.isObligatorio" ng-hide="properties.isMostrar">
             <label>Obligatorio</label>
         </div>
         <div class="col-12 text-center no-obligatorio" ng-if="!properties.isObligatorio">
-            
+
         </div>
     </div>
 </div>

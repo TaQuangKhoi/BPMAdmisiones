@@ -263,7 +263,7 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 				break;
-				case "insertSDAEGestionEscol":
+				case "insertSDAEGestionEscolar":
 					result = new CatalogosDAO().insertSDAEGestionEscolar(jsonData);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {

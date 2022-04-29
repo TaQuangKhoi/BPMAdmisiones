@@ -1,4 +1,4 @@
-function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, gettextCatalog, $http) {
+function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, gettextCatalog, $http, modalService) {
     var ctrl = this;
     this.name = widgetNameFactory.getName('pbInput');
     this.filename = '';
@@ -32,24 +32,22 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     $scope.downloadFile = function(){
         var req = {
             method: "GET",
-            url: $scope.properties.urlDownloadFile + $scope.properties.idDocumento,
-            // data: angular.copy($scope.documetObject),
-            // params: params
+            url: $scope.properties.urlDownloadFile + $scope.properties.idDocumento
         };
 
         return $http(req)
-            .success(function (data, status) {
-                downloadFile(data[0]);
-            })
-            .error(function (data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                
-            });
+        .success(function (data, status) {
+            downloadFile(data[0]);
+        })
+        .error(function (data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () {
+            
+        });
     };
     
     function downloadFile(_document) {
@@ -94,27 +92,33 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         };
 
         return $http(req)
-            .success(function (data, status) {
-                $scope.properties.urlAzure = data.data[0];
-                uploadComplete(data);
-                // $scope.properties.dataFromSuccess = data;
-                // $scope.properties.responseStatusCode = status;
-                // $scope.properties.dataFromError = undefined;
-                // notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                // if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                //     redirectIfNeeded();
-                // }
-                // closeModal($scope.properties.closeOnSuccess);
-            })
-            .error(function (data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                
-            });
+        .success(function (data, status) {
+            $scope.properties.urlAzure = data.data[0];
+            uploadComplete(data);
+        })
+        .error(function (data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () {
+            
+        });
+    }
+    
+    $scope.openModalFile = function(){
+        openModal($scope.properties.idModal);
+    }
+    
+    function openModal(modalId) {
+        modalService.open(modalId);
+    }
+    
+    function closeModal(shouldClose) {
+        if(shouldClose){
+            modalService.close();
+        }
     }
 
     /**
@@ -129,18 +133,18 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         };
 
         return $http(req)
-            .success(function (data, status) {
-                console.log(data);
-            })
-            .error(function (data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                
-            });
+        .success(function (data, status) {
+            console.log(data);
+        })
+        .error(function (data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () {
+            
+        });
     }
 
     this.forceSubmit = function (event) {
@@ -244,10 +248,51 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         $scope.properties.value = response;
     }
 
-    $scope.$watch("properties.urlAzure", (_new, _old)=>{
-        if(_old !== _new){
+    $scope.$watch("properties.urlAzure", (_new)=>{
+        if(_new){
             let array = _new.split("/");
             ctrl.filename = array[array.length - 1];
+            this.uploadComplete = true;
+            $scope.downloadFile2();
         }
     });
+
+    $scope.downloadFile2 = function(){
+        var req = {
+            method: "GET",
+            url: $scope.properties.urlDownloadFile + $scope.properties.urlAzure
+        };
+
+        return $http(req)
+        .success(function (data, status) {
+            if(data.data){
+                downloadFile2(data.data[0]);
+            } else {
+                downloadFile2(data[0]);
+            }
+        })
+        .error(function (data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () {
+            
+        });
+    };
+
+    function downloadFile2(_document) {
+        debugger;
+        let urlSplitted = $scope.properties.urlAzure.split("/");
+        $scope.linkSource = _document.b64;
+        $scope.fileName = urlSplitted[urlSplitted.length - 1];
+        $scope.extension = _document.extension;
+        
+        $scope.properties.selectedFile = {
+            "linkSource":$scope.linkSource,
+            "fileName":  $scope.fileName ,
+            "extension": $scope.extension
+        };
+    }
 }
