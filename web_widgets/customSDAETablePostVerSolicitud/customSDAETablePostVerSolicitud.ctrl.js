@@ -1,8 +1,5 @@
 function PbTableCtrl($scope, $http, $window, blockUI) {
 
-    $scope.isTareaPreAutorizacion = true;
-      $scope.avanzarSolicitud = false;
-    
     this.isArray = Array.isArray;
   
     this.isClickable = function() {
@@ -43,9 +40,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.verSolicitud = function(rowData) {
-         $scope.isTareaPreAutorizacion = true;
-         
-         var req = {
+          var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
         };
@@ -106,7 +101,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
             });
     }
-    
     $scope.preProcesoAsignarTarea = function(rowData) {
   
         var req = {
@@ -144,76 +138,39 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
             });
     }
+    
+    function abrirSolicitud(rowData) {
+        
+        var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&caseId=" + rowData.caseid;
+        window.open(url, '_blank');
+    }
   
     function redireccionarTarea(rowData) {
-        
-        if($scope.isTareaPreAutorizacion){
-            var req = {
-                method: "PUT",
-                url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-                data: angular.copy({ "assigned_id": $scope.properties.userId })
-            };
-      
-            return $http(req).success(function(data, status) {
-                    var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
-                    window.open(url, '_blank');
-                    
-                    /*
-                    var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
-                    url = url.replace("[NOMBREPROCESO]", rowData.processName);
-                    url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
-                    url = url.replace("[NOMBRETAREA]", rowData.taskName);
-                    url = url.replace("[TASKID]", rowData.taskId);
-                    $window.location.assign(url);*/
-                })
-                .error(function(data, status) {
-                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                })
-                .finally(function() {
-      
-                });
-        }else{
-            if($scope.avanzarSolicitud){
+        var req = {
+            method: "PUT",
+            url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
+            data: angular.copy({ "assigned_id": $scope.properties.userId })
+        };
+  
+        return $http(req).success(function(data, status) {
+                var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                window.open(url, '_blank');
                 
-                var contrato = {};
-                var params = getUserParam();
-                doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato).then(function() {
-                   console.log("tarea avanzada");
-                });
-                        
-            }else{
-                
-            }
-        }
+                /*
+                var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
+                url = url.replace("[NOMBREPROCESO]", rowData.processName);
+                url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
+                url = url.replace("[NOMBRETAREA]", rowData.taskName);
+                url = url.replace("[TASKID]", rowData.taskId);
+                $window.location.assign(url);*/
+            })
+            .error(function(data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {
+  
+            });
     }
-    
-    function getUserParam() {
-      return { 'user': $scope.properties.userId };
-   }
-    
-    function doRequest2(method, url, params, data) {
-    blockUI.start();
-    var req = {
-      method: method,
-      url: url,
-      data: angular.copy(data),
-      params: params
-    };
-
-    return $http(req)
-      .success(function(data, status) {
-          
-        $('#modalEnviarDictamen').modal('hide'); 
-      })
-      .error(function(data, status) {
-        console.log(data);
-        console.log(status);
-      })
-      .finally(function() {
-        blockUI.stop();
-      });
-  }
-    
   
     $scope.isenvelope = false;
     $scope.selectedrow = {};
@@ -541,42 +498,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return fecha < new Date();
     }
   
-
-  $scope.caseIdTarea = 0;
-  
-  $scope.abrirModalAvanzarSolicitud = function(rowData) {
-      $scope.isTareaPreAutorizacion = false;
-      $scope.avanzarSolicitud = true;
-      $scope.caseIdTarea = rowData.caseid;
-      $('#modalEnviarDictamen').modal('show'); 
-      
-  }
-  
-  $scope.avanzarTareaDictamen = function() {
-      
-        var rowData = {
-            caseid: $scope.caseIdTarea
-        };
-      
-         
-         var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
-        };
-  
-        return $http(req).success(function(data, status) {
-                debugger;
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                $scope.preProcesoAsignarTarea(rowData)
-                
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-    }
   
     $scope.getCatCampus();
   }

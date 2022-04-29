@@ -37,6 +37,16 @@ function PbTableCtrl($scope, $http, modalService) {
         $scope.properties.accion = "agregar";
     };
     
+    $scope.redireccionarCatDocumentos = function(row) {
+        console.log(row);
+        //var url = "/apps/administrativo/CatControlDocumentos/";
+        //window.open(url); 
+        debugger;
+        
+        var url = "/bonita/portal/resource/app/sdae/catControlDocumental/content/?app=sdae&idApoyo=" + $scope.properties.dataToFilter.persistenceId + "&campus=" + row.descripcion;
+        window.open(url, '_blank');
+    };
+    
     $scope.setOrderBy= function(order){
         if($scope.properties.dataToFilter.orderby == order){
             $scope.properties.dataToFilter.orientation = ($scope.properties.dataToFilter.orientation=="ASC")?"DESC":"ASC";

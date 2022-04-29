@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1647975980618,
+  "lastUpdate" : 1651099246126,
   "rows" : [
     [
       {
@@ -2843,6 +2843,55 @@
         "    ",
         "    return output;",
         "}"
+      ],
+      "exposed" : false
+    },
+    "grupoBonitaSeleccionado" : {
+      "type" : "expression",
+      "value" : [
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\t\r",
+        "\tif($data.lstCampus[index].descripcion == $data.campus){\r",
+        "\t    //objData[\"valor\"] = $data.lstCampus[index].valor;\r",
+        "\t    //lstData.push(objData);\r",
+        "\t    $data.lstFiltros[0].valor = $data.lstCampus[index].valor;\r",
+        "\t}\r",
+        "}\r",
+        "return lstData;"
+      ],
+      "exposed" : false
+    },
+    "campus" : {
+      "type" : "urlparameter",
+      "value" : [
+        "campus"
+      ],
+      "exposed" : false
+    },
+    "idApoyo" : {
+      "type" : "urlparameter",
+      "value" : [
+        "idApoyo"
+      ],
+      "exposed" : false
+    },
+    "tipoApoyoURL" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "for(var index in $data.urlGetTipoApoyo.data){\r",
+        "\t\r",
+        "\tif($data.urlGetTipoApoyo.data[index].persistenceId == $data.idApoyo){\r",
+        "\t    \r",
+        "\t    $data.tipoApoyoSeleccionado = $data.urlGetTipoApoyo.data[index];\r",
+        "\t}  \r",
+        "}\r"
       ],
       "exposed" : false
     }

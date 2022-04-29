@@ -23,8 +23,7 @@
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('EMAIL')">Email<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('CURP')">Curp<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CURP'"></i></span> </th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('PROGRAMA')">Programa <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROGRAMA'"></i> </span> / <span style="cursor:pointer" ng-click="setOrderBy('INGRESO')">Período de ingreso <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='INGRESO'"></i> </span> / <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus ingreso <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CAMPUS'"></i> </span> </th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('TIPOBECA')">Tipo Beca<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='TIPOBECA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS_ADMISION')">Estatus Admisión<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS_ADMISION'"></i></span></th>
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('RESPUESTA')">Respuesta de <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='RSPUESTA'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última modificación<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
                 <th> Acciones</th>     
             </tr>
@@ -37,7 +36,6 @@
                 <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('PROGRAMA,INGRESO,CAMPUS',dynamicInput['programa'])"></td>
                 <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('TIPO APOYO,PROMEDIO',dynamicInput['preparatoria'])"></td>
                 <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
-                <td></td>
                 <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control" ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
                 <td></td>
             </tr>
@@ -76,14 +74,8 @@
                     {{row.updateDate}}
                 </td-->
                 <td class="text-center">
-                    <button class="btn btn-default" ng-show="row.estatussolicitud == 'Esperando Pre-Autorización'" ng-click="verSolicitud(row)">
+                    <button class="btn btn-default" ng-click="abrirSolicitud(row)">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                    </button>
-                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="archivarSolicitud(row)">
-                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                    </button>
-                    <button class="btn btn-success" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalAvanzarSolicitud(row)">
-                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                     </button>
                 </td>
             </tr>
@@ -117,20 +109,4 @@
         <div class="col-md-6"><button class="btn btn-danger" ng-click="envelopeCancel()">Cancelar</button></div>
         <div class="col-md-6"><button class="btn btn-info" ng-click="sendMail(selectedrow,mensaje)">Enviar recordatorio</button></div>
     </div>
-</div>
-<div id="modalEnviarDictamen" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Mensaje de Confirmación</h5>
-      </div>
-      <div class="modal-body">
-        <p>¿Desea enviar la solicitud a dictamen?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="avanzarTareaDictamen()">Enviar a Dictamen</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
 </div>
