@@ -283,16 +283,17 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     };
 
     function downloadFile2(_document) {
-        debugger;
         let urlSplitted = $scope.properties.urlAzure.split("/");
         $scope.linkSource = _document.b64;
         $scope.fileName = urlSplitted[urlSplitted.length - 1];
         $scope.extension = _document.extension;
         
-        $scope.properties.selectedFile = {
+        let obj = {
             "linkSource":$scope.linkSource,
             "fileName":  $scope.fileName ,
             "extension": $scope.extension
         };
+        
+        $scope.properties.selectedFile = obj;
     }
 }
