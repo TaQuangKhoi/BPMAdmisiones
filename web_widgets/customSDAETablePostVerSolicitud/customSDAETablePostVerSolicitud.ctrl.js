@@ -497,6 +497,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         var fecha = new Date(periodofin.slice(0, 10))
         return fecha < new Date();
     }
+    
+    $scope.abrirSolicitud = function(row) {
+        debugger;
+        var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&caseId=" + row.caseid;
+        window.open(url, '_blank');
+    }
   
   
     $scope.getCatCampus();
