@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1651091295226,
+  "lastUpdate" : 1651190112049,
   "rows" : [
     [
       {
@@ -1417,7 +1417,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<img class=\"miniatura-pic\" src=\"{{fotoB64.data[0].b64}}\">\n<h4>Fotografía</j4>"
+                                    "value" : "<img class=\"miniatura-pic\" src=\"{{fotoB64[0].b64}}\">\n<h4>Fotografía</j4>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -1992,7 +1992,7 @@
                                 "id" : "pbInput"
                               },
                               {
-                                "type" : "component",
+                                "type" : "container",
                                 "dimension" : {
                                   "xs" : 12,
                                   "sm" : 12,
@@ -2008,63 +2008,170 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "constant",
-                                    "value" : true
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "¿Estas trabajando?"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "value" : {
+                                  "repeatedCollection" : {
                                     "type" : "variable",
-                                    "value" : "objSolicitudDeAdmision[0].catTrabajas.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : ""
                                   }
                                 },
-                                "reference" : "cb5593aa-1cba-4a73-af6b-288691472cfa",
+                                "reference" : "4130d683-52ef-41d3-b8a4-1bf227e2b3f3",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Trabajas actualmente?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "getAutodescripcion[0].catActualnenteTrabajas.descripcion"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "text"
+                                        },
+                                        "min" : {
+                                          "type" : "constant"
+                                        },
+                                        "max" : {
+                                          "type" : "constant"
+                                        },
+                                        "step" : {
+                                          "type" : "constant",
+                                          "value" : 1
+                                        }
+                                      },
+                                      "reference" : "cb5593aa-1cba-4a73-af6b-288691472cfa",
+                                      "hasValidationError" : false,
+                                      "id" : "pbInput"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "getAutodescripcion[0].catActualnenteTrabajas.descripcion !== \"Sí\""
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Cuanto es tu ingreso proveniente de este trabajo?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "formOutputTest.solicitudApoyoEducativoInput.ingresoTrabajoAspirante"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "text"
+                                        },
+                                        "min" : {
+                                          "type" : "constant"
+                                        },
+                                        "max" : {
+                                          "type" : "constant"
+                                        },
+                                        "step" : {
+                                          "type" : "constant",
+                                          "value" : 1
+                                        }
+                                      },
+                                      "reference" : "14fa98f8-dab1-492b-b502-6d07a9efe4e6",
+                                      "hasValidationError" : false,
+                                      "id" : "pbInput"
+                                    }
+                                  ]
+                                ]
                               }
                             ],
                             [
@@ -3403,7 +3510,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "expression",
-                                          "value" : "constancia.data[0].extension === \".pdf\""
+                                          "value" : "constancia[0].extension === \".pdf\""
                                         },
                                         "labelHidden" : {
                                           "type" : "constant",
@@ -3427,7 +3534,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<img class=\"miniatura-pic\" src=\"{{constancia.data[0].b64}}\">"
+                                          "value" : "<img class=\"miniatura-pic\" src=\"{{constancia[0].b64}}\">"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -3479,7 +3586,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{constancia.data[0].b64}}\"\n type=\"application/pdf\"/>"
+                                          "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{constancia[0].b64}}\"\n type=\"application/pdf\"/>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -3666,7 +3773,7 @@
                                         },
                                         "urlAzure" : {
                                           "type" : "variable",
-                                          "value" : "formOutputTest.solicitudApoyoEducativoInput.urlNuevoKardex"
+                                          "value" : "formOutputTest.solicitudApoyoEducativoInput.urlAzureNuevoKardex"
                                         },
                                         "urlDownloadFile" : {
                                           "type" : "expression",
@@ -3690,11 +3797,92 @@
                                         "selectedFile" : {
                                           "type" : "variable",
                                           "value" : "selectedFile"
+                                        },
+                                        "tipoDocumento" : {
+                                          "type" : "constant",
+                                          "value" : "pdf"
                                         }
                                       },
                                       "reference" : "afeec24c-f050-4b28-9933-b3fdef54ff02",
                                       "hasValidationError" : false,
                                       "id" : "customSDAEUploadCustomAzure"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "Captura el promedio del nuevo kardex"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "formOutputTest.solicitudApoyoEducativoInput.nuevoPromedioPrepa"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "text"
+                                        },
+                                        "min" : {
+                                          "type" : "constant"
+                                        },
+                                        "max" : {
+                                          "type" : "constant"
+                                        },
+                                        "step" : {
+                                          "type" : "constant",
+                                          "value" : 1
+                                        }
+                                      },
+                                      "reference" : "9a155c88-9144-46cf-be6e-47fa9ac16d1d",
+                                      "hasValidationError" : false,
+                                      "id" : "pbInput"
                                     }
                                   ]
                                 ]
@@ -15306,6 +15494,10 @@
                                   "selectedFile" : {
                                     "type" : "variable",
                                     "value" : "selectedFile"
+                                  },
+                                  "tipoDocumento" : {
+                                    "type" : "constant",
+                                    "value" : "imagen"
                                   }
                                 },
                                 "reference" : "a7e77fd9-3813-46fb-ab31-e289f4fc0935",
@@ -15530,6 +15722,10 @@
                             "selectedFile" : {
                               "type" : "variable",
                               "value" : "selectedFile"
+                            },
+                            "tipoDocumento" : {
+                              "type" : "constant",
+                              "value" : "pdf"
                             }
                           },
                           "reference" : "0c40cffa-00f0-408f-ac2b-d000891ac330",
@@ -16225,7 +16421,7 @@
           },
           "size" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "lg"
           },
           "animation" : {
             "type" : "constant",
@@ -16354,7 +16550,7 @@
                         },
                         "hidden" : {
                           "type" : "expression",
-                          "value" : "selectedFile.extension === \"pdf\""
+                          "value" : "selectedFile.extension === \".pdf\""
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -16378,7 +16574,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<img class=\"miniatura-pic\" src=\"{{selectedFile.linkSource}}\">"
+                          "value" : "<img  src=\"{{selectedFile.linkSource}}\"  style=\"max-width: 100%;\" class=\"miniatura-pic\">"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -16406,7 +16602,7 @@
                         },
                         "hidden" : {
                           "type" : "expression",
-                          "value" : "selectedFile.extension !== \"pdf\""
+                          "value" : "selectedFile.extension !== \".pdf\""
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -16579,6 +16775,13 @@
       "external" : false
     },
     {
+      "id" : "f1b72d1e-b703-44d5-aa23-8147068811a2",
+      "name" : "pdf.png",
+      "type" : "img",
+      "order" : 5,
+      "external" : false
+    },
+    {
       "id" : "9c30b688-d94b-4832-aad6-efaa11efe357",
       "name" : "sweetalert.min.js",
       "type" : "js",
@@ -16590,6 +16793,13 @@
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "b6f203e9-e31d-42e7-a39f-c2e402c318ec",
+      "name" : "noimageavailabledoc.png",
+      "type" : "img",
+      "order" : 6,
       "external" : false
     },
     {
@@ -17486,7 +17696,15 @@
         "    output = false;\r",
         "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Contó con beca en la preparatoria anterior?' debes llenar el campo 'Indica el porcentaje de beca:'.\";\r",
         "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
-        "} \r",
+        "} else if($data.formOutputTest.solicitudApoyoEducativoInput.nuevoKardex && (!$data.formOutputTest.solicitudApoyoEducativoInput.urlAzureNuevoKardex)){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Si seleccionaste el campo 'Este es el documento que proporcionaste en la solicitud de admisión, ¿Deseas actualizarlo?' debe subir un nuevo kardex.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
+        "} else if($data.formOutputTest.solicitudApoyoEducativoInput.nuevoKardex && (!$data.formOutputTest.solicitudApoyoEducativoInput.nuevoPromedioPrepa)){\r",
+        "    output = false;\r",
+        "    $data.errorPaso1 = \"Si seleccionaste el campo 'Este es el documento que proporcionaste en la solicitud de admisión, ¿Deseas actualizarlo?' debes llenar el campo 'Captura el promedio del nuevo kardex'.\";\r",
+        "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
+        "}\r",
         "\r",
         "return output;"
       ],

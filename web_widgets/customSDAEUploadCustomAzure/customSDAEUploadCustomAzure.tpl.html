@@ -1,23 +1,37 @@
-<div class="file-show-container2">
-    <div class="upload-file-customized-header2">
+<div class="col-12">
+    <!-- <div class="upload-file-customized-header2">
         <label class="upload-file-customized-header-text2">{{properties.documentName}}</label>
     </div>
     <div class="upload-file-customized-body2">
         <div class="upload-file-customized-text-container2">
             <p class="upload-file-customized-text2" ng-bind-html="properties.documentDescription | uiTranslate"></p>
         </div>
-    </div>
-    <div class="upload-file-customized-footer2">
+    </div> -->
+    <label>{{properties.documentName}}</label>
+    <div class="">
         <div ng-hide="properties.isMostrar" ng-class="{
             'form-horizontal': properties.labelPosition === 'left' && !properties.labelHidden,
             'row': properties.labelPosition === 'top' && !properties.labelHidden || properties.labelHidden
             }">
             <div class="form-group">
+                
+                <div class="col-xs-12 text-center ">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12 text-center obligatorio" ng-if="properties.isObligatorio" ng-hide="properties.isMostrar">
+                            <label>Obligatorio</label>
+                        </div>
+                        <div class="col-12 text-center no-obligatorio" ng-if="!properties.isObligatorio"></div>
+                    </div>
+                    <div class="col-xs-12 text-left" style="height: 80px; margin-bottom: 10px;">
+                        <p class="upload-file-customized-text2" ng-bind-html="properties.documentDescription | uiTranslate"></p>
+                    </div>
+                    <img ng-if="!extension" class="miniatura-pic" src="assets/img/noimageavailabledoc.png" style="max-width: 100%; max-height: 210px; height: auto; width: auto;">
+                    
+                    <img ng-if="extension !== '.pdf'" ng-click="openModalFile()" class="miniatura-pic" src="{{linkSource}}" style="max-width: 100%; max-height: 210px; height: auto; width: auto;">
+                    <img ng-if="extension === '.pdf'" ng-click="openModalFile()" class="miniatura-pic" src="assets/img/pdf.png" style="max-width: 100%; max-height: 210px; height: auto; width: auto;">
+                </div>
 
-                <button class="btn btn-link" ng-click="openModalFile()">{{ctrl.filename}}</button>
-
-                <div
-                    class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+                <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
                     <form action="{{ctrl.url}}" ng-upload="ctrl.uploadComplete(content)"
                         ng-upload-loading="ctrl.startUploading()" error-catcher="ctrl.uploadError(error)"
                         upload-options-enable-csrf upload-options-csrf-param="CSRFToken">
@@ -48,18 +62,6 @@
                         ng-messages-include="forms-generic-errors.html" role="alert"></div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 text-center ">
-            <img ng-if="extension !== 'pdf'" class="miniatura-pic" src="{{linkSource}}"
-                style="max-width: 100%; max-height: 210px; height: auto; width: auto;">
-            <embed ng-if="extension === 'pdf'" style="max-width: 100%; max-height: 210px; height: auto; width: auto;"
-                src="{{linkSource}}" type="application/pdf" />
-        </div>
-        <div class="col-12 text-center obligatorio" ng-if="properties.isObligatorio" ng-hide="properties.isMostrar">
-            <label>Obligatorio</label>
-        </div>
-        <div class="col-12 text-center no-obligatorio" ng-if="!properties.isObligatorio">
-
         </div>
     </div>
 </div>
