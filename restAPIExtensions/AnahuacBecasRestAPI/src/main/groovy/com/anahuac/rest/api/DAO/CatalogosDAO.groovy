@@ -19,6 +19,7 @@ import com.anahuac.rest.api.Entity.db.CatGenerico
 import com.anahuac.rest.api.Entity.db.CatImagenesSocioAcademico
 import com.anahuac.rest.api.Entity.db.CatManejoDocumentos
 import com.anahuac.rest.api.Entity.db.CatTypoApoyo
+import com.anahuac.rest.api.Entity.db.ConfiguracionesCampus
 
 import groovy.json.JsonSlurper
 
@@ -1113,7 +1114,6 @@ class CatalogosDAO {
 			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
 			closeCon = validarConexion();
 			where += " WHERE doc.ISELIMINADO <> TRUE AND rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
-
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -1134,18 +1134,14 @@ class CatalogosDAO {
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
 				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
 				row.setIsObligatorioDoc(rs.getBoolean("ISOBLIGATORIODOC"));
-//				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));)
-
 				rows.add(row);
 			}
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			
-
 		} catch (Exception e) {
-			
 			LOGGER.error "[ERROR] " + e.getMessage();
+			errorLog += e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -1209,10 +1205,13 @@ class CatalogosDAO {
 			pstm = con.prepareStatement(StatementsCatalogos.DELETE_CAT_MANEJO_DOCUMENTOS);
 			pstm.setLong(1, objCatGenerico.persistenceId);
 			pstm.execute();
+			errorLog += (" :: " + StatementsCatalogos.DELETE_CAT_MANEJO_DOCUMENTOS + "id::" + objCatGenerico.persistenceId + " :: ");
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(true);
-			
 		} catch (Exception e) {
+			errorLog += e.getMessage();
 			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
 			
@@ -1377,7 +1376,7 @@ class CatalogosDAO {
 				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_IMAGEN_SOCIO_ECONOMICO);
 
 				pstm.setString(1, objCatGenerico.descripcion);
-				pstm.setBoolean(2, objCatGenerico.isEliminado);
+				pstm.setBoolean(2, true);
 				pstm.setLong(3, objCatGenerico.idCampus);
 				pstm.setLong(4, objCatGenerico.idTipoApoyo);
 				pstm.setLong(5, objCatGenerico.persistenceId);
@@ -1411,6 +1410,34 @@ class CatalogosDAO {
 		return resultado;
 	}
 	
+	public Result deleteImagenSocioEconomico(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+		String errorLog = "Entro";
+		
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.DELETE_IMAGEN_SOCIO_ECONOMICO);
+			pstm.setBoolean(1, true);
+			pstm.setLong(2, objCatGenerico.persistenceId);	
+			pstm.execute();
+			
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertManejoDocumento] " + e.getMessage());
+			
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
 	/**
 	 * Inserta o elimina la relacion de campus con tipo apoyo
 	 * @author José Carlos García Romero
@@ -1940,6 +1967,108 @@ class CatalogosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getConfiguracionCampus(Long idCampus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		ConfiguracionesCampus configCampus = new ConfiguracionesCampus();
+		List<ConfiguracionesCampus> lstData = new ArrayList<ConfiguracionesCampus>();
+		String errorLog = "";
+		
+		try {
+			errorLog += "Preparando conexión :: ";
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.GET_CAMPUS_CONFIG);
+			pstm.setLong(1, idCampus);
+			rs = pstm.executeQuery();
+			errorLog += "Query lista :: ";
+			
+			while(rs.next()) {
+				configCampus = new ConfiguracionesCampus();
+				configCampus.setDescuentoProntoPago(rs.getBoolean("DESCUENTOPRONTOPAGO"));
+				configCampus.setInteresColegiatura(rs.getBoolean("INTERESCOLEGIATURA"));
+				configCampus.setInteresInscripcion(rs.getBoolean("INTERESINSCRIPCION"));
+				configCampus.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				configCampus.setPorcentajeInteresFinanciamiento(rs.getDouble("PORCENTAJEINTERESFINANCIAMIENTO"));
+				configCampus.setTieneFinanciamiento(rs.getBoolean("TIENEFINANCIAMIENTO"));
+				configCampus.setUrlReglamento(rs.getString("URLREGLAMENTO"));
+				configCampus.setIdCampus(rs.getLong("IDCAMPUS"));
+				
+				lstData.add(configCampus);		
+			}
+			
+			errorLog += "Query ejecutada :: ";
+			
+			resultado.setData(lstData);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		resultado.setError_info(errorLog);
+		return resultado;
+	}
+	
+	public Result insertUpdateConfigCampus(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			if(object.persistenceId == null) {
+				String consulta = StatementsCatalogos.INSERT_CAMPUS_CONFIG;
+				closeCon = validarConexion();
+				con.setAutoCommit(false);
+				pstm = con.prepareStatement(consulta);
+				pstm.setBoolean(1, object.descuentoProntoPago);
+				pstm.setLong(2, Long.valueOf(object.idCampus.toString()));
+				pstm.setBoolean(3, object.interesColegiatura);
+				pstm.setBoolean(4, object.interesInscripcion);
+				pstm.setDouble(5, Double.parseDouble(object.porcentajeInteresFinanciamiento.toString()));
+				pstm.setBoolean(6, object.tieneFinanciamiento);
+				pstm.setString(7, object.urlReglamento);
+				pstm.executeUpdate();
+				
+				con.commit();
+			} else {
+				String consulta = StatementsCatalogos.UPDATE_CAMPUS_CONFIG;
+				closeCon = validarConexion();
+				con.setAutoCommit(false);
+				pstm = con.prepareStatement(consulta);
+				pstm.setBoolean(1, object.descuentoProntoPago);
+				pstm.setBoolean(2, object.interesColegiatura);
+				pstm.setBoolean(3, object.interesInscripcion);
+				pstm.setDouble(4, Double.parseDouble(object.porcentajeInteresFinanciamiento.toString()));
+				pstm.setBoolean(5, object.tieneFinanciamiento);
+				pstm.setString(6, object.urlReglamento);
+				pstm.setLong(7, Long.valueOf(object.idCampus.toString()));
+				pstm.executeUpdate();
+				
+				con.commit();
+			}
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

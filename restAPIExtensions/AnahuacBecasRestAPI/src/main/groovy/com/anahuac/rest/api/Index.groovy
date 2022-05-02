@@ -215,6 +215,15 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 					break;
+				case "deleteImagenSocioEconomico":
+					result = new CatalogosDAO().deleteImagenSocioEconomico(jsonData, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
 					
 					
 				/*Fin Cat Imagenes socio economico*/
@@ -274,6 +283,15 @@ class Index implements RestApiController {
 				break;
 				case "insertSDAECreditoGE":
 					result = new CatalogosDAO().insertSDAECreditoGE(jsonData);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "insertUpdateConfigCampus":
+					result = new CatalogosDAO().insertUpdateConfigCampus(jsonData);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

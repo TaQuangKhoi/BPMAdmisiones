@@ -5,27 +5,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        if(validateImagen()){
+        if ($scope.properties.action === 'Remove from collection') {
+            removeFromCollection();
+            closeModal($scope.properties.closeOnSuccess);
+        } else if ($scope.properties.action === 'Add to collection') {
+            addToCollection();
+            closeModal($scope.properties.closeOnSuccess);
+        } else if ($scope.properties.action === 'Start process') {
+            startProcess();
+        } else if ($scope.properties.action === 'Submit task') {
+            submitTask();
+        } else if ($scope.properties.action === 'Open modal') {
+            closeModal($scope.properties.closeOnSuccess);
+            openModal($scope.properties.modalId);
+        } else if ($scope.properties.action === 'Close modal') {
+            closeModal(true);
+        } else if ($scope.properties.url) {
             doRequest($scope.properties.action, $scope.properties.url);
         }
     };
-
-    function validateImagen() {
-        let output = true;
-        let messageTitle = "", errorMessage = "";
-        let objValidate = angular.copy($scope.properties.dataToSend);
-        if(!objValidate.descripcion){
-            messageTitle = "¡Descripción!";
-            errorMessage = "El campo 'Descripción' no debe ir vacío";
-            output = false;
-        } 
-
-        if(!output){
-            swal(messageTitle, errorMessage, "warning");
-        }
-
-        return output;
-    }
 
     function openModal(modalId) {
         modalService.open(modalId);
@@ -100,22 +98,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                
-                $scope.properties.dataToSend = angular.copy($scope.properties.resetImagen);
-                $scope.properties.reloadTable = true;
-                
-                
-                // nuevaImagen.descripcion
-                $scope.properties.dataToSend.descripcion = "";
-                swal("¡Ok!","Documento guardado exitósamente.","success");
-                closeModal($scope.properties.closeOnSuccess);
+                swal("Ok", "Configuración actualizada con éxito.", "success");
+                $scope.properties.dataFromSuccess = "tabla";
+                // $scope.properties.dataFromSuccess = data;
+                // $scope.properties.responseStatusCode = status;
+                // $scope.properties.dataFromError = undefined;
+                // notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+                // if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                //     redirectIfNeeded();
+                // }
+                // closeModal($scope.properties.closeOnSuccess);
             })
             .error(function (data, status) {
                 $scope.properties.dataFromError = data;
