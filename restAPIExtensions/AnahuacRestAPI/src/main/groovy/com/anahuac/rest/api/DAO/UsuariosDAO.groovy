@@ -1666,7 +1666,7 @@ class UsuariosDAO {
 			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
 			
 			if(!hResultado.success) {
-				throw new Exception("hubspot: "+hResultado.error + " | " + hResultado.error_info)
+				resultado.setError("hubspot: "+hResultado.error + " | " + hResultado.error_info)
 			}
 			
 			con.commit();
