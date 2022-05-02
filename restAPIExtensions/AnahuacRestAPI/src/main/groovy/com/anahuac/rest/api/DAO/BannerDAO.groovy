@@ -1536,8 +1536,17 @@ class BannerDAO {
 							objCatBachilleratosInput.put("nationCode", objLstAddresses.getNationCode());
 							objCatBachilleratosInput.put("stateCode", objLstAddresses.getStateCode());
 							objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
-							objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
-	
+							String typeInd = "";
+							if(objRow.getTypeInd() == null || objRow.getTypeInd().equals("null")) {
+								object.each{
+									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.id?.toString()){
+										typeInd = it?.content?.educationalInstitutionsExtended?.get(0)?.typeInd?.toString()
+									}
+								}
+								objCatBachilleratosInput.put("typeInd", typeInd);
+							}else {
+								objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
+							}
 							//Guardar en Log BD  - Angel G
 							errorLog = errorLog + " | Guardar en Log BD en Created";
 							
