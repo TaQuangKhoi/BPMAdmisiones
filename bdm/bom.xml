@@ -1379,7 +1379,11 @@
                 <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
-            <queries/>
+            <queries>
+                <query name="getEstadosUSAByOrden" content="SELECT c &#13;&#10;FROM CatEstadosUSA c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;ORDER BY c.orden ASC" returnType="com.anahuac.catalogos.CatEstadosUSA">
+                    <queryParameters/>
+                </query>
+            </queries>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatEstudiadoEnOtraUniversidad">
