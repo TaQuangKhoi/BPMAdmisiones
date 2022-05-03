@@ -625,6 +625,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "getCatPais":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
