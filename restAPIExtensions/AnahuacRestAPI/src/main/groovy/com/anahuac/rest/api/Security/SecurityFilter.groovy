@@ -341,6 +341,8 @@ class SecurityFilter {
 				break;
 				case "getEstados":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
 				break;
 				case "getTempKeyAzure":
 				allow=bonitaRolFilter(context,"ADMISIONES")
@@ -595,6 +597,8 @@ class SecurityFilter {
 		    }
 			allow=bonitaRolFilter(context,"SERUA")
 			if(allow){break;}
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "selectAspirantesEnRed":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -837,6 +841,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "getExcelGenerico":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
