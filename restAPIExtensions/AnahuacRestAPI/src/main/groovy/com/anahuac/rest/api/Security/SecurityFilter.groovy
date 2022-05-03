@@ -188,6 +188,8 @@ class SecurityFilter {
 				break;
 				case "getCatGestionEscolar":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
 				break;
 				case "getSesion":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -623,6 +625,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "getCatPais":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

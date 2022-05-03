@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1650909444684,
+  "lastUpdate" : 1651541278058,
   "rows" : [
     [
       {
@@ -801,7 +801,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<img class=\"miniatura-pic\" src=\"{{fotoB64.data[0].b64}}\">\n<h4>Fotografía</j4>"
+                              "value" : "<img class=\"miniatura-pic\" src=\"{{fotoB64[0].b64}}\">\n<h4>Fotografía</j4>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -1376,7 +1376,7 @@
                           "id" : "pbInput"
                         },
                         {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -1392,63 +1392,170 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Estas trabajando?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
-                              "value" : "objSolicitudDeAdmision[0].catTrabajas.descripcion"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant"
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
+                              "value" : ""
                             }
                           },
-                          "reference" : "cb5593aa-1cba-4a73-af6b-288691472cfa",
+                          "reference" : "8e8e5e03-3ccd-4985-9d3f-5c440a1f683f",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "minLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "maxLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "readOnly" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "¿Trabajas actualmente?"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "getAutodescripcion[0].catActualnenteTrabajas.descripcion"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "text"
+                                  },
+                                  "min" : {
+                                    "type" : "constant"
+                                  },
+                                  "max" : {
+                                    "type" : "constant"
+                                  },
+                                  "step" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  }
+                                },
+                                "reference" : "cb5593aa-1cba-4a73-af6b-288691472cfa",
+                                "hasValidationError" : false,
+                                "id" : "pbInput"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "getAutodescripcion[0].catActualnenteTrabajas.descripcion !== \"Sí\""
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "minLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "maxLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "readOnly" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "¿Cuanto es tu ingreso proveniente de este trabajo?"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.ingresoTrabajoAspirante"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "number"
+                                  },
+                                  "min" : {
+                                    "type" : "constant"
+                                  },
+                                  "max" : {
+                                    "type" : "constant"
+                                  },
+                                  "step" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  }
+                                },
+                                "reference" : "909ccba9-034a-4c26-9bab-19a711f2b290",
+                                "hasValidationError" : false,
+                                "id" : "pbInput"
+                              }
+                            ]
+                          ]
                         }
                       ],
                       [
@@ -2786,8 +2893,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "constancia[0].extension === \".pdf\""
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -2811,7 +2918,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<img class=\"miniatura-pic\" src=\"{{constancia.data[0].b64}}\">"
+                                    "value" : "<img class=\"miniatura-pic\" src=\"{{constancia[0].b64}}\">"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -2838,8 +2945,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "constancia[0].extension !== \".pdf\""
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -2863,7 +2970,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{constancia.data[0].b64}}\"\n type=\"application/pdf\"/>"
+                                    "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{constancia[0].b64}}\"\n type=\"application/pdf\"/>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -2880,7 +2987,7 @@
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 6,
+                                  "sm" : 12,
                                   "md" : 12,
                                   "lg" : 12
                                 },
@@ -2891,28 +2998,28 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : true
+                                    "value" : false
                                   },
-                                  "type" : {
+                                  "disabled" : {
                                     "type" : "constant",
-                                    "value" : "URL"
+                                    "value" : false
                                   },
-                                  "url" : {
-                                    "type" : "expression",
-                                    "value" : "objSolicitudDeAdmision[0].urlConstancia +  azureTempKeyRes.data[0]"
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
                                   },
-                                  "document" : {
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Este es el documento que proporcionaste en la solicitud de admisión, ¿Deseas actualizarlo?"
+                                  },
+                                  "value" : {
                                     "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "showPreview" : {
-                                    "type" : "constant",
-                                    "value" : true
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.nuevoKardex"
                                   }
                                 },
-                                "reference" : "b733fd4d-1825-40c5-98e1-ffe4713f69dc",
+                                "reference" : "8bf74c77-4dbb-4e76-b0bc-67d0127f0ae6",
                                 "hasValidationError" : false,
-                                "id" : "pbFileViewer"
+                                "id" : "pbCheckbox"
                               }
                             ]
                           ]
@@ -2932,7 +3039,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!objSolicitudDeAdmision[0].urlDescuentos"
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.nuevoKardex"
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -2984,7 +3091,7 @@
                                 "type" : "component",
                                 "dimension" : {
                                   "xs" : 12,
-                                  "sm" : 6,
+                                  "sm" : 12,
                                   "md" : 12,
                                   "lg" : 12
                                 },
@@ -2997,26 +3104,169 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "type" : {
+                                  "required" : {
                                     "type" : "constant",
-                                    "value" : "URL"
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Nuevo Kardex"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
                                   },
                                   "url" : {
-                                    "type" : "expression",
-                                    "value" : "objSolicitudDeAdmision[0].urlDescuentos+  azureTempKeyRes.data[0]"
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
                                   },
-                                  "document" : {
+                                  "value" : {
                                     "type" : "variable",
                                     "value" : ""
                                   },
-                                  "showPreview" : {
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "documentName" : {
+                                    "type" : "constant",
+                                    "value" : "Nuevo Kardex"
+                                  },
+                                  "documentDescription" : {
+                                    "type" : "constant",
+                                    "value" : "Kardex actualizado de la prepa donde egresaste"
+                                  },
+                                  "documentoInfo" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "isObligatorio" : {
+                                    "type" : "expression",
+                                    "value" : "false"
+                                  },
+                                  "urlAzure" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.urlAzureNuevoKardex"
+                                  },
+                                  "urlDownloadFile" : {
+                                    "type" : "expression",
+                                    "value" : "urlDownloadFileAzure"
+                                  },
+                                  "isMostrar" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "idDocumento" : {
+                                    "type" : "constant"
+                                  },
+                                  "editar" : {
                                     "type" : "constant",
                                     "value" : true
+                                  },
+                                  "idModal" : {
+                                    "type" : "constant",
+                                    "value" : "modalDocumentoPV"
+                                  },
+                                  "selectedFile" : {
+                                    "type" : "variable",
+                                    "value" : "selectedFile"
+                                  },
+                                  "tipoDocumento" : {
+                                    "type" : "constant",
+                                    "value" : "pdf"
                                   }
                                 },
-                                "reference" : "e94d00a1-752a-44bc-8de3-966148a034c6",
+                                "reference" : "249429a7-9381-4bed-b105-872b98fc71f5",
                                 "hasValidationError" : false,
-                                "id" : "pbFileViewer"
+                                "id" : "customSDAEUploadCustomAzure"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "minLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "maxLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "readOnly" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Captura el promedio del nuevo kardex"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.nuevoPromedioPrepa"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "text"
+                                  },
+                                  "min" : {
+                                    "type" : "constant"
+                                  },
+                                  "max" : {
+                                    "type" : "constant"
+                                  },
+                                  "step" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  }
+                                },
+                                "reference" : "5465fc90-4f63-4ddb-a962-4c011aac491a",
+                                "hasValidationError" : false,
+                                "id" : "pbInput"
                               }
                             ]
                           ]
@@ -4783,58 +5033,6 @@
           ],
           [
             {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<hr>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "88ab720c-9938-4561-a42a-7207e29df963",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
-          ],
-          [
-            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -4956,6 +5154,58 @@
               "rows" : [
                 [ ]
               ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "88ab720c-9938-4561-a42a-7207e29df963",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -13917,6 +14167,18 @@
                       "editar" : {
                         "type" : "expression",
                         "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                      },
+                      "idModal" : {
+                        "type" : "constant",
+                        "value" : "modalDocumentoPV"
+                      },
+                      "selectedFile" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "tipoDocumento" : {
+                        "type" : "constant",
+                        "value" : "pdf"
                       }
                     },
                     "reference" : "eabba872-8ee9-43b9-8e20-b38d1402ef47",
@@ -14170,6 +14432,18 @@
                       "editar" : {
                         "type" : "expression",
                         "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                      },
+                      "idModal" : {
+                        "type" : "constant",
+                        "value" : "modalDocumentoPV"
+                      },
+                      "selectedFile" : {
+                        "type" : "variable",
+                        "value" : "selectedFile"
+                      },
+                      "tipoDocumento" : {
+                        "type" : "constant",
+                        "value" : "pdf"
                       }
                     },
                     "reference" : "6fcb902f-3583-4537-8255-0ec96ccb4297",
@@ -14800,6 +15074,20 @@
       "exposed" : true
     },
     "userDataEmail" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "selectedFile" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "getAutodescripcion" : {
       "type" : "constant",
       "value" : [
         ""
