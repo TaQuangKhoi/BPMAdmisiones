@@ -66,10 +66,14 @@ class SecurityFilter {
 				break;
 				case "getBusinessAppMenu":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
 				break;
 				case "getMenuAdministrativo":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
 				case "getUniversidadSmartCampus":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -390,6 +394,8 @@ class SecurityFilter {
 				case "getPropedeuticosNoFecha":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
 				case "getActiveProcess":allow=bonitaRolFilter(context,"ADMISIONES")
