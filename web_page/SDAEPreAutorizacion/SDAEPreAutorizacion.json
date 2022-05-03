@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1651533920506,
+  "lastUpdate" : 1651600963397,
   "rows" : [
     [
       {
@@ -3534,7 +3534,13 @@
         "",
         "$data.formInputAprobar.varArtisticaInput = $data.getSolicitudApoyoEducativo[0].isartistica == 't'? true : false;",
         "$data.formInputAprobar.varDeportivaInput = $data.getSolicitudApoyoEducativo[0].isdeportiva == 't'? true : false;",
-        "$data.formInputAprobar.varFinanaciamientoInput = $data.getSolicitudApoyoEducativo[0].isfinanciamiento == 't'? true : false;"
+        "$data.formInputAprobar.varFinanaciamientoInput = $data.getSolicitudApoyoEducativo[0].isfinanciamiento == 't'? true : false;",
+        "",
+        "if($data.getSolicitudApoyoEducativo[0].isartistica == 't'){",
+        " $data.formInputAprobar.solicitudApoyoEducativoInput.estatusSolicitud = \"Esperando revisión área artistica\";",
+        "}else{",
+        " $data.formInputAprobar.solicitudApoyoEducativoInput.estatusSolicitud = \"Esperando revisión área deportiva\";",
+        "}"
       ],
       "exposed" : false
     },
