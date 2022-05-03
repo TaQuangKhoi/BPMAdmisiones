@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1651277120582,
+  "lastUpdate" : 1651533920506,
   "rows" : [
     [
       {
@@ -486,8 +486,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!mostrarBotonValidarSolicitud"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -3525,6 +3525,29 @@
         "    \"modificarDocumentos\" :  false\r",
         "  }\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "setContratoAprobarSolicitud" : {
+      "type" : "expression",
+      "value" : [
+        "",
+        "$data.formInputAprobar.varArtisticaInput = $data.getSolicitudApoyoEducativo[0].isartistica == 't'? true : false;",
+        "$data.formInputAprobar.varDeportivaInput = $data.getSolicitudApoyoEducativo[0].isdeportiva == 't'? true : false;",
+        "$data.formInputAprobar.varFinanaciamientoInput = $data.getSolicitudApoyoEducativo[0].isfinanciamiento == 't'? true : false;"
+      ],
+      "exposed" : false
+    },
+    "mostrarBotonValidarSolicitud" : {
+      "type" : "expression",
+      "value" : [
+        "var mostrar = false;",
+        "",
+        "if($data.getSolicitudApoyoEducativo[0].isartistica == 't' || $data.getSolicitudApoyoEducativo[0].isdeportiva == 't'){",
+        "    mostrar = true;",
+        "}",
+        "",
+        "return mostrar;"
       ],
       "exposed" : false
     }
