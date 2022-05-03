@@ -78,7 +78,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) { // && $scope.properties.dataToChange2.pais) {
                 var req = {
                     method: 'GET',
-                    url: "../API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
+                    url: "../API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOSUSA&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
                 };
                 return $http(req)
                     .success(function(data, status) {
@@ -130,7 +130,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToChange2.lstCatEstadosUSAInput[0].orden && $scope.properties.dataToChange2.lstCatEstadosUSAInput[0].clave && $scope.properties.dataToChange2.lstCatEstadosUSAInput[0].descripcion) { // && $scope.properties.dataToChange2.lstCatEstadosInput[0].pais) {
                 var req = {
                     method: 'GET',
-                    url: "../API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOS&orden=" + $scope.properties.dataToChange2.lstCatEstadosUSAInput[0].orden + "&id="
+                    url: "../API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOSUSA&orden=" + $scope.properties.dataToChange2.lstCatEstadosUSAInput[0].orden + "&id="
                 };
                 return $http(req)
                     .success(function(data, status) {
