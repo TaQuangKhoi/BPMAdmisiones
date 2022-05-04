@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1651600814035,
+  "lastUpdate" : 1651620589604,
   "rows" : [
     [
       {
@@ -3002,7 +3002,7 @@
                                   },
                                   "disabled" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "required" : {
                                     "type" : "constant",
@@ -3161,7 +3161,7 @@
                                   },
                                   "urlDownloadFile" : {
                                     "type" : "expression",
-                                    "value" : "urlDownloadFileAzure"
+                                    "value" : "urlDownloadFileAzureUrl"
                                   },
                                   "isMostrar" : {
                                     "type" : "constant",
@@ -3172,7 +3172,7 @@
                                   },
                                   "editar" : {
                                     "type" : "constant",
-                                    "value" : true
+                                    "value" : false
                                   },
                                   "idModal" : {
                                     "type" : "constant",
@@ -14154,19 +14154,19 @@
                       },
                       "urlDownloadFile" : {
                         "type" : "expression",
-                        "value" : "urlDownloadFileAzure"
+                        "value" : "urlDownloadFileAzureUrl"
                       },
                       "isMostrar" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "idDocumento" : {
                         "type" : "expression",
                         "value" : "$item.persistenceId"
                       },
                       "editar" : {
-                        "type" : "expression",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "idModal" : {
                         "type" : "constant",
@@ -14178,7 +14178,7 @@
                       },
                       "tipoDocumento" : {
                         "type" : "constant",
-                        "value" : "pdf"
+                        "value" : "imagen"
                       }
                     },
                     "reference" : "690c935b-0c2f-46f1-b8de-c488fa43c7f3",
@@ -14419,19 +14419,19 @@
                       },
                       "urlDownloadFile" : {
                         "type" : "expression",
-                        "value" : "urlDownloadFileAzure"
+                        "value" : "urlDownloadFileAzureUrl"
                       },
                       "isMostrar" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "idDocumento" : {
                         "type" : "expression",
                         "value" : "$item.persistenceId"
                       },
                       "editar" : {
-                        "type" : "expression",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "idModal" : {
                         "type" : "constant",
@@ -15088,6 +15088,13 @@
       "exposed" : true
     },
     "getAutodescripcion" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlDownloadFileAzureUrl" : {
       "type" : "constant",
       "value" : [
         ""
