@@ -162,7 +162,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         window.open(url, '_blank');
                     }else{
                         
-                         var contrato = {};
+                        var contrato = {};
+                        var estatus = "";
             
                         if($scope.avanzarSolicitud){
                             
@@ -171,16 +172,20 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                                 "varAdmitidoInput" : true
                             };
                             
+                            estatus = "En espera de autorización";
+                            
                                     
                         }else{
                             contrato = {
                                 "varRegresarRevisionInput" : false,
                                 "varAdmitidoInput" : false
                             };
+                            
+                            estatus = "Solicitud Archivada";
                         }
             
                     var params = getUserParam();
-                    doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato).then(function() {
+                    doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato, estatus, $scope.caseIdTarea).then(function() {
                        console.log("tarea avanzada");
                     });
                         
@@ -207,7 +212,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       return { 'user': $scope.properties.userId };
    }
     
-    function doRequest2(method, url, params, data) {
+    function doRequest2(method, url, params, data, estatus, caseId) {
     blockUI.start();
     var req = {
       method: method,
@@ -218,9 +223,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     return $http(req)
       .success(function(data, status) {
-          
-        $('#modalEnviarDictamen').modal('hide'); 
-        $('#modalEnviarArchivo').modal('hide'); 
+        actualizarEstatus(estatus, caseId);
       })
       .error(function(data, status) {
         console.log(data);
@@ -230,6 +233,28 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         blockUI.stop();
       });
   }
+  
+    $scope.actualizarEstatus = function(estatus, caseId) {
+        blockUI.start();
+        
+        var req = {
+            method: "GET",
+            url: "/API/extension/AnahuacBecasRestGET?url=updateEstatusSolicitud&p=0&c=100&&estatus="+estatus+"&caseId="+ caseId,
+            data: {}
+        };
+  
+        return $http(req).success(function(data, status) {
+                $('#modalEnviarDictamen').modal('hide'); 
+                $('#modalEnviarArchivo').modal('hide'); 
+            })
+            .error(function(data, status) {
+               console.error(data);
+               console.error(status);
+            })
+            .finally(function() {
+                blockUI.stop();
+            });
+    }
     
   
     $scope.isenvelope = false;
