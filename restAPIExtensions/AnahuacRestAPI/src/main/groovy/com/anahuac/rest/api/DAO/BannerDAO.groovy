@@ -36,6 +36,10 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatBachilleratosDAO
+import com.anahuac.catalogos.CatEstados
+import com.anahuac.catalogos.CatEstadosDAO
+import com.anahuac.catalogos.CatEstadosUSA
+import com.anahuac.catalogos.CatEstadosUSADAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.CatBachillerato
@@ -120,7 +124,7 @@ class BannerDAO {
 					resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
 					intentos--;
 				}
-				errorLog += " | " + strGetConsumeJSON;				
+				errorLog += " | " + resultadoGetConsumeJSON;				
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
 			}
@@ -142,7 +146,7 @@ class BannerDAO {
 					resultadoGetConsumeJSON = getConsumeJSON(jsonResultadoUbicaciones, context, operacion, barrerTokenUbicaciones);
 					intentos2--;
 				}
-				errorLog += " | " + strGetConsumeJSONUbicaciones;
+				errorLog += " | " + resultadoGetConsumeJSON;
 				
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
@@ -884,10 +888,18 @@ class BannerDAO {
 									errorLog = errorLog + " | isEliminado: " + !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
 									errorLog = errorLog + " | CON H ---------------------------------------------------------";
 									
+									//objRow.getClave() == null || objRow.getClave().equals("null")
+									Boolean isEliminadoRegla = false;
+									if(objRow.getStreetLine1() == null || objRow.getStreetLine1().equals("null") || objRow.getStreetLine3() == null || objRow.getStreetLine3().equals("null") 
+									|| (objRow.getPais().equals("México") && !isMexicoOk) 
+									|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk) 
+									|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+										isEliminadoRegla = true; 
+									}
 									/*CONSTRUCCION DE CONTRATO=====================================================================*/
 									objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 									objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-									objCatBachilleratosInput.put("isEliminado", !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ));
+									objCatBachilleratosInput.put("isEliminado", (!(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk)) == false ? isEliminadoRegla:true) );
 									objCatBachilleratosInput.put("isEnabled", true);
 									objCatBachilleratosInput.put("todelete", (row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 									objCatBachilleratosInput.put("perteneceRed", false);
@@ -1096,14 +1108,20 @@ class BannerDAO {
 										
 										
 										
-										
+										Boolean isEliminadoRegla = false;
 										lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 										objCatBachilleratosInput = new HashMap < String, Serializable > ();
 										contracto = new HashMap < String, Serializable > ();
+										if(objRow.getStreetLine1() == null || objRow.getStreetLine1().equals("null") || objRow.getStreetLine3() == null || objRow.getStreetLine3().equals("null")
+											|| (objRow.getPais().equals("México") && !isMexicoOk)
+											|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk)
+											|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+												isEliminadoRegla = true;
+										}
 										/*CONSTRUCCION DE CONTRATO=====================================================================*/
 										objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 										objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-										objCatBachilleratosInput.put("isEliminado", !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ));
+										objCatBachilleratosInput.put("isEliminado", (!(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk)) == false ? isEliminadoRegla:true));
 										objCatBachilleratosInput.put("isEnabled", true);
 										objCatBachilleratosInput.put("todelete", (row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 										objCatBachilleratosInput.put("perteneceRed", false);
@@ -1347,6 +1365,12 @@ class BannerDAO {
 					if (!strStateCode.equals("")) {
 						matcher = patternEstado.matcher(strStateCode.toLowerCase());
 						isStateCodeOk = matcher.matches();
+						def objCatEstadoDAO = context.apiClient.getDAO(CatEstadosDAO.class);
+						CatEstados existeExamen = objCatEstadoDAO.getCatEstadosByClave(objLstAddresses.getStateCode());
+						if(existeExamen.getPersistenceId() != null){
+							isStateCodeOk = true;
+						}
+						errorLog += "| existeEstado: "+existeExamen;
 					}
 
 					strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
@@ -1360,6 +1384,7 @@ class BannerDAO {
 					
 					errorLog = errorLog + " | getStreetLine1: " + objLstAddresses.getStreetLine1()
 					errorLog = errorLog + " | getStreetLine3: " + objLstAddresses.getStreetLine3()
+					
 					isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
 				} else {
 					if (objLstAddresses.getPais().equals("Estados Unidos de América")) {
@@ -1377,13 +1402,25 @@ class BannerDAO {
 						if (!strCountyCode.equals("")) {
 							isCountyCodeOk = strCountyCode.equals("20000")
 						}
-						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+						
+						strStateCode = objLstAddresses.getStateCode() == null ? "" : objLstAddresses.getStateCode();
+						errorLog = errorLog + " | strStateCode: " + (strStateCode);
+						if (!strStateCode.equals("")) {
+							def objCatEstadoUSADAO = context.apiClient.getDAO(CatEstadosUSADAO.class);
+							CatEstadosUSA existeExamen = objCatEstadoUSADAO.getEstadosUSAByClave(objLstAddresses.getStateCode())
+							if(existeExamen.getPersistenceId() != null){
+								isStateCodeOk = true;
+							}
+							errorLog += "| existeEstado: "+existeExamen;
+						}
+						
+						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
 					} else {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
 						strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
 						errorLog = errorLog + " | strNationCode: " + (strNationCode);
 						if (!strNationCode.equals("")) {
-							isNationCodeOk = !strNationCode.equals("157") && !strNationCode.equals("99");
+							isNationCodeOk = (!strNationCode.equals("157") && !strNationCode.equals("99"));
 							matcher = pattern.matcher(strNationCode)
 							isNationCodeLetterOk = !matcher.find();
 						}
@@ -1393,11 +1430,13 @@ class BannerDAO {
 							isCountyCodeOk = strCountyCode.equals("20000")
 						}
 						strStateCode = objLstAddresses.getStateCode() == null ? "" : objLstAddresses.getStateCode();
+						errorLog = errorLog + " | strStateCode: " + (strStateCode);
 						if (!strStateCode.equals("")) {
 							isStateCodeOk = strStateCode.toLowerCase().equals("fr")
 						}
 						
 						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
+						errorLog = errorLog + " | isOtroPaisOk: " + (isOtroPaisOk);
 					}
 				}
 
@@ -1495,11 +1534,24 @@ class BannerDAO {
 							lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 							objCatBachilleratosInput = new HashMap < String, Serializable > ();
 							contracto = new HashMap < String, Serializable > ();
+							Boolean isEliminadoRegla = false;
+							if(objLstAddresses.getStreetLine1() == null || objLstAddresses.getStreetLine1().equals("null") || objLstAddresses.getStreetLine3() == null || objLstAddresses.getStreetLine3().equals("null")  
+							|| (objRow.getPais().equals("México") && !isMexicoOk && !isMatchOk) 
+							|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk) 
+							|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla:"+(isEliminadoRegla) 
+							}else if(objRow.getPais().equals("México") && objLstAddresses.getCiudad().contains(",")){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla2:"+(isEliminadoRegla) 
+							}else if(objRow.getPais().equals("Estados Unidos de América") && objLstAddresses.getCiudad().contains(",")){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla3:"+(isEliminadoRegla) 
+							}
 							/*CONSTRUCCION DE CONTRATO=====================================================================*/
 							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 							objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-	
-							objCatBachilleratosInput.put("isEliminado",  isEliminado); //!(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk))
+							objCatBachilleratosInput.put("isEliminado",  (isEliminado == false ?isEliminadoRegla:true)); //!(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk))
 							objCatBachilleratosInput.put("isEnabled", objRow.isIsEnabled());
 							objCatBachilleratosInput.put("todelete", (objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 	
@@ -1550,7 +1602,7 @@ class BannerDAO {
 							//Guardar en Log BD  - Angel G
 							errorLog = errorLog + " | Guardar en Log BD en Created";
 							
-							String eliminado = isEliminado ? "SI" : "NO";
+							String eliminado = (isEliminado == false ?isEliminadoRegla:true) ? "SI" : "NO";
 							String estadoOK = isEstadoOk ? "SI" : "NO";
 							String codigoPostalOK = isCodigoPostalOk ? "SI" : "NO";
 							String matchOK = isMatchOk ? "SI" : "NO";
