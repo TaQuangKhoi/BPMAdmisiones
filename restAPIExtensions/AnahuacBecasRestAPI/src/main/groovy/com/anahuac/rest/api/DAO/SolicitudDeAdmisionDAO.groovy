@@ -420,4 +420,36 @@ class SolicitudDeAdmisionDAO {
 		
 		return resultado;
 	}
+	
+	public Result updateEstatusSolicitud(String estatus, Long caseId) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		
+		try {
+			
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			
+			pstm = con.prepareStatement(Statements.UPDATE_ESTATUS_SDAE);
+			pstm.setString(1, estatus);
+			pstm.setLong(2, caseId);
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		}catch(Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog+" "+e.getMessage())
+			con.rollback();
+		}
+		finally{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }

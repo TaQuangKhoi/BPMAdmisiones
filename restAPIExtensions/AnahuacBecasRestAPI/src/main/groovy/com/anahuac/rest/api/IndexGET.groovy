@@ -285,6 +285,17 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 					break;
+				case "updateEstatusSolicitud":
+					String caseId = request.getParameter "caseId"
+					String estatus = request.getParameter "estatus"
+					result = new SolicitudDeAdmisionDAO().updateEstatusSolicitud(estatus, Long.valueOf(caseId));
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
