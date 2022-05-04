@@ -38,6 +38,8 @@ import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatBachilleratosDAO
 import com.anahuac.catalogos.CatEstados
 import com.anahuac.catalogos.CatEstadosDAO
+import com.anahuac.catalogos.CatEstadosUSA
+import com.anahuac.catalogos.CatEstadosUSADAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.CatBachillerato
@@ -1360,7 +1362,7 @@ class BannerDAO {
 						matcher = patternEstado.matcher(strStateCode.toLowerCase());
 						isStateCodeOk = matcher.matches();
 						def objCatEstadoDAO = context.apiClient.getDAO(CatEstadosDAO.class);
-						CatEstados existeExamen = objCatEstadoDAO.findByClave(objLstAddresses.getStateCode(),0,1)
+						CatEstados existeExamen = objCatEstadoDAO.getCatEstadosByClave(objLstAddresses.getStateCode());
 						if(existeExamen.getPersistenceId() != null){
 							isStateCodeOk = true;
 						}
@@ -1396,7 +1398,19 @@ class BannerDAO {
 						if (!strCountyCode.equals("")) {
 							isCountyCodeOk = strCountyCode.equals("20000")
 						}
-						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+						
+						strStateCode = objLstAddresses.getStateCode() == null ? "" : objLstAddresses.getStateCode();
+						errorLog = errorLog + " | strStateCode: " + (strStateCode);
+						if (!strStateCode.equals("")) {
+							def objCatEstadoUSADAO = context.apiClient.getDAO(CatEstadosUSADAO.class);
+							CatEstadosUSA existeExamen = objCatEstadoUSADAO.getEstadosUSAByClave(objLstAddresses.getStateCode())
+							if(existeExamen.getPersistenceId() != null){
+								isStateCodeOk = true;
+							}
+							errorLog += "| existeEstado: "+existeExamen;
+						}
+						
+						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
 					} else {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
 						strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
@@ -1518,7 +1532,7 @@ class BannerDAO {
 							contracto = new HashMap < String, Serializable > ();
 							Boolean isEliminadoRegla = false;
 							if(objLstAddresses.getStreetLine1() == null || objLstAddresses.getStreetLine1().equals("null") || objLstAddresses.getStreetLine3() == null || objLstAddresses.getStreetLine3().equals("null")  
-							|| (objRow.getPais().equals("México") && !isMexicoOk) 
+							|| (objRow.getPais().equals("México") && !isMexicoOk && !isMatchOk) 
 							|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk) 
 							|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
 								isEliminadoRegla = true;
