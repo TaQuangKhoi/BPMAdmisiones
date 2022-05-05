@@ -5940,6 +5940,134 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_p-mu4r9jEeygG9_kY1ideA" name="password" value="bpm2022BPM$" typeClassname="java.lang.String" description=""/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_p-mu479jEeygG9_kY1ideA" name="urlEnvioCorreo" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=generateHtml&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
       </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_WSFlcMyfEeyRFMlEo8a1KQ" name="Qualification" version="7.12.0-004" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_WSTn4MyfEeyRFMlEo8a1KQ">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_WSTn4cyfEeyRFMlEo8a1KQ" name="Becas">
+            <groups xmi:type="actormapping:Groups" xmi:id="_WSTn4syfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_WSTn48yfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_WSTn5MyfEeyRFMlEo8a1KQ">
+              <role>Becas</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_WSTn5cyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_WSTn5syfEeyRFMlEo8a1KQ" name="Aspirante">
+            <groups xmi:type="actormapping:Groups" xmi:id="_WSTn58yfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_WSTn6MyfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_WSTn6cyfEeyRFMlEo8a1KQ">
+              <role>ASPIRANTE</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_WSTn6syfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_WSTn68yfEeyRFMlEo8a1KQ" name="Pre-Autorizacion">
+            <groups xmi:type="actormapping:Groups" xmi:id="_WSTn7MyfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_WSTn7cyfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_WSTn7syfEeyRFMlEo8a1KQ">
+              <role>PreAutorizacion</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_WSTn78yfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_WSTn8MyfEeyRFMlEo8a1KQ" name="Area deportiva">
+            <groups xmi:type="actormapping:Groups" xmi:id="_WSTn8cyfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_WSTn8syfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_WSTn88yfEeyRFMlEo8a1KQ">
+              <role>Area Deportiva</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_WSTn9MyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_WSTn9cyfEeyRFMlEo8a1KQ" name="Area artistica">
+            <groups xmi:type="actormapping:Groups" xmi:id="_WSTn9syfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_WSTn98yfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_WSTn-MyfEeyRFMlEo8a1KQ">
+              <role>Area Artistica</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_WSTn-cyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+        </actorMappings>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_WSFlccyfEeyRFMlEo8a1KQ" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_WSFlcsyfEeyRFMlEo8a1KQ" type="ACTOR_FILTER" definitionId="bonita-actorfilter-initiator" definitionVersion="1.0" implementationId="bonita-actorfilter-initiator-impl" implementationVersion="1.0.0"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSFlc8yfEeyRFMlEo8a1KQ" id="CONNECTOR">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_WSFldMyfEeyRFMlEo8a1KQ" id="rest-post-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_WSFldcyfEeyRFMlEo8a1KQ" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSFldsyfEeyRFMlEo8a1KQ" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSFld8yfEeyRFMlEo8a1KQ" id="ACTOR_FILTER">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_WSFleMyfEeyRFMlEo8a1KQ" id="bonita-actorfilter-initiator-impl-1.0.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_WSFlecyfEeyRFMlEo8a1KQ" key="bonita-actorfilter-initiator-impl -- 1.0.0" value="bonita-actorfilter-initiator-1.0.0.jar" type="ACTOR_FILTER"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSGMgMyfEeyRFMlEo8a1KQ" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSGMgcyfEeyRFMlEo8a1KQ" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSGMgsyfEeyRFMlEo8a1KQ" id="OTHER"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSUO8MyfEeyRFMlEo8a1KQ" name="urlLogin" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AMyfEeyRFMlEo8a1KQ" name="usuario" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AcyfEeyRFMlEo8a1KQ" name="password" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AsyfEeyRFMlEo8a1KQ" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_cuBuIMyfEeyRFMlEo8a1KQ" name="Production" version="7.12.0-004" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_cuCVMMyfEeyRFMlEo8a1KQ">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_cuCVMcyfEeyRFMlEo8a1KQ" name="Becas">
+            <groups xmi:type="actormapping:Groups" xmi:id="_cuCVMsyfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_cuCVM8yfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_cuCVNMyfEeyRFMlEo8a1KQ">
+              <role>Becas</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_cuCVNcyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_cuCVNsyfEeyRFMlEo8a1KQ" name="Aspirante">
+            <groups xmi:type="actormapping:Groups" xmi:id="_cuCVN8yfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_cuCVOMyfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_cuCVOcyfEeyRFMlEo8a1KQ">
+              <role>ASPIRANTE</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_cuCVOsyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_cuCVO8yfEeyRFMlEo8a1KQ" name="Pre-Autorizacion">
+            <groups xmi:type="actormapping:Groups" xmi:id="_cuCVPMyfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_cuCVPcyfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_cuCVPsyfEeyRFMlEo8a1KQ">
+              <role>PreAutorizacion</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_cuCVP8yfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_cuCVQMyfEeyRFMlEo8a1KQ" name="Area deportiva">
+            <groups xmi:type="actormapping:Groups" xmi:id="_cuCVQcyfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_cuCVQsyfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_cuCVQ8yfEeyRFMlEo8a1KQ">
+              <role>Area Deportiva</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_cuCVRMyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_cuCVRcyfEeyRFMlEo8a1KQ" name="Area artistica">
+            <groups xmi:type="actormapping:Groups" xmi:id="_cuCVRsyfEeyRFMlEo8a1KQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_cuCVR8yfEeyRFMlEo8a1KQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_cuCVSMyfEeyRFMlEo8a1KQ">
+              <role>Area Artistica</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_cuCVScyfEeyRFMlEo8a1KQ"/>
+          </actorMapping>
+        </actorMappings>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_cuBuIcyfEeyRFMlEo8a1KQ" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_cuBuIsyfEeyRFMlEo8a1KQ" type="ACTOR_FILTER" definitionId="bonita-actorfilter-initiator" definitionVersion="1.0" implementationId="bonita-actorfilter-initiator-impl" implementationVersion="1.0.0"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_cuBuI8yfEeyRFMlEo8a1KQ" id="CONNECTOR">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_cuBuJMyfEeyRFMlEo8a1KQ" id="rest-post-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_cuBuJcyfEeyRFMlEo8a1KQ" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_cuBuJsyfEeyRFMlEo8a1KQ" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_cuBuJ8yfEeyRFMlEo8a1KQ" id="ACTOR_FILTER">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_cuBuKMyfEeyRFMlEo8a1KQ" id="bonita-actorfilter-initiator-impl-1.0.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_cuBuKcyfEeyRFMlEo8a1KQ" key="bonita-actorfilter-initiator-impl -- 1.0.0" value="bonita-actorfilter-initiator-1.0.0.jar" type="ACTOR_FILTER"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_cuBuKsyfEeyRFMlEo8a1KQ" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_cuBuK8yfEeyRFMlEo8a1KQ" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_cuBuLMyfEeyRFMlEo8a1KQ" id="OTHER"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_cuC8QMyfEeyRFMlEo8a1KQ" name="urlLogin" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_cuC8QcyfEeyRFMlEo8a1KQ" name="usuario" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_cuC8QsyfEeyRFMlEo8a1KQ" name="password" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_cuC8Q8yfEeyRFMlEo8a1KQ" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
+      </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_w6fKoL9dEeygG9_kY1ideA" name="urlLogin" typeClassname="java.lang.String" description=""/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_ya08AL9dEeygG9_kY1ideA" name="usuario" typeClassname="java.lang.String" description=""/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_z0O-8L9dEeygG9_kY1ideA" name="password" typeClassname="java.lang.String" description=""/>
