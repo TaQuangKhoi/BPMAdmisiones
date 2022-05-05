@@ -406,12 +406,14 @@ class BannerDAO {
 		String errorLog = "";
 		String strCountyCode = "";
 		String strStateCode = "";
+		String strPostalCode = "";
 		String strNationCode = "";
 		String resultEducationalInstitutions = "";
 		String resultAddresses = "";
 
 		Boolean isCountyCodeOk = false;
 		Boolean isStateCodeOk = false;
+		Boolean isPostalCode = false;
 		Boolean isStreetLineOk = false;
 		Boolean isNationCodeOk = false;
 		Boolean isNationCodeLetterOk = false;
@@ -1363,7 +1365,7 @@ class BannerDAO {
 						isStateCodeOk = matcher.matches();
 						def objCatEstadoDAO = context.apiClient.getDAO(CatEstadosDAO.class);
 						CatEstados existeExamen = objCatEstadoDAO.getCatEstadosByClave(objLstAddresses.getStateCode());
-						if(existeExamen.getPersistenceId() != null){
+						if(existeExamen?.getPersistenceId() != null){
 							isStateCodeOk = true;
 						}
 						errorLog += "| existeEstado: "+existeExamen;
@@ -1374,6 +1376,13 @@ class BannerDAO {
 					if (!strNationCode.equals("")) {
 						isNationCodeOk = strNationCode.equals("99")
 					}
+					
+					strPostalCode = (objLstAddresses.getPostalCode() == null || objLstAddresses?.getPostalCode()?.equals("null")) ? "" : objLstAddresses.getPostalCode();
+					errorLog = errorLog + " | strPostalCode: " + (strPostalCode);
+					if (!strPostalCode.equals("")) {
+						errorLog = errorLog + " | strPostalCode: true"
+						isPostalCode = true;
+					}
 
 					isStreetLineOk = (objLstAddresses.getStreetLine1() != null && objLstAddresses.getStreetLine3() != null);
 					errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
@@ -1381,7 +1390,7 @@ class BannerDAO {
 					errorLog = errorLog + " | getStreetLine1: " + objLstAddresses.getStreetLine1()
 					errorLog = errorLog + " | getStreetLine3: " + objLstAddresses.getStreetLine3()
 					
-					isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
+					isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk && isPostalCode);
 				} else {
 					if (objLstAddresses.getPais().equals("Estados Unidos de América")) {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
@@ -1404,13 +1413,20 @@ class BannerDAO {
 						if (!strStateCode.equals("")) {
 							def objCatEstadoUSADAO = context.apiClient.getDAO(CatEstadosUSADAO.class);
 							CatEstadosUSA existeExamen = objCatEstadoUSADAO.getEstadosUSAByClave(objLstAddresses.getStateCode())
-							if(existeExamen.getPersistenceId() != null){
+							if(existeExamen?.getPersistenceId() != null){
 								isStateCodeOk = true;
 							}
 							errorLog += "| existeEstado: "+existeExamen;
 						}
 						
-						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
+						strPostalCode = (objLstAddresses.getPostalCode() == null || objLstAddresses?.getPostalCode()?.equals("null")) ? "" : objLstAddresses.getPostalCode();
+						errorLog = errorLog + " | strPostalCode: " + (strPostalCode);
+						if (!strPostalCode.equals("")) {
+							errorLog = errorLog + " | strPostalCode: true"
+							isPostalCode = true;
+						}
+						
+						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk && isPostalCode);
 					} else {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
 						strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
@@ -1431,7 +1447,14 @@ class BannerDAO {
 							isStateCodeOk = strStateCode.toLowerCase().equals("fr")
 						}
 						
-						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
+						strPostalCode = (objLstAddresses.getPostalCode() == null || objLstAddresses?.getPostalCode()?.equals("null")) ? "" : objLstAddresses.getPostalCode();
+						errorLog = errorLog + " | strPostalCode: " + (strPostalCode);
+						if (!strPostalCode.equals("")) {
+							errorLog = errorLog + " | strPostalCode: true"
+							isPostalCode = true;
+						}
+						
+						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk && isPostalCode);
 						errorLog = errorLog + " | isOtroPaisOk: " + (isOtroPaisOk);
 					}
 				}
