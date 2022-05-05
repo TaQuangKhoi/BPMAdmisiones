@@ -5366,6 +5366,15 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_AgUfQMzAEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_AgVtYMzAEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_BC5n4MzAEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_AgVtYczAEeyFc8NiYDfmaA" name="newScript()" content="import java.time.LocalDateTime&#xD;&#xA;return LocalDateTime.now();" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.time.LocalDateTime"/>
+            <operator xmi:type="expression:Operator" xmi:id="_AgVtYszAEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setFechaRespuestaArea">
+              <inputTypes>java.time.LocalDateTime</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_aqdDkcTuEeybWdnJrU77dA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_aqdDksTuEeybWdnJrU77dA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_aqdDk8TuEeybWdnJrU77dA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -5374,7 +5383,7 @@
         </elements>
       </elements>
       <elements xmi:type="process:Lane" xmi:id="_q_5rEGdDEeyAHufroJpG_Q" name="Área deportiva" actor="_foQJcGdbEeyAHufroJpG_Q">
-        <elements xmi:type="process:Task" xmi:id="_6nMwEGdDEeyAHufroJpG_Q" name="Revisión área deportiva" outgoing="_EBxQYMKGEeyz9euiAvfMAA" incoming="_yBrEsGdDEeyAHufroJpG_Q" overrideActorsOfTheLane="false">
+        <elements xmi:type="process:Task" xmi:id="_6nMwEGdDEeyAHufroJpG_Q" name="Revisión área deportiva" outgoing="_EBxQYMKGEeyz9euiAvfMAA" incoming="_i0bosMzAEeyFc8NiYDfmaA" overrideActorsOfTheLane="false">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_yBoocmdDEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_yBoocWdDEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_yBooc2dDEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -5389,12 +5398,47 @@
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_dQhdk7auEeyccO6rFNZifA" type="ASSIGNMENT"/>
           </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_EroEELaxEeyccO6rFNZifA">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_EroEEbaxEeyccO6rFNZifA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_FoO2QLaxEeyccO6rFNZifA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+          <operations xmi:type="expression:Operation" xmi:id="_0-kL8MzCEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0-kL8czCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0-kL8szCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_EroEEraxEeyccO6rFNZifA" name="newScript()" content="'Esperando revisión área deportiva'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
-            <operator xmi:type="expression:Operator" xmi:id="_EroEE7axEeyccO6rFNZifA" type="JAVA_METHOD" expression="setEstatusSolicitud">
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0-kL88zCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.motivoRechazoDeportiva" content="solicitudApoyoEducativoInput?.motivoRechazoDeportiva" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_0-kL9MzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0-kL9czCEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setMotivoRechazoDeportiva">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_0-kL9szCEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0-kL98zCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0-kL-MzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0-kL-czCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.motivoAprobadaDeportiva" content="solicitudApoyoEducativoInput?.motivoAprobadaDeportiva" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_0-kL-szCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0-kL-8zCEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setMotivoAprobadaDeportiva">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_0-kL_MzCEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0-kL_czCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0-kL_szCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0-kL_8zCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.porRecAreaDeportiva" content="solicitudApoyoEducativoInput?.porRecAreaDeportiva" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Integer">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_0-kMAMzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0-kMAczCEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setPorRecAreaDeportiva">
+              <inputTypes>java.lang.Integer</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_0-kMAszCEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0-kMA8zCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0-kMBMzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0-kMBczCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.observacionesDeportiva" content="solicitudApoyoEducativoInput?.observacionesDeportiva" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_0-kMBszCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0-kMB8zCEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setObservacionesDeportiva">
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
@@ -5410,6 +5454,12 @@
             <inputs xmi:type="process:ContractInput" xmi:id="_GeYigLauEeyccO6rFNZifA" name="varRegresarRevisionInput" type="BOOLEAN">
               <mapping xmi:type="process:ContractInputMapping" xmi:id="_GeYigbauEeyccO6rFNZifA"/>
             </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_0-f6gMzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" dataReference="solicitudApoyoEducativo" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_0-f6gczCEeyFc8NiYDfmaA" name="motivoRechazoDeportiva" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0-f6gszCEeyFc8NiYDfmaA" name="motivoAprobadaDeportiva" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0-f6g8zCEeyFc8NiYDfmaA" name="porRecAreaDeportiva" type="INTEGER" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0-f6hMzCEeyFc8NiYDfmaA" name="observacionesDeportiva" createMode="false"/>
+            </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_6nNXK2dDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
@@ -5418,9 +5468,37 @@
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_-GxRkMKFEeyz9euiAvfMAA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_-GxRksKFEeyz9euiAvfMAA" name="" content="" returnTypeFixed="true"/>
         </elements>
+        <elements xmi:type="process:ServiceTask" xmi:id="_iLNskMzAEeyFc8NiYDfmaA" name="Cambiar estatus" outgoing="_i0bosMzAEeyFc8NiYDfmaA" incoming="_yBrEsGdDEeyAHufroJpG_Q">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_iLtb0czAEeyFc8NiYDfmaA" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_iLtb0MzAEeyFc8NiYDfmaA" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_iLtb0szAEeyFc8NiYDfmaA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_o1TJgMzBEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_o1TJgczBEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Ma360MzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_o1TJgszBEeyFc8NiYDfmaA" name="newScript()" content="import java.time.LocalDateTime&#xD;&#xA;return LocalDateTime.now();" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.time.LocalDateTime"/>
+            <operator xmi:type="expression:Operator" xmi:id="_o1TJg8zBEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setFechaEnvioArea">
+              <inputTypes>java.time.LocalDateTime</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_UHZsMMzDEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_UHZsMczDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_UngIkMzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_UHZsMszDEeyFc8NiYDfmaA" name="newScript()" content="'Esperando revisión área deportiva'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_UHZsM8zDEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setEstatusSolicitud">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <loopCondition xmi:type="expression:Expression" xmi:id="_iLtb08zAEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+          <loopMaximum xmi:type="expression:Expression" xmi:id="_iLtb1MzAEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <cardinalityExpression xmi:type="expression:Expression" xmi:id="_iLtb1czAEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <iteratorExpression xmi:type="expression:Expression" xmi:id="_iLuC4MzAEeyFc8NiYDfmaA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
+          <completionCondition xmi:type="expression:Expression" xmi:id="_iLtb1szAEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        </elements>
       </elements>
       <elements xmi:type="process:Lane" xmi:id="_ttmncGdDEeyAHufroJpG_Q" name="Área artistica" actor="_guh1AGdbEeyAHufroJpG_Q">
-        <elements xmi:type="process:Task" xmi:id="_-yedsGdDEeyAHufroJpG_Q" name="Revisión área artistica" outgoing="_-HylQMKFEeyz9euiAvfMAA" incoming="_zUIyIGdDEeyAHufroJpG_Q" overrideActorsOfTheLane="false">
+        <elements xmi:type="process:Task" xmi:id="_-yedsGdDEeyAHufroJpG_Q" name="Revisión área artistica" outgoing="_-HylQMKFEeyz9euiAvfMAA" incoming="_bZ1p8MzBEeyFc8NiYDfmaA" overrideActorsOfTheLane="false">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_zUG88WdDEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_zUG88GdDEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_zUG88mdDEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -5435,12 +5513,47 @@
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_2RSW47avEeyccO6rFNZifA" type="ASSIGNMENT"/>
           </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_8cNWILaxEeyccO6rFNZifA">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_8cNWIbaxEeyccO6rFNZifA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_9VZn8LaxEeyccO6rFNZifA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+          <operations xmi:type="expression:Operation" xmi:id="_PIZbkMzDEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_PIZbkczDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_PIZbkszDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_8cNWIraxEeyccO6rFNZifA" name="newScript()" content="'Esperando revisión área artistica'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
-            <operator xmi:type="expression:Operator" xmi:id="_8cNWI7axEeyccO6rFNZifA" type="JAVA_METHOD" expression="setEstatusSolicitud">
+            <rightOperand xmi:type="expression:Expression" xmi:id="_PIZbk8zDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.motivoRechazoArtistica" content="solicitudApoyoEducativoInput?.motivoRechazoArtistica" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_PIZblMzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_PIZblczDEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setMotivoRechazoArtistica">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_PIZblszDEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_PIZbl8zDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_PIZbmMzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_PIZbmczDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.motivoAprobadaArtistica" content="solicitudApoyoEducativoInput?.motivoAprobadaArtistica" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_PIZbmszDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_PIZbm8zDEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setMotivoAprobadaArtistica">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_PIZbnMzDEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_PIZbnczDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_PIZbnszDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_PIZbn8zDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.procRecAreaArtistica" content="solicitudApoyoEducativoInput?.procRecAreaArtistica" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Integer">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_PIZboMzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_PIZboczDEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setProcRecAreaArtistica">
+              <inputTypes>java.lang.Integer</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_PIZboszDEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_PIZbo8zDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_PIZbpMzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_PIZbpczDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput.observacionesArtistica" content="solicitudApoyoEducativoInput?.observacionesArtistica" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_PIZbpszDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_PIZbp8zDEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setObservacionesArtistica">
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
@@ -5456,8 +5569,42 @@
             <inputs xmi:type="process:ContractInput" xmi:id="_0ilZYLavEeyccO6rFNZifA" name="varRegresarRevisionInput" type="BOOLEAN">
               <mapping xmi:type="process:ContractInputMapping" xmi:id="_0ilZYbavEeyccO6rFNZifA"/>
             </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_PIY0gMzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativoInput" type="COMPLEX" dataReference="solicitudApoyoEducativo" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_PIY0gczDEeyFc8NiYDfmaA" name="motivoRechazoArtistica" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_PIY0gszDEeyFc8NiYDfmaA" name="motivoAprobadaArtistica" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_PIY0g8zDEeyFc8NiYDfmaA" name="procRecAreaArtistica" type="INTEGER" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_PIY0hMzDEeyFc8NiYDfmaA" name="observacionesArtistica" createMode="false"/>
+            </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_-yedvGdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:ServiceTask" xmi:id="_XlZH8MzBEeyFc8NiYDfmaA" name="Cambiar estatus" outgoing="_bZ1p8MzBEeyFc8NiYDfmaA" incoming="_zUIyIGdDEeyAHufroJpG_Q">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_XlcyUczBEeyFc8NiYDfmaA" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_XlcyUMzBEeyFc8NiYDfmaA" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_XlcyUszBEeyFc8NiYDfmaA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_U3dFkMzCEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_U3dFkczCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_WIVeoMzCEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_U3dFkszCEeyFc8NiYDfmaA" name="newScript()" content="import java.time.LocalDateTime&#xD;&#xA;return LocalDateTime.now();" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.time.LocalDateTime"/>
+            <operator xmi:type="expression:Operator" xmi:id="_U3dFk8zCEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setFechaEnvioArea">
+              <inputTypes>java.time.LocalDateTime</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_a-ijIMzDEeyFc8NiYDfmaA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_a-ijIczDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_bjuT0MzDEeyFc8NiYDfmaA" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_a-ijIszDEeyFc8NiYDfmaA" name="newScript()" content="'Esperando revisión área artistica'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_a-ijI8zDEeyFc8NiYDfmaA" type="JAVA_METHOD" expression="setEstatusSolicitud">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <loopCondition xmi:type="expression:Expression" xmi:id="_XlcyU8zBEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+          <loopMaximum xmi:type="expression:Expression" xmi:id="_XlcyVMzBEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <cardinalityExpression xmi:type="expression:Expression" xmi:id="_XlcyVczBEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <iteratorExpression xmi:type="expression:Expression" xmi:id="_XlcyV8zBEeyFc8NiYDfmaA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
+          <completionCondition xmi:type="expression:Expression" xmi:id="_XlcyVszBEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         </elements>
       </elements>
       <data xmi:type="process:Data" xmi:id="_uL280GdbEeyAHufroJpG_Q" name="varRevisada" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
@@ -5627,13 +5774,13 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_hq4ccWdDEeyAHufroJpG_Q"/>
         <condition xmi:type="expression:Expression" xmi:id="_hq4ccmdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_yBrEsGdDEeyAHufroJpG_Q" target="_6nMwEGdDEeyAHufroJpG_Q" source="_Benm8GdcEeyAHufroJpG_Q">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_yBrEsGdDEeyAHufroJpG_Q" target="_iLNskMzAEeyFc8NiYDfmaA" source="_Benm8GdcEeyAHufroJpG_Q">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_yBrEsWdDEeyAHufroJpG_Q"/>
         <condition xmi:type="expression:Expression" xmi:id="_yBrEsmdDEeyAHufroJpG_Q" name="varDeportiva" content="varDeportiva" type="TYPE_VARIABLE" returnType="java.lang.Boolean" returnTypeFixed="true">
           <referencedElements xmi:type="process:Data" xmi:id="_F_GTEGddEeyAHufroJpG_Q" name="varDeportiva" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
         </condition>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_zUIyIGdDEeyAHufroJpG_Q" target="_-yedsGdDEeyAHufroJpG_Q" source="_Benm8GdcEeyAHufroJpG_Q">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_zUIyIGdDEeyAHufroJpG_Q" target="_XlZH8MzBEeyFc8NiYDfmaA" source="_Benm8GdcEeyAHufroJpG_Q">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_zUIyIWdDEeyAHufroJpG_Q"/>
         <condition xmi:type="expression:Expression" xmi:id="_zUIyImdDEeyAHufroJpG_Q" name="varArtistica" content="varArtistica" type="TYPE_VARIABLE" returnType="java.lang.Boolean" returnTypeFixed="true">
           <referencedElements xmi:type="process:Data" xmi:id="_G1WloGddEeyAHufroJpG_Q" name="varArtistica" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
@@ -5865,11 +6012,19 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_arBrUMTuEeybWdnJrU77dA" target="_aqAXoMTuEeybWdnJrU77dA" source="_-nO6UMKFEeyz9euiAvfMAA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_arCSYMTuEeybWdnJrU77dA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_arCSYcTuEeybWdnJrU77dA" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_arCSYcTuEeybWdnJrU77dA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_eLorUMTuEeybWdnJrU77dA" target="_UCb3oMKGEeyz9euiAvfMAA" source="_aqAXoMTuEeybWdnJrU77dA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_eLpSYMTuEeybWdnJrU77dA"/>
         <condition xmi:type="expression:Expression" xmi:id="_eLpSYcTuEeybWdnJrU77dA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_i0bosMzAEeyFc8NiYDfmaA" target="_6nMwEGdDEeyAHufroJpG_Q" source="_iLNskMzAEeyFc8NiYDfmaA">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_i0c20MzAEeyFc8NiYDfmaA"/>
+        <condition xmi:type="expression:Expression" xmi:id="_i0c20czAEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_bZ1p8MzBEeyFc8NiYDfmaA" target="_-yedsGdDEeyAHufroJpG_Q" source="_XlZH8MzBEeyFc8NiYDfmaA">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_bZ1p8czBEeyFc8NiYDfmaA"/>
+        <condition xmi:type="expression:Expression" xmi:id="_bZ1p8szBEeyFc8NiYDfmaA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_DmlSoGdUEeyAHufroJpG_Q" name="Becas"/>
       <actors xmi:type="process:Actor" xmi:id="_Ehgp0GdUEeyAHufroJpG_Q" name="Aspirante" initiator="true"/>
@@ -6501,6 +6656,10 @@
               </children>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-nR9ocKFEeyz9euiAvfMAA" x="694" y="88" width="43" height="43"/>
             </children>
+            <children xmi:type="notation:Shape" xmi:id="_iL8FUMzAEeyFc8NiYDfmaA" type="3027" element="_iLNskMzAEeyFc8NiYDfmaA" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
+              <children xmi:type="notation:DecorationNode" xmi:id="_iL9TcMzAEeyFc8NiYDfmaA" type="5017"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iL8FUczAEeyFc8NiYDfmaA" x="189" y="85" width="150" height="75"/>
+            </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_q_5rEmdDEeyAHufroJpG_Q"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_q_5rE2dDEeyAHufroJpG_Q" fontName="Segoe UI"/>
@@ -6515,12 +6674,16 @@
               <children xmi:type="notation:DecorationNode" xmi:id="_-yedv2dDEeyAHufroJpG_Q" type="5005"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-yedvmdDEeyAHufroJpG_Q" x="486" y="35" width="136" height="68"/>
             </children>
+            <children xmi:type="notation:Shape" xmi:id="_XleAcMzBEeyFc8NiYDfmaA" type="3027" element="_XlZH8MzBEeyFc8NiYDfmaA" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
+              <children xmi:type="notation:DecorationNode" xmi:id="_XlengMzBEeyFc8NiYDfmaA" type="5017"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XleAcczBEeyFc8NiYDfmaA" x="200" y="35" width="145" height="72"/>
+            </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_ttnOgWdDEeyAHufroJpG_Q"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_ttnOgmdDEeyAHufroJpG_Q" fontName="Segoe UI"/>
           <styles xmi:type="notation:LineStyle" xmi:id="_ttnOg2dDEeyAHufroJpG_Q"/>
           <styles xmi:type="notation:FillStyle" xmi:id="_ttnOh2dDEeyAHufroJpG_Q"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ttnOhGdDEeyAHufroJpG_Q" x="48" y="1562" width="1374" height="145"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ttnOhGdDEeyAHufroJpG_Q" x="33" y="2238" width="2447" height="176"/>
         </children>
       </children>
       <styles xmi:type="notation:DescriptionStyle" xmi:id="_41GAoWdAEeyAHufroJpG_Q"/>
@@ -7094,21 +7257,20 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hq4cdWdDEeyAHufroJpG_Q" points="[-126, -33, 4, 207]$[-126, -200, 4, 40]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hq5DgGdDEeyAHufroJpG_Q" id="(1.0,0.45)"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_yBrEs2dDEeyAHufroJpG_Q" type="4001" element="_yBrEsGdDEeyAHufroJpG_Q" source="_Beo1E2dcEeyAHufroJpG_Q" target="_6nNXLGdDEeyAHufroJpG_Q" roundedBendpointsRadius="10" routing="Rectilinear">
+    <edges xmi:type="notation:Connector" xmi:id="_yBrEs2dDEeyAHufroJpG_Q" type="4001" element="_yBrEsGdDEeyAHufroJpG_Q" source="_Beo1E2dcEeyAHufroJpG_Q" target="_iL8FUMzAEeyFc8NiYDfmaA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_yBrrwGdDEeyAHufroJpG_Q" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_yBrrwWdDEeyAHufroJpG_Q" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_yBrEtGdDEeyAHufroJpG_Q" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_yBrEtWdDEeyAHufroJpG_Q" points="[22, 0, -25, -1072]$[38, 0, -9, -1072]$[38, 1005, -9, -67]"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CFANUGdjEeyAHufroJpG_Q" id="(0.275,0.9833333333333333)"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_yBrEtWdDEeyAHufroJpG_Q" points="[-9, 12, 207, -1265]$[-9, 108, 207, -1169]$[-83, 108, 133, -1169]$[-83, 336, 133, -941]$[-176, 336, 40, -941]$[-176, 1240, 40, -37]"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_zUJZMGdDEeyAHufroJpG_Q" type="4001" element="_zUIyIGdDEeyAHufroJpG_Q" source="_Beo1E2dcEeyAHufroJpG_Q" target="_-yedvWdDEeyAHufroJpG_Q" roundedBendpointsRadius="10" routing="Rectilinear">
+    <edges xmi:type="notation:Connector" xmi:id="_zUJZMGdDEeyAHufroJpG_Q" type="4001" element="_zUIyIGdDEeyAHufroJpG_Q" source="_Beo1E2dcEeyAHufroJpG_Q" target="_XleAcMzBEeyFc8NiYDfmaA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_zUJZM2dDEeyAHufroJpG_Q" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_zUJZNGdDEeyAHufroJpG_Q" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_zUJZMWdDEeyAHufroJpG_Q" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zUJZMmdDEeyAHufroJpG_Q" points="[-6, 15, -39, -1431]$[-6, 1432, -39, -14]$[6, 1432, -27, -14]"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DCa30GdjEeyAHufroJpG_Q" id="(0.2,0.5833333333333334)"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zUJZMmdDEeyAHufroJpG_Q" points="[0, 22, 164, -1420]$[0, 151, 164, -1291]$[-39, 151, 125, -1291]$[-39, 1344, 125, -98]$[-203, 1344, -39, -98]$[-203, 1407, -39, -35]"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DCa30GdjEeyAHufroJpG_Q" id="(0.8,0.4861111111111111)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_9_XJQ2dEEeyAHufroJpG_Q" type="4001" element="_9_XJQGdEEeyAHufroJpG_Q" source="_4UhGW2dEEeyAHufroJpG_Q" target="_fMXoYLtSEeyVx8UZqxGLuw" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_9_XwUGdEEeyAHufroJpG_Q" type="6001">
@@ -7515,6 +7677,23 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eLruosTuEeybWdnJrU77dA" points="[-64, -26, 146, 593]$[-64, -132, 146, 487]$[-193, -132, 17, 487]$[-193, -567, 17, 52]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eLwAEMTuEeybWdnJrU77dA" id="(1.0,0.4126984126984127)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eLwAEcTuEeybWdnJrU77dA" id="(0.15730337078651685,0.4157303370786517)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_i0f6IMzAEeyFc8NiYDfmaA" type="4001" element="_i0bosMzAEeyFc8NiYDfmaA" source="_iL8FUMzAEeyFc8NiYDfmaA" target="_6nNXLGdDEeyAHufroJpG_Q" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_i0hvUMzAEeyFc8NiYDfmaA" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_i0hvUczAEeyFc8NiYDfmaA" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_i0f6IczAEeyFc8NiYDfmaA" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_i0f6IszAEeyFc8NiYDfmaA" points="[0, 7, -191, 13]$[122, 21, -69, 27]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_i0n18MzAEeyFc8NiYDfmaA" id="(1.0,0.56)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_bZ3fIMzBEeyFc8NiYDfmaA" type="4001" element="_bZ1p8MzBEeyFc8NiYDfmaA" source="_XleAcMzBEeyFc8NiYDfmaA" target="_-yedvWdDEeyAHufroJpG_Q" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_bZ3fI8zBEeyFc8NiYDfmaA" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bZ4GMMzBEeyFc8NiYDfmaA" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_bZ3fIczBEeyFc8NiYDfmaA" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bZ3fIszBEeyFc8NiYDfmaA" points="[0, 3, -160, 0]$[141, 0, -19, -3]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_bZ6icMzBEeyFc8NiYDfmaA" id="(1.0,0.3472222222222222)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_bZ6icczBEeyFc8NiYDfmaA" id="(0.13970588235294118,0.4117647058823529)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>
