@@ -65,7 +65,7 @@
                 </td>
                 <td>
                     <b>{{row.estatussolicitud}}</b><br>
-                    {{row.telefonocelular}}<br>
+                    {{row.aceptado}}<br>
                     <!--<label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>-->
                 </td>
                 <td>
@@ -81,10 +81,10 @@
                     <button class="btn btn-default" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirSolicitud(row)">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </button>
-                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="archivarSolicitud(row)">
+                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalArchivarSolicitud(row)">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </button>
-                    <button class="btn btn-success" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalAvanzarSolicitud(row)">
+                    <button class="btn btn-success" ng-show="row.aceptado == 'Aceptado'" ng-click="abrirModalAvanzarSolicitud(row)">
                         <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -131,6 +131,22 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="avanzarTareaDictamen()">Enviar a Dictamen</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalEnviarArchivo" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mensaje de Confirmación</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea enviar la solicitud a archivar?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="avanzarTareaArchivo()">Enviar a Archivar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

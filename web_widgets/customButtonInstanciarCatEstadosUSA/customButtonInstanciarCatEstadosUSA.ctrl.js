@@ -285,7 +285,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let isValid = true;
 
         for (let i = 0; i < data.length; i++) {
-            if (data[i].clave.toLowerCase() === _value.lstCatEstadosInput[0].clave.toLowerCase()) {
+            if (data[i].clave.toLowerCase() === _value.lstCatEstadosUSAInput[0].clave.toLowerCase()) {
                 isValid = false;
                 break;
             }

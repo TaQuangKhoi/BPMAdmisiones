@@ -147,7 +147,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
     function redireccionarTarea(rowData) {
         
-        if($scope.isTareaPreAutorizacion){
+
+            // ASIGNAR TARA AL USUARIO
             var req = {
                 method: "PUT",
                 url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
@@ -155,9 +156,40 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             };
       
             return $http(req).success(function(data, status) {
-                    var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
-                    window.open(url, '_blank');
                     
+                    if($scope.isTareaPreAutorizacion){
+                        var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                        window.open(url, '_blank');
+                    }else{
+                        
+                        var contrato = {};
+                        var estatus = "";
+            
+                        if($scope.avanzarSolicitud){
+                            
+                            contrato = {
+                                "varRegresarRevisionInput" : false,
+                                "varAdmitidoInput" : true
+                            };
+                            
+                            estatus = "En espera de autorización";
+                            
+                                    
+                        }else{
+                            contrato = {
+                                "varRegresarRevisionInput" : false,
+                                "varAdmitidoInput" : false
+                            };
+                            
+                            estatus = "Solicitud Archivada";
+                        }
+            
+                    var params = getUserParam();
+                    doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato, estatus, $scope.caseIdTarea).then(function() {
+                       console.log("tarea avanzada");
+                    });
+                        
+                    }
                     /*
                     var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
                     url = url.replace("[NOMBREPROCESO]", rowData.processName);
@@ -172,29 +204,15 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 .finally(function() {
       
                 });
-        }else{
-            if($scope.avanzarSolicitud){
-                
-                var contrato = {
-                    "varRegresarRevisionInput" : false,
-                    "varAdmitidoInput" : true
-                };
-                var params = getUserParam();
-                doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato).then(function() {
-                   console.log("tarea avanzada");
-                });
-                        
-            }else{
-                
-            }
-        }
+
+           
     }
     
     function getUserParam() {
       return { 'user': $scope.properties.userId };
    }
     
-    function doRequest2(method, url, params, data) {
+    function doRequest2(method, url, params, data, estatus, caseId) {
     blockUI.start();
     var req = {
       method: method,
@@ -205,8 +223,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     return $http(req)
       .success(function(data, status) {
-          
-        $('#modalEnviarDictamen').modal('hide'); 
+        actualizarEstatus(estatus, caseId);
       })
       .error(function(data, status) {
         console.log(data);
@@ -216,6 +233,28 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         blockUI.stop();
       });
   }
+  
+    $scope.actualizarEstatus = function(estatus, caseId) {
+        blockUI.start();
+        
+        var req = {
+            method: "GET",
+            url: "/API/extension/AnahuacBecasRestGET?url=updateEstatusSolicitud&p=0&c=100&&estatus="+estatus+"&caseId="+ caseId,
+            data: {}
+        };
+  
+        return $http(req).success(function(data, status) {
+                $('#modalEnviarDictamen').modal('hide'); 
+                $('#modalEnviarArchivo').modal('hide'); 
+            })
+            .error(function(data, status) {
+               console.error(data);
+               console.error(status);
+            })
+            .finally(function() {
+                blockUI.stop();
+            });
+    }
     
   
     $scope.isenvelope = false;
@@ -555,7 +594,41 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       
   }
   
+  $scope.abrirModalArchivarSolicitud = function(rowData) {
+      $scope.isTareaPreAutorizacion = false;
+      $scope.avanzarSolicitud = false;
+      $scope.caseIdTarea = rowData.caseid;
+      $('#modalEnviarArchivo').modal('show'); 
+      
+  }
+  
   $scope.avanzarTareaDictamen = function() {
+      
+        var rowData = {
+            caseid: $scope.caseIdTarea
+        };
+      
+         
+         var req = {
+            method: "GET",
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
+        };
+  
+        return $http(req).success(function(data, status) {
+                debugger;
+                rowData.taskId = data[0].id;
+                rowData.taskName = data[0].name;
+                rowData.processId = data[0].processId;
+                $scope.preProcesoAsignarTarea(rowData)
+                
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
+    }
+    
+    $scope.avanzarTareaArchivo = function() {
       
         var rowData = {
             caseid: $scope.caseIdTarea
