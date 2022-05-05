@@ -335,35 +335,32 @@ class CatalogosDAO {
 	public Result insertUpdateCatTipoMoneda(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		
 		def jsonSlurper = new JsonSlurper();
 		def objCatGenerico = jsonSlurper.parseText(jsonData);
-
 		String errorLog = "Entro";
+		
 		try {
 			errorLog+= " 1";
-			 closeCon = validarConexion();
-					 if(objCatGenerico.persistenceId != 0) {
-						 errorLog+= " update";
-						pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATTIPOMONEDA);
-						pstm.setString(1, objCatGenerico.clave);
-						pstm.setString(2, objCatGenerico.descripcion);
-						pstm.setBoolean(3, objCatGenerico.isEliminado);
-						pstm.setString(4, objCatGenerico.usuarioCreacion); 
-						pstm.setLong(5, objCatGenerico.persistenceId);
-						pstm.execute();
-					}else {
-						errorLog+= " insert";
-						pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATTIPOMONEDA);
-						pstm.setString(1, objCatGenerico.clave);
-						pstm.setString(2, objCatGenerico.descripcion);
-						pstm.setString(3, objCatGenerico.usuarioCreacion);
-						pstm.execute();
-					}
-					errorLog+= " salio";
-					con.commit();
-				resultado.setSuccess(true)
-				
+			closeCon = validarConexion();
+				if(objCatGenerico.persistenceId != 0) {
+					 errorLog+= " update";
+					pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATTIPOMONEDA);
+					pstm.setString(1, objCatGenerico.clave);
+					pstm.setString(2, objCatGenerico.descripcion);
+					pstm.setBoolean(3, objCatGenerico.isEliminado);
+					pstm.setString(4, objCatGenerico.usuarioCreacion); 
+					pstm.setLong(5, objCatGenerico.persistenceId);
+					pstm.execute();
+				}else {
+					errorLog+= " insert";
+					pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATTIPOMONEDA);
+					pstm.setString(1, objCatGenerico.clave);
+					pstm.setString(2, objCatGenerico.descripcion);
+					pstm.setString(3, objCatGenerico.usuarioCreacion);
+					pstm.execute();
+				}
+				errorLog+= " salio";
+				resultado.setSuccess(true);
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
@@ -511,7 +508,7 @@ class CatalogosDAO {
 				pstm.setString(3, objeto.objCatGenerico.usuarioCreacion);
 				pstm.execute();
 			}
-			con.commit();
+//			con.commit();
 			resultado.setSuccess(true)
 			//
 		} catch (Exception e) {
