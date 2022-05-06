@@ -1188,9 +1188,14 @@
             <users xmi:type="actormapping:Users" xmi:id="_LUSAb5AgEeyDfcAdH7wEJg"/>
           </actorMapping>
         </actorMappings>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_JZyBwM1ZEeyNkfNtyF0GXA" type="ACTOR_FILTER" definitionId="bonita-actorfilter-single-user" definitionVersion="1.0.0" implementationId="bonita-actorfilter-single-user-impl" implementationVersion="1.0.0"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKroZAgEeyDfcAdH7wEJg" id="CONNECTOR"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKropAgEeyDfcAdH7wEJg" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKro5AgEeyDfcAdH7wEJg" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKro5AgEeyDfcAdH7wEJg" id="ACTOR_FILTER">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_JbKh0M1ZEeyNkfNtyF0GXA" id="bonita-actorfilter-single-user-impl-1.0.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_JbWIAM1ZEeyNkfNtyF0GXA" key="bonita-actorfilter-single-user-impl -- 1.0.0" value="bonita-actorfilter-single-user-1.0.0.jar" type="ACTOR_FILTER"/>
+          </children>
+        </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKrpJAgEeyDfcAdH7wEJg" id="OTHER"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKrpZAgEeyDfcAdH7wEJg" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_LUKrppAgEeyDfcAdH7wEJg" id="OTHER"/>
@@ -6154,10 +6159,10 @@
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSGMgMyfEeyRFMlEo8a1KQ" id="OTHER"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSGMgcyfEeyRFMlEo8a1KQ" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WSGMgsyfEeyRFMlEo8a1KQ" id="OTHER"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_WSUO8MyfEeyRFMlEo8a1KQ" name="urlLogin" typeClassname="java.lang.String" description=""/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AMyfEeyRFMlEo8a1KQ" name="usuario" typeClassname="java.lang.String" description=""/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AcyfEeyRFMlEo8a1KQ" name="password" typeClassname="java.lang.String" description=""/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AsyfEeyRFMlEo8a1KQ" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSUO8MyfEeyRFMlEo8a1KQ" name="urlLogin" value="https://qa.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AMyfEeyRFMlEo8a1KQ" name="usuario" value="Administrador" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AcyfEeyRFMlEo8a1KQ" name="password" value="bpm2022BPM$" typeClassname="java.lang.String" description=""/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AsyfEeyRFMlEo8a1KQ" name="urlEnvioCorreo" value="https://qa.bpm.anahuac.mx/API/extension/AnahuacRest?url=generateHtml&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
       </configurations>
       <configurations xmi:type="configuration:Configuration" xmi:id="_cuBuIMyfEeyRFMlEo8a1KQ" name="Production" version="7.12.0-004" username="Administrador" password="bpm">
         <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_cuCVMMyfEeyRFMlEo8a1KQ">
