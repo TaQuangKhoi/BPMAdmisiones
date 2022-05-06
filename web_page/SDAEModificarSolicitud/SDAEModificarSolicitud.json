@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1651627435413,
+  "lastUpdate" : 1651876231960,
   "rows" : [
     [
       {
@@ -290,7 +290,7 @@
                 "getCatTipoApoyoByCampus" : "getCatTipoApoyoByCampus",
                 "lstCatPorcentajeBeca" : "lstCatPorcentajeBeca",
                 "lstCatPorcentajeFinanciamiento" : "lstCatPorcentajeFinanciamiento",
-                "catCasaDondeVives_query" : "catCasaDondeVives_query",
+                "catCasaDondeVives_query" : "catCasaDondeVives_query.data",
                 "validar1" : "validar1",
                 "validar2" : "validar2",
                 "validar3" : "validar3",
@@ -1140,7 +1140,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.PadresTutor?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "objTutor" : {
@@ -1551,13 +1555,9 @@
     "catCasaDondeVives_query" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.SDAE.catalogos.CatCasaDondeVives?q=find&p=0&c=99"
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATCASADONDEVIVES"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "catPorcentajeBeca_query" : {
@@ -2815,7 +2815,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "selectedFile" : {
