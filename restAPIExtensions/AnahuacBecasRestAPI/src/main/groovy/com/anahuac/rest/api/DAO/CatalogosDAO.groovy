@@ -332,6 +332,49 @@ class CatalogosDAO {
 		return resultado
 	}
 	
+	public Result getCatTienesHijos(String catalogo) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		CatGenerico objCatGenerico = new CatGenerico();
+		List<CatGenerico> lstCatGenerico= new ArrayList<CatGenerico>();
+		
+		try {
+			closeCon = validarConexion();
+			String consulta = StatementsCatalogos.GET_CAT_TIENES_HIJOS;
+			consulta = consulta.replace("[WHERE]", " WHERE isEliminado = false");
+			consulta = consulta.replace("[CATALOGO]", catalogo);
+			consulta = consulta.replace("[ORDERBY]", "");
+			consulta = consulta.replace("[LIMITOFFSET]", "");
+
+			pstm = con.prepareStatement(consulta);
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				objCatGenerico = new CatGenerico();
+				objCatGenerico.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				objCatGenerico.setPersistenceId_string(String.valueOf(objCatGenerico.getPersistenceId()));
+				objCatGenerico.setClave(rs.getString("CLAVE"));
+				objCatGenerico.setDescripcion(rs.getString("DESCRIPCION"));
+				objCatGenerico.setFechaCreacion(rs.getString("FECHACREACION"));
+				objCatGenerico.setIsEliminado(rs.getBoolean("ISELIMINADOBOOL"));
+//				objCatGenerico.setPersistenceVersion(rs.getLong("PERSISTENCEVERSION"));
+				objCatGenerico.setUsuarioCreacion(rs.getString("USUARIOCREACION"));
+				lstCatGenerico.add(objCatGenerico)
+			}
+			resultado.setData(lstCatGenerico)
+			resultado.setSuccess(true)
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[getCatTipoMoneda] " + e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	public Result insertUpdateCatTipoMoneda(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -342,36 +385,36 @@ class CatalogosDAO {
 		try {
 			errorLog+= " 1";
 			closeCon = validarConexion();
-				if(objCatGenerico.persistenceId != 0) {
-					 errorLog+= " update";
-					pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATTIPOMONEDA);
-					pstm.setString(1, objCatGenerico.clave);
-					pstm.setString(2, objCatGenerico.descripcion);
-					pstm.setBoolean(3, objCatGenerico.isEliminado);
-					pstm.setString(4, objCatGenerico.usuarioCreacion); 
-					pstm.setLong(5, objCatGenerico.persistenceId);
-					pstm.execute();
-				}else {
-					errorLog+= " insert";
-					pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATTIPOMONEDA);
-					pstm.setString(1, objCatGenerico.clave);
-					pstm.setString(2, objCatGenerico.descripcion);
-					pstm.setString(3, objCatGenerico.usuarioCreacion);
-					pstm.execute();
-				}
-				errorLog+= " salio";
-				resultado.setSuccess(true);
-			} catch (Exception e) {
-				LOGGER.error "[ERROR] " + e.getMessage();
-				resultado.setSuccess(false);
-				resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
-				
-			} finally {
-				if(closeCon) {
-					new DBConnect().closeObj(con, stm, rs, pstm)
-				}
+			if(objCatGenerico.persistenceId != 0) {
+				 errorLog+= " update";
+				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATTIPOMONEDA);
+				pstm.setString(1, objCatGenerico.clave);
+				pstm.setString(2, objCatGenerico.descripcion);
+				pstm.setBoolean(3, objCatGenerico.isEliminado);
+				pstm.setString(4, objCatGenerico.usuarioCreacion); 
+				pstm.setLong(5, objCatGenerico.persistenceId);
+				pstm.execute();
+			}else {
+				errorLog+= " insert";
+				pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATTIPOMONEDA);
+				pstm.setString(1, objCatGenerico.clave);
+				pstm.setString(2, objCatGenerico.descripcion);
+				pstm.setString(3, objCatGenerico.usuarioCreacion);
+				pstm.execute();
 			}
-			return resultado;
+			errorLog+= " salio";
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
+			
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
 	}
 
 	public Result insertManejoDocumento(String jsonData, RestAPIContext context) {
@@ -708,7 +751,7 @@ class CatalogosDAO {
 			CatTypoApoyo row = new CatTypoApoyo();
 			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
 			closeCon = validarConexion();
-			where += " WHERE ta.ISELIMINADO   = false AND cc.GRUPOBONITA = '" + campus + "' ";
+			where += " WHERE ta.ISELIMINADO  = false AND cc.GRUPOBONITA = '" + campus + "' ";
 
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
