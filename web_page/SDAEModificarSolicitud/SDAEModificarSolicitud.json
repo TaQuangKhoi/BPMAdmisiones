@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1651876231960,
+  "lastUpdate" : 1651885130723,
   "rows" : [
     [
       {
@@ -316,7 +316,9 @@
                 "fotoB64" : "fotoB64",
                 "userDataEmail" : "userDataEmail",
                 "selectedFile" : "selectedFile",
-                "getAutodescripcion" : "getAutodescripcion"
+                "getAutodescripcion" : "getAutodescripcion",
+                "objPadresTutor" : "",
+                "returnCurriculumInfo" : "returnCurriculumInfo"
               }
             }
           ],
@@ -2826,6 +2828,29 @@
       "type" : "json",
       "value" : [
         "{ \"linkSource\": \"\", \"fileName\": \"\", \"extension\": \"\" }"
+      ],
+      "exposed" : false
+    },
+    "returnCurriculumInfo" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {",
+        "    \"documentName\":\"\",",
+        "    \"documentDescription\":\"\"",
+        "};",
+        "if($data.returnCatValue.catTipoApoyo.isArtistica){",
+        "    output = {",
+        "        \"documentName\":\"Curriculum Artistico\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "} else if ($data.returnCatValue.catTipoApoyo.isDeportiva){",
+        "    output = {",
+        "        \"documentName\":\"Curriculum deportivo\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

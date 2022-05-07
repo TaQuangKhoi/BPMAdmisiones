@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1651867064346,
+  "lastUpdate" : 1651885018859,
   "rows" : [
     [
       {
@@ -14470,6 +14470,330 @@
                 },
                 "hidden" : {
                   "type" : "expression",
+                  "value" : "!returnCatValue.catTipoApoyo.isArtistica  && !returnCatValue.catTipoApoyo.isDeportiva"
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "28b0c7d3-6692-41f2-a2e8-86a59c23647e",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<hr>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "cb220b29-5b4c-4de7-b1d0-be7fec62d0cd",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<b>{{returnCurriculumInfo.documentName}}</b>"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "bd393a58-b0c7-43be-9003-0ef0930fc316",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : ""
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "f3d9562d-0371-4b48-a7e4-44014a40be28",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "url" : {
+                        "type" : "constant",
+                        "value" : "../API/formFileUpload"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "urlretorno" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "documentName" : {
+                        "type" : "expression",
+                        "value" : "returnCurriculumInfo.documentName"
+                      },
+                      "documentDescription" : {
+                        "type" : "expression",
+                        "value" : "returnCurriculumInfo.documentDescription"
+                      },
+                      "documentoInfo" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "isObligatorio" : {
+                        "type" : "expression",
+                        "value" : "true"
+                      },
+                      "urlAzure" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.urlCurriculum"
+                      },
+                      "urlDownloadFile" : {
+                        "type" : "constant",
+                        "value" : "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
+                      },
+                      "isMostrar" : {
+                        "type" : "expression",
+                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                      },
+                      "idDocumento" : {
+                        "type" : "constant"
+                      },
+                      "editar" : {
+                        "type" : "expression",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
+                      },
+                      "idModal" : {
+                        "type" : "constant",
+                        "value" : "modalDocumentoPV"
+                      },
+                      "selectedFile" : {
+                        "type" : "variable",
+                        "value" : "selectedFile"
+                      },
+                      "tipoDocumento" : {
+                        "type" : "constant",
+                        "value" : "pdf"
+                      }
+                    },
+                    "reference" : "6a038861-3281-4112-bf4b-0553d9d99501",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEUploadCustomAzure"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : ""
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "ced99523-f7da-4944-913b-ad87a80d1276",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
                   "value" : "!returnCatValue.catTipoApoyo.requiereVideo"
                 },
                 "repeatedCollection" : {
@@ -15095,6 +15419,13 @@
       "exposed" : true
     },
     "objPadresTutor" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "returnCurriculumInfo" : {
       "type" : "constant",
       "value" : [
         ""

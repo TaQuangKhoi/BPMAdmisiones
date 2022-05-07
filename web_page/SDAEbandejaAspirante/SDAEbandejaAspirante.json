@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1651876683798,
+  "lastUpdate" : 1651885163903,
   "rows" : [
     [
       {
@@ -1089,7 +1089,8 @@
                         "userDataEmail" : "userDataEmail",
                         "selectedFile" : "selectedFile",
                         "getAutodescripcion" : "getAutodescripcion",
-                        "objPadresTutor" : "objPadresTutor"
+                        "objPadresTutor" : "objPadresTutor",
+                        "returnCurriculumInfo" : "returnCurriculumInfo"
                       }
                     }
                   ]
@@ -1707,6 +1708,29 @@
         "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail.userName}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "returnCurriculumInfo" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {",
+        "    \"documentName\":\"\",",
+        "    \"documentDescription\":\"\"",
+        "};",
+        "if($data.returnCatValue.catTipoApoyo.isArtistica){",
+        "    output = {",
+        "        \"documentName\":\"Curriculum Artistico\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "} else if ($data.returnCatValue.catTipoApoyo.isDeportiva){",
+        "    output = {",
+        "        \"documentName\":\"Curriculum deportivo\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
       "exposed" : false
     }
   },
