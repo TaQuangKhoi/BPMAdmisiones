@@ -68,6 +68,10 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.solicitudApoyoEducativo = [];
                 $scope.properties.solicitudApoyoEducativo = data;
+                
+                if($scope.properties.isSolicitud){
+                    $scope.properties.selectedIndex = data.pageIndex; 
+                }
                 let links = $scope.properties.solicitudApoyoEducativo.links;
 
                 for (let link of links) {

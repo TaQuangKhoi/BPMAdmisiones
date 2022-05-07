@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1651878074402,
+  "lastUpdate" : 1651883178060,
   "rows" : [
     [
       {
@@ -93,6 +93,14 @@
           "lstImagenesByTipoApoyo" : {
             "type" : "variable",
             "value" : "imagenesSocioEconomico.data"
+          },
+          "selectedIndex" : {
+            "type" : "variable",
+            "value" : "selectedIndex"
+          },
+          "isSolicitud" : {
+            "type" : "constant",
+            "value" : true
           }
         },
         "reference" : "8e36a0e2-2288-48b4-afc9-b660a6a3c9dd",
@@ -16309,13 +16317,42 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
+                      "text" : {
                         "type" : "interpolation",
                         "value" : "Descargar reglamento"
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "URL"
+                      },
+                      "targetUrl" : {
+                        "type" : "expression",
+                        "value" : "getConfiguracionCampus.data[0].urlReglamento"
+                      },
+                      "pageToken" : {
+                        "type" : "constant"
+                      },
+                      "processName" : {
+                        "type" : "constant"
+                      },
+                      "processVersion" : {
+                        "type" : "constant"
+                      },
+                      "taskId" : {
+                        "type" : "constant"
+                      },
+                      "caseId" : {
+                        "type" : "constant"
+                      },
+                      "target" : {
+                        "type" : "constant",
+                        "value" : "_blank"
+                      },
+                      "appToken" : {
+                        "type" : "constant"
+                      },
+                      "urlParams" : {
+                        "type" : "constant"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -16324,61 +16361,11 @@
                       "buttonStyle" : {
                         "type" : "constant",
                         "value" : "link"
-                      },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "Submit task"
-                      },
-                      "assign" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "url" : {
-                        "type" : "interpolation"
-                      },
-                      "responseStatusCode" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "dataToSend" : {
-                        "type" : "constant"
-                      },
-                      "dataFromSuccess" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "closeOnSuccess" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "dataFromError" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
-                      },
-                      "collectionToModify" : {
-                        "type" : "variable"
-                      },
-                      "modalId" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "collectionPosition" : {
-                        "type" : "constant",
-                        "value" : "Last"
-                      },
-                      "valueToAdd" : {
-                        "type" : "constant"
-                      },
-                      "removeItem" : {
-                        "type" : "variable"
                       }
                     },
-                    "reference" : "17173cca-54f8-46a8-bfcd-a06cf2cadc35",
+                    "reference" : "26bef090-cd1b-47aa-85d5-05c02d02fe8c",
                     "hasValidationError" : false,
-                    "id" : "pbButton"
+                    "id" : "pbLink"
                   }
                 ],
                 [
@@ -18307,6 +18294,10 @@
         "    output = false;\r",
         "    $data.errorPaso5 = \"Debes subir todos  los documentos  marcados como obligatorios\";\r",
         "    $data.tituloErrorPaso5 = \"Video e habilidades\";\r",
+        "} else if (($data.returnCatValue.catTipoApoyo.isArtistica || $data.returnCatValue.catTipoApoyo.isDeportiva) && !$data.formOutputTest.solicitudApoyoEducativoInput.urlCurriculum){\r",
+        "    output = false;\r",
+        "    $data.errorPaso5 = \"Debes subir el curriculum para completar la solicitud.\";\r",
+        "    $data.tituloErrorPaso5 = $data.returnCurriculumInfo.documentName;\r",
         "}\r",
         "\r",
         "return output;\r",
@@ -18775,6 +18766,18 @@
         "",
         "return output;"
       ],
+      "exposed" : false
+    },
+    "getConfiguracionCampus" : {
+      "type" : "url",
+      "value" : [
+        "/API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     }
   },
