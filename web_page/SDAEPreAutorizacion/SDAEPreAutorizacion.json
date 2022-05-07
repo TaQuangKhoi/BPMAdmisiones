@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1651880724754,
+  "lastUpdate" : 1651881526372,
   "rows" : [
     [
       {
@@ -1120,7 +1120,7 @@
                         },
                         "readOnly" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -1143,7 +1143,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "getInformacionPersonal[0].semestreIngreso"
                         },
                         "type" : {
                           "type" : "constant",
@@ -3823,7 +3823,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{getSolicitudApoyoEducativo[0].correoelectronico}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "getInformacionEscolar" : {
@@ -3831,7 +3835,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getInfrmacionEscolar&p=0&c=100&email={{getSolicitudApoyoEducativo[0].correoelectronico}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "getInformacionPadres" : {
