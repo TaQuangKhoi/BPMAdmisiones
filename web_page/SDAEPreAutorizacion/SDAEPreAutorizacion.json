@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1651881526372,
+  "lastUpdate" : 1651885302491,
   "rows" : [
     [
       {
@@ -230,7 +230,8 @@
           "modificarInfoFamiliar" : "formInput.solicitudApoyoEducativoInput.modificarInfoFamiliar",
           "modificarMotivoSolicitud" : "formInput.solicitudApoyoEducativoInput.modificarMotivoSol",
           "modificarInfoSocioEco" : "formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco",
-          "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos"
+          "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
+          "returnCurriculumInfo" : "returnCurriculumInfo"
         }
       }
     ],
@@ -4375,6 +4376,29 @@
       "type" : "constant",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
+      ],
+      "exposed" : false
+    },
+    "returnCurriculumInfo" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {",
+        "    \"documentName\":\"\",",
+        "    \"documentDescription\":\"\"",
+        "};",
+        "if($data.returnCatValue.catTipoApoyo.isArtistica){",
+        "    output = {",
+        "        \"documentName\":\"Curriculum Artistico\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "} else if ($data.returnCatValue.catTipoApoyo.isDeportiva){",
+        "    output = {",
+        "        \"documentName\":\"Curriculum deportivo\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }
