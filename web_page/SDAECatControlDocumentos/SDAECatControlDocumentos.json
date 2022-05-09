@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1651531783532,
+  "lastUpdate" : 1652117449037,
   "rows" : [
     [
       {
@@ -108,7 +108,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "no-show"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -179,6 +179,83 @@
                   "value" : ""
                 },
                 "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campus"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "campusString"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "db5dc2a8-de4c-4acf-b65a-f2ae4a3d950e",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "no-show"
+                },
+                "hidden" : {
                   "type" : "expression",
                   "value" : "!lstFiltros[0].valor"
                 },
@@ -230,6 +307,83 @@
               "reference" : "118855e1-39d9-4544-a841-8301733d300f",
               "hasValidationError" : false,
               "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Tipo de apoyo"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "tipoApoyoSeleccionado.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "acfb9029-ba98-49ec-b9c5-619356695526",
+              "hasValidationError" : false,
+              "id" : "pbInput"
             }
           ],
           [
@@ -2765,6 +2919,7 @@
         "",
         "for(let i = 0; i < $data.lstCatCampus.length; i++){",
         "    if($data.lstCatCampus[i].grupoBonita === compare){",
+        "        $data.campusString = $data.lstCatCampus[i].descripcion;",
         "        output = $data.lstCatCampus[i].persistenceId; ",
         "    }",
         "}",
@@ -2893,6 +3048,31 @@
         "\t}  \r",
         "}\r"
       ],
+      "exposed" : false
+    },
+    "returnCatValue" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {",
+        "    \"catCampus\":null,",
+        "    \"catTipoApoyo\": null",
+        "}",
+        "",
+        "if($data.w){",
+        "    for(let cat of $data.lstCatTienesHermanos.data){",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "            output[\"catTienesHermanos\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "campusString" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

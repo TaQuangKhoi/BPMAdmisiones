@@ -3,7 +3,7 @@ function ($scope, $http) {
     function doRequest(){
         let url = "../API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus=" + $scope.properties.idCampus
         $http.get(url).success((success)=>{
-            if(success.data){
+            if(success.data[0]){
                 $scope.properties.objConfiguracionSDAE = success.data[0];
             } else {
                 $scope.properties.objConfiguracionSDAE = {
