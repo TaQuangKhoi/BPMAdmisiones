@@ -28,4 +28,6 @@ class Statements {
 	public static final String DELETE_COMENTARIO_SDAE = "UPDATE INTO BitacoraComentariosSDAE ISELIMINADO = true WHERE CASEID = ?";
 	
 	public static final String UPDATE_ESTATUS_SDAE = "UPDATE SolicitudApoyoEducativo SET estatusSolicitud = ? WHERE caseId = ?";
+	
+	public static final String GET_URL_CURRICULUM_BY_CASE_ID = "SELECT urlCurriculum FROM SolicitudApoyoEducativo WHERE caseId = ?";
 }
