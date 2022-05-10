@@ -1487,7 +1487,7 @@ class BannerDAO {
 						
 						//Entraba 2 veces una null y la otra con datos
 						if(objRow.getPais() != null) {
-								if (objRow.getPais().equals("México")) {
+								if (objRow.getPais().equals("México") && objLstAddresses.getPais().equals("México") ) {
 									
 									errorLog = errorLog + " | entra al IF objRow.getPais().equals(México):" + objRow.getPais();
 									
@@ -1559,9 +1559,9 @@ class BannerDAO {
 							contracto = new HashMap < String, Serializable > ();
 							Boolean isEliminadoRegla = false;
 							if(objLstAddresses.getStreetLine1() == null || objLstAddresses.getStreetLine1().equals("null") || objLstAddresses.getStreetLine3() == null || objLstAddresses.getStreetLine3().equals("null")  
-							|| (objRow.getPais().equals("México") && !isMexicoOk && !isMatchOk) 
-							|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk) 
-							|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+							|| (objLstAddresses.getPais().equals("México")&& !isMexicoOk && !isMatchOk) 
+							|| (objLstAddresses.getPais().equals("Estados Unidos de América") && !isUsaOk) 
+							|| (!objLstAddresses.getPais().equals("México") && !objLstAddresses.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla:"+(isEliminadoRegla) 
 							}else if(objRow.getPais().equals("México") && objLstAddresses.getCiudad().contains(",")){
