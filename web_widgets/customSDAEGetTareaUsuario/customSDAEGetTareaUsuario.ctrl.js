@@ -22,11 +22,6 @@ function ($scope, $http) {
                 getModelDocumentos("../" + data.documentosSolicitante_ref.link);
                 getModelImagenesSocioEco("../" + data.imagenesSocEcoSolicitante_ref.link);
 
-                // $scope.properties.fotoCalleCasa = addDataToDocuments(data.fotoCalleCasa_ref);
-                // $scope.properties.fotoComedorCasa = addDataToDocuments(data.fotoComedorCasa_ref);
-                // $scope.properties.fotoFachadaCasa = addDataToDocuments(data.fotoFachadaCasa_ref);
-                // $scope.properties.fotoSalaCasa = addDataToDocuments(data.fotoSalaCasa_ref);
-
                 $scope.properties.lstDocumentos = [];
                 $scope.properties.autos = [];
                 let lstDoc = [];
@@ -70,7 +65,9 @@ function ($scope, $http) {
                 $scope.properties.solicitudApoyoEducativo = data;
                 
                 if($scope.properties.isSolicitud){
-                    $scope.properties.selectedIndex = data.pageIndex; 
+                    if(data.pageIndex > 1){
+                        $scope.properties.selectedIndex = data.pageIndex; 
+                    }
                 }
                 let links = $scope.properties.solicitudApoyoEducativo.links;
 
