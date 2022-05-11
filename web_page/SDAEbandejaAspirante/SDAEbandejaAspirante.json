@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1652119326942,
+  "lastUpdate" : 1652144294056,
   "rows" : [
     [
       {
@@ -236,7 +236,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "buildContent"
+                  "value" : "buildContent.length > 0"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -413,7 +413,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!assignedTask.length"
+                        "value" : "assignedTask.length > 0"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -542,7 +542,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Estimado aspirante"
+                          "value" : "Estimado(a) {{ objSolicitudDeAdmision[0].primerNombre + (objSolicitudDeAdmision[0].segundoNombre ? \" \" + objSolicitudDeAdmision[0].segundoNombre : \"\" ) +  \" \" +objSolicitudDeAdmision[0].apellidoPaterno + (objSolicitudDeAdmision[0].apellidoMaterno ? \" \" + objSolicitudDeAdmision[0].apellidoMaterno : \"\" ) }}"
                         },
                         "level" : {
                           "type" : "constant",
@@ -598,7 +598,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "La siguiente solicitud será creada para solicitar apoyo para ingresar al período:\n<br>\n\n\"{{userData.periodo}}\"\n\n<br>\n\nAntes de iniciar, favor de indicar el tipo de moneda a utilizar durante el formulario de la solicitud."
+                          "value" : "La siguiente solicitud será creada para solicitar apoyo para ingresar al periodo <b>{{objSolicitudDeAdmision[0].catPeriodo.descripcion}}</b>, antes de iniciar, favor de indicar el tipo de moneda a utilizar durante el formulario de la solicitud."
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -662,7 +662,7 @@
                         },
                         "displayedKey" : {
                           "type" : "constant",
-                          "value" : "descripcion"
+                          "value" : "descripcion + '(' + clave + ')'"
                         },
                         "returnedKey" : {
                           "type" : "constant",
@@ -736,8 +736,96 @@
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Cerrar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "info"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Close modal"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "constant"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "9bb2f333-1b53-4290-9942-1ceec6d8e3c0",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    },
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -758,7 +846,7 @@
                         },
                         "alignment" : {
                           "type" : "constant",
-                          "value" : "center"
+                          "value" : "right"
                         },
                         "buttonStyle" : {
                           "type" : "constant",
