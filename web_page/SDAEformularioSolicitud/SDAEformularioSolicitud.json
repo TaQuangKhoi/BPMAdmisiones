@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1652211962009,
+  "lastUpdate" : 1652305714265,
   "rows" : [
     [
       {
@@ -3840,11 +3840,11 @@
                                         },
                                         "minLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 0
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 2
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -3878,19 +3878,25 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 1
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 10
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
+                                        },
+                                        "preparatoriaSeleccionada" : {
+                                          "type" : "variable",
+                                          "value" : "objSolicitudDeAdmision[0].catBachilleratos.pais"
                                         }
                                       },
-                                      "reference" : "9a155c88-9144-46cf-be6e-47fa9ac16d1d",
+                                      "reference" : "328fc43e-12c4-4c2b-9cee-267499c617f7",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customSDAEInputNumericoSolicitudPromedio"
                                     }
                                   ]
                                 ]
@@ -5844,12 +5850,12 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "(!madre.vive && !padre.vive)"
                       },
                       "disabled" : {
                         "type" : "expression",
-                        "value" : "vista || (!madre.vive && !padre.vive)"
+                        "value" : "vista"
                       },
                       "required" : {
                         "type" : "constant",
@@ -17633,7 +17639,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.PadresTutor?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "objTutor" : {
@@ -17657,15 +17667,15 @@
         "[\r",
         " {\r",
         "    \"persistenceId\": \"1\",\r",
-        "    \"descripcion\": \"Excelente\"\r",
+        "    \"descripcion\": \"Propio\"\r",
         " },\r",
         " {\r",
         "    \"persistenceId\": \"2\",\r",
-        "    \"descripcion\": \"Bueno\"\r",
+        "    \"descripcion\": \"Rentado\"\r",
         " },\r",
         " {\r",
         "    \"persistenceId\": \"3\",\r",
-        "    \"descripcion\": \"Malo\"\r",
+        "    \"descripcion\": \"Prestado\"\r",
         " }\r",
         "]\r"
       ],
