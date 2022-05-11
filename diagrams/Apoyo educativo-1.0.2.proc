@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
-  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.1" author="Dell" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.1">
+  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.2" author="Dell" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.2">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -1229,7 +1229,7 @@
         <value xmi:type="expression:Expression" xmi:id="_PpGy22c7EeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.1">
+    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.2">
       <elements xmi:type="process:Lane" xmi:id="_EmGwkGdBEeyAHufroJpG_Q" name="Aspirante" actor="_Frl3UGdUEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_HtHk0GdBEeyAHufroJpG_Q" name="Solicitud de beca aspirante" outgoing="_KMB3QGdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HtHk0mdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -2414,6 +2414,17 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_d9KjINFzEeyhG6GgIeE5bg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_d9KjIdFzEeyhG6GgIeE5bg" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_e5khANFzEeyhG6GgIeE5bg" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_d9KjItFzEeyhG6GgIeE5bg" name="solicitudApoyoEducativoInput.catEstadoCivilPadres_id" content="solicitudApoyoEducativoInput?.catEstadoCivilPadres_id?.trim() ? solicitudApoyoEducativoInput.catEstadoCivilPadres_id.toLong() : null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_jbDvMNFzEeyhG6GgIeE5bg" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_d9KjI9FzEeyhG6GgIeE5bg" type="JAVA_METHOD" expression="setCatEstadoCivilPadres_id">
+              <inputTypes>java.lang.Long</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_BmyN1GdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_BmyN1WdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_BmyN1mdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2491,6 +2502,9 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_41lhl6YhEeydlpW9zcd1oA" name="catSexTutor_id" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_rPM1gM2EEeyIe9sSqxMq6Q" name="urlCurriculum">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_rPM1gc2EEeyIe9sSqxMq6Q"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_lnzTkNFzEeyhG6GgIeE5bg" name="catEstadoCivilPadres_id">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_lnzTkdFzEeyhG6GgIeE5bg"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_7r1VwKYhEeydlpW9zcd1oA" name="hermanosInput" type="COMPLEX" multiple="true" dataReference="hermanos" createMode="false">
@@ -3545,6 +3559,17 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_47SL4NFyEeyhG6GgIeE5bg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_47Sy8NFyEeyhG6GgIeE5bg" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_6mTjQNFyEeyhG6GgIeE5bg" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_47TaANFyEeyhG6GgIeE5bg" name="solicitudApoyoEducativoInput.catEstadoCivilPadres_id" content="solicitudApoyoEducativoInput?.catEstadoCivilPadres_id?.trim() ? solicitudApoyoEducativoInput.catEstadoCivilPadres_id.toLong() : null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_F3Y18NFzEeyhG6GgIeE5bg" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_47TaAdFyEeyhG6GgIeE5bg" type="JAVA_METHOD" expression="setCatEstadoCivilPadres_id">
+              <inputTypes>java.lang.Long</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_2cszoX0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_2cszon0-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_2cszo30-EeyzGaQRlIj8SQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -3687,6 +3712,9 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_pwlicM2EEeyIe9sSqxMq6Q" name="urlCurriculum">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_pwlicc2EEeyIe9sSqxMq6Q"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_pNkgYNFzEeyhG6GgIeE5bg" name="catEstadoCivilPadres_id">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_pNkgYdFzEeyhG6GgIeE5bg"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_km1h0JvpEeyc0ZUA4l06NA" name="hermanosInput" type="COMPLEX" multiple="true" dataReference="hermanos" createMode="false">
