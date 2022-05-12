@@ -246,6 +246,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req).success(function(data, status) {
                 $('#modalEnviarDictamen').modal('hide'); 
                 $('#modalEnviarArchivo').modal('hide'); 
+                window.location.reload();
             })
             .error(function(data, status) {
                console.error(data);
