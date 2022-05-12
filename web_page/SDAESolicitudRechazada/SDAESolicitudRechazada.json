@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudRechazada",
   "name" : "SDAESolicitudRechazada",
-  "lastUpdate" : 1648075211051,
+  "lastUpdate" : 1652314551442,
   "rows" : [
     [
       {
@@ -750,7 +750,8 @@
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "formInputReactivar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -1116,6 +1117,15 @@
         "../{{context.preAutorizacion_ref.link}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "formInputReactivar" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "  \"varReactivadainput\" : false",
+        "}"
+      ],
       "exposed" : false
     }
   },
