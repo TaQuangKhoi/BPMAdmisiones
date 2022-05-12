@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1650302550879,
+  "lastUpdate" : 1652393140123,
   "rows" : [
     [
       {
@@ -278,9 +278,9 @@
                   "value" : false
                 }
               },
-              "reference" : "b4f45bd6-e5f9-482a-a7e7-62971c7af7a6",
+              "reference" : "11ced710-c8a5-4f37-a9e0-63644f1ea71e",
               "hasValidationError" : false,
-              "id" : "SDAEFrgSolicitudApoyoAcademico",
+              "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
               "binding" : {
                 "objSolicitudDeAdmision" : "objSolicitudDeAdmision",
                 "rutaFotoUsuario" : "rutaFotoUsuario",
@@ -292,7 +292,7 @@
                 "padre" : "padre",
                 "madre" : "madre",
                 "imagenesSocioEconomico" : "imagenesSocioEconomico",
-                "getDocumentosByTipoApoyo" : "getdo",
+                "getDocumentosByTipoApoyo" : "getDocumentosByTipoApoyo",
                 "returnCatValue" : "returnCatValue",
                 "wizardContent" : "wizardContent",
                 "selectedIndex" : "selectedIndex",
@@ -326,9 +326,11 @@
                 "reload" : "reload",
                 "caseId" : "caseId",
                 "reloadTask" : "reloadTask",
-                "isModificar" : "",
+                "isModificar" : "false",
                 "constancia" : "",
-                "fotoB64" : ""
+                "fotoB64" : "fotoB64",
+                "selectedFile" : "selectedFile",
+                "userDataEmail" : ""
               }
             }
           ],
@@ -9221,6 +9223,21 @@
         "objeto.apellidoMaterno ? output += objeto.apellidoMaterno + \" \" : output += \" \";",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "fotoB64" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{usuario[0].urlFoto}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "selectedFile" : {
+      "type" : "json",
+      "value" : [
+        "{}"
       ],
       "exposed" : false
     }
