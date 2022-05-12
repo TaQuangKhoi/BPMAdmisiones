@@ -1,6 +1,7 @@
 function ($scope, $http) {
 
     function getCurrentTaskId() {
+        debugger;
         $http.get($scope.properties.url).success((data) => {
             if (data.length) {
                 $scope.properties.taskId = data[0].id;
@@ -13,6 +14,7 @@ function ($scope, $http) {
     }
 
     function getCurrentContext() {
+        debugger;
         $http.get($scope.properties.urlContext).success((data) => {
             if (data.solicitudApoyoEducativo_ref) {
                 getModelSolicitudApoyoEducativo("../" + data.solicitudApoyoEducativo_ref.link);
