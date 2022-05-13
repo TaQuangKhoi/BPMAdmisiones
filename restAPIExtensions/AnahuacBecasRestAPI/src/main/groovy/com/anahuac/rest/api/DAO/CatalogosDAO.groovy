@@ -439,7 +439,8 @@ class CatalogosDAO {
 				pstm.setString(4, objCatGenerico.nombreDocumento);
 				pstm.setString(5, objCatGenerico.urlDocumentoAzure);
 				pstm.setString(6, objCatGenerico.descripcionDocumento);
-				pstm.setLong(7, objCatGenerico.persistenceId);
+				pstm.setBoolean(7, objCatGenerico.requiereEjemplo);
+				pstm.setLong(8, objCatGenerico.persistenceId);
 				pstm.execute();
 			}else {
 				errorLog+= " insert";
@@ -451,6 +452,7 @@ class CatalogosDAO {
 				pstm.setString(5, objCatGenerico.descripcionDocumento);
 				pstm.setString(6, objCatGenerico.urlDocumentoAzure);
 				pstm.setString(7, objCatGenerico.usuarioCreacion);
+				pstm.setBoolean(8, Boolean.valueOf(objCatGenerico.requiereEjemplo) ? true : false);
 				pstm.execute();
 			}
 			errorLog+= " salio";
