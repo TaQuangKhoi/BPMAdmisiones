@@ -8,15 +8,15 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     $log.error('the pbInput property named "value" need to be bound to a variable');
   }
   
-  var currencyMask = IMask(document.getElementById('currency-mask'),
-  {
-    mask: '$num',
-    blocks: {
-      num: {
-        // nested masks are available!
-        mask: Number,
-        thousandsSeparator: ' '
-      }
-    }
-  });
+//   var currencyMask = IMask(document.getElementById('currency-mask'),
+//   {
+//     mask: '$num',
+//     blocks: {
+//       num: {
+//         // nested masks are available!
+//         mask: Number,
+//         thousandsSeparator: ' '
+//       }
+//     }
+//   });
 }

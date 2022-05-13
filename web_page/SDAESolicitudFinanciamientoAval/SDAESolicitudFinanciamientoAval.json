@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1649895905059,
+  "lastUpdate" : 1652393224323,
   "rows" : [
     [
       {
@@ -278,12 +278,12 @@
                   "value" : false
                 }
               },
-              "reference" : "a3666bac-d732-4b90-811e-abf1270dcf43",
+              "reference" : "558c78c1-b5ae-449f-b2ba-2d9981de82b2",
               "hasValidationError" : false,
-              "id" : "SDAEFrgSolicitudApoyoAcademico",
+              "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
               "binding" : {
                 "objSolicitudDeAdmision" : "objSolicitudDeAdmision",
-                "rutaFotoUsuario" : "rutaFotoUsuario",
+                "rutaFotoUsuario" : "\"\"",
                 "getTipoAdmision" : "getTipoAdmision",
                 "formOutputTest" : "formOutputTest",
                 "getInformacionEscolar" : "getInformacionEscolar",
@@ -292,7 +292,7 @@
                 "padre" : "padre",
                 "madre" : "madre",
                 "imagenesSocioEconomico" : "imagenesSocioEconomico",
-                "getDocumentosByTipoApoyo" : "getdo",
+                "getDocumentosByTipoApoyo" : "getDocumentosByTipoApoyo",
                 "returnCatValue" : "returnCatValue",
                 "wizardContent" : "wizardContent",
                 "selectedIndex" : "selectedIndex",
@@ -323,9 +323,17 @@
                 "errorPaso5" : "\"\"",
                 "urlDownloadFileAzure" : "urlDownloadFileAzure",
                 "taskid" : "taskId",
-                "reload" : "reload",
+                "reload" : "reloadTask",
                 "caseId" : "caseId",
-                "reloadTask" : "reloadTask"
+                "reloadTask" : "reloadTask",
+                "isModificar" : "ffalse",
+                "fotoB64" : "fotoB64",
+                "selectedFile" : "selectedFile",
+                "constancia" : "",
+                "userDataEmail" : "",
+                "getAutodescripcion" : "",
+                "objPadresTutor" : "",
+                "returnCurriculumInfo" : ""
               }
             }
           ],
@@ -6915,6 +6923,25 @@
     },
     "titleMessageReferenciasCredito" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "fotoB64" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{usuario[0].urlFoto}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "selectedFile" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
       "exposed" : false
     }
   },
