@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1652117449037,
+  "lastUpdate" : 1652465054524,
   "rows" : [
     [
       {
@@ -1776,6 +1776,46 @@
                           "type" : "constant",
                           "value" : false
                         },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "¿Requiere ejemplo?"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "nuevoDocumento.requiereEjemplo"
+                        }
+                      },
+                      "reference" : "ffcfdf64-798c-4de8-83c9-ca9f9a62b8b4",
+                      "hasValidationError" : false,
+                      "id" : "pbCheckbox"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "!nuevoDocumento.requiereEjemplo"
+                        },
                         "required" : {
                           "type" : "constant",
                           "value" : false
@@ -1786,7 +1826,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Documento adjunto"
+                          "value" : "Default label"
                         },
                         "labelPosition" : {
                           "type" : "constant",
@@ -1807,14 +1847,61 @@
                           "type" : "variable",
                           "value" : ""
                         },
-                        "errorContent" : {
+                        "urlretorno" : {
                           "type" : "variable",
                           "value" : ""
+                        },
+                        "documentName" : {
+                          "type" : "constant",
+                          "value" : "Plantilla de documento"
+                        },
+                        "documentDescription" : {
+                          "type" : "constant",
+                          "value" : "Plantilla para la subida de este documento, el aspirante tenrá que descargarlo y escanearlo o subir una foto con el documento lleno"
+                        },
+                        "documentoInfo" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "isObligatorio" : {
+                          "type" : "expression",
+                          "value" : "false"
+                        },
+                        "urlAzure" : {
+                          "type" : "variable",
+                          "value" : "nuevoDocumento.urlDocumentoAzure"
+                        },
+                        "urlDownloadFile" : {
+                          "type" : "expression",
+                          "value" : "urlDownloadFileAzure"
+                        },
+                        "isMostrar" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "idDocumento" : {
+                          "type" : "constant"
+                        },
+                        "editar" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "idModal" : {
+                          "type" : "constant",
+                          "value" : "modalShow"
+                        },
+                        "selectedFile" : {
+                          "type" : "variable",
+                          "value" : "selectedFile"
+                        },
+                        "tipoDocumento" : {
+                          "type" : "constant",
+                          "value" : "pdf"
                         }
                       },
-                      "reference" : "c42613af-ce6c-4fa1-9965-b51134db6d5b",
+                      "reference" : "c1201185-15ce-4e4c-909d-93e5c114d3ec",
                       "hasValidationError" : false,
-                      "id" : "pbUpload"
+                      "id" : "customSDAEUploadCustomAzure"
                     }
                   ]
                 ]
@@ -2606,6 +2693,20 @@
       "external" : false
     },
     {
+      "id" : "97f9d713-2ba5-40f3-b2ed-a954ec19a327",
+      "name" : "pdf.png",
+      "type" : "img",
+      "order" : 5,
+      "external" : false
+    },
+    {
+      "id" : "8d971d31-22e0-4957-b6b5-22f7092dba13",
+      "name" : "noimageavailabledoc.png",
+      "type" : "img",
+      "order" : 6,
+      "external" : false
+    },
+    {
       "id" : "94beebcc-2538-4bfa-ac51-6e19f4519ef0",
       "name" : "sweetalert.min.js",
       "type" : "js",
@@ -2851,7 +2952,8 @@
         "    \"isObligatorio\": false,",
         "    \"urlDocumentoAzure\": \"\",",
         "    \"idTipoApoyo\": 0,",
-        "    \"idCampus\": 0",
+        "    \"idCampus\": 0,",
+        "    \"requiereEjemplo\":false",
         "}"
       ],
       "exposed" : false
@@ -3073,6 +3175,20 @@
     },
     "campusString" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "selectedFile" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "urlDownloadFileAzure" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
+      ],
       "exposed" : false
     }
   },
