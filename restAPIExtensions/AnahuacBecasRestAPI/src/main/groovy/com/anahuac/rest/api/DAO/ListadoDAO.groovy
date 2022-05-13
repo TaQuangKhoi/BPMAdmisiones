@@ -104,7 +104,9 @@ class ListadoDAO {
 			}
 			
 			if (object.caseId != null) {
-				where += " AND SDAE.caseId = "+object.caseId +" "
+				//where += " AND SDAE.caseId = "+object.caseId +" "
+				where += " AND da.idBanner = "+object.caseId +" "
+				
 				//where += " AND SDAE.estatusSolicitud = '"+object.estatusSolicitud+"' "
 				//if (object.estatusSolicitud.equals("Solcitud en progreso")) {
 					//where += " AND SDAE.estatusSolicitud = 'Solcitud en progreso' "
@@ -231,7 +233,9 @@ class ListadoDAO {
 							} else {
 								where += " WHERE "
 							}
-							where += " LOWER(CAST(SDAE.caseid AS varchar)) ";
+							//where += " LOWER(CAST(SDAE.caseid AS varchar)) ";
+							where += " LOWER(CAST(da.idBanner AS varchar)) ";
+							
 							if (filtro.get("operador").equals("Igual a")) {
 								where += "=LOWER('[valor]')"
 							} else {
@@ -300,7 +304,8 @@ class ListadoDAO {
 						orderby += "tipoapoyo.descripcion";
 						break;
 					case "EXPEDIENTE":
-						orderby += "sda.caseid::INTEGER";
+						//orderby += "sda.caseid::INTEGER";
+						orderby += "da.idBanner::INTEGER";
 						break;
 					case "FECHAULTIMAMODIFICACION":
 						orderby += "SDAE.fechaultimamodificacion";
