@@ -282,6 +282,31 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         });
     };
 
+    $scope.descargarEjemplo = function(){
+        var req = {
+            method: "GET",
+            url: $scope.properties.urlDownloadFile + $scope.properties.urlAzure
+        };
+
+        return $http(req)
+        .success(function (data, status) {
+            if(data.data){
+                downloadFile(data.data[0]);
+            } else {
+                downloadFile(data[0]);
+            }
+        })
+        .error(function (data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () {
+            
+        });
+    };
+
     function downloadFile2(_document) {
         let urlSplitted = $scope.properties.urlAzure.split("/");
         $scope.linkSource = _document.b64;
