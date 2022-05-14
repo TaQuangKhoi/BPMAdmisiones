@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1652466132996,
+  "lastUpdate" : 1652485094848,
   "rows" : [
     [
       {
@@ -3810,6 +3810,13 @@
                                         "tipoDocumento" : {
                                           "type" : "constant",
                                           "value" : "pdf"
+                                        },
+                                        "requiereEjemplo" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "urlEjemplo" : {
+                                          "type" : "constant"
                                         }
                                       },
                                       "reference" : "afeec24c-f050-4b28-9933-b3fdef54ff02",
@@ -15549,6 +15556,10 @@
                                   "tipoDocumento" : {
                                     "type" : "constant",
                                     "value" : "imagen"
+                                  },
+                                  "requiereEjemplo" : {
+                                    "type" : "constant",
+                                    "value" : false
                                   }
                                 },
                                 "reference" : "a7e77fd9-3813-46fb-ab31-e289f4fc0935",
@@ -15813,6 +15824,14 @@
                             "tipoDocumento" : {
                               "type" : "constant",
                               "value" : "pdf"
+                            },
+                            "requiereEjemplo" : {
+                              "type" : "expression",
+                              "value" : "$item.catManejoDocumentos.requiereEjemplo"
+                            },
+                            "urlEjemplo" : {
+                              "type" : "expression",
+                              "value" : "$item.catManejoDocumentos.urlDocumentoAzure"
                             }
                           },
                           "reference" : "0c40cffa-00f0-408f-ac2b-d000891ac330",

@@ -13,6 +13,7 @@ class CatManejoDocumentos {
 	private String usuarioCreacion;
 	private String descripcionDocumento;
 	private Boolean isObligatorioDoc;
+	private Boolean requiereEjemplo;
 	
 	public String getDescripcionDocumento() {
 		return descripcionDocumento;
@@ -85,6 +86,12 @@ class CatManejoDocumentos {
 	}
 	public void setIsObligatorio(String isObligatorio) {
 		this.isObligatorio = isObligatorio;
+	}
+	public Boolean getRequiereEjemplo() {
+		return requiereEjemplo;
+	}
+	public void setRequiereEjemplo(Boolean requiereEjemplo) {
+		this.requiereEjemplo = requiereEjemplo;
 	}
 	
 }

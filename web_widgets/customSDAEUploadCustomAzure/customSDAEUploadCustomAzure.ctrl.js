@@ -61,6 +61,17 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         downloadLink.click();
     }
 
+    function downloadFEjemplo(_document) {
+        const linkSource = _document.b64;
+        const downloadLink = document.createElement("a");
+    
+        let fileName = $scope.properties.documentName + _document.extension;
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+
     function handleFileSelect(evt) {
         startUploading();
         var f = evt.target.files[0];
@@ -285,15 +296,15 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     $scope.descargarEjemplo = function(){
         var req = {
             method: "GET",
-            url: $scope.properties.urlDownloadFile + $scope.properties.urlAzure
+            url: $scope.properties.urlDownloadFile + $scope.properties.urlEjemplo
         };
 
         return $http(req)
         .success(function (data, status) {
             if(data.data){
-                downloadFile(data.data[0]);
+                downloadFEjemplo(data.data[0]);
             } else {
-                downloadFile(data[0]);
+                downloadFEjemplo(data[0]);
             }
         })
         .error(function (data, status) {
