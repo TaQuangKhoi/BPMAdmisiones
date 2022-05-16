@@ -29,6 +29,7 @@ class StatementsCatalogos {
 	public static final String UPDATE_CAT_MANEJO_DOCUMENTOS = "UPDATE CATMANEJODOCUMENTOS SET IDCAMPUS = ?, IDTIPOAPOYO = ?, ISOBLIGATORIODOC = ?, NOMBREDOCUMENTO = ?, URLDOCUMENTOAZURE = ?, DESCRIPCIONDOCUMENTO = ?, requiereEjemplo = ? WHERE PERSISTENCEID = ?;";
 	public static final String DELETE_CAT_MANEJO_DOCUMENTOS = "UPDATE CatManejoDocumentos SET isEliminado = true WHERE PERSISTENCEID = ?";
 	public static final String GET_COCUMENTOS_BY_APOYO_AND_CAMPUS = " SELECT * FROM CATMANEJODOCUMENTOS AS doc INNER JOIN CATTIPOAPOYO AS cta ON doc.idtipoapoyo = cta.PERSISTENCEID INNER JOIN RELACIONCAMPUSTIPOAPOYO AS rel ON rel.idtypoapoyo  = cta.PERSISTENCEID INNER JOIN CATCAMPUS AS cc ON cc.PERSISTENCEID = REL.IDCAMPUS [WHERE] ";
+	public static final String GET_DOCUMENTOS_SOLICITANTE_BY_CASEID = "SELECT  doc.persistenceid  AS documentid, doc.caseid As documentcaseid, doc.urlDocumento, doc.catmanejodocumentos_pid , cma.persistenceid AS docpersistenceid, cma.descripciondocumento, cma.fechacreacion, cma.idcampus, cma.idtipoapoyo, cma.isobligatoriodoc, cma.nombredocumento, cma.urldocumentoazure, cma.requiereejemplo  FROM DocumentosSolicitante AS doc	INNER JOIN CATMANEJODOCUMENTOS AS cma  ON cma.persistenceId = doc.catManejoDocumentos_id WHERE documentcaseid = ? ORDER BY documentid ASC ";
 	/*Fin del catálogo de manejo documentos*/
 	
 	/*Catálogo de tipo de apoyo*/
