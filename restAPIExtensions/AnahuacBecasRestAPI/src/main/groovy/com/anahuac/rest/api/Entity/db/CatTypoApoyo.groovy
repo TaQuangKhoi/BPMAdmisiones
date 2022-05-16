@@ -17,6 +17,8 @@ class CatTypoApoyo {
 	private Boolean isFinanciamiento;
 	private Boolean isAcademica;
 	private Boolean isObligatorioDoc;
+	private Boolean requiereCurriculum;
+	private String urlEjemploCurriculum;
 	
 	public Boolean getIsObligatorioDoc() {
 		return isObligatorioDoc;
@@ -113,6 +115,18 @@ class CatTypoApoyo {
 	}
 	public void setPersistenceId_string(String persistenceId_string) {
 		this.persistenceId_string = persistenceId_string;
+	}
+	public Boolean getRequiereCurriculum() {
+		return requiereCurriculum;
+	}
+	public void setRequiereCurriculum(Boolean requiereCurriculum) {
+		this.requiereCurriculum = requiereCurriculum;
+	}
+	public String getUrlEjemploCurriculum() {
+		return urlEjemploCurriculum;
+	}
+	public void setUrlEjemploCurriculum(String urlEjemploCurriculum) {
+		this.urlEjemploCurriculum = urlEjemploCurriculum;
 	}
 	
 }
