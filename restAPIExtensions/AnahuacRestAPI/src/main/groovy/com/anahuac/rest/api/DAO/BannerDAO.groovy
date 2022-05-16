@@ -36,6 +36,10 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatBachilleratosDAO
+import com.anahuac.catalogos.CatEstados
+import com.anahuac.catalogos.CatEstadosDAO
+import com.anahuac.catalogos.CatEstadosUSA
+import com.anahuac.catalogos.CatEstadosUSADAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.CatBachillerato
@@ -69,16 +73,21 @@ class BannerDAO {
 
 		String errorLog = "";
 		String barrerToken = "";
+		String barrerTokenUbicaciones = "";
 		String jsonResultado = "";
+		String jsonResultadoUbicaciones = "";
 		String strGetConsumeJSON = "";
+		String strGetConsumeJSONUbicaciones = "";
 		Integer intentos = 5;
+		Integer intentos2 = 5;
 		try {
 			while(intentos>0) {
 				errorLog += " | " + ("START JSON======================================");
 				barrerToken = getBarreToken();
-				//errorLog += " | " + barrerToken;
+				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
 				errorLog += " | " + ("================================================");
 	
+				// PREPAS
 				jsonResultado = getConsumePrepa(barrerToken);
 				
 				//JSON PRUEBA ANGEL CREATE
@@ -101,20 +110,44 @@ class BannerDAO {
 				//PROBLEMA
 				//jsonResultado = "[{\"id\":\"132\",\"published\":\"2021-06-17 18:36:38.890122+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"f1a6ad1e-9ed1-4692-92fa-6df7582650b1\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"title\":\"Instituto Americano\",\"type\":\"secondarySchool\",\"code\":\"9680\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 				
-				errorLog += " | jsonResultado: " + jsonResultado;
+				errorLog += " | jsonResultado Prepas: " + jsonResultado;
 				errorLog += " | " + ("END JSON========================================");
 				
-				if(jsonResultado.equals("[]")){
+				if(jsonResultado.equals("[]") || jsonResultado.equals("")){
 					intentos=0;
 					resultadoGetConsumeJSON.setSuccess(true)
 				}else {
 					resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
 					intentos--;
 				}
-				errorLog += " | " + strGetConsumeJSON;
+				errorLog += " | " + resultadoGetConsumeJSON;				
 				//resultadoGetConsumeJSON.setSuccess(true);
 				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
 			}
+			while(intentos2>0&&intentos==0) {
+				errorLog += " | " + ("START UBICACIONES JSON======================================");
+				barrerTokenUbicaciones = getBarreTokenUbicaciones();
+				//errorLog += " | " + barrerToken+" | "+barrerTokenUbicaciones;
+				errorLog += " | " + ("================================================");
+				
+				jsonResultadoUbicaciones = getConsumePrepa(barrerTokenUbicaciones);
+				errorLog += " | jsonResultado Ubicaciones: " + jsonResultadoUbicaciones;
+				errorLog += " | " + ("END JSON Ubicaciones ========================================");
+				
+				if(jsonResultadoUbicaciones.equals("[]")  || jsonResultadoUbicaciones.equals("") || jsonResultadoUbicaciones?.trim().length()<=1){
+					intentos2=0;
+					resultadoGetConsumeJSON.setSuccess(true)
+				}else {
+					errorLog += " | " + ("entro a direcciones");
+					resultadoGetConsumeJSON = getConsumeJSON(jsonResultadoUbicaciones, context, operacion, barrerTokenUbicaciones);
+					intentos2--;
+				}
+				errorLog += " | " + resultadoGetConsumeJSON;
+				
+				//resultadoGetConsumeJSON.setSuccess(true);
+				resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
+			}
+		
 		} catch (Exception e) {
 			errorLog += " | " + e.getMessage();
 			resultadoGetConsumeJSON.setError_info(errorLog);
@@ -201,6 +234,46 @@ class BannerDAO {
 			e.printStackTrace();
 			LOGGER.error "[ERROR]" + e.getMessage();
 			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerToken:" + barrerKey.replace("-.-.-", ""))
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado.toString();
+	}
+	
+	private String getBarreTokenUbicaciones() {
+		String urlParaVisitar = "https://integrate.elluciancloud.com/auth";
+		String barrerKey = "Bearer ";
+		StringBuilder resultado = new StringBuilder();
+		Boolean closeCon = false;
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "BannerTokenMapeada")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+
+				barrerKey += rs.getString("valor")
+			}
+
+			URL url = new URL(urlParaVisitar);
+			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+			conexion.setRequestProperty("Authorization", barrerKey.replace("-.-.-", ""));
+			conexion.setRequestMethod("POST");
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+			String linea;
+			while ((linea = rd.readLine()) != null) {
+				resultado.append(linea);
+			}
+			rd.close();
+			//System.out.println(urlParaVisitar);
+			//System.out.println(resultado.toString());
+			new LogDAO().insertTransactionLog("POST", "CORRECTO", "https://integrate.elluciancloud.com/auth", resultado.toString(), "Autenticarse para obtener el token de acceso, BannerTokenUbicaciones:" + barrerKey.replace("-.-.-", ""))
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error "[ERROR]" + e.getMessage();
+			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerTokenUbicaciones:" + barrerKey.replace("-.-.-", ""))
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -333,12 +406,14 @@ class BannerDAO {
 		String errorLog = "";
 		String strCountyCode = "";
 		String strStateCode = "";
+		String strPostalCode = "";
 		String strNationCode = "";
 		String resultEducationalInstitutions = "";
 		String resultAddresses = "";
 
 		Boolean isCountyCodeOk = false;
 		Boolean isStateCodeOk = false;
+		Boolean isPostalCode = false;
 		Boolean isStreetLineOk = false;
 		Boolean isNationCodeOk = false;
 		Boolean isNationCodeLetterOk = false;
@@ -811,10 +886,18 @@ class BannerDAO {
 									errorLog = errorLog + " | isEliminado: " + !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
 									errorLog = errorLog + " | CON H ---------------------------------------------------------";
 									
+									//objRow.getClave() == null || objRow.getClave().equals("null")
+									Boolean isEliminadoRegla = false;
+									if(objRow.getStreetLine1() == null || objRow.getStreetLine1().equals("null") || objRow.getStreetLine3() == null || objRow.getStreetLine3().equals("null") 
+									|| (objRow.getPais().equals("México") && !isMexicoOk) 
+									|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk) 
+									|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+										isEliminadoRegla = true; 
+									}
 									/*CONSTRUCCION DE CONTRATO=====================================================================*/
 									objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 									objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-									objCatBachilleratosInput.put("isEliminado", !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ));
+									objCatBachilleratosInput.put("isEliminado", (!(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk)) == false ? isEliminadoRegla:true) );
 									objCatBachilleratosInput.put("isEnabled", true);
 									objCatBachilleratosInput.put("todelete", (row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 									objCatBachilleratosInput.put("perteneceRed", false);
@@ -1023,14 +1106,20 @@ class BannerDAO {
 										
 										
 										
-										
+										Boolean isEliminadoRegla = false;
 										lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 										objCatBachilleratosInput = new HashMap < String, Serializable > ();
 										contracto = new HashMap < String, Serializable > ();
+										if(objRow.getStreetLine1() == null || objRow.getStreetLine1().equals("null") || objRow.getStreetLine3() == null || objRow.getStreetLine3().equals("null")
+											|| (objRow.getPais().equals("México") && !isMexicoOk)
+											|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk)
+											|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+												isEliminadoRegla = true;
+										}
 										/*CONSTRUCCION DE CONTRATO=====================================================================*/
 										objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 										objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-										objCatBachilleratosInput.put("isEliminado", !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ));
+										objCatBachilleratosInput.put("isEliminado", (!(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk)) == false ? isEliminadoRegla:true));
 										objCatBachilleratosInput.put("isEnabled", true);
 										objCatBachilleratosInput.put("todelete", (row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 										objCatBachilleratosInput.put("perteneceRed", false);
@@ -1274,6 +1363,12 @@ class BannerDAO {
 					if (!strStateCode.equals("")) {
 						matcher = patternEstado.matcher(strStateCode.toLowerCase());
 						isStateCodeOk = matcher.matches();
+						def objCatEstadoDAO = context.apiClient.getDAO(CatEstadosDAO.class);
+						CatEstados existeExamen = objCatEstadoDAO.getCatEstadosByClave(objLstAddresses.getStateCode());
+						if(existeExamen?.getPersistenceId() != null){
+							isStateCodeOk = true;
+						}
+						errorLog += "| existeEstado: "+existeExamen;
 					}
 
 					strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
@@ -1281,13 +1376,21 @@ class BannerDAO {
 					if (!strNationCode.equals("")) {
 						isNationCodeOk = strNationCode.equals("99")
 					}
+					
+					strPostalCode = (objLstAddresses.getPostalCode() == null || objLstAddresses?.getPostalCode()?.equals("null")) ? "" : objLstAddresses.getPostalCode();
+					errorLog = errorLog + " | strPostalCode: " + (strPostalCode);
+					if (!strPostalCode.equals("")) {
+						errorLog = errorLog + " | strPostalCode: true"
+						isPostalCode = true;
+					}
 
 					isStreetLineOk = (objLstAddresses.getStreetLine1() != null && objLstAddresses.getStreetLine3() != null);
 					errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
 					
 					errorLog = errorLog + " | getStreetLine1: " + objLstAddresses.getStreetLine1()
 					errorLog = errorLog + " | getStreetLine3: " + objLstAddresses.getStreetLine3()
-					isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
+					
+					isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk && isPostalCode);
 				} else {
 					if (objLstAddresses.getPais().equals("Estados Unidos de América")) {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
@@ -1304,13 +1407,32 @@ class BannerDAO {
 						if (!strCountyCode.equals("")) {
 							isCountyCodeOk = strCountyCode.equals("20000")
 						}
-						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+						
+						strStateCode = objLstAddresses.getStateCode() == null ? "" : objLstAddresses.getStateCode();
+						errorLog = errorLog + " | strStateCode: " + (strStateCode);
+						if (!strStateCode.equals("")) {
+							def objCatEstadoUSADAO = context.apiClient.getDAO(CatEstadosUSADAO.class);
+							CatEstadosUSA existeExamen = objCatEstadoUSADAO.getEstadosUSAByClave(objLstAddresses.getStateCode())
+							if(existeExamen?.getPersistenceId() != null){
+								isStateCodeOk = true;
+							}
+							errorLog += "| existeEstado: "+existeExamen;
+						}
+						
+						strPostalCode = (objLstAddresses.getPostalCode() == null || objLstAddresses?.getPostalCode()?.equals("null")) ? "" : objLstAddresses.getPostalCode();
+						errorLog = errorLog + " | strPostalCode: " + (strPostalCode);
+						if (!strPostalCode.equals("")) {
+							errorLog = errorLog + " | strPostalCode: true"
+							isPostalCode = true;
+						}
+						
+						isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk && isPostalCode);
 					} else {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
 						strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
 						errorLog = errorLog + " | strNationCode: " + (strNationCode);
 						if (!strNationCode.equals("")) {
-							isNationCodeOk = !strNationCode.equals("157") && !strNationCode.equals("99");
+							isNationCodeOk = (!strNationCode.equals("157") && !strNationCode.equals("99"));
 							matcher = pattern.matcher(strNationCode)
 							isNationCodeLetterOk = !matcher.find();
 						}
@@ -1320,11 +1442,20 @@ class BannerDAO {
 							isCountyCodeOk = strCountyCode.equals("20000")
 						}
 						strStateCode = objLstAddresses.getStateCode() == null ? "" : objLstAddresses.getStateCode();
+						errorLog = errorLog + " | strStateCode: " + (strStateCode);
 						if (!strStateCode.equals("")) {
 							isStateCodeOk = strStateCode.toLowerCase().equals("fr")
 						}
 						
-						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
+						strPostalCode = (objLstAddresses.getPostalCode() == null || objLstAddresses?.getPostalCode()?.equals("null")) ? "" : objLstAddresses.getPostalCode();
+						errorLog = errorLog + " | strPostalCode: " + (strPostalCode);
+						if (!strPostalCode.equals("")) {
+							errorLog = errorLog + " | strPostalCode: true"
+							isPostalCode = true;
+						}
+						
+						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk && isPostalCode);
+						errorLog = errorLog + " | isOtroPaisOk: " + (isOtroPaisOk);
 					}
 				}
 
@@ -1352,7 +1483,8 @@ class BannerDAO {
 						
 						//Entraba 2 veces una null y la otra con datos
 						if(objRow.getPais() != null) {
-								if (objRow.getPais().equals("México")) {
+							//objRow.getPais().equals("México") &&
+								if (objLstAddresses.getPais().equals("México") ) {
 									
 									errorLog = errorLog + " | entra al IF objRow.getPais().equals(México):" + objRow.getPais();
 									
@@ -1392,14 +1524,14 @@ class BannerDAO {
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								
 								}else {
-									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objRow.getPais();
+									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objLstAddresses.getPais();
 									errorLog = errorLog + " | isEstadoOk:" + isEstadoOk;
 									errorLog = errorLog + " | isCodigoPostalOk:" + isCodigoPostalOk;
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								}
 								
-								
-								if (objRow.getPais().equals("México")) {
+								//objRow.getPais().equals("México") &&
+								if ( objLstAddresses.getPais().equals("México")) {
 									if(!isMatchOk) {
 										isEliminado = true;
 									}else {
@@ -1422,18 +1554,44 @@ class BannerDAO {
 							lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 							objCatBachilleratosInput = new HashMap < String, Serializable > ();
 							contracto = new HashMap < String, Serializable > ();
+							Boolean isEliminadoRegla = false;
+							if(objLstAddresses.getStreetLine1() == null || objLstAddresses.getStreetLine1().equals("null") || objLstAddresses.getStreetLine3() == null || objLstAddresses.getStreetLine3().equals("null")  
+							|| (objLstAddresses.getPais().equals("México")&& !isMexicoOk && !isMatchOk) 
+							|| (objLstAddresses.getPais().equals("Estados Unidos de América") && !isUsaOk) 
+							|| (!objLstAddresses.getPais().equals("México") && !objLstAddresses.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla:"+(isEliminadoRegla) 
+							}else if(objRow.getPais().equals("México") && objLstAddresses.getCiudad().contains(",")){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla2:"+(isEliminadoRegla) 
+							}else if(objRow.getPais().equals("Estados Unidos de América") && objLstAddresses.getCiudad().contains(",")){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla3:"+(isEliminadoRegla) 
+							}
 							/*CONSTRUCCION DE CONTRATO=====================================================================*/
 							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 							objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-	
-							objCatBachilleratosInput.put("isEliminado",  isEliminado); //!(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk))
+							objCatBachilleratosInput.put("isEliminado",  (isEliminado == false ?isEliminadoRegla:true)); //!(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk))
 							objCatBachilleratosInput.put("isEnabled", objRow.isIsEnabled());
 							objCatBachilleratosInput.put("todelete", (objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 	
 							objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
 							objCatBachilleratosInput.put("region", null);
 							objCatBachilleratosInput.put("caseId", null);
-							objCatBachilleratosInput.put("clave", objRow.getClave());
+							String clave = "";
+							if(objRow.getClave() == null || objRow.getClave().equals("null")){
+								object.each{
+									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.id?.toString()){
+										errorLog +="| Clave content: "+it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
+										clave = it?.content?.educationalInstitutionsExtended?.get(0)?.code?.toString()
+									}
+								}
+								//object.get(i).content.educationalInstitutionsExtended.get(0).id.toString()
+								objCatBachilleratosInput.put("clave", clave);
+							}else{
+								objCatBachilleratosInput.put("clave", objRow.getClave());	
+							}
+							errorLog +="| Clave: "+clave+"|Clave2:"+objRow.getClave()
 							objCatBachilleratosInput.put("fechaImportacion", null);
 							objCatBachilleratosInput.put("fechaCreacion", null);
 							objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
@@ -1450,12 +1608,21 @@ class BannerDAO {
 							objCatBachilleratosInput.put("nationCode", objLstAddresses.getNationCode());
 							objCatBachilleratosInput.put("stateCode", objLstAddresses.getStateCode());
 							objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
-							objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
-	
+							String typeInd = "";
+							if(objRow.getTypeInd() == null || objRow.getTypeInd().equals("null")) {
+								object.each{
+									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.id?.toString()){
+										typeInd = it?.content?.educationalInstitutionsExtended?.get(0)?.typeInd?.toString()
+									}
+								}
+								objCatBachilleratosInput.put("typeInd", typeInd);
+							}else {
+								objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
+							}
 							//Guardar en Log BD  - Angel G
 							errorLog = errorLog + " | Guardar en Log BD en Created";
 							
-							String eliminado = isEliminado ? "SI" : "NO";
+							String eliminado = (isEliminado == false ?isEliminadoRegla:true) ? "SI" : "NO";
 							String estadoOK = isEstadoOk ? "SI" : "NO";
 							String codigoPostalOK = isCodigoPostalOk ? "SI" : "NO";
 							String matchOK = isMatchOk ? "SI" : "NO";
@@ -2245,7 +2412,7 @@ class BannerDAO {
 			@Override
 			public Result[] call() {
 				Result[] arrayResult = new Result[1];
-				arrayResult[0]= new BannerDAO().integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
+				arrayResult[0]= integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
 				return arrayResult
 			}
 	 }

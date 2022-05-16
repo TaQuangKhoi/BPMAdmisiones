@@ -1366,6 +1366,34 @@
                         <queryParameter name="pais" className="java.lang.String"/>
                     </queryParameters>
                 </query>
+                <query name="getCatEstadosByClave" content="SELECT c &#13;&#10;FROM CatEstados c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;AND c.clave = :clave&#13;&#10;ORDER BY c.orden ASC" returnType="com.anahuac.catalogos.CatEstados">
+                    <queryParameters>
+                        <queryParameter name="clave" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.catalogos.CatEstadosUSA">
+            <description> </description>
+            <fields>
+                <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="getEstadosUSAByOrden" content="SELECT c &#13;&#10;FROM CatEstadosUSA c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;ORDER BY c.orden ASC" returnType="com.anahuac.catalogos.CatEstadosUSA">
+                    <queryParameters/>
+                </query>
+                <query name="getEstadosUSAByClave" content="SELECT c &#13;&#10;FROM CatEstadosUSA c &#13;&#10;WHERE c.clave = :clave&#13;&#10;AND c.isEliminado = false&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatEstadosUSA">
+                    <queryParameters>
+                        <queryParameter name="clave" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
             </queries>
             <indexes/>
         </businessObject>
@@ -3202,7 +3230,7 @@
         <businessObject qualifiedName="com.anahuac.model.AspirantesSmartCampus">
             <fields>
                 <field type="STRING" length="255" name="vpd" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="foto" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="foto" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="nombre" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="segundoNombre" nullable="true" collection="false"/>
@@ -3223,10 +3251,10 @@
                 <field type="STRING" length="255" name="fechaEnvioSolicitud" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="fechaUltimaModificacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="fechaPago" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="rutaPago" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="rutaSolicitud" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="rutaActaNacimiento" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="rutaKardex" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="rutaPago" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="rutaSolicitud" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="rutaActaNacimiento" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="rutaKardex" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
