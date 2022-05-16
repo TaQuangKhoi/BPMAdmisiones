@@ -603,6 +603,14 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       
   }
   
+  $scope.abrirModalReactivarSolicitud = function(rowData) {
+      $scope.isTareaPreAutorizacion = false;
+      $scope.avanzarSolicitud = false;
+      $scope.caseIdTarea = rowData.caseid;
+      $('#modalReactivarSolicitud').modal('show'); 
+      
+  }
+  
   $scope.avanzarTareaDictamen = function() {
       
         var rowData = {

@@ -89,6 +89,9 @@
                     <button class="btn btn-default" ng-click="abrirSolicitud(row)">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </button>
+                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'Solicitud Rechazada'" ng-click="abrirModalReactivarSolicitud(row)">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    </button>
                     <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalArchivarSolicitud(row)">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </button>
@@ -119,15 +122,6 @@
     </div>
 </div>
 </div>
-<div ng-show="isenvelope">
-    <label>Mensaje de recordatorio para usuario</label>
-    <textarea row="5" class="form-control" style="resize:none" ng-model="mensaje"></textarea>
-    <br>
-    <div class="col-md-12">
-        <div class="col-md-6"><button class="btn btn-danger" ng-click="envelopeCancel()">Cancelar</button></div>
-        <div class="col-md-6"><button class="btn btn-info" ng-click="sendMail(selectedrow,mensaje)">Enviar recordatorio</button></div>
-    </div>
-</div>
 <div id="modalEnviarDictamen" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -155,6 +149,22 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="avanzarTareaArchivo()">Enviar a Archivar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalReactivarSolicitud" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mensaje de Confirmación</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea reactivar la solicitud?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="avanzarTareaPreaAutorizacion()">Reactivar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
