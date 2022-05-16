@@ -1524,14 +1524,14 @@ class BannerDAO {
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								
 								}else {
-									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objRow.getPais();
+									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objLstAddresses.getPais();
 									errorLog = errorLog + " | isEstadoOk:" + isEstadoOk;
 									errorLog = errorLog + " | isCodigoPostalOk:" + isCodigoPostalOk;
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								}
 								
-								
-								if (objRow.getPais().equals("México")) {
+								//objRow.getPais().equals("México") &&
+								if ( objLstAddresses.getPais().equals("México")) {
 									if(!isMatchOk) {
 										isEliminado = true;
 									}else {

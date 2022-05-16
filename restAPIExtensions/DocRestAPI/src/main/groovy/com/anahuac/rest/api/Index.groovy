@@ -1,6 +1,7 @@
 package com.anahuac.rest.api;
 
 import com.anahuac.rest.api.DAO.DocumentDAO
+import com.anahuac.rest.api.DAO.PDFDocumentDAO
 import com.anahuac.rest.api.Entity.Result
 import groovy.json.JsonBuilder
 
@@ -54,14 +55,25 @@ class Index implements RestApiController {
 		}catch(Exception ex) {
 			jsonData = null
 			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder("[]").toString())
-		} 
-		
-		result = new DocumentDAO().getDocs(jsonData, context)
-		if(result.success) {
-			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
-		}else {
-			return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
 		}
+		def url = request.getParameter "pdf"
+		if (url == null) {
+			result = new DocumentDAO().getDocs(jsonData, context)
+			if(result.success) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+			}else {
+				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+			}
+        }else {
+			result = new PDFDocumentDAO().PdfFileCatalogo(jsonData);
+			if(result.success) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+			}else {
+				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+			}
+			
+		}		
+		
 		
 		/*def resultado = [  "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
 
