@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1652465054524,
+  "lastUpdate" : 1652742960057,
   "rows" : [
     [
       {
@@ -533,6 +533,188 @@
                     "reference" : "f40f2b34-5222-4c1e-a66c-67891bf216b1",
                     "hasValidationError" : false,
                     "id" : "customSDAEWidgetIsSocioEconomico"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "¿Requiere curriculum?"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "tipoApoyoSeleccionado.requiereCurriculum"
+                      }
+                    },
+                    "reference" : "19db915f-b892-4b9b-8434-723d6278edcf",
+                    "hasValidationError" : false,
+                    "id" : "pbCheckbox"
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 2,
+                      "md" : 3,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "40aeafa2-716a-4f6d-95ee-f6f9c7cae44f",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 8,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!tipoApoyoSeleccionado.requiereCurriculum"
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "url" : {
+                        "type" : "constant",
+                        "value" : "../API/formFileUpload"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "urlretorno" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "documentName" : {
+                        "type" : "constant",
+                        "value" : "Curriculum"
+                      },
+                      "documentDescription" : {
+                        "type" : "constant",
+                        "value" : "Documento con ejemplo"
+                      },
+                      "documentoInfo" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "isObligatorio" : {
+                        "type" : "expression",
+                        "value" : "true"
+                      },
+                      "urlAzure" : {
+                        "type" : "variable",
+                        "value" : "tipoApoyoSeleccionado.urlEjemploCurriculum"
+                      },
+                      "urlDownloadFile" : {
+                        "type" : "expression",
+                        "value" : "urlDownloadFileAzure"
+                      },
+                      "isMostrar" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "idDocumento" : {
+                        "type" : "constant"
+                      },
+                      "editar" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "idModal" : {
+                        "type" : "constant",
+                        "value" : "modal"
+                      },
+                      "selectedFile" : {
+                        "type" : "variable",
+                        "value" : "selectedFile"
+                      },
+                      "tipoDocumento" : {
+                        "type" : "constant",
+                        "value" : "pdf"
+                      },
+                      "requiereEjemplo" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "urlEjemplo" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "06c5991e-3910-4c93-871c-f1b038050e85",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEUploadCustomAzure"
                   }
                 ],
                 [
@@ -3189,6 +3371,10 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
       ],
+      "exposed" : false
+    },
+    "urlDownloadFile" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
