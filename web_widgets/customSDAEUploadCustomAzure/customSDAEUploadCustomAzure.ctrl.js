@@ -61,6 +61,17 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         downloadLink.click();
     }
 
+    function downloadFEjemplo(_document) {
+        const linkSource = _document.b64;
+        const downloadLink = document.createElement("a");
+    
+        let fileName = $scope.properties.documentName + _document.extension;
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+
     function handleFileSelect(evt) {
         startUploading();
         var f = evt.target.files[0];
@@ -269,6 +280,31 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                 downloadFile2(data.data[0]);
             } else {
                 downloadFile2(data[0]);
+            }
+        })
+        .error(function (data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () {
+            
+        });
+    };
+
+    $scope.descargarEjemplo = function(){
+        var req = {
+            method: "GET",
+            url: $scope.properties.urlDownloadFile + $scope.properties.urlEjemplo
+        };
+
+        return $http(req)
+        .success(function (data, status) {
+            if(data.data){
+                downloadFEjemplo(data.data[0]);
+            } else {
+                downloadFEjemplo(data[0]);
             }
         })
         .error(function (data, status) {

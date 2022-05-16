@@ -1,7 +1,6 @@
 function ($scope, $http) {
 
     function getCurrentTaskId() {
-        debugger;
         $http.get($scope.properties.url).success((data) => {
             if (data.length) {
                 $scope.properties.taskId = data[0].id;
@@ -14,7 +13,6 @@ function ($scope, $http) {
     }
 
     function getCurrentContext() {
-        debugger;
         $http.get($scope.properties.urlContext).success((data) => {
             if (data.solicitudApoyoEducativo_ref) {
                 getModelSolicitudApoyoEducativo("../" + data.solicitudApoyoEducativo_ref.link);
@@ -32,10 +30,10 @@ function ($scope, $http) {
                     "tempPath": null,
                     "contentType": null,
                     "id": null
-                }
+                };
 
                 if (data.lstDocumentos_ref) {
-                    for (documento of data.lstDocumentos_ref) {
+                    for (let documento of data.lstDocumentos_ref) {
                         newValue.id = documento["id"] + "";
                         lstDoc.push(angular.copy(newValue));
                     }
@@ -44,7 +42,7 @@ function ($scope, $http) {
                 }
             }
         }).error((err) => {
-            console.log("Error al obtener el context")
+            console.log("Error al obtener el context");
         });
     }
 
@@ -55,7 +53,7 @@ function ($scope, $http) {
             "tempPath": null,
             "contentType": _document["contentMimeType"],
             "id": _document["id"] + ""
-        }
+        };
 
         return newValue;
     }
@@ -90,7 +88,7 @@ function ($scope, $http) {
             }
         }).error((err) => {
             $scope.properties.hermanos = [];
-            console.log("hermanos vacío")
+            console.log("hermanos vacío");
         });
     }
 
@@ -102,7 +100,7 @@ function ($scope, $http) {
             }
         }).error((err) => {
             $scope.properties.autos = [];
-            console.log("autos vacío")
+            console.log("autos vacío");
         });
     }
 
@@ -114,7 +112,7 @@ function ($scope, $http) {
             }
         }).error((err) => {
             $scope.properties.bienesRaices = [];
-            console.log("bienesRaices vacío")
+            console.log("bienesRaices vacío");
         });
     }
 
@@ -141,7 +139,7 @@ function ($scope, $http) {
                 "urlDocumento":"",
                 "caseId": $scope.properties.caseId,
                 "catManejoDocumentos_id": documentObject.persistenceId
-            }   
+            };
 
             list.push(templateObject);
 
@@ -173,7 +171,7 @@ function ($scope, $http) {
                 "urlImagen":"",
                 "caseId": $scope.properties.caseId,
                 "imagenSocioEconomico_id": imageObject.persistenceId
-            }   
+            };
 
             list.push(templateObject);
 
@@ -186,7 +184,7 @@ function ($scope, $http) {
         $http.get(_url).success((data) => {
             $scope.properties.solicitudApoyoEducativo[_bdmFieldName] = data;
         }).error((err) => {
-            console.log(_bdmFieldName + " vacío")
+            console.log(_bdmFieldName + " vacío");
         });
     }
 

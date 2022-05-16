@@ -715,6 +715,7 @@ class CatalogosDAO {
 				row.setIsEliminado(rs.getBoolean("isEliminado"));
 				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
 				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIO"));
+				row.setRequiereEjemplo(rs.getBoolean("requiereEjemplo"));
 
 				rows.add(row);
 			}
@@ -1176,6 +1177,7 @@ class CatalogosDAO {
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
 				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
 				row.setIsObligatorioDoc(rs.getBoolean("ISOBLIGATORIODOC"));
+				row.setRequiereEjemplo(rs.getBoolean("requiereEjemplo"));				
 				rows.add(row);
 			}
 			
