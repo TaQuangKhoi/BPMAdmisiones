@@ -104,8 +104,8 @@ class ListadoDAO {
 			}
 			
 			if (object.caseId != null) {
-				//where += " AND SDAE.caseId = "+object.caseId +" "
-				where += " AND da.idBanner = "+object.caseId +" "
+				where += " AND SDAE.caseId = "+object.caseId +" "
+				//where += " AND da.idBanner = "+object.caseId +" "
 				
 				//where += " AND SDAE.estatusSolicitud = '"+object.estatusSolicitud+"' "
 				//if (object.estatusSolicitud.equals("Solcitud en progreso")) {
