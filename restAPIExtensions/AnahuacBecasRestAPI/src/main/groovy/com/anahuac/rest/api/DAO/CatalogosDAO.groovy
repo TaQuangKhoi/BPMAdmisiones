@@ -2182,12 +2182,18 @@ class CatalogosDAO {
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
-				row = new CatManejoDocumentos();
+				row = new DocumentosSolicitante();
 				
-				row.setCatManejoDocumentos_id(rs.getLong("CATMANEJODOCUMENTOS_PID"));
-				row.setCaseId(rs.getLong("DOCUMENTCASEID"));
-				row.setUrlDocumento(rs.getString("URLDOCUMENTO"));
+				row.setCatManejoDocumentos_id(rs.getLong("doc_catmanejodocumentos_pid"));
+				row.setCaseId(rs.getLong("doc_caseid"));
+				row.setUrlDocumento(rs.getString("doc_urlDocumento"));
 				catManejoDocumentos = new CatManejoDocumentos();
+				catManejoDocumentos.setPersistenceId(rs.getLong("cma_persistenceid"));
+				catManejoDocumentos.setDescripcionDocumento(rs.getString("cma_descripciondocumento"));
+				catManejoDocumentos.setIsObligatorioDoc(rs.getBoolean("cma_isobligatoriodoc"));
+				catManejoDocumentos.setNombreDocumento(rs.getString("cma_nombredocumento"));
+				catManejoDocumentos.setUrlDocumentoAzure(rs.getString("cma_urldocumentoazure"));
+				catManejoDocumentos.setRequiereEjemplo(rs.getBoolean("cma_requiereejemplo"));
 				row.setCatManejoDocumentos(catManejoDocumentos);
 				
 				rows.add(row);

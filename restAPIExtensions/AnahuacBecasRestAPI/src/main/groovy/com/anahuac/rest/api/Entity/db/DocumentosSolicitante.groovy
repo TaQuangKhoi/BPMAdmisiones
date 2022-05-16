@@ -4,7 +4,7 @@ class DocumentosSolicitante {
 	private CatManejoDocumentos catManejoDocumentos;
 	private String urlDocumento;
 	private Long caseId;
-	private String catManejoDocumentos_id;
+	private Long catManejoDocumentos_id;
 	
 	public CatManejoDocumentos getCatManejoDocumentos() {
 		return catManejoDocumentos;
@@ -24,10 +24,10 @@ class DocumentosSolicitante {
 	public void setCaseId(Long caseId) {
 		this.caseId = caseId;
 	}
-	public String getCatManejoDocumentos_id() {
+	public Long getCatManejoDocumentos_id() {
 		return catManejoDocumentos_id;
 	}
-	public void setCatManejoDocumentos_id(String catManejoDocumentos_id) {
+	public void setCatManejoDocumentos_id(Long catManejoDocumentos_id) {
 		this.catManejoDocumentos_id = catManejoDocumentos_id;
 	}
 }
