@@ -181,7 +181,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                                 "varAdmitidoInput" : false
                             };
                             
-                            estatus = "Solicitud Archivada";
+                            estatus = "Solicitud Rechazada";
                         }
             
                     var params = getUserParam();
