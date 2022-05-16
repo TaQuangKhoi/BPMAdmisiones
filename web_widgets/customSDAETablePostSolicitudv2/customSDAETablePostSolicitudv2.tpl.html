@@ -25,7 +25,7 @@
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('TIPOBECA')">Tipo Beca<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='TIPOBECA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus SDAE <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS_ADMISION')">Estatus Admisión<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS_ADMISION'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('RESPUESTA')">Fecha y Respuesta del Área <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='RESPUESTA'"></i></span></th>
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última modificación<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Fecha Recepción<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
                 <th> Acciones</th>     
             </tr>
         </thead>
@@ -71,8 +71,11 @@
                 </td>
                 <td>
                     <b>{{row.fecharespuestaarea | date:'dd-MM-yyyy HH:mm'}}</b><br>
+                    {{row.porrecareadeportiva}} 
+                    {{row.procrecareaartistica}}
+                    <br>
                     {{row.motivoaprobadadeportiva}} 
-                    {{row.motivorechazodeportiva}} 
+                    {{row.motivorechazodeportiva}}
                     {{row.motivorechazoartistica}} 
                     {{row.motivoaprobadaartistica}} 
                 </td>
@@ -83,13 +86,13 @@
                     {{row.updateDate}}
                 </td-->
                 <td class="text-center">
-                    <button class="btn btn-default" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirSolicitud(row)">
+                    <button class="btn btn-default" ng-click="abrirSolicitud(row)">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </button>
                     <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalArchivarSolicitud(row)">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </button>
-                    <button class="btn btn-success" ng-show="row.aceptado == 'Aceptado'" ng-click="abrirModalAvanzarSolicitud(row)">
+                    <button class="btn btn-success" ng-show="row.aceptado == 'Aceptado' && row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalAvanzarSolicitud(row)">
                         <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                     </button>
                 </td>
