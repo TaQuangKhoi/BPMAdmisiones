@@ -3,6 +3,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     'use strict';
 
     var vm = this;
+    this.bloqueo = false;
 
     this.action = function action() {
         if ($scope.properties.action === 'Remove from collection') {
@@ -13,8 +14,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             closeModal($scope.properties.closeOnSuccess);
         } else if ($scope.properties.action === 'Start process') {
             blockUI.start();
+            vm.bloqueo = true;
             console.log("Alerta");
-
+            $scope.$apply();
             $scope.properties.dataToSend.catRegistroInput.nombreusuario = $scope.properties.strRegistro.CorreoElectronico;
             $scope.properties.dataToSend.catRegistroInput.primernombre = $scope.properties.strRegistro.PrimerNombre;
             $scope.properties.dataToSend.catRegistroInput.segundonombre = $scope.properties.strRegistro.SegundoNombre;
@@ -37,6 +39,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if (!$scope.properties.strRegistro.Validado || $scope.properties.strRegistro.error) {
                 swal("¡" + $scope.properties.campoError + "!", $scope.properties.erroMessage, "warning");
                 blockUI.stop();
+                vm.bloqueo = false;
             } else {
                 var req = {
                     method: "GET",
@@ -59,6 +62,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     })
                     .finally(function() {
                         blockUI.stop();
+                        vm.bloqueo = false;
                     });
             }
         } else if ($scope.properties.action === 'Submit task') {
