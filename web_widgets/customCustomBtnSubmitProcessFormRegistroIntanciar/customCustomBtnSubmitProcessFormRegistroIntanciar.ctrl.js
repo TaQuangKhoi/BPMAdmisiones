@@ -4,7 +4,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     var vm = this;
     this.bloqueo = false;
-
+    
     this.action = function action() {
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
@@ -16,7 +16,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             blockUI.start();
             vm.bloqueo = true;
             console.log("Alerta");
-            $scope.$apply();
+
             $scope.properties.dataToSend.catRegistroInput.nombreusuario = $scope.properties.strRegistro.CorreoElectronico;
             $scope.properties.dataToSend.catRegistroInput.primernombre = $scope.properties.strRegistro.PrimerNombre;
             $scope.properties.dataToSend.catRegistroInput.segundonombre = $scope.properties.strRegistro.SegundoNombre;
@@ -51,6 +51,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.getUserBonita.length > 0) {
                                 swal("Error", "Este correo electrónico ya está registrado.", "error");
                                 blockUI.stop();
+                                vm.bloqueo = false;
                             } else {
                                 startProcess();
                             }
@@ -62,7 +63,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     })
                     .finally(function() {
                         blockUI.stop();
-                        vm.bloqueo = false;
+                       
                     });
             }
         } else if ($scope.properties.action === 'Submit task') {
@@ -126,7 +127,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', getUserParam()).then(function() {
+        var url = '../API/extension/Registro?url=instantiation&p=0&c=10';
+        var prom = doRequest('POST', url, getUserParam()).then(function() {
             localStorageService.delete($window.location.href);
         });
 
@@ -169,7 +171,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else {
                     swal("Error", JSON.stringify(data.error), "error");
                     blockUI.stop();
+                    
                 }
+                vm.bloqueo = false;
                 //}
             })
             .error(function(data, status) {
@@ -185,6 +189,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
                 $scope.properties.disabled = false;
                 blockUI.stop();
+                vm.bloqueo = false;
                 //$scope.hideLoading();
             });
     }
@@ -228,6 +233,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                 if ($scope.properties.action === 'Start process') {
                     $scope.registrarBonita();
+
                 }
 
                 notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
