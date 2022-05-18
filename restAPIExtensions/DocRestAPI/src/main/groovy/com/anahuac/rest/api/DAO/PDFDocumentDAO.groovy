@@ -87,6 +87,7 @@ class PDFDocumentDAO {
 			document.close();*/
 			
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+			columns.put("idbanner", "info2")
 			JasperReport jasperReport = JasperCompileManager.compileReport("Psicometrico_report.jrxml")
 			JRDataSource dataSource = new JREmptyDataSource();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, columns, dataSource);
