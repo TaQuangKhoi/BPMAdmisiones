@@ -1487,7 +1487,8 @@ class BannerDAO {
 						
 						//Entraba 2 veces una null y la otra con datos
 						if(objRow.getPais() != null) {
-								if (objRow.getPais().equals("México") && objLstAddresses.getPais().equals("México") ) {
+							//objRow.getPais().equals("México") &&
+								if (objLstAddresses.getPais().equals("México") ) {
 									
 									errorLog = errorLog + " | entra al IF objRow.getPais().equals(México):" + objRow.getPais();
 									
@@ -1527,14 +1528,14 @@ class BannerDAO {
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								
 								}else {
-									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objRow.getPais();
+									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objLstAddresses.getPais();
 									errorLog = errorLog + " | isEstadoOk:" + isEstadoOk;
 									errorLog = errorLog + " | isCodigoPostalOk:" + isCodigoPostalOk;
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								}
 								
-								
-								if (objRow.getPais().equals("México")) {
+								//objRow.getPais().equals("México") &&
+								if ( objLstAddresses.getPais().equals("México")) {
 									if(!isMatchOk) {
 										isEliminado = true;
 									}else {
