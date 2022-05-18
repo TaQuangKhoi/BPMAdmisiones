@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1652485094848,
+  "lastUpdate" : 1652835639577,
   "rows" : [
     [
       {
@@ -2126,11 +2126,11 @@
                                         },
                                         "minLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 7
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -2164,10 +2164,12 @@
                                           "value" : "number"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 1
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 1000000
                                         },
                                         "step" : {
                                           "type" : "constant",
@@ -2489,7 +2491,8 @@
                                           "value" : "number"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 1
                                         },
                                         "max" : {
                                           "type" : "constant",
@@ -3062,11 +3065,11 @@
                             },
                             "minLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 1
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 7
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -3100,10 +3103,12 @@
                               "value" : "number"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 0
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -3192,7 +3197,7 @@
                           "id" : "pbInput"
                         },
                         {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -3208,54 +3213,164 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Contó con beca en la preparatoria anterior?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Selecciona una opción"
-                            },
-                            "availableValues" : {
-                              "type" : "expression",
-                              "value" : "lstCatContoBecaPreparatoria.data"
-                            },
-                            "displayedKey" : {
-                              "type" : "constant",
-                              "value" : "descripcion"
-                            },
-                            "returnedKey" : {
-                              "type" : "constant",
-                              "value" : "persistenceId"
-                            },
-                            "value" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
+                              "value" : ""
                             }
                           },
-                          "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
+                          "reference" : "f0cbcec7-024d-46c6-81fe-a86479f56363",
                           "hasValidationError" : false,
-                          "id" : "pbSelect"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "disabled" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "¿Contó con beca en la preparatoria anterior?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation",
+                                    "value" : "Selecciona una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "lstCatContoBecaPreparatoria.data"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
+                                  }
+                                },
+                                "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
+                                "hasValidationError" : false,
+                                "id" : "pbSelect"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "minLength" : {
+                                    "type" : "constant",
+                                    "value" : 0
+                                  },
+                                  "maxLength" : {
+                                    "type" : "constant",
+                                    "value" : 3
+                                  },
+                                  "readOnly" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Indica el porcentaje de beca:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation",
+                                    "value" : "Valor en porcentaje (%)"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "number"
+                                  },
+                                  "min" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  },
+                                  "max" : {
+                                    "type" : "constant",
+                                    "value" : 100
+                                  },
+                                  "step" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  }
+                                },
+                                "reference" : "f6a3442a-455b-424a-862a-4c3fb2f21452",
+                                "hasValidationError" : false,
+                                "id" : "customSDAEInputLimitPercentage"
+                              }
+                            ]
+                          ]
                         }
                       ],
                       [
@@ -3333,84 +3448,6 @@
                           "reference" : "b01deae9-43b0-41c7-b8ac-5bee765e5c6e",
                           "hasValidationError" : false,
                           "id" : "pbInput"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "expression",
-                              "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : 0
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 3
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Indica el porcentaje de beca:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Valor en porcentaje (%)"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "number"
-                            },
-                            "min" : {
-                              "type" : "constant",
-                              "value" : 1
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 100
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "f6a3442a-455b-424a-862a-4c3fb2f21452",
-                          "hasValidationError" : false,
-                          "id" : "customSDAEInputLimitPercentage"
                         }
                       ],
                       [
@@ -4739,7 +4776,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "tutor.telefonoCelular"
+                        "value" : "tutor.telefono"
                       },
                       "type" : {
                         "type" : "constant",
@@ -4921,7 +4958,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.correoElectronicoTutor.correoElectronico"
+                        "value" : "tutor.correoElectronico"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5171,11 +5208,11 @@
                       },
                       "minLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 7
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -5209,10 +5246,12 @@
                         "value" : "number"
                       },
                       "min" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 1
                       },
                       "max" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 1000000
                       },
                       "step" : {
                         "type" : "constant",
@@ -5631,7 +5670,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Agregar bienes raices / inversiones"
+                        "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -5760,6 +5799,58 @@
                     "reference" : "d5ad83f5-aeb0-452d-90e6-1867da43c343",
                     "hasValidationError" : false,
                     "id" : "customTblSDAEbienesRaicesInversionesSolcitudAspirante"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Si deseas agregar  algún bien o inversión, presiona agregar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "863ea85a-891c-45d1-af9c-8ce868d877dc",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ],
                 [
@@ -6568,8 +6659,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "vista"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -6592,7 +6683,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.carEscolaridad.descripcion"
+                        "value" : "padre.catEscolaridad.descripcion"
                       },
                       "type" : {
                         "type" : "constant",
@@ -8213,7 +8304,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Agregar otro hermano"
+                              "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -8310,6 +8401,58 @@
                           "reference" : "c2d407e8-6d3c-404c-927c-620591fc5aa3",
                           "hasValidationError" : false,
                           "id" : "customTblSDAEinformacionHermanosSolicitudAspirante"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : "color-orange"
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "Si deseas agregar un hermano a la lista, presiona el botón Agregar"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "312faf4d-6696-4dd8-bf45-9f066aa8f852",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
                         }
                       ]
                     ]
@@ -8768,7 +8911,7 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : "tall-textbox"
                       },
                       "hidden" : {
                         "type" : "constant",
@@ -8788,7 +8931,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 1500
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -8796,7 +8939,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Escribe el motivo por el cual se solicita la beca y otra información que creas que el comité de selección deba saber: (Max 500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Escribe el motivo por el cual se solicita la beca y otra información que creas que el comité de selección deba saber: (Max 1500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -8855,7 +8998,7 @@
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "color-orange"
                             },
                             "hidden" : {
                               "type" : "constant",
@@ -9101,11 +9244,11 @@
                             },
                             "minLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 1
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 7
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -9136,13 +9279,15 @@
                             },
                             "type" : {
                               "type" : "constant",
-                              "value" : "text"
+                              "value" : "number"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -9840,11 +9985,11 @@
                       },
                       "minLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 10
+                        "value" : 13
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -9878,10 +10023,12 @@
                         "value" : "number"
                       },
                       "min" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 1
                       },
                       "max" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 1000000
                       },
                       "step" : {
                         "type" : "constant",
@@ -10611,7 +10758,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "(Favor de enlistar todos los automóviles propiedad de cualquier miembro del núcleo familiar):"
+                        "value" : "Listado de automóviles propiedad de cualquier miembro del núcleo familiar"
                       },
                       "level" : {
                         "type" : "constant",
@@ -10651,7 +10798,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Agregar Automóvil"
+                        "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -10745,6 +10892,58 @@
                     "reference" : "fcf8abb1-6fa6-4d89-8d4e-cc581d1abdb5",
                     "hasValidationError" : false,
                     "id" : "customTblSDAEinformacionAutomoviles"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Si deseas agregar un automóvil a la lista, presiona el botón Agregar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "7cc40cc5-fa64-4c0a-ae81-f4b17378054c",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ],
                 [
@@ -11114,10 +11313,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -11302,10 +11502,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -11490,10 +11691,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -11678,10 +11880,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -11866,10 +12069,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -12054,10 +12258,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -12241,10 +12446,12 @@
                                     "value" : "number"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -12539,10 +12746,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -12727,10 +12935,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -12915,10 +13124,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -13103,10 +13313,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -13291,10 +13502,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -13479,10 +13691,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -13667,10 +13880,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -13855,10 +14069,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -14043,10 +14258,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -14231,10 +14447,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -14419,10 +14636,11 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 0
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -15858,7 +16076,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!returnCatValue.catTipoApoyo.isArtistica  && !returnCatValue.catTipoApoyo.isDeportiva"
+                        "value" : "!returnCatValue.catTipoApoyo.requiereCurriculum"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -16061,12 +16279,10 @@
                               "value" : ""
                             },
                             "documentName" : {
-                              "type" : "expression",
-                              "value" : "returnCurriculumInfo.documentName"
+                              "type" : "constant"
                             },
                             "documentDescription" : {
-                              "type" : "expression",
-                              "value" : "returnCurriculumInfo.documentDescription"
+                              "type" : "constant"
                             },
                             "documentoInfo" : {
                               "type" : "variable",
@@ -16106,6 +16322,14 @@
                             "tipoDocumento" : {
                               "type" : "constant",
                               "value" : "pdf"
+                            },
+                            "requiereEjemplo" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "urlEjemplo" : {
+                              "type" : "expression",
+                              "value" : "returnCatValue.catTipoApoyo.urlEjemploCurriculum"
                             }
                           },
                           "reference" : "228e4739-cf65-4170-99bc-290073c46939",
@@ -17205,90 +17429,26 @@
                           "type" : "expression",
                           "value" : "selectedFile.extension !== \".pdf\""
                         },
-                        "labelHidden" : {
+                        "type" : {
                           "type" : "constant",
-                          "value" : true
+                          "value" : "URL"
                         },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Default label"
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource"
                         },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "allowHTML" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "text" : {
-                          "type" : "interpolation",
-                          "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{selectedFile.linkSource}}\"\n type=\"application/pdf\"/>"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "center"
-                        }
-                      },
-                      "reference" : "b99aab96-8785-4858-8f4e-097b92e3c88f",
-                      "hasValidationError" : false,
-                      "id" : "pbText"
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
+                        "document" : {
+                          "type" : "variable",
                           "value" : ""
                         },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
+                        "showPreview" : {
                           "type" : "constant",
                           "value" : true
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Default label"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "allowHTML" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "text" : {
-                          "type" : "interpolation",
-                          "value" : "{{selectedFile.linkSource}}"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
                         }
                       },
-                      "reference" : "ea1a1823-622b-4e60-a84a-f99017f38a36",
+                      "reference" : "1f952545-7565-4b11-bc39-59b4bc7f9410",
                       "hasValidationError" : false,
-                      "id" : "pbText"
+                      "id" : "customSDAEFileViewer"
                     }
                   ]
                 ]
@@ -17777,38 +17937,38 @@
     "totalIngresos" : {
       "type" : "expression",
       "value" : [
-        "var suma = 0;",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro;",
-        "}",
-        "",
-        "$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTotal = suma;",
-        "",
+        "var suma = 0;\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre != null){\r",
+        "    suma = parseInt(suma) + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre) : 0;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre != null){\r",
+        "    suma = parseInt(suma) + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre) : 0;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano != null){\r",
+        "    suma = parseInt(suma) + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano) : 0;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio != null){\r",
+        "    suma = parseInt(suma) + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio) : 0;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo != null){\r",
+        "    suma = parseInt(suma) + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo) : 0;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante != null){\r",
+        "    suma = parseInt(suma) + $data.formOutputTest.solicitudApoyoEducativoInput ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante) : 0;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro) : 0);\r",
+        "}\r",
+        "\r",
+        "$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTotal = parseInt(suma);\r",
+        "\r",
         "return suma;"
       ],
       "exposed" : false
@@ -17835,53 +17995,54 @@
     "totalEgresos" : {
       "type" : "expression",
       "value" : [
-        "var suma = 0;",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros;",
-        "}",
-        "",
-        "$data.formOutputTest.solicitudApoyoEducativoInput.egresoTotal  = suma; ",
+        "var suma = 0;\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos) : 0);\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros != null){\r",
+        "    suma = parseInt(suma) + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros ? parseInt($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros) : 0);\r",
+        "}\r",
+        "\r",
+        "$data.formOutputTest.solicitudApoyoEducativoInput.egresoTotal  = parseInt(suma); \r",
+        "\r",
         "return suma;"
       ],
       "exposed" : false
@@ -18335,6 +18496,7 @@
       "type" : "expression",
       "value" : [
         "let output =  true; \r",
+        "let numberRegex = /\\d/g;\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos === null){\r",
         "    output = false;\r",
@@ -18344,7 +18506,7 @@
         "    output = false;\r",
         "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Tienes hijos?' debes llenar el campo '¿Cuántos hijos tienes?'.\";\r",
         "    $data.tituloErrorPaso1 = \"Información personal\";\r",
-        "} else if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos && !$data.formOutputTest.solicitudApoyoEducativoInput.edadHijos){\r",
+        "}  else if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos && !$data.formOutputTest.solicitudApoyoEducativoInput.edadHijos){\r",
         "    output = false;\r",
         "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Tienes hijos?' debes llenar el campo 'Edad de los hijos'.\";\r",
         "    $data.tituloErrorPaso1 = \"Información personal\";\r",

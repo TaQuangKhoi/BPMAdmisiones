@@ -945,11 +945,6 @@ class CatalogosDAO {
 				row.setIsDeportiva(rs.getBoolean("ISDEPORTIVA"));
 				row.setIsFinanciamiento(rs.getBoolean("ISFINANCIAMIENTO"));
 				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
-				row.setUrlEjemploCurriculum(rs.getString("URLEJEMPLOCURRICULUM"));
-				row.setRequiereCurriculum(rs.getBoolean("REQUIERECURRICULUM"));
-//				row.setRequiereVideo(rs.getBoolean("requierevideo"));
-//				row.setCondicionesVideo(rs.getString("condicionesvideo"));
-//				row.setEsSocioEconomico(rs.getBoolean("esSocioEconomico"));
 
 				rows.add(row);
 			}
@@ -1221,8 +1216,10 @@ class CatalogosDAO {
 			pstm.setBoolean(1, objCatGenerico.requiereVideo);
 			pstm.setString(2, objCatGenerico.condicionesVideo);
 			pstm.setBoolean(3, objCatGenerico.esSocioEconomico);
-			pstm.setLong(4, objCatGenerico.idCampus);
-			pstm.setLong(5, objCatGenerico.persistenceId);
+			pstm.setBoolean(4, objCatGenerico.requiereCurriculum);
+			pstm.setString(5, objCatGenerico.urlEjemploCurriculum == null ? "" : objCatGenerico.urlEjemploCurriculum);
+			pstm.setLong(6, objCatGenerico.idCampus);
+			pstm.setLong(7, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true)
 			
