@@ -590,6 +590,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   $scope.abrirModalAvanzarSolicitud = function(rowData) {
       $scope.isTareaPreAutorizacion = false;
       $scope.avanzarSolicitud = true;
+      $scope.avanzarPreAutorizacion = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarDictamen').modal('show'); 
       
@@ -598,8 +599,21 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   $scope.abrirModalArchivarSolicitud = function(rowData) {
       $scope.isTareaPreAutorizacion = false;
       $scope.avanzarSolicitud = false;
+      $scope.avanzarPreAutorizacion = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarArchivo').modal('show'); 
+      
+  }
+  
+  $scope.avanzarSolicitud = false;
+  $scope.avanzarPreAutorizacion = false;
+  
+  $scope.abrirModalReactivarSolicitud = function(rowData) {
+      $scope.isTareaPreAutorizacion = false;
+      $scope.avanzarSolicitud = false;
+      $scope.avanzarPreAutorizacion = true;
+      $scope.caseIdTarea = rowData.caseid;
+      $('#modalReactivarSolicitud').modal('show'); 
       
   }
   
@@ -630,6 +644,32 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
     
     $scope.avanzarTareaArchivo = function() {
+      
+        var rowData = {
+            caseid: $scope.caseIdTarea
+        };
+      
+         
+         var req = {
+            method: "GET",
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
+        };
+  
+        return $http(req).success(function(data, status) {
+                debugger;
+                rowData.taskId = data[0].id;
+                rowData.taskName = data[0].name;
+                rowData.processId = data[0].processId;
+                $scope.preProcesoAsignarTarea(rowData)
+                
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
+    }
+    
+    $scope.avanzarTareaPreaAutorizacion = function() {
       
         var rowData = {
             caseid: $scope.caseIdTarea
