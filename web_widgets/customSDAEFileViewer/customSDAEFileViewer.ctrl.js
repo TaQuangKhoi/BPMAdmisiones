@@ -14,11 +14,6 @@ function WidgetController($scope, $log, $window, $sce) {
         if($scope.properties.url){
             let array = angular.copy($scope.properties.url).split(",");
             let b64 = array[1].toString().trim();
-            // debugger;
-            // var url = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
-            // var decodedString = window.atob(b64);
-            // $scope.fileUrl = decodedString;
-            debugger;
             const byteCharacters = atob(b64);
             const byteNumbers = new Array(byteCharacters.length);
             for (let i = 0; i < byteCharacters.length; i++) {
@@ -26,8 +21,16 @@ function WidgetController($scope, $log, $window, $sce) {
             }
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], {type: 'application/pdf'});
-            $scope.fileUrl = URL.createObjectURL(blob).replace("blob:","");
-            
+            let objToDelete = document.getElementById("objetoDocumento");
+            if(objToDelete){
+                objToDelete.remove();
+            }
+            const obj2 = document.createElement('object');
+            obj2.data = URL.createObjectURL(blob);
+            obj2.id = "objetoDocumento";
+            obj2.width = "100%";
+            obj2.height = "350px";
+            document.getElementById("documentoContenedor").appendChild(obj2);
         }
     }, true);
   

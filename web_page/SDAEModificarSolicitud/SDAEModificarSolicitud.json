@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1652391934375,
+  "lastUpdate" : 1652920498914,
   "rows" : [
     [
       {
@@ -327,7 +327,7 @@
                 "getAutodescripcion" : "getAutodescripcion",
                 "objPadresTutor" : "",
                 "returnCurriculumInfo" : "returnCurriculumInfo",
-                "lstAutomoviles" : "lstAutomoviles"
+                "lstAutomoviles" : "lstCatSituacionAuto"
               }
             }
           ],
@@ -701,6 +701,46 @@
                       "reference" : "75326986-9bc2-4aa3-8560-fdede139ce39",
                       "hasValidationError" : false,
                       "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension !== \".pdf\""
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "URL"
+                        },
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource.trim()"
+                        },
+                        "document" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "showPreview" : {
+                          "type" : "constant",
+                          "value" : true
+                        }
+                      },
+                      "reference" : "7db3a920-09ac-4253-899c-86419b4ff243",
+                      "hasValidationError" : false,
+                      "id" : "customSDAEFileViewer"
                     }
                   ]
                 ]
@@ -2861,6 +2901,14 @@
         "",
         "return output;"
       ],
+      "exposed" : false
+    },
+    "lstCatSituacionAuto" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatSituacionAuto"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1652393163801,
+  "lastUpdate" : 1652920584773,
   "rows" : [
     [
       {
@@ -1502,11 +1502,11 @@
                                   },
                                   "minLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 1
                                   },
                                   "maxLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 7
                                   },
                                   "readOnly" : {
                                     "type" : "expression",
@@ -1540,19 +1540,21 @@
                                     "value" : "number"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000
                                   },
                                   "step" : {
                                     "type" : "constant",
                                     "value" : 1
                                   }
                                 },
-                                "reference" : "e92b0dab-9d63-490d-8e63-52cd68e09488",
+                                "reference" : "643a9781-3d34-4403-b9f1-87400ed3517a",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customSDAEInputMoneda"
                               }
                             ]
                           ]
@@ -1865,7 +1867,8 @@
                                     "value" : "number"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -1913,7 +1916,7 @@
                                   },
                                   "maxLength" : {
                                     "type" : "constant",
-                                    "value" : 50
+                                    "value" : 200
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -2438,11 +2441,11 @@
                       },
                       "minLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 7
                       },
                       "readOnly" : {
                         "type" : "expression",
@@ -2473,13 +2476,15 @@
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "number"
                       },
                       "min" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 0
                       },
                       "max" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : 1000000
                       },
                       "step" : {
                         "type" : "constant",
@@ -2568,7 +2573,7 @@
                     "id" : "pbInput"
                   },
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
@@ -2584,54 +2589,163 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "¿Contó con beca en la preparatoria anterior? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Selecciona una opción"
-                      },
-                      "availableValues" : {
-                        "type" : "expression",
-                        "value" : "lstCatContoBecaPreparatoria.data"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant",
-                        "value" : "descripcion"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant",
-                        "value" : "persistenceId"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
+                        "value" : ""
                       }
                     },
-                    "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
+                    "reference" : "fc31e41a-261e-4f42-ab0e-b22c83a27365",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Contó con beca en la preparatoria anterior? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "lstCatContoBecaPreparatoria.data"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant",
+                              "value" : "persistenceId"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
+                            }
+                          },
+                          "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.modificarInfoPersonal <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Indica el porcentaje de beca: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 100
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "bb5ccccb-c4d5-4a05-a64d-e640a7eecbdf",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimitPercentage"
+                        }
+                      ]
+                    ]
                   }
                 ],
                 [
@@ -2707,81 +2821,6 @@
                       }
                     },
                     "reference" : "b01deae9-43b0-41c7-b8ac-5bee765e5c6e",
-                    "hasValidationError" : false,
-                    "id" : "pbInput"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.modificarInfoPersonal <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Indica el porcentaje de beca: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      }
-                    },
-                    "reference" : "06d65d38-04e2-4783-b2c1-65a1a483002f",
                     "hasValidationError" : false,
                     "id" : "pbInput"
                   }
@@ -3680,7 +3719,7 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 0
                 },
                 "maxLength" : {
                   "type" : "constant",
@@ -3718,10 +3757,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10000000000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -3832,7 +3873,7 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 0
                 },
                 "maxLength" : {
                   "type" : "constant",
@@ -3870,10 +3911,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10000000000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -4006,7 +4049,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "tutor.telefonoCelular"
+                  "value" : "tutor.telefono"
                 },
                 "type" : {
                   "type" : "constant",
@@ -4188,7 +4231,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formOutputTest.correoElectronicoTutor.correoElectronico"
+                  "value" : "tutor.correoElectronico"
                 },
                 "type" : {
                   "type" : "constant",
@@ -4438,11 +4481,11 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 7
                 },
                 "readOnly" : {
                   "type" : "expression",
@@ -4473,13 +4516,15 @@
                 },
                 "type" : {
                   "type" : "constant",
-                  "value" : "text"
+                  "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 100000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -4898,7 +4943,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar bienes raices / inversiones"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -5031,6 +5076,110 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Si deseas agregar  algún bien o inversión, presiona agregar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "b86d6d3a-9bcf-42ed-92d6-dc77af0bb567",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "8921d07f-7948-4117-9a25-04ce99329d2f",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -5073,8 +5222,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "(!madre.vive && !padre.vive)"
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -5117,7 +5266,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "formOutputTest.solicitudApoyoEducativoInput.catEstadoCivilPadres_id"
                 }
               },
               "reference" : "22f560a5-94f6-41a3-b068-ac9b1d78f06c",
@@ -5341,7 +5490,7 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
@@ -5379,10 +5528,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10000000000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -5752,7 +5903,7 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
@@ -5790,10 +5941,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10000000000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -6371,7 +6524,7 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
@@ -6409,10 +6562,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10000000000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -6782,11 +6937,11 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 14
                 },
                 "readOnly" : {
                   "type" : "expression",
@@ -6820,10 +6975,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10000000000000
                 },
                 "step" : {
                   "type" : "constant",
@@ -7479,7 +7636,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Agregar otro hermano"
+                        "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -7576,6 +7733,58 @@
                     "reference" : "c2d407e8-6d3c-404c-927c-620591fc5aa3",
                     "hasValidationError" : false,
                     "id" : "customTblSDAEinformacionHermanosSolicitudAspirante"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Si deseas agregar un hermano a la lista, presiona el botón Agregar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "c20825c9-8bf6-4a94-ab35-9ded29d183cd",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -7862,7 +8071,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "tall-textbox"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -7878,11 +8087,11 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1500
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -7890,7 +8099,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Escribe el motivo por el cual se solicita la beca y otra información que creas que el comité de selección deba saber: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Escribe el motivo por el cual se solicita la beca y otra información que creas que el comité de selección deba saber: (Max 1500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -8584,10 +8793,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 9999999
                 },
                 "step" : {
                   "type" : "constant",
@@ -8661,10 +8872,12 @@
                   "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 9999999
                 },
                 "step" : {
                   "type" : "constant",
@@ -8733,13 +8946,15 @@
                 },
                 "type" : {
                   "type" : "constant",
-                  "value" : "text"
+                  "value" : "number"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 999999999
                 },
                 "step" : {
                   "type" : "constant",
@@ -8962,10 +9177,11 @@
                 },
                 "type" : {
                   "type" : "constant",
-                  "value" : "number"
+                  "value" : "text"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 1
                 },
                 "max" : {
                   "type" : "constant"
@@ -9037,7 +9253,7 @@
                 },
                 "type" : {
                   "type" : "constant",
-                  "value" : "number"
+                  "value" : "text"
                 },
                 "min" : {
                   "type" : "constant"
@@ -9154,7 +9370,7 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "maxLength" : {
                   "type" : "constant",
@@ -9469,7 +9685,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "(Favor de enlistar todos los automóviles propiedad de cualquier miembro del núcleo familiar):"
+                  "value" : "Listado de automóviles propiedad de cualquier miembro del núcleo familiar"
                 },
                 "level" : {
                   "type" : "constant",
@@ -9509,7 +9725,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar Automóvil"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -9603,6 +9819,58 @@
               "reference" : "fcf8abb1-6fa6-4d89-8d4e-cc581d1abdb5",
               "hasValidationError" : false,
               "id" : "customTblSDAEinformacionAutomoviles"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Si deseas agregar un automóvil a la lista, presiona el botón Agregar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "1dfb207a-4b6b-44ff-aec3-aacea59f8379",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -9972,10 +10240,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -10160,10 +10429,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -10348,10 +10618,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -10536,10 +10807,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -10724,10 +10996,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -10912,10 +11185,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -11099,10 +11373,12 @@
                               "value" : "number"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -11397,10 +11673,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -11585,10 +11862,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -11773,10 +12051,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -11961,10 +12240,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -12149,10 +12429,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -12337,10 +12618,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -12525,10 +12807,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -12713,10 +12996,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -12901,10 +13185,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -13089,10 +13374,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -13277,10 +13563,11 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 0
+                              "value" : 1
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
@@ -13742,6 +14029,42 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "expression",
+                  "value" : "urlIMagenesSocioEconomico"
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "catTipoApoyoFiltro"
+                },
+                "imagenesSocioEconomico" : {
+                  "type" : "variable",
+                  "value" : "imagenesSocioEconomico"
+                }
+              },
+              "reference" : "ca8580d8-cdb9-4d9e-b26b-80e73581f142",
+              "hasValidationError" : false,
+              "id" : "customSDAEGetImagenesSocioEconomico"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
                   "value" : "color-orange"
                 },
                 "hidden" : {
@@ -13881,42 +14204,6 @@
               "reference" : "03a21ad5-dfc2-4134-bdac-35bdd9e0fb3b",
               "hasValidationError" : false,
               "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "expression",
-                  "value" : "urlIMagenesSocioEconomico"
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "catTipoApoyoFiltro"
-                },
-                "imagenesSocioEconomico" : {
-                  "type" : "variable",
-                  "value" : "imagenesSocioEconomico"
-                }
-              },
-              "reference" : "ca8580d8-cdb9-4d9e-b26b-80e73581f142",
-              "hasValidationError" : false,
-              "id" : "customSDAEGetImagenesSocioEconomico"
             }
           ],
           [
@@ -14157,46 +14444,6 @@
               "reference" : "c4550aa9-ca8b-4d9e-ab9b-e04a7dcb4f26",
               "hasValidationError" : false,
               "id" : "pbText"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Acepto el Reglamento de Becas y Financiamiento de Anahuác"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.isFinalizadaInput"
-                }
-              },
-              "reference" : "d88ac544-6ec5-4224-b5ff-3ffdb707dffc",
-              "hasValidationError" : false,
-              "id" : "pbCheckbox"
             }
           ],
           [
