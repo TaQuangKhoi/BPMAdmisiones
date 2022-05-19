@@ -409,7 +409,7 @@ class BonitaGetsDAO {
 					}
 					if(metaData.getColumnLabel(i).toLowerCase().equals("type")) {
 						if(rs.getString(i).equals("java.lang.Boolean")) {
-							columns.put("value", rs.getString("booleanvalue")?.toLowerCase())
+							columns.put("value", rs.getBoolean("booleanvalue").toString()?.toLowerCase())
 						} else 
 							if(rs.getString(i).equals("java.lang.String")) {
 							columns.put("value", rs.getString("shorttextvalue"))
