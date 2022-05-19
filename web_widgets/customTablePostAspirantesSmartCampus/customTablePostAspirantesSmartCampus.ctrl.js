@@ -300,24 +300,25 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         
     }
     
-    function doRequestRuta(method, url, data) {
+    function doRequestRuta(method, url, info) {
         blockUI.start();
         var req = {
             method: method,
             url: url,
-            data: angular.copy(data),
+            data: angular.copy(info),
         };
   
         return $http(req)
             .success(function(data, status) {
                 let pdfWindow = window.open("")
                 if(data.additional_data[0] == "imagen"){
-                    pdfWindow.document.write("<img width='50%' height='100%' src='"+ data.data[0]+ "'>")
+                    
+                    pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Descargar</a>`)
                 }else{
                     
-                    pdfWindow.document.write('<embed src="'+data.data[0]+'" width="50%" height="100%">')
+                    pdfWindow.document.write(`<embed src="${data.data[0]}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${data.data[0]}">Descargar</a>`)
                 }
-                //console.log(data);
+                //console.log(data); 
             })
             .error(function(data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
