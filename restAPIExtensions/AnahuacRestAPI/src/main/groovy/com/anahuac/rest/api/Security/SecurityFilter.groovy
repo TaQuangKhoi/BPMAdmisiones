@@ -41,6 +41,9 @@ class SecurityFilter {
 				case "getDescuentosCiudadBachilleratoById":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
+				case "correcionNuevoCampoSesion":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				break;
 				case "getDescuentosCampana":
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -63,10 +66,14 @@ class SecurityFilter {
 				break;
 				case "getBusinessAppMenu":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
 				break;
 				case "getMenuAdministrativo":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
 				case "getUniversidadSmartCampus":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -180,6 +187,8 @@ class SecurityFilter {
 				if(allow){break;}
 				break;
 				case "getCatGestionEscolar":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
 				case "getSesion":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -332,6 +341,8 @@ class SecurityFilter {
 				break;
 				case "getEstados":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
 				break;
 				case "getTempKeyAzure":
 				allow=bonitaRolFilter(context,"ADMISIONES")
@@ -387,6 +398,8 @@ class SecurityFilter {
 				case "getPropedeuticosNoFecha":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
 				case "getActiveProcess":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -584,6 +597,8 @@ class SecurityFilter {
 		    }
 			allow=bonitaRolFilter(context,"SERUA")
 			if(allow){break;}
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "selectAspirantesEnRed":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -614,6 +629,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "getCatPais":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -824,6 +841,8 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"Becas")
+			if(allow){break;}
 		    break;
 		  case "getExcelGenerico":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1743,6 +1762,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getSesionesINVPTabla":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1753,6 +1776,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "getSesionesINVPTablaProcesadas":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1760,6 +1787,10 @@ class SecurityFilter {
 		      break;
 		    }
 			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1785,13 +1816,17 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertRespuesta":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
-			allow = bonitaRolFilter(context, "Usuario Auxiliar");
+			allow = bonitaRolFilter(context, "Proveedor");
 			if (allow) {
 			  break;
 			}
@@ -1807,6 +1842,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "postGetIdSesionByCaseId":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1823,6 +1862,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "PostUpdateDeleteCatEscalaEAC":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
@@ -1835,6 +1878,10 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertEmailHubspotConfig":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

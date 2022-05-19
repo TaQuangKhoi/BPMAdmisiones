@@ -140,7 +140,7 @@ class HubspotDAO {
 					
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					objHubSpotData = new HashMap<String, String>();
 					objHubSpotData.put("campus_admision_bpm", lstSolicitudDeAdmision.get(0).getCatCampusEstudio().getClave());
 					
@@ -346,7 +346,7 @@ class HubspotDAO {
 					strError = strError + " | !empty";
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: " + apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: " + apikeyHubspot;
 					objHubSpotData = new HashMap < String, String > ();
 					if (lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave() != null) {
 						strError = strError + " | ";
@@ -639,7 +639,7 @@ class HubspotDAO {
 				if(!lstCatRegistro.empty) {
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
@@ -727,7 +727,7 @@ class HubspotDAO {
 						if(!lstDetalleSolicitud.empty) {
 							resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 							apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-							strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+							//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 							residencia = lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("F") ? "F" : (lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("R") ? "R" : "E");
 							tipoAdmision = lstDetalleSolicitud.get(0).getCatTipoAdmision().getClave();
 							
@@ -828,7 +828,7 @@ class HubspotDAO {
 					
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					if(lstDetalleSolicitud != null) {
 						if(!lstDetalleSolicitud.empty) {
 							if(isRechazo) {
@@ -890,7 +890,7 @@ class HubspotDAO {
 			lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(object.email, 0, 1);
 			resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 			apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-			strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+			//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 			Date fecha = new Date();
 			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			
@@ -977,7 +977,7 @@ class HubspotDAO {
 							
 							resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 							apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-							strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+							//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 							descuento = ""+lstDetalleSolicitud.get(0).getDescuento();
 							catDescuento = ""+(lstDetalleSolicitud.get(0).getCatDescuentos()== null ? "" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento());
 							
@@ -1086,7 +1086,7 @@ class HubspotDAO {
 				if(!lstCatRegistro.empty) {
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
@@ -1159,7 +1159,7 @@ class HubspotDAO {
 				if(!lstCatRegistro.empty) {
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
@@ -1231,7 +1231,7 @@ class HubspotDAO {
 				if(!lstCatRegistro.empty) {
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
@@ -1303,7 +1303,7 @@ class HubspotDAO {
 				if(!lstCatRegistro.empty) {
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
@@ -1419,7 +1419,7 @@ class HubspotDAO {
 					}
 					
 					
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
 					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
@@ -1689,7 +1689,7 @@ class HubspotDAO {
 
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
-					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
+					//strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 
 					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
 
@@ -1871,7 +1871,7 @@ class HubspotDAO {
 		try {
 			strError = strError + ", INICIO";
 			strError = strError + "| ==============================================";
-			strError = strError + "| apikeyHubspot: "+apikeyHubspot;
+			//strError = strError + "| apikeyHubspot: "+apikeyHubspot;
 			strError = strError + "| ==============================================";
 			Iterator it = objHubSpotData.entrySet().iterator();
 			while (it.hasNext()) {
@@ -2019,7 +2019,6 @@ class HubspotDAO {
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99";
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
 	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
-
 	  StringBuilder resultado = new StringBuilder();
 	  try {
 		  URL url = new URL(urlParaVisitar);
@@ -2035,7 +2034,7 @@ class HubspotDAO {
 		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() )
 		  String error = "";
 		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
-		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", "${error} ${urlParaVisitar}", e.getMessage(), campus, context)
+		  enviarCorreoError("Error en la consulta", "${error}", e.getMessage().replace(urlParaVisitar,""), campus, context)
 		  throw new Exception( e.getMessage() )
 	  }
 	  
@@ -2069,7 +2068,6 @@ class HubspotDAO {
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
 	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
-
 	  StringBuilder resultado = new StringBuilder();
 	  
 	  try {
@@ -2086,7 +2084,7 @@ class HubspotDAO {
 		  new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, "Log: ${e.getMessage()}", e.getMessage() );
 		  String error = "";
 		  error += (e.getMessage().contains("401")?"http 401 unauthorized favor de revisar las credenciales":"");
-		  enviarCorreoError("Error en la consulta '${urlParaVisitar}' ", " ${error} (${urlParaVisitar})", e.getMessage(), campus, context);
+		  enviarCorreoError("Error en la cosulta", " ${error}", e.getMessage().replace(urlParaVisitar,""), campus, context);
 		  throw new Exception( e.getMessage() )
 	  }
 	  

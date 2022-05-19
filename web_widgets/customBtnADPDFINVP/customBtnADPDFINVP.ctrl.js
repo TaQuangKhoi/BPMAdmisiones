@@ -29,8 +29,9 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         doc.text('Gráfica escalas básicas', 80, 10);
         doc.text('Gráfica escala de contenido', 80, 153)
 
-        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V1.pdf");
-        
+        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName);
+       
+       /* 
         doc = new jspdf.jsPDF('l', 'mm', 'a4');
         width = doc.internal.pageSize.getWidth();
         height = doc.internal.pageSize.getHeight();
@@ -50,7 +51,7 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         doc.addImage(imgData2,'PNG',15,15,280,150,'chart2')
         doc.text('Gráfica escala de contenido', 120, 13)
         
-        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V2.pdf");
+        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V2.pdf");*/
         
         /*
         var element = document.querySelector($scope.properties.elementSelector);
