@@ -313,10 +313,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 let pdfWindow = window.open("")
                 if(data.additional_data[0] == "imagen"){
                     
-                    pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Download</a>`)
+                    pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Descargar</a>`)
                 }else{
                     
-                    pdfWindow.document.write(`<embed src="${data.data[0]}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${data.data[0]}">Download</a>`)
+                    pdfWindow.document.write(`<embed src="${data.data[0]}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${data.data[0]}">Descargar</a>`)
                 }
                 //console.log(data); 
             })
