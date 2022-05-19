@@ -2160,6 +2160,64 @@ class CatalogosDAO {
 	 * @param context (RestAPIContext)
 	 * @return resultado (Result)
 	 */
+	public Result getImagenesByCaseId(Long caseId) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		CatManejoDocumentos catManejoDocumentos = new CatManejoDocumentos();
+		DocumentosSolicitante row = new DocumentosSolicitante();
+		
+		try {
+			errorLog += "ENTRO ";
+			String consulta = StatementsCatalogos.GET_IMAGENES_SOLICITANTE_BY_CASEID;
+			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
+			closeCon = validarConexion();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, Long.valueOf(caseId));
+				
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new DocumentosSolicitante();
+				
+				row.setCatManejoDocumentos_id(rs.getLong("doc_catmanejodocumentos_pid"));
+				row.setCaseId(rs.getLong("doc_caseid"));
+				row.setUrlDocumento(rs.getString("doc_urlDocumento"));
+				catManejoDocumentos = new CatManejoDocumentos();
+				catManejoDocumentos.setPersistenceId(rs.getLong("cma_persistenceid"));
+				catManejoDocumentos.setDescripcionDocumento(rs.getString("cma_descripciondocumento"));
+				catManejoDocumentos.setIsObligatorioDoc(rs.getBoolean("cma_isobligatoriodoc"));
+				catManejoDocumentos.setNombreDocumento(rs.getString("cma_nombredocumento"));
+				catManejoDocumentos.setUrlDocumentoAzure(rs.getString("cma_urldocumentoazure"));
+				catManejoDocumentos.setRequiereEjemplo(rs.getBoolean("cma_requiereejemplo"));
+				row.setCatManejoDocumentos(catManejoDocumentos);
+				
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Obtiene la lista de registros de documentos rrelacionados a un tipo de apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
 	public Result getDocumentosByCaseId(Long caseId) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -2213,5 +2271,4 @@ class CatalogosDAO {
 		}
 		return resultado;
 	}
-	
 }

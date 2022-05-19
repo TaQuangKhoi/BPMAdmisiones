@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1652920584773,
+  "lastUpdate" : 1652929107054,
   "rows" : [
     [
       {
@@ -711,7 +711,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "userDataEmail.userName"
+                              "value" : "objSolicitudDeAdmision[0].correoElectronico"
                             },
                             "type" : {
                               "type" : "constant",
@@ -1518,7 +1518,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "¿Cuanto es tu ingreso proveniente de este trabajo?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "¿Cuanto es tu ingreso proveniente de este trabajo?"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -2457,7 +2457,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Costo mensual de colegiatura <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Costo mensual de colegiatura"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -2630,7 +2630,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Contó con beca en la preparatoria anterior? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿Contó con beca en la preparatoria anterior?"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2698,7 +2698,7 @@
                             },
                             "readOnly" : {
                               "type" : "expression",
-                              "value" : "!formOutputTest.modificarInfoPersonal <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2706,7 +2706,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Indica el porcentaje de beca: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Indica el porcentaje de beca:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3222,6 +3222,13 @@
                                   "tipoDocumento" : {
                                     "type" : "constant",
                                     "value" : "pdf"
+                                  },
+                                  "requiereEjemplo" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "urlEjemplo" : {
+                                    "type" : "constant"
                                   }
                                 },
                                 "reference" : "a6941c92-14c6-4b4a-ba09-735a9115c5e3",
@@ -3269,7 +3276,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Captura el promedio del nuevo kardex <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Captura el promedio del nuevo kardex"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -7601,7 +7608,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "returnCatValue.catTienesHermanos.descripcion !== \"Sí\""
+                  "value" : "!formOutputTest.solicitudApoyoEducativoInput.tieneHermanos"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -15331,13 +15338,6 @@
       ],
       "exposed" : true
     },
-    "siNoOpciones" : {
-      "type" : "constant",
-      "value" : [
-        ""
-      ],
-      "exposed" : true
-    },
     "lstCatContoBecaPreparatoria" : {
       "type" : "constant",
       "value" : [
@@ -15608,6 +15608,29 @@
       "type" : "expression",
       "value" : [
         "return true;"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "siNoOpciones" : {
+      "type" : "json",
+      "value" : [
+        "[",
+        "    {",
+        "        \"clave\": \"Sí\",",
+        "        \"valor\": true",
+        "    }, ",
+        "    {",
+        "        \"clave\": \"No\",",
+        "        \"valor\": false",
+        "    }",
+        "]"
       ],
       "exposed" : false
     }
