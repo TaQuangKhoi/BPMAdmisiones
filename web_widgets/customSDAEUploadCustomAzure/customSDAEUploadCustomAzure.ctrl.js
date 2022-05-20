@@ -119,6 +119,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     }
     
     $scope.openModalFile = function(){
+        debugger;
         openModal($scope.properties.idModal);
     }
     

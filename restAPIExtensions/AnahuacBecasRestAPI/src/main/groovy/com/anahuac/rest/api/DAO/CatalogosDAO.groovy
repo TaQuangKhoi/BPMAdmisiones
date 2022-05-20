@@ -16,11 +16,13 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.StatementsCatalogos
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.db.CatGenerico
-import com.anahuac.rest.api.Entity.db.CatImagenesSocioAcademico
+import com.anahuac.rest.api.Entity.db.CatImagenesSocioEconomico
 import com.anahuac.rest.api.Entity.db.CatManejoDocumentos
 import com.anahuac.rest.api.Entity.db.CatTypoApoyo
 import com.anahuac.rest.api.Entity.db.ConfiguracionesCampus
 import com.anahuac.rest.api.Entity.db.DocumentosSolicitante
+import com.anahuac.rest.api.Entity.db.ImagesSocEcoSolicitante
+
 import groovy.json.JsonSlurper
 
 class CatalogosDAO {
@@ -945,11 +947,6 @@ class CatalogosDAO {
 				row.setIsDeportiva(rs.getBoolean("ISDEPORTIVA"));
 				row.setIsFinanciamiento(rs.getBoolean("ISFINANCIAMIENTO"));
 				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
-				row.setUrlEjemploCurriculum(rs.getString("URLEJEMPLOCURRICULUM"));
-				row.setRequiereCurriculum(rs.getBoolean("REQUIERECURRICULUM"));
-//				row.setRequiereVideo(rs.getBoolean("requierevideo"));
-//				row.setCondicionesVideo(rs.getString("condicionesvideo"));
-//				row.setEsSocioEconomico(rs.getBoolean("esSocioEconomico"));
 
 				rows.add(row);
 			}
@@ -1221,8 +1218,10 @@ class CatalogosDAO {
 			pstm.setBoolean(1, objCatGenerico.requiereVideo);
 			pstm.setString(2, objCatGenerico.condicionesVideo);
 			pstm.setBoolean(3, objCatGenerico.esSocioEconomico);
-			pstm.setLong(4, objCatGenerico.idCampus);
-			pstm.setLong(5, objCatGenerico.persistenceId);
+			pstm.setBoolean(4, objCatGenerico.requiereCurriculum);
+			pstm.setString(5, objCatGenerico.urlEjemploCurriculum == null ? "" : objCatGenerico.urlEjemploCurriculum);
+			pstm.setLong(6, objCatGenerico.idCampus);
+			pstm.setLong(7, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true)
 			
@@ -1366,8 +1365,8 @@ class CatalogosDAO {
 		
 		try {
 			String consulta = StatementsCatalogos.GET_IMAGENES_BY_TIPO_APOYO;
-			CatImagenesSocioAcademico row = new CatImagenesSocioAcademico();
-			List < CatImagenesSocioAcademico > rows = new ArrayList < CatImagenesSocioAcademico > ();
+			CatImagenesSocioEconomico row = new CatImagenesSocioEconomico();
+			List < CatImagenesSocioEconomico > rows = new ArrayList < CatImagenesSocioEconomico > ();
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1380,7 +1379,7 @@ class CatalogosDAO {
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
-				row = new CatImagenesSocioAcademico();
+				row = new CatImagenesSocioEconomico();
 				row.setDescripcion(rs.getString("descripcion"));
 				row.setPersistenceId(rs.getLong("persistenceid"));
 
@@ -2163,6 +2162,60 @@ class CatalogosDAO {
 	 * @param context (RestAPIContext)
 	 * @return resultado (Result)
 	 */
+	public Result getImagenesByCaseId(Long caseId) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		CatImagenesSocioEconomico catimagenesSocEco = new CatImagenesSocioEconomico();
+		ImagesSocEcoSolicitante row = new ImagesSocEcoSolicitante();
+		
+		try {
+			errorLog += "ENTRO ";
+			String consulta = StatementsCatalogos.GET_IMAGENES_SOLICITANTE_BY_CASEID;
+			List < ImagesSocEcoSolicitante > rows = new ArrayList < ImagesSocEcoSolicitante > ();
+			closeCon = validarConexion();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, Long.valueOf(caseId));
+				
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				row = new ImagesSocEcoSolicitante();
+				row.setImagenSocioEconomico_id(rs.getLong("img_imagenSocioEconomico_id"));
+				row.setCaseId(rs.getLong("img_caseid"));
+				row.setUrlImagen(rs.getString("img_urlimagen"));
+				row.setPersistenceId(rs.getLong("img_persistenceid"));
+				catimagenesSocEco = new CatImagenesSocioEconomico();
+				catimagenesSocEco.setPersistenceId(rs.getLong("cis_persistenceid"));
+				catimagenesSocEco.setDescripcion(rs.getString("cis_descripcion"));
+				row.setImagenSocioEconomico(catimagenesSocEco);
+				
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Obtiene la lista de registros de documentos rrelacionados a un tipo de apoyo
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
 	public Result getDocumentosByCaseId(Long caseId) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -2216,5 +2269,4 @@ class CatalogosDAO {
 		}
 		return resultado;
 	}
-	
 }

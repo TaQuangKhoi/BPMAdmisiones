@@ -16,42 +16,6 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : "color-orange"
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "Modificar solicitud de apoyo"
-          },
-          "level" : {
-            "type" : "constant",
-            "value" : "Level 3"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "center"
-          }
-        },
-        "reference" : "bc9da272-0948-48f5-81dc-de320804ddad",
-        "hasValidationError" : false,
-        "id" : "pbTitle"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
             "value" : ""
           },
           "hidden" : {
@@ -142,6 +106,42 @@
         "reference" : "ea7caa6c-0acd-4101-b2e6-d3913a9c7472",
         "hasValidationError" : false,
         "id" : "customSDAEGetTareaUsuario"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "color-orange"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Modificar solicitud de apoyo"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 3"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "bc9da272-0948-48f5-81dc-de320804ddad",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
       }
     ],
     [
@@ -314,7 +314,7 @@
                 "errorPaso3" : "errorPaso3",
                 "errorPaso4" : "errorPaso4",
                 "errorPaso5" : "errorPaso5",
-                "urlDownloadFileAzure" : "urlDownloadFileAzure",
+                "urlDownloadFileAzure" : "urlDonwnloadAzureUrl",
                 "taskid" : "taskId",
                 "reload" : "reloadTask",
                 "caseId" : "caseId",
@@ -327,7 +327,8 @@
                 "getAutodescripcion" : "getAutodescripcion",
                 "objPadresTutor" : "",
                 "returnCurriculumInfo" : "returnCurriculumInfo",
-                "lstAutomoviles" : "lstAutomoviles"
+                "lstAutomoviles" : "lstCatSituacionAuto",
+                "getDatosSolicitante" : "getDatosSolicitante"
               }
             }
           ],
@@ -701,6 +702,46 @@
                       "reference" : "75326986-9bc2-4aa3-8560-fdede139ce39",
                       "hasValidationError" : false,
                       "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension !== \".pdf\""
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "URL"
+                        },
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource.trim()"
+                        },
+                        "document" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "showPreview" : {
+                          "type" : "constant",
+                          "value" : true
+                        }
+                      },
+                      "reference" : "7db3a920-09ac-4253-899c-86419b4ff243",
+                      "hasValidationError" : false,
+                      "id" : "customSDAEFileViewer"
                     }
                   ]
                 ]
@@ -1217,34 +1258,38 @@
     "totalIngresos" : {
       "type" : "expression",
       "value" : [
-        "var suma = 0;",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante;",
-        "}",
-        "",
-        "$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTotal = suma;",
-        "",
+        "var suma = 0;\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro;\r",
+        "}\r",
+        "\r",
+        "$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTotal = suma;\r",
+        "\r",
         "return suma;"
       ],
       "exposed" : false
@@ -1271,53 +1316,54 @@
     "totalEgresos" : {
       "type" : "expression",
       "value" : [
-        "var suma = 0;",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos;",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros != null){",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros;",
-        "}",
-        "",
-        "$data.formOutputTest.solicitudApoyoEducativoInput.egresoTotal  = suma; ",
+        "var suma = 0;\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos;\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros !== null){\r",
+        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros;\r",
+        "}\r",
+        "\r",
+        "$data.formOutputTest.solicitudApoyoEducativoInput.egresoTotal = suma;\r",
+        "\r",
         "return suma;"
       ],
       "exposed" : false
@@ -2468,83 +2514,7 @@
     "formOutputTest" : {
       "type" : "json",
       "value" : [
-        "  {\r",
-        "    \t\"solicitudApoyoEducativoInput\":{\r",
-        "    \t\t\"caseId\": null,\r",
-        "    \t\t\"pageIndex\":\"\",\r",
-        "    \t\t\"costoMensualColegiatura\":\"\",\r",
-        "    \t\t\"calificacionOficialPreparatoria\":\"\",\r",
-        "    \t\t\"nombreTutor\":\"\",\r",
-        "    \t\t\"telefonoCasaTutor\":\"\",\r",
-        "    \t\t\"telefonoOficinaTutor\":\"\",\r",
-        "    \t\t\"telefonoCelularTutor\":\"\",\r",
-        "    \t\t\"parentescoTutor\":\"\",\r",
-        "    \t\t\"correoElectronicoTutor\":\"\",\r",
-        "    \t\t\"viveMismoDocimicilioAlumnoTutor\":\"\",\r",
-        "    \t\t\"maximoNivelEstudiosTutor\":\"\",\r",
-        "    \t\t\"ocupacionTutor\":\"\",\r",
-        "    \t\t\"catProvienenIngresos\":null,\r",
-        "    \t\t\"ingresoMensualNetoTutor\":\"\",\r",
-        "    \t\t\"empresaTutor\":\"\",\r",
-        "    \t\t\"puestoTutor\":\"\",\r",
-        "    \t\t\"bienesRaices\":[],\r",
-        "    \t\t\"tieneHermanos\":false,\r",
-        "    \t\t\"hermanos\":[],\r",
-        "    \t\t\"motivoBeca\":\"\",\r",
-        "    \t\t\"catTipoApoyo\":null,\r",
-        "    \t\t\"catPorcentajeBeca\":null,\r",
-        "    \t\t\"catPorcentajeFinanciamiento\":null,\r",
-        "    \t\t\"cantMensualPagarUni\":0,\r",
-        "    \t\t\"catCasaDondeVives\":null,\r",
-        "    \t\t\"contruccionM2Casa\":0,\r",
-        "    \t\t\"terrenoM2Casa\":0,\r",
-        "    \t\t\"valorAproxCasa\":0,\r",
-        "    \t\t\"calle\":\"\",\r",
-        "    \t\t\"delegacionCiudad\":\"\",\r",
-        "    \t\t\"numExterior\":\"\",\r",
-        "    \t\t\"numInterior\":\"\",\r",
-        "    \t\t\"pais\":\"\",\r",
-        "    \t\t\"colonia\":\"\",\r",
-        "    \t\t\"estado\":\"\",\r",
-        "    \t\t\"codigoPostal\":\"\",\r",
-        "    \t\t\"autos\":[],\r",
-        "    \t\t\"ingresoPadre\":0,\r",
-        "    \t\t\"ingresoMadre\":0,\r",
-        "    \t\t\"ingresoHermano\":0,\r",
-        "    \t\t\"ingresoTio\":0,\r",
-        "    \t\t\"ingresoAbuelo\":0,\r",
-        "    \t\t\"ingresoAspirante\":0,\r",
-        "    \t\t\"ingresoTotal\":0,\r",
-        "    \t\t\"egresoRenta\":0,\r",
-        "    \t\t\"egresoServicios\":0,\r",
-        "    \t\t\"egresoEducacion\":0,\r",
-        "    \t\t\"egresoGastosMedicos\":0,\r",
-        "    \t\t\"egresoAlimentacion\":0,\r",
-        "    \t\t\"egresoVestido\":0,\r",
-        "    \t\t\"egresoSeguro\":0,\r",
-        "    \t\t\"egresoDiversion\":0,\r",
-        "    \t\t\"egresoAhorro\":0,\r",
-        "    \t\t\"egresoCreditos\":0,\r",
-        "    \t\t\"egresoOtros\":0,\r",
-        "    \t\t\"egresoTotal\":0,\r",
-        "    \t\t\"urlVideoYouTube\":\"\",\r",
-        "    \t\t\"caseIdAdmisiones\":45046 ,\r",
-        "    \t\t\"eliminado\": false,\r",
-        "    \t\t\"tieneHijos\":false,\r",
-        "    \t\t\"catProvienenIngresos_id\": 0,\r",
-        "    \t\t\"catTipoApoyo_id\": 0,\r",
-        "    \t\t\"catPorcentajeBeca_id\": 0,\r",
-        "    \t\t\"catPorcentajeFinanciamiento_id\": 0,\r",
-        "    \t\t\"catCasaDondeVives_id\": 0,\r",
-        "    \t\t\"catManejoDocumentos_id\": []\r",
-        "    \t},\r",
-        "    \t\"isFinalizadaInput\":false,\r",
-        "    \t\"hermanosInput\":[],\r",
-        "    \t\"fotoCalleCasaDocumentInput\": null,\r",
-        "    \t\"fotoFachadaCasaDocumentInput\": null,\r",
-        "    \t\"fotoSalaCasaDocumentInput\": null,\r",
-        "    \t\"fotoComedorCasaDocumentInput\": null\r",
-        "    }"
+        "{}"
       ],
       "exposed" : false
     },
@@ -2683,7 +2653,6 @@
       "type" : "expression",
       "value" : [
         "let output = {",
-        "    \"catTienesHijos\": null,",
         "    \"catBecaPreparatoria\": null,",
         "    \"catTipoApoyo\": null,",
         "    \"catTipoMoneda\": null,",
@@ -2860,6 +2829,21 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "lstCatSituacionAuto" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatSituacionAuto"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "urlDonwnloadAzureUrl" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
       ],
       "exposed" : false
     }

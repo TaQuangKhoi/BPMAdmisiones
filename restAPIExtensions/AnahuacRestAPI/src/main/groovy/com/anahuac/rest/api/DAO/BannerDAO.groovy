@@ -1487,7 +1487,8 @@ class BannerDAO {
 						
 						//Entraba 2 veces una null y la otra con datos
 						if(objRow.getPais() != null) {
-								if (objRow.getPais().equals("México") && objLstAddresses.getPais().equals("México") ) {
+							//objRow.getPais().equals("México") &&
+								if (objLstAddresses.getPais().equals("México") ) {
 									
 									errorLog = errorLog + " | entra al IF objRow.getPais().equals(México):" + objRow.getPais();
 									
@@ -1527,14 +1528,14 @@ class BannerDAO {
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								
 								}else {
-									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objRow.getPais();
+									errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objLstAddresses.getPais();
 									errorLog = errorLog + " | isEstadoOk:" + isEstadoOk;
 									errorLog = errorLog + " | isCodigoPostalOk:" + isCodigoPostalOk;
 									errorLog = errorLog + " | isMatchOk:" + isMatchOk;
 								}
 								
-								
-								if (objRow.getPais().equals("México")) {
+								//objRow.getPais().equals("México") &&
+								if ( objLstAddresses.getPais().equals("México")) {
 									if(!isMatchOk) {
 										isEliminado = true;
 									}else {
@@ -1570,6 +1571,9 @@ class BannerDAO {
 							}else if(objRow.getPais().equals("Estados Unidos de América") && objLstAddresses.getCiudad().contains(",")){
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla3:"+(isEliminadoRegla) 
+							}else if(!objLstAddresses.getPais().equals("México") && !objLstAddresses.getPais().equals("Estados Unidos de América") && !objLstAddresses.getCiudad().contains(",")){
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla4:"+(isEliminadoRegla) 
 							}
 							/*CONSTRUCCION DE CONTRATO=====================================================================*/
 							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
@@ -1611,6 +1615,7 @@ class BannerDAO {
 							objCatBachilleratosInput.put("nationCode", objLstAddresses.getNationCode());
 							objCatBachilleratosInput.put("stateCode", objLstAddresses.getStateCode());
 							objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
+							objCatBachilleratosInput.put("postalCode", objLstAddresses.getPostalCode());
 							String typeInd = "";
 							if(objRow.getTypeInd() == null || objRow.getTypeInd().equals("null")) {
 								object.each{
@@ -1624,7 +1629,7 @@ class BannerDAO {
 							}
 							//Guardar en Log BD  - Angel G
 							errorLog = errorLog + " | Guardar en Log BD en Created";
-							
+							errorLog += "isEliminado1:"+(isEliminado == false ?isEliminadoRegla:true)
 							String eliminado = (isEliminado == false ?isEliminadoRegla:true) ? "SI" : "NO";
 							String estadoOK = isEstadoOk ? "SI" : "NO";
 							String codigoPostalOK = isCodigoPostalOk ? "SI" : "NO";
@@ -1680,6 +1685,7 @@ class BannerDAO {
 							errorLog = errorLog + " | " + ("nationCode - " + objLstAddresses.getNationCode());
 							errorLog = errorLog + " | " + ("stateCode - " + objLstAddresses.getStateCode());
 							errorLog = errorLog + " | " + ("countyCode - " + objLstAddresses.getCountyCode());
+							errorLog = errorLog + " | " + ("postalCode - " + objLstAddresses.getPostalCode());
 							errorLog = errorLog + " | DIRECCION==========================================================================================";
 	
 							lstCatBachilleratosInput.add(objCatBachilleratosInput);

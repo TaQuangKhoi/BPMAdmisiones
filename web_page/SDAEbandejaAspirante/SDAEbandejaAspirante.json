@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1652738931531,
+  "lastUpdate" : 1653003902149,
   "rows" : [
     [
       {
@@ -468,7 +468,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1230,7 +1230,10 @@
                         "selectedFile" : "selectedFile",
                         "getAutodescripcion" : "getAutodescripcion",
                         "objPadresTutor" : "objPadresTutor",
-                        "returnCurriculumInfo" : "returnCurriculumInfo"
+                        "returnCurriculumInfo" : "returnCurriculumInfo",
+                        "getDatosSolicitante" : "",
+                        "imagenesSocEcoSolicitanteInput" : "getImagenesByCaseId.data",
+                        "documentosSolicitanteInput" : "getDocumentosByCaseId.data"
                       }
                     }
                   ]
@@ -1880,7 +1883,19 @@
     "getDocumentosByCaseId" : {
       "type" : "url",
       "value" : [
-        "/API/extension/AnahuacBecasRestGET?url=getDocumentosByCaseId&c=0&p=0&caseId={{objSolicitudDeAdmision[0].caseId}}"
+        "/API/extension/AnahuacBecasRestGET?url=getDocumentosByCaseId&c=0&p=0&caseId={{buildContent[0].folio}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "getImagenesByCaseId" : {
+      "type" : "url",
+      "value" : [
+        "/API/extension/AnahuacBecasRestGET?url=getImagenesByCaseId&c=0&p=0&caseId={{buildContent[0].folio}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

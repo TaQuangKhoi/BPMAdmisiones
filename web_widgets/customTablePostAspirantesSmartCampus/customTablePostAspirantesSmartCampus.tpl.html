@@ -80,7 +80,7 @@
                             modificación<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
-                    <th>Acciones</th>
+                    <th colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +101,7 @@
                             ng-enter="filterKeyPress('FECHA SOLICITUD, FECHA PAGO',dynamicInput['fechasolicitud'])"></td>
                     <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control"
                             ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
-                    <td></td>
+                    <td colspan="2"></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)"
                     ng-class="{'info': ctrl.isSelected(row)}">
@@ -141,19 +141,24 @@
                         <b>{{row.fechaultimamodificacion}}</b>
                     </td>
                     <td class="text-center">
+                         <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.foto == null || row.foto == ''" ng-click="rutaArchivosDownload(row,'foto')" data-toggle="tooltip" data-placement="top" title="foto">
+                            <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                        </button>
                         <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutapago == ''" ng-click="rutaArchivosDownload(row,'rutapago')" data-toggle="tooltip" data-placement="top" title="Pago">
                             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
                         </button>
                         <button class="btn btn-default" id="rutasolicitudbtn" ng-disabled="row.rutasolicitud == ''" ng-click="rutaArchivosDownload(row,'rutasolicitud')" data-toggle="tooltip" data-placement="top" title="Solicitud">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </button>
-                        <br>
-                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutaactanacimiento == null ||row.rutaactanacimiento == ''" ng-click="rutaArchivosDownload(row,'rutaactanacimiento')" data-toggle="tooltip" data-placement="top" title="Acta de nacimiento">
+                        
+                </td>
+                <td>
+                    <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutaactanacimiento == null ||row.rutaactanacimiento == ''" ng-click="rutaArchivosDownload(row,'rutaactanacimiento')" data-toggle="tooltip" data-placement="top" title="Acta de nacimiento">
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                        </button>
-                        <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutakardex == null || row.rutakardex == ''" ng-click="rutaArchivosDownload(row,'rutakardex')" data-toggle="tooltip" data-placement="top" title="Kardex">
-                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                        </button>
+                    </button>
+                    <button class="btn btn-default" id="rutapagobtn" ng-disabled="row.rutakardex == null || row.rutakardex == ''" ng-click="rutaArchivosDownload(row,'rutakardex')" data-toggle="tooltip" data-placement="top" title="Kardex">
+                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                    </button>
                 </td>
                 </tr>
             </tbody>
