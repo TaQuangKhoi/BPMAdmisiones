@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBandejaSolicitudes",
   "name" : "SDAEBandejaSolicitudes",
-  "lastUpdate" : 1652739834192,
+  "lastUpdate" : 1653074806071,
   "rows" : [
     [
       {
@@ -595,7 +595,7 @@
                     },
                     "hidden" : {
                       "type" : "constant",
-                      "value" : false
+                      "value" : true
                     },
                     "disabled" : {
                       "type" : "constant",
@@ -885,6 +885,90 @@
                             },
                             "abrirPagina" : {
                               "type" : "constant",
+                              "value" : "verSolicitud"
+                            }
+                          },
+                          "reference" : "c9682679-1255-4989-9454-61ef903ef70a",
+                          "hasValidationError" : false,
+                          "id" : "customSDAETablePostSolicitudv2"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
+                              ]
+                            },
+                            "columnsKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "dataToSendArchivadas"
+                            },
+                            "lstContenido" : {
+                              "type" : "variable",
+                              "value" : "lstContenidoArchivadas"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "campusSeleccionado" : {
+                              "type" : "variable",
+                              "value" : "getCampusArchivadas"
+                            },
+                            "lstCampus" : {
+                              "type" : "variable",
+                              "value" : "lstCatCampus"
+                            },
+                            "abrirPagina" : {
+                              "type" : "constant",
                               "value" : "solicitudRechazada"
                             }
                           },
@@ -972,7 +1056,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Esperando Pre-Autorización', 'Correcciones realizadas'\",\r",
+        "    \"estatusSolicitud\":\"'Esperando Pre-Autorización', 'Correcciones realizadas', 'Evaluación artística rechaza', 'Evaluación deportiva rechaza'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
@@ -1117,7 +1201,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'En espera de resultado'\",\r",
+        "    \"estatusSolicitud\":\"'En espera de resultado','Solicitud de Financiamiento'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltrosEsperaEvaluacion,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",

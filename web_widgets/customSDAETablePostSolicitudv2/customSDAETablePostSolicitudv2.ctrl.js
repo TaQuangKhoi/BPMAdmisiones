@@ -1,7 +1,9 @@
 function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.isTareaPreAutorizacion = true;
-      $scope.avanzarSolicitud = false;
+    $scope.avanzarSolicitud = false;
+    $scope.avanzarPreAutorizacion = false;
+    $scope.avanzarFinanciamiento = false;
     
     this.isArray = Array.isArray;
   
@@ -165,7 +167,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         var contrato = {};
                         var estatus = "";
             
-                        if($scope.avanzarSolicitud){
+                        if($scope.avanzarSolicitud){ //DICTAMEN
                             
                             contrato = {
                                 "varRegresarRevisionInput" : false,
@@ -175,13 +177,31 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                             estatus = "En espera de autorización";
                             
                                     
-                        }else{
+                        }else if(!$scope.avanzarPreAutorizacion){ //ARCHIVAR
                             contrato = {
                                 "varRegresarRevisionInput" : false,
                                 "varAdmitidoInput" : false
                             };
                             
                             estatus = "Solicitud Rechazada";
+                        }else if($scope.avanzarFinanciamiento){ //SUB PROCESO FINANCIAMIENTO
+                            contrato = {
+                                "varRegresarRevisionInput" : false,
+                                "varAdmitidoInput" : false
+                            };
+                            
+                            // ya tiene valor
+                            // "varFinanaciamiento" : true
+                            
+                            
+                            estatus = "Solicitud de Financiamiento";
+                            
+                        }else{ // REACTIVAR SOLICITUD
+                            contrato = {
+                                
+                            };
+                            
+                            estatus = "Esperando Pre-Autorización";
                         }
             
                     var params = getUserParam();
@@ -234,7 +254,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       });
   }
   
-    $scope.actualizarEstatus = function(estatus, caseId) {
+    function actualizarEstatus (estatus, caseId) {
         blockUI.start();
         
         var req = {
@@ -246,6 +266,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req).success(function(data, status) {
                 $('#modalEnviarDictamen').modal('hide'); 
                 $('#modalEnviarArchivo').modal('hide'); 
+                $('#modalReactivarSolicitud').modal('hide'); 
                 window.location.reload();
             })
             .error(function(data, status) {
@@ -591,6 +612,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.isTareaPreAutorizacion = false;
       $scope.avanzarSolicitud = true;
       $scope.avanzarPreAutorizacion = false;
+      $scope.avanzarFinanciamiento = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarDictamen').modal('show'); 
       
@@ -600,20 +622,30 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.isTareaPreAutorizacion = false;
       $scope.avanzarSolicitud = false;
       $scope.avanzarPreAutorizacion = false;
+      $scope.avanzarFinanciamiento = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarArchivo').modal('show'); 
       
   }
   
-  $scope.avanzarSolicitud = false;
-  $scope.avanzarPreAutorizacion = false;
-  
   $scope.abrirModalReactivarSolicitud = function(rowData) {
       $scope.isTareaPreAutorizacion = false;
       $scope.avanzarSolicitud = false;
       $scope.avanzarPreAutorizacion = true;
+      $scope.avanzarFinanciamiento = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalReactivarSolicitud').modal('show'); 
+      
+  }
+  
+  $scope.abrirModalAvanzarFinanciamiento = function(rowData) {
+      $scope.isTareaPreAutorizacion = false;
+      $scope.avanzarSolicitud = false;
+      $scope.avanzarPreAutorizacion = false;
+      $scope.avanzarFinanciamiento = true;
+      
+      $scope.caseIdTarea = rowData.caseid;
+      $('#modalEnviarFinanciamiento').modal('show'); 
       
   }
   
@@ -670,6 +702,32 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
     
     $scope.avanzarTareaPreaAutorizacion = function() {
+      
+        var rowData = {
+            caseid: $scope.caseIdTarea
+        };
+      
+         
+         var req = {
+            method: "GET",
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
+        };
+  
+        return $http(req).success(function(data, status) {
+                debugger;
+                rowData.taskId = data[0].id;
+                rowData.taskName = data[0].name;
+                rowData.processId = data[0].processId;
+                $scope.preProcesoAsignarTarea(rowData)
+                
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
+    }
+    
+    $scope.avanzarTareaFinanciamiento = function() {
       
         var rowData = {
             caseid: $scope.caseIdTarea

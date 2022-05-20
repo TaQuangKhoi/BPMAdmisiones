@@ -92,10 +92,13 @@
                     <button class="btn btn-primary" ng-show="row.estatussolicitud == 'Solicitud Rechazada'" ng-click="abrirModalReactivarSolicitud(row)">
                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                     </button>
-                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalArchivarSolicitud(row)">
+                    <button class="btn btn-danger" ng-show="row.estatussolicitud == 'En espera de resultado' && row.estatussolicitud == 'Solicitud de Financiamiento'" ng-click="abrirModalArchivarSolicitud(row)">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </button>
                     <button class="btn btn-success" ng-show="row.aceptado == 'Aceptado' && row.estatussolicitud == 'En espera de resultado'" ng-click="abrirModalAvanzarSolicitud(row)">
+                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-success" ng-show="row.aceptado == 'Aceptado' && row.estatussolicitud == 'Solicitud de Financiamiento'" ng-click="abrirModalAvanzarFinanciamiento(row)">
                         <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -165,6 +168,22 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="avanzarTareaPreaAutorizacion()">Reactivar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalEnviarFinanciamiento" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mensaje de Confirmación</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea enviar la solicitud a financiamiento?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="avanzarTareaFinanciamiento()">Enviar a Financiamiento</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
