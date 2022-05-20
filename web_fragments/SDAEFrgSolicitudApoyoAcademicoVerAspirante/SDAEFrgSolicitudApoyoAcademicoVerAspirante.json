@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1652922474986,
+  "lastUpdate" : 1653004232438,
   "rows" : [
     [
       {
@@ -1673,7 +1673,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Estado civil:"
+                              "value" : "Periodo:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -5114,7 +5114,8 @@
                   "value" : "descripcion"
                 },
                 "returnedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "persistenceId"
                 },
                 "value" : {
                   "type" : "variable",
@@ -5450,7 +5451,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.apellido"
+                  "value" : "padre.apellidos"
                 },
                 "type" : {
                   "type" : "constant",
@@ -7380,14 +7381,15 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "lstCatTienesHermanos.data"
+                  "value" : "siNoOpciones"
                 },
                 "displayedKey" : {
                   "type" : "constant",
-                  "value" : "descripcion"
+                  "value" : "clave"
                 },
                 "returnedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "valor"
                 },
                 "value" : {
                   "type" : "variable",
@@ -7444,7 +7446,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "returnCatValue.catTienesHermanos.descripcion !== \"Sí\""
+                  "value" : "!formOutputTest.solicitudApoyoEducativoInput.tienesHermanos"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -14457,7 +14459,7 @@
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
+                  "value" : "imagenesSocEcoSolicitanteInput"
                 }
               },
               "reference" : "26c963d7-1d51-4323-b6ed-bb61c02fee96",
@@ -14721,7 +14723,7 @@
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "formOutputTest.documentosSolicitanteInput"
+                  "value" : "documentosSolicitanteInput"
                 }
               },
               "reference" : "e9c486a1-d0d2-4313-b78d-4fd4c7247607",
@@ -14937,7 +14939,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "returnCurriculumInfo.documentName"
+                        "value" : "{{returnCurriculumInfo.documentName}}"
                       },
                       "level" : {
                         "type" : "constant",
@@ -15556,11 +15558,20 @@
       "exposed" : true
     },
     "siNoOpciones" : {
-      "type" : "constant",
+      "type" : "json",
       "value" : [
-        ""
+        "[",
+        "    {",
+        "        \"clave\": \"Sí\",",
+        "        \"valor\": false",
+        "    }, ",
+        "    {",
+        "        \"clave\": \"No\",",
+        "        \"valor\": false",
+        "    }",
+        "]"
       ],
-      "exposed" : true
+      "exposed" : false
     },
     "lstCatContoBecaPreparatoria" : {
       "type" : "constant",

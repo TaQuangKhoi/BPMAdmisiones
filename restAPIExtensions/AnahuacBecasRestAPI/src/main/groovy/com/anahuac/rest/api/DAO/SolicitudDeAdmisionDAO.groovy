@@ -17,7 +17,7 @@ import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.DB.StatementsCatalogos
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.db.CatGenerico
-import com.anahuac.rest.api.Entity.db.CatImagenesSocioAcademico
+import com.anahuac.rest.api.Entity.db.CatImagenesSocioEconomico
 import com.anahuac.rest.api.Entity.db.CatManejoDocumentos
 import com.anahuac.rest.api.Entity.db.CatTypoApoyo
 import com.anahuac.rest.api.Entity.db.InformacionEscolar

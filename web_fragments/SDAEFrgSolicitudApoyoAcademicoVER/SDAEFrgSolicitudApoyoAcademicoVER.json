@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1652722924326,
+  "lastUpdate" : 1653006726596,
   "rows" : [
     [
       {
@@ -1673,7 +1673,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Estado civil:"
+                              "value" : "Periodo:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -7530,7 +7530,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "returnCatValue.catTienesHermanos.descripcion !== \"Sí\""
+                  "value" : "!formOutputTest.solicitudApoyoEducativoInput.tieneHermanos"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -15840,11 +15840,20 @@
       "exposed" : true
     },
     "siNoOpciones" : {
-      "type" : "constant",
+      "type" : "json",
       "value" : [
-        ""
+        "[",
+        "    {",
+        "        \"clave\": \"Sí\",",
+        "        \"valor\": true",
+        "    }, ",
+        "    {",
+        "        \"clave\": \"No\",",
+        "        \"valor\": false",
+        "    }",
+        "]"
       ],
-      "exposed" : true
+      "exposed" : false
     },
     "lstCatContoBecaPreparatoria" : {
       "type" : "constant",
