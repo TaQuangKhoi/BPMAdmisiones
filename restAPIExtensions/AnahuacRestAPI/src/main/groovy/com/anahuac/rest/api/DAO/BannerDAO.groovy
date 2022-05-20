@@ -1570,6 +1570,9 @@ class BannerDAO {
 							}else if(!objLstAddresses.getPais().equals("México") && !objLstAddresses.getPais().equals("Estados Unidos de América") && !objLstAddresses.getCiudad().contains(",")){
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla4:"+(isEliminadoRegla) 
+							}else if(objLstAddresses.getPostalCode().equals("") ||objLstAddresses.getPostalCode().equals(null) ||objLstAddresses.getPostalCode() == null ) {
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla5:"+(isEliminadoRegla)
 							}
 							/*CONSTRUCCION DE CONTRATO=====================================================================*/
 							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
