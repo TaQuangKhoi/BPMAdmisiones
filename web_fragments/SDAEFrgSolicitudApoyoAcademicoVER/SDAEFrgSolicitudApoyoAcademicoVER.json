@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1653006726596,
+  "lastUpdate" : 1653070705696,
   "rows" : [
     [
       {
@@ -711,7 +711,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "userDataEmail.userName"
+                              "value" : "objSolicitudDeAdmision[0].correoElectronico"
                             },
                             "type" : {
                               "type" : "constant",
@@ -4092,7 +4092,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "tutor.telefonoCelular"
+                  "value" : "tutor.telefono"
                 },
                 "type" : {
                   "type" : "constant",
@@ -4274,7 +4274,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formOutputTest.correoElectronicoTutor.correoElectronico"
+                  "value" : "tutor.correoElectronico"
                 },
                 "type" : {
                   "type" : "constant",
@@ -5199,7 +5199,8 @@
                   "value" : "descripcion"
                 },
                 "returnedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "persistenceId"
                 },
                 "value" : {
                   "type" : "variable",
@@ -5920,8 +5921,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "expression",
-                  "value" : "vista"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -6903,7 +6904,7 @@
                 },
                 "type" : {
                   "type" : "constant",
-                  "value" : "number"
+                  "value" : "text"
                 },
                 "min" : {
                   "type" : "constant"
@@ -6950,8 +6951,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "expression",
-                  "value" : "vista"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -15819,11 +15820,56 @@
       "exposed" : true
     },
     "returnCatValue" : {
-      "type" : "constant",
+      "type" : "expression",
       "value" : [
-        ""
+        "let output = {",
+        "    \"catTienesHijos\": null,",
+        "    \"catBecaPreparatoria\": null,",
+        "    \"catTipoApoyo\": null,",
+        "    \"catTipoMoneda\": null,",
+        "    \"catTienesHermanos\": null",
+        "};",
+        "",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){",
+        "    for(let cat of $data.lstCatTienesHermanos.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
+        "            output[\"catTienesHermanos\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "            output[\"catBecaPreparatoria\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
+        "            output[\"catTipoApoyo\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){",
+        "    for(let cat of $data.lstTipoMoneda.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
+        "            output[\"catTipoMoneda\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
-      "exposed" : true
+      "exposed" : false
     },
     "wizardContent" : {
       "type" : "constant",
@@ -16143,6 +16189,13 @@
       "exposed" : true
     },
     "returnCurriculumInfo" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "getDatosSolicitante" : {
       "type" : "constant",
       "value" : [
         ""

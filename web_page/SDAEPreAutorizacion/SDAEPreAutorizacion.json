@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1653006184279,
+  "lastUpdate" : 1653070550722,
   "rows" : [
     [
       {
@@ -231,7 +231,8 @@
           "modificarMotivoSolicitud" : "formInput.solicitudApoyoEducativoInput.modificarMotivoSol",
           "modificarInfoSocioEco" : "formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco",
           "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
-          "returnCurriculumInfo" : "returnCurriculumInfo"
+          "returnCurriculumInfo" : "returnCurriculumInfo",
+          "getDatosSolicitante" : "getDatosSolicitante"
         }
       }
     ],
@@ -4112,6 +4113,7 @@
       "type" : "expression",
       "value" : [
         "for(let objectTutor of $data.objPadresTutor){\r",
+        "    debugger;\r",
         "    if(objectTutor.isTutor){\r",
         "        $data.tutor = objectTutor;\r",
         "    }\r",
@@ -4338,7 +4340,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "fotoB64" : {
@@ -4403,10 +4409,19 @@
       "exposed" : false
     },
     "objPadresTutor" : {
-      "type" : "constant",
+      "type" : "url",
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.PadresTutor?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
       ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
