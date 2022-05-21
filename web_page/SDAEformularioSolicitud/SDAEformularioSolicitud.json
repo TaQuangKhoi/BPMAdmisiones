@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1653088454048,
+  "lastUpdate" : 1653090783401,
   "rows" : [
     [
       {
@@ -2299,7 +2299,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Periodo:"
+                                    "value" : "Estado civil:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -2314,7 +2314,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objSolicitudDeAdmision[0].catPeriodo.descripcion"
+                                    "value" : "objSolicitudDeAdmision[0].catEstadoCivil.descripcion"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -4493,7 +4493,7 @@
                       },
                       "max" : {
                         "type" : "constant",
-                        "value" : 10000000000000
+                        "value" : 99999999999999
                       },
                       "step" : {
                         "type" : "constant",
@@ -4647,7 +4647,7 @@
                       },
                       "max" : {
                         "type" : "constant",
-                        "value" : 10000000000000
+                        "value" : 99999999999999
                       },
                       "step" : {
                         "type" : "constant",
@@ -6213,7 +6213,7 @@
                       },
                       "max" : {
                         "type" : "constant",
-                        "value" : 10000000000000
+                        "value" : 99999999999999
                       },
                       "step" : {
                         "type" : "constant",
@@ -6626,7 +6626,7 @@
                       },
                       "max" : {
                         "type" : "constant",
-                        "value" : 10000000000000
+                        "value" : 99999999999999
                       },
                       "step" : {
                         "type" : "constant",
@@ -7247,7 +7247,7 @@
                       },
                       "max" : {
                         "type" : "constant",
-                        "value" : 10000000000000
+                        "value" : 99999999999999
                       },
                       "step" : {
                         "type" : "constant",
@@ -7660,7 +7660,7 @@
                       },
                       "max" : {
                         "type" : "constant",
-                        "value" : 10000000000000
+                        "value" : 99999999999999
                       },
                       "step" : {
                         "type" : "constant",
@@ -10350,8 +10350,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais !== \"México\""
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -10484,8 +10484,8 @@
                               "value" : 50
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\""
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -10559,8 +10559,8 @@
                               "value" : 50
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\""
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -10636,8 +10636,8 @@
                               "value" : 50
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\""
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -19338,7 +19338,7 @@
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
         "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.catProvienenIngresos_id){\r",
         "    output = false;\r",
-        "    $data.errorPaso2 = \"El campo 'Ingreso mensual neto' no debe ir vacío.\";\r",
+        "    $data.errorPaso2 = \"El campo 'Los ingresos provienen de:' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
         "} else if(!validateBienesRaices()){\r",
         "    output = false;\r",
