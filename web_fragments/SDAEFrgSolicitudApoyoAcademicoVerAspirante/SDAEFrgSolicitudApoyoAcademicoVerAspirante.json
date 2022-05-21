@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1653004232438,
+  "lastUpdate" : 1653091849989,
   "rows" : [
     [
       {
@@ -1673,7 +1673,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Periodo:"
+                              "value" : "Estado civil:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -1688,7 +1688,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "objSolicitudDeAdmision[0].catPeriodo.descripcion"
+                              "value" : "objSolicitudDeAdmision[0].catEstadoCivil.descripcion"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3175,8 +3175,8 @@
                                     "value" : false
                                   },
                                   "idModal" : {
-                                    "type" : "constant",
-                                    "value" : "modalDocumentoPV"
+                                    "type" : "expression",
+                                    "value" : "idModal"
                                   },
                                   "selectedFile" : {
                                     "type" : "variable",
@@ -5836,8 +5836,8 @@
                   "value" : ""
                 },
                 "readOnly" : {
-                  "type" : "expression",
-                  "value" : "vista"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -14555,8 +14555,8 @@
                         "value" : false
                       },
                       "idModal" : {
-                        "type" : "constant",
-                        "value" : "modalDocumentoPV"
+                        "type" : "expression",
+                        "value" : "idModal"
                       },
                       "selectedFile" : {
                         "type" : "variable",
@@ -14565,6 +14565,13 @@
                       "tipoDocumento" : {
                         "type" : "constant",
                         "value" : "pdf"
+                      },
+                      "requiereEjemplo" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "urlEjemplo" : {
+                        "type" : "constant"
                       }
                     },
                     "reference" : "7c12f5be-433b-43e0-95fd-0f947426f4b3",
@@ -14820,8 +14827,8 @@
                         "value" : false
                       },
                       "idModal" : {
-                        "type" : "constant",
-                        "value" : "modalDocumentoPV"
+                        "type" : "expression",
+                        "value" : "idModal"
                       },
                       "selectedFile" : {
                         "type" : "variable",
@@ -14830,6 +14837,13 @@
                       "tipoDocumento" : {
                         "type" : "constant",
                         "value" : "pdf"
+                      },
+                      "requiereEjemplo" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "urlEjemplo" : {
+                        "type" : "constant"
                       }
                     },
                     "reference" : "4465961f-516d-40a1-a743-3a0243803068",
@@ -15092,8 +15106,8 @@
                         "value" : false
                       },
                       "idModal" : {
-                        "type" : "constant",
-                        "value" : "modalDocumentoPV"
+                        "type" : "expression",
+                        "value" : "idModal"
                       },
                       "selectedFile" : {
                         "type" : "variable",
@@ -15847,6 +15861,13 @@
       "exposed" : true
     },
     "documentosSolicitanteInput" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "idModal" : {
       "type" : "constant",
       "value" : [
         ""
