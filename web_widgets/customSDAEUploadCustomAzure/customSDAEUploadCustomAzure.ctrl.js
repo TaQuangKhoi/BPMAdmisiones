@@ -119,7 +119,8 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     }
     
     $scope.openModalFile = function(){
-        debugger;
+        
+        selectFile();
         openModal($scope.properties.idModal);
     }
     
@@ -325,6 +326,16 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         $scope.fileName = urlSplitted[urlSplitted.length - 1];
         $scope.extension = _document.extension;
         
+        // let obj = {
+        //     "linkSource":$scope.linkSource,
+        //     "fileName":  $scope.fileName ,
+        //     "extension": $scope.extension
+        // };
+        
+        // $scope.properties.selectedFile = obj;
+    }
+
+    function selectFile(){
         let obj = {
             "linkSource":$scope.linkSource,
             "fileName":  $scope.fileName ,

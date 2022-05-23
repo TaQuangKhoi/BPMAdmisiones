@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1653091849989,
+  "lastUpdate" : 1653347878975,
   "rows" : [
     [
       {
@@ -5860,7 +5860,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.carEscolaridad.descripcion"
+                  "value" : "padre.catEscolaridad.descripcion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -7393,7 +7393,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formOutputTest.solicitudApoyoEducativoInput.tienesHermanos"
+                  "value" : "formOutputTest.solicitudApoyoEducativoInput.tieneHermanos"
                 }
               },
               "reference" : "a43a3ba9-c21b-42e6-b27f-54fdf7758724",
@@ -7446,7 +7446,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "!formOutputTest.solicitudApoyoEducativoInput.tienesHermanos"
+                  "value" : "!formOutputTest.solicitudApoyoEducativoInput.tieneHermanos"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -8104,8 +8104,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!returnCatValue.catTipoApoyo.isArtistica && !returnCatValue.catTipoApoyo.isDeportiva && !returnCatValue.catTipoApoyo.isAcademica"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -15577,7 +15577,7 @@
         "[",
         "    {",
         "        \"clave\": \"Sí\",",
-        "        \"valor\": false",
+        "        \"valor\": true",
         "    }, ",
         "    {",
         "        \"clave\": \"No\",",

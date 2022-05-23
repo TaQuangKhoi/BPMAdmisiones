@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1653091783176,
+  "lastUpdate" : 1653347535967,
   "rows" : [
     [
       {
@@ -450,58 +450,6 @@
                   }
                 ]
               ]
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<pre>{{ getDocumentosByCaseId | json }}</pre>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "f52ed722-b05f-406d-b061-81dcb604d5e5",
-              "hasValidationError" : false,
-              "id" : "pbText"
             }
           ]
         ]
@@ -1868,9 +1816,27 @@
     "formOutputTest" : {
       "type" : "expression",
       "value" : [
-        "return {",
-        "    \"solicitudApoyoEducativoInput\": $data.objSolicitudApoyo[0]",
-        "}"
+        "let output = {\r",
+        "    \"solicitudApoyoEducativoInput\": {}\r",
+        "};\r",
+        "\r",
+        "if($data.objSolicitudApoyo[0]){\r",
+        "    output.solicitudApoyoEducativoInput = $data.objSolicitudApoyo[0];\r",
+        "}\r",
+        "\r",
+        "if($data.autos){\r",
+        "    output.autosInput = $data.autos;\r",
+        "}\r",
+        "\r",
+        "if($data.hermanos){\r",
+        "    output.hermanosInput = $data.hermanos; \r",
+        "}\r",
+        "\r",
+        "if($data.bienesRaices){\r",
+        "    output.bienesRaicesInput = $data.bienesRaices;\r",
+        "}\r",
+        "\r",
+        "return output;"
       ],
       "exposed" : false
     },
@@ -2207,7 +2173,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail.userName}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "returnCurriculumInfo" : {
@@ -2256,9 +2226,30 @@
     "getDatosSolicitante" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{}}"
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userDataEmail.userName}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "autos" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.AutosSolicitante]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.AutosSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{buildContent[0].folio}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "bienesRaices" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.BienesRaicesSolicitante]\",\"businessObjectName\":\"BienesRaicesSolicitante\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.BienesRaicesSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{buildContent[0].folio}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "hermanos" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.HermanosSolicitante]\",\"businessObjectName\":\"HermanosSolicitante\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.HermanosSolicitante\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{buildContent[0].folio}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
       "exposed" : false
     }
   },
