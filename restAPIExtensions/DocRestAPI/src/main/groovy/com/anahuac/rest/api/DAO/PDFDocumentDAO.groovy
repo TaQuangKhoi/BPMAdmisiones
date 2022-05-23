@@ -50,45 +50,19 @@ class PDFDocumentDAO {
 	}
 	public Result PdfFileCatalogo(String jsonData) {
 		Result resultado = new Result();
+		InputStream targetStream;
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			Result dataResult = new Result();
 			List<List < Object >> lstParams;
-			
-			
-			/*def documento = "Psicometrico.pdf"
-			DocumentItext document = new DocumentItext();
-			document.setPageSize(PageSize.A4);
-			PdfWriter.getInstance(document, new FileOutputStream(documento));
-			float fontSize = 14f;
-			Font TitleFont = FontFactory.getFont(FontFactory.HELVETICA, fontSize, Font.BOLD);
-			fontSize = 12f;
-			Font SubTitleFont = FontFactory.getFont(FontFactory.HELVETICA, fontSize, Font.BOLD);
-			String phraseToInput = "";
-			
-			document.open();
-			
-			//FondoAguaRUA-04.png
-			
-			Paragraph TITLE = new Paragraph("DEPARTAMENTO DE ORIENTACIÓN VOCACIONAL",TitleFont);
-			TITLE.setAlignment(Paragraph.ALIGN_LEFT);
-			document.add(TITLE);
-			document.add(new Paragraph(" "));
-			document.add(new Paragraph("REPORTE PSICOLÓGICO",TitleFont));
-			
-			document.add(new Paragraph(" "));
-			document.add(new Paragraph("Información personal",SubTitleFont));
-			 
-			document.add(new Paragraph(" "));
-			document.add(new Paragraph("Id banner:                ${object.info}",SubTitleFont));
-			document.add(new Paragraph("Nombre del Aspirante:     ${object.info}",SubTitleFont));
-			document.add(new Paragraph("Fecha de nacimiento:      ${object.info}",SubTitleFont));
-			document.close();*/
-			
+
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-			columns.put("idbanner", "info2")
-			JasperReport jasperReport = JasperCompileManager.compileReport("Psicometrico_report.jrxml")
+			columns.put("idbanner", object.idbanner)
+			byte [] file = Base64.getDecoder().decode(jasperB64)
+			targetStream = new ByteArrayInputStream(file);
+			JasperReport jasperReport = JasperCompileManager.compileReport(targetStream)
+			
 			JRDataSource dataSource = new JREmptyDataSource();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, columns, dataSource);
 			byte[] encode = Base64.getEncoder().encode(JasperExportManager.exportReportToPdf(jasperPrint));
@@ -101,16 +75,21 @@ class PDFDocumentDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
-			boolean fileSuccessfullyDeleted =  new File("Psicometrico.pdf").delete()
-			//resultado.setError_info("Fue eliminado:"+fileSuccessfullyDeleted.toString())  
+			//boolean filedelete = deleteJasper()
+			//resultado.setError_info("Fue eliminado:"+filedelete.toString())
+			
+			//boolean fileSuccessfullyDeleted =  new File("Psicometrico.pdf").delete()
+			//resultado.setError_info("Fue eliminado:"+fileSuccessfullyDeleted.toString())
 		} catch (Exception e) {
             resultado.setSuccess(false);
             resultado.setError(e.getMessage()+" || error 1");
         } catch (IOException e) {
             resultado.setSuccess(false);
             resultado.setError(e.getMessage()+" || error 2");
-        }
-
+        }finally {
+			targetStream.close();
+		}
+		
 		return resultado;
 	}
 	
@@ -522,4 +501,18 @@ class PDFDocumentDAO {
 		}
 		return resultado;
 	}
+	
+	public Boolean deleteJasper() {
+		boolean fileSuccessfullyDeleted = false;
+		try {
+			fileSuccessfullyDeleted =  new File("Psicometrico_report.jrxml").delete()
+		}catch(Exception e) {
+			fileSuccessfullyDeleted = false;
+		}
+		
+		return fileSuccessfullyDeleted
+	}
+	
+	public String jasperB64 = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBDcmVhdGVkIHdpdGggSmFzcGVyc29mdCBTdHVkaW8gdmVyc2lvbiA2LjE5LjEuZmluYWwgdXNpbmcgSmFzcGVyUmVwb3J0cyBMaWJyYXJ5IHZlcnNpb24gNi4xOS4xLTg2N2MwMGJmODhjZDRkNzg0ZDQwNDM3OWQ2YzA1ZTFiNDE5ZThhNGMgIC0tPgo8amFzcGVyUmVwb3J0IHhtbG5zPSJodHRwOi8vamFzcGVycmVwb3J0cy5zb3VyY2Vmb3JnZS5uZXQvamFzcGVycmVwb3J0cyIgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeHNpOnNjaGVtYUxvY2F0aW9uPSJodHRwOi8vamFzcGVycmVwb3J0cy5zb3VyY2Vmb3JnZS5uZXQvamFzcGVycmVwb3J0cyBodHRwOi8vamFzcGVycmVwb3J0cy5zb3VyY2Vmb3JnZS5uZXQveHNkL2phc3BlcnJlcG9ydC54c2QiIG5hbWU9IlBzaWNvbWV0cmljb19yZXBvcnQiIHBhZ2VXaWR0aD0iNTk1IiBwYWdlSGVpZ2h0PSI4NDIiIGNvbHVtbldpZHRoPSI1NTUiIGxlZnRNYXJnaW49IjIwIiByaWdodE1hcmdpbj0iMjAiIHRvcE1hcmdpbj0iMjAiIGJvdHRvbU1hcmdpbj0iMjAiIHV1aWQ9Ijk0YTVmZGZiLTg0ZjctNDBkNy1iZmU1LTBiMzE1NzMyNTIyNiI+Cgk8cHJvcGVydHkgbmFtZT0iY29tLmphc3BlcnNvZnQuc3R1ZGlvLmRhdGEuZGVmYXVsdGRhdGFhZGFwdGVyIiB2YWx1ZT0iUHNpY29tZXRyaWNvX3JlcG9ydCIvPgoJPHBhcmFtZXRlciBuYW1lPSJpZGJhbm5lciIgY2xhc3M9ImphdmEubGFuZy5TdHJpbmciLz4KCTxxdWVyeVN0cmluZz4KCQk8IVtDREFUQVtdXT4KCTwvcXVlcnlTdHJpbmc+Cgk8YmFja2dyb3VuZD4KCQk8YmFuZCBzcGxpdFR5cGU9IlN0cmV0Y2giLz4KCTwvYmFja2dyb3VuZD4KCTx0aXRsZT4KCQk8YmFuZCBoZWlnaHQ9IjExMCIgc3BsaXRUeXBlPSJTdHJldGNoIj4KCQkJPHN0YXRpY1RleHQ+CgkJCQk8cmVwb3J0RWxlbWVudCB4PSIwIiB5PSIyMCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIzMCIgdXVpZD0iZGU1ZDFjNmItNWMzYi00MWI3LWI3Y2ItNTQ4NmQ1N2FmM2RkIi8+CgkJCQk8dGV4dEVsZW1lbnQgbWFya3VwPSJub25lIj4KCQkJCQk8Zm9udCBzaXplPSIxNCIvPgoJCQkJPC90ZXh0RWxlbWVudD4KCQkJCTx0ZXh0PjwhW0NEQVRBW0RFUEFSVEFNRU5UTyBERSBPUklFTlRBQ0nDk04gVk9DQUNJT05BTF1dPjwvdGV4dD4KCQkJPC9zdGF0aWNUZXh0PgoJCQk8aW1hZ2U+CgkJCQk8cmVwb3J0RWxlbWVudCB4PSIzNzAiIHk9IjI4IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjU1IiB1dWlkPSI0MDNkNmFjMS1jNDY5LTRmOWItYjEzOS1lMjU0ZjFkNmIyZWYiPgoJCQkJCTxwcm9wZXJ0eSBuYW1lPSJjb20uamFzcGVyc29mdC5zdHVkaW8udW5pdC53aWR0aCIgdmFsdWU9InB4Ii8+CgkJCQk8L3JlcG9ydEVsZW1lbnQ+CgkJCQk8aW1hZ2VFeHByZXNzaW9uPjwhW0NEQVRBWyJodHRwczovL2JwbWludGVncmEuYmxvYi5jb3JlLndpbmRvd3MubmV0L3B1YmxpY28vTG9nb1JVQS5wbmciXV0+PC9pbWFnZUV4cHJlc3Npb24+CgkJCTwvaW1hZ2U+CgkJCTxzdGF0aWNUZXh0PgoJCQkJPHJlcG9ydEVsZW1lbnQgeD0iMCIgeT0iNjAiIHdpZHRoPSIzMzgiIGhlaWdodD0iMzAiIHV1aWQ9ImNlMTJmYmUxLTU4YmQtNGNjNS1iYmY0LWRiZWI5NzI5YjIxNyIvPgoJCQkJPHRleHRFbGVtZW50IG1hcmt1cD0ibm9uZSI+CgkJCQkJPGZvbnQgc2l6ZT0iMTQiLz4KCQkJCTwvdGV4dEVsZW1lbnQ+CgkJCQk8dGV4dD48IVtDREFUQVtSRVBPUlRFIFBTSUNPTMOTR0lDT11dPjwvdGV4dD4KCQkJPC9zdGF0aWNUZXh0PgoJCTwvYmFuZD4KCTwvdGl0bGU+Cgk8cGFnZUhlYWRlcj4KCQk8YmFuZCBoZWlnaHQ9IjM5IiBzcGxpdFR5cGU9IlN0cmV0Y2giPgoJCQk8c3RhdGljVGV4dD4KCQkJCTxyZXBvcnRFbGVtZW50IHg9IjAiIHk9IjQiIHdpZHRoPSIxOTQiIGhlaWdodD0iMzAiIHV1aWQ9IjZiMmRmOWE2LTBkZjMtNGE4Ni1hYmU0LWQwYjk3MTVhODhlNiIvPgoJCQkJPHRleHRFbGVtZW50PgoJCQkJCTxmb250IHNpemU9IjEyIi8+CgkJCQk8L3RleHRFbGVtZW50PgoJCQkJPHRleHQ+PCFbQ0RBVEFbSW5mb3JtYWNpw7NuIHBlcnNvbmFsDV1dPjwvdGV4dD4KCQkJPC9zdGF0aWNUZXh0PgoJCTwvYmFuZD4KCTwvcGFnZUhlYWRlcj4KCTxjb2x1bW5IZWFkZXI+CgkJPGJhbmQgaGVpZ2h0PSI2MSIgc3BsaXRUeXBlPSJTdHJldGNoIj4KCQkJPHN0YXRpY1RleHQ+CgkJCQk8cmVwb3J0RWxlbWVudCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE4IiB1dWlkPSJiMWFlMjQxOC01YmFjLTQ4YjQtODE2My03YzkyYjRkY2I5YTAiLz4KCQkJCTx0ZXh0PjwhW0NEQVRBW0lkIGJhbm5lcjpdXT48L3RleHQ+CgkJCTwvc3RhdGljVGV4dD4KCQkJPHRleHRGaWVsZD4KCQkJCTxyZXBvcnRFbGVtZW50IHg9IjExMCIgeT0iMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIzMCIgdXVpZD0iNTM5NjIzMDYtYzhmMi00MjA1LWExZTQtOGMwZWM0ZGQzZThiIi8+CgkJCQk8dGV4dEZpZWxkRXhwcmVzc2lvbj48IVtDREFUQVskUHtpZGJhbm5lcn1dXT48L3RleHRGaWVsZEV4cHJlc3Npb24+CgkJCTwvdGV4dEZpZWxkPgoJCTwvYmFuZD4KCTwvY29sdW1uSGVhZGVyPgoJPGRldGFpbD4KCQk8YmFuZCBoZWlnaHQ9IjEyNSIgc3BsaXRUeXBlPSJTdHJldGNoIi8+Cgk8L2RldGFpbD4KCTxjb2x1bW5Gb290ZXI+CgkJPGJhbmQgaGVpZ2h0PSI0NSIgc3BsaXRUeXBlPSJTdHJldGNoIi8+Cgk8L2NvbHVtbkZvb3Rlcj4KCTxwYWdlRm9vdGVyPgoJCTxiYW5kIGhlaWdodD0iNTQiIHNwbGl0VHlwZT0iU3RyZXRjaCIvPgoJPC9wYWdlRm9vdGVyPgoJPHN1bW1hcnk+CgkJPGJhbmQgaGVpZ2h0PSI0MiIgc3BsaXRUeXBlPSJTdHJldGNoIi8+Cgk8L3N1bW1hcnk+CjwvamFzcGVyUmVwb3J0Pgo="
+	
 }
