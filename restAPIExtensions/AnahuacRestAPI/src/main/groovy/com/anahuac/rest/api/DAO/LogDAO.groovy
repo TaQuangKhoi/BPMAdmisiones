@@ -99,6 +99,42 @@ class LogDAO {
 		return resultado
 	}
 	
+	public Result getHubspotLog() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				pstm = con.prepareStatement("SELECT * FROM transaction_log where url like '%https://api.hubapi.com/contacts/v1/contact/createOrUpdate/email/%' order by id desc limit 1000")
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	public Result insertBachilleratoLog(String operation, String usuarioBanner, String idBachillerato, String pais, String estado, String ciudad, String descripcion, String typeInd, String postalCode, String isEliminado, String isEstadoOk, String isCodigoPostalOk, String isMatchOk) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
