@@ -1,10 +1,19 @@
 package com.anahuac.rest.api.DAO
+import java.nio.charset.StandardCharsets
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
-
+import net.sf.jasperreports.engine.JRDataSource
+import net.sf.jasperreports.engine.JREmptyDataSource
+import net.sf.jasperreports.engine.JasperCompileManager
+import net.sf.jasperreports.engine.JasperExportManager
+import net.sf.jasperreports.engine.JasperFillManager
+import net.sf.jasperreports.engine.JasperPrint
+import net.sf.jasperreports.engine.JasperReport
 import org.bonitasoft.engine.bpm.document.Document
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
@@ -48,7 +57,7 @@ class PDFDocumentDAO {
 			List<List < Object >> lstParams;
 			
 			
-			def documento = "Psicometrico.pdf"
+			/*def documento = "Psicometrico.pdf"
 			DocumentItext document = new DocumentItext();
 			document.setPageSize(PageSize.A4);
 			PdfWriter.getInstance(document, new FileOutputStream(documento));
@@ -75,18 +84,25 @@ class PDFDocumentDAO {
 			document.add(new Paragraph("Id banner:                ${object.info}",SubTitleFont));
 			document.add(new Paragraph("Nombre del Aspirante:     ${object.info}",SubTitleFont));
 			document.add(new Paragraph("Fecha de nacimiento:      ${object.info}",SubTitleFont));
-
+			document.close();*/
 			
-			document.close();
-			
+			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+			columns.put("idbanner", "info2")
+			JasperReport jasperReport = JasperCompileManager.compileReport("Psicometrico_report.jrxml")
+			JRDataSource dataSource = new JREmptyDataSource();
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, columns, dataSource);
+			byte[] encode = Base64.getEncoder().encode(JasperExportManager.exportReportToPdf(jasperPrint));
+			String result = new String(encode);
 			
 			List < Object > lstResultado = new ArrayList < Object > ();
-			lstResultado.add(encodeFileToBase64Binary("Psicometrico.pdf"));
+			lstResultado.add(result)
+			//resultado.setError_info(result)
+			//lstResultado.add(encodeFileToBase64Binary("Psicometrico.pdf"));
 			
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
 			boolean fileSuccessfullyDeleted =  new File("Psicometrico.pdf").delete()
-			resultado.setError_info("Fue eliminado:"+fileSuccessfullyDeleted.toString())  
+			//resultado.setError_info("Fue eliminado:"+fileSuccessfullyDeleted.toString())  
 		} catch (Exception e) {
             resultado.setSuccess(false);
             resultado.setError(e.getMessage()+" || error 1");
