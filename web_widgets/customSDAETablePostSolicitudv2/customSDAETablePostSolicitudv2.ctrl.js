@@ -171,7 +171,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                             
                             contrato = {
                                 "varRegresarRevisionInput" : false,
-                                "varAdmitidoInput" : true
+                                "varAdmitidoInput" : true,
+                                "varFinanaciamientoInput" : false
                             };
                             
                             estatus = "En espera de autorización";
@@ -180,19 +181,17 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         }else if(!$scope.avanzarPreAutorizacion){ //ARCHIVAR
                             contrato = {
                                 "varRegresarRevisionInput" : false,
-                                "varAdmitidoInput" : false
+                                "varAdmitidoInput" : false,
+                                "varFinanaciamientoInput" : false
                             };
                             
                             estatus = "Solicitud Rechazada";
                         }else if($scope.avanzarFinanciamiento){ //SUB PROCESO FINANCIAMIENTO
                             contrato = {
                                 "varRegresarRevisionInput" : false,
-                                "varAdmitidoInput" : false
+                                "varAdmitidoInput" : false,
+                                "varFinanaciamientoInput" : true
                             };
-                            
-                            // ya tiene valor
-                            // "varFinanaciamiento" : true
-                            
                             
                             estatus = "Solicitud de Financiamiento";
                             
