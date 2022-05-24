@@ -131,7 +131,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -187,13 +187,13 @@ class SesionesDAO {
 				contador++;
 			}
 			
-			resultado.setError_info(errorlog);
+			
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -287,7 +287,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -516,7 +516,7 @@ class SesionesDAO {
 	
 					rows.add(columns);
 				}
-				resultado.setError_info(errorlog)
+				
 				resultado.setSuccess(true)
 				
 				resultado.setData(rows)
@@ -524,7 +524,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1359,7 +1359,7 @@ class SesionesDAO {
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
-			resultado.setError_info(errorlog)
+			
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
@@ -2047,7 +2047,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2374,7 +2374,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2727,7 +2727,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -3113,7 +3113,7 @@ class SesionesDAO {
 				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
 				
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -3149,7 +3149,7 @@ class SesionesDAO {
 				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
 				
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -3516,7 +3516,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4046,7 +4046,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4295,7 +4295,7 @@ class SesionesDAO {
 				}
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				resultado.setError_info(errorLog)
+				
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -4924,11 +4924,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4970,11 +4970,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5027,11 +5027,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5084,11 +5084,11 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5381,7 +5381,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5712,7 +5712,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5957,7 +5957,7 @@ class SesionesDAO {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorlog)
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -6257,12 +6257,12 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorlog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorlog)
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -6518,7 +6518,7 @@ class SesionesDAO {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorlog)
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -6963,7 +6963,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -7308,11 +7308,11 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows2)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -7352,11 +7352,11 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -7427,7 +7427,7 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
@@ -7465,7 +7465,7 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")

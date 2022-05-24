@@ -267,11 +267,11 @@ class ResultadoComiteDAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -325,11 +325,11 @@ class ResultadoComiteDAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -370,11 +370,11 @@ class ResultadoComiteDAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -415,11 +415,11 @@ class ResultadoComiteDAO {
 				errorLog+="termino la consulta";
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -456,11 +456,11 @@ class ResultadoComiteDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -500,11 +500,11 @@ class ResultadoComiteDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -538,7 +538,7 @@ class ResultadoComiteDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -973,11 +973,11 @@ class ResultadoComiteDAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1431,11 +1431,11 @@ class ResultadoComiteDAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {

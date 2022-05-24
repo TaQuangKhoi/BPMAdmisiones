@@ -414,7 +414,7 @@ class UsuariosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -798,7 +798,7 @@ class UsuariosDAO {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1391,13 +1391,13 @@ class UsuariosDAO {
 				}
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				//resultado.setError(consulta);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1697,15 +1697,15 @@ class UsuariosDAO {
 			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
 			
 			if(!hResultado.success) {
-				throw new Exception("hubspot: "+hResultado.error + " | " + hResultado.error_info)
+				resultado.setError("hubspot: "+hResultado.error + " | " + hResultado.error_info)
 			}
 			
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();
@@ -1775,10 +1775,10 @@ class UsuariosDAO {
 			pstm.execute();
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();
@@ -2513,12 +2513,12 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -2969,12 +2969,12 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3669,12 +3669,12 @@ class UsuariosDAO {
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3715,7 +3715,7 @@ class UsuariosDAO {
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
-			resultado.setError_info(errorlog)
+			
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
@@ -3744,7 +3744,7 @@ class UsuariosDAO {
 				
 				con.commit();
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -4047,12 +4047,12 @@ class UsuariosDAO {
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4086,7 +4086,7 @@ class UsuariosDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
