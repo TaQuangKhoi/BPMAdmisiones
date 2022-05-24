@@ -16,7 +16,9 @@ import net.sf.jasperreports.engine.JasperPrint
 import net.sf.jasperreports.engine.JasperReport
 import org.bonitasoft.engine.bpm.document.Document
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utils.FileDownload
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import com.itextpdf.io.image.ImageData
@@ -51,15 +53,53 @@ class PDFDocumentDAO {
 	public Result PdfFileCatalogo(String jsonData) {
 		Result resultado = new Result();
 		InputStream targetStream;
+		String log = "";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			Result dataResult = new Result();
 			List<List < Object >> lstParams;
 
+			List<?> info = getInfoReportes(object.email, object.intento).getData();
+			//log += info.get(0)?.idbanner
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-			columns.put("idbanner", object.idbanner)
-			byte [] file = Base64.getDecoder().decode(jasperB64)
+			columns.put("idbanner", info.get(0)?.idbanner);
+			columns.put("nombreAspirante", info.get(0)?.nombre);
+			columns.put("fechaNacimiento", info.get(0)?.fechanacimiento);
+			columns.put("fotoPerfil", info.get(0)?.urlfoto);
+			columns.put("preparatoria", info.get(0)?.preparatoria);
+			columns.put("ciudad", info.get(0)?.ciudad);
+			columns.put("pais", info.get(0)?.pais);
+			columns.put("carreraEstudiar", info.get(0)?.carrera);
+			columns.put("edad", info.get(0)?.edad);
+			columns.put("promedio", info.get(0)?.promedio);
+			columns.put("fecha", info.get(0)?.fechafinalizacion);
+			columns.put("paav", info.get(0)?.paav);
+			columns.put("paan", info.get(0)?.paan);
+			columns.put("para", info.get(0)?.para);
+			columns.put("paat", info.get(0)?.promedio);
+			columns.put("invp", info.get(0)?.invp);
+			columns.put("tipoAdmision", info.get(0)?.promedio);
+			columns.put("periodoIngreso", info.get(0)?.promedio);
+			columns.put("entrevisto", info.get(0)?.quienrealizoentrevista);
+			columns.put("integro", info.get(0)?.quienintegro);
+			
+			
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+			
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+			String plantilla = prop.getProperty("jasperBase64")
+			columns.put("fotoFondo", prop.getProperty("fondo"));
+			inputStream.close();
+			
+			byte [] file = Base64.getDecoder().decode(plantilla)
 			targetStream = new ByteArrayInputStream(file);
 			JasperReport jasperReport = JasperCompileManager.compileReport(targetStream)
 			
@@ -70,27 +110,27 @@ class PDFDocumentDAO {
 			
 			List < Object > lstResultado = new ArrayList < Object > ();
 			lstResultado.add(result)
-			//resultado.setError_info(result)
-			//lstResultado.add(encodeFileToBase64Binary("Psicometrico.pdf"));
 			
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
-			//boolean filedelete = deleteJasper()
-			//resultado.setError_info("Fue eliminado:"+filedelete.toString())
+			resultado.setError_info(log)
 			
-			//boolean fileSuccessfullyDeleted =  new File("Psicometrico.pdf").delete()
-			//resultado.setError_info("Fue eliminado:"+fileSuccessfullyDeleted.toString())
 		} catch (Exception e) {
             resultado.setSuccess(false);
             resultado.setError(e.getMessage()+" || error 1");
-        } catch (IOException e) {
-            resultado.setSuccess(false);
-            resultado.setError(e.getMessage()+" || error 2");
         }finally {
 			targetStream.close();
 		}
 		
 		return resultado;
+	}
+	
+	private String isNullOrBlanck(String text) {
+		if(text == null || text.equals(null) || text.equals("null") || text.equals("") || text.length() == 0) {
+			return "N/A"
+		}
+		
+	    return text;
 	}
 	
 	private String encodeFileToBase64Binary(String fileName) throws IOException {
@@ -128,7 +168,7 @@ class PDFDocumentDAO {
 
 	
 	
-	public Result getInfoReportes(String usuario,Long intento,RestAPIContext context) {
+	public Result getInfoReportes(String usuario,Long intento) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -143,7 +183,7 @@ class PDFDocumentDAO {
 				SSA = rs.getString("valor")
 			}
 			
-			pstm = con.prepareStatement("SELECT  sda.resultadoPAA,sda.caseid,ds.idbanner,tp.fechaFinalizacion,sda.urlfoto,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? AND countrechazo = ?")
+			pstm = con.prepareStatement(Statements.INFO_REPORTE);
 			pstm.setString(1, usuario)
 			pstm.setLong(2, intento)
 			rs = pstm.executeQuery();
@@ -155,22 +195,9 @@ class PDFDocumentDAO {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
 				for (int i = 1; i <= columnCount; i++) {
-					if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
-						String encoded = "";
-						try {
-							String urlFoto = rs.getString("urlfoto");
-							/*if(urlFoto != null && !urlFoto.isEmpty()) {
-								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
-							}else {*/
-								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
-								for(Document doc : doc1) {
-									encoded = "../API/formsDocumentImage?document="+doc.getId();
-									columns.put("fotografiab64", encoded);
-								}
-							//}
-						}catch(Exception e) {
-							columns.put("fotografiab64", "");
-						}
+					if(metaData.getColumnLabel(i).toLowerCase().equals("urlfoto")) {
+						String urlFoto = rs.getString("urlfoto");
+						columns.put("urlfoto",  urlFoto+SSA );
 					}else {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					}
@@ -507,12 +534,25 @@ class PDFDocumentDAO {
 		try {
 			fileSuccessfullyDeleted =  new File("Psicometrico_report.jrxml").delete()
 		}catch(Exception e) {
-			fileSuccessfullyDeleted = false;
+			fileSuccessfullyDeleted = false; 
 		}
 		
 		return fileSuccessfullyDeleted
 	}
 	
-	public String jasperB64 = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBDcmVhdGVkIHdpdGggSmFzcGVyc29mdCBTdHVkaW8gdmVyc2lvbiA2LjE5LjEuZmluYWwgdXNpbmcgSmFzcGVyUmVwb3J0cyBMaWJyYXJ5IHZlcnNpb24gNi4xOS4xLTg2N2MwMGJmODhjZDRkNzg0ZDQwNDM3OWQ2YzA1ZTFiNDE5ZThhNGMgIC0tPgo8amFzcGVyUmVwb3J0IHhtbG5zPSJodHRwOi8vamFzcGVycmVwb3J0cy5zb3VyY2Vmb3JnZS5uZXQvamFzcGVycmVwb3J0cyIgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeHNpOnNjaGVtYUxvY2F0aW9uPSJodHRwOi8vamFzcGVycmVwb3J0cy5zb3VyY2Vmb3JnZS5uZXQvamFzcGVycmVwb3J0cyBodHRwOi8vamFzcGVycmVwb3J0cy5zb3VyY2Vmb3JnZS5uZXQveHNkL2phc3BlcnJlcG9ydC54c2QiIG5hbWU9IlBzaWNvbWV0cmljb19yZXBvcnQiIHBhZ2VXaWR0aD0iNTk1IiBwYWdlSGVpZ2h0PSI4NDIiIGNvbHVtbldpZHRoPSI1NTUiIGxlZnRNYXJnaW49IjIwIiByaWdodE1hcmdpbj0iMjAiIHRvcE1hcmdpbj0iMjAiIGJvdHRvbU1hcmdpbj0iMjAiIHV1aWQ9Ijk0YTVmZGZiLTg0ZjctNDBkNy1iZmU1LTBiMzE1NzMyNTIyNiI+Cgk8cHJvcGVydHkgbmFtZT0iY29tLmphc3BlcnNvZnQuc3R1ZGlvLmRhdGEuZGVmYXVsdGRhdGFhZGFwdGVyIiB2YWx1ZT0iUHNpY29tZXRyaWNvX3JlcG9ydCIvPgoJPHBhcmFtZXRlciBuYW1lPSJpZGJhbm5lciIgY2xhc3M9ImphdmEubGFuZy5TdHJpbmciLz4KCTxxdWVyeVN0cmluZz4KCQk8IVtDREFUQVtdXT4KCTwvcXVlcnlTdHJpbmc+Cgk8YmFja2dyb3VuZD4KCQk8YmFuZCBzcGxpdFR5cGU9IlN0cmV0Y2giLz4KCTwvYmFja2dyb3VuZD4KCTx0aXRsZT4KCQk8YmFuZCBoZWlnaHQ9IjExMCIgc3BsaXRUeXBlPSJTdHJldGNoIj4KCQkJPHN0YXRpY1RleHQ+CgkJCQk8cmVwb3J0RWxlbWVudCB4PSIwIiB5PSIyMCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIzMCIgdXVpZD0iZGU1ZDFjNmItNWMzYi00MWI3LWI3Y2ItNTQ4NmQ1N2FmM2RkIi8+CgkJCQk8dGV4dEVsZW1lbnQgbWFya3VwPSJub25lIj4KCQkJCQk8Zm9udCBzaXplPSIxNCIvPgoJCQkJPC90ZXh0RWxlbWVudD4KCQkJCTx0ZXh0PjwhW0NEQVRBW0RFUEFSVEFNRU5UTyBERSBPUklFTlRBQ0nDk04gVk9DQUNJT05BTF1dPjwvdGV4dD4KCQkJPC9zdGF0aWNUZXh0PgoJCQk8aW1hZ2U+CgkJCQk8cmVwb3J0RWxlbWVudCB4PSIzNzAiIHk9IjI4IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjU1IiB1dWlkPSI0MDNkNmFjMS1jNDY5LTRmOWItYjEzOS1lMjU0ZjFkNmIyZWYiPgoJCQkJCTxwcm9wZXJ0eSBuYW1lPSJjb20uamFzcGVyc29mdC5zdHVkaW8udW5pdC53aWR0aCIgdmFsdWU9InB4Ii8+CgkJCQk8L3JlcG9ydEVsZW1lbnQ+CgkJCQk8aW1hZ2VFeHByZXNzaW9uPjwhW0NEQVRBWyJodHRwczovL2JwbWludGVncmEuYmxvYi5jb3JlLndpbmRvd3MubmV0L3B1YmxpY28vTG9nb1JVQS5wbmciXV0+PC9pbWFnZUV4cHJlc3Npb24+CgkJCTwvaW1hZ2U+CgkJCTxzdGF0aWNUZXh0PgoJCQkJPHJlcG9ydEVsZW1lbnQgeD0iMCIgeT0iNjAiIHdpZHRoPSIzMzgiIGhlaWdodD0iMzAiIHV1aWQ9ImNlMTJmYmUxLTU4YmQtNGNjNS1iYmY0LWRiZWI5NzI5YjIxNyIvPgoJCQkJPHRleHRFbGVtZW50IG1hcmt1cD0ibm9uZSI+CgkJCQkJPGZvbnQgc2l6ZT0iMTQiLz4KCQkJCTwvdGV4dEVsZW1lbnQ+CgkJCQk8dGV4dD48IVtDREFUQVtSRVBPUlRFIFBTSUNPTMOTR0lDT11dPjwvdGV4dD4KCQkJPC9zdGF0aWNUZXh0PgoJCTwvYmFuZD4KCTwvdGl0bGU+Cgk8cGFnZUhlYWRlcj4KCQk8YmFuZCBoZWlnaHQ9IjM5IiBzcGxpdFR5cGU9IlN0cmV0Y2giPgoJCQk8c3RhdGljVGV4dD4KCQkJCTxyZXBvcnRFbGVtZW50IHg9IjAiIHk9IjQiIHdpZHRoPSIxOTQiIGhlaWdodD0iMzAiIHV1aWQ9IjZiMmRmOWE2LTBkZjMtNGE4Ni1hYmU0LWQwYjk3MTVhODhlNiIvPgoJCQkJPHRleHRFbGVtZW50PgoJCQkJCTxmb250IHNpemU9IjEyIi8+CgkJCQk8L3RleHRFbGVtZW50PgoJCQkJPHRleHQ+PCFbQ0RBVEFbSW5mb3JtYWNpw7NuIHBlcnNvbmFsDV1dPjwvdGV4dD4KCQkJPC9zdGF0aWNUZXh0PgoJCTwvYmFuZD4KCTwvcGFnZUhlYWRlcj4KCTxjb2x1bW5IZWFkZXI+CgkJPGJhbmQgaGVpZ2h0PSI2MSIgc3BsaXRUeXBlPSJTdHJldGNoIj4KCQkJPHN0YXRpY1RleHQ+CgkJCQk8cmVwb3J0RWxlbWVudCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE4IiB1dWlkPSJiMWFlMjQxOC01YmFjLTQ4YjQtODE2My03YzkyYjRkY2I5YTAiLz4KCQkJCTx0ZXh0PjwhW0NEQVRBW0lkIGJhbm5lcjpdXT48L3RleHQ+CgkJCTwvc3RhdGljVGV4dD4KCQkJPHRleHRGaWVsZD4KCQkJCTxyZXBvcnRFbGVtZW50IHg9IjExMCIgeT0iMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIzMCIgdXVpZD0iNTM5NjIzMDYtYzhmMi00MjA1LWExZTQtOGMwZWM0ZGQzZThiIi8+CgkJCQk8dGV4dEZpZWxkRXhwcmVzc2lvbj48IVtDREFUQVskUHtpZGJhbm5lcn1dXT48L3RleHRGaWVsZEV4cHJlc3Npb24+CgkJCTwvdGV4dEZpZWxkPgoJCTwvYmFuZD4KCTwvY29sdW1uSGVhZGVyPgoJPGRldGFpbD4KCQk8YmFuZCBoZWlnaHQ9IjEyNSIgc3BsaXRUeXBlPSJTdHJldGNoIi8+Cgk8L2RldGFpbD4KCTxjb2x1bW5Gb290ZXI+CgkJPGJhbmQgaGVpZ2h0PSI0NSIgc3BsaXRUeXBlPSJTdHJldGNoIi8+Cgk8L2NvbHVtbkZvb3Rlcj4KCTxwYWdlRm9vdGVyPgoJCTxiYW5kIGhlaWdodD0iNTQiIHNwbGl0VHlwZT0iU3RyZXRjaCIvPgoJPC9wYWdlRm9vdGVyPgoJPHN1bW1hcnk+CgkJPGJhbmQgaGVpZ2h0PSI0MiIgc3BsaXRUeXBlPSJTdHJldGNoIi8+Cgk8L3N1bW1hcnk+CjwvamFzcGVyUmVwb3J0Pgo="
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
+	}
+	
 	
 }
