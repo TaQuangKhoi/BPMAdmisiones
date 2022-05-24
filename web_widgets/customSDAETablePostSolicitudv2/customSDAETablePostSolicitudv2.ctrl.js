@@ -4,6 +4,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.avanzarSolicitud = false;
     $scope.avanzarPreAutorizacion = false;
     $scope.avanzarFinanciamiento = false;
+    $scope.avanzarArchivar = false;
     
     this.isArray = Array.isArray;
   
@@ -178,7 +179,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                             estatus = "En espera de autorización";
                             
                                     
-                        }else if(!$scope.avanzarPreAutorizacion){ //ARCHIVAR
+                        }else if($scope.avanzarArchivar){ //ARCHIVAR
                             contrato = {
                                 "varRegresarRevisionInput" : false,
                                 "varAdmitidoInput" : false,
@@ -612,6 +613,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.avanzarSolicitud = true;
       $scope.avanzarPreAutorizacion = false;
       $scope.avanzarFinanciamiento = false;
+      $scope.avanzarArchivar = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarDictamen').modal('show'); 
       
@@ -622,6 +624,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.avanzarSolicitud = false;
       $scope.avanzarPreAutorizacion = false;
       $scope.avanzarFinanciamiento = false;
+      $scope.avanzarArchivar = true;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarArchivo').modal('show'); 
       
@@ -632,6 +635,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.avanzarSolicitud = false;
       $scope.avanzarPreAutorizacion = true;
       $scope.avanzarFinanciamiento = false;
+      $scope.avanzarArchivar = false;
       $scope.caseIdTarea = rowData.caseid;
       $('#modalReactivarSolicitud').modal('show'); 
       
@@ -642,6 +646,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.avanzarSolicitud = false;
       $scope.avanzarPreAutorizacion = false;
       $scope.avanzarFinanciamiento = true;
+      $scope.avanzarArchivar = false;
       
       $scope.caseIdTarea = rowData.caseid;
       $('#modalEnviarFinanciamiento').modal('show'); 
