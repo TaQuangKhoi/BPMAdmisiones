@@ -1694,18 +1694,18 @@ class UsuariosDAO {
 				}
 			}
 			HubspotDAO hDAO = new HubspotDAO()
-			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
+			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData,context)
 			
 			if(!hResultado.success) {
 				resultado.setError("hubspot: "+hResultado.error + " | " + hResultado.error_info)
 			}
 			
 			con.commit();
-			resultado.setSuccess(true)
-			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			
+
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();

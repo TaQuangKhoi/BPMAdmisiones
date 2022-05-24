@@ -255,9 +255,9 @@ class MailGunDAO {
 			errorlog += ",jsonNode.toString()= "+jsonNode.toString()
 			resultado.setData(lstResultado)
 			resultado.setSuccess(true)
-			resultado.setError_info(errorlog)
+			resultado.setInfo(errorlog);
 		}catch(Exception ex) {
-			resultado.setError_info(errorlog)
+			resultado.setInfo(errorlog);
 			LOGGER.error ex.getMessage()
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
