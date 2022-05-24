@@ -194,7 +194,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                                 "varFinanaciamientoInput" : true
                             };
                             
-                            estatus = "Solicitud de Financiamiento";
+                            estatus = "Solicitud de Financiamiento en Proceso";
                             
                         }else{ // REACTIVAR SOLICITUD
                             contrato = {
