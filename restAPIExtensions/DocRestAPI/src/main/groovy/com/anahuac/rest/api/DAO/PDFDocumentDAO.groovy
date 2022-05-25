@@ -83,8 +83,9 @@ class PDFDocumentDAO {
 			columns.put("periodoIngreso", isNullOrBlanck(info.get(0)?.periodo.toString()));
 			columns.put("entrevisto", isNullOrBlanck(info.get(0)?.quienrealizoentrevista.toString()));
 			columns.put("integro", isNullOrBlanck(info.get(0)?.quienintegro.toString()));
-			info = getInfoRelativos(info.get(0)?.caseid.toString()).getData();
 			String caseid = info.get(0)?.caseid.toString()
+			
+			info = getInfoRelativos(info.get(0)?.caseid.toString()).getData();
 			Boolean[] familiares = [false,false,false]
 			info.each{
 				if(it?.parentesco.toString().equals("Padre") && !familiares[0]) {
@@ -128,9 +129,73 @@ class PDFDocumentDAO {
 				
 			}
 			
-			info = getInfoFuentesInfluyeron(caseid,object.intento);
-			columns.put("fuentesInfluyeron", '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est prueba."');
-			columns.put("saludAparente", 'Deficiente');
+			info = getInfoFuentesInfluyeron(caseid,object.intento)?.getData();
+			columns.put("fuentesInfluyeron",  isNullOrBlanck(info?.get(0)?.fuentes.toString()) );
+			
+			info = getInfoRasgos(caseid,object.intento)?.getData();
+			info.each{ 
+				switch(it?.rasgo) {
+					case "Salud aparente":
+					columns.put("saludAparente", it.calificacion)
+					break;
+					case "Limpieza personal":
+					columns.put("limpiezaPersonal", it.calificacion)
+					break;
+					case "Impresión física":
+					columns.put("impresionFisica", it.calificacion)
+					break;
+					case "Manera de Relacionarse":
+					columns.put("maneraRelacionarse", it.calificacion)
+					break;
+					case "Forma Expresarse":
+					columns.put("formaExpresarse", it.calificacion)
+					break;
+					case "Educación":
+					columns.put("educacion", it.calificacion)
+					break;
+					case "Cooperación":
+					columns.put("cooperacion", it.calificacion)
+					break;
+					case "Sinceridad":
+					columns.put("sinceridad", it.calificacion)
+					break;
+					case "Seguridad":
+					columns.put("seguridad", it.calificacion)
+					break;
+					case "Serenidad":
+					columns.put("serenidad", it.calificacion)
+					break;
+					case "Estabilidad Escolar":
+					columns.put("EstabilidadEscolar", it.calificacion)
+					break;
+					case "Responsabilidad":
+					columns.put("responsabilidad", it.calificacion)
+					break;
+					case "Motivación":
+					columns.put("motivacion", it.calificacion)
+					break;
+					case "Hábitos de Estudio":
+					columns.put("habitoEstudio", it.calificacion)
+					break;
+					case "Liderazgo":
+					columns.put("liderazgo", it.calificacion)
+					break;
+					case "Iniciativa":
+					columns.put("iniciativa", it.calificacion)
+					break;
+					case "Relación con la Autoridad":
+					columns.put("relacionAutoridad", it.calificacion)
+					break;
+					case "Autocrítica":
+					columns.put("autocritica", it.calificacion)
+					break;
+					case "Metas Realistas":
+					columns.put("metaRealizada", it.calificacion)
+					break;
+					
+				}
+			}
+			
 			
 			Properties prop = new Properties();
 			String propFileName = "configuration.properties";
