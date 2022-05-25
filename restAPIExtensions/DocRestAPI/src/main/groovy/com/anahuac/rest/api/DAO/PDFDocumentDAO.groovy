@@ -61,29 +61,76 @@ class PDFDocumentDAO {
 			List<List < Object >> lstParams;
 
 			List<?> info = getInfoReportes(object.email, object.intento).getData();
-			//log += info.get(0)?.idbanner
+			//log += isNullOrBlanck(info.get(0)?.idbanner.toString())
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-			columns.put("idbanner", info.get(0)?.idbanner);
-			columns.put("nombreAspirante", info.get(0)?.nombre);
-			columns.put("fechaNacimiento", info.get(0)?.fechanacimiento);
-			columns.put("fotoPerfil", info.get(0)?.urlfoto);
-			columns.put("preparatoria", info.get(0)?.preparatoria);
-			columns.put("ciudad", info.get(0)?.ciudad);
-			columns.put("pais", info.get(0)?.pais);
-			columns.put("carreraEstudiar", info.get(0)?.carrera);
-			columns.put("edad", info.get(0)?.edad);
-			columns.put("promedio", info.get(0)?.promedio);
-			columns.put("fecha", info.get(0)?.fechafinalizacion);
-			columns.put("paav", info.get(0)?.paav);
-			columns.put("paan", info.get(0)?.paan);
-			columns.put("para", info.get(0)?.para);
-			columns.put("paat", info.get(0)?.promedio);
-			columns.put("invp", info.get(0)?.invp);
-			columns.put("tipoAdmision", info.get(0)?.promedio);
-			columns.put("periodoIngreso", info.get(0)?.promedio);
-			columns.put("entrevisto", info.get(0)?.quienrealizoentrevista);
-			columns.put("integro", info.get(0)?.quienintegro);
+			columns.put("idbanner", isNullOrBlanck(info.get(0)?.idbanner.toString()));
+			columns.put("nombreAspirante", isNullOrBlanck(info.get(0)?.nombre.toString()));
+			columns.put("fechaNacimiento", isNullOrBlanck(info.get(0)?.fechanacimiento.toString()));
+			columns.put("fotoPerfil", isNullOrBlanck(info.get(0)?.urlfoto.toString()));
+			columns.put("preparatoria", isNullOrBlanck(info.get(0)?.preparatoria.toString()));
+			columns.put("ciudad", isNullOrBlanck(info.get(0)?.ciudad.toString()));
+			columns.put("pais", isNullOrBlanck(info.get(0)?.pais.toString()));
+			columns.put("carreraEstudiar", isNullOrBlanck(info.get(0)?.carrera.toString()));
+			columns.put("edad", isNullOrBlanck(info.get(0)?.edad.toString()));
+			columns.put("promedio", isNullOrBlanck(info.get(0)?.promedio.toString()));
+			columns.put("fecha", isNullOrBlanck(info.get(0)?.fechafinalizacion.toString()));
+			columns.put("paav", isNullOrBlanck(info.get(0)?.paav.toString()));
+			columns.put("paan", isNullOrBlanck(info.get(0)?.paan.toString()));
+			columns.put("para", isNullOrBlanck(info.get(0)?.para.toString()));
+			columns.put("paat", isNullOrBlanck(info.get(0)?.promedio.toString()));
+			columns.put("invp", isNullOrBlanck(info.get(0)?.invp.toString()));
+			columns.put("tipoAdmision", isNullOrBlanck(info.get(0)?.tipoadmision.toString()));
+			columns.put("periodoIngreso", isNullOrBlanck(info.get(0)?.periodo.toString()));
+			columns.put("entrevisto", isNullOrBlanck(info.get(0)?.quienrealizoentrevista.toString()));
+			columns.put("integro", isNullOrBlanck(info.get(0)?.quienintegro.toString()));
+			info = getInfoRelativos(info.get(0)?.caseid.toString()).getData();
+			String caseid = info.get(0)?.caseid.toString()
+			Boolean[] familiares = [false,false,false]
+			info.each{
+				if(it?.parentesco.toString().equals("Padre") && !familiares[0]) {
+					if(it?.desconozcodatospadres.toString().equals("t")) {
+						columns.put("nombrePadre", "Se desconoce");
+						columns.put("ocupacionPadre", "Se desconoce");
+						columns.put("empresaPadre", "Se desconoce");
+						columns.put("universidadPadre", "Se desconoce");
+					}else {
+						columns.put("nombrePadre", isNullOrBlanck(it?.nombre.toString()));
+						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString()));
+						columns.put("empresaPadre", isNullOrBlanck(it?.empresatrabaja.toString()));
+						columns.put("universidadPadre", isNullOrBlanck(it?.campusanahuac.toString()));
+					}
+					familiares[0] = true;
+				}
+				
+				if(it?.parentesco.toString().equals("Madre") && !familiares[1]) {
+					if(it?.desconozcodatospadres.toString().equals("t")) {
+						columns.put("nombreMadre", "Se desconoce");
+						columns.put("ocupacionMadre", "Se desconoce");
+						columns.put("empresaMadre", "Se desconoce");
+						columns.put("universidadMadre", "Se desconoce");
+					}else {
+						columns.put("nombreMadre", isNullOrBlanck(it?.nombre.toString()));
+						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString()));
+						columns.put("empresaMadre", isNullOrBlanck(it?.empresatrabaja.toString()));
+						columns.put("universidadMadre", isNullOrBlanck(it?.campusanahuac.toString()));
+					}
+					familiares[1] = true;
+				}
+				
+				if(it?.istutor.toString().equals("t") && !familiares[2]) {
+					columns.put("nombreTutor", isNullOrBlanck(it?.nombre.toString()));
+					columns.put("ocupacionTutor", isNullOrBlanck(it?.puesto.toString()));
+					columns.put("empresaTutor", isNullOrBlanck(it?.empresatrabaja.toString()));
+					columns.put("universidadTutor", isNullOrBlanck(it?.campusanahuac.toString()));
+					familiares[2] = true;
+				}
+				
+				
+			}
 			
+			info = getInfoFuentesInfluyeron(caseid,object.intento);
+			columns.put("fuentesInfluyeron", '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est prueba."');
+			columns.put("saludAparente", 'Deficiente');
 			
 			Properties prop = new Properties();
 			String propFileName = "configuration.properties";
