@@ -279,42 +279,54 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.rutaPagoDownload = function(row) {
         debugger
         $window.title = "RUTA_PAGO - "+row.idbanner
-        $window.open(row.rutaPagob64);
-        /*axios({
-                url: row.rutaPagob64,
-                method: 'GET',
-                responseType: 'blob'
-        })
-            .then((response) => {
-                  const url = window.URL
-                        .createObjectURL(new Blob([response.data]));
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.setAttribute('download', 'RUTA_PAGO - '+row.idbanner+'.pdf');
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-             })*/
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+        "<iframe width='100%' height='100%' src='"+ row.rutaPagob64+ "'></iframe>"
+        )
+        //$window.open(row.rutaPagob64);
     }
     
     $scope.rutaSolicitudDownload = function(row) {
-        $window.open(row.rutasolicitud);
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+        "<iframe width='100%' height='100%' src='"+ row.rutasolicitud+ "'></iframe>"
+        )
+        //$window.open(row.rutasolicitud);
+    }
+    
+    $scope.rutaArchivosDownload = function(row,archivo) {
         
-        /*axios({
-                url: row.rutaSolicitudb64,
-                method: 'GET',
-                responseType: 'blob'
-        })
-            .then((response) => {
-                  const url = window.URL
-                        .createObjectURL(new Blob([response.data]));
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.setAttribute('download', 'RUTA_SOLICITUD - '+row.idbanner+'.pdf');
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-             })*/
+        doRequestRuta('POST','../API/extension/AnahuacRest?url=B64File&p=0&c=100',{'idbanner':row.idbanner,'ruta':archivo})
+        
+    }
+    
+    function doRequestRuta(method, url, info) {
+        blockUI.start();
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(info),
+        };
+  
+        return $http(req)
+            .success(function(data, status) {
+                let pdfWindow = window.open("")
+                if(data.additional_data[0] == "imagen"){
+                    
+                    pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Descargar</a>`)
+                }else{
+                    
+                    pdfWindow.document.write(`<embed src="${data.data[0]}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${data.data[0]}">Descargar</a>`)
+                }
+                //console.log(data); 
+            })
+            .error(function(data, status) {
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {
+  
+                blockUI.stop();
+            });
     }
     
     $scope.getCatCampus();
