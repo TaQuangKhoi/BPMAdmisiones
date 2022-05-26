@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1653090783401,
+  "lastUpdate" : 1653534790746,
   "rows" : [
     [
       {
@@ -5322,7 +5322,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objTutor.catTitulo.descripcion"
+                        "value" : "tutor.catTitulo.descripcion"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5465,7 +5465,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objTutor.empresaTrabaja"
+                        "value" : "tutor.empresaTrabaja ? tutor.empresaTrabaja : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -5540,7 +5540,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objTutor.puesto"
+                        "value" : "tutor.puesto ? tutor.puesto : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -6843,7 +6843,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.empresaTrabaja"
+                        "value" : "padre.empresaTrabaja ? padre.empresaTrabaja : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -6920,7 +6920,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.puesto"
+                        "value" : "padre.puesto ? padre.puesto : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -6995,7 +6995,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.giroEmpresa"
+                        "value" : "padre.giroEmpresa ? padre.giroEmpresa : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -7877,7 +7877,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "madre.empresaTrabaja"
+                        "value" : "madre.empresaTrabaja ? madre.empresaTrabaja : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -7954,7 +7954,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "madre.puesto"
+                        "value" : "madre.puesto ? madre.puesto : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -8029,7 +8029,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "madre.giroEmpresa"
+                        "value" : "madre.giroEmpresa ? madre.giroEmpresa : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -10248,11 +10248,15 @@
                                   "value" : {
                                     "type" : "variable",
                                     "value" : "formOutputTest.solicitudApoyoEducativoInput.pais"
+                                  },
+                                  "formOutput" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest"
                                   }
                                 },
-                                "reference" : "d07309cd-4dc5-4c2f-8e3c-4979943a8228",
+                                "reference" : "7267d0fa-3faf-45d4-a60a-9c19acc77964",
                                 "hasValidationError" : false,
-                                "id" : "pbSelect"
+                                "id" : "customSDAECustomSelectPais"
                               }
                             ]
                           ]
@@ -17661,7 +17665,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<img  src=\"{{selectedFile.linkSource}}\"  style=\"max-width: 100%;\" class=\"miniatura-pic\">"
+                          "value" : "<img  src=\"{{selectedFile.linkSource}}\"  style=\"max-width: 100%;\" class=\"pic\">"
                         },
                         "alignment" : {
                           "type" : "constant",

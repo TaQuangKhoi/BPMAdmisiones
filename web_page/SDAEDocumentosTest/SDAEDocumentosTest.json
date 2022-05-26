@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEDocumentosTest",
   "name" : "SDAEDocumentosTest",
-  "lastUpdate" : 1652909250990,
+  "lastUpdate" : 1653523663943,
   "rows" : [
     [
       {
@@ -22,9 +22,13 @@
             "type" : "constant",
             "value" : false
           },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
           "labelHidden" : {
             "type" : "constant",
-            "value" : true
+            "value" : false
           },
           "label" : {
             "type" : "interpolation",
@@ -38,22 +42,79 @@
             "type" : "constant",
             "value" : 4
           },
-          "allowHTML" : {
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "../API/formFileUpload"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "urlretorno" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "documentName" : {
+            "type" : "constant",
+            "value" : "Documento"
+          },
+          "documentDescription" : {
+            "type" : "constant",
+            "value" : "Prueba de subida de validación de peso del archivo v1.2"
+          },
+          "documentoInfo" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "isObligatorio" : {
+            "type" : "expression",
+            "value" : "true"
+          },
+          "urlAzure" : {
+            "type" : "variable",
+            "value" : "valor"
+          },
+          "urlDownloadFile" : {
+            "type" : "constant",
+            "value" : "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
+          },
+          "isMostrar" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "idDocumento" : {
+            "type" : "constant"
+          },
+          "editar" : {
             "type" : "constant",
             "value" : true
           },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "<pre>{{moneda}} <br>\n{{porcentaje}}\n</pre>"
-          },
-          "alignment" : {
+          "idModal" : {
             "type" : "constant",
-            "value" : "left"
+            "value" : "ddd"
+          },
+          "selectedFile" : {
+            "type" : "variable",
+            "value" : "selectedFile"
+          },
+          "tipoDocumento" : {
+            "type" : "constant",
+            "value" : "pdf"
+          },
+          "requiereEjemplo" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "urlEjemplo" : {
+            "type" : "constant"
           }
         },
-        "reference" : "c458ed97-bfa2-4333-b68c-f6ad8e61e34f",
+        "reference" : "9f16a8c0-a611-4a85-864d-868d06f3ea43",
         "hasValidationError" : false,
-        "id" : "pbText"
+        "id" : "customSDAEUploadCustomAzure"
       }
     ],
     [
@@ -643,6 +704,17 @@
     },
     "porcentaje" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "valor" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "selectedFile" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
       "exposed" : false
     }
   },
