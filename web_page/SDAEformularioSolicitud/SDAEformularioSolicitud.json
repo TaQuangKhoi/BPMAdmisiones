@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1653090783401,
+  "lastUpdate" : 1653524641843,
   "rows" : [
     [
       {
@@ -5322,7 +5322,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objTutor.catTitulo.descripcion"
+                        "value" : "tutor.catTitulo.descripcion"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5465,7 +5465,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objTutor.empresaTrabaja"
+                        "value" : "tutor.empresaTrabaja ? tutor.empresaTrabaja : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -5540,7 +5540,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objTutor.puesto"
+                        "value" : "tutor.puesto ? tutor.puesto : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -6843,7 +6843,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.empresaTrabaja"
+                        "value" : "padre.empresaTrabaja ? padre.empresaTrabaja : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -6920,7 +6920,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.puesto"
+                        "value" : "padre.puesto ? padre.puesto : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -6995,7 +6995,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "padre.giroEmpresa"
+                        "value" : "padre.giroEmpresa ? padre.giroEmpresa : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -7877,7 +7877,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "madre.empresaTrabaja"
+                        "value" : "madre.empresaTrabaja ? madre.empresaTrabaja : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -7954,7 +7954,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "madre.puesto"
+                        "value" : "madre.puesto ? madre.puesto : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -8029,7 +8029,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "madre.giroEmpresa"
+                        "value" : "madre.giroEmpresa ? madre.giroEmpresa : \"N/A\""
                       },
                       "type" : {
                         "type" : "constant",
@@ -10248,11 +10248,15 @@
                                   "value" : {
                                     "type" : "variable",
                                     "value" : "formOutputTest.solicitudApoyoEducativoInput.pais"
+                                  },
+                                  "formOutput" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest"
                                   }
                                 },
-                                "reference" : "d07309cd-4dc5-4c2f-8e3c-4979943a8228",
+                                "reference" : "7267d0fa-3faf-45d4-a60a-9c19acc77964",
                                 "hasValidationError" : false,
-                                "id" : "pbSelect"
+                                "id" : "customSDAECustomSelectPais"
                               }
                             ]
                           ]
@@ -17763,6 +17767,58 @@
                       "reference" : "1f952545-7565-4b11-bc39-59b4bc7f9410",
                       "hasValidationError" : false,
                       "id" : "customSDAEFileViewer"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<pre>{{ selectedFile | json }}</pre>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "8f52209b-9e24-47e3-8940-acdf99c03cff",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
                     }
                   ]
                 ]

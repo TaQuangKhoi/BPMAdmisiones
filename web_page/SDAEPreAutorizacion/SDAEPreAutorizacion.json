@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1653070550722,
+  "lastUpdate" : 1653507635076,
   "rows" : [
     [
       {
@@ -232,7 +232,8 @@
           "modificarInfoSocioEco" : "formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco",
           "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
           "returnCurriculumInfo" : "returnCurriculumInfo",
-          "getDatosSolicitante" : "getDatosSolicitante"
+          "getDatosSolicitante" : "getDatosSolicitante",
+          "urlConstancia" : "objSolicitudDeAdmision[0].urlConstancia"
         }
       }
     ],
@@ -1969,7 +1970,7 @@
                       "propertyValues" : {
                         "cssClasses" : {
                           "type" : "constant",
-                          "value" : ""
+                          "value" : "tall-textbox"
                         },
                         "hidden" : {
                           "type" : "constant",
@@ -2483,7 +2484,7 @@
                       "propertyValues" : {
                         "cssClasses" : {
                           "type" : "constant",
-                          "value" : ""
+                          "value" : "tall-textbox"
                         },
                         "hidden" : {
                           "type" : "constant",
@@ -3479,7 +3480,7 @@
                         },
                         "hidden" : {
                           "type" : "expression",
-                          "value" : "selectedFile.extension !== \".pdf\""
+                          "value" : ""
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -3513,6 +3514,46 @@
                       "reference" : "c0e6781a-917a-48cf-a83a-f7cfaa7860f1",
                       "hasValidationError" : false,
                       "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension !== \".pdf\""
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "URL"
+                        },
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource.trim()"
+                        },
+                        "document" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "showPreview" : {
+                          "type" : "constant",
+                          "value" : true
+                        }
+                      },
+                      "reference" : "4702549f-9deb-4905-a986-dc91959ffc39",
+                      "hasValidationError" : false,
+                      "id" : "customSDAEFileViewer"
                     }
                   ]
                 ]

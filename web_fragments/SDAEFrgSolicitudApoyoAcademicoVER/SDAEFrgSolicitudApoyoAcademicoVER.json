@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1653070705696,
+  "lastUpdate" : 1653507805687,
   "rows" : [
     [
       {
@@ -2893,8 +2893,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "constancia[0].extension === \".pdf\""
+                                    "type" : "constant",
+                                    "value" : true
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -2918,7 +2918,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<img class=\"miniatura-pic\" src=\"{{constancia[0].b64}}\">"
+                                    "value" : "constancia[0].extension === \".pdf\"\n<img class=\"miniatura-pic\" src=\"{{constancia[0].b64}}\">"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -2945,8 +2945,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "constancia[0].extension !== \".pdf\""
+                                    "type" : "constant",
+                                    "value" : true
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -2970,7 +2970,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{constancia[0].b64}}\"\n type=\"application/pdf\"/>"
+                                    "value" : "constancia[0].extension !== \".pdf\"\n\n<embed style=\"max-width: 100%;\"\n src=\"{{constancia[0].b64}}\"\n type=\"application/pdf\"/>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -2980,6 +2980,117 @@
                                 "reference" : "e06f6136-616d-4660-90ba-1cc936282a03",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "url" : {
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "documentName" : {
+                                    "type" : "constant"
+                                  },
+                                  "documentDescription" : {
+                                    "type" : "constant"
+                                  },
+                                  "documentoInfo" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "isObligatorio" : {
+                                    "type" : "expression",
+                                    "value" : "false"
+                                  },
+                                  "urlAzure" : {
+                                    "type" : "variable",
+                                    "value" : "urlConstancia"
+                                  },
+                                  "urlDownloadFile" : {
+                                    "type" : "expression",
+                                    "value" : "urlDownloadFileAzureUrl"
+                                  },
+                                  "isMostrar" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "idDocumento" : {
+                                    "type" : "constant"
+                                  },
+                                  "editar" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "idModal" : {
+                                    "type" : "constant",
+                                    "value" : "modalDocumentoPV"
+                                  },
+                                  "selectedFile" : {
+                                    "type" : "variable",
+                                    "value" : "selectedFile"
+                                  },
+                                  "tipoDocumento" : {
+                                    "type" : "constant",
+                                    "value" : "pdf"
+                                  },
+                                  "requiereEjemplo" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "urlEjemplo" : {
+                                    "type" : "constant"
+                                  }
+                                },
+                                "reference" : "46c85a6b-7a8f-40d8-b57f-865757ab08a3",
+                                "hasValidationError" : false,
+                                "id" : "customSDAEUploadCustomAzure"
                               }
                             ],
                             [
@@ -3185,6 +3296,13 @@
                                   "tipoDocumento" : {
                                     "type" : "constant",
                                     "value" : "pdf"
+                                  },
+                                  "requiereEjemplo" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "urlEjemplo" : {
+                                    "type" : "constant"
                                   }
                                 },
                                 "reference" : "45a162c3-317a-4ee5-bab5-5e0591eca4f2",
@@ -4632,7 +4750,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "objTutor.catTitulo.descripcion"
+                  "value" : "tutor.catTitulo.descripcion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -4775,7 +4893,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "objTutor.empresaTrabaja"
+                  "value" : "tutor.empresaTrabaja ? tutor.empresaTrabaja : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -4850,7 +4968,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "objTutor.puesto"
+                  "value" : "tutor.puesto ? tutor.puesto : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -6097,7 +6215,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.empresaTrabaja"
+                  "value" : "padre.empresaTrabaja ? padre.empresaTrabaja : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -6174,7 +6292,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.puesto"
+                  "value" : "padre.puesto ? padre.puesto : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -6249,7 +6367,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.giroEmpresa"
+                  "value" : "padre.giroEmpresa ? padre.giroEmpresa : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -7127,7 +7245,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "madre.empresaTrabaja"
+                  "value" : "madre.empresaTrabaja ? madre.empresaTrabaja : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -7204,7 +7322,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "madre.puesto"
+                  "value" : "madre.puesto ? madre.puesto : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -7279,7 +7397,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "madre.giroEmpresa"
+                  "value" : "madre.giroEmpresa ? madre.giroEmpresa : \"N/A\""
                 },
                 "type" : {
                   "type" : "constant",
@@ -8060,7 +8178,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "tall-textbox"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -8103,9 +8221,9 @@
                   "value" : "formOutputTest.solicitudApoyoEducativoInput.motivoBeca"
                 }
               },
-              "reference" : "95d7e0d7-3615-4fd4-8e25-1ad23b61d760",
+              "reference" : "48fb8871-09af-433b-970c-4b0b2a3da7e5",
               "hasValidationError" : false,
-              "id" : "pbTextarea"
+              "id" : "customCustomTextAreaLimit"
             }
           ],
           [
@@ -14685,11 +14803,18 @@
                       },
                       "selectedFile" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "selectedFile"
                       },
                       "tipoDocumento" : {
                         "type" : "constant",
                         "value" : "imagen"
+                      },
+                      "requiereEjemplo" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "urlEjemplo" : {
+                        "type" : "constant"
                       }
                     },
                     "reference" : "690c935b-0c2f-46f1-b8de-c488fa43c7f3",
@@ -16196,6 +16321,13 @@
       "exposed" : true
     },
     "getDatosSolicitante" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlConstancia" : {
       "type" : "constant",
       "value" : [
         ""

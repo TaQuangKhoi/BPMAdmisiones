@@ -75,17 +75,50 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     function handleFileSelect(evt) {
         startUploading();
         var f = evt.target.files[0];
+        var reader = new FileReader(); var size = parseFloat(f.size / 1024).toFixed(2);
+        if(size >= 2000){
+            ctrl.filename = gettextCatalog.getString('Error al subir documento');
+            swal("El archivo es demasiado grande", "El tamaño máximo de la imagen es de 2MB", "error");
+        } else {
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var binaryData = e.target.result;
+                    var base64String = window.btoa(binaryData);
+                    $scope.documetObject["b64"] = $scope.documetObject["filetype"] +  "," +  base64String;
+                    
+                    doRequest("POST", "../API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=0", null);
+                };
+            })(f);
+            reader.readAsBinaryString(f);
+        }
+    }
+
+    function handleFileSelectImg(evt) {
+        startUploading();
+        var f = evt.target.files[0];
         var reader = new FileReader();
-        reader.onload = (function (theFile) {
-            return function (e) {
-                var binaryData = e.target.result;
-                var base64String = window.btoa(binaryData);
-                $scope.documetObject["b64"] = $scope.documetObject["filetype"] +  "," +  base64String;
-                
-                doRequest("POST", "../API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=0", null);
-            };
-        })(f);
-        reader.readAsBinaryString(f);
+        var reader2 = new FileReader();
+        reader.onload = function(e){
+            var binaryData = e.target.result;
+            var base64String = window.btoa(binaryData);
+            $scope.documetObject["b64"] = $scope.documetObject["filetype"] +  "," +  base64String;
+            doRequest("POST", "../API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=0", null);
+        };
+
+        reader2.onload = function(e){
+            var image = new Image();
+            image.onload = function(){
+                var height = this.height;
+                var width = this.width;
+                if(width >= 1024 && height >= 768){
+                    reader.readAsBinaryString(f);
+                }  else {
+                    swal("No se pudo cargar la imagen","La imagen es muy pequeña, esta debe ser por  1024 x 768 pixeles. ","error")
+                }
+            }
+            image.src = e.target.result;
+        }
+        reader2.readAsDataURL(f);
     }
 
 
@@ -162,23 +195,33 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
     this.forceSubmit = function (event) {
         $scope.procesar = false;
-        handleFileSelect(event);
         $scope.documetObject["filename"] = event.target.files[0].name;
         $scope.documetObject["filetype"] = event.target.files[0].type;
         $scope.documetObject["contenedor"] = "privado";
-
+        
         if (event.target.files[0].type === "image/jpeg") {
             $scope.properties.isImagen = "true";
             $scope.properties.isPDF = "false";
             $scope.procesar = true;
+            if($scope.properties.tipoDocumento === "pdf"){
+                handleFileSelect(event);
+            } else {
+                handleFileSelectImg(event);
+            }
         } else if (event.target.files[0].type === "image/png") {
             $scope.properties.isImagen = "true";
             $scope.properties.isPDF = "false";
             $scope.procesar = true;
+            if($scope.properties.tipoDocumento === "pdf"){
+                handleFileSelect(event);
+            } else {
+                handleFileSelectImg(event);
+            }
         } else if (event.target.files[0].type === "application/pdf") {
             $scope.properties.isPDF = "true";
             $scope.properties.isImagen = "false";
             $scope.procesar = true;
+            handleFileSelect(event);
         } else {
             swal("!Formato no valido!", "Solo puede agregar archivos PDF o imagenes JPG y PNG", "warning");
             $scope.properties.isPDF = "true";
@@ -247,17 +290,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     }
 
     function uploadComplete(response) {
-        // if (angular.isString(response) || (response && response.type && response.message)) {
-        //     $log.warn('upload failed');
-        //     ctrl.filemodel = '';
-        //     ctrl.filename = gettextCatalog.getString('Upload failed');
-        //     $scope.properties.errorContent = angular.isString(response) ? response : response.message;
-        //     return;
-        // } else {
-        //     let array = response.data[0].split("/");
-        //     ctrl.filename = array[array.length - 1];
-        //     this.uploadComplete = true;
-        // }
         $scope.properties.value = response;
     }
 
@@ -325,14 +357,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         $scope.linkSource = _document.b64;
         $scope.fileName = urlSplitted[urlSplitted.length - 1];
         $scope.extension = _document.extension;
-        
-        // let obj = {
-        //     "linkSource":$scope.linkSource,
-        //     "fileName":  $scope.fileName ,
-        //     "extension": $scope.extension
-        // };
-        
-        // $scope.properties.selectedFile = obj;
     }
 
     function selectFile(){
