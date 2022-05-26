@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1652393224323,
+  "lastUpdate" : 1653520272949,
   "rows" : [
     [
       {
@@ -134,6 +134,14 @@
           "lstImagenesByTipoApoyo" : {
             "type" : "variable",
             "value" : "imagenesSocioEconomico.data"
+          },
+          "selectedIndex" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "isSolicitud" : {
+            "type" : "constant",
+            "value" : false
           }
         },
         "reference" : "bbc1cb89-3cf3-4000-9430-39f38474e22c",
@@ -275,7 +283,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 }
               },
               "reference" : "558c78c1-b5ae-449f-b2ba-2d9981de82b2",
@@ -333,7 +341,11 @@
                 "userDataEmail" : "",
                 "getAutodescripcion" : "",
                 "objPadresTutor" : "",
-                "returnCurriculumInfo" : ""
+                "returnCurriculumInfo" : "",
+                "getDatosSolicitante" : "",
+                "imagenesSocEcoSolicitanteInput" : "",
+                "documentosSolicitanteInput" : "",
+                "idModal" : ""
               }
             }
           ],
@@ -351,8 +363,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "selectedIndex !== 5"
+                  "type" : "constant",
+                  "value" : false
                 }
               },
               "reference" : "c0f072aa-8458-412c-a4cf-ba13e0208042",
@@ -415,7 +427,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -4580,7 +4592,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add AvalReferencia"
+                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                         },
                         "dataToSend" : {
                           "type" : "expression"
@@ -4737,6 +4749,24 @@
                               "required" : {
                                 "type" : "constant",
                                 "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
                               }
                             },
                             "reference" : "244602b7-1802-41e6-8019-66076473f870",
@@ -5051,6 +5081,30 @@
                               "dimension" : {
                                 "type" : "constant",
                                 "value" : 12
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable"
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
                               }
                             },
                             "reference" : "2621f57b-dfd3-4cd0-97f1-8cf5a574fc71",
@@ -5170,7 +5224,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add AvalReferencia"
+                          "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                         },
                         "dataToSend" : {
                           "type" : "expression"
@@ -5641,6 +5695,30 @@
                               "dimension" : {
                                 "type" : "constant",
                                 "value" : 12
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable"
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
                               }
                             },
                             "reference" : "63c60807-ae7c-4302-b30b-3c31f8830cdc",
@@ -6583,7 +6661,7 @@
     "selectedIndex" : {
       "type" : "constant",
       "value" : [
-        "0"
+        "6"
       ],
       "exposed" : false
     },

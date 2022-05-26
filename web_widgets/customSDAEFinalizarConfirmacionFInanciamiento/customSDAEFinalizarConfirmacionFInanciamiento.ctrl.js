@@ -14,7 +14,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            submitTask();
+            if ($scope.properties.aceptoAvisoPrivacidad == true) {
+                //var url= "/portal/resource/app/sdae/solicitudApoyoEducativo/content/"
+                //window.location.replace(url); 
+                submitTask();
+            }else{
+                 swal("¡Aviso!", "Para continuar debe aceptar el aviso de privacidad.", "warning"); 
+            }
+            
         } else if ($scope.properties.action === 'Open modal') {
             closeModal($scope.properties.closeOnSuccess);
             openModal($scope.properties.modalId);
