@@ -295,20 +295,21 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.sendMail = function(row, mensaje) {
-        if (row.catCampus.grupoBonita == undefined) {
+        /*if (row.catCampus.grupoBonita == undefined) {
             for (var i = 0; i < $scope.lstCampus.length; i++) {
                 if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {
                     row.catCampus.grupoBonita = $scope.lstCampus[i].valor;
                 }
             }
-        }
+        }*/
+        debugger;
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
-                "campus": row.catCampus.grupoBonita,
-                "correo": row.correoElectronico,
-                "codigo": "recordatorio",
+                "campus": $scope.properties.selectedRow.grupobonita,
+                "correo": "angel_glz95@hotmail.com",
+                "codigo": "BC_RECHAZADO",
                 "isEnviar": true,
                 "mensaje": mensaje
             })
@@ -626,6 +627,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
       $scope.avanzarFinanciamiento = false;
       $scope.avanzarArchivar = true;
       $scope.caseIdTarea = rowData.caseid;
+
+      $scope.properties.selectedRow = rowData;
       $('#modalEnviarArchivo').modal('show'); 
       
   }
