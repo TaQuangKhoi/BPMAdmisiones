@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1653507805687,
+  "lastUpdate" : 1653613431315,
   "rows" : [
     [
       {
@@ -5654,7 +5654,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.apellido"
+                  "value" : "padre.apellidos"
                 },
                 "type" : {
                   "type" : "constant",
@@ -6063,7 +6063,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "padre.carEscolaridad.descripcion"
+                  "value" : "padre.catEscolaridad.descripcion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -8307,8 +8307,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!returnCatValue.catTipoApoyo.isArtistica && !returnCatValue.catTipoApoyo.isDeportiva && !returnCatValue.catTipoApoyo.isAcademica"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -8375,8 +8375,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!returnCatValue.catTipoApoyo.isFinanciamiento"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -10027,9 +10027,9 @@
                   "value" : false
                 }
               },
-              "reference" : "1d3e7104-bc3d-4908-9c51-70a8cc14106c",
+              "reference" : "1826acef-c2a9-4a06-9b13-00555f5074c4",
               "hasValidationError" : false,
-              "id" : "customTblSDAEinformacionAutomoviles"
+              "id" : "customTblSDAEinformacionAutomovilesVer"
             }
           ],
           [
@@ -16328,6 +16328,13 @@
       "exposed" : true
     },
     "urlConstancia" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "lstAutomoviles" : {
       "type" : "constant",
       "value" : [
         ""

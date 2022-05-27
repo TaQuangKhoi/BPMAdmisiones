@@ -1422,10 +1422,7 @@ class CatalogosDAO {
 				pstm = con.prepareStatement(StatementsCatalogos.UPDATE_IMAGEN_SOCIO_ECONOMICO);
 
 				pstm.setString(1, objCatGenerico.descripcion);
-				pstm.setBoolean(2, true);
-				pstm.setLong(3, objCatGenerico.idCampus);
-				pstm.setLong(4, objCatGenerico.idTipoApoyo);
-				pstm.setLong(5, objCatGenerico.persistenceId);
+				pstm.setLong(2, objCatGenerico.persistenceId);
 				
 				pstm.execute();
 			}else {

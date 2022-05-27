@@ -45,7 +45,7 @@
                     <label class="moneda-display2">$</label><input class="form-control moneda-display2-input" ng-model="row.colegiaturaMensual" type="number" ng-disabled="!row.isEstudia || !properties.editar">
                 </td>
                 <td>
-                    <input ng-model="row.isTrabaja" type="checkbox" ng-change="disableTrabaja(row, $index)">
+                    <input ng-model="row.isTrabaja" type="checkbox" ng-change="disableTrabaja(row, $index)" ng-disabled="!properties.editar">
                 </td>
                 <td>
                     <input class="form-control" ng-model="row.empresa" type="text" ng-disabled="!row.isTrabaja || !properties.editar">

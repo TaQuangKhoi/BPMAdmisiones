@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1653507635076,
+  "lastUpdate" : 1653613392636,
   "rows" : [
     [
       {
@@ -233,7 +233,8 @@
           "modificarDocumentos" : "formInput.solicitudApoyoEducativoInput.modificarDocumentos",
           "returnCurriculumInfo" : "returnCurriculumInfo",
           "getDatosSolicitante" : "getDatosSolicitante",
-          "urlConstancia" : "objSolicitudDeAdmision[0].urlConstancia"
+          "urlConstancia" : "objSolicitudDeAdmision[0].urlConstancia",
+          "lstAutomoviles" : "lstCatSituacionAuto"
         }
       }
     ],
@@ -4461,6 +4462,18 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "lstCatSituacionAuto" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatSituacionAuto"
       ],
       "advancedOptions" : { },
       "exposed" : false

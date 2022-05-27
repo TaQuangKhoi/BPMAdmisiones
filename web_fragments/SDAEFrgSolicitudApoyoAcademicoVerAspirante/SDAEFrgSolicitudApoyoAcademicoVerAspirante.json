@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1653438226390,
+  "lastUpdate" : 1653600671590,
   "rows" : [
     [
       {
@@ -15552,11 +15552,44 @@
       "exposed" : true
     },
     "returnCatValue" : {
-      "type" : "constant",
+      "type" : "expression",
       "value" : [
-        ""
+        "let output = {",
+        "    \"catBecaPreparatoria\": null,",
+        "    \"catTipoApoyo\": null,",
+        "    \"catTipoMoneda\": null,",
+        "};",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
+        "            output[\"catBecaPreparatoria\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
+        "            output[\"catTipoApoyo\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){",
+        "    for(let cat of $data.lstTipoMoneda.data){",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
+        "            output[\"catTipoMoneda\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
-      "exposed" : true
+      "exposed" : false
     },
     "wizardContent" : {
       "type" : "constant",

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEVerSolicitud",
   "name" : "SDAEVerSolicitud",
-  "lastUpdate" : 1653002311320,
+  "lastUpdate" : 1653593255388,
   "rows" : [
     [
       {
@@ -231,7 +231,11 @@
                 "returnCurriculumInfo" : "returnCurriculumInfo",
                 "getInformacionEscolar" : "getInformacionEscolar",
                 "wizardContent" : "wizardContent",
-                "selectedIndex" : "selectedIndex"
+                "selectedIndex" : "selectedIndex",
+                "getDatosSolicitante" : "getDatosSolicitante",
+                "imagenesSocEcoSolicitanteInput" : "formOutputTest.imagenesSocEcoSolicitanteInput",
+                "documentosSolicitanteInput" : "formOutputTest.documentosSolicitanteInput",
+                "idModal" : "modalVer"
               }
             }
           ]
@@ -1294,6 +1298,21 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "modalVer" : {
+      "type" : "constant",
+      "value" : [
+        "modalVer"
       ],
       "exposed" : false
     }
