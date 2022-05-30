@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1653614084565,
+  "lastUpdate" : 1653954240637,
   "rows" : [
     [
       {
@@ -62,22 +62,6 @@
             "type" : "variable",
             "value" : "formOutputTest.bienesRaicesInput"
           },
-          "fotoCalleCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoCalleCasaDocumentInput"
-          },
-          "fotoComedorCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoComedorCasaDocumentInput"
-          },
-          "fotoFachadaCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoFachadaCasaDocumentInput"
-          },
-          "fotoSalaCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoSalaCasaDocumentInput"
-          },
           "documentos" : {
             "type" : "variable",
             "value" : "formOutputTest.documentosSolicitanteInput"
@@ -103,9 +87,9 @@
             "value" : true
           }
         },
-        "reference" : "8e36a0e2-2288-48b4-afc9-b660a6a3c9dd",
+        "reference" : "b4c7a637-7c28-4ef7-bd49-dc21f07e13fa",
         "hasValidationError" : false,
-        "id" : "customSDAEGetTareaUsuario"
+        "id" : "customSDAEGetTareaUsuarioAspirante"
       }
     ],
     [
@@ -199,7 +183,7 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "left"
+                  "value" : "center"
                 }
               },
               "reference" : "7faee4ab-6e0a-4e9e-84d5-f14cec598ff0",
@@ -240,6 +224,10 @@
                 "showPreview" : {
                   "type" : "constant",
                   "value" : true
+                },
+                "showTolbar" : {
+                  "type" : "constant",
+                  "value" : false
                 }
               },
               "reference" : "4f073d94-aeff-4f0f-9b0b-6a8a04e67396",
@@ -2142,7 +2130,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "¿Cuanto es tu ingreso proveniente de este trabajo? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "¿Cuanto es tu ingreso proveniente de este trabajo? ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -3081,7 +3069,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Costo mensual de colegiatura:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Costo mensual de colegiatura: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -5228,7 +5216,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Ingreso mensual neto:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Ingreso mensual neto:  ({{returnCatValue.catTipoMoneda.clave}})<span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -5798,6 +5786,10 @@
                       "editar" : {
                         "type" : "constant",
                         "value" : true
+                      },
+                      "tipoMoneda" : {
+                        "type" : "expression",
+                        "value" : "returnCatValue.catTipoMoneda.clave"
                       }
                     },
                     "reference" : "d5ad83f5-aeb0-452d-90e6-1867da43c343",
@@ -8408,6 +8400,10 @@
                             "editar" : {
                               "type" : "constant",
                               "value" : true
+                            },
+                            "tipoMoneda" : {
+                              "type" : "expression",
+                              "value" : "returnCatValue.catTipoMoneda.clave"
                             }
                           },
                           "reference" : "c2d407e8-6d3c-404c-927c-620591fc5aa3",
@@ -9272,7 +9268,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Qué cantidad mensual puedes pagar por la universidad?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿Qué cantidad mensual puedes pagar por la universidad? ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -9309,6 +9305,88 @@
                           "reference" : "6fe8236b-7433-4495-881d-eacd6c318350",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputMoneda"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "92c37d1f-d283-49dd-a761-b29e459e9ecb",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "{{ returnCatValue | json }}"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "3874b3ec-adcd-489e-8a53-7212dd0264b0",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ]
@@ -10017,7 +10095,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Valor aproximado de su casa:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Valor aproximado de su casa: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -19364,6 +19442,10 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de madre\";\r",
+        "} else if (!$data.formOutputTest.hermanosInput.length && $data.formOutputTest.solicitudApoyoEducativoInput.tieneHermanos){\r",
+        "    output = false;\r",
+        "    $data.errorPaso2 = \"Si seleccionaste 'Sí' en el campo '¿Tienes hermanos?' debes agregar al menos uno \";\r",
+        "    $data.tituloErrorPaso2 = \"Información de madre\";\r",
         "} else if (!validateHermanos()){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"Si  agregaste un valor a la tabla de hermanos debes llenar los campos correspondientes a las las opciones que seleccionaste. Por ejemplo, si seleccionaste el campo '¿Trabaja?', debes llenar el campo 'Empresa' y 'Ingreso mensual'.\";\r",
@@ -19889,51 +19971,71 @@
     "returnCatValue" : {
       "type" : "expression",
       "value" : [
-        "let output = {",
-        "    \"catTienesHijos\": null,",
-        "    \"catBecaPreparatoria\": null,",
-        "    \"catTipoApoyo\": null,",
-        "    \"catTipoMoneda\": null,",
-        "    \"catTienesHermanos\": null",
-        "};",
-        "",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){",
-        "    for(let cat of $data.lstCatTienesHermanos.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
-        "            output[\"catTienesHermanos\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){",
-        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "            output[\"catBecaPreparatoria\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){",
-        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
-        "            output[\"catTipoApoyo\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){",
-        "    for(let cat of $data.lstTipoMoneda.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
-        "            output[\"catTipoMoneda\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
+        "let output = {\r",
+        "    \"catTienesHijos\": null,\r",
+        "    \"catBecaPreparatoria\": null,\r",
+        "    \"catTipoApoyo\": null,\r",
+        "    \"catTipoMoneda\": null,\r",
+        "    \"catTienesHermanos\": null,\r",
+        "    \"catPorcentajeBeca\": null,\r",
+        "    \"catPorcentajeFinanciamiento\": null\r",
+        "};\r",
+        "\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){\r",
+        "    for(let cat of $data.lstCatTienesHermanos.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){\r",
+        "            output[\"catTienesHermanos\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){\r",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){\r",
+        "            output[\"catBecaPreparatoria\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){\r",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){\r",
+        "            output[\"catTipoApoyo\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){\r",
+        "    for(let cat of $data.lstTipoMoneda.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){\r",
+        "            output[\"catTipoMoneda\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id && $data.lstCatPorcentajeBeca){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id && $data.lstCatPorcentajeFinanciamiento){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
         "return output;"
       ],
       "exposed" : false
