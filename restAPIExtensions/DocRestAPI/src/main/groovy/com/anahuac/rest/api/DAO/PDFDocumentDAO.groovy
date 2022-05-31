@@ -213,6 +213,8 @@ class PDFDocumentDAO {
 			columns.put("califajusteescolarprevio",  isNullOrBlanck(info?.get(0)?.califajusteescolarprevio.toString()) );
 			columns.put("ajusteMedioSocial",  isNullOrBlanck(info?.get(0)?.ajustemediosocial.toString()) );
 			columns.put("califajustemediosocial",  isNullOrBlanck(info?.get(0)?.califajustemediosocial.toString()) );
+			columns.put("ajusteEfectivo",  isNullOrBlanck(info?.get(0)?.ajusteefectivo.toString()) );
+			columns.put("califajusteafectivo",  isNullOrBlanck(info?.get(0)?.califajusteafectivo.toString()) );
 			//ajusteMedioFamiliar
 			
 			Properties prop = new Properties();
