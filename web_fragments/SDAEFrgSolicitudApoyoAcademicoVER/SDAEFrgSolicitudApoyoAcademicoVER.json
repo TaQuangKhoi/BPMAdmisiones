@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1653613431315,
+  "lastUpdate" : 1653940952178,
   "rows" : [
     [
       {
@@ -1518,7 +1518,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "¿Cuanto es tu ingreso proveniente de este trabajo?"
+                                    "value" : "¿Cuanto es tu ingreso proveniente de este trabajo?  ({{returnCatValue.catTipoMoneda.clave}})"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -2454,7 +2454,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Costo mensual de colegiatura:"
+                        "value" : "Costo mensual de colegiatura: ({{returnCatValue.catTipoMoneda.clave}})"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -4658,7 +4658,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Ingreso mensual neto:"
+                  "value" : "Ingreso mensual neto: ({{returnCatValue.catTipoMoneda.clave}})"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -5226,6 +5226,10 @@
                 "editar" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "tipoMoneda" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catTipoMoneda.clave"
                 }
               },
               "reference" : "36108c71-7625-4a7b-bb9c-f10c3654d3e1",
@@ -7724,6 +7728,10 @@
                       "editar" : {
                         "type" : "constant",
                         "value" : false
+                      },
+                      "tipoMoneda" : {
+                        "type" : "expression",
+                        "value" : "returnCatValue.catTipoMoneda.clave"
                       }
                     },
                     "reference" : "d557f561-a4e4-494c-95df-49c9e0f55fbd",
@@ -8466,7 +8474,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Qué cantidad mensual puedes pagar por la universidad?"
+                  "value" : "¿Qué cantidad mensual puedes pagar por la universidad? ({{returnCatValue.catTipoMoneda.clave}})"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -9193,7 +9201,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Valor aproximado de su casa:"
+                  "value" : "Valor aproximado de su casa: ({{returnCatValue.catTipoMoneda.clave}})"
                 },
                 "labelPosition" : {
                   "type" : "constant",
