@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1654026727375,
+  "lastUpdate" : 1654038675498,
   "rows" : [
     [
       {
@@ -1371,7 +1371,7 @@
                           "value" : false
                         }
                       },
-                      "reference" : "52ca0c85-407d-40eb-a711-4a54571475f7",
+                      "reference" : "10af6faf-50f8-4a50-b679-d861ff29098c",
                       "hasValidationError" : false,
                       "id" : "customSDAEButtonCloseWindowAutorizacion"
                     }
@@ -1743,7 +1743,7 @@
                           "type" : "variable"
                         }
                       },
-                      "reference" : "fc56e11c-9e23-4217-88cc-7a7a36ce8930",
+                      "reference" : "850931be-a2f0-4848-af39-c3f33a249895",
                       "hasValidationError" : false,
                       "id" : "pbButton"
                     },
@@ -1840,7 +1840,7 @@
                           "value" : true
                         }
                       },
-                      "reference" : "5a56640b-73d9-4e07-9338-9e39625fef62",
+                      "reference" : "ab46cc90-b249-498e-b98f-5984145d0810",
                       "hasValidationError" : false,
                       "id" : "customSDAEButtonCloseWindowAutorizacion"
                     }
@@ -2019,7 +2019,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 4,
-                              "lg" : 3
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -2391,7 +2391,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 4,
-                              "lg" : 3
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -2592,7 +2592,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 4,
-                              "lg" : 3
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -2672,11 +2672,11 @@
                                     },
                                     "minLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 0
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -2707,22 +2707,24 @@
                                     },
                                     "type" : {
                                       "type" : "constant",
-                                      "value" : "text"
+                                      "value" : "number"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 0
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100
                                     },
                                     "step" : {
                                       "type" : "constant",
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "5b2d9886-b2b1-4132-a6f7-7e291a94ef5a",
+                                  "reference" : "96f4745c-e133-4fe2-b5e8-cf0644b3f5d1",
                                   "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
+                                  "id" : "customSDAEInputLimitPercentage"
                                 }
                               ],
                               [
@@ -2749,11 +2751,11 @@
                                     },
                                     "minLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 1
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -2784,13 +2786,15 @@
                                     },
                                     "type" : {
                                       "type" : "constant",
-                                      "value" : "text"
+                                      "value" : "number"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 0
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100
                                     },
                                     "step" : {
                                       "type" : "constant",
@@ -2901,17 +2905,125 @@
                                       "type" : "constant",
                                       "value" : false
                                     },
+                                    "disabled" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "¿Ya realizó el pago?"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "formInputAprobar.autorizacionInput.isPagoRealizadoAutorizacion"
+                                    }
+                                  },
+                                  "reference" : "2284d877-2c60-4918-9ede-a549bf46da93",
+                                  "hasValidationError" : false,
+                                  "id" : "pbCheckbox"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Fecha de pago de inscripción"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "formInputAprobar.autorizacionInput.fechaPagoInscripcionAutorizacion"
+                                    },
+                                    "dateFormat" : {
+                                      "type" : "constant",
+                                      "value" : "dd/MM/yyyy"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation",
+                                      "value" : "Selecciona una fecha (dd/MM/yyyy)"
+                                    },
+                                    "showToday" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "todayLabel" : {
+                                      "type" : "interpolation",
+                                      "value" : "Today"
+                                    }
+                                  },
+                                  "reference" : "49376156-b240-4605-9fb1-a1e1d33ddfc9",
+                                  "hasValidationError" : false,
+                                  "id" : "pbDatePicker"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
                                     "required" : {
                                       "type" : "constant",
                                       "value" : false
                                     },
                                     "minLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 0
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -2942,13 +3054,15 @@
                                     },
                                     "type" : {
                                       "type" : "constant",
-                                      "value" : "text"
+                                      "value" : "number"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 0
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100
                                     },
                                     "step" : {
                                       "type" : "constant",
@@ -3586,7 +3700,7 @@
     "preAutorizacion" : {
       "type" : "url",
       "value" : [
-        "..{{context.preAutorizacion_ref.link}}"
+        "../{{context.preAutorizacion_ref.link}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

@@ -92,7 +92,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let dataToSend = angular.copy($scope.properties.dataToSend);
         dataToSend.varAutorizadaInput = $scope.properties.isAutorizada;
         dataToSend.isModificacionAutorizcionInput = $scope.properties.isModificar;
-        
+        dataToSend.autorizacionInput.porcentajeCreditoAutorizacion = (dataToSend.autorizacionInput.porcentajeCreditoAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeCreditoAutorizacion) : null);
+        dataToSend.autorizacionInput.porcentajeBecaAutorizacion = (dataToSend.autorizacionInput.porcentajeBecaAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeBecaAutorizacion) : null);
+        dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion = (dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion ? parseInt(dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion) : null);
+
         var req = {
             method: method,
             url: url,

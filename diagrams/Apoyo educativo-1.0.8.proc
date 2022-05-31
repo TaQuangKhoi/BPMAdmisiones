@@ -1524,9 +1524,13 @@
         </actorMappings>
         <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_0akQod0hEeyWU6F7SuI3bw" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
         <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_0ak3sN0hEeyWU6F7SuI3bw" type="ACTOR_FILTER" definitionId="bonita-actorfilter-single-user" definitionVersion="1.0.0" implementationId="bonita-actorfilter-single-user-impl" implementationVersion="1.0.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_ICg2kOESEeyuH-_RtkbD9A" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.2.0" implementationId="rest-get-impl" implementationVersion="1.2.0"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_0ak3sd0hEeyWU6F7SuI3bw" id="CONNECTOR">
           <children xmi:type="configuration:FragmentContainer" xmi:id="_0ak3st0hEeyWU6F7SuI3bw" id="rest-post-impl-1.2.0">
             <fragments xmi:type="configuration:Fragment" xmi:id="_0ak3s90hEeyWU6F7SuI3bw" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
+          </children>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_IEEVwOESEeyuH-_RtkbD9A" id="rest-get-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_IENfsOESEeyuH-_RtkbD9A" key="rest-get-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_0ak3tN0hEeyWU6F7SuI3bw" id="GROOVY_SCRIPT"/>
@@ -1542,6 +1546,7 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_0amF0d0hEeyWU6F7SuI3bw" name="urlEnvioCorreo" value="https://qa.bpm.anahuac.mx/API/extension/AnahuacRest?url=generateHtml&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_0amF0t0hEeyWU6F7SuI3bw" name="urlLogin" value="https://qa.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_0amF090hEeyWU6F7SuI3bw" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_IE9toOESEeyuH-_RtkbD9A" name="urlCambioEstatus" typeClassname="java.lang.String"/>
       </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_7yXLkNyHEeyjSYqicZc3Tw" name="password" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_-4aWgNyHEeyjSYqicZc3Tw" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
@@ -5572,6 +5577,9 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_3H_0d-CIEeyuH-_RtkbD9A" name="promedioMinimoAutorizacion" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_3H_0eOCIEeyuH-_RtkbD9A" name="descuentoAnticipadoAutorizacion" type="DECIMAL" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_3H_0eeCIEeyuH-_RtkbD9A" name="fechaPagoInscripcionAutorizacion" type="LOCALDATE" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_lwAFQOE1EeyuH-_RtkbD9A" name="isPagoRealizadoAutorizacion" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_lwAFQeE1EeyuH-_RtkbD9A"/>
+              </inputs>
             </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_4UhGWmdEEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
