@@ -266,8 +266,14 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req).success(function(data, status) {
                 $('#modalEnviarDictamen').modal('hide'); 
                 $('#modalEnviarArchivo').modal('hide'); 
-                $('#modalReactivarSolicitud').modal('hide'); 
-                window.location.reload();
+                $('#modalReactivarSolicitud').modal('hide');
+                
+                if(estatus == "Solicitud Rechazada"){
+                  $scope.sendMail($scope.mensaje,false);
+                }else{
+                    window.location.reload();
+                }
+                
             })
             .error(function(data, status) {
                console.error(data);
@@ -294,7 +300,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         $scope.selectedrow = {};
     }
   
-    $scope.sendMail = function(row, mensaje) {
+    $scope.sendMail = function(mensaje, rechazoAdmision) {
         /*if (row.catCampus.grupoBonita == undefined) {
             for (var i = 0; i < $scope.lstCampus.length; i++) {
                 if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {
@@ -303,13 +309,22 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             }
         }*/
         debugger;
+        
+        var plantillaCorreo = "";
+        
+        if(rechazoAdmision){
+            plantillaCorreo = "BC_RECHAZADO_ADMISION";
+        }else{
+            plantillaCorreo = "BC_RECHAZADO";
+        }
+        
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
                 "campus": $scope.properties.selectedRow.grupobonita,
-                "correo": "angel_glz95@hotmail.com",
-                "codigo": "BC_RECHAZADO",
+                "correo": $scope.properties.selectedRow.correoelectronico,
+                "codigo": plantillaCorreo,
                 "isEnviar": true,
                 "mensaje": mensaje
             })
@@ -318,6 +333,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req).success(function(data, status) {
   
                 $scope.envelopeCancel();
+                window.location.reload();
             })
             .error(function(data, status) {
                 console.error(data)
