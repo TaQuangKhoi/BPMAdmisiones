@@ -18,7 +18,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             
             debugger;
             if ($scope.properties.preparatoriaSeleccionada != 'México') {
-                var limite = $scope.properties.maxLength === 0 ? 250 : $scope.properties.maxLength;
+            var limite = $scope.properties.maxLength === 0 ? 250 : $scope.properties.maxLength;
                 if (e.target.value.length === 0) {
                     if (e.key.match(letter)) {
                         $scope.letterOrNumber = true;
