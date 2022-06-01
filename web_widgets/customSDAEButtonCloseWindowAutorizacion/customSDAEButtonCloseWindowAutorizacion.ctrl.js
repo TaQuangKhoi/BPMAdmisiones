@@ -88,6 +88,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
+        debugger;
         vm.busy = true;
         let dataToSend = angular.copy($scope.properties.dataToSend);
         dataToSend.varAutorizadaInput = $scope.properties.isAutorizada;
@@ -99,7 +100,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var req = {
             method: method,
             url: url,
-            data: angular.copy(),
+            data: angular.copy(dataToSend),
             params: params
         };
 
@@ -167,6 +168,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function submitTask() {
+        debugger;
         var id;
         id = getUrlParam('id');
         if (id) {

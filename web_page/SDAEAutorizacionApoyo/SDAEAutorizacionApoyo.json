@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1654038675498,
+  "lastUpdate" : 1654109163360,
   "rows" : [
     [
       {
@@ -2829,12 +2829,11 @@
                                       "value" : false
                                     },
                                     "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
+                                      "type" : "constant"
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -2868,10 +2867,12 @@
                                       "value" : "text"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 0
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 11
                                     },
                                     "step" : {
                                       "type" : "constant",
@@ -2879,10 +2880,10 @@
                                     },
                                     "preparatoriaSeleccionada" : {
                                       "type" : "variable",
-                                      "value" : "formOutput.promedioMinimoAutorizacion"
+                                      "value" : "pais"
                                     }
                                   },
-                                  "reference" : "ebf6f460-7078-4a89-a208-fe914060aab3",
+                                  "reference" : "3e51fe35-2797-443f-a0b3-0c416441d20f",
                                   "hasValidationError" : false,
                                   "id" : "customSDAEInputNumericoSolicitudPromedio"
                                 }
@@ -3703,6 +3704,13 @@
         "../{{context.preAutorizacion_ref.link}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "pais" : {
+      "type" : "constant",
+      "value" : [
+        "México"
+      ],
       "exposed" : false
     }
   },

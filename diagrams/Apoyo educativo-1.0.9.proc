@@ -5552,6 +5552,17 @@
               <inputTypes>java.time.LocalDate</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_M8JMAOHjEeyp9uO9A7gmPg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_M8JMAeHjEeyp9uO9A7gmPg" name="autorizacion" content="autorizacion" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AutorizacionApoyo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_NVZZgOHjEeyp9uO9A7gmPg" name="autorizacion" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AutorizacionApoyo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_M8JMAuHjEeyp9uO9A7gmPg" name="newScript()" content="autorizacionInput?.caseid" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VxZVcOHjEeyp9uO9A7gmPg" name="autorizacionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_M8JMA-HjEeyp9uO9A7gmPg" type="JAVA_METHOD" expression="setCaseId">
+              <inputTypes>java.lang.Long</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_GOz-U2dCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_GOz-VGdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_GOz-VWdCEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -5579,6 +5590,9 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_3H_0eeCIEeyuH-_RtkbD9A" name="fechaPagoInscripcionAutorizacion" type="LOCALDATE" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_lwAFQOE1EeyuH-_RtkbD9A" name="isPagoRealizadoAutorizacion" type="BOOLEAN">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_lwAFQeE1EeyuH-_RtkbD9A"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_gddPgOHjEeyp9uO9A7gmPg" name="caseid" type="INTEGER">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_gddPgeHjEeyp9uO9A7gmPg"/>
               </inputs>
             </inputs>
           </contract>
