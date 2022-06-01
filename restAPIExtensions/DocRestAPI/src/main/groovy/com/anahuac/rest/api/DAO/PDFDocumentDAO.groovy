@@ -15,11 +15,12 @@ import net.sf.jasperreports.engine.JasperFillManager
 import net.sf.jasperreports.engine.JasperPrint
 import net.sf.jasperreports.engine.JasperReport
 import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.identity.User
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Utils.FileDownload
-import com.bonitasoft.web.extension.rest.RestAPIContext
+import org.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import com.itextpdf.io.image.ImageData
 import com.itextpdf.io.image.ImageDataFactory
@@ -50,7 +51,7 @@ class PDFDocumentDAO {
 		  }
 		  return retorno
 	}
-	public Result PdfFileCatalogo(String jsonData) {
+	public Result PdfFileCatalogo(String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		InputStream targetStream;
 		String log = "";
@@ -198,6 +199,30 @@ class PDFDocumentDAO {
 			
 			info = getInfoSaludSSeccion(caseid,object.intento)?.getData();
 			columns.put("salud",  isNullOrBlanck(info?.get(0)?.salud.toString()) );
+			columns.put("conclusion",  isNullOrBlanck(info?.get(0)?.conclusiones_recomendaciones.toString()) );
+			columns.put("interpretacion",  isNullOrBlanck(info?.get(0)?.interpretacion.toString()) );
+			columns.put("pca",  isNullOrBlanck("No") );
+			columns.put("pdp",  isNullOrBlanck("No") );
+			columns.put("sse",  isNullOrBlanck("No") );
+			columns.put("pdu",  isNullOrBlanck("No") );
+			info?.each{
+				switch(it?.cursos_recomendados) {
+					case "PDU":
+					columns.put("pdu",  isNullOrBlanck("Si") );
+					break;
+				case "SSE":
+					columns.put("sse",  isNullOrBlanck("Si") );
+					break;
+				case "PDP":
+					columns.put("pdp",  isNullOrBlanck("Si") );
+					break;
+				case "PCA":
+					columns.put("pca",  isNullOrBlanck("Si") );
+					break;
+				default:
+					break;
+				}
+			}
 			
 			info = getInfoSaludPSeccion(caseid)?.getData();
 			columns.put("vivesSituacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.cat_situacion_discapacidad_descripcion.toString()) );
@@ -205,6 +230,7 @@ class PDFDocumentDAO {
 			columns.put("personaSaludableDescripcion",  isNullOrBlanck(info?.get(0)?.cat_persona_saludable_descripcion.toString()) );
 			columns.put("terapiaDescripcion",  isNullOrBlanck(info?.get(0)?.cat_terapia_descripcion.toString()) );
 			columns.put("tipoTerapia",  isNullOrBlanck(info?.get(0)?.tipo_terapia.toString()) );
+			
 			
 			info =  getInfoCapacidadAdaptacion(caseid,object.intento)?.getData();
 			columns.put("ajusteMedioFamiliar",  isNullOrBlanck(info?.get(0)?.ajustemediofamiliar.toString()) );
@@ -215,7 +241,18 @@ class PDFDocumentDAO {
 			columns.put("califajustemediosocial",  isNullOrBlanck(info?.get(0)?.califajustemediosocial.toString()) );
 			columns.put("ajusteEfectivo",  isNullOrBlanck(info?.get(0)?.ajusteefectivo.toString()) );
 			columns.put("califajusteafectivo",  isNullOrBlanck(info?.get(0)?.califajusteafectivo.toString()) );
-			//ajusteMedioFamiliar
+			columns.put("ajusteReligioso",  isNullOrBlanck(info?.get(0)?.ajustereligioso.toString()) );
+			columns.put("califajustereligioso",  isNullOrBlanck(info?.get(0)?.califajustereligioso.toString()) );
+			columns.put("ajusteExistencial",  isNullOrBlanck(info?.get(0)?.ajusteexistencial.toString()) );
+			columns.put("califajusteexistencial",  isNullOrBlanck(info?.get(0)?.califajusteexistencial.toString()) );
+			
+			info = bitacoraPsicometrico(object.email,context)?.getData();
+			//log +=info
+			String comentarios = "";
+			info?.each { 
+				comentarios += it?.comentario+"<br>"
+			}
+			columns.put("comentarios",  isNullOrBlanck(comentarios) );
 			
 			Properties prop = new Properties();
 			String propFileName = "configuration.properties";
@@ -685,6 +722,57 @@ class PDFDocumentDAO {
 			}
 		return  b64
 	}
+	
+	public Result bitacoraPsicometrico(String usuarioComentario, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion()
+			pstm = con.prepareStatement("SELECT comentario,fechaCreacion,isEliminado,modulo,persistenceId,persistenceVersion,usuario,usuarioComentario FROM CatBitacoraComentarios where usuarioComentario = ? ORDER BY persistenceId DESC")
+			pstm.setString(1, usuarioComentario)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					if(metaData.getColumnLabel(i).toLowerCase().equals("usuario")) {
+						User usr;
+						String responsables = rs.getString(i);
+						String nombres= "";
+						if(!responsables.equals("null") && responsables != null) {
+							usr = context.getApiClient().getIdentityAPI().getUserByUserName(responsables);
+							nombres=usr.getFirstName()+" "+usr.getLastName();
+						}
+						columns.put(metaData.getColumnLabel(i), nombres);
+					}else {
+						columns.put(metaData.getColumnLabel(i), rs.getString(i));
+					}
+					
+					
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 	
 	
 }

@@ -58,15 +58,10 @@ class Index implements RestApiController {
 		}
 		
 		
-		result = new PDFDocumentDAO().PdfFileCatalogo(jsonData);
-		if(result.success) {
-			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-		}else {
-			return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
-		}
 		
 		
-		/*def url = request.getParameter "pdf"
+		
+		def url = request.getParameter "pdf"
 		if (url == null) {
 			result = new DocumentDAO().getDocs(jsonData, context)
 			if(result.success) {
@@ -75,8 +70,13 @@ class Index implements RestApiController {
 				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
 			}
 		}else {
-			
-		}*/
+			result = new PDFDocumentDAO().PdfFileCatalogo(jsonData,context);
+			if(result.success) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+			}else {
+				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+			}
+		}
 		
 		
 		/*def resultado = [  "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
