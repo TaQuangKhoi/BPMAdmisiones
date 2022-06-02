@@ -96,7 +96,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         dataToSend.autorizacionInput.porcentajeCreditoAutorizacion = (dataToSend.autorizacionInput.porcentajeCreditoAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeCreditoAutorizacion) : null);
         dataToSend.autorizacionInput.porcentajeBecaAutorizacion = (dataToSend.autorizacionInput.porcentajeBecaAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeBecaAutorizacion) : null);
         dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion = (dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion ? parseInt(dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion) : null);
-
+        dataToSend.autorizacionInput.caseid = $scope.properties.caseid;
         var req = {
             method: method,
             url: url,
