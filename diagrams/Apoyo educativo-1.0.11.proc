@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
-  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.10" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.10">
+  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.11" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.11">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -1124,6 +1124,28 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_nzePgmc8EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_nzePgWc8EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_nzePg2c8EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_fFP50OK8Eeys7IZV7MAAiA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_fFP50eK8Eeys7IZV7MAAiA" name="varAutorizar" content="varAutorizar" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_g6SI0OK8Eeys7IZV7MAAiA" name="varAutorizar" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_fFP50uK8Eeys7IZV7MAAiA" name="varAutorizarInput" content="varAutorizarInput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_hxTQYOK8Eeys7IZV7MAAiA" name="varAutorizarInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_hxTQYeK8Eeys7IZV7MAAiA"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_fFP50-K8Eeys7IZV7MAAiA" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_iW_-cOK8Eeys7IZV7MAAiA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_iW_-ceK8Eeys7IZV7MAAiA" name="varRevisionFinanciamiento" content="varRevisionFinanciamiento" type="TYPE_VARIABLE">
+              <referencedElements xmi:type="process:Data" xmi:id="_kgT0UOK8Eeys7IZV7MAAiA" name="varRevisionFinanciamiento" dataType="_PpGy4Wc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_iW_-cuK8Eeys7IZV7MAAiA" name="varRevisionFinanciamientoInput" content="varRevisionFinanciamientoInput" type="TYPE_CONTRACT_INPUT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_ld9vYOK8Eeys7IZV7MAAiA" name="varRevisionFinanciamientoInput">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_ld9vYeK8Eeys7IZV7MAAiA"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_iW_-c-K8Eeys7IZV7MAAiA" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_nzePhGc8EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_nzePhWc8EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_nzePhmc8EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1132,7 +1154,14 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_rOJmqmc8EeyAHufroJpG_Q" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_rOJmq2c8EeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_rOJmqWc8EeyAHufroJpG_Q"/>
+          <contract xmi:type="process:Contract" xmi:id="_rOJmqWc8EeyAHufroJpG_Q">
+            <inputs xmi:type="process:ContractInput" xmi:id="_3vSnIOK7Eeys7IZV7MAAiA" name="varAutorizarInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_3vTOMOK7Eeys7IZV7MAAiA"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_6vj6MOK7Eeys7IZV7MAAiA" name="varRevisionFinanciamientoInput">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_6vkhQOK7Eeys7IZV7MAAiA"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_rOJmrGc8EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:Task" xmi:id="_zUGaEGc8EeyAHufroJpG_Q" name="Solicitud archivada" outgoing="_Come4Gc9EeyAHufroJpG_Q" incoming="_x2sn8Gc8EeyAHufroJpG_Q __Es6UGc8EeyAHufroJpG_Q" overrideActorsOfTheLane="false">
@@ -1216,6 +1245,17 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_e9jiQWc9EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_e9jiQGc9EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_e9jiQmc9EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_4h3eIOK8Eeys7IZV7MAAiA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_4h3eIeK8Eeys7IZV7MAAiA" name="varAutorizacionApoyo" content="varAutorizacionApoyo" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_6DzyAOK8Eeys7IZV7MAAiA" name="varAutorizacionApoyo" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_4h3eIuK8Eeys7IZV7MAAiA" name="varAutorizacionApoyoInput" content="varAutorizacionApoyoInput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_6hPU4OK8Eeys7IZV7MAAiA" name="varAutorizacionApoyoInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_6hPU4eK8Eeys7IZV7MAAiA"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_4h3eI-K8Eeys7IZV7MAAiA" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_e9jiQ2c9EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_e9jiRGc9EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_e9jiRWc9EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1224,7 +1264,11 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_gNJh42c9EeyAHufroJpG_Q" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_gNJh5Gc9EeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_gNJh4mc9EeyAHufroJpG_Q"/>
+          <contract xmi:type="process:Contract" xmi:id="_gNJh4mc9EeyAHufroJpG_Q">
+            <inputs xmi:type="process:ContractInput" xmi:id="_stX8YOK8Eeys7IZV7MAAiA" name="varAutorizacionApoyoInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_stX8YeK8Eeys7IZV7MAAiA"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_gNJh5Wc9EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:ServiceTask" xmi:id="_jxCfYGc9EeyAHufroJpG_Q" name="Notificar a finanzas solicitud de información adicional" outgoing="_wWrxQGc9EeyAHufroJpG_Q" incoming="_jxFisGc9EeyAHufroJpG_Q">
@@ -1265,7 +1309,7 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_LnyVgGc_EeyAHufroJpG_Q" name="false" content="false" returnType="java.lang.Boolean"/>
       </data>
       <data xmi:type="process:Data" xmi:id="_eicosGc_EeyAHufroJpG_Q" name="varRevisionFinanciamiento" dataType="_PpGy4Wc7EeyAHufroJpG_Q">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_eicosWc_EeyAHufroJpG_Q" name="archivar" content="archivar"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_eicosWc_EeyAHufroJpG_Q" name="" content=""/>
       </data>
       <data xmi:type="process:Data" xmi:id="_yXqfoGc_EeyAHufroJpG_Q" name="varAutorizar" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
         <defaultValue xmi:type="expression:Expression" xmi:id="_yXqfoWc_EeyAHufroJpG_Q" name="false" content="false" returnType="java.lang.Boolean"/>
@@ -1405,7 +1449,7 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_e9nMoGc9EeyAHufroJpG_Q" name="autorización confirmada" target="_gNI60Gc9EeyAHufroJpG_Q" source="_z-Fq4Gc_EeyAHufroJpG_Q">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_e9nMoWc9EeyAHufroJpG_Q"/>
-        <condition xmi:type="expression:Expression" xmi:id="_e9nMomc9EeyAHufroJpG_Q" name="varAutorizar" content="varAutorizar" type="TYPE_VARIABLE" returnType="java.lang.Boolean" returnTypeFixed="true">
+        <condition xmi:type="expression:Expression" xmi:id="_e9nMomc9EeyAHufroJpG_Q" name="varAutorizar" content="varAutorizar" returnType="java.lang.Boolean" returnTypeFixed="true">
           <referencedElements xmi:type="process:Data" xmi:id="_1cs98Gc_EeyAHufroJpG_Q" name="varAutorizar" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
         </condition>
       </connections>
@@ -1585,7 +1629,7 @@
         <value xmi:type="expression:Expression" xmi:id="_PpGy22c7EeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.10">
+    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.11">
       <elements xmi:type="process:Lane" xmi:id="_EmGwkGdBEeyAHufroJpG_Q" name="Aspirante" actor="_Frl3UGdUEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_HtHk0GdBEeyAHufroJpG_Q" name="Solicitud de beca aspirante" outgoing="_KMB3QGdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HtHk0mdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -4952,7 +4996,7 @@
             </processSource>
           </inputMappings>
           <calledActivityName xmi:type="expression:Expression" xmi:id="_nKw3dGdBEeyAHufroJpG_Q" name="Financiamiento educativo" content="Financiamiento educativo" returnTypeFixed="true"/>
-          <calledActivityVersion xmi:type="expression:Expression" xmi:id="_nKxegGdBEeyAHufroJpG_Q" name="1.0.9" content="1.0.9" returnTypeFixed="true"/>
+          <calledActivityVersion xmi:type="expression:Expression" xmi:id="_nKxegGdBEeyAHufroJpG_Q" name="1.0.11" content="1.0.11" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:EndEvent" xmi:id="_vg6qEGdBEeyAHufroJpG_Q" name="Fin3" incoming="_si7O8GdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_si4LoWdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
