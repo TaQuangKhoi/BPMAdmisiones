@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1654043542666,
+  "lastUpdate" : 1654120778707,
   "rows" : [
     [
       {
@@ -503,6 +503,135 @@
                                 "type" : "constant",
                                 "value" : false
                               },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Default label"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "caseIdURL"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "594331fb-52d4-4057-b762-7cf1473323ce",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Default label"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "allowHTML" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "{{getSolicitudApoyoEducativo}}"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "left"
+                              }
+                            },
+                            "reference" : "469cfbbf-a73c-4bad-b8e2-36e1887d6460",
+                            "hasValidationError" : false,
+                            "id" : "pbText"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
                               "labelHidden" : {
                                 "type" : "constant",
                                 "value" : true
@@ -644,7 +773,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "getSolicitudApoyoEducativo[0].apellidopaterno"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -719,7 +848,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "getSolicitudApoyoEducativo[0].apellidomaterno"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -794,7 +923,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "getSolicitudApoyoEducativo[0].primernombre"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -871,7 +1000,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "getSolicitudApoyoEducativo[0].licenciatura"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -1021,7 +1150,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "getSolicitudApoyoEducativo[0].ingreso"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -1096,7 +1225,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "getSolicitudApoyoEducativo[0].idbanner"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -10021,6 +10150,21 @@
       "value" : [
         "{}"
       ],
+      "exposed" : false
+    },
+    "caseIdURL" : {
+      "type" : "urlparameter",
+      "value" : [
+        "caseId"
+      ],
+      "exposed" : false
+    },
+    "getSolicitudApoyoEducativo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudByCaseid&p=0&c=100&caseid={{caseIdURL}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
