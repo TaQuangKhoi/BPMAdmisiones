@@ -96,7 +96,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         dataToSend.autorizacionInput.porcentajeCreditoAutorizacion = (dataToSend.autorizacionInput.porcentajeCreditoAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeCreditoAutorizacion) : null);
         dataToSend.autorizacionInput.porcentajeBecaAutorizacion = (dataToSend.autorizacionInput.porcentajeBecaAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeBecaAutorizacion) : null);
         dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion = (dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion ? parseInt(dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion) : null);
-        dataToSend.autorizacionInput.isPagoRealizadoAutorizacion = (dataToSend.autorizacionInput.isPagoRealizadoAutorizacion ? parseInt(dataToSend.autorizacionInput.isPagoRealizadoAutorizacion) : null);
         dataToSend.autorizacionInput.caseid = parseInt($scope.properties.caseid);
         var req = {
             method: method,
@@ -112,11 +111,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromError = undefined;
                 notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
 
-                $window.close();
+                //$window.close();
                 if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                     //redirectIfNeeded();
                 }
-                closeModal($scope.properties.closeOnSuccess);
+                //closeModal($scope.properties.closeOnSuccess);
             })
             .error(function (data, status) {
                 $scope.properties.dataFromError = data;
