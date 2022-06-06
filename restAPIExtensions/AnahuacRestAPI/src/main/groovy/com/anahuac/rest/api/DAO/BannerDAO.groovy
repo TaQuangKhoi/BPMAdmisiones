@@ -381,6 +381,7 @@ class BannerDAO {
 		JSONObject objJsonPlace = null;
 		JSONObject objJsonCountry = null;
 		JSONObject objJsonRegion = null;
+		JSONObject objJsonSubRegion = null;
 		JSONObject objJsonPublisher = null;
 		JSONObject objJsonAddressData = null;
 
@@ -580,14 +581,20 @@ class BannerDAO {
 											lstAddressExtended = (JSONArray) objJsonContent.get("addressExtended");
 											objJsonCountry = (JSONObject) objJsonPlace.get("country");
 											objJsonRegion = (JSONObject) objJsonCountry.get("region");
+											objJsonSubRegion = (JSONObject) objJsonCountry.get("subRegion");
 					
 											errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 											errorLog = errorLog + " | " + ("pais: " + objJsonCountry.get("title").toString());
 											if(objJsonRegion != null) {
 												errorLog = errorLog + " | " + ("1.Estado: " + objJsonRegion.get("title").toString());
 												objEducationalInstitutions.setEstado(objJsonRegion.get("title").toString())
-												/*1*/objAddresses.setEstado(objJsonRegion.get("title").toString())
-												}
+												objAddresses.setEstado(objJsonRegion.get("title").toString())
+											}
+											
+											if(objJsonSubRegion != null) {
+												objEducationalInstitutions.setMunicipio(objJsonSubRegion.get("title").toString())
+												objAddresses.setMunicipio(objJsonSubRegion.get("title").toString())
+											}
 											errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
 											errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 											errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
@@ -768,6 +775,7 @@ class BannerDAO {
 				errorLog = errorLog + " | row.getClave(): " + (row.getClave());
 				errorLog = errorLog + " | row.getDescripcion(): " + (row.getDescripcion());
 				errorLog = errorLog + " | row.getCodigoPostal(): " + (row.getPostalCode());
+				errorLog = errorLog + " | row.getMunicipio(): " + (row.getMunicipio());
 
 				if (row.getOperation().equals("replaced")) {
 					errorLog = errorLog + " | " + row.getOperation();
@@ -914,6 +922,7 @@ class BannerDAO {
 									objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 									objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 									objCatBachilleratosInput.put("estado", objRow.getEstado());
+									objCatBachilleratosInput.put("municipio", objRow.getMunicipio());
 									objCatBachilleratosInput.put("ciudad", objRow.getCiudad());
 									objCatBachilleratosInput.put("pais", objRow.getPais());
 									objCatBachilleratosInput.put("id", row.getIdBachillerato());
@@ -985,6 +994,7 @@ class BannerDAO {
 									objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 									objCatBachilleratosInput.put("estado", row.getEstado());
 									objCatBachilleratosInput.put("ciudad", row.getCiudad());
+									objCatBachilleratosInput.put("municipio", row.getMunicipio());
 									objCatBachilleratosInput.put("pais", row.getPais());
 									objCatBachilleratosInput.put("id", row.getIdBachillerato());
 
@@ -1136,6 +1146,7 @@ class BannerDAO {
 										objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 										objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 										objCatBachilleratosInput.put("estado", row.getEstado());
+										objCatBachilleratosInput.put("municipio", row.getMunicipio());
 										objCatBachilleratosInput.put("ciudad", row.getCiudad());
 										objCatBachilleratosInput.put("pais", row.getPais());
 										objCatBachilleratosInput.put("id", row.getIdBachillerato());
@@ -1181,6 +1192,7 @@ class BannerDAO {
 										objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 										objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 										objCatBachilleratosInput.put("estado", row.getEstado());
+										objCatBachilleratosInput.put("municipio", row.getMunicipio());
 										objCatBachilleratosInput.put("ciudad", row.getCiudad());
 										objCatBachilleratosInput.put("pais", row.getPais());
 										objCatBachilleratosInput.put("id", row.getIdBachillerato());
@@ -1228,6 +1240,7 @@ class BannerDAO {
 								objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 								objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 								objCatBachilleratosInput.put("estado", row.getEstado());
+								objCatBachilleratosInput.put("municipio", row.getMunicipio());
 								objCatBachilleratosInput.put("ciudad", row.getCiudad());
 								objCatBachilleratosInput.put("pais", row.getPais());
 								objCatBachilleratosInput.put("id", row.getIdBachillerato());
@@ -1273,6 +1286,7 @@ class BannerDAO {
 								objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 								objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 								objCatBachilleratosInput.put("estado", row.getEstado());
+								objCatBachilleratosInput.put("municipio", row.getMunicipio());
 								objCatBachilleratosInput.put("ciudad", row.getCiudad());
 								objCatBachilleratosInput.put("pais", row.getPais());
 								objCatBachilleratosInput.put("id", row.getIdBachillerato());
@@ -1305,6 +1319,7 @@ class BannerDAO {
 								errorLog = errorLog + " | " + ("descripcion: "+ objCatBachilleratosInput.get("descripcion"));
 								errorLog = errorLog + " | " + ("usuarioBanner: "+ objCatBachilleratosInput.get("usuarioBanner"));
 								errorLog = errorLog + " | " + ("estado: "+ objCatBachilleratosInput.get("estado"));
+								errorLog = errorLog + " | " + ("municipio: "+ objCatBachilleratosInput.get("municipio"));
 								errorLog = errorLog + " | " + ("ciudad: "+ objCatBachilleratosInput.get("ciudad"));
 								errorLog = errorLog + " | " + ("pais: "+ objCatBachilleratosInput.get("pais"));
 								errorLog = errorLog + " | " + ("id: "+ objCatBachilleratosInput.get("id"));
@@ -1608,6 +1623,7 @@ class BannerDAO {
 							objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
 							objCatBachilleratosInput.put("usuarioBanner", objRow.getUsuarioBanner());
 							objCatBachilleratosInput.put("estado", objLstAddresses.getEstado());
+							objCatBachilleratosInput.put("municipio", objLstAddresses.getMunicipio());
 							objCatBachilleratosInput.put("ciudad", objLstAddresses.getCiudad());
 							objCatBachilleratosInput.put("pais", objLstAddresses.getPais());
 							objCatBachilleratosInput.put("id", objRow.getId());
@@ -1679,6 +1695,7 @@ class BannerDAO {
 							errorLog = errorLog + " | " + ("descripcion - " + objRow.getDescripcion());
 							errorLog = errorLog + " | " + ("usuarioBanner - " + objRow.getUsuarioBanner());
 							errorLog = errorLog + " | " + ("estado - " + objLstAddresses.getEstado());
+							errorLog = errorLog + " | " + ("municipio - " + objLstAddresses.getMunicipio());
 							errorLog = errorLog + " | " + ("ciudad - " + objLstAddresses.getCiudad());
 							errorLog = errorLog + " | " + ("pais - " + objLstAddresses.getPais());
 							errorLog = errorLog + " | " + ("id - " + objRow.getId());
