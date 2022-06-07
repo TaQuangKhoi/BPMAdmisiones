@@ -226,7 +226,7 @@ class PDFDocumentDAO {
 			
 			info = getInfoSaludPSeccion(caseid)?.getData();
 			columns.put("vivesSituacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.cat_situacion_discapacidad_descripcion.toString()) );
-			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.situacion_discapacidad.toString()) );
+			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.situacion_discapacidad?.toString()) );
 			columns.put("personaSaludableDescripcion",  isNullOrBlanck(info?.get(0)?.cat_persona_saludable_descripcion.toString()) );
 			columns.put("terapiaDescripcion",  isNullOrBlanck(info?.get(0)?.cat_terapia_descripcion.toString()) );
 			columns.put("tipoTerapia",  isNullOrBlanck(info?.get(0)?.tipo_terapia.toString()) );
