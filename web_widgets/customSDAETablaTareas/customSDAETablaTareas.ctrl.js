@@ -28,6 +28,8 @@ function PbTableCtrl($scope) {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/modificar_solicitud_apoyo/content/?app=aspiranteSDAE&id=" + row.id;
         } else if (row.name === "Llenado solicitud de apoyo académico") {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=" + "&id=" + row.id;
+        } else if (row.name === "Aceptación de financiamiento") {
+            url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/SDAEAceptacionFinanciamiento/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
         }
         
         window.location.replace(url);
