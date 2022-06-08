@@ -92,7 +92,7 @@ class Statements {
 
 	public static final String GET_INFOCARTA_PLANTILLA="WITH FILTER (correo) as (values(LOWER(?)))select * from infocarta where curp=(SELECT curp from SOLICITUDDEADMISION where LOWER(correoelectronico)=(SELECT correo from filter) limit 1) OR  numerodematricula=(SELECT idbanner from detallesolicitud d left join SOLICITUDDEADMISION s on s.caseid=d.caseid::bigint where LOWER(s.correoelectronico)=(SELECT correo from filter) limit 1)"
 
-	public static final String GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO = "SELECT APOYO.* FROM SolicitudApoyoEducativo AS APOYO INNER JOIN SOLICITUDDEADMISION AS ADMI ON ADMI.CASEID = APOYO.CASEIDADMISIONES WHERE ADMI.CORREOELECTRONICO = ?";
+	public static final String GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO = "SELECT APOYO.*, PERI.descripcion, GEST.*, AUTOR.* FROM SolicitudApoyoEducativo AS APOYO INNER JOIN SOLICITUDDEADMISION AS ADMI ON ADMI.CASEID = APOYO.CASEIDADMISIONES INNER JOIN CATPERIODO AS PERI ON PERI.PERSISTENCEID = ADMI.catperiodo_pid INNER JOIN SDAECATGESTIONESCOLAR AS GEST ON GEST.catgestionescolar_pid = ADMI.catgestionescolar_pid  INNER JOIN AutorizacionApoyo AS AUTOR ON AUTOR.CASEID = APOYO.CASEID WHERE ADMI.CORREOELECTRONICO = ? ";
 	
 	public static final String GET_INFOCARTATEMPORAL_PLANTILLA="WITH FILTER (correo) as (values(LOWER(?)))select * from infocartatemporal where curp=(SELECT curp from SOLICITUDDEADMISION where LOWER(correoelectronico)=(SELECT correo from filter) limit 1) OR  numerodematricula=(SELECT idbanner from detallesolicitud d left join SOLICITUDDEADMISION s on s.caseid=d.caseid::bigint where LOWER(s.correoelectronico)=(SELECT correo from filter) limit 1)"
 
