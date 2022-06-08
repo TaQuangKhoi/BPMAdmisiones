@@ -92,6 +92,8 @@ class Statements {
 
 	public static final String GET_INFOCARTA_PLANTILLA="WITH FILTER (correo) as (values(LOWER(?)))select * from infocarta where curp=(SELECT curp from SOLICITUDDEADMISION where LOWER(correoelectronico)=(SELECT correo from filter) limit 1) OR  numerodematricula=(SELECT idbanner from detallesolicitud d left join SOLICITUDDEADMISION s on s.caseid=d.caseid::bigint where LOWER(s.correoelectronico)=(SELECT correo from filter) limit 1)"
 
+	public static final String GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO = "SELECT APOYO.* FROM SolicitudApoyoEducativo AS APOYO INNER JOIN SOLICITUDDEADMISION AS ADMI ON ADMI.CASEID = APOYO.CASEIDADMISIONES WHERE ADMI.CORREOELECTRONICO = ?";
+	
 	public static final String GET_INFOCARTATEMPORAL_PLANTILLA="WITH FILTER (correo) as (values(LOWER(?)))select * from infocartatemporal where curp=(SELECT curp from SOLICITUDDEADMISION where LOWER(correoelectronico)=(SELECT correo from filter) limit 1) OR  numerodematricula=(SELECT idbanner from detallesolicitud d left join SOLICITUDDEADMISION s on s.caseid=d.caseid::bigint where LOWER(s.correoelectronico)=(SELECT correo from filter) limit 1)"
 
 	public static final String GET_DOCUMENTOSTEXTOS_BY_CAMPUSPID="SELECT * FROM catdocumentostextos where campus_pid=(SELECT persistenceid FROM catcampus where grupobonita=? and iseliminado=false limit 1)"
