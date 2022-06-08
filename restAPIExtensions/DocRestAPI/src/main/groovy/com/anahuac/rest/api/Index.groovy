@@ -70,12 +70,15 @@ class Index implements RestApiController {
 				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
 			}
 		}else {
-			result = new PDFDocumentDAO().PdfFileCatalogo(jsonData,context);
-			if(result.success) {
-				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-			}else {
-				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+			if(url.equals("pdfPsicometricov3") || url == "pdfPsicometricov3") {
+				result = new PDFDocumentDAO().PdfFileCatalogo(jsonData,context);
+				if(result.success) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+				}
 			}
+			
 		}
 		
 		
