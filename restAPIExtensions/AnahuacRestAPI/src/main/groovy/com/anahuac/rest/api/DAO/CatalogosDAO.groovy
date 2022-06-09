@@ -1283,6 +1283,63 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+					case "MUNICIPIO":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        //where += " LOWER(countyCode) ";
+						where += " LOWER(municipio) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "CODIGO POSTAL":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(postalCode) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "CALLE LÍNEA 1":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(streetLine1) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "CALLE LÍNEA 3":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(streetLine3) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
                     case "PERSISTENCEID":
                         if (where.contains("WHERE")) {
                             where += " AND "
@@ -1380,6 +1437,9 @@ class CatalogosDAO {
                 case "PAÍS":
                     orderby += "pais";
                     break;
+				case "MUNICIPIO":
+                    orderby += "municipio";
+                    break;
                 case "ESTADO":
                     orderby += "estado";
                     break;
@@ -1433,6 +1493,8 @@ class CatalogosDAO {
 				row.setStreetLine2(rs.getString("streetLine2"));
 				row.setStreetLine3(rs.getString("streetLine3"));
 				row.setTypeInd(rs.getString("typeInd"));
+				row.setPostalCode(rs.getString("postalCode"));
+				row.setMunicipio(rs.getString("municipio"))
 				
                 rows.add(row)
             }

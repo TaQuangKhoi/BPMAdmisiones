@@ -4090,15 +4090,19 @@ class UsuariosDAO {
 				if(rs.getString("RUTA").toLowerCase().contains(".jpeg")) {
 						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
+						tipo.add("jpeg");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".png")) {
 						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
+						tipo.add("png");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
 						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
+						tipo.add("jpg");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
 						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
 						tipo.add("imagen");
+						tipo.add("jfif");
 					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
 						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(url+ SSA+"&v="+num)));
 						tipo.add("archivo");

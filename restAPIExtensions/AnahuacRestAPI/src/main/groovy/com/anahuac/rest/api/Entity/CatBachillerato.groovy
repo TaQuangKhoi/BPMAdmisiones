@@ -23,7 +23,16 @@ class CatBachillerato {
 	private String countyCode;
 	private String postalCode;
 	private String typeInd;
+	private String municipio;
 	
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
 	public String getTypeInd() {
 		return typeInd;
 	}
