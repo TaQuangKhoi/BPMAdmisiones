@@ -20,7 +20,7 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Utils.FileDownload
-import org.bonitasoft.web.extension.rest.RestAPIContext
+import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import com.itextpdf.io.image.ImageData
 import com.itextpdf.io.image.ImageDataFactory

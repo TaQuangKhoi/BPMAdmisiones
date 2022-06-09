@@ -17,8 +17,8 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import org.bonitasoft.web.extension.rest.RestAPIContext
-import org.bonitasoft.web.extension.rest.RestApiController
+import com.bonitasoft.web.extension.rest.RestAPIContext
+import com.bonitasoft.web.extension.rest.RestApiController
 
 import java.time.LocalDate
 
@@ -52,6 +52,25 @@ class Index implements RestApiController {
 		}
 		try {
 			jsonData=request.reader.readLines().join("\n")
+			def url = request.getParameter "pdf"
+			if (url == null) {
+				result = new DocumentDAO().getDocs(jsonData, context)
+				if(result.success) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result?.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+				}
+			}else {
+				if(url.equals("pdfPsicometricov3") || url == "pdfPsicometricov3") {
+					result = new PDFDocumentDAO().PdfFileCatalogo(jsonData,context);
+					if(result.success) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+					}
+				}
+				
+			}
 		}catch(Exception ex) {
 			jsonData = null
 			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder("[]").toString())
@@ -61,25 +80,7 @@ class Index implements RestApiController {
 		
 		
 		
-		def url = request.getParameter "pdf"
-		if (url == null) {
-			result = new DocumentDAO().getDocs(jsonData, context)
-			if(result.success) {
-				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
-			}else {
-				return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
-			}
-		}else {
-			if(url.equals("pdfPsicometricov3") || url == "pdfPsicometricov3") {
-				result = new PDFDocumentDAO().PdfFileCatalogo(jsonData,context);
-				if(result.success) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
-				}
-			}
-			
-		}
+		
 		
 		
 		/*def resultado = [  "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
