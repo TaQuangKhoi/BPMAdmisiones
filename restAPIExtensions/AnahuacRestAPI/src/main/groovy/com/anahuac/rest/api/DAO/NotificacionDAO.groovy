@@ -519,9 +519,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 	
 					}
 				}
-			}else if(object.codigo.equals("registrar") && object.isEnviar) {
+			} else if(object.codigo.equals("registrar") && object.isEnviar) {
 				plantilla = plantilla.replace("[href-confirmar]", objProperties.getUrlHost() + "/bonita/apps/login/activate/?correo=" + object.correo + "");	
-			}else if (object.codigo.equals("transferencia")) {
+			} else if (object.codigo.equals("transferencia")) {
 				try {
 					closeCon = validarConexion();
 					pstm = con.prepareStatement(Statements.GET_ASPIRANTE_TRANSFERENCIA)
@@ -568,7 +568,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 					
 				}
-			}else if(object.codigo.equals("carta-aceptar") || object.codigo.equals("carta-rechazo") || object.codigo.equals("carta-pdu")|| object.codigo.equals("carta-informacion") || object.codigo.equals("carta-propedeutico")) {
+			} else if(object.codigo.equals("carta-aceptar") || object.codigo.equals("carta-rechazo") || object.codigo.equals("carta-pdu")|| object.codigo.equals("carta-informacion") || object.codigo.equals("carta-propedeutico")) {
 				try {
 					CatDocumentosTextos dt = new CatDocumentosTextos();
 					/*def objSolicitudDeAdmisionDAO = context.apiClient.getDAO(SolicitudDeAdmisionDAO.class);
@@ -909,7 +909,96 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 					
 				}
-			}
+			} else if(object.codigo.equals("BC_SOLICITUD_BECASYFINAN_AUTORIZADA")) {
+				errorlog += "| PLANTILLA :: BC_SOLICITUD_BECASYFINAN_AUTORIZADA  ";
+				Integer costoCredito = 0;
+				Integer creditosemestre = 0;
+				Integer parcialidad = 0;
+				Integer porcentajebecaautorizacion = 0;
+				Integer porcentajecreditoautorizacion = 0;
+				Integer descuentoanticipadoautorizacion = 0;
+				Integer inscripcionmayo = 0;
+				Integer inscripcionseptiembre = 0;
+				Integer inscripcionagosto = 0;
+				Integer inscripcionenero = 0;
+				String descripcionPeriodo = "";
+
+				//OBTENIENDO
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+					pstm.setString(1, object.correo);
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						errorlog += "| BC_SOLICITUD_BECASYFINAN_AUTORIZADA SOLICITUD ENCONTRADA ";
+						creditosemestre = rs.getInt("creditosemestre");
+						parcialidad = rs.getInt("parcialidad");
+						porcentajebecaautorizacion = rs.getInt("porcentajebecaautorizacion");
+						porcentajecreditoautorizacion = rs.getInt("porcentajecreditoautorizacion");
+						descuentoanticipadoautorizacion = rs.getInt("descuentoanticipadoautorizacion");
+						descripcionPeriodo = rs.getString("descripcion");
+						inscripcionmayo = rs.getInt("inscripcionmayo");
+						inscripcionseptiembre = rs.getInt("inscripcionseptiembre");
+						inscripcionagosto = rs.getInt("inscripcionagosto");
+						inscripcionenero = rs.getInt("inscripcionenero");
+						Long sdaecatgestionescolar_pid = rs.getLong("sdaecatgestionescolar_pid");
+						//OBTENCION De LOS CREDITOS
+						closeCon = validarConexion();
+						pstm = con.prepareStatement(Statements.GET_SDAECAT_CREDITO_GE);
+						pstm.setLong(1, sdaecatgestionescolar_pid);
+						pstm.setString(2, descripcionPeriodo.split(" ")[1]);
+						rs = pstm.executeQuery();
+						errorlog += 
+							" | " + Statements.GET_SDAECAT_CREDITO_GE + 
+							" | " + sdaecatgestionescolar_pid +
+							(" | " + descripcionPeriodo.split(" ")[1]
+						);
+						if(rs.next()) {
+							costoCredito = rs.getInt("CREDITOAGOSTO");
+							errorlog += "| BC_SOLICITUD_BECASYFINAN_AUTORIZADA  DATOS DEL PERIODO ENCONTRADOS  ";
+							Integer montoInscripcion = inscripcionagosto;
+							Integer montoBeca = (inscripcionagosto - (inscripcionagosto * (porcentajebecaautorizacion * 0.01)));
+							Integer montoBecaFinanciamiento = (inscripcionagosto - (inscripcionagosto * ((porcentajebecaautorizacion * 0.01) + (porcentajecreditoautorizacion * 0.01))));
+							Integer montoFinanciamiento = (inscripcionagosto - (inscripcionagosto * (porcentajecreditoautorizacion * 0.01)));
+							Integer montoCreditos = costoCredito;
+							Integer montoColegiaturaNormal = montoCreditos * 48; //48 para el ejemplo en pantalla
+							Integer montoColegiaturaBeca = montoColegiaturaNormal - (montoCreditos * ((porcentajebecaautorizacion * 0.01)));
+							Integer montoColegiaturaBecaFinanciamiento = (montoColegiaturaNormal - (montoColegiaturaNormal * ((porcentajebecaautorizacion * 0.01) + (porcentajecreditoautorizacion * 0.01))));
+							Integer montoColegiaturaFinanciamiento = montoColegiaturaNormal - (montoCreditos * ((porcentajebecaautorizacion * 0.01)));
+							Integer montoPagototalNormal =  montoInscripcion + montoColegiaturaNormal;
+							Integer mongoPagoTotalBeca = montoBeca + montoColegiaturaBeca;
+							Integer mongoPagoTotalBecaFinanciamiento = montoBeca + montoColegiaturaBeca;
+							Integer totalFinanciado = montoFinanciamiento + montoColegiaturaFinanciamiento;
+							Integer interesSemestre = totalFinanciado * 0.035;
+							
+							plantilla = plantilla.replace("[PERIODO]", descripcionPeriodo);
+							plantilla = plantilla.replace("[MONTO-INSCRIPCION]", formatCurrency(montoInscripcion.toString()));
+							plantilla = plantilla.replace("[MONTO-BECA]", formatCurrency(montoBeca.toString()));
+							plantilla = plantilla.replace("[MONTO-BECA-FINANCIAMIENTO]", formatCurrency(montoBecaFinanciamiento.toString()));
+							plantilla = plantilla.replace("[MONTO-FINANCIAMIENTO]", formatCurrency(montoFinanciamiento.toString()));
+							plantilla = plantilla.replace("[MONTO-CREDITOS]", formatCurrency(montoCreditos.toString()));
+							plantilla = plantilla.replace("[MONTO-COLEGIATURA-NORMAL]", formatCurrency(montoColegiaturaNormal.toString()));
+							plantilla = plantilla.replace("[MONTO-COLEGIATURA-BECA]", formatCurrency(montoColegiaturaBeca.toString()));
+							plantilla = plantilla.replace("[MONTO-COLEGIATURA-BECA-FINANCIAMIENTO]", formatCurrency(montoColegiaturaBecaFinanciamiento.toString()));
+							plantilla = plantilla.replace("[MONTO-COLEGIATURA-FINANCIAMIENTO]", formatCurrency(montoColegiaturaFinanciamiento.toString()));
+							plantilla = plantilla.replace("[MONTO-PAGOS-NORMAL]", formatCurrency((montoPagototalNormal / 4).toString()));
+							plantilla = plantilla.replace("[MONTO-PAGOS-BECA]", formatCurrency((montoPagototalNormal / 4).toString()));
+							plantilla = plantilla.replace("[MONTO-PAGOS-BECA-FINANCIAMIENTO]", formatCurrency((mongoPagoTotalBeca / 4).toString()));
+							plantilla = plantilla.replace("[MONTO-PAGOTOTAL-NORMAL]", formatCurrency(montoPagototalNormal.toString()));
+							plantilla = plantilla.replace("[MONTO-PAGOTOTAL-BECA]", formatCurrency(mongoPagoTotalBeca.toString()));
+							plantilla = plantilla.replace("[MONTO-PAGOTOTAL-BECA-FINANCIAMIENTO]", formatCurrency(mongoPagoTotalBecaFinanciamiento.toString()));
+							plantilla = plantilla.replace("[TOTAL-FINANCIADO]", formatCurrency(totalFinanciado.toString()));
+							plantilla = plantilla.replace("[INTERES-SEMESTRE]", formatCurrency(interesSemestre.toString()));
+						}
+					}
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				} finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
+				}
+            }
 			
 			try {
 				Result hffc = new Result()
@@ -964,6 +1053,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				insertCatBitacoraCorreos(catBitacoraCorreo)
 			}
 			
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -973,6 +1063,10 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 		}
 		
 		return resultado;
+	}
+	
+	private String formatCurrency(String input) {
+		return "\$" + input + ".00";
 	}
 
 			private String DataUsuarioAdmision(String plantilla, RestAPIContext context, String correo, CatNotificaciones cn, String errorlog,Boolean isEnviar) {
