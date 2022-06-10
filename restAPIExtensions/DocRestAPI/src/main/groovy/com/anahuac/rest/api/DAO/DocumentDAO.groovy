@@ -68,8 +68,8 @@ class DocumentDAO {
 			for(def i =0; i<object.items.required.size; i++) {
 				datos = new HashMap<String, Serializable>();
 				errorLog+=" | [2] "+ object.items.required[i]
-				String [] info = new String[4];
-				pstm = con.prepareStatement(Statements.DETALLE_SOLICITUD_BY_IDBANNER)
+				String [] info = new String[6];
+				pstm = con.prepareStatement(Statements.DATOS_BY_IDBANNER)
 				pstm.setString(1, object?.items?.required[i])
 				rs = pstm.executeQuery();
 				if (rs.next()) {
@@ -77,6 +77,8 @@ class DocumentDAO {
 					info[1] = rs.getString("urlConstancia")
 					info[2] = rs.getString("urlActaNacimiento")
 					info[3] = rs.getString("idbanner")
+					info[4] = rs.getString("correoelectronico")
+					info[5] = rs.getString("intentos")
 				}else {
 					throw new Exception("404 Record not found "+ object.items.required[i])
 				}
@@ -102,8 +104,8 @@ class DocumentDAO {
 				acta.put("extension", actaExt[actaExt.length-1])
 				acta.put("content",fm.b64Url(info[2] + SSA + "&v="+num))
 				
-				String jsonSend = "{\"email\":\"${}\",\"intento\":1}"
-				String PDFpsico = new PDFDocumentDAO().PdfFileCatalogo(jsonData, context)?.getData()?.get(0);
+				String jsonSend = "{\"email\":\"${info[4]}\",\"intento\":${info[5]}}"
+				String PDFpsico = new PDFDocumentDAO().PdfFileCatalogo(jsonSend, context)?.getData()?.get(0);
 				psicometrico.put("extension", "pdf");
 				psicometrico.put("content", PDFpsico);
 				

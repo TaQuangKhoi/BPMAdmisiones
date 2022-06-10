@@ -9,5 +9,5 @@ class Statements {
 	
 	public static final String SELECT_RECOMENDACIONES_CONCLUSIONES = "SELECT tp.resumenSalud AS salud, tp.conclusioneinvp AS conclusiones_recomendaciones, tp.interpretacioninvp AS interpretacion, cc.descripcion AS cursos_recomendados FROM testpsicometrico AS tp INNER JOIN testpsicometri_custosrecomend AS tc ON tp.persistenceid = tc.testpsicometrico_pid INNER JOIN catcursos AS cc ON tc.catcursos_pid = cc.persistenceid WHERE tp.caseid = ? and tp.countRechazo = ?"
 	
-	public static final String DETALLE_SOLICITUD_BY_IDBANNER = " SELECT DS.idbanner,SDA.urlFoto, SDA.urlConstancia, SDA.urlActaNacimiento  FROM DETALLESOLICITUD AS DS LEFT JOIN SOLICITUDDEADMISION AS SDA ON SDA.CASEID = DS.CASEID::INTEGER WHERE IDBANNER = ? limit 1"
+	public static final String DATOS_BY_IDBANNER = " SELECT CASE WHEN sda.countrechazos is NULL THEN 0 ELSE sda.countrechazos END AS intentos ,sda.correoelectronico,DS.idbanner,SDA.urlFoto, SDA.urlConstancia, SDA.urlActaNacimiento  FROM DETALLESOLICITUD AS DS LEFT JOIN SOLICITUDDEADMISION AS SDA ON SDA.CASEID = DS.CASEID::INTEGER WHERE IDBANNER = ? limit 1"
 }
