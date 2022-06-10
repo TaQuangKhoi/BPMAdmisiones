@@ -998,7 +998,24 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						new DBConnect().closeObj(con, stm, rs, pstm);
 					}
 				}
-            }
+            } else if (object.codigo.equals("BC_MODIFICACION_AUTORIZACION")){
+				//OBTENIENDO
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+					pstm.setString(1, object.correoAspirante);
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						plantilla = plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("cambiosSolicitudAutorizacion"));
+					}
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				} finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
+				}
+			}
 			
 			try {
 				Result hffc = new Result()
