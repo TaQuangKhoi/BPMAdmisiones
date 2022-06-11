@@ -1006,7 +1006,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					pstm.setString(1, object.correoAspirante);
 					rs = pstm.executeQuery();
 					if(rs.next()) {
-						plantilla = plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("cambiosSolicitudAutorizacion"));
+						plantilla = plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("cambiosSolicitudAutorizacionText"));
 					}
 				} catch (Exception e) {
 					errorlog += "| TRANSFERENCIA " + e.getMessage()
