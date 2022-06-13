@@ -58,6 +58,9 @@ class CatBachilleratoCustomFiltro {
 	private String typeInd;
 	@XmlElement
 	private String postalCode;
+	@XmlElement
+	private String municipio;
+	
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -215,6 +218,12 @@ class CatBachilleratoCustomFiltro {
 		this.postalCode = postalCode;
 	}
 	
+	public String getMunicipio() {
+		return municipio;
+	}
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
 	@Override
 	public String toString() {
 		return "CatBachilleratoCustomFiltro [persistenceId=" + persistenceId + ", persistenceVersion="
@@ -225,7 +234,7 @@ class CatBachilleratoCustomFiltro {
 				+ perteneceRed + ", usuarioBanner=" + usuarioBanner + ", id=" + id + ", idDireccion=" + idDireccion
 				+ ", countyCode=" + countyCode + ", nationCode=" + nationCode + ", stateCode=" + stateCode
 				+ ", streetLine1=" + streetLine1 + ", streetLine2=" + streetLine2 + ", streetLine3=" + streetLine3
-				+ ", typeInd=" + typeInd + ", postalCode=" + postalCode + "]";
+				+ ", typeInd=" + typeInd + ", postalCode=" + postalCode +", municipio=" + municipio + "]";
 	}
 	
 
