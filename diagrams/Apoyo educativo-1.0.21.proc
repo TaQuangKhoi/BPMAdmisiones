@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
-  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.19" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.20">
+  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.21" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.21">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -2896,7 +2896,11 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_aUBnAetCEeyoqvMcfdeyqQ" name="varFinanaciamiento" content="varFinanaciamiento" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
               <referencedElements xmi:type="process:Data" xmi:id="_TU8fkOtDEeyoqvMcfdeyqQ" name="varFinanaciamiento" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_aUCOEOtCEeyoqvMcfdeyqQ" name="newScript()" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_aUCOEOtCEeyoqvMcfdeyqQ" name="newScript()" content="varFinanaciamientoInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_TOjBAOthEeyoqvMcfdeyqQ" name="varFinanaciamientoInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_TOjBAethEeyoqvMcfdeyqQ"/>
+              </referencedElements>
+            </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_aUCOEetCEeyoqvMcfdeyqQ" type="ASSIGNMENT"/>
           </operations>
           <operations xmi:type="expression:Operation" xmi:id="_UzbPwOtDEeyoqvMcfdeyqQ">
@@ -2926,7 +2930,7 @@
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_LV4lAutIEeyoqvMcfdeyqQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
             </leftOperand>
             <rightOperand xmi:type="expression:Expression" xmi:id="_LV4lA-tIEeyoqvMcfdeyqQ" name="solicitudApoyoEducativoInput.motivoRechazoAspirante" content="solicitudApoyoEducativoInput?.motivoRechazoAspirante" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_LV4lBOtIEeyoqvMcfdeyqQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_PC-_gOthEeyoqvMcfdeyqQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_LV4lBetIEeyoqvMcfdeyqQ" type="JAVA_METHOD" expression="setMotivoRechazoAspirante">
               <inputTypes>java.lang.String</inputTypes>
