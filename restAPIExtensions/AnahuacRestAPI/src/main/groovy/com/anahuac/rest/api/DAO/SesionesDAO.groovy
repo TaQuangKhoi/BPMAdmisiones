@@ -3204,7 +3204,6 @@ class SesionesDAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				String consulta = Statements.GET_ASPIRANTEPRUEBAASISTIOYREAGENDO;
-				//AND CAST(S.fecha_inicio P.aplicacion AS DATE) < CAST([FECHA] AS DATE)
 				SesionesAspiranteCustom row = new SesionesAspiranteCustom();
 				List<SesionesAspiranteCustom> rows = new ArrayList<SesionesAspiranteCustom>();
 				List<Map<String, Object>> aspirante = new ArrayList<Map<String, Object>>();
@@ -3252,7 +3251,6 @@ class SesionesDAO {
 						break;
 						
 					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
-						/*where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";*/
 						where +=" AND (LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%')"
 						where = where.replace("[valor]", filtro.get("valor"))
 					
@@ -3436,12 +3434,10 @@ class SesionesDAO {
 					
 				}
 										
-				//orderby+="SA.username"
 				orderby+=" "+object.orientation;
 				errorlog+="order by = "+orderby
 				consulta=consulta.replace("[WHERE]", where);
 				if(tipo == 1) {
-					//consulta=consulta.replace("[ENTREVISTA]", "AND RD.responsableid ="+object.usuario)
 					consulta=consulta.replace("[ENTREVISTA]", "");
 					if(object.reporte && object.type == null) {
 						consulta=consulta.replace("[REPORTE]", "AND rd.responsableid = "+object.usuario)
@@ -3453,8 +3449,7 @@ class SesionesDAO {
 					consulta=consulta.replace("[REPORTE]", "");
 				}
 				
-				errorlog+=" conteo = "+consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
-				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
+				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD,RD.responsableID AS RID, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
 				pstm.setInt(1, object.prueba);
 				pstm.setInt(2, object.sesion);
 				
@@ -3503,6 +3498,21 @@ class SesionesDAO {
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");
 								errorlog+= "esto = "+e.getMessage();
+							}
+						}
+						if(metaData.getColumnLabel(i).toLowerCase().equals("rid")) {
+							if(tipo == 1) {
+								User usr;
+								UserMembership membership
+								String responsables = rs.getString("RID");
+								String nombres= "";
+								if(!responsables.equals("null") && responsables != null) {
+									if(Long.parseLong(responsables)>0) {
+										usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(responsables))
+										nombres = usr.getFirstName()+" "+usr.getLastName()
+									}
+								}
+								columns.put("responsable",nombres)
 							}
 						}
 					}
@@ -4532,11 +4542,9 @@ class SesionesDAO {
 					case "ASISTENCIA":
 					orderby+= "AP.asistencia";
 					break;
-					
 					case "HORARIO":
 					orderby+= "RD.horario";
 					break;
-					
 					default:
 					orderby+="AP.username"
 					break;
@@ -4549,21 +4557,9 @@ class SesionesDAO {
 				
 				consulta=consulta.replace("[ENTREVISTA]", "")
 				consulta=consulta.replace("[REPORTE]", "")
-				/*if(tipo == 1) {
-					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
-				}else {
-					consulta=consulta.replace("[ENTREVISTA]", "")
-				}*/
-				
-				//String HavingGroup ="GROUP BY p.persistenceid,sa.username,sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato"
-				//String Group = "GROUP BY p.persistenceid,sa.username,sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
 				
 				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-				//consulta=consulta.replace("[HAVING]", HavingGroup)
-				//consulta=consulta.replace("[GROUPBY]", Group)
-				//consulta=consulta.replace("[COUNT]", "")
-				//consulta=consulta.replace("[COUNTFIN]", "")
 				
 				
 				errorlog+=" consulta :"+consulta
@@ -4599,6 +4595,15 @@ class SesionesDAO {
 										nombres+=(nombres.length()>1?", ":"")+usr.getFirstName()+" "+usr.getLastName()
 									}
 								}
+							}
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), nombres);
+						}else if(metaData.getColumnLabel(i).toLowerCase().equals("rid")){
+							User usr;
+							String responsables = rs.getString(i);
+							String nombres= "";
+							if(!responsables.equals("null") && responsables != null) {
+								usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(responsables))
+								nombres=usr.getFirstName()+" "+usr.getLastName()
 							}
 							columns.put(metaData.getColumnLabel(i).toLowerCase(), nombres);
 						}else {
