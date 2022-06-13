@@ -73,8 +73,6 @@ class SecurityFilter {
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
 				if(allow){break;}
-				allow=bonitaRolFilter(context,"Becas")
-				if(allow){break;}
 				break;
 				case "getUniversidadSmartCampus":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -1827,6 +1825,10 @@ class SecurityFilter {
 		      break;
 		    }
 			allow = bonitaRolFilter(context, "Proveedor");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "Usuario Auxiliar");
 			if (allow) {
 			  break;
 			}

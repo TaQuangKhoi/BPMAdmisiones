@@ -8202,7 +8202,7 @@ class ListadoDAO {
                 } else {
                     dataResult = new SesionesDAO().getSesionesAspirantesPasados(jsonData, context)
                 }
-
+				
                 if (dataResult.success) {
                     lstParams = dataResult.getData();
                     errorLog += dataResult.getError_info();
@@ -8261,35 +8261,34 @@ class ListadoDAO {
                 Cell header11 = headersRow.createCell(3);
                 header11.setCellValue("CURP");
                 header11.setCellStyle(style);
-
-
-                Cell header4 = headersRow.createCell(4);
+				
+				Cell header7 = headersRow.createCell(4);
+                header7.setCellValue("SEXO");
+                header7.setCellStyle(style);
+				
+                Cell header4 = headersRow.createCell(5);
                 header4.setCellValue("CAMPUS");
                 header4.setCellStyle(style);
-                Cell header5 = headersRow.createCell(5);
+                Cell header5 = headersRow.createCell(6);
                 header5.setCellValue("PROGRAMA");
                 header5.setCellStyle(style);
-                Cell header12 = headersRow.createCell(6);
+                Cell header12 = headersRow.createCell(7);
                 header12.setCellValue("INGRESO");
                 header12.setCellStyle(style);
 
-                Cell header8 = headersRow.createCell(7);
+                Cell header8 = headersRow.createCell(8);
                 header8.setCellValue("PROCEDENCIA");
                 header8.setCellStyle(style);
-                Cell header9 = headersRow.createCell(8);
+                Cell header9 = headersRow.createCell(9);
                 header9.setCellValue("PREPARATORIA");
                 header9.setCellStyle(style);
-                Cell header13 = headersRow.createCell(9);
+                Cell header13 = headersRow.createCell(10);
                 header13.setCellValue("PROMEDIO");
                 header13.setCellStyle(style);
 
-                Cell header6 = headersRow.createCell(10);
+                Cell header6 = headersRow.createCell(11);
                 header6.setCellValue("RESIDENCIA");
                 header6.setCellStyle(style);
-
-                Cell header7 = headersRow.createCell(11);
-                header7.setCellValue("SEXO");
-                header7.setCellStyle(style);
 
                 Cell header14 = headersRow.createCell(12);
                 header14.setCellValue("TELEFONO");
@@ -8300,11 +8299,14 @@ class ListadoDAO {
                 header10.setCellStyle(style);
 
                 if (type.equals("paselistareportelistado") && lstParams[0].tipoprueba_pid == "1") {
-                    Cell header15 = headersRow.createCell(14);
+					Cell header16 = headersRow.createCell(14);
+                    header16.setCellValue("RESPONSABLE");
+                    header16.setCellStyle(style);
+					
+                    Cell header15 = headersRow.createCell(15);
                     header15.setCellValue("RESPONSABLE (S)");
                     header15.setCellStyle(style);
                 }
-
                 headersRow.setRowStyle(style);
 
                 //SesionesAspiranteCustom  Aspirantes = new SesionesAspiranteCustom();
@@ -8350,7 +8352,10 @@ class ListadoDAO {
                     cell10.setCellValue((lstParams[i].asistencia != null?(lstParams[i].asistencia == "t"?"Sí" : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))) : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))));
                     
                     if (type.equals("paselistareportelistado") && lstParams[i].tipoprueba_pid == "1") {
-                        Cell cell15 = row.createCell(14);
+						Cell cell16 = row.createCell(14);
+                        cell16.setCellValue(lstParams[i].rid);
+						
+                        Cell cell15 = row.createCell(15);
                         cell15.setCellValue(lstParams[i].responsables);
                     }
                 }

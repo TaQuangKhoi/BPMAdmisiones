@@ -89,6 +89,11 @@ class IndexGet implements RestApiController {
 				if (url == null) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
 				}
+				
+				SecurityFilter security = new SecurityFilter();
+				if(!security.allowedUrl(context,url)){
+					return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
+				}
 						
 				Integer parameterP = Integer.valueOf(p);
 				Integer parameterC = Integer.valueOf(c);

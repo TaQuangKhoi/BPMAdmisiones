@@ -27,6 +27,12 @@ class Result {
 		this.info = info;
 	}
 	
+	public String getInfo() {
+		return info;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
 	public String getError_info() {
 		return error_info;
 	}
