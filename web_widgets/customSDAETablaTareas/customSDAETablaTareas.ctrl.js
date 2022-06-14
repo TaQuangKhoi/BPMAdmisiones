@@ -20,7 +20,7 @@ function PbTableCtrl($scope) {
         let url = "";
         if(row.name === "Confirmación de apoyo asignado"){
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/confirmacion_apoyo/content/?_l=es&app=aspiranteSDAE&id=" + row.id;    
-        } else if (row.name === "Solicitar información para financiamiento") {
+        } else if (row.name === "Llenado de información del aval") {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/financiamiento_aval/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
         } else if (row.name === "Modificar información financiamiento") {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/modificar_aval/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
