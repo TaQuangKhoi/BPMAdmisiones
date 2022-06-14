@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionApoyo",
   "name" : "SDAEAceptacionApoyo",
-  "lastUpdate" : 1655154308257,
+  "lastUpdate" : 1655170009524,
   "rows" : [
     [
       {
@@ -20,11 +20,11 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "url" : {
             "type" : "expression",
-            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&f=name=Modificar solicitud&p=0\""
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+userData.user_id+\"&f=name=Confirmación de notificación de apoyo&p=0\""
           },
           "reloadTask" : {
             "type" : "variable",
@@ -128,7 +128,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Modificar solicitud de apoyo"
+            "value" : "Propuesta de apoyo educativo"
           },
           "level" : {
             "type" : "constant",
@@ -142,58 +142,6 @@
         "reference" : "1870a6d4-e9ab-4434-97de-0499270a06ae",
         "hasValidationError" : false,
         "id" : "pbTitle"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "<pre class=\"pre-danger\">{{preAutorizacion_ref.cambiosSolicitudPreAutorizacion}}</pre>"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "center"
-          }
-        },
-        "reference" : "614630c1-28a2-4c7f-adfc-ccb718df7fa6",
-        "hasValidationError" : false,
-        "id" : "pbText"
       }
     ],
     [
@@ -613,8 +561,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "mostrarCuadro"
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -747,7 +695,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<pre>{{ formOutput | json }}</pre><pre>{{ formOutputTest | json }}</pre>\n\n<pre>{{ formOutputFinal | json }}</pre>"
+                  "value" : "<pre>{{ formOutputFinal | json }}</pre>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -2389,9 +2337,11 @@
       "exposed" : false
     },
     "taskId" : {
-      "type" : "constant",
+      "type" : "expression",
       "value" : [
-        ""
+        "if($data.assignedTask){",
+        "    return $data.assignedTask[0].id;",
+        "}"
       ],
       "exposed" : false
     },
@@ -3449,7 +3399,7 @@
       "value" : [
         "return [",
         "    {",
-        "        \"text\": \"Por beca  \" + $data.formOutputTest.porcentaje + \"%\",",
+        "        \"text\": \"Por beca  \" + $data.autorizacion.porcentajeBecaAutorizacion + \"%\",",
         "        \"value\": {",
         "            \"varFinanaciamientoInput\": false,",
         "            \"varSoloBecaInput\": true,",
@@ -3457,7 +3407,7 @@
         "        }",
         "    }, ",
         "    {",
-        "        \"text\": \"Por beca  \" + $data.formOutputTest.porcentajeBeca + \"% y financiamiento \" +  $data.formOutputTest.porcentajeBeca + \"%\",",
+        "        \"text\": \"Por beca  \" + $data.autorizacion.porcentajeBecaAutorizacion + \"% y financiamiento \" +  $data.autorizacion.porcentajeCreditoAutorizacion + \"%\",",
         "        \"value\": {",
         "            \"varFinanaciamientoInput\": false,",
         "            \"varSoloBecaInput\": false,",
@@ -3479,16 +3429,56 @@
     "formOutputFinal" : {
       "type" : "expression",
       "value" : [
-        "let output = $data.formOutputTest;",
+        "let output = $data.formOutput;",
+        "output[\"solicitudApoyoEducativoInput\"] = {",
+        "    \"motivoRechazoAspirante\": $data.motivoRechazo",
+        "};",
         "",
-        "output.solicitudApoyoEducativoInput.motivoRechazoAspirante = $data.motivoRechazo;",
-        "",
-        "return;"
+        "return output;"
       ],
       "exposed" : false
     },
     "motivoRechazo" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "assignedTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{userData.user_id}}&f=name=Confirmación de notificación de apoyo&p=0"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "autorizacion" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.autorizacion_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "mostrarCuadro" : {
+      "type" : "expression",
+      "value" : [
+        "let hide = true;",
+        "",
+        "if($data.formOutput){",
+        "    if(!$data.formOutput.varFinanaciamientoInput",
+        "    || !$data.formOutput.varSoloBecaInput",
+        "    || !$data.formOutput.varBecaFinanciamientoInput){",
+        "        hide = false;",
+        "    }   ",
+        "} else {",
+        "    hide = true;",
+        "}",
+        "",
+        "return hide;"
+      ],
       "exposed" : false
     }
   },
