@@ -20,20 +20,26 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     }
 
     $scope.cargarDatos = function () {
-        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario + "&intentos=" + $scope.properties.intentos, 1);
+        doRequest("POST", "../API/extension/DocAPI?pdf=pdfPsicometricov3&p=0&c=9999", 0,{"email":$scope.properties.usuario,"intento":parseInt($scope.properties.intentos)} );
+        //doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario + "&intentos=" + $scope.properties.intentos, 1);
     }
 
-    function doRequest(method, url, numero) {
+    function doRequest(method, url, numero,info={}) {
         blockUI.start();
         //data: angular.copy($scope.properties.dataToSend),
         var req = {
             method: method,
-            url: url
+            url: url,
+            data:info
         };
 
         return $http(req)
             .success(function (data, status) {
                 switch (numero) {
+                    case 0:
+                        debugger;
+                        imprimirPDF(data.data[0])
+                    break;
                     case 1:
                         if (data.length > 0) {
                             $scope.datosUsuario = data[0];
@@ -797,5 +803,32 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         }
         return str;
       }
+      
+    function imprimirPDF(base64){
+        const blob = b64toBlob(base64);
+        const blobUrl = URL.createObjectURL(blob);
+            
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${$scope.properties.fileName}_ReporteOV.pdf`;
+        document.body.appendChild(link);
+        
+        link.click();
+        document.body.removeChild(link);
+    }
+    
+    function b64toBlob(dataURI) {
+        var byteString = atob(dataURI);
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        let contentType = "";
+        
+        contentType = "application/pdf";
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: contentType });
+    }
+    
 
 }

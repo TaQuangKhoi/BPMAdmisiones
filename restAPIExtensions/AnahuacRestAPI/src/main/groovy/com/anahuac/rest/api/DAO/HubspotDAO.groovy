@@ -1912,9 +1912,13 @@ class HubspotDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
-			new LogDAO().insertTransactionLog("POST", "FALLIDO", targetURL, "Log:"+strError, e.getMessage())
+			String mError = "Problema detectado en el usuario: ${email} \r\n"+e.getMessage()+"\r\n"+"Log:"+strError;
+			new LogDAO().insertTransactionLog("POST", "FALLIDO", targetURL, "Log:"+strError, mError);
+			
+			
 		}
 		return resultado
+		//"<br>" +
 	}
 	
 	public Result getApikeyHubspot(String claveCampus) {
