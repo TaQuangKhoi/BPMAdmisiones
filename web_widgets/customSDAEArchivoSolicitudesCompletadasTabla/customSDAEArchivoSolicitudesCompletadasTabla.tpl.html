@@ -32,8 +32,8 @@
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('INSCRITO')">Inscrito o realizó pago<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='INSCRITO'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('TOMADEMATERIAS')">Toma de materias<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='TOMADEMATERIAS'"></i></span></th>
 
-                <!-- <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus SDAE <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS_ADMISION')">Estatus Admisión<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS_ADMISION'"></i></span></th> -->
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Fecha Recepción<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
+                <!-- <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus SDAE <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS_ADMISION')">Estatus Admisión<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTATUS_ADMISION'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Fecha Recepción<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th> -->
                 <th> Acciones</th>     
             </tr>
         </thead>
@@ -48,9 +48,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
 
-                <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
-                <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control" ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
+                <!-- <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
+                <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control" ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td> -->
                 <td></td>
             </tr>
             <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
@@ -79,19 +83,19 @@
                 </td>
 
                 <td>
-                    <b ng-if="row.porcentajeBeca">{{row.porcentajeBeca}}%</b>
-                    <b ng-if="!row.porcentajeBeca">N/A</b>
+                    <b ng-if="row.porcentajeBecaAutorizacion">{{row.porcentajeBecaAutorizacion}}%</b>
+                    <b ng-if="!row.porcentajeBecaAutorizacion">N/A</b>
                 </td>
                 <td>
-                    <b ng-if="row.porcentajeFinanciamiento">{{row.porcentajeFinanciamiento}}%</b>
-                    <b ng-if="!row.porcentajeFinanciamiento">N/A</b>
+                    <b ng-if="row.porcentajeCreditoAutorizacion">{{row.porcentajeCreditoAutorizacion}}%</b>
+                    <b ng-if="!row.porcentajeCreditoAutorizacion">N/A</b>
                 </td>
                 <td>
-                    <b ng-if="row.FinanciamientoEnProceso">{{row.FinanciamientoEnProceso}}</b>
-                    <b ng-if="!row.FinanciamientoEnProceso">N/A</b>
+                    <b ng-if="row.financiamientoEnTramite">{{row.financiamientoEnTramite}}</b>
+                    <b ng-if="!row.financiamientoEnTramite">N/A</b>
                 </td>
                 <td>
-                    <b>{{row.inscripcionPRopedeutico}}</b>
+                    <b>{{row.inscripcionPropedeutico}}</b>
                 </td>
                 <td>
                     <b>{{row.pasoPropedeutico}}</b>
@@ -103,17 +107,12 @@
                     <b>{{row.tomaMaterias}}</b>
                 </td>
 
-                <td>
+                <!-- <td>
                     <b>{{row.estatussolicitud}}</b><br>
-                    {{row.aceptado}}<br>
-                    <!--<label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>-->
                 </td>
                 <td>
                     <b>{{row.fechaultimamodificacion | date:'dd-MM-yyyy HH:mm'}}</b><br>
-                </td>
-                <!--td>
-                    {{row.updateDate}}
-                </td-->
+                </td> -->
                 <td class="text-center">
                     <button class="btn btn-default" ng-click="verSolicitud(row)">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
