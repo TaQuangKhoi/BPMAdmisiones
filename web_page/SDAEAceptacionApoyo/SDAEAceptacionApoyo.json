@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionApoyo",
   "name" : "SDAEAceptacionApoyo",
-  "lastUpdate" : 1655236050785,
+  "lastUpdate" : 1655407915655,
   "rows" : [
     [
       {
@@ -653,58 +653,6 @@
               "reference" : "de553814-f6fb-40f0-956c-c352fa8dd2bc",
               "hasValidationError" : false,
               "id" : "customCustomRichtextPSicom"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<pre>{{ formOutputFinal | json }}</pre>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "0e3da6e7-ec2c-4eaa-b2b6-5c3b4f6a958b",
-              "hasValidationError" : false,
-              "id" : "pbText"
             }
           ],
           [
@@ -3468,11 +3416,11 @@
         "let hide = true;",
         "",
         "if($data.formOutput){",
-        "    if(!$data.formOutput.varFinanaciamientoInput",
-        "    || !$data.formOutput.varSoloBecaInput",
-        "    || !$data.formOutput.varBecaFinanciamientoInput){",
+        "    if($data.formOutput.varFinanaciamientoInput === undefined  && $data.formOutput.varSoloBecaInput  === undefined  && $data.formOutput.varBecaFinanciamientoInput === undefined){",
+        "        hide = true;",
+        "    } else if(!$data.formOutput.varFinanaciamientoInput && !$data.formOutput.varSoloBecaInput && !$data.formOutput.varBecaFinanciamientoInput){",
         "        hide = false;",
-        "    }   else {",
+        "    } else {",
         "        hide = true;",
         "    }",
         "} else {",
