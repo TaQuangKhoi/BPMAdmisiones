@@ -13,10 +13,8 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         
         getTexto(doc);
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         var canvas = document.getElementById("chartjs1")
         var imgData = canvas.toDataURL('image/png'); 
         doc.addImage(imgData,'PNG',2,5,200,145,'chart1')
@@ -25,6 +23,7 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         var imgData2 = canvas2.toDataURL('image/png'); 
         doc.addImage(imgData2,'PNG',2,150,200,145,'chart2')
         
+        doc.setTextColor(255,89,0);
         doc.setFontSize(14);
         doc.text('Gráfica escalas básicas', 80, 10);
         doc.text('Gráfica escala de contenido', 80, 153)
@@ -106,14 +105,17 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         let fechaActual = ($filter('date')(Date.parse(date), "dd/MMM/yyyy")).toString();
         
         doc.setFontSize(fontText);
+        doc.setTextColor(255,89,0);
         doc.text(margenSegundaFila, (height / 2) - 140, 'Fecha:');
-        doc.text(fechaActual, 155, (height / 2) - 140);
-        
         doc.text(margenSegundaFila, (height / 2) - 135, 'Usuario:');
-        doc.text($scope.properties.userName, 155, (height / 2) - 135);
+        
+        doc.setTextColor(0,0,0);
+        doc.text(fechaActual, 135, (height / 2) - 140);
+        doc.text($scope.properties.userName, 135, (height / 2) - 135);
         
         //doc.setFontSize(fontText);
-        doc.setFont(fontparam, 'bold')
+        doc.setFont(fontparam, 'bold');
+        doc.setTextColor(255,89,0);
         doc.text(margenPrimeraFila, (height / 2) - 93, 'ID:');
         doc.text(margenPrimeraFila, (height / 2) - 88, 'Sexo:');
         doc.text(margenPrimeraFila, (height / 2) - 83, 'Nacionalidad:');
@@ -127,13 +129,14 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         doc.text(margenSegundaFila, (height / 2) - 73, 'Carrera:');
         
         doc.setFont(fontparam, 'normal');
+        doc.setTextColor(0,0,0)
         doc.text(respuestasPrimeraFila, (height / 2) - 93, $scope.properties.datosUsuario.id_siu);
         doc.text(respuestasPrimeraFila, (height / 2) - 88, $scope.properties.datosUsuario.sexo);
         doc.text(respuestasPrimeraFila, (height / 2) - 83, $scope.properties.datosUsuario.nacionalidad);
         doc.text(respuestasPrimeraFila, (height / 2) - 78, $scope.properties.datosUsuario.promediogeneral);
         doc.text(respuestasPrimeraFila, (height / 2) - 73, $scope.properties.datosUsuario.fecharegistro);
         
-        doc.text(respuestasSegundaFila, (height / 2) - 93, `${$scope.properties.datosUsuario.nombres} ${$scope.properties.datosUsuario.apellidop} ${$scope.properties.datosUsuario.apellidom}`);
+        doc.text(respuestasSegundaFila, (height / 2) - 93, `${$scope.properties.datosUsuario.nombres}\xa0${$scope.properties.datosUsuario.apellidop}\xa0${$scope.properties.datosUsuario.apellidom}`);
         doc.text(respuestasSegundaFila, (height / 2) - 88, $scope.properties.datosUsuario.fechanacimiento);
         doc.text(respuestasSegundaFila, (height / 2) - 83, $scope.properties.datosUsuario.pais);
         doc.text(respuestasSegundaFila, (height / 2) - 78, $scope.properties.datosUsuario.preparatoria);
@@ -142,11 +145,14 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         aplicarFactor();
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'bold')
+        doc.setTextColor(255,89,0);
         doc.text(margenPrimeraFila, (height / 2) - 50, "Escalas de Validez" );
         doc.text(margenPrimeraFila, (height / 2) - 20, "Escalas Básicas" );
         doc.text(margenPrimeraFila, (height / 2) + 10, "Escalas de contenido" );
         
         doc.setFont(fontparam, 'normal');
+        doc.setTextColor(0,0,0);
+        
         let registro = [0,0,0];
         let tipo = 0;
         $scope.respuestaProcesadas.forEach(element =>{
