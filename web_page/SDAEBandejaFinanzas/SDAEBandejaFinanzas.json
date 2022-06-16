@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBandejaFinanzas",
   "name" : "SDAEBandejaFinanzas",
-  "lastUpdate" : 1653950938499,
+  "lastUpdate" : 1655330096331,
   "rows" : [
     [
       {
@@ -276,7 +276,7 @@
                     },
                     "hidden" : {
                       "type" : "constant",
-                      "value" : true
+                      "value" : false
                     },
                     "disabled" : {
                       "type" : "constant",
@@ -419,6 +419,136 @@
                       ]
                     ]
                   }
+                },
+                {
+                  "type" : "tabContainer",
+                  "dimension" : {
+                    "xs" : 12,
+                    "sm" : 12,
+                    "md" : 12,
+                    "lg" : 12
+                  },
+                  "propertyValues" : {
+                    "cssClasses" : {
+                      "type" : "constant",
+                      "value" : ""
+                    },
+                    "hidden" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "disabled" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "title" : {
+                      "type" : "interpolation",
+                      "value" : "Completadas"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
+                    }
+                  },
+                  "reference" : "f1997bae-8d8f-43a5-9c08-cdb3bda47f0d",
+                  "hasValidationError" : false,
+                  "id" : "pbTabContainer",
+                  "container" : {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12
+                    },
+                    "propertyValues" : { },
+                    "reference" : "0c434cb0-6c4c-49da-8f36-73e20f62117f",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
+                              ]
+                            },
+                            "columnsKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "dataToSendCompletas"
+                            },
+                            "lstContenido" : {
+                              "type" : "variable",
+                              "value" : "lstContenidoCompletas"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "campusSeleccionado" : {
+                              "type" : "variable",
+                              "value" : "getCampusCompletas"
+                            },
+                            "lstCampus" : {
+                              "type" : "variable",
+                              "value" : "lstCatCampus"
+                            },
+                            "abrirPagina" : {
+                              "type" : "constant",
+                              "value" : "solicitudRechazada"
+                            }
+                          },
+                          "reference" : "d2397cec-430c-4182-9180-99da66c1e071",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEArchivoSolicitudesCompletadasTabla"
+                        }
+                      ]
+                    ]
+                  }
                 }
               ]
             }
@@ -526,7 +656,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'AF Solicitud rechazada'\",\r",
+        "    \"estatusSolicitud\":\"'Solicitud de financiamiento archivada'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltrosArchivadas,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
@@ -556,6 +686,35 @@
       "value" : [
         "[]"
       ],
+      "exposed" : false
+    },
+    "dataToSendCompletas" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"'Propuesta financiamiento aceptada por aspirante'\",\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"nuevas_solicitudes\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};\r"
+      ],
+      "exposed" : false
+    },
+    "lstContenidoCompletas" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "getCampusCompletas" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

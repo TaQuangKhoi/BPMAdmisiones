@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamientoComite",
   "name" : "SDAERevisarSolicitudFinanciamientoComite",
-  "lastUpdate" : 1655234013240,
+  "lastUpdate" : 1655334388631,
   "rows" : [
     [
       {
@@ -6127,15 +6127,15 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
-                                "value" : true
+                                "value" : false
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Rechazar solicitud"
+                                "value" : "Archivar Solicitud"
                               },
                               "alignment" : {
                                 "type" : "constant",
@@ -7121,7 +7121,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
+                          "value" : "Archivar solicitud"
                         },
                         "level" : {
                           "type" : "constant",
@@ -7207,7 +7207,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe a continuación la razón por la cual vas a rechazar  el registro de <b>{{returnNombre}}</b>"
+                          "value" : "Escribe a continuación la razón por la cual vas a archivar el registro de <b>{{returnNombre}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7421,7 +7421,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
+                          "value" : "Archivar solicitud"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7448,7 +7448,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formOutput"
+                          "value" : "formInputArchivar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -7481,11 +7481,19 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
+                        },
+                        "estatusSolicitud" : {
+                          "type" : "variable",
+                          "value" : "estatusSolicitudArchivada"
+                        },
+                        "caseId" : {
+                          "type" : "variable",
+                          "value" : "caseIdURL"
                         }
                       },
-                      "reference" : "27782f8d-7293-4122-a7a0-4da31fbbd556",
+                      "reference" : "68d566a3-e576-4dd6-9203-34b2198a0f4f",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCambiarEstatusSolicitud"
                     }
                   ],
                   [
@@ -9682,6 +9690,20 @@
         "{ ",
         "    \"varAutorizacionApoyoInput\" : true",
         "}"
+      ],
+      "exposed" : false
+    },
+    "formInputArchivar" : {
+      "type" : "json",
+      "value" : [
+        "{ \"varAutorizacionApoyoInput\" : false }"
+      ],
+      "exposed" : false
+    },
+    "estatusSolicitudArchivada" : {
+      "type" : "constant",
+      "value" : [
+        "Solicitud de financiamiento archivada"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1655233498147,
+  "lastUpdate" : 1655335242025,
   "rows" : [
     [
       {
@@ -6031,7 +6031,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -6135,7 +6135,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Rechazar solicitud"
+                                "value" : "Archivar solicitud"
                               },
                               "alignment" : {
                                 "type" : "constant",
@@ -6215,7 +6215,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -7121,7 +7121,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
+                          "value" : "Archivar solicitud"
                         },
                         "level" : {
                           "type" : "constant",
@@ -7207,7 +7207,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe a continuación la razón por la cual vas a rechazar  el registro de <b>{{returnNombre}}</b>"
+                          "value" : "Escribe a continuación la razón por la cual vas a archivar el registro de <b>{{returnNombre}}</b>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7421,7 +7421,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
+                          "value" : "Archivar solicitud"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7448,7 +7448,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formOutput"
+                          "value" : "formInputArchivar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -7481,11 +7481,19 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
+                        },
+                        "estatusSolicitud" : {
+                          "type" : "variable",
+                          "value" : "estatusSolicitudArchivada"
+                        },
+                        "caseId" : {
+                          "type" : "variable",
+                          "value" : "caseIdURL"
                         }
                       },
-                      "reference" : "a46f3617-15cb-4406-8625-5b9713297c76",
+                      "reference" : "629565bc-6e29-4eca-9609-ace05c7d97a9",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customSDAEButtonCambiarEstatusSolicitud"
                     }
                   ],
                   [
@@ -9682,6 +9690,20 @@
         "{ ",
         "    \"varArchivarInput\" : false",
         "}"
+      ],
+      "exposed" : false
+    },
+    "formInputArchivar" : {
+      "type" : "json",
+      "value" : [
+        "{ \"varArchivarInput\" : true }"
+      ],
+      "exposed" : false
+    },
+    "estatusSolicitudArchivada" : {
+      "type" : "constant",
+      "value" : [
+        "Solicitud de financiamiento archivada"
       ],
       "exposed" : false
     }
