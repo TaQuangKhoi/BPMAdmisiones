@@ -86,38 +86,40 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.hermanos = data;
             } else {
-                $scope.properties.hermanos = [{
-                    "persistenceId_string":"",
-                    "caseId":$scope.properties.caseId,
-                    "nombres":"",
-                    "apellidos":"",
-                    "edad": 0,
-                    "isEstudia": false,
-                    "institucion":"",
-                    "isTieneBeca":false,
-                    "porcentajeBecaAsignado":0,
-                    "colegiaturaMensual": 0,
-                    "isTrabaja": false,
-                    "empresa":"",
-                    "ingresoMensual": 0,
-                }];
+                // $scope.properties.hermanos = [{
+                //     "persistenceId_string":"",
+                //     "caseId":$scope.properties.caseId,
+                //     "nombres":"",
+                //     "apellidos":"",
+                //     "edad": 0,
+                //     "isEstudia": false,
+                //     "institucion":"",
+                //     "isTieneBeca":false,
+                //     "porcentajeBecaAsignado":0,
+                //     "colegiaturaMensual": 0,
+                //     "isTrabaja": false,
+                //     "empresa":"",
+                //     "ingresoMensual": 0,
+                // }];
+                $scope.properties.hermanos = [];
             }
         }).error((err) => {
-            $scope.properties.hermanos = [{
-                "persistenceId_string":"",
-                "caseId":$scope.properties.caseId,
-                "nombres":"",
-                "apellidos":"",
-                "edad": 0,
-                "isEstudia": false,
-                "institucion":"",
-                "isTieneBeca":false,
-                "porcentajeBecaAsignado":0,
-                "colegiaturaMensual": 0,
-                "isTrabaja": false,
-                "empresa":"",
-                "ingresoMensual": 0,
-            }];
+            // $scope.properties.hermanos = [{
+            //     "persistenceId_string":"",
+            //     "caseId":$scope.properties.caseId,
+            //     "nombres":"",
+            //     "apellidos":"",
+            //     "edad": 0,
+            //     "isEstudia": false,
+            //     "institucion":"",
+            //     "isTieneBeca":false,
+            //     "porcentajeBecaAsignado":0,
+            //     "colegiaturaMensual": 0,
+            //     "isTrabaja": false,
+            //     "empresa":"",
+            //     "ingresoMensual": 0,
+            // }];
+            $scope.properties.hermanos = [];
             console.log("hermanos vacío");
         });
     }
@@ -128,26 +130,28 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.autos = data;
             } else {
-                $scope.properties.autos = [{
-                    "persistenceId_string": "",
-                    "caseId": $scope.properties.caseId + "",
-                    "marca": "",
-                    "modelo": "",
-                    "ano": null,
-                    "costoAproximado": "",
-                    "catSituacionAuto_id": ""
-                }];
+                // $scope.properties.autos = [{
+                //     "persistenceId_string": "",
+                //     "caseId": $scope.properties.caseId + "",
+                //     "marca": "",
+                //     "modelo": "",
+                //     "ano": null,
+                //     "costoAproximado": "",
+                //     "catSituacionAuto_id": ""
+                // }];
+                $scope.properties.autos = [];
             }
         }).error((err) => {
-            $scope.properties.autos = [{
-                "persistenceId_string": "",
-                "caseId": $scope.properties.caseId + "",
-                "marca": "",
-                "modelo": "",
-                "ano": null,
-                "costoAproximado": "",
-                "catSituacionAuto_id": ""
-            }];
+            // $scope.properties.autos = [{
+            //     "persistenceId_string": "",
+            //     "caseId": $scope.properties.caseId + "",
+            //     "marca": "",
+            //     "modelo": "",
+            //     "ano": null,
+            //     "costoAproximado": "",
+            //     "catSituacionAuto_id": ""
+            // }];
+            $scope.properties.autos = [];
             console.log("autos vacío");
         });
     }
@@ -158,26 +162,28 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.bienesRaices = data;
             } else {
-                $scope.properties.bienesRaices = [{
-                    "persistenceId_string": "",
-                    "caseId": $scope.properties.caseId,
-                    "catTipoInversionesPosee": "",
-                    "catTipoInversionesPosee_id":null,
-                    "descripcion": "",
-                    "direccionBanco": "",
-                    "valor": null
-                }];
+                // $scope.properties.bienesRaices = [{
+                //     "persistenceId_string": "",
+                //     "caseId": $scope.properties.caseId,
+                //     "catTipoInversionesPosee": "",
+                //     "catTipoInversionesPosee_id":null,
+                //     "descripcion": "",
+                //     "direccionBanco": "",
+                //     "valor": null
+                // }];
+                $scope.properties.bienesRaices = [];
             }
         }).error((err) => {
-            $scope.properties.bienesRaices = [{
-                "persistenceId_string": "",
-                "caseId": $scope.properties.caseId,
-                "catTipoInversionesPosee": "",
-                "catTipoInversionesPosee_id":null,
-                "descripcion": "",
-                "direccionBanco": "",
-                "valor": null
-            }];
+            // $scope.properties.bienesRaices = [{
+            //     "persistenceId_string": "",
+            //     "caseId": $scope.properties.caseId,
+            //     "catTipoInversionesPosee": "",
+            //     "catTipoInversionesPosee_id":null,
+            //     "descripcion": "",
+            //     "direccionBanco": "",
+            //     "valor": null
+            // }];
+            $scope.properties.bienesRaices = [];
             console.log("bienesRaices vacío");
         });
     }

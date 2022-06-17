@@ -4,7 +4,7 @@ function WidgetController($scope, $log, $window, $sce) {
     var userAgent = $window.navigator.userAgent;
     var vendor = $window.navigator.vendor;
     var iframe = document.getElementById("iFrame1");
-    iframe.style.height = "345px";
+    iframe.style.height = "990px";
 
     $scope.$watch('[properties.document, properties.url]', function () {
         controller.fileName = getFileName();

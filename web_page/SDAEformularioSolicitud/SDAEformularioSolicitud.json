@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1654552379105,
+  "lastUpdate" : 1655419557877,
   "rows" : [
     [
       {
@@ -8221,11 +8221,19 @@
                       "value" : {
                         "type" : "variable",
                         "value" : "formOutputTest.solicitudApoyoEducativoInput.tieneHermanos"
+                      },
+                      "lstHermanos" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.hermanosInput"
+                      },
+                      "caseId" : {
+                        "type" : "expression",
+                        "value" : "caseId"
                       }
                     },
-                    "reference" : "be72c8db-79b7-4111-b791-19df7925b9a8",
+                    "reference" : "9dac3c72-e05c-4e25-9d12-29a594f96b47",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
+                    "id" : "customSDAESelectTienesHermanos"
                   },
                   {
                     "type" : "container",
@@ -10410,11 +10418,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "lstCP" : {
+                              "type" : "variable",
+                              "value" : "cpBusqueda"
                             }
                           },
-                          "reference" : "fb844173-1701-4a17-b83f-9da5ac2f631c",
+                          "reference" : "15dbb9e0-4b32-4b0b-bdad-a6eb67470e0e",
                           "hasValidationError" : false,
-                          "id" : "customSDAEInputLimit"
+                          "id" : "customSDAEInputLimitCP"
                         }
                       ],
                       [
@@ -10567,7 +10579,7 @@
                             },
                             "readOnly" : {
                               "type" : "expression",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\""
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\" || !formOutputTest.solicitudApoyoEducativoInput.pais"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -10642,7 +10654,7 @@
                             },
                             "readOnly" : {
                               "type" : "expression",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\""
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\" || !formOutputTest.solicitudApoyoEducativoInput.pais"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -10719,7 +10731,7 @@
                             },
                             "readOnly" : {
                               "type" : "expression",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\""
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais === \"México\" || !formOutputTest.solicitudApoyoEducativoInput.pais"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -20234,11 +20246,10 @@
       "exposed" : false
     },
     "cpBusqueda" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCodigoPostal?q=findByCodigoPostal&p=0&c=1000&f=codigoPostal={{formOutputTest.solicitudApoyoEducativoInput.codigoPostal}}"
+        "[]"
       ],
-      "advancedOptions" : { },
       "exposed" : false
     },
     "selectedCP" : {
@@ -20251,6 +20262,19 @@
         "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPais&p=0&c=1000&f=caseId=00000"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "setBusquedaCP" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.codigoPostal){",
+        "    if($data.formOutputTest.solicitudApoyoEducativoInput.codigoPostal.length === 5){",
+        "       output = $data.formOutputTest.solicitudApoyoEducativoInput.codigoPostal; ",
+        "       return output;",
+        "    }",
+        "}"
+      ],
       "exposed" : false
     }
   },
