@@ -3880,16 +3880,7 @@ class ListadoDAO {
             if (object.campus != null) {
                 where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
             }
-            //            if(object.estatusSolicitud !=null) {
-            //                if(object.estatusSolicitud.equals("Solicitud en proceso")) {
-            //                    where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en proceso')"
-            //                } else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
-            //                    where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
-            //                } else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
-            //                    where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
-            //                }
-            //            }
-
+			
             //Cambio aplicado para que fusione los tres estatus en un solo reporte
             if (object.estatusSolicitud != null) {
                 where += " AND (sda.ESTATUSSOLICITUD='Solicitud en proceso' OR sda.ESTATUSSOLICITUD='Solicitud a modificar'  OR sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta' OR sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta' OR sda.ESTATUSSOLICITUD='Periodo vencido' OR (sda.ESTATUSSOLICITUD = 'Solicitud vencida') OR (sda.ESTATUSSOLICITUD = 'Periodo vencido') OR (sda.ESTATUSSOLICITUD = 'Solicitud caduca') OR (sda.ESTATUSSOLICITUD  like '%Solicitud vencida en:%')) ";
@@ -3920,7 +3911,7 @@ class ListadoDAO {
 
             errorlog += "object.lstFiltro" + object.lstFiltro
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-            //closeCon = validarConexion();
+			
             String consulta = Statements.GET_SOLICITUDES_EN_PROCESO
             for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
                 errorlog += ", columna " + filtro.get("columna")
@@ -3970,14 +3961,10 @@ class ListadoDAO {
                         }
                         where += "( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
                         where = where.replace("[valor]", filtro.get("valor"))
+						
                         where += " OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
                         where = where.replace("[valor]", filtro.get("valor"))
-                        /*where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
-                        where = where.replace("[valor]", filtro.get("valor"))
-                            
-                        where +=" OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        */
+						
                         where += " OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
@@ -4005,14 +3992,14 @@ class ListadoDAO {
                         } else {
                             where += " WHERE "
                         }
-                        where += " LOWER(fechaultimamodificacion) ";
+                        where += " ( LOWER(fechaultimamodificacion) ";
                         if (filtro.get("operador").equals("Igual a")) {
                             where += "=LOWER('[valor]')"
                         } else {
                             where += "LIKE LOWER('%[valor]%')"
                         }
                         where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-                        where += "LIKE LOWER('%[valor]%')";
+                        where += "LIKE LOWER('%[valor]%') )";
 
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
