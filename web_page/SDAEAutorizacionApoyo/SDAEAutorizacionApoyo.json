@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1655164870501,
+  "lastUpdate" : 1655508761997,
   "rows" : [
     [
       {
@@ -6164,13 +6164,6 @@
         "        $data.tutor = objectTutor;\r",
         "    }\r",
         "    \r",
-        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
-        "        $data.padre = objectTutor;\r",
-        "    } \r",
-        "    \r",
-        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
-        "        $data.madre = objectTutor;\r",
-        "    }\r",
         "}"
       ],
       "exposed" : false
@@ -6396,6 +6389,30 @@
       "type" : "constant",
       "value" : [
         "modalVer"
+      ],
+      "exposed" : false
+    },
+    "setTutoresMadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
+        "        $data.madre = objectTutor;\r",
+        "        break;\r",
+        "    }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "setTutoresPadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
+        "        $data.padre = objectTutor;\r",
+        "        break;\r",
+        "    } \r",
+        "}"
       ],
       "exposed" : false
     }

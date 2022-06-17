@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1653939762691,
+  "lastUpdate" : 1655508230007,
   "rows" : [
     [
       {
@@ -2610,13 +2610,6 @@
         "        $data.tutor = objectTutor;\r",
         "    }\r",
         "    \r",
-        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
-        "        $data.padre = objectTutor;\r",
-        "    } \r",
-        "    \r",
-        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
-        "        $data.madre = objectTutor;\r",
-        "    }\r",
         "}"
       ],
       "exposed" : false
@@ -2844,6 +2837,30 @@
       "type" : "constant",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
+      ],
+      "exposed" : false
+    },
+    "setTutoresMadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
+        "        $data.madre = objectTutor;\r",
+        "        break;\r",
+        "    }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "setTutoresPadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
+        "        $data.padre = objectTutor;\r",
+        "        break;\r",
+        "    } \r",
+        "}"
       ],
       "exposed" : false
     }

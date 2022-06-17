@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEVerSolicitud",
   "name" : "SDAEVerSolicitud",
-  "lastUpdate" : 1653593255388,
+  "lastUpdate" : 1655509616752,
   "rows" : [
     [
       {
@@ -1025,13 +1025,6 @@
         "        $data.tutor = objectTutor;\r",
         "    }\r",
         "    \r",
-        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
-        "        $data.padre = objectTutor;\r",
-        "    } \r",
-        "    \r",
-        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
-        "        $data.madre = objectTutor;\r",
-        "    }\r",
         "}"
       ],
       "exposed" : false
@@ -1313,6 +1306,30 @@
       "type" : "constant",
       "value" : [
         "modalVer"
+      ],
+      "exposed" : false
+    },
+    "setTutoresPadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
+        "        $data.padre = objectTutor;\r",
+        "        break;\r",
+        "    } \r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "setTutoresMadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
+        "        $data.madre = objectTutor;\r",
+        "        break;\r",
+        "    }\r",
+        "}"
       ],
       "exposed" : false
     }
