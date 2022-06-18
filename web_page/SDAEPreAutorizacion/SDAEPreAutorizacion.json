@@ -4168,18 +4168,17 @@
       "type" : "expression",
       "value" : [
         "for(let objectTutor of $data.objPadresTutor){\r",
-        "    debugger;\r",
         "    if(objectTutor.isTutor){\r",
         "        $data.tutor = objectTutor;\r",
         "    }\r",
         "    \r",
-        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
-        "        $data.padre = objectTutor;\r",
-        "    } \r",
+        "    // if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
+        "    //     $data.padre = objectTutor;\r",
+        "    // } \r",
         "    \r",
-        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
-        "        $data.madre = objectTutor;\r",
-        "    }\r",
+        "    // if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
+        "    //     $data.madre = objectTutor;\r",
+        "    // }\r",
         "}"
       ],
       "exposed" : false
@@ -4489,6 +4488,30 @@
         "{{ligaApiGetCatalogos}}CatSituacionAuto"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "setTutoresPadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if (objectTutor.catParentezco.descripcion === \"Padre\"){\r",
+        "        $data.padre = objectTutor;\r",
+        "        break;\r",
+        "    } \r",
+        "}\r"
+      ],
+      "exposed" : false
+    },
+    "setTutoresMadre" : {
+      "type" : "expression",
+      "value" : [
+        "for(let objectTutor of $data.objPadresTutor){\r",
+        "    if(objectTutor.catParentezco.descripcion === \"Madre\"){\r",
+        "        $data.madre = objectTutor;\r",
+        "        break;\r",
+        "    }\r",
+        "}"
+      ],
       "exposed" : false
     }
   },
