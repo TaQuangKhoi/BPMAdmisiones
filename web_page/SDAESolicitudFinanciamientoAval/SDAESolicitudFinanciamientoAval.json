@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1655513831806,
+  "lastUpdate" : 1655750828775,
   "rows" : [
     [
       {
@@ -1610,11 +1610,11 @@
                             "propertyValues" : {
                               "cssClasses" : {
                                 "type" : "constant",
-                                "value" : ""
+                                "value" : "margin-top-22"
                               },
                               "hidden" : {
-                                "type" : "constant",
-                                "value" : false
+                                "type" : "expression",
+                                "value" : "avalInfoPersonalModel.pais != 'México'"
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -1641,7 +1641,8 @@
                                 "value" : false
                               },
                               "url" : {
-                                "type" : "interpolation"
+                                "type" : "interpolation",
+                                "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCodigoPostal?q=findByCodigoPostal&p=0&c=1000&f=codigoPostal={{avalInfoPersonalModel.cp}}"
                               },
                               "responseStatusCode" : {
                                 "type" : "variable",
@@ -1652,7 +1653,7 @@
                               },
                               "dataFromSuccess" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "CatCodigoPostal"
                               },
                               "closeOnSuccess" : {
                                 "type" : "constant",
@@ -1708,12 +1709,16 @@
                               },
                               "haveCiudad" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "haveCiudad"
+                              },
+                              "lstCP" : {
+                                "type" : "variable",
+                                "value" : "CatCodigoPostal"
                               }
                             },
-                            "reference" : "eb246d86-2145-4692-a4cd-6968a616197a",
+                            "reference" : "49689c35-d9c6-4411-b61e-68cfa1b5550f",
                             "hasValidationError" : false,
-                            "id" : "customSDAEbtnCodigoPostal"
+                            "id" : "customSDAEbtnCodigoPostal2"
                           }
                         ],
                         [
@@ -1747,8 +1752,8 @@
                                 "value" : 250
                               },
                               "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
+                                "type" : "expression",
+                                "value" : "avalInfoPersonalModel.pais == 'México'"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -1897,8 +1902,8 @@
                                 "value" : 250
                               },
                               "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
+                                "type" : "expression",
+                                "value" : "avalInfoPersonalModel.pais == 'México'"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -2478,81 +2483,6 @@
                             "type" : "component",
                             "dimension" : {
                               "md" : 4,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : 250
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Calle y número:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaCalleYNumero"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "42a6c6d4-31ac-4170-a86c-fd109a84cd36",
-                            "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
                               "sm" : 6,
                               "xs" : 12,
                               "lg" : 4
@@ -2588,7 +2518,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Colonia:"
+                                "value" : "País"
                               },
                               "labelPosition" : {
                                 "type" : "constant",
@@ -2603,7 +2533,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaColonia"
+                                "value" : "avalInfoPersonalModel.empresaPais"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -2620,7 +2550,7 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "5a9fe001-78de-4822-9371-ee22c3999ea3",
+                            "reference" : "58f764bc-b854-40f5-a1d4-388cfc281df7",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
                           },
@@ -2651,7 +2581,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : ""
+                                "value" : 10
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -2698,6 +2628,123 @@
                             "reference" : "db6239e6-2091-4a6e-bb2e-06726aad3665",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "margin-top-22"
+                              },
+                              "hidden" : {
+                                "type" : "expression",
+                                "value" : "avalInfoPersonalModel.empresaPais != 'México'"
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Buscar Codigo postal"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "left"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "GET"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation",
+                                "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCodigoPostal?q=findByCodigoPostal&p=0&c=1000&f=codigoPostal={{avalInfoPersonalModel.empresaCP}}"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "constant"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : "CatCodigoPostal2"
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : "modaldatosCP2"
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "estado" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.empresaEstado"
+                              },
+                              "ciudad" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.empresaCiudad"
+                              },
+                              "municipio" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "asentamiento" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.empresaColonia"
+                              },
+                              "estadoExtranjero" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "cp" : {
+                                "type" : "variable",
+                                "value" : "cp2"
+                              },
+                              "haveCiudad" : {
+                                "type" : "variable",
+                                "value" : "haveCiudad"
+                              }
+                            },
+                            "reference" : "4a2567ec-93f4-4067-9d4e-f2e46874991d",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEbtnCodigoPostal2"
                           }
                         ],
                         [
@@ -2731,83 +2778,8 @@
                                 "value" : 250
                               },
                               "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Ciudad"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaCiudad"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "51934272-64f7-4273-925a-8993393bf818",
-                            "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : 250
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
+                                "type" : "expression",
+                                "value" : "avalInfoPersonalModel.empresaPais == 'México'"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -2881,8 +2853,8 @@
                                 "value" : 250
                               },
                               "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
+                                "type" : "expression",
+                                "value" : "haveCiudad2"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -2890,7 +2862,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "País"
+                                "value" : "Ciudad"
                               },
                               "labelPosition" : {
                                 "type" : "constant",
@@ -2905,7 +2877,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaPais"
+                                "value" : "avalInfoPersonalModel.empresaCiudad"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -2922,12 +2894,162 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "58f764bc-b854-40f5-a1d4-388cfc281df7",
+                            "reference" : "51934272-64f7-4273-925a-8993393bf818",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 4,
+                              "sm" : 6,
+                              "xs" : 12,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 250
+                              },
+                              "readOnly" : {
+                                "type" : "expression",
+                                "value" : "avalInfoPersonalModel.empresaPais == 'México'"
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Colonia:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.empresaColonia"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "5a9fe001-78de-4822-9371-ee22c3999ea3",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
                           }
                         ],
                         [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 4,
+                              "sm" : 12,
+                              "xs" : 12,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 250
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Calle y número:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.empresaCalleYNumero"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "42a6c6d4-31ac-4170-a86c-fd109a84cd36",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
                           {
                             "type" : "component",
                             "dimension" : {
@@ -3077,7 +3199,9 @@
                             "reference" : "bb015871-884a-4eff-9514-89cace851927",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
-                          },
+                          }
+                        ],
+                        [
                           {
                             "type" : "component",
                             "dimension" : {
@@ -3152,9 +3276,7 @@
                             "reference" : "5ac08ec2-dc52-4d7d-b644-5460a8ce5672",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
-                          }
-                        ],
-                        [
+                          },
                           {
                             "type" : "component",
                             "dimension" : {
@@ -3304,7 +3426,9 @@
                             "reference" : "581d4c94-c8c3-4434-a2a8-fb8c264d83da",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
-                          },
+                          }
+                        ],
+                        [
                           {
                             "type" : "component",
                             "dimension" : {
@@ -3379,9 +3503,7 @@
                             "reference" : "ec064e23-78b4-44b0-a2de-6b000087d6ba",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
-                          }
-                        ],
-                        [
+                          },
                           {
                             "type" : "component",
                             "dimension" : {
@@ -3679,6 +3801,81 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
+                                "value" : "País"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.pais"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "5e437d3e-98f3-46da-a1d8-ccdc646bdfb7",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 3,
+                              "lg" : 3
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 250
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
                                 "value" : "Código postal:"
                               },
                               "labelPosition" : {
@@ -3712,6 +3909,348 @@
                               }
                             },
                             "reference" : "fe44ad28-6d85-4238-a5ab-e581c72885ce",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 3,
+                              "lg" : 3
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "margin-top-22"
+                              },
+                              "hidden" : {
+                                "type" : "expression",
+                                "value" : "avalInfoInmuebleModel.pais != 'México'"
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Buscar Codigo postal"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "left"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Open modal"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation",
+                                "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCodigoPostal?q=findByCodigoPostal&p=0&c=1000&f=codigoPostal={{avalInfoInmuebleModel.cp}}"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "constant"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : "CatCodigoPostal3"
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : "modaldatosCP3"
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "estado" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.estado"
+                              },
+                              "ciudad" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.ciudad"
+                              },
+                              "municipio" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "asentamiento" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.colonia"
+                              },
+                              "estadoExtranjero" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "cp" : {
+                                "type" : "variable",
+                                "value" : "cp3"
+                              },
+                              "haveCiudad" : {
+                                "type" : "variable",
+                                "value" : "haveCiudad3"
+                              }
+                            },
+                            "reference" : "1f7b901a-596d-4f3a-9ab3-72af8687a1d6",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEbtnCodigoPostal2"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 250
+                              },
+                              "readOnly" : {
+                                "type" : "expression",
+                                "value" : "avalInfoInmuebleModel.pais == 'México'"
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Estado"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.estado"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "093834b3-c40d-48a8-9f2b-893a313cc7f5",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 250
+                              },
+                              "readOnly" : {
+                                "type" : "expression",
+                                "value" : "haveCiudad3"
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Ciudad:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.ciudad"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "b92d3e12-81b6-44b8-932c-fccd3c26d715",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 250
+                              },
+                              "readOnly" : {
+                                "type" : "expression",
+                                "value" : "avalInfoInmuebleModel.pais == 'México'"
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Colonia"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.colonia"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "11dd65f1-9521-4ffa-9f7a-57cfdd8dd106",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
                           },
@@ -3862,306 +4401,6 @@
                               }
                             },
                             "reference" : "15027847-c36f-4790-b53a-9d938362046e",
-                            "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : 250
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Colonia"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.colonia"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "11dd65f1-9521-4ffa-9f7a-57cfdd8dd106",
-                            "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : 250
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Ciudad:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.ciudad"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "b92d3e12-81b6-44b8-932c-fccd3c26d715",
-                            "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : 250
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Estado"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.estado"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "093834b3-c40d-48a8-9f2b-893a313cc7f5",
-                            "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : 250
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "País"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.pais"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "5e437d3e-98f3-46da-a1d8-ccdc646bdfb7",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
                           },
@@ -6922,6 +7161,694 @@
           ]
         }
       }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modaldatosCP2"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "74feec68-a185-4b88-a78a-7c9430fa1de0",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "dc054f77-2147-4fbd-954a-84141e4f70c2",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Default label"
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
+                  },
+                  "allowHTML" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "text" : {
+                    "type" : "interpolation",
+                    "value" : "<label class=\"color-orange\">Favor de seleccionar el asentamiento correspondiente a su código postal y dar clic al botón aceptar.</label>"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "left"
+                  }
+                },
+                "reference" : "95e3a416-4b8a-4142-bfcf-96fb9ea5576b",
+                "hasValidationError" : false,
+                "id" : "pbText"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "allowHTML" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "headers" : {
+                    "type" : "constant",
+                    "value" : [
+                      "Código postal",
+                      "Asentamiento",
+                      "Tipo de Asentamiento",
+                      "Municipio",
+                      "Estado",
+                      "Ciudad"
+                    ]
+                  },
+                  "content" : {
+                    "type" : "expression",
+                    "value" : "CatCodigoPostal2"
+                  },
+                  "columnsKey" : {
+                    "type" : "constant",
+                    "value" : [
+                      "codigoPostal",
+                      "asentamiento",
+                      "tipoAsentamiento",
+                      "municipio",
+                      "estado",
+                      "ciudad"
+                    ]
+                  },
+                  "selectedRow" : {
+                    "type" : "variable",
+                    "value" : "cp2"
+                  },
+                  "striped" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "condensed" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "bordered" : {
+                    "type" : "constant",
+                    "value" : false
+                  }
+                },
+                "reference" : "c348bf3e-e202-45d5-a959-f29c68b226f6",
+                "hasValidationError" : false,
+                "id" : "pbTable"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 6,
+                  "lg" : 6
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "disabled" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Cerrar"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "left"
+                  },
+                  "buttonStyle" : {
+                    "type" : "constant",
+                    "value" : "info"
+                  },
+                  "action" : {
+                    "type" : "constant",
+                    "value" : "Close modal"
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "dataToSend" : {
+                    "type" : "constant"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "dataFromError" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "targetUrlOnSuccess" : {
+                    "type" : "interpolation"
+                  },
+                  "collectionToModify" : {
+                    "type" : "variable"
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "collectionPosition" : {
+                    "type" : "constant",
+                    "value" : "Last"
+                  },
+                  "valueToAdd" : {
+                    "type" : "constant"
+                  },
+                  "removeItem" : {
+                    "type" : "variable"
+                  }
+                },
+                "reference" : "0c8f78bc-a031-4796-80cf-4b34aba8ed76",
+                "hasValidationError" : false,
+                "id" : "pbButton"
+              },
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 6,
+                  "lg" : 6
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "disabled" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Aceptar"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "right"
+                  },
+                  "buttonStyle" : {
+                    "type" : "constant",
+                    "value" : "primary"
+                  },
+                  "action" : {
+                    "type" : "constant",
+                    "value" : "Close modal"
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "dataToSend" : {
+                    "type" : "constant"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "dataFromError" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "targetUrlOnSuccess" : {
+                    "type" : "interpolation"
+                  },
+                  "collectionToModify" : {
+                    "type" : "variable"
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "collectionPosition" : {
+                    "type" : "constant",
+                    "value" : "Last"
+                  },
+                  "valueToAdd" : {
+                    "type" : "constant"
+                  },
+                  "removeItem" : {
+                    "type" : "variable"
+                  }
+                },
+                "reference" : "91a8c0f4-e1ae-4bd6-bc67-4e1e8c44468c",
+                "hasValidationError" : false,
+                "id" : "pbButton"
+              }
+            ]
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modaldatosCP3"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "ce6bbdce-3a5d-4202-94ba-2bdb72643411",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "a87b84a3-acd7-4693-a318-18a5ed0ded4b",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Default label"
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
+                  },
+                  "allowHTML" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "text" : {
+                    "type" : "interpolation",
+                    "value" : "<label class=\"color-orange\">Favor de seleccionar el asentamiento correspondiente a su código postal y dar clic al botón aceptar.</label>"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "left"
+                  }
+                },
+                "reference" : "7b4dbb2e-33d9-4f4a-aafd-6f65fd04dbc4",
+                "hasValidationError" : false,
+                "id" : "pbText"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "allowHTML" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "headers" : {
+                    "type" : "constant",
+                    "value" : [
+                      "Código postal",
+                      "Asentamiento",
+                      "Tipo de Asentamiento",
+                      "Municipio",
+                      "Estado",
+                      "Ciudad"
+                    ]
+                  },
+                  "content" : {
+                    "type" : "expression",
+                    "value" : "CatCodigoPostal3"
+                  },
+                  "columnsKey" : {
+                    "type" : "constant",
+                    "value" : [
+                      "codigoPostal",
+                      "asentamiento",
+                      "tipoAsentamiento",
+                      "municipio",
+                      "estado",
+                      "ciudad"
+                    ]
+                  },
+                  "selectedRow" : {
+                    "type" : "variable",
+                    "value" : "cp3"
+                  },
+                  "striped" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "condensed" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "bordered" : {
+                    "type" : "constant",
+                    "value" : false
+                  }
+                },
+                "reference" : "d87b72d9-e3ef-49f7-aa8a-b5c20ed3e81a",
+                "hasValidationError" : false,
+                "id" : "pbTable"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 6,
+                  "lg" : 6
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "disabled" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Cerrar"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "left"
+                  },
+                  "buttonStyle" : {
+                    "type" : "constant",
+                    "value" : "info"
+                  },
+                  "action" : {
+                    "type" : "constant",
+                    "value" : "Close modal"
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "dataToSend" : {
+                    "type" : "constant"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "dataFromError" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "targetUrlOnSuccess" : {
+                    "type" : "interpolation"
+                  },
+                  "collectionToModify" : {
+                    "type" : "variable"
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "collectionPosition" : {
+                    "type" : "constant",
+                    "value" : "Last"
+                  },
+                  "valueToAdd" : {
+                    "type" : "constant"
+                  },
+                  "removeItem" : {
+                    "type" : "variable"
+                  }
+                },
+                "reference" : "46eb394b-ad73-4280-a8de-d5e4e911551a",
+                "hasValidationError" : false,
+                "id" : "pbButton"
+              },
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 6,
+                  "lg" : 6
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "disabled" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Aceptar"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "right"
+                  },
+                  "buttonStyle" : {
+                    "type" : "constant",
+                    "value" : "primary"
+                  },
+                  "action" : {
+                    "type" : "constant",
+                    "value" : "Close modal"
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "dataToSend" : {
+                    "type" : "constant"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "dataFromError" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "targetUrlOnSuccess" : {
+                    "type" : "interpolation"
+                  },
+                  "collectionToModify" : {
+                    "type" : "variable"
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "collectionPosition" : {
+                    "type" : "constant",
+                    "value" : "Last"
+                  },
+                  "valueToAdd" : {
+                    "type" : "constant"
+                  },
+                  "removeItem" : {
+                    "type" : "variable"
+                  }
+                },
+                "reference" : "c6295ca8-5486-411b-a336-387989d3522c",
+                "hasValidationError" : false,
+                "id" : "pbButton"
+              }
+            ]
+          ]
+        }
+      }
     ]
   ],
   "assets" : [
@@ -7980,11 +8907,10 @@
       "exposed" : false
     },
     "CatCodigoPostal" : {
-      "type" : "url",
+      "type" : "constant",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCodigoPostal?q=findByCodigoPostal&p=0&c=1000&f=codigoPostal={{avalInfoPersonalModel.cp}}"
+        ""
       ],
-      "advancedOptions" : { },
       "exposed" : false
     },
     "cp" : {
@@ -10572,6 +11498,91 @@
       "value" : [
         "{\"displayValue\":\"findByCaseId [com.anahuac.model.DetalleSolicitud]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.model.DetalleSolicitud\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{objSolicitudDeAdmision[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
+      "exposed" : false
+    },
+    "cp2" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "setValoresCP2" : {
+      "type" : "expression",
+      "value" : [
+        "$data.haveCiudad2 = false;",
+        "if ($data.cp2 !== undefined) {",
+        "    for (var x = 0; x < $data.catEstados.length; x++) {",
+        "            if ($data.catEstados[x].descripcion === $data.cp2.estado) {",
+        "                $data.avalInfoPersonalModel.empresaEstado = $data.catEstados[x].descripcion;",
+        "            } else if ($data.catEstados[x].descripcion === \"Estado de México\" && $data.cp2.estado === \"México\") {",
+        "                $data.avalInfoPersonalModel.empresaEstado = $data.catEstados[x].descripcion;",
+        "            }",
+        "        }",
+        "        if ($data.cp2.ciudad !== \"\" && $data.cp.ciudad !== null) {",
+        "            $data.avalInfoPersonalModel.empresaCiudad = $data.cp2.ciudad",
+        "            if ($data.cp2.ciudad !== undefined) {",
+        "                $data.haveCiudad2 = true;",
+        "            }",
+        "        }",
+        "        if ($data.cp2.municipio !== \"\" && !$data.haveCiudad2) {",
+        "          $data.avalInfoPersonalModel.empresaCiudad = $data.cp2.municipio",
+        "           $data.haveCiudad2 = true;",
+        "        }",
+        "        if ($data.cp2.asentamiento !== \"\") {",
+        "            $data.avalInfoPersonalModel.empresaColonia = $data.cp2.asentamiento",
+        "        }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "haveCiudad2" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "CatCodigoPostal2" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : false
+    },
+    "cp3" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "haveCiudad3" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "setValoresCP3" : {
+      "type" : "expression",
+      "value" : [
+        "$data.haveCiudad3 = false;",
+        "if ($data.cp3 !== undefined) {",
+        "    for (var x = 0; x < $data.catEstados.length; x++) {",
+        "            if ($data.catEstados[x].descripcion === $data.cp3.estado) {",
+        "                $data.avalInfoInmuebleModel.estado = $data.catEstados[x].descripcion;",
+        "            } else if ($data.catEstados[x].descripcion === \"Estado de México\" && $data.cp3.estado === \"México\") {",
+        "                $data.avalInfoInmuebleModel.estado = $data.catEstados[x].descripcion;",
+        "            }",
+        "        }",
+        "        if ($data.cp3.ciudad !== \"\" && $data.cp.ciudad !== null) {",
+        "            $data.avalInfoInmuebleModel.ciudad = $data.cp3.ciudad",
+        "            if ($data.cp3.ciudad !== undefined) {",
+        "                $data.haveCiudad3 = true;",
+        "            }",
+        "        }",
+        "        if ($data.cp3.municipio !== \"\" && !$data.haveCiudad3) {",
+        "          $data.avalInfoInmuebleModel.ciudad  = $data.cp3.municipio",
+        "           $data.haveCiudad3 = true;",
+        "        }",
+        "        if ($data.cp3.asentamiento !== \"\") {",
+        "            $data.avalInfoInmuebleModel.colonia = $data.cp3.asentamiento",
+        "        }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "CatCodigoPostal3" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
