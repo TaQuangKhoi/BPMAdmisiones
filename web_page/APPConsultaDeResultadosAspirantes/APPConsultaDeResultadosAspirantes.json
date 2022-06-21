@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "APPConsultaDeResultadosAspirantes",
   "name" : "APPConsultaDeResultadosAspirantes",
-  "lastUpdate" : 1643305615815,
+  "lastUpdate" : 1655484777099,
   "rows" : [
     [
       {
@@ -847,6 +847,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Aceptados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "6358c28c-a791-4b79-8755-06c1860f75da",
@@ -978,11 +982,15 @@
                                   "fileExtension" : {
                                     "type" : "constant",
                                     "value" : "xls"
+                                  },
+                                  "nombre" : {
+                                    "type" : "constant",
+                                    "value" : "Resultados de admisión - Aceptados"
                                   }
                                 },
-                                "reference" : "54f1086b-fc4a-4ca0-908c-1100dcda37a9",
+                                "reference" : "d264f797-34c3-4d72-a018-d117b266d783",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnDownloadExcel"
+                                "id" : "customCustomBtnDownloadExcelName"
                               }
                             ]
                           ]
@@ -1277,7 +1285,7 @@
                                   },
                                   "dataToSend" : {
                                     "type" : "expression",
-                                    "value" : "dataToSendSinResultados"
+                                    "value" : "dataToFileSinResultados"
                                   },
                                   "dataFromSuccess" : {
                                     "type" : "variable",
@@ -1314,11 +1322,15 @@
                                   "fileExtension" : {
                                     "type" : "constant",
                                     "value" : "xls"
+                                  },
+                                  "nombre" : {
+                                    "type" : "constant",
+                                    "value" : "Resultados de admisión - Sin resultado"
                                   }
                                 },
-                                "reference" : "f100922c-fd63-432d-ad1b-a76c7fa01262",
+                                "reference" : "aafa2aea-f095-415e-a8f8-d0360d81c787",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnDownloadExcel"
+                                "id" : "customCustomBtnDownloadExcelName"
                               }
                             ]
                           ]
@@ -1498,6 +1510,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Rechazados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "5a8e2e55-6d97-44c8-ab04-26bdf474e712",
@@ -1592,7 +1608,7 @@
                                   },
                                   "dataToSend" : {
                                     "type" : "expression",
-                                    "value" : "dataToSend"
+                                    "value" : "dataToFile"
                                   },
                                   "dataFromSuccess" : {
                                     "type" : "variable",
@@ -1629,11 +1645,15 @@
                                   "fileExtension" : {
                                     "type" : "constant",
                                     "value" : "xls"
+                                  },
+                                  "nombre" : {
+                                    "type" : "constant",
+                                    "value" : "Resultados de admisión - Rechazados"
                                   }
                                 },
-                                "reference" : "c2776d25-ca14-4251-a4e0-438c23228f5c",
+                                "reference" : "ed4299b4-a6a2-4de5-8b7b-5e8d54f6d9bb",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnDownloadExcel"
+                                "id" : "customCustomBtnDownloadExcelName"
                               }
                             ]
                           ]
@@ -1821,6 +1841,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Aceptados Manual"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "950e7d32-7a16-47d2-906f-cb6c593b8c8d",
@@ -3292,6 +3316,56 @@
       "type" : "json",
       "value" : [
         "{}"
+      ],
+      "exposed" : false
+    },
+    "dataToFileAceptados" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"Aceptado\"\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "dataToFileSinResultados" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"Sin resultado\"\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"Rechazada\"\r",
+        "};"
       ],
       "exposed" : false
     }
