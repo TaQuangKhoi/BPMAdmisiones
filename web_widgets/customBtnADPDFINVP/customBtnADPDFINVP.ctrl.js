@@ -29,58 +29,6 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         doc.text('Gráfica escala de contenido', 80, 153)
 
         doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName);
-       
-       /* 
-        doc = new jspdf.jsPDF('l', 'mm', 'a4');
-        width = doc.internal.pageSize.getWidth();
-        height = doc.internal.pageSize.getHeight();
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
-        getTexto(doc);
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
-        canvas = document.getElementById("chartjs1")
-        imgData = canvas.toDataURL('image/png'); 
-        doc.addImage(imgData,'PNG',15,15,280,150,'chart1')
-        doc.setFontSize(20);
-        doc.text('Gráfica escalas básicas', 120, 13);
-        
-        doc.addPage();
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
-        canvas2 = document.getElementById("chartjs2")
-        imgData2 = canvas2.toDataURL('image/png'); 
-        doc.addImage(imgData2,'PNG',15,15,280,150,'chart2')
-        doc.text('Gráfica escala de contenido', 120, 13)
-        
-        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V2.pdf");*/
-        
-        /*
-        var element = document.querySelector($scope.properties.elementSelector);
-        
-        var opt = {
-            margin: [5,5,1,5],
-            filename: $scope.properties.idBanner+"_"+$scope.properties.fileName + ".pdf",
-            image: { type: 'jpeg',quality: 0.98},
-            html2canvas: { dpi: 192, letterRendering: true, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-            pagebreak: { mode: [ 'legacy'], before:[".break-before"]},
-            // pagebreak: { avoid: '.avoid' }
-        };
-
-        var promise;
-        primise = getPDF(element, opt);
-        setTimeout(function(){ 
-            $scope.properties.idsDivGrafica.forEach(data => {
-                //document.getElementById(data.id).style.height = "40vh";
-                document.getElementById(data.id).removeAttribute("style")
-                //document.getElementById(data.id).classList.add('chart-container')
-            })
-        }, 1000);
-        
-        promise.then(function(resultado) {
-            alert("Fin de la promesa");
-            blockUI.stop();
-        }, function(error) {
-            $scope.mensaje="Se ha producido un error al obtener el dato:"+error;
-        });*/
     }
     
     // html2pdf(element, opt); 
@@ -110,8 +58,8 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         doc.text(margenSegundaFila, (height / 2) - 135, 'Usuario:');
         
         doc.setTextColor(0,0,0);
-        doc.text(fechaActual, 135, (height / 2) - 140);
-        doc.text($scope.properties.userName, 135, (height / 2) - 135);
+        doc.text(fechaActual, 110, (height / 2) - 140);
+        doc.text($scope.properties.userName, 110, (height / 2) - 135);
         
         //doc.setFontSize(fontText);
         doc.setFont(fontparam, 'bold');
@@ -124,7 +72,7 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         
         doc.text(margenSegundaFila, (height / 2) - 93, 'Nombre:');
         doc.text(margenSegundaFila, (height / 2) - 88, 'Fecha de nacimiento:');
-        doc.text(margenSegundaFila, (height / 2) - 83, 'R. Permanente:');
+        doc.text(margenSegundaFila, (height / 2) - 83, 'Ciudad de procedencia:');
         doc.text(margenSegundaFila, (height / 2) - 78, 'Escuela Procedencia:');
         doc.text(margenSegundaFila, (height / 2) - 73, 'Carrera:');
         
