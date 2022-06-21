@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionFinanciamiento",
   "name" : "SDAEAceptacionFinanciamiento",
-  "lastUpdate" : 1655408131447,
+  "lastUpdate" : 1655773271135,
   "rows" : [
     [
       {
@@ -6505,8 +6505,8 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -6531,7 +6531,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Acepta el financiamiento del 20%?"
+                        "value" : "¿Acepta el financiamiento del {{solicitudFinanciamiento.porcComite}}%?"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -6546,21 +6546,20 @@
                         "value" : false
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "Si",
-                          "No"
-                        ]
+                        "type" : "expression",
+                        "value" : "siNoOpciones"
                       },
                       "displayedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "clave"
                       },
                       "returnedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "valor"
                       },
                       "selectedValue" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "formInputEnviarComite.varAceptarFinanciamientoInput"
                       }
                     },
                     "reference" : "1842a6ae-fd9d-4e67-b332-a3a8f0804814",
@@ -6633,8 +6632,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!formInputEnviarComite.varAceptarFinanciamientoInput"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -6670,7 +6669,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "formInputEnviarComite.solicitudFinanciamientoModelInput.motivoRechazoSolicitud"
                       }
                     },
                     "reference" : "31437c4f-838c-421e-b176-f51404cca0ce",
@@ -8042,9 +8041,20 @@
       "type" : "json",
       "value" : [
         "{",
-        "    \"varAceptarFinanciamientoInput\" : true",
+        "    \"varAceptarFinanciamientoInput\" : null,",
+        "    \"solicitudFinanciamientoModelInput\":{",
+        "        \"motivoRechazoSolicitud\":\"\"",
+        "    }",
         "}"
       ],
+      "exposed" : false
+    },
+    "solicitudFinanciamiento" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.solicitudFinanciamientoModel_ref.link}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

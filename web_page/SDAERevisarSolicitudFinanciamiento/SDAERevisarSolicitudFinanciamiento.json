@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1655504195030,
+  "lastUpdate" : 1655774098714,
   "rows" : [
     [
       {
@@ -6215,7 +6215,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : true
+                                "value" : false
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -7271,7 +7271,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "formInputArchivar.solicitudFinanciamientoModelInput.observacionesFinanzas"
                         }
                       },
                       "reference" : "e752ffe3-2b34-4f51-8e47-229b6da8f022",
@@ -7792,7 +7792,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "formInputModificar.solicitudFinanciamientoModelInput.observacionesFinanzas"
                         }
                       },
                       "reference" : "c4b79c18-5886-4ddd-81da-50ce914ce4a3",
@@ -7969,7 +7969,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formOutput"
+                          "value" : "formInputModificar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -8283,7 +8283,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : ""
+                                "value" : "formInputEnviarComite.solicitudFinanciamientoModelInput.porcFinanzas"
                               },
                               "type" : {
                                 "type" : "constant",
@@ -8360,7 +8360,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "formInputEnviarComite.solicitudFinanciamientoModelInput.observacionesFinanzas"
                         }
                       },
                       "reference" : "d9090a58-1c6f-4f86-9dd9-8d8db4a61e79",
@@ -9688,7 +9688,12 @@
       "type" : "json",
       "value" : [
         "{ ",
-        "    \"varArchivarInput\" : false",
+        "    \"varArchivarInput\" : false, ",
+        "    \"solicitudFinanciamientoModelInput\": {",
+        "        \"porcFinanzas\": null,",
+        "        \"observacionesFinanzas\":\"\"",
+        "    }, ",
+        "    \"varModificarInput\": false",
         "}"
       ],
       "exposed" : false
@@ -9696,7 +9701,14 @@
     "formInputArchivar" : {
       "type" : "json",
       "value" : [
-        "{ \"varArchivarInput\" : true }"
+        "{ ",
+        "    \"varArchivarInput\" : true, ",
+        "    \"solicitudFinanciamientoModelInput\": {",
+        "        \"porcFinanzas\": null,",
+        "        \"observacionesFinanzas\":\"\"",
+        "    }, ",
+        "    \"varModificarInput\": false",
+        "}"
       ],
       "exposed" : false
     },
@@ -9704,6 +9716,20 @@
       "type" : "constant",
       "value" : [
         "Solicitud de financiamiento archivada"
+      ],
+      "exposed" : false
+    },
+    "formInputModificar" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"varArchivarInput\": false, ",
+        "    \"solicitudFinanciamientoModelInput\": {",
+        "        \"porcFinanzas\": null,",
+        "        \"observacionesFinanzas\":\"\"",
+        "    }, ",
+        "    \"varModificarInput\": true",
+        "}"
       ],
       "exposed" : false
     }
