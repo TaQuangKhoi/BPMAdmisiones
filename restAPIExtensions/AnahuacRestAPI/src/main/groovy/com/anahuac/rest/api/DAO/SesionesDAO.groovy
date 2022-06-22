@@ -3263,7 +3263,6 @@ class SesionesDAO {
 						break;
 						
 					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
-						/*where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";*/
 						where +=" AND (LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%')"
 						where = where.replace("[valor]", filtro.get("valor"))
 					
@@ -3462,8 +3461,7 @@ class SesionesDAO {
 					consulta=consulta.replace("[REPORTE]", "");
 				}
 				
-				errorlog+=" conteo = "+consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
-				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,sda.telefonocelular,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
+				pstm = con.prepareStatement(consulta.replace("distinct on (AP.persistenceid) AP.persistenceid,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,sda.telefonocelular,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD,RD.responsableID AS RID, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
 				pstm.setInt(1, object.prueba);
 				pstm.setInt(2, object.sesion);
 				
@@ -3501,7 +3499,6 @@ class SesionesDAO {
 							try {
 								String urlFoto = rs.getString("urlfoto");
 								if(urlFoto != null && !urlFoto.isEmpty()) {
-									//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
 									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
 								}else {
 									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
@@ -3514,6 +3511,24 @@ class SesionesDAO {
 								columns.put("fotografiab64", "");
 								errorlog+= "esto = "+e.getMessage();
 							}
+							
+							if(metaData.getColumnLabel(i).toLowerCase().equals("rid")) {
+								if(tipo == 1) {
+										User usr;
+										UserMembership membership
+										String responsables = rs.getString("RID");
+										String nombres= "";
+										if(!responsables.equals("null") && responsables != null) {
+												if(Long.parseLong(responsables)>0) {
+														usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(responsables))
+														nombres = usr.getFirstName()+" "+usr.getLastName()
+												}
+										}
+										columns.put("responsable",nombres)
+								}
+							}
+							
+							
 						}
 					}
 					rows.add(columns);
