@@ -54,14 +54,18 @@ class PDFDocumentDAO {
 	public Result PdfFileCatalogo(String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		InputStream targetStream;
+		Boolean streamOpen = false;
 		String log = "";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			Result dataResult = new Result();
 			List<List < Object >> lstParams;
-
+			
 			List<?> info = getInfoReportes(object.email, object.intento).getData();
+			if(info.size() < 1) {
+				throw new Exception("400 Bad Request Usuario no encontrado");
+			}
 			//log += isNullOrBlanck(info.get(0)?.idbanner.toString())
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 			columns.put("idbanner", isNullOrBlanck(info.get(0)?.idbanner.toString()));
@@ -85,7 +89,7 @@ class PDFDocumentDAO {
 			columns.put("entrevisto", isNullOrBlanck(info.get(0)?.quienrealizoentrevista.toString()));
 			columns.put("integro", isNullOrBlanck(info.get(0)?.quienintegro.toString()));
 			String caseid = info.get(0)?.caseid.toString()
-			
+			log = 1;
 			info = getInfoRelativos(info.get(0)?.caseid.toString()).getData();
 			Boolean[] familiares = [false,false,false]
 			info.each{
@@ -129,7 +133,7 @@ class PDFDocumentDAO {
 				
 				
 			}
-			
+			log = 2;
 			info = getInfoFuentesInfluyeron(caseid,object.intento)?.getData();
 			columns.put("fuentesInfluyeron",  isNullOrBlanck(info?.get(0)?.fuentes.toString()) );
 			
@@ -139,10 +143,10 @@ class PDFDocumentDAO {
 					case "Salud aparente":
 					columns.put("saludAparente", it.calificacion)
 					break;
-					case "Limpieza personal":
+					case "Limpieza Personal":
 					columns.put("limpiezaPersonal", it.calificacion)
 					break;
-					case "Impresión física":
+					case "Impresión Física":
 					columns.put("impresionFisica", it.calificacion)
 					break;
 					case "Manera de Relacionarse":
@@ -196,7 +200,7 @@ class PDFDocumentDAO {
 					
 				}
 			}
-			
+			log = 3;
 			info = getInfoSaludSSeccion(caseid,object.intento)?.getData();
 			columns.put("salud",  isNullOrBlanck(info?.get(0)?.salud.toString()) );
 			columns.put("conclusion",  isNullOrBlanck(info?.get(0)?.conclusiones_recomendaciones.toString()) );
@@ -223,14 +227,14 @@ class PDFDocumentDAO {
 					break;
 				}
 			}
-			
+			log = 4;
 			info = getInfoSaludPSeccion(caseid)?.getData();
 			columns.put("vivesSituacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.cat_situacion_discapacidad_descripcion.toString()) );
 			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.situacion_discapacidad?.toString()) );
 			columns.put("personaSaludableDescripcion",  isNullOrBlanck(info?.get(0)?.cat_persona_saludable_descripcion.toString()) );
 			columns.put("terapiaDescripcion",  isNullOrBlanck(info?.get(0)?.cat_terapia_descripcion.toString()) );
 			columns.put("tipoTerapia",  isNullOrBlanck(info?.get(0)?.tipo_terapia.toString()) );
-			
+			log = 5;
 			
 			info =  getInfoCapacidadAdaptacion(caseid,object.intento)?.getData();
 			columns.put("ajusteMedioFamiliar",  isNullOrBlanck(info?.get(0)?.ajustemediofamiliar.toString()) );
@@ -245,12 +249,13 @@ class PDFDocumentDAO {
 			columns.put("califajustereligioso",  isNullOrBlanck(info?.get(0)?.califajustereligioso.toString()) );
 			columns.put("ajusteExistencial",  isNullOrBlanck(info?.get(0)?.ajusteexistencial.toString()) );
 			columns.put("califajusteexistencial",  isNullOrBlanck(info?.get(0)?.califajusteexistencial.toString()) );
-			
+			log = 6;
 			info = bitacoraPsicometrico(object.email,context)?.getData();
+			log = 7;
 			//log +=info
 			String comentarios = "";
 			info?.each { 
-				comentarios += it?.comentario+"<br>"
+				comentarios += (comentarios.length() > 1?"<br>":"")+ it?.comentario
 			}
 			columns.put("comentarios",  isNullOrBlanck(comentarios) );
 			
@@ -265,11 +270,12 @@ class PDFDocumentDAO {
 				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
 			}
 			String plantilla = prop.getProperty("jasperBase64")
-			columns.put("fotoFondo", prop.getProperty("fondo"));
+			//columns.put("fotoFondo", prop.getProperty("fondo"));
 			inputStream.close();
 			
 			byte [] file = Base64.getDecoder().decode(plantilla)
 			targetStream = new ByteArrayInputStream(file);
+			streamOpen = true;
 			JasperReport jasperReport = JasperCompileManager.compileReport(targetStream)
 			
 			JRDataSource dataSource = new JREmptyDataSource();
@@ -279,6 +285,7 @@ class PDFDocumentDAO {
 			
 			List < Object > lstResultado = new ArrayList < Object > ();
 			lstResultado.add(result)
+			lstResultado.add(log)
 			
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
@@ -286,9 +293,12 @@ class PDFDocumentDAO {
 			
 		} catch (Exception e) {
             resultado.setSuccess(false);
-            resultado.setError(e.getMessage()+" || error 1");
+            resultado.setError(e.getMessage());
+			resultado.setError_info(log)
         }finally {
-			targetStream.close();
+			if(streamOpen) {				
+				targetStream.close();
+			}
 		}
 		
 		return resultado;
