@@ -1365,6 +1365,7 @@ class BannerDAO {
 				}
 			}
 
+        
 			errorLog = errorLog + " | " + ("====================================");
 			errorLog = errorLog + " | lstAddresses.size():" + (lstAddresses.size());
 			for (CatBachillerato objLstAddresses: lstAddresses) {
@@ -1600,6 +1601,9 @@ class BannerDAO {
 							}else if(objLstAddresses.getPostalCode().equals("") ||objLstAddresses.getPostalCode().equals(null) ||objLstAddresses.getPostalCode() == null ) {
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla5:"+(isEliminadoRegla)
+							}else if(objRow.getTypeInd().equals("") ||objRow.getTypeInd().equals(null) || objRow.getTypeInd() == null || !objRow.getTypeInd().equals("H") ) {
+								isEliminadoRegla = true;
+								errorLog += "isEliminadoRegla6:"+(isEliminadoRegla)
 							}
 							/*CONSTRUCCION DE CONTRATO=====================================================================*/
 							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
