@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBandejaFinanzas",
   "name" : "SDAEBandejaFinanzas",
-  "lastUpdate" : 1655764963581,
+  "lastUpdate" : 1656014952909,
   "rows" : [
     [
       {
@@ -253,9 +253,9 @@
                               "value" : "SDAERevisarSolicitudFinanciamiento"
                             }
                           },
-                          "reference" : "02734965-b4f3-41d2-88f8-9f32e303feed",
+                          "reference" : "7cb86a9f-7a79-4d4b-8677-e6af5d4f376b",
                           "hasValidationError" : false,
-                          "id" : "customSDAETablePostBandejaFinanzas"
+                          "id" : "customSDAETablePostBandejaFinanzas2"
                         }
                       ]
                     ]
@@ -419,136 +419,6 @@
                       ]
                     ]
                   }
-                },
-                {
-                  "type" : "tabContainer",
-                  "dimension" : {
-                    "xs" : 12,
-                    "sm" : 12,
-                    "md" : 12,
-                    "lg" : 12
-                  },
-                  "propertyValues" : {
-                    "cssClasses" : {
-                      "type" : "constant",
-                      "value" : ""
-                    },
-                    "hidden" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "disabled" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "title" : {
-                      "type" : "interpolation",
-                      "value" : "Completadas"
-                    },
-                    "active" : {
-                      "type" : "variable",
-                      "value" : ""
-                    }
-                  },
-                  "reference" : "eb692560-8af5-4bd5-9ea0-fc838bf7852f",
-                  "hasValidationError" : false,
-                  "id" : "pbTabContainer",
-                  "container" : {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12
-                    },
-                    "propertyValues" : { },
-                    "reference" : "da7c4fc0-f2c2-42f9-8fb9-52a47105b863",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "headers" : {
-                              "type" : "constant",
-                              "value" : [
-                                "Id",
-                                "Name",
-                                "Description",
-                                "Date"
-                              ]
-                            },
-                            "columnsKey" : {
-                              "type" : "constant"
-                            },
-                            "selectedRow" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "striped" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "condensed" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "bordered" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "urlPost" : {
-                              "type" : "constant",
-                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
-                            },
-                            "dataToSend" : {
-                              "type" : "variable",
-                              "value" : "dataToSendCompletas"
-                            },
-                            "lstContenido" : {
-                              "type" : "variable",
-                              "value" : "lstContenidoCompletas"
-                            },
-                            "userId" : {
-                              "type" : "variable",
-                              "value" : "userData.user_id"
-                            },
-                            "campusSeleccionado" : {
-                              "type" : "variable",
-                              "value" : "getCampusCompletas"
-                            },
-                            "lstCampus" : {
-                              "type" : "variable",
-                              "value" : "lstCatCampus"
-                            },
-                            "abrirPagina" : {
-                              "type" : "constant",
-                              "value" : "solicitudRechazada"
-                            }
-                          },
-                          "reference" : "196b82b7-17f9-4615-b50d-a864a92367df",
-                          "hasValidationError" : false,
-                          "id" : "customSDAEArchivoSolicitudesCompletadasTabla"
-                        }
-                      ]
-                    ]
-                  }
                 }
               ]
             }
@@ -626,8 +496,8 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Solicitud de financiamiento reactivada', 'Solicitud de Financiamiento en Proceso', 'Solicitud de financiamiento completada'\",\r",
-        "    \"tarea\":\"Validar Información\",\r",
+        "    \"estatusSolicitud\": \"'Solicitud de financimiento iniciado', 'Solicitud de financiamiento completada', 'Solicitud de financimiento reactivada'\",\r",
+        "    \"tarea\":\"Validar información del aval\",\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
@@ -656,7 +526,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Solicitud de financiamiento archivada'\",\r",
+        "    \"estatusSolicitud\":\"'Solicitud de financiamiento archivada', 'Solicitud rechazada por finanzas', 'Solicitud validada por comité de finanzas'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltrosArchivadas,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",

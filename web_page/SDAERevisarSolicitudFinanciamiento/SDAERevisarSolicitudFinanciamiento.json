@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1655774098714,
+  "lastUpdate" : 1656013711019,
   "rows" : [
     [
       {
@@ -28,7 +28,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Solicitud de financiamiento"
+            "value" : "Revisión de solicitud de financiamiento"
           },
           "alignment" : {
             "type" : "constant",
@@ -73,7 +73,7 @@
           },
           "taskId" : {
             "type" : "variable",
-            "value" : "taskId"
+            "value" : "newTaskId"
           },
           "caseId" : {
             "type" : "variable",
@@ -134,6 +134,14 @@
           "lstImagenesByTipoApoyo" : {
             "type" : "variable",
             "value" : "imagenesSocioEconomico.data"
+          },
+          "selectedIndex" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "isSolicitud" : {
+            "type" : "constant",
+            "value" : false
           }
         },
         "reference" : "89ee4488-23b6-481a-8ec2-49813eac4eb4",
@@ -525,58 +533,6 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "(Persona diferente a los padres del alumno)"
-                              },
-                              "alignment" : {
-                                "type" : "constant",
-                                "value" : "left"
-                              }
-                            },
-                            "reference" : "08c718f1-95ec-4ef9-a61b-86aef50e44af",
-                            "hasValidationError" : false,
-                            "id" : "pbText"
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Default label"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "allowHTML" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "text" : {
-                                "type" : "interpolation",
                                 "value" : "<hr>"
                               },
                               "alignment" : {
@@ -594,7 +550,7 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
+                              "sm" : 6,
                               "md" : 4,
                               "lg" : 4
                             },
@@ -669,7 +625,7 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
+                              "sm" : 6,
                               "md" : 4,
                               "lg" : 4
                             },
@@ -744,7 +700,7 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
+                              "sm" : 6,
                               "md" : 4,
                               "lg" : 4
                             },
@@ -814,16 +770,14 @@
                             "reference" : "bc45909e-4177-409b-8018-7896c6e0459a",
                             "hasValidationError" : false,
                             "id" : "pbInput"
-                          }
-                        ],
-                        [
+                          },
                           {
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
-                              "md" : 3,
-                              "lg" : 3
+                              "sm" : 6,
+                              "md" : 4,
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -896,9 +850,9 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
-                              "md" : 3,
-                              "lg" : 3
+                              "sm" : 6,
+                              "md" : 4,
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -971,9 +925,9 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
-                              "md" : 3,
-                              "lg" : 3
+                              "sm" : 6,
+                              "md" : 4,
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -1046,9 +1000,9 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
-                              "md" : 3,
-                              "lg" : 3
+                              "sm" : 6,
+                              "md" : 4,
+                              "lg" : 4
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -1116,14 +1070,12 @@
                             "reference" : "576ed98a-02d6-4cb4-a9aa-5f4271c7f673",
                             "hasValidationError" : false,
                             "id" : "pbInput"
-                          }
-                        ],
-                        [
+                          },
                           {
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 12,
+                              "sm" : 6,
                               "md" : 4,
                               "lg" : 4
                             },
@@ -5185,358 +5137,72 @@
                   ],
                   [
                     {
-                      "type" : "container",
+                      "type" : "component",
                       "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
                         "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
                         "lg" : 12
                       },
                       "propertyValues" : {
-                        "repeatedCollection" : {
-                          "type" : "variable",
-                          "value" : "avalReferenciasBancariasModel"
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
                         },
                         "hidden" : {
                           "type" : "constant",
                           "value" : false
                         },
-                        "cssClasses" : {
+                        "allowHTML" : {
                           "type" : "constant",
+                          "value" : true
+                        },
+                        "headers" : {
+                          "type" : "constant",
+                          "value" : [
+                            "Banco",
+                            "Tipo cuenta",
+                            "Numero Cuenta",
+                            "Saldo Promedio"
+                          ]
+                        },
+                        "content" : {
+                          "type" : "expression",
+                          "value" : "avalReferenciasBancariasModel"
+                        },
+                        "columnsKey" : {
+                          "type" : "constant",
+                          "value" : [
+                            "banco",
+                            "tipoCuenta",
+                            "numeroCuenta",
+                            "saldoPromedio"
+                          ]
+                        },
+                        "selectedRow" : {
+                          "type" : "variable",
                           "value" : ""
                         },
-                        "dimension" : {
+                        "striped" : {
                           "type" : "constant",
-                          "value" : 12
+                          "value" : true
+                        },
+                        "condensed" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "bordered" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "editar" : {
+                          "type" : "constant",
+                          "value" : false
                         }
                       },
-                      "reference" : "7642e537-aa6d-43c0-abf4-9f29f79035f4",
+                      "reference" : "5b4b60c5-f3b5-468a-8f35-a86bfccc6cc4",
                       "hasValidationError" : false,
-                      "id" : "pbContainer",
-                      "rows" : [
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Banco"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.banco"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "0b2a04eb-30f2-4692-810d-0cdcda5870dd",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Tipo Cuenta"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.tipoCuenta"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "fbaa9a09-be9d-4209-8310-7b873764e156",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Numero Cuenta"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.numeroCuenta"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "d89e9c6b-bb90-4c6d-a696-5d4d33cfb6c3",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Saldo Promedio"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.saldoPromedio"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "feb37d07-7466-4872-b87c-081b4203ec93",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          }
-                        ]
-                      ]
+                      "id" : "customTblSDAEReferenciaAval"
                     }
                   ],
                   [
@@ -5582,358 +5248,72 @@
                   ],
                   [
                     {
-                      "type" : "container",
+                      "type" : "component",
                       "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
                         "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
                         "lg" : 12
                       },
                       "propertyValues" : {
-                        "repeatedCollection" : {
-                          "type" : "variable",
-                          "value" : "avalReferenciaCreditoModel"
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
                         },
                         "hidden" : {
                           "type" : "constant",
                           "value" : false
                         },
-                        "cssClasses" : {
+                        "allowHTML" : {
                           "type" : "constant",
+                          "value" : true
+                        },
+                        "headers" : {
+                          "type" : "constant",
+                          "value" : [
+                            "Banco",
+                            "Tipo cuenta",
+                            "Numero Cuenta",
+                            "Saldo Promedio"
+                          ]
+                        },
+                        "content" : {
+                          "type" : "expression",
+                          "value" : "avalReferenciaCreditoModel"
+                        },
+                        "columnsKey" : {
+                          "type" : "constant",
+                          "value" : [
+                            "banco",
+                            "tipoCuenta",
+                            "numeroCuenta",
+                            "saldoPromedio"
+                          ]
+                        },
+                        "selectedRow" : {
+                          "type" : "variable",
                           "value" : ""
                         },
-                        "dimension" : {
+                        "striped" : {
                           "type" : "constant",
-                          "value" : 12
+                          "value" : true
+                        },
+                        "condensed" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "bordered" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "editar" : {
+                          "type" : "constant",
+                          "value" : false
                         }
                       },
-                      "reference" : "d400c9bb-a25d-4790-b302-43faf7c7cb90",
+                      "reference" : "c0e2aa2e-1838-4236-9cc2-f73a143953da",
                       "hasValidationError" : false,
-                      "id" : "pbContainer",
-                      "rows" : [
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Banco"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.banco"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "05ac7b32-b6f2-4193-a5ca-2f94552904ad",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Tipo Cuenta"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.tipoCuenta"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "23c5d1f9-8c74-47f6-9218-d4054e2c5a0b",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Numero Cuenta"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.numeroCuenta"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "53e9f2bc-95cd-4dd6-a230-3a6d30d2f1c7",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 3,
-                              "sm" : 12,
-                              "xs" : 12,
-                              "lg" : 3
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Saldo Promedio"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "$item.saldoPromedio"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "36c2fa3b-7b45-4a09-a940-802562ad9107",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          }
-                        ]
-                      ]
+                      "id" : "customTblSDAEReferenciaAval"
                     }
                   ],
                   [
@@ -9731,6 +9111,18 @@
         "    \"varModificarInput\": true",
         "}"
       ],
+      "exposed" : false
+    },
+    "solicitudFinanciamiento" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.solicitudFinanciamientoModel_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "newTaskId" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

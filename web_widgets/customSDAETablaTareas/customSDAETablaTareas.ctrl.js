@@ -32,9 +32,9 @@ function PbTableCtrl($scope) {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/SDAEAceptacionFinanciamiento/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
         } else if (row.name === "Confirmación de notificación de apoyo") {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/aceptacionApoyo/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
+        } else if (row.name === "Modificar solicitud de financiamiento") {
+            url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/modificar_aval/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
         } 
-        
-        
         
         window.location.replace(url);
     };   

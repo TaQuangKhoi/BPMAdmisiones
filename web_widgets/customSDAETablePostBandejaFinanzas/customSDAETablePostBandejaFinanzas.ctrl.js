@@ -40,7 +40,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.verSolicitud = function(rowData) {
-          var req = {
+        var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
         };

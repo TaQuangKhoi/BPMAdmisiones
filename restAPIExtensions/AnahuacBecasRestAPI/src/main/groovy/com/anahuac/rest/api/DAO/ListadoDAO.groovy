@@ -252,9 +252,9 @@ class ListadoDAO {
 							}
 							where += " LOWER(SDAE.estatusSolicitud) ";
 							if (filtro.get("operador").equals("Igual a")) {
-								where += "=LOWER('[valor]')"
+								where += "=LOWER('[valor]') OR LOWER(SF.estatusSolicitud)=LOWER('[valor]')"
 							} else {
-								where += "LIKE LOWER('%[valor]%')"
+								where += "LIKE LOWER('%[valor]%') OF LOWER(SF.estatusSolicitud) LIKE LOWER('%[valor]%')"
 							}
 							where = where.replace("[valor]", filtro.get("valor"))
 							break;
@@ -1339,9 +1339,9 @@ class ListadoDAO {
 
 			assert object instanceof Map;
 			where += " WHERE SDAE.eliminado = false "
-			
+				
 			if (object.estatusSolicitud != null) {
-				where += " AND SDAE.estatusSolicitud IN ("+object.estatusSolicitud+") "
+				where += " AND SF.estatusSolicitud IN ("+object.estatusSolicitud+") "
 			}
 			
 			if (object.caseId != null) {
@@ -1372,8 +1372,8 @@ class ListadoDAO {
 				SSA = rs.getString("valor")
 			}
 
-			String consulta = Statements.GET_SOLICITUDES_APOYO_BY_ESTATUS
-			String consultaCount = Statements.GET_COUNT_SOLICITUDES_APOYO_BY_ESTATUS
+			String consulta = Statements.GET_SOLICITUDES_APOYO_BY_ESTATUS;
+			String consultaCount = Statements.GET_COUNT_SOLICITUDES_APOYO_BY_ESTATUS;
 
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog = consulta + " 1";
@@ -1476,7 +1476,7 @@ class ListadoDAO {
 						} else {
 							where += " WHERE "
 						}
-						where += " LOWER(SDAE.estatusSolicitud) ";
+						where += " LOWER(SF.estatusSolicitud) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
@@ -1560,6 +1560,8 @@ class ListadoDAO {
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			errorlog = consulta + " 8";
+			
+			errorlog += where;
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
