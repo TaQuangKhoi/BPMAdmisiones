@@ -8167,17 +8167,20 @@ class ListadoDAO {
             def object = jsonSlurper.parseText(jsonData);
 
             Result dataResult = new Result();
-            Result dataResult2 = new Result();
-            int rowCount = 0;
-            List < Object > lstParams;
-            List < Object > lstParams2;
-            String type = object.type;
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet(type);
-            CellStyle style = workbook.createCellStyle();
-            org.apache.poi.ss.usermodel.Font font = workbook.createFont();
-            font.setBold(true);
-            style.setFont(font);
+			int rowCount = 0;
+			List<Object> lstParams;
+			String type = object.type;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("ReportPaseLista");
+			XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+			style.setAlignment(HorizontalAlignment.CENTER)
+			//color
+			IndexedColorMap colorMap = workbook.getStylesSource().getIndexedColors();
+			XSSFColor  color = new XSSFColor(new java.awt.Color(191,220,249),colorMap);
+			errorLog = "0";
             if (type.equals("paselista") || type.equals("paselistareporte") || type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador")) {
 
                 if (type.equals("paselista")) {
@@ -8197,12 +8200,7 @@ class ListadoDAO {
                     errorLog += dataResult.getError_info();
                     throw new Exception("No encontro datos de pase de lista");
                 }
-                dataResult2 = new SesionesDAO().getResponsables(jsonData, context)
-                if (dataResult2.success) {
-                    lstParams2 = dataResult2.getData();
-                } else {
-                    throw new Exception("No encontro responsables:" + dataResult2.getError_info());
-                }
+				
 
                 Row titleRow = sheet.createRow(++rowCount);
                 Cell cellReporte = titleRow.createCell(1);
@@ -8233,10 +8231,11 @@ class ListadoDAO {
 
                 Row espacio = sheet.createRow(++rowCount);
                 def titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA"]
-                if (type.equals("paselistareportelistado") && lstParams[0].tipoprueba_pid == "1") {
+                if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador") ) && lstParams[0].tipoprueba_pid == "1") {
                     titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","RESPONSABLE"];
                 }
                 
+				errorLog += "1";
 			    Row headersRow = sheet.createRow(++rowCount);
 			    ++rowCount;
 			    List<Cell> header = new ArrayList<Cell>();
@@ -8245,12 +8244,17 @@ class ListadoDAO {
 				    header[i].setCellValue(titulos.get(i))
 				    header[i].setCellStyle(style)
 			    }
-			
+				errorLog += "2";
+				
 			    CellStyle bodyStyle = workbook.createCellStyle();
 			    bodyStyle.setWrapText(true);
 			    bodyStyle.setAlignment(HorizontalAlignment.CENTER);
-
-                def info = ["idbanner","apellidopaterno","apellidomaterno","primernombre","segundonombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia"];
+				errorLog += "3";
+				def info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia"];
+				if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador")) && lstParams[0].tipoprueba_pid == "1") {
+					info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia","responsable"];
+				}
+				
 			    List<Cell> body;
 			    for (int i = 0; i < lstParams.size(); ++i){
 				    Row row = sheet.createRow(rowCount);
@@ -8261,24 +8265,22 @@ class ListadoDAO {
                             body.add(row.createCell(j))
 					        body[j].setCellValue(lstParams[i].apellidopaterno + " " + lstParams[i].apellidomaterno+ " " + lstParams[i].primernombre + " " + lstParams[i].segundonombre)
 					        body[j].setCellStyle(bodyStyle);
-                            j=4;
+							errorLog += "5";
                         }else if(j==13){
+							errorLog += "4";
                             body.add(row.createCell(j))
 					        body[j].setCellValue((lstParams[i].asistencia != null?(lstParams[i].asistencia == "t"?"Sí" : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))) : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))))
 					        body[j].setCellStyle(bodyStyle);
-                        }else if(j==14 && titulos.size() == 15){
-                            body.add(row.createCell(j))
-					        body[j].setCellValue(lstParams[i].responsable)
-					        body[j].setCellStyle(bodyStyle);
                         }else{
+							errorLog += "7"+j+info?.get(j);
                             body.add(row.createCell(j))
-					        body[j].setCellValue(lstParams[i][info.get(j)])
+					        body[j].setCellValue( isNullOrBlanck(lstParams[i][info?.get(j)].toString()) )
 					        body[j].setCellStyle(bodyStyle);
                         }
 					    
 				    }
 			    }
-
+				errorLog += "8";
                 for (int i = 0; i <= 15; ++i) {
                     sheet.autoSizeColumn(i);
                 }
@@ -8290,23 +8292,39 @@ class ListadoDAO {
 
             FileOutputStream outputStream = new FileOutputStream("ReportPaseLista.xls");
             workbook.write(outputStream);
-
+			outputStream.close();
+			
             List < Object > lstResultado = new ArrayList < Object > ();
             lstResultado.add(encodeFileToBase64Binary("ReportPaseLista.xls"));
             resultado.setSuccess(true);
             resultado.setData(lstResultado);
-            
+			
+			File file = new File("ReportPaseLista.xls");
+			if (file.exists()){
+				if(file.delete()) {
+					errorLog+="Sea eliminado Registros"
+				}
+			 }
+			 resultado.setError_info(errorLog);
         } catch (Exception e) {
             LOGGER.error "[ERROR] " + e.getMessage();
             e.printStackTrace();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            
+			resultado.setError_info(errorLog);
             e.printStackTrace();
         }
 
         return resultado;
     }
+	
+	private String isNullOrBlanck(String text) {
+		if(text == null || text.equals(null) || text.equals("null") || text.equals("") || text.length() == 0) {
+			return "N/A"
+		}
+		
+		return text;
+	}
 
     public Result getPdfPaseLista(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
