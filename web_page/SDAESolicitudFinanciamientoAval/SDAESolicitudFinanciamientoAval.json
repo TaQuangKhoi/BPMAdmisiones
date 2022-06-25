@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1656017884681,
+  "lastUpdate" : 1656113876542,
   "rows" : [
     [
       {
@@ -1906,7 +1906,7 @@
                               },
                               "maxLength" : {
                                 "type" : "expression",
-                                "value" : "14"
+                                "value" : "avalInfoPersonalModel.pais == 'México'?10:14"
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -2285,8 +2285,8 @@
                                 "value" : ""
                               },
                               "maxLength" : {
-                                "type" : "constant",
-                                "value" : 16
+                                "type" : "expression",
+                                "value" : "14"
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -2320,19 +2320,21 @@
                                 "value" : "text"
                               },
                               "min" : {
-                                "type" : "constant"
+                                "type" : "constant",
+                                "value" : 1
                               },
                               "max" : {
-                                "type" : "constant"
+                                "type" : "constant",
+                                "value" : 99999999999999
                               },
                               "step" : {
                                 "type" : "constant",
                                 "value" : 1
                               }
                             },
-                            "reference" : "138d988c-bb1f-42db-b97d-a8cffdb9694c",
+                            "reference" : "4bb02078-4a07-4d6b-9f11-ad41a043bf2e",
                             "hasValidationError" : false,
-                            "id" : "customSDAEInputLimit"
+                            "id" : "customInputNumerico"
                           }
                         ],
                         [
@@ -4516,7 +4518,7 @@
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 250
+                                      "value" : 20
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -4550,19 +4552,21 @@
                                       "value" : "text"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 1
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100000000000000000000
                                     },
                                     "step" : {
                                       "type" : "constant",
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "8694ceec-65e3-476b-9b71-18a072eb0e7c",
+                                  "reference" : "e69fd0e9-a236-4a5f-b275-482b35f7cce0",
                                   "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
+                                  "id" : "customInputNumerico"
                                 }
                               ],
                               [
@@ -7330,6 +7334,7 @@
       "type" : "expression",
       "value" : [
         "let output = true;\r",
+        "const re = /^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/;\r",
         "\r",
         "if(!$data.avalInfoPersonalModel){\r",
         "    output = false;\r",
@@ -7375,9 +7380,17 @@
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Teléfono' no debe ir vacío\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Domicilio\";\r",
+        "}else if($data.avalInfoPersonalModel.telefono.length < 10){\r",
+        "    output = false;\r",
+        "\t$data.errorMEssageInfoPersonal = \"Campo 'Teléfono' tiene que tener un mínimo de 10 dígitos\";\r",
+        "\t$data.titleMEssageInfoPersonal = \"Domicilio\";\r",
         "} else if(!$data.avalInfoPersonalModel.email){\r",
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Email' no debe ir vacío\";\r",
+        "\t$data.titleMEssageInfoPersonal = \"Domicilio\";\r",
+        "} else if(!re.test(String($data.avalInfoPersonalModel.email.trim()).toLowerCase())){\r",
+        "    output = false;\r",
+        "\t$data.errorMEssageInfoPersonal = \"Campo 'Email' no es válido.\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Domicilio\";\r",
         "}\r",
         "\r",
