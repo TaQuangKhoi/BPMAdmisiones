@@ -6207,7 +6207,7 @@ class SesionesDAO {
 			String consulta_EXT = Statements.COUNT_ASPIRANTESPRUEBA_BY_PRUEBA;
 			consulta=consulta.replace("[RESIDENCIA]", residencia);
 			consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT);
-			String groupBy = "group by S.NOMBRE, s.persistenceid,p.persistenceid,p.aplicacion,cc.clave,sexo.clave,periodo.clave,cec.descripcion,sda.calle,cc.numeroexterior,sda.colonia,ce.ciudad, sda.codigopostal, p.nombre, p.cupo, p.registrados, p.entrada, p.salida, p.lugar,p.aplicacion";
+			String groupBy = "group by S.NOMBRE, s.persistenceid,p.persistenceid,p.aplicacion,cc.clave,sexo.clave,periodo.clave,p.nombre, p.cupo, p.registrados, p.entrada, p.salida, p.lugar,p.aplicacion";
 			consulta=consulta.replace("[GROUPBY]", groupBy)
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
@@ -6243,7 +6243,7 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			
+			resultado.setError_info(consulta)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			//resultado.setError("500 Internal Server Error")
