@@ -13,7 +13,8 @@ function ($scope, $http) {
                     "interesInscripcion":false,
                     "interesColegiatura":false,
                     "porcentajeInteresFinanciamiento": 0,
-                    "idCampus": $scope.properties.idCampus
+                    "idCampus": $scope.properties.idCampus,
+                    "promedioMinimo": 0
                 }
             }
         }).error((err)=>{
@@ -24,7 +25,8 @@ function ($scope, $http) {
                     "interesInscripcion":false,
                     "interesColegiatura":false,
                     "porcentajeInteresFinanciamiento": 0,
-                    "idCampus": $scope.properties.idCampus
+                    "idCampus": $scope.properties.idCampus,
+                    "promedioMinimo": 0
                 }
             console.log(error);
         })

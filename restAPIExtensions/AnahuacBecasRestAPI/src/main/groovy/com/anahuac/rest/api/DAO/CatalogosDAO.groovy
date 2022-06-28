@@ -2047,6 +2047,7 @@ class CatalogosDAO {
 				configCampus.setTieneFinanciamiento(rs.getBoolean("TIENEFINANCIAMIENTO"));
 				configCampus.setUrlReglamento(rs.getString("URLREGLAMENTO"));
 				configCampus.setIdCampus(rs.getLong("IDCAMPUS"));
+				configCampus.setPromedioMinimo(rs.getDouble("PROMEDIOMINIMO"));
 				
 				lstData.add(configCampus);		
 			}
@@ -2089,6 +2090,7 @@ class CatalogosDAO {
 				pstm.setDouble(5, Double.parseDouble(object.porcentajeInteresFinanciamiento.toString()));
 				pstm.setBoolean(6, object.tieneFinanciamiento);
 				pstm.setString(7, object.urlReglamento);
+				pstm.setDouble(8, object.promedioMinimo);
 				pstm.executeUpdate();
 				
 				con.commit();
@@ -2103,7 +2105,8 @@ class CatalogosDAO {
 				pstm.setDouble(4, Double.parseDouble(object.porcentajeInteresFinanciamiento.toString()));
 				pstm.setBoolean(5, object.tieneFinanciamiento);
 				pstm.setString(6, object.urlReglamento);
-				pstm.setLong(7, Long.valueOf(object.idCampus.toString()));
+				pstm.setDouble(7, object.promedioMinimo);
+				pstm.setLong(8, Long.valueOf(object.idCampus.toString()));
 				pstm.executeUpdate();
 				
 				con.commit();

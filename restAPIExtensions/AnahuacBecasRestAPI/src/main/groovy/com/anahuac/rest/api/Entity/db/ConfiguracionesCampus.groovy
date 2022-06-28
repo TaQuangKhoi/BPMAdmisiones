@@ -9,6 +9,7 @@ class ConfiguracionesCampus {
 	Boolean interesColegiatura;
 	Boolean descuentoProntoPago;
 	Long idCampus;
+	Double promedioMinimo;
 	
 	public Long getPersistenceId() {
 		return persistenceId;
@@ -57,5 +58,11 @@ class ConfiguracionesCampus {
 	}
 	public void setIdCampus(Long idCampus) {
 		this.idCampus = idCampus;
+	}
+	public Double getPromedioMinimo() {
+		return promedioMinimo;
+	}
+	public void setPromedioMinimo(Double promedioMinimo) {
+		this.promedioMinimo = promedioMinimo;
 	}
 }
