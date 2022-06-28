@@ -442,7 +442,8 @@ class CatalogosDAO {
 				pstm.setString(5, objCatGenerico.urlDocumentoAzure);
 				pstm.setString(6, objCatGenerico.descripcionDocumento);
 				pstm.setBoolean(7, objCatGenerico.requiereEjemplo);
-				pstm.setLong(8, objCatGenerico.persistenceId);
+				pstm.setBoolean(8, Boolean.valueOf(objCatGenerico.isAval) ? true : false);
+				pstm.setLong(9, objCatGenerico.persistenceId);
 				pstm.execute();
 			}else {
 				errorLog+= " insert";
@@ -455,6 +456,7 @@ class CatalogosDAO {
 				pstm.setString(6, objCatGenerico.urlDocumentoAzure);
 				pstm.setString(7, objCatGenerico.usuarioCreacion);
 				pstm.setBoolean(8, Boolean.valueOf(objCatGenerico.requiereEjemplo) ? true : false);
+				pstm.setBoolean(9, Boolean.valueOf(objCatGenerico.isAval) ? true : false);
 				pstm.execute();
 			}
 			errorLog+= " salio";
@@ -1145,7 +1147,7 @@ class CatalogosDAO {
 	 * @param context (RestAPIContext)
 	 * @return resultado (Result)
 	 */
-	public Result getDocumentosByTipoApoyo(String campus, String idTipoApoyo, RestAPIContext context) {
+	public Result getDocumentosByTipoApoyo(String campus, String idTipoApoyo, Boolean isAval, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String where = "", orderby = "ORDER BY ", errorLog="entro";
@@ -1157,13 +1159,13 @@ class CatalogosDAO {
 			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
 			closeCon = validarConexion();
 			where += " WHERE doc.ISELIMINADO <> TRUE AND rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
+			isAval == true ? (where += " AND doc.isaval = true" ) : (where += "AND (doc.isaval is null OR doc.isaval = false)");
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			pstm = con.prepareStatement(consulta);
 			pstm.setLong(1, Long.valueOf(idTipoApoyo));
 			pstm.setString(2, campus);
-				
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
@@ -1181,6 +1183,7 @@ class CatalogosDAO {
 				rows.add(row);
 			}
 			
+//			resultado.setError_info(errorLog);
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		} catch (Exception e) {

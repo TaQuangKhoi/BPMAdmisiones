@@ -88,7 +88,9 @@ class IndexGET implements RestApiController {
 				case "getDocumentosByTipoApoyo":
 					String campus = request.getParameter "campus"
 					String idTipoApoyo = request.getParameter "idTipoApoyo"
-					result = new CatalogosDAO().getDocumentosByTipoApoyo(campus, idTipoApoyo, context);
+					String isAvalString = request.getParameter "isAval"
+					Boolean isAval = isAvalString.equals("true");
+					result = new CatalogosDAO().getDocumentosByTipoApoyo(campus, idTipoApoyo, isAval, context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

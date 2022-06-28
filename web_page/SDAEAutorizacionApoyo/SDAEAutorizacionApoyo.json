@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1655508761997,
+  "lastUpdate" : 1656091419423,
   "rows" : [
     [
       {
@@ -2090,6 +2090,103 @@
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
+                        "md" : 3,
+                        "lg" : 3
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "06c06950-4348-4d28-97ca-bf680d1a11c7",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [ ]
+                      ]
+                    },
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "¿Qué tipo de apoyo deseas otorgar?"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "inline" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "availableValues" : {
+                          "type" : "expression",
+                          "value" : "setOpciones"
+                        },
+                        "displayedKey" : {
+                          "type" : "constant",
+                          "value" : "clave"
+                        },
+                        "returnedKey" : {
+                          "type" : "constant",
+                          "value" : "isBecaFinanciamiento"
+                        },
+                        "selectedValue" : {
+                          "type" : "variable",
+                          "value" : "tipoApoyoSeleccionado"
+                        }
+                      },
+                      "reference" : "79efcd3a-8593-44bb-af40-36118cadb165",
+                      "hasValidationError" : false,
+                      "id" : "pbRadioButtons"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
                         "md" : 12,
                         "lg" : 12
                       },
@@ -2949,8 +3046,8 @@
                                       "value" : ""
                                     },
                                     "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "!tipoApoyoSeleccionado.isBecaFinanciamiento"
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -4153,8 +4250,8 @@
                                       "value" : ""
                                     },
                                     "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "!tipoApoyoSeleccionado.isBecaFinanciamiento"
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -5155,8 +5252,8 @@
                                       "value" : ""
                                     },
                                     "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "!tipoApoyoSeleccionado.isBecaFinanciamiento"
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -6413,6 +6510,29 @@
         "        break;\r",
         "    } \r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "setOpciones" : {
+      "type" : "json",
+      "value" : [
+        "[",
+        "    {",
+        "        \"clave\": \"Solo beca\",",
+        "        \"isBecaFinanciamiento\": false",
+        "    },",
+        "    {",
+        "        \"clave\": \"Beca con financiamiento\",",
+        "        \"isBecaFinanciamiento\": true",
+        "    }",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "tipoApoyoSeleccionado" : {
+      "type" : "json",
+      "value" : [
+        "{}"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1655747449634,
+  "lastUpdate" : 1656375026163,
   "rows" : [
     [
       {
@@ -267,12 +267,41 @@
         "rows" : [
           [
             {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 1,
+                "lg" : 1
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "7a236f07-d557-4fc1-a484-29e8cf67d743",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 10,
+                "lg" : 10
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -326,11 +355,79 @@
                 "lstContenido" : {
                   "type" : "variable",
                   "value" : "lstContenido"
+                },
+                "sdae" : {
+                  "type" : "expression",
+                  "value" : "solicitudApoyoEducativo"
+                },
+                "solicitudDeAdmision" : {
+                  "type" : "expression",
+                  "value" : "objSolicitudDeAdmision"
+                },
+                "porcentajeBeca" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catPorcentajeBeca.descripcion"
+                },
+                "porcentajeFinanciamiento" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catPorcentajeFinanciamiento.descripcion"
                 }
               },
-              "reference" : "93fb06d2-68af-482d-9c86-e09a467e34ae",
+              "reference" : "2b3e84f1-1deb-49a1-99bc-ac7fbe14445e",
               "hasValidationError" : false,
-              "id" : "customSDAETablePostSolicitudByCaseId"
+              "id" : "customSDAEFormInfoAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "ef9027b1-52d0-4b7a-a7b6-9d0baa82be23",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -340,7 +437,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 3,
-                "lg" : 3
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -428,7 +525,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 3,
-                "lg" : 3
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -516,7 +613,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 3,
-                "lg" : 3
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -604,7 +701,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 3,
-                "lg" : 3
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -2740,11 +2837,19 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
+                        },
+                        "isValid" : {
+                          "type" : "expression",
+                          "value" : "validateModificar"
+                        },
+                        "errorMessage" : {
+                          "type" : "constant",
+                          "value" : "No se  pueden solicitar modificaciones sin seleccionar al menos una sección donde las modificaciones son  requeridas"
                         }
                       },
-                      "reference" : "64d11d3c-4260-4814-94bb-354744fd56c1",
+                      "reference" : "63d0ffc0-cb32-4027-8962-f6f9cb7b89fd",
                       "hasValidationError" : false,
-                      "id" : "customSDAEButtonCloseWindow"
+                      "id" : "customSDAEButtonCloseWindowValidation"
                     }
                   ],
                   [
@@ -3737,6 +3842,13 @@
       "external" : false
     },
     {
+      "id" : "e43cc778-a46a-4d14-ab05-461569e15212",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 6,
+      "external" : false
+    },
+    {
       "id" : "ac7d78b6-6566-4bd5-93b7-22c97d94d7f2",
       "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
       "type" : "css",
@@ -4118,7 +4230,9 @@
       "value" : [
         "var mostrar = false;",
         "",
-        "if($data.getSolicitudApoyoEducativo[0].isartistica == 't' || $data.getSolicitudApoyoEducativo[0].isdeportiva == 't'){",
+        "if( $data.getSolicitudApoyoEducativo[0].isartistica == 't' || ",
+        "    $data.getSolicitudApoyoEducativo[0].isdeportiva == 't' || ",
+        "    $data.getSolicitudApoyoEducativo[0].isacademica == 't'){",
         "    mostrar = true;",
         "}",
         "",
@@ -4229,50 +4343,71 @@
     "returnCatValue" : {
       "type" : "expression",
       "value" : [
-        "let output = {",
-        "    \"catTienesHijos\": null,",
-        "    \"catBecaPreparatoria\": null,",
-        "    \"catTipoApoyo\": null,",
-        "    \"catTipoMoneda\": null,",
-        "    \"catTienesHermanos\": null",
-        "};",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
-        "    for(let cat of $data.lstCatTienesHermanos.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
-        "            output[\"catTienesHermanos\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "            output[\"catBecaPreparatoria\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
-        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
-        "            output[\"catTipoApoyo\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
-        "    for(let cat of $data.lstTipoMoneda.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
-        "            output[\"catTipoMoneda\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
+        "let output = {\r",
+        "    // \"catTienesHijos\": null,\r",
+        "    // \"catBecaPreparatoria\": null,\r",
+        "    // \"catTipoApoyo\": null,\r",
+        "    // \"catTipoMoneda\": null,\r",
+        "    // \"catTienesHermanos\": null,\r",
+        "    \"catPorcentajeBeca\": null, \r",
+        "    \"catPorcentajeFinanciamiento\": null\r",
+        "};\r",
+        "\r",
+        "// if($data.objSolicitudDeAdmision.catTienesHermanos_id){\r",
+        "//     for(let cat of $data.lstCatTienesHermanos.data){\r",
+        "//         if(cat.persistenceId === $data.objSolicitudDeAdmision.catTienesHermanos_id){\r",
+        "//             output[\"catTienesHermanos\"] =  cat;\r",
+        "//             break;\r",
+        "//         }    \r",
+        "//     }\r",
+        "// }\r",
+        "\r",
+        "// if($data.objSolicitudDeAdmision.catBecaPreparatoria_id){\r",
+        "//     for(let cat of $data.lstCatContoBecaPreparatoria.data){\r",
+        "//         if(cat.persistenceId === $data.objSolicitudDeAdmision.catBecaPreparatoria_id){\r",
+        "//             output[\"catBecaPreparatoria\"] =  cat;\r",
+        "//             break;\r",
+        "//         }    \r",
+        "//     }\r",
+        "// }\r",
+        "\r",
+        "// if($data.objSolicitudDeAdmision.catTipoApoyo_id){\r",
+        "//     for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
+        "//         if(cat.persistenceId === $data.objSolicitudDeAdmision.catTipoApoyo_id){\r",
+        "//             output[\"catTipoApoyo\"] =  cat;\r",
+        "//             break;\r",
+        "//         }    \r",
+        "//     }\r",
+        "// }\r",
+        "\r",
+        "// if($data.objSolicitudDeAdmision.catTipoMoneda_id){\r",
+        "//     for(let cat of $data.lstTipoMoneda.data){\r",
+        "//         if(cat.persistenceId === $data.objSolicitudDeAdmision.catTipoMoneda_id){\r",
+        "//             output[\"catTipoMoneda\"] =  cat;\r",
+        "//             break;\r",
+        "//         }    \r",
+        "//     }\r",
+        "// }\r",
+        "\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        debugger;\r",
+        "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
         "return output;"
       ],
       "exposed" : false
@@ -4511,6 +4646,25 @@
         "        break;\r",
         "    }\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "validateModificar" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;\r",
+        "\r",
+        "if(\r",
+        "    !$data.formInput.solicitudApoyoEducativoInput.modificarInfoPersonal &&\r",
+        "    !$data.formInput.solicitudApoyoEducativoInput.modificarInfoFamiliar &&\r",
+        "    !$data.formInput.solicitudApoyoEducativoInput.modificarMotivoSol &&\r",
+        "    !$data.formInput.solicitudApoyoEducativoInput.modificarInfoSocioEco &&\r",
+        "    !$data.formInput.solicitudApoyoEducativoInput.modificarDocumentos\r",
+        "){\r",
+        "    output = false;\r",
+        "}\r",
+        "\r",
+        "return output;"
       ],
       "exposed" : false
     }
