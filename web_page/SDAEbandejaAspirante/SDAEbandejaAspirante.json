@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1655936719551,
+  "lastUpdate" : 1656543504816,
   "rows" : [
     [
       {
@@ -905,6 +905,22 @@
                         "tipoMoneda" : {
                           "type" : "expression",
                           "value" : "tipoMoneda"
+                        },
+                        "promedioMinimo" : {
+                          "type" : "constant",
+                          "value" : "8"
+                        },
+                        "promedioGeneral" : {
+                          "type" : "expression",
+                          "value" : "objSolicitudDeAdmision[0].promedioGeneral"
+                        },
+                        "aceptado" : {
+                          "type" : "expression",
+                          "value" : "objSolicitudDeAdmision[0].aceptado"
+                        },
+                        "idCampus" : {
+                          "type" : "expression",
+                          "value" : "objSolicitudDeAdmision[0].catCampus.persistenceId"
                         }
                       },
                       "reference" : "b5c3e25a-4221-4570-95b2-ac4d2f3de2b4",
@@ -1686,6 +1702,13 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "41fb5dd6-8561-4384-8634-c077ac999562",
+      "name" : "sweetalert.min (1).js",
+      "type" : "js",
+      "order" : 2,
       "external" : false
     }
   ],

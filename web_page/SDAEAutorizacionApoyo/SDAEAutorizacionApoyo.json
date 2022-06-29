@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1656091419423,
+  "lastUpdate" : 1656538063036,
   "rows" : [
     [
       {
@@ -267,6 +267,119 @@
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 1,
+                "lg" : 1
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "7bb9b1e5-fef6-4c8a-99e7-d47afefe8657",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 10,
+                "lg" : 10
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "sdae" : {
+                  "type" : "expression",
+                  "value" : "solicitudApoyoEducativo"
+                },
+                "solicitudDeAdmision" : {
+                  "type" : "expression",
+                  "value" : "objSolicitudDeAdmision"
+                },
+                "porcentajeBeca" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catPorcentajeBeca.descripcion"
+                },
+                "porcentajeFinanciamiento" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catPorcentajeFinanciamiento.descripcion"
+                }
+              },
+              "reference" : "e6a2e377-66f1-4435-8878-67bf51e351dc",
+              "hasValidationError" : false,
+              "id" : "customSDAEFormInfoAspirante"
+            }
+          ],
           [
             {
               "type" : "component",
@@ -6143,33 +6256,10 @@
       "type" : "expression",
       "value" : [
         "let output = {\r",
-        "    // \"catTienesHijos\": null,\r",
-        "    // \"catBecaPreparatoria\": null,\r",
         "    \"catTipoApoyo\": null,\r",
-        "    // \"catTipoMoneda\": null,\r",
-        "    // \"catTienesHermanos\": null,\r",
-        "    // \"catPorcentajeBeca\": null,\r",
-        "    // \"catPorcentajeFinanciamiento\": null\r",
+        "    \"catPorcentajeBeca\": null, \r",
+        "    \"catPorcentajeFinanciamiento\": null\r",
         "};\r",
-        "\r",
-        "\r",
-        "// if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){\r",
-        "//     for(let cat of $data.lstCatTienesHermanos.data){\r",
-        "//         if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){\r",
-        "//             output[\"catTienesHermanos\"] =  cat;\r",
-        "//             break;\r",
-        "//         }    \r",
-        "//     }\r",
-        "// }\r",
-        "\r",
-        "// if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){\r",
-        "//     for(let cat of $data.lstCatContoBecaPreparatoria.data){\r",
-        "//         if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){\r",
-        "//             output[\"catBecaPreparatoria\"] =  cat;\r",
-        "//             break;\r",
-        "//         }    \r",
-        "//     }\r",
-        "// }\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){\r",
         "    for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
@@ -6180,32 +6270,23 @@
         "    }\r",
         "}\r",
         "\r",
-        "// if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){\r",
-        "//     for(let cat of $data.lstTipoMoneda.data){\r",
-        "//         if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){\r",
-        "//             output[\"catTipoMoneda\"] =  cat;\r",
-        "//             break;\r",
-        "//         }    \r",
-        "//     }\r",
-        "// }\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
         "\r",
-        "// if($data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id && $data.lstCatPorcentajeBeca){\r",
-        "//     for(let cat of $data.lstCatPorcentajeBeca.data){\r",
-        "//         if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id){\r",
-        "//             output[\"catPorcentajeBeca\"] =  cat;\r",
-        "//             break;\r",
-        "//         }    \r",
-        "//     }\r",
-        "// }\r",
-        "\r",
-        "// if($data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id && $data.lstCatPorcentajeFinanciamiento){\r",
-        "//     for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
-        "//         if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id){\r",
-        "//             output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
-        "//             break;\r",
-        "//         }    \r",
-        "//     }\r",
-        "// }\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
         "\r",
         "return output;"
       ],

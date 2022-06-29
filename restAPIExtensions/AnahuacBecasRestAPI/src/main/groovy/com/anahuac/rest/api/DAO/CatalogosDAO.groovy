@@ -753,7 +753,6 @@ class CatalogosDAO {
 		String where = "", orderby = "ORDER BY ", errorLog="entro";
 		
 		try {
-			
 			String consulta = StatementsCatalogos.GET_TIPO_APOYO_BY_CAMPUS;
 			CatTypoApoyo row = new CatTypoApoyo();
 			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
@@ -781,15 +780,13 @@ class CatalogosDAO {
 				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
 				row.setUrlEjemploCurriculum(rs.getString("URLEJEMPLOCURRICULUM"));
 				row.setRequiereCurriculum(rs.getBoolean("REQUIERECURRICULUM"));
+				
 				rows.add(row);
 			}
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
-			
-
 		} catch (Exception e) {
-			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1179,7 +1176,9 @@ class CatalogosDAO {
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
 				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
 				row.setIsObligatorioDoc(rs.getBoolean("ISOBLIGATORIODOC"));
-				row.setRequiereEjemplo(rs.getBoolean("requiereEjemplo"));				
+				row.setRequiereEjemplo(rs.getBoolean("requiereEjemplo"));		
+				row.setIsAval(rs.getBoolean("isAval"));
+				
 				rows.add(row);
 			}
 			
@@ -2050,6 +2049,46 @@ class CatalogosDAO {
 				configCampus.setPromedioMinimo(rs.getDouble("PROMEDIOMINIMO"));
 				
 				lstData.add(configCampus);		
+			}
+			
+			errorLog += "Query ejecutada :: ";
+			
+			resultado.setData(lstData);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		resultado.setError_info(errorLog);
+		return resultado;
+	}
+	
+	public Result getPRomedioMinimoByCampus(Long idCampus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		ConfiguracionesCampus configCampus = new ConfiguracionesCampus();
+		List<ConfiguracionesCampus> lstData = new ArrayList<ConfiguracionesCampus>();
+		String errorLog = "";
+		
+		try {
+			errorLog += "Preparando conexión :: ";
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.GET_CAMPUS_CONFIG);
+			pstm.setLong(1, idCampus);
+			rs = pstm.executeQuery();
+			errorLog += "Query lista :: ";
+			
+			while(rs.next()) {
+				configCampus = new ConfiguracionesCampus();
+				configCampus.setPromedioMinimo(rs.getDouble("PROMEDIOMINIMO"));
+				
+				lstData.add(configCampus);
 			}
 			
 			errorLog += "Query ejecutada :: ";

@@ -5,19 +5,29 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        if ($scope.properties.aceptoAvisoPrivacidad == true) {
-            startProcess();
-            //var url= "/portal/resource/app/sdae/solicitudApoyoEducativo/content/"
-            //window.location.replace(url); 
-        } else {
-            swal("¡Aviso!", "Para continuar debe aceptar el aviso de privacidad.", "warning");
-        }
+        let url = "../API/extension/AnahuacBecasRestGET?url=getPRomedioMinimoByCampus&p=0&c=10&idCampus=" + $scope.properties.idCampus;
+        $http.get(url).success((result)=>{
+            let promedioMinimo = result.data[0].promedioMinimo;
+            let promedioGeneral = parseInt($scope.properties.promedioGeneral);
+            if(promedioMinimo > promedioGeneral){
+                showSwal("Atención", "No puedes solicitar apoyo educativo por que tu promedio es inferior al promedio mínimo marcado por el Campus.", "warning");
+            } else if ($scope.properties.aceptado === false){
+                showSwal("Atención", "No puedes solicitar un apoyo educativo por que tu soicitud de admisión fué rechazada", "warning");
+            } else {
+                if ($scope.properties.aceptoAvisoPrivacidad === true) {
+                    startProcess();
+                } else {
+                    swal("¡Aviso!", "Para continuar debe aceptar el aviso de privacidad.", "warning");
+                }
+            }
+        }).error(()=>{
+            
+        });
     };
 
     function startProcess() {
         //var id = getUrlParam('id');
         if ($scope.properties.idProceso) {
-            debugger;
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.idProceso + '/instantiation', getUserParam()).then(function () {
                 localStorageService.delete($window.location.href);
             });

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAECatControlDocumentos",
   "name" : "SDAECatControlDocumentos",
-  "lastUpdate" : 1656354838846,
+  "lastUpdate" : 1656530803589,
   "rows" : [
     [
       {
@@ -1080,58 +1080,6 @@
                 ],
                 [
                   {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "<pre>{{ tipoApoyoSeleccionado | json  }}</pre>"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      }
-                    },
-                    "reference" : "584146ac-25c3-47fb-b95d-129ee9417851",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
@@ -1157,6 +1105,58 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<hr>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "9385acbe-010b-4fa5-a10a-31a7ec7e9b2d",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
                       [
                         {
                           "type" : "component",
@@ -1229,7 +1229,7 @@
                             },
                             "modalId" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "nuevoAval"
                             },
                             "collectionPosition" : {
                               "type" : "constant",
@@ -1243,11 +1243,11 @@
                             },
                             "nuevoDocumento" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "nuevoDocumentoAval"
                             },
                             "nuevoDocumentoObjeto" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "nuevoDocumentoAvalValor"
                             }
                           },
                           "reference" : "0ad02a92-e7eb-43b2-b188-14255c09828d",
@@ -1295,7 +1295,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<hr>\n<h4>Documentos del aval</h4>"
+                              "value" : "<h4>Documentos del aval</h4>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -1379,7 +1379,7 @@
                             },
                             "contenido" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "lstContenidoAval"
                             },
                             "urlGet" : {
                               "type" : "expression",
@@ -1387,10 +1387,11 @@
                             },
                             "dataToFilter" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "dataToFilter"
                             },
                             "urlPost" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : "../API/extension/AnahuacBecasRest?url=getCatManejoDocumento&p=0&c=0&isAval=true"
                             },
                             "objCatGenerico" : {
                               "type" : "variable",
@@ -1402,7 +1403,7 @@
                             },
                             "idModal" : {
                               "type" : "constant",
-                              "value" : "modalNuevoDocumentoaAval"
+                              "value" : "nuevoAval"
                             },
                             "reloadTable" : {
                               "type" : "variable",
@@ -2723,7 +2724,8 @@
             "value" : ""
           },
           "modalId" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : "nuevoAval"
           },
           "size" : {
             "type" : "constant",
@@ -3119,8 +3121,8 @@
                           "value" : ""
                         },
                         "hidden" : {
-                          "type" : "constant",
-                          "value" : false
+                          "type" : "expression",
+                          "value" : "!nuevoDocumentoAval.requiereEjemplo"
                         },
                         "required" : {
                           "type" : "constant",
@@ -3395,7 +3397,7 @@
                         },
                         "closeOnSuccess" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "dataFromError" : {
                           "type" : "variable",

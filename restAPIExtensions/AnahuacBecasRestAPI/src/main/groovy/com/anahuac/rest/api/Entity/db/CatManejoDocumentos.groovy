@@ -14,6 +14,7 @@ class CatManejoDocumentos {
 	private String descripcionDocumento;
 	private Boolean isObligatorioDoc;
 	private Boolean requiereEjemplo;
+	private Boolean isAval;
 	
 	public String getDescripcionDocumento() {
 		return descripcionDocumento;
@@ -92,6 +93,12 @@ class CatManejoDocumentos {
 	}
 	public void setRequiereEjemplo(Boolean requiereEjemplo) {
 		this.requiereEjemplo = requiereEjemplo;
+	}
+	public Boolean getIsAval() {
+		return isAval;
+	}
+	public void setIsAval(Boolean isAval) {
+		this.isAval = isAval;
 	}
 	
 }

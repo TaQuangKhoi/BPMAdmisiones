@@ -5,9 +5,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        var url = "/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=" + $scope.properties.tipoMoneda
-        window.location.replace(url);
+        let url = "../API/extension/AnahuacBecasRestGET?url=getPRomedioMinimoByCampus&p=0&c=10&idCampus=" + $scope.properties.idCampus;
+        $http.get(url).success((result)=>{
+            debugger;
+            let promedioMinimo = parseFloat(result.data[0].promedioMinimo);
+            let promedioGeneral = parseFloat($scope.properties.promedioGeneral);
+            if(promedioMinimo > promedioGeneral){
+                showSwal("Atención", "No puedes solicitar apoyo educativo por que tu promedio es inferior al promedio mínimo marcado por el Campus.", "warning");
+            } else if ($scope.properties.aceptado === false){
+                showSwal("Atención", "No puedes solicitar un apoyo educativo por que tu soicitud de admisión fué rechazada", "warning");
+            } else {
+                var url = "/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=" + $scope.properties.tipoMoneda
+                window.location.replace(url);
+            }
+        }).error(()=>{
+            
+        });
+        // let promedioMinimo = parseInt($scope.properties.promedioMinimo);
+        
+        
+        //  var url = "/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=" + $scope.properties.tipoMoneda
+        //     window.location.replace(url);
     };
+    
+    function showSwal(_title, _message, _type){
+        swal(_title, _message, _type)
+    }
 
     function doRequest(method, url, params) {
         vm.busy = true;

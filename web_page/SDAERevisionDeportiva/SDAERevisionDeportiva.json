@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisionDeportiva",
   "name" : "SDAERevisionDeportiva",
-  "lastUpdate" : 1655747698009,
+  "lastUpdate" : 1656531880851,
   "rows" : [
     [
       {
@@ -85,7 +85,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -154,10 +154,152 @@
           ],
           [
             {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 1,
+                "lg" : 1
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "3d07099d-2fee-486f-a027-be97b8103b39",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
+                "md" : 10,
+                "lg" : 10
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "sdae" : {
+                  "type" : "expression",
+                  "value" : "solicitudApoyoEducativo"
+                },
+                "solicitudDeAdmision" : {
+                  "type" : "expression",
+                  "value" : "objSolicitudDeAdmision"
+                },
+                "porcentajeBeca" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catPorcentajeBeca.descripcion"
+                },
+                "porcentajeFinanciamiento" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catPorcentajeFinanciamiento.descripcion"
+                }
+              },
+              "reference" : "4a835009-ab71-4c1d-ad97-74e79aec2bbc",
+              "hasValidationError" : false,
+              "id" : "customSDAEFormInfoAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 2,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "1e3c514a-a9fc-477a-a039-94c543ce82f2",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 8,
                 "md" : 6,
                 "lg" : 6
               },
@@ -250,17 +392,55 @@
                 "tipoDocumento" : {
                   "type" : "constant",
                   "value" : "pdf"
+                },
+                "requiereEjemplo" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "urlEjemplo" : {
+                  "type" : "constant"
                 }
               },
               "reference" : "012713b8-f8ae-43af-9e7d-956ed9d62433",
               "hasValidationError" : false,
               "id" : "customSDAEUploadCustomAzure"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 2,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "12148b67-0597-4ea2-b933-21cf27c15021",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
             },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
+                "sm" : 8,
                 "md" : 6,
                 "lg" : 6
               },
@@ -2240,6 +2420,44 @@
       "type" : "json",
       "value" : [
         "{ \"linkSource\": \"\", \"fileName\": \"\", \"extension\": \"\" }"
+      ],
+      "exposed" : false
+    },
+    "objSolicitudDeAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCaseId&p=0&c=10&f=caseId={{formOutputTest.solicitudApoyoEducativoInput.caseIdAdmisiones}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "returnCatValue" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {\r",
+        "    \"catPorcentajeBeca\": null, \r",
+        "    \"catPorcentajeFinanciamiento\": null\r",
+        "};\r",
+        "\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return output;"
       ],
       "exposed" : false
     }
