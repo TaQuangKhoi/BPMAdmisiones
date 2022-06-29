@@ -1598,10 +1598,10 @@ class BannerDAO {
 							}else if(!objLstAddresses.getPais().equals("México") && !objLstAddresses.getPais().equals("Estados Unidos de América") && !objLstAddresses.getCiudad().contains(",")){
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla4:"+(isEliminadoRegla) 
-							}else if(objLstAddresses.getPostalCode().equals("") ||objLstAddresses.getPostalCode().equals(null) ||objLstAddresses.getPostalCode() == null ) {
+							}else if(objLstAddresses.getPostalCode().equals("null") || objLstAddresses.getPostalCode().equals("") || objLstAddresses.getPostalCode().equals(null) || objLstAddresses.getPostalCode() == null ) {
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla5:"+(isEliminadoRegla)
-							}else if(objRow.getTypeInd().equals("") ||objRow.getTypeInd().equals(null) || objRow.getTypeInd() == null || !objRow.getTypeInd().equals("H") ) {
+							}else if( objRow.getTypeInd().equals("null") || objRow.getTypeInd().equals("") || objRow.getTypeInd().equals(null) || objRow.getTypeInd() == null || !objRow.getTypeInd().equals("H") ) {
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla6:"+(isEliminadoRegla)
 							}
