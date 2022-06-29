@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaPsicologoAdministrador",
   "name" : "PaseListaPsicologoAdministrador",
-  "lastUpdate" : 1639508501817,
+  "lastUpdate" : 1656032143423,
   "rows" : [
     [
       {
@@ -748,107 +748,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "dfac493e-bc08-4411-ad72-8f8ea6d5b628",
+                          "reference" : "945cc928-06eb-4dc7-b402-99d669f68bad",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "disabled" : {
-                              "type" : "expression",
-                              "value" : "lstContenido.length < 1"
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "<i class=\"glyphicon glyphicon-download-alt\"></i> PDF"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "primary"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "POST"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation",
-                              "value" : "../API/extension/AnahuacRest?url=getPdfPaseLista&p=0&c=10"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "expression",
-                              "value" : "Files"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            },
-                            "fileExtension" : {
-                              "type" : "constant",
-                              "value" : "pdf"
-                            }
-                          },
-                          "reference" : "2464ad62-247b-43f8-8356-ce2956a4d420",
-                          "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ]
                     ]
@@ -4463,9 +4371,9 @@
         "            \"estatusSolicitud\": \"Solicitud en progreso\",\r",
         "            \"tarea\": \"Llenar solicitud\",\r",
         "            \"lstFiltro\": [{\r",
-        "                \"columna\": \"CAMPUS\",\r",
+        "                \"columna\": \"CAMPUS DESCRIPCION\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.grupobonita\r",
+        "                \"valor\": $data.strUsuario.campus\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4565,6 +4473,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Reporte psicologo administrador pase de lista '${$data.datosPrueba[0].nombre}'`;"
       ],
       "exposed" : false
     }

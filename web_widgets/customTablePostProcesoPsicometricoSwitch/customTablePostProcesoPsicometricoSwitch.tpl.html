@@ -84,9 +84,10 @@
                             ng-show="properties.dataToSend.orderby=='PSICOLOGO'"></i></span></th>
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> <!--/ <span style="cursor:pointer" ng-click="setOrderBy('TIPO')">Tipo<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('EstatusReporte')">Estatus del reporte<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='TIPO'"></i></span>--></th>
+                            ng-show="properties.dataToSend.orderby=='EstatusReporte'"></i></span></th>
+                            
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última modificación<i class="glyphicon" 
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" 
                             ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
@@ -102,7 +103,7 @@
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
                     <td><input ng-model="dynamicInput['indicadores']" class="form-control" ng-enter="filterKeyPress('INDICADORES',dynamicInput['indicadores'])"></td>
                     <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('SESIÓN,FECHA ENTREVISTA',dynamicInput['sesion'])"></td>
-                    <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
+                    <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS,ESTATUS DEl REPORTE',dynamicInput['estatus'])"></td>
                     <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control" ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
                     <td></td>
                 </tr>
@@ -140,7 +141,8 @@
                         {{row.responsableid}}
                     </td>
                     <td class="max-size">
-                        <b>{{row.estatussolicitud2 != null ? row.estatussolicitud2:row.estatussolicitud }}</b><br> 
+                        <b>{{row.estatussolicitud2 != null ? row.estatussolicitud2:row.estatussolicitud }}</b><br>
+                        <b style="color:#ff5900" >{{ row.finalizado == 't' ? 'Finalizado':'En proceso' }}</b>
                         <label ng-if="isPeriodoVencido(row.periodofin)" class="blink_me" style="color:red">Periodo Vencido</label>
                         <!--{{row.tipoalumno}}-->
                         <br>
