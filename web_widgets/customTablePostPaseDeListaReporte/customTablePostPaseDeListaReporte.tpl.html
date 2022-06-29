@@ -23,6 +23,10 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='CURP'"></i></span> </th>
                             
+                    <th><span style="cursor:pointer" ng-click="setOrderBy('SEXO')">Sexo<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='SEXO'"></i></span></th>
+                            
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('LICENCIATURA')">Programa<i class="glyphicon"
@@ -43,17 +47,11 @@
                     <th><span style="cursor:pointer" ng-click="setOrderBy('RESIDENCIA')">Residencia<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='RESIDENCIA'"></i></span></th>
-                            
-                    <th><span style="cursor:pointer" ng-click="setOrderBy('SEXO')">Sexo<i class="glyphicon"
-                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='SEXO'"></i></span></th>
-                            
-                    
                     
                     <th ng-if="properties.lstContenido[0].tipoprueba_pid=='1'"> 
                     <span style="cursor:pointer" ng-click="setOrderBy('HORARIO')">Hora de la entrevista<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='HORARIO'"></i></span>
+                            ng-show="properties.dataToSend.orderby=='HORARIO'"></i></span> / <span>Psicólogo</span>
                     </th>  
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('ASISTENCIA')">Asistencia<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
@@ -66,10 +64,10 @@
                     <td></td>
                     <td><input ng-model="dynamicInput['id']" class="form-control" ng-enter="filterKeyPress('ID BANNER',dynamicInput['id'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE, EMAIL, CURP',dynamicInput['nombre'])"></td>
+                    <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('SEXO',dynamicInput['tipo'])"></td>
                     <td><input ng-model="dynamicInput['alumnosg']" class="form-control" ng-enter="filterKeyPress('CAMPUS, PROGRAMA, INGRESO',dynamicInput['alumnosg'])"></td>
                     <td><input ng-model="dynamicInput['residencia']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA, PREPARATORIA, PROMEDIO',dynamicInput['residencia'])"></td>
                     <td><input ng-model="dynamicInput['alumnosa']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA',dynamicInput['alumnosa'])"></td>
-                    <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('SEXO',dynamicInput['tipo'])"></td>
                     <td ng-if="properties.lstContenido[0].tipoprueba_pid=='1'"><input ng-model="dynamicInput['horario']" class="form-control" ng-enter="filterKeyPress('HORA DE LA ENTREVISTA',dynamicInput['horario'])"></td>
                     <td>
                         <select ng-model="dynamicInput['asistencia']" class="form-control" ng-change="filterKeyPress('ASISTENCIA',dynamicInput['asistencia'])">
@@ -91,6 +89,9 @@
                          {{row.apellidopaterno}} {{row.apellidomaterno}} {{row.primernombre}} {{row.segundonombre}} <br> {{row.correoelectronico}} <br> {{row.curp}}
                     </td>
                     <td>
+                        {{row.sexo}}
+                    </td>
+                    <td>
                         {{row.campus}}<br> {{row.licenciatura}} <br> {{row.periodo}}
                     </td>
                     <td>
@@ -104,12 +105,12 @@
                     <td>
                         {{row.residencia}}
                     </td>
-                    <td>
-                        {{row.sexo}}
-                    </td>
+                    
                     
                     <td ng-if="properties.lstContenido[0].tipoprueba_pid=='1'">
                         {{row.horario}}
+                        <br/>
+                        {{row.responsable}}
                     </td>
                    <td ng-show="row.tipoprueba_pid =='4' && row.cbcoincide == 't'">
                        <br>
