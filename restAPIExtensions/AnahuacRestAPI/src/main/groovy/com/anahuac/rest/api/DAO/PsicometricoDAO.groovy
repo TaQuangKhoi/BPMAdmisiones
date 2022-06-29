@@ -2706,6 +2706,20 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						break;
+					case "ESTATUS,ESTATUS DEl REPORTE":
+						errorlog += "ESTATUS,ESTATUS DEl REPORTE"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " (LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where += " OR tp.finalizado IS [valor] )";
+						where = where.replace("[valor]", (filtro.get("valor") =="Finalizado" ? "true":(filtro.get("valor") == "En proceso"?"false":"NOT NULL") ))
+						
+						break;
 					case "TELEFONO":
 						errorlog += "TELEFONO"
 						if (where.contains("WHERE")) {
@@ -2936,6 +2950,9 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 					break;
 				case "FECHA ENTREVISTA":
 					orderby += "P.APLICACION";
+					break;
+				case "EstatusReporte":
+					orderby += "tp.finalizado";
 					break;
 				default:
 					orderby += "sda.persistenceid"
