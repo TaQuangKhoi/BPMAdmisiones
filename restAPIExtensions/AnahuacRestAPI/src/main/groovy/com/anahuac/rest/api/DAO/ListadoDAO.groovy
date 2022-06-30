@@ -7106,12 +7106,7 @@ class ListadoDAO {
                 cal.add(Calendar.HOUR_OF_DAY, -7);
                 Date date = cal.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-
-                /*Date date = new Date();
-                TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
-                formatter.setTimeZone(timeZone);
-                String sDate = formatter.format(date);*/
-
+				
                 String sDate = formatter.format(date);
                 Cell cellFechaData = titleRow.createCell(5);
                 cellFechaData.setCellValue(sDate);
