@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1656613414583,
+  "lastUpdate" : 1656616085946,
   "rows" : [
     [
       {
@@ -1431,7 +1431,7 @@
                         },
                         "readOnly" : {
                           "type" : "constant",
-                          "value" : true
+                          "value" : false
                         },
                         "label" : {
                           "type" : "interpolation",
@@ -4812,7 +4812,11 @@
       "type" : "expression",
       "value" : [
         "if( $data.ConfiguracionCampus != null && $data.ConfiguracionCampus.length > 0){",
-        "    $data.formInputAprobar.preAutorizacionInput.promedioMinimoPreAutorizacion = $data.ConfiguracionCampus[$data.ConfiguracionCampus.length -1].promedioMinimo",
+        "    debugger",
+        "    if($data.formInputAprobar.preAutorizacionInput.promedioMinimoPreAutorizacion == 0 ){",
+        "        $data.formInputAprobar.preAutorizacionInput.promedioMinimoPreAutorizacion = $data.ConfiguracionCampus[$data.ConfiguracionCampus.length -1].promedioMinimo    ",
+        "    }",
+        "    ",
         "}"
       ],
       "exposed" : false
