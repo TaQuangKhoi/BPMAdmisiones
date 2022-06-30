@@ -903,6 +903,7 @@ class BannerDAO {
 									errorLog = errorLog + " | stateCode: " + objRow.getStateCode();
 									errorLog = errorLog + " | countyCode: " + objRow.getCountyCode();
 									errorLog = errorLog + " | typeInd: " + row.getTypeInd();
+									errorLog = errorLog + " | postal Code: " + row.getTypeInd() +" postalCode2: "+objRow.getPostalCode();									
 									errorLog = errorLog + " | isEliminado: " + !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
 									errorLog = errorLog + " | CON H ---------------------------------------------------------";
 									
@@ -942,6 +943,8 @@ class BannerDAO {
 									objCatBachilleratosInput.put("stateCode", objRow.getStateCode());
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+									objCatBachilleratosInput.put("postalCode", objRow.getPostalCode());
+									
 									
 									
 									errorLog = errorLog + " | entra al Guardar en Log BD replaced con H";
