@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
-  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.29" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.29">
+  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.30" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.30">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -885,6 +885,18 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_yAzisvimEeygy_PuZ-rKUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_yAzis_imEeygy_PuZ-rKUw" name="documentosAvalModel" content="documentosAvalModel" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_yAzitPimEeygy_PuZ-rKUw" name="documentosAvalModel" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.DocumentosAval"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_yAzitfimEeygy_PuZ-rKUw" name="documentosAvalModelInput" content="def documentosAvalList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;documentosAvalModelInput.each{&#xD;&#xA;&#x9;//Add DocumentosAval instance&#xD;&#xA;&#x9;documentosAvalList.add({ currentDocumentosAvalInput ->&#xD;&#xA;&#x9;&#x9;def documentosAvalVar = documentosAvalModel.find { it.persistenceId.toString() == currentDocumentosAvalInput.persistenceId_string} ?: new com.anahuac.SDAE.model.DocumentosAval()&#xD;&#xA;&#x9;&#x9;documentosAvalVar.urlDocumento = currentDocumentosAvalInput.urlDocumento&#xD;&#xA;&#x9;&#x9;documentosAvalVar.caseId = currentDocumentosAvalInput.caseId?.trim() ? currentDocumentosAvalInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;documentosAvalVar.catManejoDocumentos_id = currentDocumentosAvalInput.catManejoDocumentos_id?.trim() ? currentDocumentosAvalInput.catManejoDocumentos_id.toLong() : null&#xD;&#xA;&#x9;&#x9;return documentosAvalVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return documentosAvalList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_yAzitvimEeygy_PuZ-rKUw" name="documentosAvalModelInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_yAzit_imEeygy_PuZ-rKUw" name="documentosAvalModel" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.DocumentosAval"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_yAziuPimEeygy_PuZ-rKUw" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_-7voE2c7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_-7voFGc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_-7voFWc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -973,11 +985,17 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_KV622YniEeyveuxYpeB7zg" name="caseid" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_KV622oniEeyveuxYpeB7zg" name="caseidSolicitud" createMode="false"/>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KV6224niEeyveuxYpeB7zg" expression="!avalInfoInmuebleModelInput?.caseid || avalInfoInmuebleModelInput?.caseid.isLong()" errorMessage="A Long value is expected for AvalInfoInmueble.caseid" name="type_long_avalInfoInmuebleModelInput_caseid">
-              <inputNames>avalInfoInmuebleModelInput</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_yAwfYPimEeygy_PuZ-rKUw" name="documentosAvalModelInput" type="COMPLEX" multiple="true" dataReference="documentosAvalModel" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_yAwfYfimEeygy_PuZ-rKUw" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_yAwfYvimEeygy_PuZ-rKUw" name="urlDocumento" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_yAwfY_imEeygy_PuZ-rKUw" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_yAwfZPimEeygy_PuZ-rKUw" name="catManejoDocumentos_id" createMode="false"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_yAzisPimEeygy_PuZ-rKUw" expression="documentosAvalModelInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for DocumentosAval.caseId" name="type_long_documentosAvalModelInput_caseId">
+              <inputNames>documentosAvalModelInput</inputNames>
             </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KV623IniEeyveuxYpeB7zg" expression="!avalInfoInmuebleModelInput?.caseidSolicitud || avalInfoInmuebleModelInput?.caseidSolicitud.isLong()" errorMessage="A Long value is expected for AvalInfoInmueble.caseidSolicitud" name="type_long_avalInfoInmuebleModelInput_caseidSolicitud">
-              <inputNames>avalInfoInmuebleModelInput</inputNames>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_yAzisfimEeygy_PuZ-rKUw" expression="documentosAvalModelInput?.catManejoDocumentos_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for DocumentosAval.catManejoDocumentos_id" name="type_long_documentosAvalModelInput_catManejoDocumentos_id">
+              <inputNames>documentosAvalModelInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_A_dzUGc8EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
@@ -2861,6 +2879,9 @@
       <data xmi:type="process:Data" xmi:id="_Zz8poPDxEey_v_KPWHHjrg" name="varModificacion" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
         <defaultValue xmi:type="expression:Expression" xmi:id="_Zz8pofDxEey_v_KPWHHjrg" content="" returnType="java.lang.Boolean"/>
       </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_HHxnUPilEeygy_PuZ-rKUw" name="documentosAvalModel" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.DocumentosAval">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_HHxnUfilEeygy_PuZ-rKUw" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_PpGyxGc7EeyAHufroJpG_Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_PpGyxWc7EeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
@@ -3139,7 +3160,7 @@
         <value xmi:type="expression:Expression" xmi:id="_PpGy22c7EeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.29">
+    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.30">
       <elements xmi:type="process:Lane" xmi:id="_EmGwkGdBEeyAHufroJpG_Q" name="Aspirante" actor="_Frl3UGdUEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_HtHk0GdBEeyAHufroJpG_Q" name="Solicitud de beca aspirante" outgoing="_KMB3QGdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HtHk0mdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -6566,7 +6587,7 @@
             </processSource>
           </inputMappings>
           <calledActivityName xmi:type="expression:Expression" xmi:id="_nKw3dGdBEeyAHufroJpG_Q" name="Financiamiento educativo" content="Financiamiento educativo" returnTypeFixed="true"/>
-          <calledActivityVersion xmi:type="expression:Expression" xmi:id="_nKxegGdBEeyAHufroJpG_Q" name="1.0.29" content="1.0.29" returnTypeFixed="true"/>
+          <calledActivityVersion xmi:type="expression:Expression" xmi:id="_nKxegGdBEeyAHufroJpG_Q" name="1.0.30" content="1.0.30" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:EndEvent" xmi:id="_vg6qEGdBEeyAHufroJpG_Q" name="Fin3" incoming="_si7O8GdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_si4LoWdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>

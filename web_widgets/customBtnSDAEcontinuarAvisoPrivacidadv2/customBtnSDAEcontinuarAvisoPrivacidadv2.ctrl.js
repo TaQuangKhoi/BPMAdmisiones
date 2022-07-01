@@ -7,8 +7,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     this.action = function action() {
         let url = "../API/extension/AnahuacBecasRestGET?url=getPRomedioMinimoByCampus&p=0&c=10&idCampus=" + $scope.properties.idCampus;
         $http.get(url).success((result)=>{
-            let promedioMinimo = result.data[0].promedioMinimo;
-            let promedioGeneral = parseInt($scope.properties.promedioGeneral);
+            let promedioMinimo = parseFloat(result.data[0].promedioMinimo);
+            let promedioGeneral = parseFloat($scope.properties.promedioGeneral);
             if(promedioMinimo > promedioGeneral){
                 showSwal("Atención", "No puedes solicitar apoyo educativo por que tu promedio es inferior al promedio mínimo marcado por el Campus.", "warning");
             } else if ($scope.properties.aceptado === false){
