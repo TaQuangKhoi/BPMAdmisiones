@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1656375026163,
+  "lastUpdate" : 1656616085946,
   "rows" : [
     [
       {
@@ -265,6 +265,87 @@
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Anterior"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Anterior"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "errorMessage" : {
+                  "type" : "constant"
+                },
+                "messageTitle" : {
+                  "type" : "constant"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "12ec8374-4f97-4b0a-ad2f-63cb0ff51c60",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            }
+          ],
           [
             {
               "type" : "container",
@@ -782,6 +863,58 @@
               "reference" : "30dda234-a62b-4b76-813f-a8429a08f35a",
               "hasValidationError" : false,
               "id" : "pbButton"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br/><br/>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "5d08890a-585e-460f-b82e-59a49cbac850",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ]
         ]
@@ -1488,8 +1621,8 @@
                           "value" : false
                         },
                         "hidden" : {
-                          "type" : "constant",
-                          "value" : false
+                          "type" : "expression",
+                          "value" : "ConfiguracionCampus[$data.ConfiguracionCampus.length -1].descuentoProntoPago"
                         },
                         "labelPosition" : {
                           "type" : "constant",
@@ -1697,7 +1830,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Enviar a autorizar"
+                          "value" : "Validar"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -4665,6 +4798,26 @@
         "}\r",
         "\r",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "ConfiguracionCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByIdCampus [com.anahuac.SDAE.catalogos.ConfiguracionesCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByIdCampus\",\"displayName\":\"findByIdCampus\"},\"id\":\"com.anahuac.SDAE.catalogos.ConfiguracionesCampus\",\"filters\":[{\"name\":\"idCampus\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "cargarPromedioMinimo" : {
+      "type" : "expression",
+      "value" : [
+        "if( $data.ConfiguracionCampus != null && $data.ConfiguracionCampus.length > 0){",
+        "    debugger",
+        "    if($data.formInputAprobar.preAutorizacionInput.promedioMinimoPreAutorizacion == 0 ){",
+        "        $data.formInputAprobar.preAutorizacionInput.promedioMinimoPreAutorizacion = $data.ConfiguracionCampus[$data.ConfiguracionCampus.length -1].promedioMinimo    ",
+        "    }",
+        "    ",
+        "}"
       ],
       "exposed" : false
     }
