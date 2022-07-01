@@ -16,16 +16,18 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             .toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+        
+        document.getElementById(main_id).onkeydown = function (event) {
+            if (event.which == 8 || event.which == 46) { 
+                event.preventDefault();
+            } 
+        };  
     }
     
     this.name = widgetNameFactory.getName('pbInput');
 
     if (!$scope.properties.isBound('value')) {
         $log.error('the pbInput property named "value" need to be bound to a variable');
-    }
-    
-    function setModel(_value){
-        $scope.properties.value = parseInt(_value.replace(/,/g, ""));
     }
     
     $scope.forceKeyPressUppercase = function (e) {
@@ -44,28 +46,41 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             valid = false;
         }
         
+        let valueSize = 0;
+        if($scope.properties.value){
+            let auxValue = $scope.properties.value + "";
+            valueSize = auxValue.length;
+        }
+        
         if(!isNumber){
             e.preventDefault();
-        } else if ((e.target.value.length) >= limite || !valid || (fullNumber > $scope.properties.max)) {
+        } else if ((valueSize) >= limite || !valid || (fullNumber > $scope.properties.max)) {
             e.preventDefault();
         } else {
-            debugger;
+            e.preventDefault();
             blockVar = true;
-            let model = $scope.properties.value ? $scope.properties.value : ""
-            setModel(model + e.key);
+            let model = $scope.properties.value ? $scope.properties.value : "";
+            $scope.properties.value = parseInt(model + e.key);
         } 
     }
     
     $scope.$watch("properties.value", ()=>{
         if($scope.properties.value){
-            debugger;
-            if($scope.properties.value != document.getElementById(main_id).value && !blockVar){
-                let valueString = $scope.properties.value  + "";
-                document.getElementById(main_id).value = parseFloat(valueString.replace(/,/g, ""))
-                    .toFixed(2)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            let valueString = $scope.properties.value  + "";
+            if(document.getElementById(main_id)){
+                 document.getElementById(main_id).value = parseFloat(valueString.replace(/,/g, ""))
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            } else {
+                setTimeout(()=>{
+                     document.getElementById(main_id).value = parseFloat(valueString.replace(/,/g, ""))
+                        .toFixed(2)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }, 1000);
             }
+           
         }
     });
 }
