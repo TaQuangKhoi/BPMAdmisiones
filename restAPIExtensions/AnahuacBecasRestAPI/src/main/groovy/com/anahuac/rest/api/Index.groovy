@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory
 import com.anahuac.rest.api.DAO.BitacoraDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
+import com.anahuac.rest.api.DAO.BitacoraSDAEDAO
 import com.anahuac.rest.api.Entity.Result
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
@@ -332,6 +333,14 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "cargarBitacora":
+					result = new BitacoraSDAEDAO().cargarBitacora(jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 				break;
 				default:
