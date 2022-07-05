@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1654298420716,
+  "lastUpdate" : 1643219370950,
   "rows" : [
     [
       {
@@ -28860,10 +28860,10 @@
         "//\"nombre\": $data.NombreAspirante,\r",
         "return {\r",
         "    \"curp\": $data.curp,\r",
-        "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre,\r",
-        "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
-        "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
-        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno,\r",
+        "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre.replaceAll(\"'\",\"\\'\"),\r",
+        "    \"segundoNombre\": ($data.objSolicitudDeAdmision.segundoNombre != null?$data.objSolicitudDeAdmision.segundoNombre.replaceAll(\"'\",\"\\'\"):$data.objSolicitudDeAdmision.segundoNombre),\r",
+        "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno.replaceAll(\"'\",\"\\'\"),\r",
+        "    \"apellidoMaterno\": ($data.objSolicitudDeAdmision.apellidoMaterno != null ?$data.objSolicitudDeAdmision.apellidoMaterno.replaceAll(\"'\",\"\\'\"):$data.objSolicitudDeAdmision.apellidoMaterno),\r",
         "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
         "    \"sexo\": $data.objSolicitudDeAdmision.catSexo.persistenceId,\r",
         "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
