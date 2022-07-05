@@ -316,7 +316,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                     pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Descargar</a>`)
                 }else{
                     
-                    pdfWindow.document.write(`<embed src="${data.data[0]}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${data.data[0]}">Descargar</a>`)
+                    const blob = b64toBlob(data.data[0].substr(28), "application/pdf");
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    pdfWindow.document.write(`<embed src="${blobUrl}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${blobUrl}">Descargar</a>`)
                 }
                 //console.log(data); 
             })
@@ -328,6 +331,27 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 blockUI.stop();
             });
     }
+    
+    const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+        
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+    }
+
     
     $scope.getCatCampus();
   
