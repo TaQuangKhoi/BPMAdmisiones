@@ -8232,7 +8232,7 @@ class ListadoDAO {
                 Row espacio = sheet.createRow(++rowCount);
                 def titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA"]
                 if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador") ) && lstParams[0].tipoprueba_pid == "1") {
-                    titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","RESPONSABLE"];
+                    titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","PSICÓLOGO"];
                 }
                 
 				errorLog += "1";
