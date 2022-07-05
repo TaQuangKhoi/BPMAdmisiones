@@ -480,6 +480,10 @@ class SecurityFilter {
 		Boolean allow = false;
 	
 		switch (url) {
+			case "getExcelBachilleratos":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+			break;
 			case "getUsuariosTransferencia":
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
