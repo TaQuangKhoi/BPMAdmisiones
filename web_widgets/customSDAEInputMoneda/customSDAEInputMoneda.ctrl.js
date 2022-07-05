@@ -17,11 +17,11 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         
-        document.getElementById(main_id).onkeydown = function (event) {
-            if (event.which == 8 || event.which == 46) { 
-                event.preventDefault();
-            } 
-        };  
+        // document.getElementById(main_id).onkeydown = function (event) {
+        //     if (event.which == 8 || event.which == 46) { 
+        //         event.preventDefault();
+        //     } 
+        // };  
     }
     
     this.name = widgetNameFactory.getName('pbInput');

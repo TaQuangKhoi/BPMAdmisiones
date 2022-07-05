@@ -35,10 +35,15 @@
                 </div>
 
                 <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+                    <label
+                        ng-if="!properties.labelHidden"
+                        ng-bind-html="properties.label | uiTranslate">
+                    </label>
                     <form action="{{ctrl.url}}" ng-upload="ctrl.uploadComplete(content)"
                         ng-upload-loading="ctrl.startUploading()" error-catcher="ctrl.uploadError(error)"
                         upload-options-enable-csrf upload-options-csrf-param="CSRFToken">
                         <div class="input-group file-upload paddingpx">
+                            
                             <input ng-disabled="!properties.editar" type="text" ng-focus="ctrl.preventFocus($event)"
                                 placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}"
                                 class="form-control">

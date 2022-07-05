@@ -6,7 +6,7 @@
                 <!--  class="thFont borderLines" -->
                 <th>Tipo</th>
                 <th>Descripción</th>
-                <th>Dirección/Banco</th>
+                <th>Ubicación</th>
                 <th>Valor ({{properties.tipoMoneda}})</th>
                 <th ng-if="properties.editar">Acciones</th>
             </tr>
@@ -27,8 +27,8 @@
                     <label class="moneda-display2">$</label><input  ng-disabled="!properties.editar" class="form-control moneda-display2-input" ng-model="row.valor" type="number">
                 </td>
                 <td ng-if="properties.editar">
-                    <button class="btn btn-danger" ng-click="removeElement(row)">
-                        <span class="glyphicon glyphicon-remove"></span>
+                    <button class="btn btn-link" ng-click="removeElement(row)">
+                        <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </td>    
             </tr>

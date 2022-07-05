@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1656548362451,
+  "lastUpdate" : 1657060314018,
   "rows" : [
     [
       {
@@ -69,6 +69,80 @@
         "rows" : [
           [
             {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "37287031-6450-41ea-982e-177e9ad35f38",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "activeCases.length > 0"
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Iniciar solicitud"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : "modalTipoMoneda"
+                      }
+                    },
+                    "reference" : "fd2ebb8b-2858-4f21-8f34-efdcd25224a4",
+                    "hasValidationError" : false,
+                    "id" : "customBtnSDAEnuevaSolicitudAspirante"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
@@ -85,13 +159,42 @@
                   "type" : "expression",
                   "value" : "activeCases.length > 0"
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
+                "text" : {
                   "type" : "interpolation",
                   "value" : "Iniciar solicitud"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "targetUrl" : {
+                  "type" : "constant",
+                  "value" : "/bonita/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda="
+                },
+                "pageToken" : {
+                  "type" : "constant"
+                },
+                "processName" : {
+                  "type" : "constant"
+                },
+                "processVersion" : {
+                  "type" : "constant"
+                },
+                "taskId" : {
+                  "type" : "constant"
+                },
+                "caseId" : {
+                  "type" : "constant"
+                },
+                "target" : {
+                  "type" : "constant",
+                  "value" : "_self"
+                },
+                "appToken" : {
+                  "type" : "constant"
+                },
+                "urlParams" : {
+                  "type" : "constant"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -100,15 +203,11 @@
                 "buttonStyle" : {
                   "type" : "constant",
                   "value" : "success"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : "modalTipoMoneda"
                 }
               },
-              "reference" : "fd2ebb8b-2858-4f21-8f34-efdcd25224a4",
+              "reference" : "d1502020-109b-4ff5-9fe8-ecaf6edb0447",
               "hasValidationError" : false,
-              "id" : "customBtnSDAEnuevaSolicitudAspirante"
+              "id" : "pbLink"
             }
           ],
           [

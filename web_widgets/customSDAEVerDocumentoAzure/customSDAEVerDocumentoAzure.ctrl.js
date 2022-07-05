@@ -306,7 +306,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     $scope.$watch("properties.urlAzure", (_new)=>{
         if(_new){
             let array = _new.split("/");
-            ctrl.filename = array[array.length - 1].replace("%20"," ");
+            ctrl.filename = array[array.length - 1];
             this.uploadComplete = true;
             $scope.downloadFile2();
         }
@@ -372,7 +372,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     function selectFile(){
         let obj = {
             "linkSource":$scope.linkSource,
-            "fileName":  $scope.fileName,
+            "fileName":  $scope.fileName ,
             "extension": $scope.extension
         };
         
