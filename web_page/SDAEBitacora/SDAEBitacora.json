@@ -1,0 +1,342 @@
+{
+  "modelVersion" : "2.2",
+  "id" : "SDAEBitacora",
+  "name" : "SDAEBitacora",
+  "lastUpdate" : 1656978208253,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Bitacora SDAE"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "bbba88f4-bd86-4418-b60f-b8ca82688c3a",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "headers" : {
+            "type" : "expression",
+            "value" : "lsTitulos"
+          },
+          "columnsKey" : {
+            "type" : "expression",
+            "value" : "listData"
+          },
+          "selectedRow" : {
+            "type" : "variable",
+            "value" : "comentario_selectedNR"
+          },
+          "striped" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "condensed" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "bordered" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "urlPost" : {
+            "type" : "expression",
+            "value" : "urlPost"
+          },
+          "dataToSend" : {
+            "type" : "variable",
+            "value" : "dataToFilter"
+          },
+          "lstContenido" : {
+            "type" : "variable",
+            "value" : "lstContenido"
+          },
+          "userId" : {
+            "type" : "variable",
+            "value" : "userData.userId"
+          },
+          "lstCampus" : {
+            "type" : "variable",
+            "value" : "lstCampus"
+          },
+          "campusSeleccionado" : {
+            "type" : "variable",
+            "value" : "getCampus"
+          },
+          "listaBitacoras" : {
+            "type" : "constant"
+          },
+          "bitacoraSelected" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "inputList" : {
+            "type" : "expression",
+            "value" : "dynamicInput"
+          },
+          "desactivarFiltro" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "desactivarOrder" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "responsables" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "modalName" : {
+            "type" : "constant"
+          }
+        },
+        "reference" : "753a24c7-0644-4da5-8e52-db9ed616de51",
+        "hasValidationError" : false,
+        "id" : "customTablePostBitacoraSesiones"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "103fcee0-b344-4eac-a7d9-08da67d6c7ff",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "fae25352-6f5d-401f-ad2b-167410d2b889",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "lsTitulos" : {
+      "type" : "expression",
+      "value" : [
+        "return [\"Id Banner\",\"Correo\",\"Estatus\",\"Comentario\",\"Beca\",\"Financiamiento\",\"Usuario\",\"Fecha\"]"
+      ],
+      "exposed" : false
+    },
+    "listData" : {
+      "type" : "expression",
+      "value" : [
+        " $data.urlPost =\"/bonita/API/extension/AnahuacRest?url=postBitacoraSesiones&p=0&c=10&username=\"+$data.aspirante",
+        "    return [\"idbanner\",\"correo\",\"comentario\",\"beca\",\"financiamiento\",\"usuario\",\"fecha | date:'dd-MM-yyyy'\"]"
+      ],
+      "exposed" : false
+    },
+    "comentario_selectedNR" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "urlPost" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "dataToFilter" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\": parseInt($data.userData.user_id),\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"username\":$data.aspirante,\r",
+        "    \"idbanner\":$data.idbanner\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstCampusUsuario" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];\r",
+        "var isSerua = false;\r",
+        "var obj= {descripcion: \"Todos los campus\", valor: null}\r",
+        " resultado.push(obj);\r",
+        "for(var x in $data.lstCampusByUser){\r",
+        "    for(var index in $data.lstCampusRole){\r",
+        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){\r",
+        "            //resultado.push($data.lstCampusRole[index]);\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "                if(value == $data.lstCampusRole[index]){\r",
+        "                    i++;\r",
+        "                }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "               resultado.push($data.lstCampusRole[index]);  \r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusRole" : {
+      "type" : "expression",
+      "value" : [
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusByUser" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado=[];\r",
+        " resultado.push(\"Todos los campus\")\r",
+        "for(var x in $data.lstMembership){\r",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
+        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampus2" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];\r",
+        "\r",
+        "var obj= {descripcion: \"Todos los campus\", grupoBonita: null}\r",
+        "\r",
+        "resultado.push(obj);\r",
+        "for(var x in $data.lstCampusUsuario){\r",
+        "    for(var index in $data.lstCatCampus){\r",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
+        "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
+        "            resultado.push($data.lstCatCampus[index]);\r",
+        "            if($data.lstCampusUsuario.length == 2){\r",
+        "                $data.campus_selected = $data.lstCatCampus[index]\r",
+        "            }\r",
+        "        }        \r",
+        "    }\r",
+        "}\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "dynamicInput" : {
+      "type" : "expression",
+      "value" : [
+        "[",
+        "    {\"name\":\"Id Banner\",\"type\":\"input\"},",
+        "    {\"name\":\"Correo\",\"type\":\"input\"},",
+        "    {\"name\":\"Estatus\",\"type\":\"input\"},",
+        "    {\"name\":\"Comentario\",\"type\":\"input\"},",
+        "    {\"name\":\"Beca\",\"type\":\"input\"},",
+        "    {\"name\":\"Financiamiento\",\"type\":\"input\"},",
+        "    {\"name\":\"Usuario\",\"type\":\"input\"},",
+        "    {\"name\":\"Fecha\",\"type\":\"input\"},",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getCampus" : {
+      "type" : "constant",
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "432f517a-4902-4692-9537-9a4e8ca7fced",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}

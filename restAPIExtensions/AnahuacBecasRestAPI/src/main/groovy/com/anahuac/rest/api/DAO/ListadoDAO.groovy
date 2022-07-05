@@ -9,24 +9,15 @@ import java.sql.Statement
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import com.anahuac.rest.api.DB.Statements
-
 import org.bonitasoft.engine.bpm.data.DataDefinition
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
-import org.bonitasoft.engine.bpm.process.ProcessDefinition
-import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
-import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
-import org.bonitasoft.engine.bpm.process.ProcessInstance
-import org.bonitasoft.engine.bpm.process.ProcessInstanceCriterion
 import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.identity.UserMembership
 import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.search.Order
-import org.bonitasoft.engine.search.SearchOptions
-import org.bonitasoft.engine.search.SearchOptionsBuilder
-import org.bonitasoft.engine.search.SearchResult
 import org.bonitasoft.engine.search.impl.SearchFilter
 import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.slf4j.Logger
@@ -1929,6 +1920,7 @@ class ListadoDAO {
 		}
 		return resultado
 	}
+	
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false
