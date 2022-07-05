@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaDeLaSesion",
   "name" : "PaseListaDeLaSesion",
-  "lastUpdate" : 1656030917683,
+  "lastUpdate" : 1657039151933,
   "rows" : [
     [
       {
@@ -748,11 +748,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "fb67a892-ef51-4f33-a343-cca8cea2773c",
+                          "reference" : "df2b4fc1-a64e-4417-acd9-71b872be5a3e",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ],
                       [
@@ -4561,6 +4565,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Lista de Pase Lista '${$data.datosPrueba[0].nombre}'`;"
       ],
       "exposed" : false
     }

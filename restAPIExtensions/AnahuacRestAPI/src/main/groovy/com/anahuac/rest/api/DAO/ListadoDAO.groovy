@@ -8269,7 +8269,7 @@ class ListadoDAO {
                         }else if(j==13){
 							errorLog += "4";
                             body.add(row.createCell(j))
-					        body[j].setCellValue((lstParams[i].asistencia != null?(lstParams[i].asistencia == "t"?"Sí" : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))) : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))))
+					        body[j].setCellValue((lstParams[i].asistencia != null? (lstParams[i].asistencia == "t"?"Sí" : ((lstParams[i].cbcoincide == "t" && lstParams[i].tipoprueba_pid == "4") ?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))) : ((lstParams[i].cbcoincide == "t" && lstParams[i].tipoprueba_pid == "4")?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))))
 					        body[j].setCellStyle(bodyStyle);
                         }else{
 							errorLog += "7"+j+info?.get(j);
