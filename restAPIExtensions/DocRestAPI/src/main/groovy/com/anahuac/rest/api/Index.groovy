@@ -1,6 +1,7 @@
 package com.anahuac.rest.api;
 
 import com.anahuac.rest.api.DAO.DocumentDAO
+import com.anahuac.rest.api.DAO.PDFDocumentDAO
 import com.anahuac.rest.api.Entity.Result
 import groovy.json.JsonBuilder
 
@@ -8,14 +9,16 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 import org.apache.http.HttpHeaders
+import org.bonitasoft.engine.identity.UserMembership
+import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.web.extension.ResourceProvider
 import org.bonitasoft.web.extension.rest.RestApiResponse
 import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import org.bonitasoft.web.extension.rest.RestAPIContext
-import org.bonitasoft.web.extension.rest.RestApiController
+import com.bonitasoft.web.extension.rest.RestAPIContext
+import com.bonitasoft.web.extension.rest.RestApiController
 
 import java.time.LocalDate
 
@@ -44,19 +47,41 @@ class Index implements RestApiController {
         // Prepare the result
 		Result result  = new Result();
 		String jsonData = null 
+		if(!bonitaRolFilter(context)) {
+			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "Permission denied"}""")
+		}
 		try {
 			jsonData=request.reader.readLines().join("\n")
+			def url = request.getParameter "pdf"
+			if (url == null) {
+				result = new DocumentDAO().getDocs(jsonData, context)
+				if(result.success) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result?.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+				}
+			}else {
+				if(url.equals("pdfPsicometricov3") || url == "pdfPsicometricov3") {
+					result = new PDFDocumentDAO().PdfFileCatalogo(jsonData,context);
+					if(result.success) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+					}
+				}
+				
+			}
 		}catch(Exception ex) {
 			jsonData = null
 			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder("[]").toString())
-		} 
-		
-		result = new DocumentDAO().getDocs(jsonData, context)
-		if(result.success) {
-			return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
-		}else {
-			return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
 		}
+		
+		
+		
+		
+		
+		
+		
 		
 		/*def resultado = [  "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
 
@@ -111,5 +136,16 @@ class Index implements RestApiController {
         }
         props
     }
-
+	
+	private Boolean bonitaRolFilter(RestAPIContext context) {
+		Boolean valid = false;
+		List<UserMembership> uMemberships=context.apiClient.identityAPI.getUserMemberships(context.apiSession.userId, 0, 100, UserMembershipCriterion.ROLE_NAME_ASC);
+		uMemberships.each{
+			it ->
+			if((it.roleName.equals("EXTERIOR") && it.groupName.equals("CAMPUS-PUEBLA")) || it.roleName.equals("ADMINISTRADOR") || it.roleName.equals("TI SERUA")) {
+				valid=true
+			}
+		}
+		return valid;
+	}
 }

@@ -45,6 +45,9 @@ import com.anahuac.rest.api.Utilities.FileDownload
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
 import java.nio.charset.StandardCharsets
+import com.anahuac.rest.api.Security.SecurityFilter
+import org.bonitasoft.engine.identity.UserMembership
+import org.bonitasoft.engine.identity.UserMembershipCriterion
 
 class IndexGet implements RestApiController {
 
@@ -52,11 +55,18 @@ class IndexGet implements RestApiController {
 
 	@Override
 	RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
+		SecurityFilter security = new SecurityFilter();
+		
 		// To retrieve query parameters use the request.getParameter(..) method.
 		// Be careful, parameter values are always returned as String values
 		RestApiResponseBuilder rb;
 		Result result = new Result();
 		def url = request.getParameter "url";
+		
+		if(!security.allowedUrl(context,url)){
+			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
+		}
+		
 		
 		//MAPEO DE SERVICIOS==================================================
 		try{
@@ -1571,6 +1581,29 @@ class IndexGet implements RestApiController {
 				case "getUserContext":
 				String caseid=request.getParameter "caseid"
 				result = new ReactivacionDAO().getUserContext(Long.valueOf(caseid),context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getUserArchived":
+				String caseid=request.getParameter "caseid"
+				result = new ReactivacionDAO().getUserArchived(Long.valueOf(caseid),context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "copiarArchivos":
+				String caseid=request.getParameter "caseid"
+				String caseidorigen=request.getParameter "caseidorigen"
+				result = new ReactivacionDAO().copiarArchivos(Long.valueOf(caseidorigen),Long.valueOf(caseid),context)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

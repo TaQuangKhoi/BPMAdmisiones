@@ -6,6 +6,7 @@ import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.DB.Statements
 
 import com.bonitasoft.web.extension.rest.RestAPIContext
@@ -169,7 +170,7 @@ class ImportacionPAADAO {
 					/*Result resultado2 = new Result();
 					resultado2 = subirDatosBannerEthos(jsonData,context);
 					errorLog += "INTEGRACION:"+resultado2.isSuccess()+"ERROR:"+resultado2.getError()+"ERROR_INFO:"+resultado2.getError_info();*/
-					//resultado.setError_info(errorLog);
+					//
 				}
 				resultado.setSuccess(true);
 				//resultado.setData(estatus)
@@ -390,7 +391,7 @@ class ImportacionPAADAO {
 					errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();*/
 				}
 				resultado.setSuccess(true);
-				resultado.setError_info(errorLog);
+				
 				
 			}
 			resultado = new BannerDAO().multiThread(machine)
@@ -398,7 +399,7 @@ class ImportacionPAADAO {
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		}
 		
 		return resultado;
@@ -494,11 +495,11 @@ class ImportacionPAADAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -554,11 +555,11 @@ class ImportacionPAADAO {
 				con.commit();
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -971,7 +972,8 @@ class ImportacionPAADAO {
 							try {
 								String urlFoto = rs.getString("urlfoto");
 								if(urlFoto != null && !urlFoto.isEmpty()) {
-									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+									//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
 								}else {
 									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 									for(Document doc : doc1) {
@@ -992,11 +994,11 @@ class ImportacionPAADAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)	
+				
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1041,11 +1043,11 @@ class ImportacionPAADAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1501,7 +1503,8 @@ class ImportacionPAADAO {
 							try {
 								String urlFoto = rs.getString("urlfoto");
 								if(urlFoto != null && !urlFoto.isEmpty()) {
-									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+									columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+									//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
 								}else {
 									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 									for(Document doc : doc1) {
@@ -1522,11 +1525,11 @@ class ImportacionPAADAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)	
+				
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1645,13 +1648,13 @@ class ImportacionPAADAO {
 			lstResultado.add( new ListadoDAO().encodeFileToBase64Binary("ReportImportacionEAC.xls"));
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
-			resultado.setError_info(errorLog);
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog);
+			
 			e.printStackTrace();
 		}
 		
@@ -2034,7 +2037,7 @@ class ImportacionPAADAO {
 			}
 			errorLog+= "|| info machine"+machine
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			
 			
 			if(machine.size() > 0) {
 				resultado = new BannerDAO().multiThread(machine);
@@ -2044,7 +2047,7 @@ class ImportacionPAADAO {
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog);
+			
 		}
 		
 		return resultado;
@@ -2610,11 +2613,11 @@ class ImportacionPAADAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -2625,5 +2628,18 @@ class ImportacionPAADAO {
 		return resultado
 	}
 	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
+	}
 	
 }

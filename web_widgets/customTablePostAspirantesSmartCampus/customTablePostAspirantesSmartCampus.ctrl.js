@@ -300,19 +300,28 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         
     }
     
-    function doRequestRuta(method, url, data) {
+    function doRequestRuta(method, url, info) {
         blockUI.start();
         var req = {
             method: method,
             url: url,
-            data: angular.copy(data),
+            data: angular.copy(info),
         };
   
         return $http(req)
             .success(function(data, status) {
                 let pdfWindow = window.open("")
-                pdfWindow.document.write("<iframe width='100%' height='100%' src='"+ data.data[0]+ "'></iframe>")
-                //console.log(data);
+                if(data.additional_data[0] == "imagen"){
+                    
+                    pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Descargar</a>`)
+                }else{
+                    
+                    const blob = b64toBlob(data.data[0].substr(28), "application/pdf");
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    pdfWindow.document.write(`<embed src="${blobUrl}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${blobUrl}">Descargar</a>`)
+                }
+                //console.log(data); 
             })
             .error(function(data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
@@ -322,6 +331,27 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 blockUI.stop();
             });
     }
+    
+    const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+        
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+    }
+
     
     $scope.getCatCampus();
   

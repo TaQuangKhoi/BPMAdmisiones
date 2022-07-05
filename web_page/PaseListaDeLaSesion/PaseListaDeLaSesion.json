@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaDeLaSesion",
   "name" : "PaseListaDeLaSesion",
-  "lastUpdate" : 1642549470284,
+  "lastUpdate" : 1657039151933,
   "rows" : [
     [
       {
@@ -748,11 +748,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "fb67a892-ef51-4f33-a343-cca8cea2773c",
+                          "reference" : "df2b4fc1-a64e-4417-acd9-71b872be5a3e",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ],
                       [
@@ -4460,12 +4464,10 @@
       "type" : "expression",
       "value" : [
         "return  {\r",
-        "            \"estatusSolicitud\": \"Solicitud en progreso\",\r",
-        "            \"tarea\": \"Llenar solicitud\",\r",
         "            \"lstFiltro\": [{\r",
-        "                \"columna\": \"CAMPUS\",\r",
+        "                \"columna\": \"CAMPUS DESCRIPCION\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.grupobonita\r",
+        "                \"valor\": $data.strUsuario.campus\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4477,8 +4479,6 @@
         "                \"operador\": \"Igual a\",\r",
         "                \"valor\": $data.strUsuario.correoelectronico\r",
         "            }],\r",
-        "            \"type\": \"solicitudes_progreso\",\r",
-        "            \"usuario\": 0,\r",
         "            \"orderby\": \"\",\r",
         "            \"orientation\": \"DESC\",\r",
         "            \"limit\": 999,\r",
@@ -4565,6 +4565,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Lista de Pase Lista '${$data.datosPrueba[0].nombre}'`;"
       ],
       "exposed" : false
     }

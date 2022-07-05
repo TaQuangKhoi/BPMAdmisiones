@@ -50,6 +50,7 @@ import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
 import com.anahuac.rest.api.Entity.HubspotConfig
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
+import com.anahuac.rest.api.Security.SecurityFilter
 
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
@@ -73,7 +74,12 @@ class Index implements RestApiController {
 		if (url == null) {
 			return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
         }
-				
+		
+		SecurityFilter security = new SecurityFilter();
+		if(!security.allowedUrlPost(context,url)){
+			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
+		}
+		
 		//VARIABLES===========================================================
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
@@ -139,6 +145,14 @@ class Index implements RestApiController {
 					break;
 				case "getExcelFileCatalogo":
 					result = lDao.getExcelFileCatalogo(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getExcelBachilleratos":
+					result = lDao.getExcelBachilleratos(jsonData, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
