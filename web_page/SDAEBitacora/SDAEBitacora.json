@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBitacora",
   "name" : "SDAEBitacora",
-  "lastUpdate" : 1656978208253,
+  "lastUpdate" : 1657211498806,
   "rows" : [
     [
       {
@@ -38,6 +38,86 @@
         "reference" : "bbba88f4-bd86-4418-b60f-b8ca82688c3a",
         "hasValidationError" : false,
         "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "{{$data.dynamicInput}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "742b1b06-be10-42db-af77-432984f0c31d",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "content" : {
+            "type" : "variable",
+            "value" : "lstFiltros"
+          }
+        },
+        "reference" : "112c87c5-3ed1-4cec-9961-dc031d696ef8",
+        "hasValidationError" : false,
+        "id" : "customListFiltrosBloqueoCampus"
       }
     ],
     [
@@ -100,7 +180,7 @@
           },
           "userId" : {
             "type" : "variable",
-            "value" : "userData.userId"
+            "value" : "userData.user_id"
           },
           "lstCampus" : {
             "type" : "variable",
@@ -137,9 +217,9 @@
             "type" : "constant"
           }
         },
-        "reference" : "753a24c7-0644-4da5-8e52-db9ed616de51",
+        "reference" : "741217b5-7b45-4b66-ab22-8a92c6045c3c",
         "hasValidationError" : false,
-        "id" : "customTablePostBitacoraSesiones"
+        "id" : "customTablePostBitacoraSDAE"
       }
     ]
   ],
@@ -152,10 +232,38 @@
       "external" : false
     },
     {
+      "id" : "48cd9bee-4322-4c10-b321-8915334b6195",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "439d96db-ebcc-47f1-8dd6-a7e2c374d4ff",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "5090474b-87c4-49ef-92a3-5fc61de79478",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "fae25352-6f5d-401f-ad2b-167410d2b889",
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "c01df7f1-6edc-4895-ad77-82e1b0537d2c",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     }
   ],
@@ -171,7 +279,6 @@
     "listData" : {
       "type" : "expression",
       "value" : [
-        " $data.urlPost =\"/bonita/API/extension/AnahuacRest?url=postBitacoraSesiones&p=0&c=10&username=\"+$data.aspirante",
         "    return [\"idbanner\",\"correo\",\"comentario\",\"beca\",\"financiamiento\",\"usuario\",\"fecha | date:'dd-MM-yyyy'\"]"
       ],
       "exposed" : false
@@ -182,21 +289,23 @@
     },
     "urlPost" : {
       "type" : "constant",
+      "value" : [
+        "/bonita/API/extension/AnahuacRest?url=getAspirantesSinPAA&p=0&c=100"
+      ],
       "exposed" : false
     },
     "dataToFilter" : {
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
-        "    \"usuario\": parseInt($data.userData.user_id),\r",
+        "    \"lstFiltro\": $data.lstFiltros, \r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":20,\r",
+        "    \"limit\":2,\r",
         "    \"offset\":0,\r",
-        "    \"username\":$data.aspirante,\r",
-        "    \"idbanner\":$data.idbanner\r",
-        "};"
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "}"
       ],
       "exposed" : false
     },
@@ -299,17 +408,17 @@
       "exposed" : false
     },
     "dynamicInput" : {
-      "type" : "expression",
+      "type" : "json",
       "value" : [
         "[",
-        "    {\"name\":\"Id Banner\",\"type\":\"input\"},",
-        "    {\"name\":\"Correo\",\"type\":\"input\"},",
-        "    {\"name\":\"Estatus\",\"type\":\"input\"},",
-        "    {\"name\":\"Comentario\",\"type\":\"input\"},",
-        "    {\"name\":\"Beca\",\"type\":\"input\"},",
-        "    {\"name\":\"Financiamiento\",\"type\":\"input\"},",
-        "    {\"name\":\"Usuario\",\"type\":\"input\"},",
-        "    {\"name\":\"Fecha\",\"type\":\"input\"},",
+        "    {\"name\":\"ID BANNER\",\"type\":\"input\"},",
+        "    {\"name\":\"CORREO\",\"type\":\"input\"},",
+        "    {\"name\":\"ESTATUS\",\"type\":\"input\"},",
+        "    {\"name\":\"COMENTARIO\",\"type\":\"input\"},",
+        "    {\"name\":\"BECA\",\"type\":\"input\"},",
+        "    {\"name\":\"FINANCIAMIENTO\",\"type\":\"input\"},",
+        "    {\"name\":\"USUARIO\",\"type\":\"input\"},",
+        "    {\"name\":\"FECHA\",\"type\":\"input\"}",
         "]"
       ],
       "exposed" : false
@@ -332,6 +441,24 @@
     },
     "getCampus" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "paginado" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"pageNumber\":1,",
+        "    \"totalRows\":0,",
+        "    \"pageSize\":20",
+        "}"
+      ],
       "exposed" : false
     }
   },

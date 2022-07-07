@@ -32,4 +32,6 @@ class Statements {
 	public static final String UPDATE_ESTATUS_SDAE = "UPDATE SolicitudApoyoEducativo SET estatusSolicitud = ? WHERE caseId = ?";
 	
 	public static final String GET_URL_CURRICULUM_BY_CASE_ID = "SELECT urlCurriculum FROM SolicitudApoyoEducativo WHERE caseId = ?";
+	
+	public static final String GET_BITACORA_SDAE = "SELECT idBanner,correo,estatus,comentario,beca,financiamiento,usuaria,fecha FROM BitacoraSDAE WHERE idBanner is not null [WHERE] [ORDERBY] [LIMITOFFSET]";
 }
