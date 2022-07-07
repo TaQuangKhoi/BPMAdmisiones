@@ -2328,7 +2328,7 @@ class CatalogosDAO {
 			rs = pstm.executeQuery();
 			errorLog += "Query lista :: ";
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				configCampus = new CatConfiguracionPagoEstudioSocEco();
 				configCampus.setPersistenceId(rs.getLong("PERSISTENCEID"));
 				configCampus.setIdCampus(idCampus);
@@ -2338,12 +2338,11 @@ class CatalogosDAO {
 				configCampus.setFechaCreacion(rs.getString("FECHACREACION"));
 				configCampus.setInstruccionesPago(rs.getString("INSTRUCCIONESPAGO"));
 				configCampus.setMonto(rs.getDouble("MONTO"));
-				
-				lstData.add(configCampus);
+			} else {
+				configCampus = new CatConfiguracionPagoEstudioSocEco();
 			}
 			
-			errorLog += "Query ejecutada :: ";
-			
+			lstData.add(configCampus);
 			resultado.setData(lstData);
 			resultado.setSuccess(true);
 		} catch (Exception e) {
