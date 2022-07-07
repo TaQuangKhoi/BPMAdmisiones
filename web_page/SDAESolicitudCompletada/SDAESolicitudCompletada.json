@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudCompletada",
   "name" : "SDAESolicitudCompletada",
-  "lastUpdate" : 1650474209948,
+  "lastUpdate" : 1657138842248,
   "rows" : [
     [
       {
@@ -107,7 +107,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<hr>\nSe está revisando la información proporcionada, una vez que este proceso concluya en recibirás un correo electrónico a <b>{{session.user_name}}</b> con las instrucciones para continuar con tu proceso de solicitud de apoyo educativo."
+                  "value" : "<hr>\nSe está revisando la información proporcionada, una vez que este proceso concluya en recibirás un correo electrónico a <b>{{session.user_name}}</b> con las instrucciones para continuar con tu proceso de solicitud de apoyo educativo.\n\n<br> <br><br>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -117,6 +117,72 @@
               "reference" : "99eb7314-0170-4b32-97bf-790c97f0f5b0",
               "hasValidationError" : false,
               "id" : "pbText"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "25db2be0-6fd1-4417-b781-2ac61b681eab",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "color-orange"
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Solicitud de financiamiento completada"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "d08dd29a-7de0-4267-9ee5-fdfb5a804a7a",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
             }
           ],
           [
@@ -137,33 +203,85 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
+                "labelHidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Regresar a la bandeja"
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>\nHemos recibido la información la información de tu aval, estamos validando los datos proporcionados, en breve estaremos enviando la respuesta a tu correo <b>{{session.user_name}}</b>.\n<br><br><br>"
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "url" : {
-                  "type" : "constant",
-                  "value" : "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE"
+                  "value" : "left"
                 }
               },
-              "reference" : "e919e40e-a3ff-4f28-b144-e53b271fa406",
+              "reference" : "6ba86570-3d79-46d5-bf2a-5018b88d3b56",
               "hasValidationError" : false,
-              "id" : "customBtnSDAEredirect"
+              "id" : "pbText"
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Regresar a la bandeja"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE"
+          }
+        },
+        "reference" : "e919e40e-a3ff-4f28-b144-e53b271fa406",
+        "hasValidationError" : false,
+        "id" : "customBtnSDAEredirect"
       }
     ]
   ],

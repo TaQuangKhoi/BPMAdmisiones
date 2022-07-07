@@ -5,6 +5,7 @@ function ($scope, $http) {
         
         $http.get(url).success((result)=>{
             let documentos = [];
+            $scope.properties.lstDocumentosAval = [];
             for(let documento of result.data){
                 let objeto = {
                     "caseId": $scope.properties.caseId,
@@ -17,7 +18,7 @@ function ($scope, $http) {
                 $scope.properties.lstDocumentosAval.push(objeto);
             }
         }).error((err)=>{
-            debugger;
+            
         });
     }
     

@@ -15,6 +15,7 @@ import com.anahuac.catalogos.CatCampus
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.StatementsCatalogos
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Entity.db.CatConfiguracionPagoEstudioSocEco
 import com.anahuac.rest.api.Entity.db.CatGenerico
 import com.anahuac.rest.api.Entity.db.CatImagenesSocioEconomico
 import com.anahuac.rest.api.Entity.db.CatManejoDocumentos
@@ -2310,5 +2311,105 @@ class CatalogosDAO {
 			}
 		}
 		return resultado;
+	}
+	
+	public Result getConfiguracionPagoEstudioSocEco(Long idCampus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		CatConfiguracionPagoEstudioSocEco configCampus = new CatConfiguracionPagoEstudioSocEco();
+		List<CatConfiguracionPagoEstudioSocEco> lstData = new ArrayList<CatConfiguracionPagoEstudioSocEco>();
+		String errorLog = "";
+		
+		try {
+			errorLog += "Preparando conexión :: ";
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.GET_CAMPUS_CONFIG_PAGO_ESTUDIO);
+			pstm.setLong(1, idCampus);
+			rs = pstm.executeQuery();
+			errorLog += "Query lista :: ";
+			
+			while(rs.next()) {
+				configCampus = new CatConfiguracionPagoEstudioSocEco();
+				configCampus.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				configCampus.setIdCampus(idCampus);
+				configCampus.setClave(rs.getString("CLAVE"));
+				configCampus.setDescripcion(rs.getString("DESCRIPCION"));
+				configCampus.setDeshabilitarPagoEstudioSocioEconomico(rs.getBoolean("DESHABILITARPAGOESTUDIOSOCIOECONOMICO"));
+				configCampus.setFechaCreacion(rs.getString("FECHACREACION"));
+				configCampus.setInstruccionesPago(rs.getString("INSTRUCCIONESPAGO"));
+				configCampus.setMonto(rs.getDouble("MONTO"));
+				
+				lstData.add(configCampus);
+			}
+			
+			errorLog += "Query ejecutada :: ";
+			
+			resultado.setData(lstData);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		resultado.setError_info(errorLog);
+		return resultado;
+	}
+
+	public Result insertUpdateConfigPagoEstudioSocEco(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			if(object.persistenceId == null) {
+				String consulta = StatementsCatalogos.INSERT_CAMPUS_CONFIG_PAGO_ESTUDIO;
+				closeCon = validarConexion();
+				con.setAutoCommit(false);
+				pstm = con.prepareStatement(consulta);
+				pstm.setString(1, object.clave);
+				pstm.setString(2, object.descripcion);
+				pstm.setBoolean(3, object.deshabilitarPagoEstudioSocioEconomico);
+				pstm.setLong(4, Long.valueOf(object.idCampus.toString()));
+				pstm.setString(5, object.instruccionesPago);
+				pstm.setDouble(6, object.monto);
+
+				pstm.executeUpdate();
+				con.commit();
+			} else {
+				String consulta = StatementsCatalogos.UPDATE_CAMPUS_CONFIG_PAGO_ESTUDIO;
+				closeCon = validarConexion();
+				con.setAutoCommit(false);
+				pstm = con.prepareStatement(consulta);
+//				CLAVE = ?, DESCRIPCION = ?,  DESHABILITARPAGOESTUDIOSOCIOECONOMICO = ?,  INSTRUCCIONESPAGO = ?,  MONTO = ?  WHERE IDCAMPUS = ?;
+				pstm.setString(1, object.clave);
+				pstm.setString(2, object.descripcion);
+				pstm.setBoolean(3, object.deshabilitarPagoEstudioSocioEconomico);
+				pstm.setString(4, object.instruccionesPago);
+				pstm.setDouble(5, object.monto);
+				pstm.setLong(6, Long.valueOf(object.idCampus.toString()));
+
+				pstm.executeUpdate();
+				con.commit();
+			}
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
 	}
 }
