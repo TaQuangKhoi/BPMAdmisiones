@@ -946,7 +946,7 @@ class ImportacionPAADAO {
 				
 				consulta=consulta.replace("[WHERE]", where);
 				errorlog=consulta+" 5";
-				pstm = con.prepareStatement(consulta.replace("sesiones.persistenceid as id,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin as periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid,  da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura,SESIONES.nombre,da.cbcoincide as Lexium", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion,periodo.fechafin, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, SESIONES.nombre, SESIONES.persistenceid,da.cbCoincide",""))
+				pstm = con.prepareStatement(consulta.replace("sesiones.persistenceid as id,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin as periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid,  da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura,SESIONES.nombre,da.cbcoincide as Lexium", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion,periodo.fechafin, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, SESIONES.nombre, SESIONES.persistenceid,da.cbcoincide",""))
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -1977,24 +1977,24 @@ class ImportacionPAADAO {
 				String fecha =  it.FECHAEXAMEN.substring(6, 10)+"-"+it.FECHAEXAMEN.substring(3, 5)+"-"+it.FECHAEXAMEN.substring(0, 2);
 				
 				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
-				errorLog += "INTEGRACION SUBIDA PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				errorLog += "PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAN", it.PAAN, fecha);
-				errorLog += ", INTEGRACION SUBIDA PAAN:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				errorLog += " , PAAN:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PARA", it.PARA, fecha);
-				errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				errorLog += " , PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				if(it.TIPOEXAMEN.toString().equals("KP")) {
 					
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
-					errorLog += ", INTEGRACION SUBIDA MLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					errorLog += ", MLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CLEX", it.CLEX, fecha);
-					errorLog += ", INTEGRACION SUBIDA CLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					errorLog += ", CLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
-					errorLog += ", INTEGRACION SUBIDA HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					errorLog += ", HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
 					
 				}
