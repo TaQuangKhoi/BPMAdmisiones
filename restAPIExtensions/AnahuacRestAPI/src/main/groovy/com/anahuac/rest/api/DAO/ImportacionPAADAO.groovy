@@ -1998,7 +1998,8 @@ class ImportacionPAADAO {
 					
 				}
 				
-				if(resultado.isSuccess()) {
+				if(!resultado.isSuccess()) {
+					errorLog+=" || Entro ||"
 					idbanner.add("${resultado?.getInfo()}");
 				}
 				//idbanner.add("${resultado?.getInfo()}");
