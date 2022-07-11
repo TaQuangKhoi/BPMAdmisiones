@@ -7131,8 +7131,8 @@ class CatalogosDAO {
 
             if (!type.equals("")) {
 
-                //					dataResult = getCatPais(jsonData, context);
-                dataResult = getCatGenerico(jsonData, context);
+                dataResult = getCatPais(jsonData, context);
+                //dataResult = getCatGenerico(jsonData, context);
 
                 if (dataResult.success) {
                     lstParams = dataResult.getData();

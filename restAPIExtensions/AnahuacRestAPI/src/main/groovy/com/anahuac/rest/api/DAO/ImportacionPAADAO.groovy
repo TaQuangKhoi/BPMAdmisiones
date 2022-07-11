@@ -1969,7 +1969,7 @@ class ImportacionPAADAO {
 		
 		Result resultado = new Result();
 		String errorLog = "";
-		
+		List<String> idbanner = new ArrayList<>();
 		try {
 			
 			
@@ -1996,12 +1996,19 @@ class ImportacionPAADAO {
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
 					errorLog += ", HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
-					
 				}
 				
+				if(resultado.isSuccess()) {
+					idbanner.add("${resultado?.getInfo()}");
+				}
+				//idbanner.add("${resultado?.getInfo()}");
+				
 			}
+			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)		
+			resultado.setError_info(errorLog)
+			resultado.setAdditional_data(idbanner)
+			
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
