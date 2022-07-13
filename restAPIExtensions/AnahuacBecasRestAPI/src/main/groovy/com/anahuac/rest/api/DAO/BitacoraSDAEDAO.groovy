@@ -71,12 +71,12 @@ class BitacoraSDAEDAO {
 
 
 			objBitacoraSDAEInput.put("idBanner", object?.idBanner)
-			objBitacoraSDAEInput.put("estatus", object?.estatus);
+			objBitacoraSDAEInput.put("estatus", isNullOrBlanck(object?.estatus));
 			objBitacoraSDAEInput.put("correo", object?.correo)
 			objBitacoraSDAEInput.put("usuario", context.getApiSession().getUserName())
-			objBitacoraSDAEInput.put("comentario", object?.comentario)
-			objBitacoraSDAEInput.put("beca", object?.beca)
-			objBitacoraSDAEInput.put("financiamiento", object?.financiamiento);
+			objBitacoraSDAEInput.put("comentario", isNullOrBlanck(object?.comentario))
+			objBitacoraSDAEInput.put("beca", isNullOrBlanck(object?.beca))
+			objBitacoraSDAEInput.put("financiamiento", isNullOrBlanck(object?.financiamiento));
 			lstBitacoraSDAEInput.add(objBitacoraSDAEInput);
 			contracto.put("lstBitacoraSDAEInput", lstBitacoraSDAEInput);
 
@@ -92,6 +92,14 @@ class BitacoraSDAEDAO {
 
 		return resultado;
 	}
+	
+	private String isNullOrBlanck(String text) {
+		if(text == null || text.equals(null) || text.equals("null") || text.equals("") || text.length() == 0) {
+			return "N/A"
+		}
+		
+		return text;
+	}
 
 	public Result getBitacoraSDAE(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -102,39 +110,10 @@ class BitacoraSDAEDAO {
 		Long userLogged = 0L;
 		Long caseId = 0L;
 		Long total = 0L;
-		Map < String, String > objGrupoCampus = new HashMap < String, String > ();
+		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
-
-			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
-
-			userLogged = context.getApiSession().getUserId();
-
-			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-			for (UserMembership objUserMembership: lstUserMembership) {
-				for (CatCampus rowGrupo: lstCatCampus) {
-					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-						lstGrupo.add(rowGrupo.getDescripcion());
-						break;
-					}
-				}
-			}
-
-			assert object instanceof Map;
-			if (lstGrupo.size() > 0) {
-				where += " AND ("
-				for (Integer i = 0; i < lstGrupo.size(); i++) {
-					String campusMiembro = lstGrupo.get(i);
-					where += "campus.descripcion='" + campusMiembro + "'"
-					if (i == (lstGrupo.size() - 1)) {
-						where += ") "
-					} else {
-						where += " OR "
-					}
-				}
-			}
 
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
@@ -172,7 +151,7 @@ class BitacoraSDAEDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 					case "USUARIO":
-						where += " AND (LOWER(USUARIO) LIKE LOWER('%[valor]%')) ";
+						where += " AND (LOWER(USUARIOS) LIKE LOWER('%[valor]%')) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 					case "FECHA":
@@ -207,7 +186,7 @@ class BitacoraSDAEDAO {
 					orderby += "Financiamiento"
 					break;
 				case "Usuario":
-					orderby += "Usuario"
+					orderby += "Usuarios"
 					break;
 				case "Fecha":
 					orderby += "Fecha"
@@ -219,7 +198,7 @@ class BitacoraSDAEDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 
-			pstm = con.prepareStatement(consulta.replace("idBanner,correo,estatus,comentario,beca,financiamiento,usuaria,fecha", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			pstm = con.prepareStatement(consulta.replace("idBanner,correo,estatus,comentario,beca,financiamiento,usuarios,fecha", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 			//errorlog = consultaCount + " 6";
 			rs = pstm.executeQuery()
 			if (rs.next()) {

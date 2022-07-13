@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBitacora",
   "name" : "SDAEBitacora",
-  "lastUpdate" : 1657211498806,
+  "lastUpdate" : 1657222529480,
   "rows" : [
     [
       {
@@ -279,7 +279,7 @@
     "listData" : {
       "type" : "expression",
       "value" : [
-        "    return [\"idbanner\",\"correo\",\"comentario\",\"beca\",\"financiamiento\",\"usuario\",\"fecha | date:'dd-MM-yyyy'\"]"
+        "    return [\"idbanner\",\"correo\",\"estatus\",\"comentario\",\"beca\",\"financiamiento\",\"usuarios\",\"fecha | date:'dd-MM-yyyy'\"]"
       ],
       "exposed" : false
     },
@@ -290,7 +290,7 @@
     "urlPost" : {
       "type" : "constant",
       "value" : [
-        "/bonita/API/extension/AnahuacRest?url=getAspirantesSinPAA&p=0&c=100"
+        "/bonita/API/extension/AnahuacBecasRest?url=getBitacoraSDAE&p=0&c=100"
       ],
       "exposed" : false
     },
@@ -301,7 +301,7 @@
         "    \"lstFiltro\": $data.lstFiltros, \r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":2,\r",
+        "    \"limit\":20,\r",
         "    \"offset\":0,\r",
         "    \"usuario\":$data.userData.user_name,\r",
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
