@@ -82,7 +82,7 @@ class PDFDocumentDAO {
 			columns.put("paav", isNullOrBlanck(info.get(0)?.paav.toString()));
 			columns.put("paan", isNullOrBlanck(info.get(0)?.paan.toString()));
 			columns.put("para", isNullOrBlanck(info.get(0)?.para.toString()));
-			columns.put("paat", isNullOrBlanck( sumStrings(info.get(0)?.paav.toString(),info.get(0)?.paan.toString(),info.get(0)?.paar.toString()) ));
+			columns.put("paat", isNullOrBlanck( sumStrings(isNullOrBlanck(info.get(0)?.para.toString()),isNullOrBlanck(info.get(0)?.paan.toString()),isNullOrBlanck(info.get(0)?.paav.toString()) ) ));
 			columns.put("invp", isNullOrBlanck(info.get(0)?.invp.toString()));
 			columns.put("tipoAdmision", isNullOrBlanck(info.get(0)?.tipoadmision.toString()));
 			columns.put("periodoIngreso", isNullOrBlanck(info.get(0)?.periodo.toString()));
@@ -305,7 +305,7 @@ class PDFDocumentDAO {
 	}
 	
 	private String sumStrings(String val1="",val2="",val3="") {
-		return "${((val1 == "N/A"?0:val1 as Integer) + (val2 == "N/A"?0:val1 as Integer) + (val3 == "N/A"?0:val1 as Integer))}"
+		return "${((val1 == "N/A"?0:val1 as Integer) + (val2 == "N/A"?0:val2 as Integer) + (val3 == "N/A"?0:val3 as Integer))}"
 	}
 	
 	private String isNullOrBlanck(String text) {

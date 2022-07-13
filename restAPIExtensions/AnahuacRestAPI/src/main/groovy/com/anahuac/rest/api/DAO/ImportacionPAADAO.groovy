@@ -1602,7 +1602,7 @@ class ImportacionPAADAO {
 			++rowCount;
 			Row espacio = sheet.createRow(++rowCount);
 			
-			def titulos = ["Id Banner","Nombre","Email","Curp","Campus","Programa","Periodo","Procedencia","Preparatoria","Promedio","Id sesión","Sesión","MLEX","Paan","CLEX","Paav","HLEX","Para","Invp","Fecha del examen","Fecha ultima modificación"]
+			def titulos = ["Id Banner","Nombre","Email","Curp","Campus","Programa","Periodo","Procedencia","Preparatoria","Promedio","Id sesión","Sesión","MLEX","PAAN","CLEX","PAAV","HLEX","PARA","INVP","Fecha del examen","Fecha ultima modificación"]
 			Row headersRow = sheet.createRow(rowCount);
 			++rowCount;
 			List<Cell> header = new ArrayList<Cell>();
