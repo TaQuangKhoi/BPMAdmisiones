@@ -6131,6 +6131,17 @@ class SesionesDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
+				
+				case "ID DE LA SESION":
+					where +=" AND CAST(S.persistenceid as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
 				case "ID":
 					where +=" AND CAST(p.persistenceid as varchar) ";
 					if(filtro.get("operador").equals("Igual a")) {
@@ -6225,6 +6236,9 @@ class SesionesDAO {
 			switch(object.orderby) {		
 				case "ID":
 				orderby+="p.persistenceid";
+				break;
+				case "IDSESION":
+				orderby+="S.persistenceid";
 				break;
 				case "NOMBRE":
 				orderby+="P.nombre";

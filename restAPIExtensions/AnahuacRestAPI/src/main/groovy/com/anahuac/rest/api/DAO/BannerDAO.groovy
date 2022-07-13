@@ -2193,14 +2193,19 @@ class BannerDAO {
 			errorLog+="|assessmentId="+aptitude.id
 			errorLog+="|score="+score+""
 			errorLog+="|fecha="+fecha
-			
+			Result infoExtra = new Result();
 			if(update) {
-				updateStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,soatestId,codeScore.equals("MMPI"))
+				infoExtra = updateStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,soatestId,codeScore.equals("MMPI"))
 			}else {
-				insertStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,codeScore.equals("MMPI"))
+				infoExtra = insertStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,codeScore.equals("MMPI"))
 			}
+			
 			resultado.setSuccess(true);
 			resultado.setError_info(errorLog)
+			
+			if( !infoExtra.isSuccess() ) {
+				resultado.setInfo(idBanner)				
+			}
 			//resultadoGetConsumeJSON.setSuccess(true);
 		} catch (Exception e) {
 			errorLog += " | " + e.getMessage();

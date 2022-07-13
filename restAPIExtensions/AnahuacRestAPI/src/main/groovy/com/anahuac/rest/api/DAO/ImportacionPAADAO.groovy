@@ -946,7 +946,7 @@ class ImportacionPAADAO {
 				
 				consulta=consulta.replace("[WHERE]", where);
 				errorlog=consulta+" 5";
-				pstm = con.prepareStatement(consulta.replace("sesiones.persistenceid as id,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin as periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid,  da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura,SESIONES.nombre,da.cbcoincide as Lexium", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion,periodo.fechafin, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, SESIONES.nombre, SESIONES.persistenceid,da.cbCoincide",""))
+				pstm = con.prepareStatement(consulta.replace("sesiones.persistenceid as id,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,periodo.fechafin as periodofin, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid,  da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura,SESIONES.nombre,da.cbcoincide as Lexium", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion,periodo.fechafin, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, SESIONES.nombre, SESIONES.persistenceid,da.cbcoincide",""))
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -1879,14 +1879,8 @@ class ImportacionPAADAO {
 		String errorLog = "";
 		Boolean closeCon = false;
 		try {
-			closeCon = validarConexion();
-					
-			/*pstm = con.prepareStatement("")
-			rs= pstm.executeQuery()
-			if(rs.next()) {
-				resultado.setTotalRegistros(rs.getInt("registros"))
-			}*/
 			
+			closeCon = validarConexion();
 			pstm = con.prepareStatement(Statements.GET_EAC_BANNER);
 			rs= pstm.executeQuery();
 			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
@@ -1972,82 +1966,54 @@ class ImportacionPAADAO {
 	}
 	
 	public Result subirEAC_BannerEthos(List<Map<String, Object>> list, RestAPIContext context) {
+		
 		Result resultado = new Result();
 		String errorLog = "";
-		List<Map<String,Object>> machine = new ArrayList <Map<String,Object>> ()
-		Map<String,Object> coins =  new HashMap < String, Object > ();
+		List<String> idbanner = new ArrayList<>();
 		try {
 			
 			
 			for (Map<String, Object> it : list) {
 				String fecha =  it.FECHAEXAMEN.substring(6, 10)+"-"+it.FECHAEXAMEN.substring(3, 5)+"-"+it.FECHAEXAMEN.substring(0, 2);
 				
-				coins =  new HashMap < String, Object > ();
-				coins.put("context", context)
-				coins.put("idBanner", it.IDBANNER)
-				coins.put("codeScore", "PAAV")
-				coins.put("score", it.PAAV)
-				coins.put("fecha", fecha)
-				machine.add(coins)
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
+				errorLog += "PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
-				coins =  new HashMap < String, Object > ();
-				coins.put("context", context)
-				coins.put("idBanner", it.IDBANNER)
-				coins.put("codeScore", "PAAN")
-				coins.put("score", it.PAAN)
-				coins.put("fecha", fecha)
-				machine.add(coins)
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAN", it.PAAN, fecha);
+				errorLog += " , PAAN:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
-				coins =  new HashMap < String, Object > ();
-				coins.put("context", context)
-				coins.put("idBanner", it.IDBANNER)
-				coins.put("codeScore", "PARA")
-				coins.put("score", it.PARA)
-				coins.put("fecha", fecha)
-				machine.add(coins)
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PARA", it.PARA, fecha);
+				errorLog += " , PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				if(it.TIPOEXAMEN.toString().equals("KP")) {
 					
-					coins =  new HashMap < String, Object > ();
-					coins.put("context", context)
-					coins.put("idBanner", it.IDBANNER)
-					coins.put("codeScore", "MLEX")
-					coins.put("score", it.MLEX)
-					coins.put("fecha", fecha)
-					machine.add(coins)
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
+					errorLog += ", MLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
-					coins =  new HashMap < String, Object > ();
-					coins.put("context", context)
-					coins.put("idBanner", it.IDBANNER)
-					coins.put("codeScore", "CLEX")
-					coins.put("score", it.CLEX)
-					coins.put("fecha", fecha)
-					machine.add(coins)
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CLEX", it.CLEX, fecha);
+					errorLog += ", CLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
-					coins =  new HashMap < String, Object > ();
-					coins.put("context", context)
-					coins.put("idBanner", it.IDBANNER)
-					coins.put("codeScore", "HLEX")
-					coins.put("score", it.HLEX)
-					coins.put("fecha", fecha)
-					machine.add(coins)
-
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
+					errorLog += ", HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
 				}
 				
+				if(!resultado.isSuccess()) {
+					errorLog+=" || Entro ||"
+					idbanner.add("${resultado?.getInfo()}");
+				}
+				//idbanner.add("${resultado?.getInfo()}");
+				
 			}
-			errorLog+= "|| info machine"+machine
+			
 			resultado.setSuccess(true);
-			
-			
-			if(machine.size() > 0) {
-				resultado = new BannerDAO().multiThread(machine);
-			}
-
+			resultado.setError_info(errorLog)
+			resultado.setAdditional_data(idbanner)
 			
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			
+			resultado.setError_info(errorLog)
 		}
 		
 		return resultado;
