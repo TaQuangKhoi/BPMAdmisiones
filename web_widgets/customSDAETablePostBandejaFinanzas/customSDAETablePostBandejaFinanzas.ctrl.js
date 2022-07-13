@@ -147,7 +147,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                // /apps/administrativo/SDAEReactivarSolicitudFinanciamiento/
+                var url = "/bonita/portal/resource/app/administrativo/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
                 window.open(url, '_blank');
                 
                 /*

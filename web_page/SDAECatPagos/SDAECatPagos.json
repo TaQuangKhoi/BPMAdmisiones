@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAECatPagos",
   "name" : "SDAECatPagos",
-  "lastUpdate" : 1657216463715,
+  "lastUpdate" : 1657577810321,
   "rows" : [
     [
       {
@@ -262,8 +262,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!campus_selected"
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -273,30 +273,26 @@
                   "type" : "constant",
                   "value" : [
                     "Clave",
-                    "Descripcion",
-                    "Fecha Creacion",
-                    "Monto aspirante Local",
-                    "Monto aspirante foráneo",
-                    "Monto aspirante extranjero",
+                    "Descripción",
+                    "Monto",
                     "Instrucciones de pago",
-                    "Deshabilitar pago de examen de admisión"
+                    "Deshabilitado",
+                    "Fecha creación"
                   ]
                 },
                 "content" : {
                   "type" : "expression",
-                  "value" : "catPagoDeExamenDeAdmision"
+                  "value" : "getConfiguracionPagoEstudioSocEco"
                 },
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
                     "clave",
                     "descripcion",
-                    "fechaCreacion",
-                    "montoAspiranteLocal",
-                    "montoAspitanteForaneo",
-                    "montoAspiranteLocalDolares",
-                    "instruccionesDePago",
-                    "deshabilitarPagoDeExamenDeAdmision?\"Si\":\"no\""
+                    "monto",
+                    "instruccionesPago",
+                    "deshabilitarPagoEstudioSocioEconomico",
+                    "fechaCreacion|date:'dd/MM/yyyy hh:mm'"
                   ]
                 },
                 "selectedRow" : {
@@ -333,16 +329,23 @@
                 },
                 "contenido" : {
                   "type" : "variable",
-                  "value" : "catPagoDeExamenDeAdmision"
+                  "value" : "getConfiguracionPagoEstudioSocEco"
                 },
                 "urlGet" : {
                   "type" : "expression",
-                  "value" : "urlRefreshPaginado"
+                  "value" : "\"../API/extension/AnahuacBecasRestGET?url=getConfiguracionPagoEstudioSocEco&p=0&c=0&idCampus=\" + campus_selected.persistenceId"
+                },
+                "reloadTable" : {
+                  "type" : "constant"
+                },
+                "idCampus" : {
+                  "type" : "expression",
+                  "value" : "campus_selected.persistenceId"
                 }
               },
-              "reference" : "748675ab-6ec8-4d96-8604-f3347683651a",
+              "reference" : "5f4f5229-752b-480f-a1b5-b05a702f1fce",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionar3"
+              "id" : "customSDAETableSeleccionar"
             }
           ],
           [
@@ -360,8 +363,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!campus_selected"
                 },
                 "value" : {
                   "type" : "expression",
@@ -564,6 +567,58 @@
                     "type" : "component",
                     "dimension" : {
                       "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<pre>{{ catConfiguracionPago_selected | json }}</pre>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "2e4ecf34-59ad-4f8d-8460-927391bdfabf",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
                       "sm" : 6,
                       "md" : 2,
                       "lg" : 4
@@ -590,8 +645,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "catPagoDeExamenDeAdmision_selected.deshabilitarPagoDeExamenDeAdmision"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -665,8 +720,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "catPagoDeExamenDeAdmision_selected.deshabilitarPagoDeExamenDeAdmision"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -740,8 +795,8 @@
                         "value" : 1
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "catConfiguracionPago_selected.deshabilitarPagoEstudioSocioEconomico"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -793,7 +848,7 @@
                       "xs" : 12,
                       "sm" : 12,
                       "md" : 12,
-                      "lg" : 6
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -805,8 +860,8 @@
                         "value" : false
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "catPagoDeExamenDeAdmision_selected.deshabilitarPagoDeExamenDeAdmision"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -838,12 +893,61 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "catPagoDeExamenDeAdmision_selected.instruccionesPago"
+                        "value" : "catConfiguracionPago_selected.instruccionesPago"
+                      },
+                      "toolbarsGrp1" : {
+                        "type" : "constant",
+                        "value" : [
+                          "h1",
+                          "h2",
+                          "h3",
+                          "h4",
+                          "h5",
+                          "h6",
+                          "p",
+                          "ul",
+                          "ol"
+                        ]
+                      },
+                      "toolbarsGrp2" : {
+                        "type" : "constant",
+                        "value" : [
+                          "bold",
+                          "italics",
+                          "underline",
+                          "strikeThrough",
+                          "pre",
+                          "quote"
+                        ]
+                      },
+                      "toolbarsGrp3" : {
+                        "type" : "constant",
+                        "value" : [
+                          "justifyLeft",
+                          "justifyCenter",
+                          "justifyRight",
+                          "indent",
+                          "outdent"
+                        ]
+                      },
+                      "toolbarsGrp4" : {
+                        "type" : "constant",
+                        "value" : [
+                          "html",
+                          "insertImage",
+                          "insertLink",
+                          "insertVideo",
+                          "wordcount",
+                          "charcount",
+                          "undo",
+                          "redo",
+                          "clear"
+                        ]
                       }
                     },
-                    "reference" : "fcfaa2cb-ca64-49d4-b1df-3b96119df59f",
+                    "reference" : "ce1e9815-da1e-4c0e-96c8-f9f67f3c1706",
                     "hasValidationError" : false,
-                    "id" : "pbTextarea"
+                    "id" : "pbRichTextarea"
                   }
                 ],
                 [
@@ -878,7 +982,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "catPagoDeExamenDeAdmision_selected.deshabilitarPagoEstudioSocioEconomico"
+                        "value" : "catConfiguracionPago_selected.deshabilitarPagoEstudioSocioEconomico"
                       }
                     },
                     "reference" : "cc8ef117-c5b8-47b9-8d03-3e6c1ab383ed",
@@ -1120,6 +1224,98 @@
                     "reference" : "cd25f782-672a-4435-8c4b-982a10b677a0",
                     "hasValidationError" : false,
                     "id" : "customButtonInstanciarCatPagoExamen"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "POST"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/extension/AnahuacBecasRest?url=insertUpdateConfigPagoEstudioSocEco&p=0&c=0&idCampus={{campus_selected.persistenceId}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "catConfiguracionPago_selected"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      }
+                    },
+                    "reference" : "71022cb9-cee0-477c-aed6-4f1a22d9ea8d",
+                    "hasValidationError" : false,
+                    "id" : "pbButton"
                   }
                 ],
                 [
@@ -1591,6 +1787,39 @@
       "type" : "json",
       "value" : [
         "{}"
+      ],
+      "exposed" : false
+    },
+    "getConfiguracionPagoEstudioSocEco" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getConfiguracionPagoEstudioSocEco&p=0&c=0&idCampus={{campus_selected.persistenceId}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "urlRefreshPaginado2" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getConfiguracionPagoEstudioSocEco&p=0&c=0&idCampus={{campus_selected.persistenceId}}"
+      ],
+      "exposed" : false
+    },
+    "lstConfig" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "reloadTable" : {
+      "type" : "constant",
+      "value" : [
+        "false"
       ],
       "exposed" : false
     }

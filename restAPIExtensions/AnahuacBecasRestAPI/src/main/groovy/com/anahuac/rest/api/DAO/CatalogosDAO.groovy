@@ -2358,6 +2358,48 @@ class CatalogosDAO {
 		resultado.setError_info(errorLog);
 		return resultado;
 	}
+	
+	public Result getConfiguracionPagoEstudioSocEcoAspirante(Long idCampus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		CatConfiguracionPagoEstudioSocEco configCampus = new CatConfiguracionPagoEstudioSocEco();
+		List<CatConfiguracionPagoEstudioSocEco> lstData = new ArrayList<CatConfiguracionPagoEstudioSocEco>();
+		String errorLog = "";
+		
+		try {
+			errorLog += "Preparando conexión :: ";
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(StatementsCatalogos.GET_CAMPUS_CONFIG_PAGO_ESTUDIO);
+			pstm.setLong(1, idCampus);
+			rs = pstm.executeQuery();
+			errorLog += "Query lista :: ";
+			
+			if(rs.next()) {
+				configCampus = new CatConfiguracionPagoEstudioSocEco();
+				configCampus.setDescripcion(rs.getString("DESCRIPCION"));
+				configCampus.setDeshabilitarPagoEstudioSocioEconomico(rs.getBoolean("DESHABILITARPAGOESTUDIOSOCIOECONOMICO"));
+				configCampus.setInstruccionesPago(rs.getString("INSTRUCCIONESPAGO"));
+				configCampus.setMonto(rs.getDouble("MONTO"));
+			} else {
+				configCampus = new CatConfiguracionPagoEstudioSocEco();
+			}
+			
+			lstData.add(configCampus);
+			resultado.setData(lstData);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		resultado.setError_info(errorLog);
+		return resultado;
+	}
 
 	public Result insertUpdateConfigPagoEstudioSocEco(String jsonData) {
 		Result resultado = new Result();
@@ -2377,7 +2419,7 @@ class CatalogosDAO {
 				pstm.setBoolean(3, object.deshabilitarPagoEstudioSocioEconomico);
 				pstm.setLong(4, Long.valueOf(object.idCampus.toString()));
 				pstm.setString(5, object.instruccionesPago);
-				pstm.setDouble(6, object.monto);
+				pstm.setDouble(6, Double.valueOf(object.monto.toString()));
 
 				pstm.executeUpdate();
 				con.commit();
@@ -2391,7 +2433,7 @@ class CatalogosDAO {
 				pstm.setString(2, object.descripcion);
 				pstm.setBoolean(3, object.deshabilitarPagoEstudioSocioEconomico);
 				pstm.setString(4, object.instruccionesPago);
-				pstm.setDouble(5, object.monto);
+				pstm.setDouble(5, Double.valueOf(object.monto.toString()));
 				pstm.setLong(6, Long.valueOf(object.idCampus.toString()));
 
 				pstm.executeUpdate();

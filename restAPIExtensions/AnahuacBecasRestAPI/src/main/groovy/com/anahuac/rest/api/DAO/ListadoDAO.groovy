@@ -226,9 +226,9 @@ class ListadoDAO {
 							}
 							where += " LOWER(SDAE.estatusSolicitud) ";
 							if (filtro.get("operador").equals("Igual a")) {
-								where += "=LOWER('[valor]') OR LOWER(SF.estatusSolicitud)=LOWER('[valor]')"
+								where += "=LOWER('[valor]') OR LOWER(SF.estatusSolicitud)=LOWER('[valor]') "
 							} else {
-								where += "LIKE LOWER('%[valor]%') OF LOWER(SF.estatusSolicitud) LIKE LOWER('%[valor]%')"
+								where += "LIKE LOWER('%[valor]%') OR LOWER(SF.estatusSolicitud) LIKE LOWER('%[valor]%') "
 							}
 							where = where.replace("[valor]", filtro.get("valor"))
 							break;

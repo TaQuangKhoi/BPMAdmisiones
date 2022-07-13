@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1657234103208,
+  "lastUpdate" : 1657584835349,
   "rows" : [
     [
       {
@@ -111,6 +111,102 @@
     ],
     [
       {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+session.user_id+\"&f=name=Pago de estudio socio-económico&p=0\""
+          },
+          "reloadTask" : {
+            "type" : "variable",
+            "value" : "true"
+          },
+          "taskId" : {
+            "type" : "variable",
+            "value" : "taskId"
+          },
+          "caseId" : {
+            "type" : "variable",
+            "value" : "caseid"
+          },
+          "urlContext" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/userTask/\"+taskId+\"/context\""
+          },
+          "solicitudApoyoEducativo" : {
+            "type" : "variable",
+            "value" : "formOutputTest.solicitudApoyoEducativoInput"
+          },
+          "hermanos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.hermanosInput"
+          },
+          "lstDocumentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.lstDocumentosDocumentInput"
+          },
+          "autos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.autosInput"
+          },
+          "bienesRaices" : {
+            "type" : "variable",
+            "value" : "formOutputTest.bienesRaicesInput"
+          },
+          "documentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.documentosSolicitanteInput"
+          },
+          "imagenesSocioEco" : {
+            "type" : "variable",
+            "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
+          },
+          "lstDocumentosByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "getDocumentosByTipoApoyo.data"
+          },
+          "lstImagenesByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "imagenesSocioEconomico.data"
+          },
+          "selectedIndex" : {
+            "type" : "variable",
+            "value" : "0"
+          },
+          "isSolicitud" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "configuracionesPago" : {
+            "type" : "variable",
+            "value" : "configuracionesPago"
+          },
+          "idCampus" : {
+            "type" : "expression",
+            "value" : "objSolicitudDeAdmision[0].catCampusEstudio.persistenceId"
+          }
+        },
+        "reference" : "e6583003-49dd-447d-963c-76b300efda9e",
+        "hasValidationError" : false,
+        "id" : "customSDAEGetTareaUsuarioAspirantePago"
+      }
+    ],
+    [
+      {
         "type" : "container",
         "dimension" : {
           "xs" : 12,
@@ -125,7 +221,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "navigationVar !== \"main\" || currentTaskName !== \"Pago de examen\""
+            "value" : "navigationVar !== \"main\" || currentTaskName !== \"Pago de estudio socio-económico\""
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -263,6 +359,98 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Continuar sin pago"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation",
+                        "value" : "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      }
+                    },
+                    "reference" : "2510d7f0-4e98-41e1-a6d6-7274eb7344b2",
+                    "hasValidationError" : false,
+                    "id" : "pbButton"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
                         "value" : "color-orange"
                       },
                       "hidden" : {
@@ -363,14 +551,14 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "{{instruccionesPago}}"
+                        "value" : "{{ configuracionesPago.instruccionesPago}}"
                       },
                       "alignment" : {
                         "type" : "constant",
                         "value" : "left"
                       }
                     },
-                    "reference" : "cdb62473-2e76-4da1-99ed-2a851550f7bd",
+                    "reference" : "86df0db8-2972-42fa-aef7-4d9fd3e52356",
                     "hasValidationError" : false,
                     "id" : "pbText"
                   }
@@ -883,201 +1071,63 @@
                                 "hasValidationError" : false,
                                 "id" : "pbImage"
                               }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<hr>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "ba85a43e-4c0a-4e8e-a924-617803f41d3c",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
                             ]
                           ]
                         }
                       ]
                     ]
-                  }
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "objectPagoExamen.deshabilitarPagoDeExamenDeAdmision !== true  || (pagoCubierto === true || pagoCubierto === \"true\")"
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "78ae22f8-4e9f-45d5-ac58-16399619267c",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "{{objectPagoExamen.textoDescriptivoPagoDeshabilitado}}"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "481f38e7-b9e0-4b8c-b4fb-2fba551ae288",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Aceptar"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "primary"
-                      },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "Submit task"
-                      },
-                      "assign" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "url" : {
-                        "type" : "interpolation"
-                      },
-                      "responseStatusCode" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "dataToSend" : {
-                        "type" : "expression",
-                        "value" : "contratoNoPago"
-                      },
-                      "dataFromSuccess" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "closeOnSuccess" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "dataFromError" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "targetUrlOnSuccess" : {
-                        "type" : "interpolation",
-                        "value" : "/bonita/apps/aspirante/autodescripcion"
-                      },
-                      "collectionToModify" : {
-                        "type" : "variable"
-                      },
-                      "modalId" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "collectionPosition" : {
-                        "type" : "constant",
-                        "value" : "Last"
-                      },
-                      "valueToAdd" : {
-                        "type" : "constant"
-                      },
-                      "removeItem" : {
-                        "type" : "variable"
-                      },
-                      "taskId" : {
-                        "type" : "expression",
-                        "value" : "taskId"
-                      },
-                      "userId" : {
-                        "type" : "expression",
-                        "value" : "user.id"
-                      },
-                      "urlDireccion" : {
-                        "type" : "expression",
-                        "value" : "urlDireccion"
-                      },
-                      "catSolicitudDeAdmision" : {
-                        "type" : "expression",
-                        "value" : "objectSolicitud"
-                      }
-                    },
-                    "reference" : "9f43ff78-b322-4f66-83d6-eae8edda7286",
-                    "hasValidationError" : false,
-                    "id" : "customCustomButtonExecuteTask2"
                   }
                 ]
               ]
@@ -1463,7 +1513,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Costo del examen de admisión:"
+                              "value" : "Costo del estudio socio-económico:"
                             },
                             "level" : {
                               "type" : "constant",
@@ -1509,106 +1559,6 @@
                             }
                           },
                           "reference" : "cd8b52a1-36b5-45e6-b646-b30e1f8e5461",
-                          "hasValidationError" : false,
-                          "id" : "pbTitle"
-                        }
-                      ]
-                    ]
-                  }
-                ],
-                [
-                  {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                      },
-                      "repeatedCollection" : {
-                        "type" : "variable",
-                        "value" : ""
-                      }
-                    },
-                    "reference" : "f74879a2-2dae-4ba2-90f4-1d0e8dc8a0cf",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 6,
-                            "sm" : 6,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : "no-margin"
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "Descuento:"
-                            },
-                            "level" : {
-                              "type" : "constant",
-                              "value" : "Level 4"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "right"
-                            }
-                          },
-                          "reference" : "0911844a-fe89-4eb2-90a3-2db5dd13154f",
-                          "hasValidationError" : false,
-                          "id" : "pbTitle"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 6,
-                            "sm" : 6,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : "no-margin"
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "${{montoParcial.descuento}}"
-                            },
-                            "level" : {
-                              "type" : "constant",
-                              "value" : "Level 4"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "ec34003d-9d6d-4c28-b50f-db7602b56be0",
                           "hasValidationError" : false,
                           "id" : "pbTitle"
                         }
@@ -3803,7 +3753,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "currentTaskName !== \"Esperar pago\""
+            "value" : "currentTaskName !== \"Esperar pago de estudio socio-económico\""
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -4977,7 +4927,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" || !orderOutput.authorizationCode || orderOutput.status !== \"paid\""
+            "value" : "currentTaskName === \"Pago de estudio socio-económico\" || currentTaskName === \"Esperar pago de estudio socio-económico\" || !orderOutput.authorizationCode || orderOutput.status !== \"paid\""
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -6304,558 +6254,6 @@
           ]
         ]
       }
-    ],
-    [
-      {
-        "type" : "container",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 10,
-          "md" : 10,
-          "lg" : 8
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : "col-lg-offset-2 col-md-offset-1 col-sm-offset-1"
-          },
-          "hidden" : {
-            "type" : "expression",
-            "value" : "isAdmisionAnahuac !== true"
-          },
-          "repeatedCollection" : {
-            "type" : "variable",
-            "value" : ""
-          }
-        },
-        "reference" : "62397f58-86c5-4c9d-8474-bf5c5e311523",
-        "hasValidationError" : false,
-        "id" : "pbContainer",
-        "rows" : [
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Admisión Anáhuac"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 3"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "778b2138-943b-4d42-9998-e4ca371e025f",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Tu solicitud es una Admisión Anáhuac por lo que has sido excentadado del pago de exámen de admisión, puedes seguir tu proceso completando la sección de autodescripción."
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "0f771ae8-5ca4-4a51-8054-483bb8a641dd",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
-          ]
-        ]
-      }
-    ],
-    [
-      {
-        "type" : "container",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 10,
-          "md" : 10,
-          "lg" : 8
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : "col-lg-offset-2 col-md-offset-1 col-sm-offset-1"
-          },
-          "hidden" : {
-            "type" : "expression",
-            "value" : "isAdmisionAnahuac === true || currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" ||currentTaskName === \"\"  || currentTaskName === undefined || (orderOutput.authorizationCode !== \"\" && orderOutput.authorizationCode !== null && orderOutput.authorizationCode !== undefined)"
-          },
-          "repeatedCollection" : {
-            "type" : "variable",
-            "value" : ""
-          }
-        },
-        "reference" : "f8685077-d83f-40cb-baa4-1048307b5b3c",
-        "hasValidationError" : false,
-        "id" : "pbContainer",
-        "rows" : [
-          [
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "is100descuento === true || isPagoCondonado  !== true"
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "6c5a2739-aa18-49f9-861d-d726aca9eda3",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : "color-orange"
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "Pago  condonado"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 3"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "d98df6de-39d4-465f-b59f-f56c81898d71",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "<hr>"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      }
-                    },
-                    "reference" : "2c117d01-5ae9-4e35-8f42-57ad5b97047d",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "Tu pago ha sido condonado exitosamente.  Da clic en continuar para seguir con tu proceso."
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "60329489-7763-4f0a-a27f-6cfa03f5e2d1",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Continuar"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "success"
-                      },
-                      "url" : {
-                        "type" : "constant",
-                        "value" : "/apps/aspirante/autodescripcion"
-                      }
-                    },
-                    "reference" : "a66694fa-4769-46b7-b8d2-b5526b8bf587",
-                    "hasValidationError" : false,
-                    "id" : "customCustomBtnRedirectLayout"
-                  }
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "is100descuento !== true"
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "4513eaea-dd29-4cc8-88f1-74eb1c1f2848",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : "color-orange"
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "Descuento 100%"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 3"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "76431265-6e27-4dda-bcd5-3185f04f6400",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "Has obtenido un descuento del 100%  en el costo de tu examen de admisión.  Da clic en continuar para seguir con tu proceso."
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "57687fc6-0c30-4117-8e39-7eb1a83c9eb9",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Continuar"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "success"
-                      },
-                      "url" : {
-                        "type" : "constant",
-                        "value" : "/apps/aspirante/autodescripcion"
-                      }
-                    },
-                    "reference" : "4f3f429b-bd19-48f6-9283-9d3a1ae3b8c9",
-                    "hasValidationError" : false,
-                    "id" : "customCustomBtnRedirectLayout"
-                  }
-                ]
-              ]
-            }
-          ]
-        ]
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "solicitudDeAdmision" : {
-            "type" : "variable",
-            "value" : "objectSolicitud"
-          }
-        },
-        "reference" : "321550a1-a555-4e09-836c-1f0fa98d179e",
-        "hasValidationError" : false,
-        "id" : "customWdgPeriodoVencido"
-      }
     ]
   ],
   "assets" : [
@@ -7153,17 +6551,18 @@
         "    ",
         "}",
         "return {",
-        "    \"name\": $data.objectSolicitud.primerNombre + \" \"+ $data.objectSolicitud.apellidoPaterno,",
-        "    \"email\": $data.objectSolicitud.correoElectronico,",
-        "    \"phone\": $data.objectSolicitud.telefono,",
-        "    \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
+        "    \"name\": $data.objSolicitudDeAdmision[0].primerNombre + \" \"+ $data.objSolicitudDeAdmision[0].apellidoPaterno,",
+        "    \"email\": $data.objSolicitudDeAdmision[0].correoElectronico,",
+        "    \"phone\": $data.objSolicitudDeAdmision[0].telefono,",
+        "    \"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\",",
         "    \"unit_price\": $data.montoParcial === null ? \"\" : parseInt((100 * ($data.montoParcial.montoTotal)))+ \"\",",
         "    \"idToken\": $data.idTokenCard,",
-        "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
+        "    \"caseId\" : $data.objSolicitudDeAdmision[0].caseId + \"\",",
         "    \"last4\": last4,",
         "    \"nombrePago\": $data.cardInformation.cardholder,",
-        "    \"campus\": $data.objectSolicitud.catCampus.descripcion,",
-        "    \"idbanner\": $data.objectDetalleSolicitud.idBanner",
+        "    \"campus\": $data.objSolicitudDeAdmision[0].catCampus.descripcion,",
+        "    // \"idbanner\": $data.objectDetalleSolicitud.idBanner",
+        "    \"idbanner\":\"\"",
         "}"
       ],
       "exposed" : false
@@ -7182,7 +6581,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready&jusquer=1"
+        "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{session.user_id}}&f=name=Pago de estudio socio-económico&p=0"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -7220,10 +6619,9 @@
       "exposed" : false
     },
     "taskId" : {
-      "type" : "expression",
+      "type" : "constant",
       "value" : [
-        "// return \"360029\";",
-        "return $data.currentTask[0].id;"
+        ""
       ],
       "exposed" : false
     },
@@ -7259,70 +6657,20 @@
     "montoParcial" : {
       "type" : "expression",
       "value" : [
-        "let montoParcial = getMontoByTipoEstudiante();\r",
-        "let descuento = getDescuento(montoParcial, returnDescuento());\r",
-        "let montoTotal = getTotal(montoParcial, descuento);\r",
-        "let descuentoPorcentaje = returnDescuento();\r",
+        "let montoParcial = configuracionesPago.monto;\r",
         "\r",
         "return {\r",
-        "    \"montoParcial\": montoParcial,\r",
-        "    \"descuento\": descuento + \" (\" +  descuentoPorcentaje + \"%)\",\r",
-        "    \"montoTotal\": montoTotal,\r",
-        "    \"descuentoPorcentaje\": descuentoPorcentaje\r",
+        "    \"montoParcial\": getTotal(montoParcial),\r",
+        "    \"montoTotal\": getTotal(montoParcial)\r",
         "}\r",
         "\r",
-        "function getTotal(montoParcial, descuento){\r",
-        "    let output = (parseFloat(montoParcial).toFixed(2) - parseFloat(descuento).toFixed(2)).toFixed(2);\r",
+        "function getTotal(_montoParcial){\r",
+        "    let output = parseFloat(_montoParcial).toFixed(2);\r",
         "    \r",
         "    if(output < 3){\r",
         "        output = 3.00;    \r",
         "    }\r",
         "    \r",
-        "    return output;\r",
-        "}\r",
-        "\r",
-        "function getDescuento(montoParcial, descuento){\r",
-        "    let output = \"0\";\r",
-        "    if (parseFloat(descuento) > 0){\r",
-        "        output = parseFloat(montoParcial).toFixed(2) * (0.01 * parseFloat(descuento).toFixed(2));\r",
-        "    }\r",
-        "    return parseFloat(output).toFixed(2) + \"\";\r",
-        "}\r",
-        "\r",
-        "function getMontoByTipoEstudiante(){\r",
-        "    let output = \"\";\r",
-        "    \r",
-        "    if($data.catTipoResidencia.descripcion === \"Local\"){\r",
-        "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
-        "    } else if($data.catTipoResidencia.descripcion === \"Foraneo\"){\r",
-        "        output = parseFloat($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
-        "    } else {\r",
-        "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
-        "    }\r",
-        "    \r",
-        "    // if($data.objectDetalleSolicitud.tipoAlumno === \"Local\"){\r",
-        "    //     output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
-        "    // } else if($data.objectDetalleSolicitud.tipoAlumno === \"Foraneo\"){\r",
-        "    //     output = parseFloat($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
-        "    // } else {\r",
-        "    //     output = parseFloat($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
-        "    // }\r",
-        "    \r",
-        "    return output;\r",
-        "}\r",
-        "\r",
-        "function returnDescuento(){\r",
-        "    let output = \"\";\r",
-        "    if($data.objectDetalleSolicitud.descuento !== null && $data.objectDetalleSolicitud.descuento !== undefined && $data.objectDetalleSolicitud.descuento !== \"\"){\r",
-        "        if(parseFloat($data.objectDetalleSolicitud.descuento) > 0){\r",
-        "            // output = parseFloat($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
-        "            output = parseInt($data.objectDetalleSolicitud.descuento);\r",
-        "        } else {\r",
-        "            output = \"0\";\r",
-        "        }\r",
-        "    } else {\r",
-        "         output = \"0\";\r",
-        "    }\r",
         "    return output;\r",
         "}"
       ],
@@ -7750,10 +7098,53 @@
       "advancedOptions" : { },
       "exposed" : false
     },
-    "isPeriodoVencido" : {
+    "caseid" : {
+      "type" : "urlparameter",
+      "value" : [
+        "caseId"
+      ],
+      "exposed" : false
+    },
+    "formOutputTest" : {
       "type" : "json",
       "value" : [
-        "{ \"isVencido\":false }"
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "objSolicitudDeAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{session.user_name}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getConfiguracionPago" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getConfiguracionPagoEstudioSocEcoAspirante&p=0&c=0&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "exposed" : false
+    },
+    "configuracionesPago" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "\t\"solicitudApoyoEducativoInput\":{\r",
+        "\t\t\"ordenPagoConekta\":\"ORDER_ID\"\r",
+        "\t},\r",
+        "\t\"isPagoValidadoInput\": true,\r",
+        "\t\"isPagoConTarjetainput\": true,\r",
+        "\t\"isPagoRegresarInput\": false\r",
+        "}"
       ],
       "exposed" : false
     }

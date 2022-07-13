@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
-  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.31" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
+  <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.32" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
     <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.31">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
@@ -3160,7 +3160,7 @@
         <value xmi:type="expression:Expression" xmi:id="_PpGy22c7EeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.31">
+    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.33">
       <elements xmi:type="process:Lane" xmi:id="_EmGwkGdBEeyAHufroJpG_Q" name="Aspirante" actor="_Frl3UGdUEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_HtHk0GdBEeyAHufroJpG_Q" name="Solicitud de beca aspirante" outgoing="_KMB3QGdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HtHk0mdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -7315,8 +7315,13 @@
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ENN4cP48Eey36esUJqE80Q" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
             </processSource>
           </inputMappings>
+          <inputMappings xmi:type="process:InputMapping" xmi:id="_4TwQ8P5YEey36esUJqE80Q" subprocessTarget="idAspiranteInput">
+            <processSource xmi:type="expression:Expression" xmi:id="_4TwQ8f5YEey36esUJqE80Q" name="idAspirante" content="idAspirante" type="TYPE_VARIABLE" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:Data" xmi:id="_5PGe4P5YEey36esUJqE80Q" name="idAspirante" dataType="_PpGy32c7EeyAHufroJpG_Q"/>
+            </processSource>
+          </inputMappings>
           <calledActivityName xmi:type="expression:Expression" xmi:id="__3i2gf4sEey36esUJqE80Q" name="Pago de estudio socio-económico" content="Pago de estudio socio-económico" returnTypeFixed="true"/>
-          <calledActivityVersion xmi:type="expression:Expression" xmi:id="__3iPdP4sEey36esUJqE80Q" name="1.0" content="1.0" returnTypeFixed="true"/>
+          <calledActivityVersion xmi:type="expression:Expression" xmi:id="__3iPdP4sEey36esUJqE80Q" name="1.2" content="1.2" returnTypeFixed="true"/>
         </elements>
       </elements>
       <elements xmi:type="process:Lane" xmi:id="_6U5KAGdBEeyAHufroJpG_Q" name="Becas" actor="_DmlSoGdUEeyAHufroJpG_Q">
@@ -9034,7 +9039,7 @@
         <value xmi:type="expression:Expression" xmi:id="_41FZnmdAEeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="__z66wP4sEey36esUJqE80Q" name="Pago de estudio socio-económico">
+    <elements xmi:type="process:Pool" xmi:id="__z66wP4sEey36esUJqE80Q" name="Pago de estudio socio-económico" version="1.2">
       <elements xmi:type="process:XORGateway" xmi:id="__3w48P4sEey36esUJqE80Q" name="¿Pago realizado?" outgoing="__39tQP4sEey36esUJqE80Q __3_icP4sEey36esUJqE80Q" incoming="__4G3MP4sEey36esUJqE80Q">
         <dynamicLabel xmi:type="expression:Expression" xmi:id="__3w48f4sEey36esUJqE80Q" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="__3w48v4sEey36esUJqE80Q" name="" content="" returnTypeFixed="true"/>
@@ -9060,7 +9065,7 @@
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="__30jVv4sEey36esUJqE80Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <iteratorExpression xmi:type="expression:Expression" xmi:id="__30jV_4sEey36esUJqE80Q" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
         <completionCondition xmi:type="expression:Expression" xmi:id="__30jWP4sEey36esUJqE80Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-        <formMapping xmi:type="process:FormMapping" xmi:id="__30jWf4sEey36esUJqE80Q">
+        <formMapping xmi:type="process:FormMapping" xmi:id="__30jWf4sEey36esUJqE80Q" type="NONE">
           <targetForm xmi:type="expression:Expression" xmi:id="__30jWv4sEey36esUJqE80Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
         </formMapping>
         <filters xmi:type="process:ActorFilter" xmi:id="_cFZuMP4_Eey36esUJqE80Q" name="Aspirante" definitionId="bonita-actorfilter-single-user" definitionVersion="1.0.0">
@@ -9107,12 +9112,45 @@
             <inputTypes>java.lang.String</inputTypes>
           </operator>
         </operations>
+        <operations xmi:type="expression:Operation" xmi:id="_0POtgAF3Ee2gudDOubEQWQ">
+          <leftOperand xmi:type="expression:Expression" xmi:id="_0PPUkAF3Ee2gudDOubEQWQ" name="isPagoConTarjeta" content="isPagoConTarjeta" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+            <referencedElements xmi:type="process:Data" xmi:id="_0vLY4AF3Ee2gudDOubEQWQ" name="isPagoConTarjeta" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+          </leftOperand>
+          <rightOperand xmi:type="expression:Expression" xmi:id="_0PPUkQF3Ee2gudDOubEQWQ" name="newScript()" content="isPagoConTarjetainput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+            <referencedElements xmi:type="process:ContractInput" xmi:id="_2rJ9YAF3Ee2gudDOubEQWQ" name="isPagoConTarjetainput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_2rJ9YQF3Ee2gudDOubEQWQ"/>
+            </referencedElements>
+          </rightOperand>
+          <operator xmi:type="expression:Operator" xmi:id="_0PPUkgF3Ee2gudDOubEQWQ" type="ASSIGNMENT"/>
+        </operations>
+        <operations xmi:type="expression:Operation" xmi:id="_24FmIAF3Ee2gudDOubEQWQ">
+          <leftOperand xmi:type="expression:Expression" xmi:id="_24FmIQF3Ee2gudDOubEQWQ" name="isPagoRegresar" content="isPagoRegresar" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+            <referencedElements xmi:type="process:Data" xmi:id="_3bi4gAF3Ee2gudDOubEQWQ" name="isPagoRegresar" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+          </leftOperand>
+          <rightOperand xmi:type="expression:Expression" xmi:id="_24FmIgF3Ee2gudDOubEQWQ" name="newScript()" content="isPagoRegresarInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+            <referencedElements xmi:type="process:ContractInput" xmi:id="_6wk6oAF3Ee2gudDOubEQWQ" name="isPagoRegresarInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_6wk6oQF3Ee2gudDOubEQWQ"/>
+            </referencedElements>
+          </rightOperand>
+          <operator xmi:type="expression:Operator" xmi:id="_24FmIwF3Ee2gudDOubEQWQ" type="ASSIGNMENT"/>
+        </operations>
+        <operations xmi:type="expression:Operation" xmi:id="_6-py4AF3Ee2gudDOubEQWQ">
+          <leftOperand xmi:type="expression:Expression" xmi:id="_6-py4QF3Ee2gudDOubEQWQ" name="isPagoValidado" content="isPagoValidado" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+            <referencedElements xmi:type="process:Data" xmi:id="_7eHWEAF3Ee2gudDOubEQWQ" name="isPagoValidado" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+          </leftOperand>
+          <rightOperand xmi:type="expression:Expression" xmi:id="_6-py4gF3Ee2gudDOubEQWQ" name="newScript()" content="isPagoValidadoInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+            <referencedElements xmi:type="process:ContractInput" xmi:id="_80yOEAF3Ee2gudDOubEQWQ" name="isPagoValidadoInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_80yOEQF3Ee2gudDOubEQWQ"/>
+            </referencedElements>
+          </rightOperand>
+          <operator xmi:type="expression:Operator" xmi:id="_6-py4wF3Ee2gudDOubEQWQ" type="ASSIGNMENT"/>
+        </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="__374Gv4sEey36esUJqE80Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="__374G_4sEey36esUJqE80Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="__374HP4sEey36esUJqE80Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <iteratorExpression xmi:type="expression:Expression" xmi:id="__374Hf4sEey36esUJqE80Q" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
         <completionCondition xmi:type="expression:Expression" xmi:id="__374Hv4sEey36esUJqE80Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-        <formMapping xmi:type="process:FormMapping" xmi:id="__374H_4sEey36esUJqE80Q">
+        <formMapping xmi:type="process:FormMapping" xmi:id="__374H_4sEey36esUJqE80Q" type="NONE">
           <targetForm xmi:type="expression:Expression" xmi:id="__374IP4sEey36esUJqE80Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
         </formMapping>
         <filters xmi:type="process:ActorFilter" xmi:id="_Z4GJIP4_Eey36esUJqE80Q" name="Aspirante" definitionId="bonita-actorfilter-single-user" definitionVersion="1.0.0">
@@ -9134,7 +9172,7 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_sX0pQP4-Eey36esUJqE80Q" name="isPagoConTarjetainput" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_sX0pQf4-Eey36esUJqE80Q"/>
           </inputs>
-          <inputs xmi:type="process:ContractInput" xmi:id="_uqG08P4-Eey36esUJqE80Q" name="isPagoRegresar" type="BOOLEAN">
+          <inputs xmi:type="process:ContractInput" xmi:id="_uqG08P4-Eey36esUJqE80Q" name="isPagoRegresarInput" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_uqG08f4-Eey36esUJqE80Q"/>
           </inputs>
         </contract>
@@ -9164,7 +9202,11 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="__4QoRf4sEey36esUJqE80Q" content="" returnType="java.lang.Boolean"/>
       </data>
       <data xmi:type="process:Data" xmi:id="_ZRWusP4-Eey36esUJqE80Q" name="idAspirante" dataType="_PpGy32c7EeyAHufroJpG_Q">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_ZRWusf4-Eey36esUJqE80Q" content="" returnType="java.lang.Long"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_ZRWusf4-Eey36esUJqE80Q" name="idAspiranteInput" content="idAspiranteInput" type="TYPE_CONTRACT_INPUT" returnType="java.lang.Long">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_EhObgP7qEeyd4YhYRgwpkg" name="idAspiranteInput" type="LONG">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_EhObgf7qEeyd4YhYRgwpkg"/>
+          </referencedElements>
+        </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="__3d-D_4sEey36esUJqE80Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="__3d-EP4sEey36esUJqE80Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -9205,6 +9247,29 @@
         <condition xmi:type="expression:Expression" xmi:id="_YIQoYv4tEey36esUJqE80Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="__3z8QP4sEey36esUJqE80Q" name="Aspirante" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_MLoicP7qEeyd4YhYRgwpkg" name="Qualification" version="7.12.0-004" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_MLpJgP7qEeyd4YhYRgwpkg">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_MLpJgf7qEeyd4YhYRgwpkg" name="Aspirante">
+            <groups xmi:type="actormapping:Groups" xmi:id="_MLpJgv7qEeyd4YhYRgwpkg"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_MLpJg_7qEeyd4YhYRgwpkg"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_MLpJhP7qEeyd4YhYRgwpkg">
+              <role>ASPIRANTE</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_MLpJhf7qEeyd4YhYRgwpkg"/>
+          </actorMapping>
+        </actorMappings>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_MLoicf7qEeyd4YhYRgwpkg" type="ACTOR_FILTER" definitionId="bonita-actorfilter-single-user" definitionVersion="1.0.0" implementationId="bonita-actorfilter-single-user-impl" implementationVersion="1.0.0"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MLoicv7qEeyd4YhYRgwpkg" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MLoic_7qEeyd4YhYRgwpkg" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MLoidP7qEeyd4YhYRgwpkg" id="ACTOR_FILTER">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_MLoidf7qEeyd4YhYRgwpkg" id="bonita-actorfilter-single-user-impl-1.0.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_MLoidv7qEeyd4YhYRgwpkg" key="bonita-actorfilter-single-user-impl -- 1.0.0" value="bonita-actorfilter-single-user-1.0.0.jar" type="ACTOR_FILTER"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MLoid_7qEeyd4YhYRgwpkg" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MLoieP7qEeyd4YhYRgwpkg" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_MLoief7qEeyd4YhYRgwpkg" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="__3d-E_4sEey36esUJqE80Q">
         <inputs xmi:type="process:ContractInput" xmi:id="__4LvuP4sEey36esUJqE80Q" name="solicitudApoyoEducativo_persistenceId" type="LONG"/>
         <inputs xmi:type="process:ContractInput" xmi:id="_xRhqgP47Eey36esUJqE80Q" name="caseIdApoyo" type="LONG">
