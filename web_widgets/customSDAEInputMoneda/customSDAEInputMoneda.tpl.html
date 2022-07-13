@@ -25,6 +25,7 @@
                 step="{{properties.step}}"
                 ng-readonly="properties.readOnly"
                 style="padding-left: 35px;"
+                onkeypress="force($event)"
                 ng-keypress="forceKeyPressUppercase($event)"
             >
             
@@ -59,13 +60,13 @@
 </div>
 
 <!--PARA DESACTIVAR ELBAKCSPACE -->
-<!--<script>-->
-    <!--function force(event){-->
-        <!--if (event.which == 8 || event.which == 46) { -->
-            <!--event.preventDefault();-->
-        <!--} -->
-    <!--}-->
-<!--</script>-->
+<script>
+    function force(event){
+        if (event.which == 8 || event.which == 46) { 
+            event.preventDefault();
+        } 
+    }
+</script>
   
 <style>
     /*input {*/

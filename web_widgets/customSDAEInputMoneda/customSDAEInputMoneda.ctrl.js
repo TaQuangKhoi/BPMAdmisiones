@@ -59,16 +59,26 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
         } else {
             e.preventDefault();
             blockVar = true;
-            let model = $scope.properties.value ? $scope.properties.value : "";
-            $scope.properties.value = parseInt(model + e.key);
+            let model = $scope.properties.value ? $scope.properties.value : "0";
+            
+            if(model == 0 && e.key == 0){
+                $scope.properties.value = 0;
+            } else {
+                $scope.properties.value = parseInt(model + e.key);
+            }
+            
         } 
     }
     
     $scope.$watch("properties.value", ()=>{
-        if($scope.properties.value){
+        // if($scope.properties.value == 0){
+        //     debugger; 
+        // }
+        
+        if($scope.properties.value || $scope.properties.value == 0){
             let valueString = $scope.properties.value  + "";
             if(document.getElementById(main_id)){
-                 document.getElementById(main_id).value = parseFloat(valueString.replace(/,/g, ""))
+                document.getElementById(main_id).value = parseFloat(valueString.replace(/,/g, ""))
                 .toFixed(2)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
