@@ -2203,7 +2203,7 @@ class BannerDAO {
 			resultado.setSuccess(true);
 			resultado.setError_info(errorLog)
 			
-			if( !infoExtra.isSuccess() ) {
+			if( !infoExtra.isSuccess() || errorLog.toLowerCase().contains("error") ) {
 				resultado.setInfo(idBanner)				
 			}
 			//resultadoGetConsumeJSON.setSuccess(true);
