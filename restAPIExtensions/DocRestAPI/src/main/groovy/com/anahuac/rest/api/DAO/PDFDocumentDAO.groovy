@@ -94,14 +94,14 @@ class PDFDocumentDAO {
 			Boolean[] familiares = [false,false,false]
 			info.each{
 				if(it?.parentesco.toString().equals("Padre") && !familiares[0]) {
-					if(it?.desconozcodatospadres.toString().equals("t")) {
+					if(it?.desconozcodatospadres.toString().equals("t")  ) {
 						columns.put("nombrePadre", "Se desconoce");
 						columns.put("ocupacionPadre", "Se desconoce");
 						columns.put("empresaPadre", "Se desconoce");
 						columns.put("universidadPadre", "Se desconoce");
 					}else {
 						columns.put("nombrePadre", isNullOrBlanck(it?.nombre.toString()));
-						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString())+" ${isNullOrBlanck(it?.jubilado.toString())=='t'?'(jubilado)':''}" );
+						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
 						columns.put("empresaPadre", isNullOrBlanck(it?.empresatrabaja.toString()));
 						columns.put("universidadPadre", isNullOrBlanck(it?.campusanahuac.toString()));
 					}
@@ -116,16 +116,16 @@ class PDFDocumentDAO {
 						columns.put("universidadMadre", "Se desconoce");
 					}else {
 						columns.put("nombreMadre", isNullOrBlanck(it?.nombre.toString()));
-						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString())+" ${isNullOrBlanck(it?.jubilado.toString())=='t'?'(jubilado)':''}");
+						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString())+ " ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
 						columns.put("empresaMadre", isNullOrBlanck(it?.empresatrabaja.toString()));
 						columns.put("universidadMadre", isNullOrBlanck(it?.campusanahuac.toString()));
 					}
 					familiares[1] = true;
 				}
 				
-				if(it?.istutor.toString().equals("t") && !familiares[2]) {
+				if(it?.istutor.toString().equals("t")  && !familiares[2]) {
 					columns.put("nombreTutor", isNullOrBlanck(it?.nombre.toString()));
-					columns.put("ocupacionTutor", isNullOrBlanck(it?.puesto.toString())+" ${isNullOrBlanck(it?.jubilado.toString())=='t'?'(jubilado)':''}" );
+					columns.put("ocupacionTutor", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''}");
 					columns.put("empresaTutor", isNullOrBlanck(it?.empresatrabaja.toString()));
 					columns.put("universidadTutor", isNullOrBlanck(it?.campusanahuac.toString()));
 					familiares[2] = true;
