@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1657737668603,
+  "lastUpdate" : 1657769506429,
   "rows" : [
     [
       {
@@ -179,7 +179,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Estimado(a) {{ objSolicitudDeAdmision[0].primerNombre + (objSolicitudDeAdmision[0].segundoNombre ? \" \" + objSolicitudDeAdmision[0].segundoNombre : \"\" ) +  \" \" +objSolicitudDeAdmision[0].apellidoPaterno + (objSolicitudDeAdmision[0].apellidoMaterno ? \" \" + objSolicitudDeAdmision[0].apellidoMaterno : \"\" ) }}"
+                          "value" : "Estimado(a): {{ objSolicitudDeAdmision[0].primerNombre + (objSolicitudDeAdmision[0].segundoNombre ? \" \" + objSolicitudDeAdmision[0].segundoNombre : \"\" ) +  \" \" +objSolicitudDeAdmision[0].apellidoPaterno + (objSolicitudDeAdmision[0].apellidoMaterno ? \" \" + objSolicitudDeAdmision[0].apellidoMaterno : \"\" ) }}"
                         },
                         "level" : {
                           "type" : "constant",
@@ -265,14 +265,14 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "La siguiente solicitud será creada para solicitar apoyo para ingresar al periodo <b>{{objSolicitudDeAdmision[0].catPeriodo.descripcion}}</b>, antes de iniciar, favor de indicar el tipo de moneda a utilizar durante el formulario de la solicitud."
+                          "value" : "Aquí podrás solicitar apoyo para el periodo <b>{{objSolicitudDeAdmision[0].catPeriodo.descripcion}}</b>, favor de indicar el tipo de moneda para el llenado del formulario."
                         },
                         "alignment" : {
                           "type" : "constant",
                           "value" : "left"
                         }
                       },
-                      "reference" : "21c60650-bc92-4184-a74e-3d2d609c8d6e",
+                      "reference" : "f7a2f58a-f82d-496b-8de1-c2ccd31dbfd5",
                       "hasValidationError" : false,
                       "id" : "pbText"
                     }
@@ -16813,8 +16813,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -16865,8 +16865,8 @@
                         "value" : "color-orange"
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -16901,8 +16901,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -16953,8 +16953,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -17673,11 +17673,11 @@
                             },
                             "labelHidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Curriculim"
+                              "value" : ""
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -18414,7 +18414,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "He leido y acepto el <a class=\"color-orange-important\" href=\"https://procesos.bpm.anahuac.mx/apps/login/AvisoPrivacidad/\" target=\"blank\">Aviso de privacidad</a>"
+                        "value" : "He leido y acepto el <a class=\"color-orange\" href=\"https://procesos.bpm.anahuac.mx/apps/login/AvisoPrivacidad/\" target=\"blank\">Aviso de privacidad</a>"
                       },
                       "value" : {
                         "type" : "variable",
@@ -18454,7 +18454,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Acepto el <a class=\"color-orange-important\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad Anahuác"
+                        "value" : "Acepto el <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad Anahuác"
                       },
                       "value" : {
                         "type" : "variable",
@@ -19644,6 +19644,13 @@
       "external" : false
     },
     {
+      "id" : "e05b2c0c-3228-4474-a67f-a84a61da78d8",
+      "name" : "jquery.inputmask.bundle.js",
+      "type" : "js",
+      "order" : 9,
+      "external" : false
+    },
+    {
       "id" : "b6f203e9-e31d-42e7-a39f-c2e402c318ec",
       "name" : "noimageavailabledoc.png",
       "type" : "img",
@@ -19655,6 +19662,13 @@
       "name" : "aviso_privacidad.pdf",
       "type" : "img",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "bf7524af-f308-4801-8a97-c575f4f4a131",
+      "name" : "politespace.js",
+      "type" : "js",
+      "order" : 8,
       "external" : false
     },
     {
@@ -21522,6 +21536,25 @@
         "    \"confirmoAutor\": false,",
         "    \"aceptoAvisoPrivacidad\": false",
         "}"
+      ],
+      "exposed" : false
+    },
+    "mascaraIntervalo" : {
+      "type" : "expression",
+      "value" : [
+        "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);"
+      ],
+      "exposed" : false
+    },
+    "bloquearCacacteresGlobal" : {
+      "type" : "expression",
+      "value" : [
+        "document.querySelector(\".moneda-display2-input\").addEventListener(\"keypress\", function (evt) {\r",
+        "    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)\r",
+        "    {\r",
+        "        evt.preventDefault();\r",
+        "    }\r",
+        "});"
       ],
       "exposed" : false
     }

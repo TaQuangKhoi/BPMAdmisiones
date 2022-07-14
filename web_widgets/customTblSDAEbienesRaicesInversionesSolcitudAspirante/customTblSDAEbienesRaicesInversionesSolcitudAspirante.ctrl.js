@@ -9,6 +9,7 @@ function PbTableCtrl($scope) {
     this.selectRow = function (row) {
         if (this.isClickable()) {
             $scope.properties.selectedRow = row;
+            refreshEvent();
         }
     };
 
