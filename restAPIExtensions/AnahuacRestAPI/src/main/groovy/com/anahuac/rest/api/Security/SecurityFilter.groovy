@@ -1167,12 +1167,20 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "EXTERIOR");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "recuperarPasswordAdministrativo":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "EXTERIOR");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "sendEmail":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

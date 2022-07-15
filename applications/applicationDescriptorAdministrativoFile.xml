@@ -120,6 +120,7 @@
             <applicationPage customPage="custompage_SDAECatControlDocumentos" token="CatControlDocumentos"/>
             <applicationPage customPage="custompage_SDAERevisarSolicitudFinanciamiento" token="RevisarSolicitudFinanciamiento"/>
             <applicationPage customPage="custompage_CatEstadosExtranjerosAcciones" token="CatEstadosUSA"/>
+            <applicationPage customPage="custompage_SDAEBitacora" token="SDAEBitacora"/>
             <applicationPage customPage="custompage_DashBoard" token="dashboard"/>
             <applicationPage customPage="custompage_CatCampusAcciones" token="CatCampusAcciones"/>
             <applicationPage customPage="custompage_CatPeriodoAcciones" token="catPeriodoAcciones"/>
@@ -203,13 +204,19 @@
             <applicationPage customPage="custompage_SDAECatCasaDondeVives" token="CatCasaDondeVives"/>
             <applicationPage customPage="custompage_SDAEBandejaSolicitudesEnProgreso" token="SDAEBandejaEnProgreso"/>
             <applicationPage customPage="custompage_SDAEBandejaMaestra" token="SDAEBandejaMaestra"/>
+            <applicationPage customPage="custompage_SDAEBandejaAreaArtistica" token="bandejaAreaArtistica"/>
+            <applicationPage customPage="custompage_SDAEBandejaAreaDeportiva" token="bandejaAreaDeportiva"/>
             <applicationPage customPage="custompage_SDAEBandejaSolicitudes" token="bandejaPreAutorizacion"/>
             <applicationPage customPage="custompage_SDAEBandejaBecas" token="bandejaBecas"/>
-            <applicationPage customPage="custompage_SDAEBandejaAreaDeportiva" token="bandejaAreaDeportiva"/>
-            <applicationPage customPage="custompage_SDAEBandejaAreaArtistica" token="bandejaAreaArtistica"/>
+            <applicationPage customPage="custompage_SDAEArchivoSolicitudesCompletadas" token="archivoSolicitudesCompletadas"/>
+            <applicationPage customPage="custompage_SDAEBandejaSolicitudesArchivadas" token="bandejaArchivadas"/>
             <applicationPage customPage="custompage_SDAEBandejaFinanzas" token="bandejaFinanzas"/>
             <applicationPage customPage="custompage_SDAEBandejaComiteFinanzas" token="bandejaComiteFinanzas"/>
-            <applicationPage customPage="custompage_SDAEArchivoSolicitudesCompletadas" token="archivoSolicitudesCompletadas"/>
+			<applicationPage customPage="custompage_AppBitacoraIntegracionEAC" token="BitacoraIntegracionEAC"/>
+            <applicationPage customPage="custompage_SDAEBandejaFinanzasArchivadas" token="bandejaArchivadasFinanciamiento"/>
+            <applicationPage customPage="custompage_SDAEReactivarSolicitudFinanciamiento" token="SDAEReactivarSolicitudFinanciamiento"/>
+            <applicationPage customPage="custompage_SDAEBandejaSolicitudesFinancPRoceso" token="solicitudes_financiamiento_progreso"/>
+            <applicationPage customPage="custompage_SDAERevisarSolicitudFinanciamientoComite" token="SDAERevisarSolicitudFinanciamientoComite"/>
         </applicationPages>
         <applicationMenus>
             <applicationMenu applicationPage="dashboard">
@@ -306,9 +313,9 @@
                     <applicationMenu applicationPage="Configuracion_HubSpot">
                         <displayName>Configuracion HubSpot</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="BitacoraIntegracionEAC">
+					<applicationMenu applicationPage="BitacoraIntegracionEAC">
                         <displayName>Bitácora Integracion EAC</displayName>
-                    </applicationMenu>
+					</applicationMenu>
                 </applicationMenus>
             </applicationMenu>
             <applicationMenu>
@@ -528,40 +535,54 @@
                 </applicationMenus>
             </applicationMenu>
             <applicationMenu>
-                <displayName>Bandejas SDAE</displayName>
+                <displayName>SDAE Becas</displayName>
                 <applicationMenus>
                     <applicationMenu applicationPage="SDAEBandejaEnProgreso">
-                        <displayName>Solicitudes de apoyo en progreso</displayName>
+                        <displayName>Solicitudes iniciadas</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="SDAEBandejaMaestra">
                         <displayName>Seguimiento de solicitudes procesadas</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="bandejaPreAutorizacion">
-                        <displayName>Bandeja de pre-autorización</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="bandejaBecas">
-                        <displayName>Autorización de apoyo</displayName>
+                    <applicationMenu applicationPage="bandejaAreaArtistica">
+                        <displayName>Solicitudes en área artística</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="bandejaAreaDeportiva">
-                        <displayName>Bandeja de área deportiva</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="bandejaAreaArtistica">
-                        <displayName>Bandeja de área artística</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="bandejaFinanzas">
-                        <displayName>Bandeja de financiamiento educativo</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="bandejaComiteFinanzas">
-                        <displayName>Bandeja de comité finanzas</displayName>
+                        <displayName>Solicitudes en área deportiva</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="bandejaPreAutorizacion">
-                        <displayName>Solicitudes de apoyo en progreso</displayName>
+                        <displayName>Solicitudes en pre-autorización</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="SDAEBandejaMaestra">
-                        <displayName>Solicitudes de apoyo en proceso</displayName>
+                    <applicationMenu applicationPage="bandejaBecas">
+                        <displayName>Solicitudes en comité de becas</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="archivoSolicitudesCompletadas">
-                        <displayName>Solicitudes completadas</displayName>
+                        <displayName>Solicitudes en proceso de cierre</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bandejaArchivadas">
+                        <displayName>Solicitudes archivadas</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>SDAE Financiamiento</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="solicitudes_financiamiento_progreso">
+                        <displayName>Solicitudes iniciadas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="home">
+                        <displayName>Seguimiento de solicitudes procesadas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bandejaFinanzas">
+                        <displayName>Solicitudes en financiamiento educativo</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bandejaComiteFinanzas">
+                        <displayName>Solicitudes en comité de finanzas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="archivoSolicitudesCompletadas">
+                        <displayName>Solicitudes en proceso de cierre</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bandejaArchivadasFinanciamiento">
+                        <displayName>Solicitudes archivadas</displayName>
                     </applicationMenu>
                 </applicationMenus>
             </applicationMenu>

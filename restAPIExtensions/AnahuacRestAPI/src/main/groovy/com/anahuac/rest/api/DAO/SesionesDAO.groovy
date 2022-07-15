@@ -5914,6 +5914,21 @@ class SesionesDAO {
 					}
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
+				
+				case "PRUEBA ID":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +="CAST(P.persistenceid as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
 					
 										
 				case "SESIÓN":
@@ -5955,6 +5970,9 @@ class SesionesDAO {
 				case "SESIÓN ID":
 				orderby+="s.persistenceid";
 				break;
+				case "PRUEBA ID":
+				orderby+="p.persistenceid";
+				break;
 				default:
 				orderby+="ri.fecha_registro"
 				break;
@@ -5968,7 +5986,7 @@ class SesionesDAO {
 			consulta=consulta.replace("[WHERE]", where);
 
 			errorlog+=consulta;			
-			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro, ri.caseId", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro, ri.caseId, p.persistenceid as id_prueba", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 			rs = pstm.executeQuery()
 			if(rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -6400,6 +6418,16 @@ class SesionesDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
+				case "ID DE LA SESION":
+					where +=" AND CAST(S.persistenceid as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
 				case "ID":
 					where +=" AND CAST(p.persistenceid as varchar) ";
 					if(filtro.get("operador").equals("Igual a")) {
@@ -6494,6 +6522,9 @@ class SesionesDAO {
 			switch(object.orderby) {
 				case "ID":
 				orderby+="p.persisntenceid";
+				break;
+				case "IDSESION":
+				orderby+="S.persistenceid";
 				break;
 				case "NOMBRE":
 				orderby+="P.nombre";
