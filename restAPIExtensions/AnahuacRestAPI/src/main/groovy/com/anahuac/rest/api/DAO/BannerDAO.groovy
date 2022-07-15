@@ -2201,9 +2201,9 @@ class BannerDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)
+			resultado.setError_info(errorLog+"|| info extra ${infoExtra}")
 			
-			if( !infoExtra.isSuccess() || errorLog.toLowerCase().contains("error") ) {
+			if( !infoExtra.isSuccess() || infoExtra.getError_info().toLowerCase().contains("error") ) {
 				resultado.setInfo(idBanner)				
 			}
 			//resultadoGetConsumeJSON.setSuccess(true);
