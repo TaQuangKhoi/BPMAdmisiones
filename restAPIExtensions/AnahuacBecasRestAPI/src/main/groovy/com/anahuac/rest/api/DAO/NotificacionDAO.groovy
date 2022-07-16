@@ -24,7 +24,7 @@ class NotificacionDAO {
 			CatNotificaciones row = new CatNotificaciones()
 			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
 			closeCon = validarConexion();
-			String consulta = "SELECT c.* FROM catnotificaciones c INNER JOIN procesocaso pc on pc.caseid=c.caseid and pc.campus=? WHERE c.tipoCorreo IN ('Notificaciones SDAE BC' ,'Notificaciones SDAE FNZ' ,'Cartas SDAE BC','Cartas SDAE FNZ') "
+			String consulta = "SELECT c.* FROM catnotificaciones c INNER JOIN procesocaso pc on pc.caseid=c.caseid and pc.campus=?  "
 			pstm = con.prepareStatement(consulta)
 			pstm.setString(1, campus)
 			rs = pstm.executeQuery()
