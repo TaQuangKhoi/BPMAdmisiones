@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBandejaSolicitudes",
   "name" : "SDAEBandejaSolicitudes",
-  "lastUpdate" : 1657673298313,
+  "lastUpdate" : 1658002013786,
   "rows" : [
     [
       {
@@ -52,7 +52,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Solicitudes en Pre autorización"
+                  "value" : "Solicitudes en pre-autorización"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -284,6 +284,164 @@
                     },
                     "title" : {
                       "type" : "interpolation",
+                      "value" : "En evaluación"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
+                    }
+                  },
+                  "reference" : "19e01e72-64b4-4165-a122-af16a2ed607d",
+                  "hasValidationError" : false,
+                  "id" : "pbTabContainer",
+                  "container" : {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12
+                    },
+                    "propertyValues" : { },
+                    "reference" : "7b94f713-ba61-4f4a-bc5f-a9a8d7d15587",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "content" : {
+                              "type" : "variable",
+                              "value" : "lstFiltrosEsperaEvaluacion"
+                            }
+                          },
+                          "reference" : "260f52cb-ae62-4ac3-bc32-d1575eb29d25",
+                          "hasValidationError" : false,
+                          "id" : "customSDAElistFiltrosBloqueoCampus"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
+                              ]
+                            },
+                            "columnsKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "dataToSendEsperaEvaluacion"
+                            },
+                            "lstContenido" : {
+                              "type" : "variable",
+                              "value" : "lstContenidoEsperaEvaluacion"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "campusSeleccionado" : {
+                              "type" : "variable",
+                              "value" : "getCampusEsperaEvaluacion"
+                            },
+                            "lstCampus" : {
+                              "type" : "variable",
+                              "value" : "lstCatCampus"
+                            },
+                            "abrirPagina" : {
+                              "type" : "constant",
+                              "value" : "verSolicitud"
+                            }
+                          },
+                          "reference" : "5a23002b-4d73-499d-8380-983bd2e5167f",
+                          "hasValidationError" : false,
+                          "id" : "customSDAETablePostVerSolicitud"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "type" : "tabContainer",
+                  "dimension" : {
+                    "xs" : 12,
+                    "sm" : 12,
+                    "md" : 12,
+                    "lg" : 12
+                  },
+                  "propertyValues" : {
+                    "cssClasses" : {
+                      "type" : "constant",
+                      "value" : ""
+                    },
+                    "hidden" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "disabled" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "title" : {
+                      "type" : "interpolation",
                       "value" : "En espera de resultado de admisión"
                     },
                     "active" : {
@@ -417,164 +575,6 @@
                           "reference" : "bef6468a-b47f-4164-8960-8b455d64ac0b",
                           "hasValidationError" : false,
                           "id" : "customSDAETablePostSolicitudv2"
-                        }
-                      ]
-                    ]
-                  }
-                },
-                {
-                  "type" : "tabContainer",
-                  "dimension" : {
-                    "xs" : 12,
-                    "sm" : 12,
-                    "md" : 12,
-                    "lg" : 12
-                  },
-                  "propertyValues" : {
-                    "cssClasses" : {
-                      "type" : "constant",
-                      "value" : ""
-                    },
-                    "hidden" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "disabled" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "title" : {
-                      "type" : "interpolation",
-                      "value" : "En evaluación"
-                    },
-                    "active" : {
-                      "type" : "variable",
-                      "value" : ""
-                    }
-                  },
-                  "reference" : "19e01e72-64b4-4165-a122-af16a2ed607d",
-                  "hasValidationError" : false,
-                  "id" : "pbTabContainer",
-                  "container" : {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12
-                    },
-                    "propertyValues" : { },
-                    "reference" : "7b94f713-ba61-4f4a-bc5f-a9a8d7d15587",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "content" : {
-                              "type" : "variable",
-                              "value" : "lstFiltrosEsperaEvaluacion"
-                            }
-                          },
-                          "reference" : "260f52cb-ae62-4ac3-bc32-d1575eb29d25",
-                          "hasValidationError" : false,
-                          "id" : "customSDAElistFiltrosBloqueoCampus"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "headers" : {
-                              "type" : "constant",
-                              "value" : [
-                                "Id",
-                                "Name",
-                                "Description",
-                                "Date"
-                              ]
-                            },
-                            "columnsKey" : {
-                              "type" : "constant"
-                            },
-                            "selectedRow" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "striped" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "condensed" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "bordered" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "urlPost" : {
-                              "type" : "constant",
-                              "value" : "/bonita/API/extension/AnahuacBecasRest?url=selectSolicitudesApoyo&p=0&c=100"
-                            },
-                            "dataToSend" : {
-                              "type" : "variable",
-                              "value" : "dataToSendEsperaEvaluacion"
-                            },
-                            "lstContenido" : {
-                              "type" : "variable",
-                              "value" : "lstContenidoEsperaEvaluacion"
-                            },
-                            "userId" : {
-                              "type" : "variable",
-                              "value" : "userData.user_id"
-                            },
-                            "campusSeleccionado" : {
-                              "type" : "variable",
-                              "value" : "getCampusEsperaEvaluacion"
-                            },
-                            "lstCampus" : {
-                              "type" : "variable",
-                              "value" : "lstCatCampus"
-                            },
-                            "abrirPagina" : {
-                              "type" : "constant",
-                              "value" : "verSolicitud"
-                            }
-                          },
-                          "reference" : "5a23002b-4d73-499d-8380-983bd2e5167f",
-                          "hasValidationError" : false,
-                          "id" : "customSDAETablePostVerSolicitud"
                         }
                       ]
                     ]
@@ -959,7 +959,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'En espera de resultado','Solicitud de Financiamiento'\",\r",
+        "    \"estatusSolicitud\":\"'En espera de resultado','Solicitud de Financiamiento', 'Solicitud de beca académica'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltrosEsperaEvaluacion,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",

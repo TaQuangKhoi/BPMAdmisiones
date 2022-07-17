@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1657769506429,
+  "lastUpdate" : 1658012864693,
   "rows" : [
     [
       {
@@ -87,9 +87,9 @@
             "value" : true
           }
         },
-        "reference" : "b4c7a637-7c28-4ef7-bd49-dc21f07e13fa",
+        "reference" : "cbbdb78d-ad1c-43e4-be91-c06bc16c1cb5",
         "hasValidationError" : false,
-        "id" : "customSDAEGetTareaUsuarioAspirante"
+        "id" : "customSDAEGetTareaUsuarioAspiranteSolicitud"
       }
     ],
     [
@@ -732,7 +732,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<hr><b>Estas apunto de comenzar tu solicitud, te sugerimos lo siguiente:</b>"
+                        "value" : "<hr>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -784,7 +784,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<ul>\n    <li><b>Tener por lo menos 20 minutos de tiempo libre de distracciones.</b></li>\n    <li><b>Tener a la mano comprobante de domicilio, Kardex actualizado, y toda la documentación personal posible a la mano para efectos de la solicitud.</b></li>\n</ul>"
+                        "value" : "Estimado(a): <label class=\"color-orange\">{{nombreCompletoAspirante}}</a\n\nLa Universidad Anáhuac apoya a los estudiantes de buen nivel académico, cuya situación económica les impida cubrir total o parcialmente el costo de las colegiaturas ordinarias.\n \nEl apoyo que otorga la Universidad cubre exclusivamente las cuotas de inscripción y colegiatura en el porcentaje asignado. Los demás gastos que eventualmente realice el estudiante como servicios complementarios, idiomas, alojamiento, transporte, etc., no están considerados en la cobertura del apoyo.\n\nAntes de comenzar tu solicitud te recomendamos tener a la mano lo siguiente"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -792,6 +792,58 @@
                       }
                     },
                     "reference" : "dfb51e4d-d7df-467a-9d89-7ba24eeab6f2",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "text-justify"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Estimado(a): <label class=\"color-orange\">{{nombreCompleto}}</label>\n\nLa Universidad Anáhuac apoya a los estudiantes de buen nivel académico, cuya situación económica les impida cubrir total o parcialmente el costo de las colegiaturas ordinarias.\n \nEl apoyo que otorga la Universidad cubre exclusivamente las cuotas de inscripción y colegiatura en el porcentaje asignado. Los demás gastos que eventualmente realice el estudiante como servicios complementarios, idiomas, alojamiento, transporte, etc., no están considerados en la cobertura del apoyo.\n\nAntes de comenzar tu solicitud te recomendamos tener a la mano lo siguiente:<br><br>\n<ul>\n    <li>Historial Académico o kárdex oficial ante la SEP con promedio hasta la fecha (copia).</li>\n    <li>Foto de calle de tu domicilio, casa completa por fuera, sala y comedor.</li>\n    <li>Comprobante de ingresos (de quién dependas económicamente) de los últimos dos periodos: nómina o carta de percepciones mensuales.</li>\n    <li>Recibo de predial y último pago de hipoteca (en caso de estar pagando casa) o recibo de renta y primera hoja de contrato (en caso de estar rentando).</li>\n    <li>Último estado de cuenta completo con movimientos de tarjeta de crédito, débito, préstamos personales y/o créditos de vehículo (carátula y movimientos).</li>\n</ul>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "c5546063-29de-486a-8ea1-d61b6c392fca",
                     "hasValidationError" : false,
                     "id" : "pbText"
                   }
@@ -2911,7 +2963,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -3112,7 +3164,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Edad de los hijos  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Edad de los hijos: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -3338,7 +3390,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Promedio preparatoria"
+                              "value" : "Promedio de tu preparatoria:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3415,7 +3467,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Clave de preparatoria:"
+                              "value" : "Clave de tu preparatoria:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3794,7 +3846,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Costo mensual de colegiatura: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Costo mensual de tu colegiatura: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3866,7 +3918,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Contaste con beca en la preparatoria?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿Contaste con beca en tu preparatoria?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4321,7 +4373,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "Nuevo  kardex o certificado oficial  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "Nuevo kárdex o certificado oficial  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "level" : {
                                           "type" : "constant",
@@ -4490,7 +4542,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "Captura el promedio del nuevo kardex  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "Captura el promedio del nuevo kárdex:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -6224,7 +6276,7 @@
                             },
                             "min" : {
                               "type" : "constant",
-                              "value" : 1
+                              "value" : 0
                             },
                             "max" : {
                               "type" : "constant",
@@ -6803,8 +6855,8 @@
                         "value" : "color-orange"
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -6839,8 +6891,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -7329,8 +7381,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!padre.vive"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -7800,8 +7852,8 @@
                         "value" : "color-orange"
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -7836,8 +7888,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -8042,7 +8094,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Apellido"
+                              "value" : "Apellidos:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -8326,8 +8378,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!madre.vive"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -9586,7 +9638,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "MOTIVO DE SOLICITUD DE BECA"
+                        "value" : "DESCRIBE EL MOTIVO POR EL CUAL SE SOLICITA EL APOYO"
                       },
                       "level" : {
                         "type" : "constant",
@@ -9694,7 +9746,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Escribe el motivo por el cual se solicita la beca y otra información que creas que el comité de selección deba saber: (Max 1500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Escribe el motivo por el cual se solicita el apoyo y otra información que creas que el comité de selección deba saber: (máximo 1500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -10080,7 +10132,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -10701,7 +10753,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Construcción de m2 de su casa:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Construcción m2 de tu casa:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -10884,7 +10936,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Valor aproximado de su casa: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Valor aproximado de tu casa: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -10922,58 +10974,6 @@
                           "reference" : "3685877e-e68b-4f6f-a407-97b20d41de4f",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputMoneda"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "<b >Ejemplo: $1,500,000</b>"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "2d2d3f93-2f80-43fc-af63-4da93e3f12a9",
-                          "hasValidationError" : false,
-                          "id" : "pbText"
                         }
                       ]
                     ]
@@ -11728,7 +11728,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Num. Exterior:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Número exterior:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -11803,7 +11803,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Num. Interior"
+                              "value" : "Número Interior:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -12482,7 +12482,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Padre</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Padre:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12559,7 +12559,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -12672,7 +12672,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Madre</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Madre:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12749,7 +12749,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -12862,7 +12862,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Hermano</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Hermano:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12939,7 +12939,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -13052,7 +13052,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Tío(a)</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Tío(a):</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13129,7 +13129,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -13242,7 +13242,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Abuelo(a)</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Abuelo(a):</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13319,7 +13319,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -13432,7 +13432,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Aspirante</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Aspirante:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13509,7 +13509,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -13622,7 +13622,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Otros</label> <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Otros:</label> <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13699,7 +13699,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -13922,7 +13922,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Renta o hipoteca</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Renta o hipoteca:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13999,7 +13999,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -14112,7 +14112,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Servicios: Agua, Luz, Tel. Otros</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Servicios (agua, luz, teléfono, otros):\n</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -14189,7 +14189,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -14302,7 +14302,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Educación</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Educación:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -14379,7 +14379,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -14492,7 +14492,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Gastos médicos</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Gastos médicos:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -14569,7 +14569,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -14682,7 +14682,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Alimentación</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Alimentación:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -14759,7 +14759,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -14872,7 +14872,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Vestido</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Vestido:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -14949,7 +14949,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -15062,7 +15062,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Seguros</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Seguros:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -15139,7 +15139,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -15252,7 +15252,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Diversión</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Diversión:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -15329,7 +15329,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -15442,7 +15442,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Ahorro</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Ahorro:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -15519,7 +15519,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -15632,7 +15632,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Créditos / Impuestos</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Créditos / Impuestos:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -15709,7 +15709,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -15822,7 +15822,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Otros\n</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          "value" : "<label class=\"m-mini\">Otros:\n</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -15899,7 +15899,7 @@
                                   },
                                   "min" : {
                                     "type" : "constant",
-                                    "value" : 1
+                                    "value" : 0
                                   },
                                   "max" : {
                                     "type" : "constant",
@@ -16042,7 +16042,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Total ingresos</label>"
+                                          "value" : "<label class=\"m-mini\">Total ingresos:</label>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -16079,11 +16079,11 @@
                                   },
                                   "minLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 1
                                   },
                                   "maxLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 100
                                   },
                                   "readOnly" : {
                                     "type" : "constant",
@@ -16115,22 +16115,24 @@
                                   },
                                   "type" : {
                                     "type" : "constant",
-                                    "value" : "text"
+                                    "value" : "number"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 100000000000000
                                   },
                                   "step" : {
                                     "type" : "constant",
                                     "value" : 1
                                   }
                                 },
-                                "reference" : "bb91dde8-2094-42e1-9862-1a24094a4f2d",
+                                "reference" : "2e2b6e7c-df76-42e4-8bc5-9a68fece3ec0",
                                 "hasValidationError" : false,
-                                "id" : "customSDAEInputMoneda"
+                                "id" : "customSDAEInputMonedaDisplay"
                               }
                             ]
                           ]
@@ -16228,7 +16230,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Total egresos</label>"
+                                          "value" : "<label class=\"m-mini\">Total egresos:</label>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -16265,11 +16267,11 @@
                                   },
                                   "minLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 1
                                   },
                                   "maxLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 100
                                   },
                                   "readOnly" : {
                                     "type" : "constant",
@@ -16301,22 +16303,24 @@
                                   },
                                   "type" : {
                                     "type" : "constant",
-                                    "value" : "text"
+                                    "value" : "number"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1000000000000000
                                   },
                                   "step" : {
                                     "type" : "constant",
                                     "value" : 1
                                   }
                                 },
-                                "reference" : "5021300a-be76-450a-8740-f08e9eed8a66",
+                                "reference" : "fffd0493-ee21-4023-9486-0ed801cb64f0",
                                 "hasValidationError" : false,
-                                "id" : "customSDAEInputMoneda"
+                                "id" : "customSDAEInputMonedaDisplay"
                               }
                             ]
                           ]
@@ -16926,7 +16930,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label >Instrucciones: carga las fotografías solicitadas, estas deben ser tomadas en formato horizontal y en calidad media/alta.</label>"
+                        "value" : "<label >Instrucciones: Carga las fotografías solicitadas, estas deben ser tomadas en formato horizontal y en calidad media/alta.</label>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -17271,7 +17275,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label>Instrucciones: carga los documentos indicados en JPG, o PDF para completar tu solicitud</label>"
+                        "value" : "<label>Instrucciones: Carga los documentos indicados en JPG, o PDF para completar tu solicitud</label>"
                       },
                       "level" : {
                         "type" : "constant",
@@ -17949,7 +17953,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "URL del video de Habilidades  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "URL del video de habilidades:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "level" : {
                               "type" : "constant",
@@ -18115,6 +18119,90 @@
                         "type" : "constant",
                         "value" : false
                       },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Siguiente"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : "validar5"
+                      },
+                      "errorMessage" : {
+                        "type" : "expression",
+                        "value" : "errorPaso5"
+                      },
+                      "messageTitle" : {
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso5"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : "reloadTask"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      },
+                      "idModal" : {
+                        "type" : "constant",
+                        "value" : "confirmarWi"
+                      }
+                    },
+                    "reference" : "b4636240-7b06-4d88-b332-a517d0d30e8c",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardFinalizarModal"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
                       "labelHidden" : {
                         "type" : "constant",
                         "value" : true
@@ -18236,254 +18324,6 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "<label>Valida y envía tu información</label>"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 3"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "89afb013-ab1f-4c3e-894f-3ac9d9d03086",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "<label class=\"color-orange\">Si has revisado cuidadosamente tu información, si es verídica y correcta, es momento de enviar tu solicitud.</label><br>\n<label class=\"color-orange\">Nuestro equipo de Admisiones te apoyará en este proceso y te acompañará para mantenerte al tanto de tu solicitud. ¡Te deseamos mucha suerte!</label>"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      }
-                    },
-                    "reference" : "0dc4eb4c-3a18-4015-a062-52c085cbd1fc",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos."
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "aceptoVariables.confirmoDatos"
-                      }
-                    },
-                    "reference" : "1f5f562c-629c-4608-ab61-b25bdf64a6f1",
-                    "hasValidationError" : false,
-                    "id" : "pbCheckbox"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de admisión de manera negativa y definitiva."
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "aceptoVariables.confirmoAutor"
-                      }
-                    },
-                    "reference" : "40fd9c56-26d7-419f-a9b8-51fac23aa326",
-                    "hasValidationError" : false,
-                    "id" : "pbCheckbox"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "He leido y acepto el <a class=\"color-orange\" href=\"https://procesos.bpm.anahuac.mx/apps/login/AvisoPrivacidad/\" target=\"blank\">Aviso de privacidad</a>"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "aceptoVariables.aceptoAvisoPrivacidad"
-                      }
-                    },
-                    "reference" : "65e7b650-8210-428c-abad-be330444bc9d",
-                    "hasValidationError" : false,
-                    "id" : "pbCheckbox"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Acepto el <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad Anahuác"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.isFinalizadaInput"
-                      }
-                    },
-                    "reference" : "d88ac544-6ec5-4224-b5ff-3ffdb707dffc",
-                    "hasValidationError" : false,
-                    "id" : "pbCheckbox"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
                       "labelHidden" : {
                         "type" : "constant",
                         "value" : true
@@ -18516,86 +18356,6 @@
                     "reference" : "17689f7d-3b20-405c-b827-5ebd9b096df5",
                     "hasValidationError" : false,
                     "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Enviar solicitud"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "primary"
-                      },
-                      "wizardLength" : {
-                        "type" : "variable",
-                        "value" : "wizardContent.length"
-                      },
-                      "selectedIndex" : {
-                        "type" : "variable",
-                        "value" : "selectedIndex"
-                      },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "Siguiente"
-                      },
-                      "isValidStep" : {
-                        "type" : "variable",
-                        "value" : "validar5"
-                      },
-                      "errorMessage" : {
-                        "type" : "expression",
-                        "value" : "errorPaso5"
-                      },
-                      "messageTitle" : {
-                        "type" : "expression",
-                        "value" : "tituloErrorPaso5"
-                      },
-                      "formOutput" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest"
-                      },
-                      "taskId" : {
-                        "type" : "variable",
-                        "value" : "taskId"
-                      },
-                      "reloadTask" : {
-                        "type" : "variable",
-                        "value" : "reloadTask"
-                      },
-                      "caseId" : {
-                        "type" : "variable",
-                        "value" : "caseId"
-                      }
-                    },
-                    "reference" : "e8f5fb65-1c5c-40af-8689-89b4d2f08998",
-                    "hasValidationError" : false,
-                    "id" : "customSDAEcustomBtnWizardFinalizar"
                   }
                 ]
               ]
@@ -18768,6 +18528,556 @@
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "confirmarWi"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "91a5876e-9c88-4f72-bba8-df85e423091f",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "27b2d8ef-d65a-4b9a-b84a-9d8c6786f83f",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-header"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "a5e23a39-84b3-4ca9-8871-074ad21c0156",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<label>Valida y envía tu información</label>"
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 3"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        }
+                      },
+                      "reference" : "89afb013-ab1f-4c3e-894f-3ac9d9d03086",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal.body"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "9fce7279-ee05-4823-af85-9f8d41d95682",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<label class=\"color-orange\">Si has revisado cuidadosamente tu información, si es verídica y correcta, es momento de enviar tu solicitud.</label><br>\n<label class=\"color-orange\">Nuestro equipo de  apoyo educativo te apoyará en este proceso y te acompañará para mantenerte al tanto de tu solicitud. ¡Te deseamos mucha suerte!</label>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "0dc4eb4c-3a18-4015-a062-52c085cbd1fc",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos."
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "aceptoVariables.confirmoDatos"
+                        }
+                      },
+                      "reference" : "1f5f562c-629c-4608-ab61-b25bdf64a6f1",
+                      "hasValidationError" : false,
+                      "id" : "pbCheckbox"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de solicitud de apoyo educativo de manera negativa y definitiva."
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "aceptoVariables.confirmoAutor"
+                        }
+                      },
+                      "reference" : "40fd9c56-26d7-419f-a9b8-51fac23aa326",
+                      "hasValidationError" : false,
+                      "id" : "pbCheckbox"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "He leido y acepto el <a class=\"color-orange\" href=\"https://procesos.bpm.anahuac.mx/apps/login/AvisoPrivacidad/\" target=\"blank\">Aviso de privacidad</a>"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "aceptoVariables.aceptoAvisoPrivacidad"
+                        }
+                      },
+                      "reference" : "65e7b650-8210-428c-abad-be330444bc9d",
+                      "hasValidationError" : false,
+                      "id" : "pbCheckbox"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Acepto el <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad Anahuác"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "formOutputTest.isFinalizadaInput"
+                        }
+                      },
+                      "reference" : "d88ac544-6ec5-4224-b5ff-3ffdb707dffc",
+                      "hasValidationError" : false,
+                      "id" : "pbCheckbox"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-footer"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "c77298a0-6cb0-487d-8cde-0a1a8ab6c89c",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Cancelar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "info"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Close modal"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "constant"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "5139fcde-0979-4ee1-968e-2022935185a7",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    },
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Enviar solicitud"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "right"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "primary"
+                        },
+                        "wizardLength" : {
+                          "type" : "variable",
+                          "value" : "wizardContent.length"
+                        },
+                        "selectedIndex" : {
+                          "type" : "variable",
+                          "value" : "selectedIndex"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Siguiente"
+                        },
+                        "isValidStep" : {
+                          "type" : "variable",
+                          "value" : "validar6"
+                        },
+                        "errorMessage" : {
+                          "type" : "expression",
+                          "value" : "errorPaso6"
+                        },
+                        "messageTitle" : {
+                          "type" : "expression",
+                          "value" : "tituloErrorPaso6"
+                        },
+                        "formOutput" : {
+                          "type" : "variable",
+                          "value" : "formOutputTest"
+                        },
+                        "taskId" : {
+                          "type" : "variable",
+                          "value" : "taskId"
+                        },
+                        "reloadTask" : {
+                          "type" : "variable",
+                          "value" : "reloadTask"
+                        },
+                        "caseId" : {
+                          "type" : "variable",
+                          "value" : "caseId"
+                        }
+                      },
+                      "reference" : "e8f5fb65-1c5c-40af-8689-89b4d2f08998",
+                      "hasValidationError" : false,
+                      "id" : "customSDAEcustomBtnWizardFinalizar"
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
       }
     ],
     [
@@ -19989,31 +20299,31 @@
         "var suma = 0;\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro : 0);\r",
         "}\r",
         "\r",
         "$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTotal = suma;\r",
@@ -20047,47 +20357,47 @@
         "var suma = 0;\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros : 0);\r",
         "}\r",
         "\r",
         "$data.formOutputTest.solicitudApoyoEducativoInput.egresoTotal = suma;\r",
@@ -20658,7 +20968,7 @@
         "    $data.tituloErrorPaso2 = \"Información de madre\";\r",
         "} else if (!validateHermanos()){\r",
         "    output = false;\r",
-        "    $data.errorPaso2 = \"Si  agregaste un valor a la tabla de hermanos debes llenar los campos correspondientes a las las opciones que seleccionaste. Por ejemplo, si seleccionaste el campo '¿Trabaja?', debes llenar el campo 'Empresa' y 'Ingreso mensual'.\";\r",
+        "    $data.errorPaso2 = \"Si  agregaste un valor a la tabla de hermanos debes llenar los campos correspondientes a las opciones que seleccionaste. Por ejemplo, si seleccionaste el campo '¿Trabaja?', debes llenar el campo 'Empresa' e 'Ingreso mensual'.\";\r",
         "    $data.tituloErrorPaso2 = \"Hermanos:\";\r",
         "}\r",
         "\r",
@@ -20908,11 +21218,7 @@
       "value" : [
         "let output =  true; \r",
         "\r",
-        "if(!$data.formOutputTest.isFinalizadaInput){\r",
-        "    output = false;\r",
-        "    $data.errorPaso5 = \"Debes aceptar el reglamento de becas y financiamiento para poder continuar\";\r",
-        "    $data.tituloErrorPaso5 = \"Carga de documentos\";\r",
-        "}  else if (!validarImagenes()){\r",
+        "if (!validarImagenes()){\r",
         "    output = false;\r",
         "    $data.errorPaso5 = \"Debes subir todas las imagenes del estudio socio económico\";\r",
         "    $data.tituloErrorPaso5 = \"Carga de documentos\";\r",
@@ -20922,7 +21228,7 @@
         "    $data.tituloErrorPaso5 = \"Carga de documentos\";\r",
         "} else if ($data.returnCatValue.catTipoApoyo.requiereVideo && !$data.formOutputTest.solicitudApoyoEducativoInput.urlVideoYouTube){\r",
         "    output = false;\r",
-        "    $data.errorPaso5 = \"Debes subir todos  los documentos  marcados como obligatorios\";\r",
+        "    $data.errorPaso5 = \"Debes llenar el campo 'Video de habilidades'\";\r",
         "    $data.tituloErrorPaso5 = \"Video de habilidades\";\r",
         "} else if (($data.returnCatValue.catTipoApoyo.isArtistica || $data.returnCatValue.catTipoApoyo.isDeportiva) && !$data.formOutputTest.solicitudApoyoEducativoInput.urlCurriculum){\r",
         "    output = false;\r",
@@ -20930,23 +21236,23 @@
         "    $data.tituloErrorPaso5 = $data.returnCurriculumInfo.documentName;\r",
         "} \r",
         "\r",
-        "else if (!$data.aceptoVariables.confirmoDatos){\r",
-        "    output = false;\r",
-        "    $data.errorPaso5 = \"Para continuar, debes aceptar el campo 'Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos.'\";\r",
-        "    $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
-        "} else if (!$data.aceptoVariables.confirmoAutor){\r",
-        "    output = false;\r",
-        "    $data.errorPaso5 = \"Para continuar, debes aceptar el campo 'Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de admisión de manera negativa y definitiva.'\";\r",
-        "    $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
-        "} else if (!$data.aceptoVariables.aceptoAvisoPrivacidad){\r",
-        "    output = false;\r",
-        "    $data.errorPaso5 = \"Para continuar, debes aceptar el aviso de privacidad\";\r",
-        "    $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
-        "} else if (!$data.formOutputTest.isFinalizadaInput){\r",
-        "    output = false;\r",
-        "    $data.errorPaso5 = \"Para continuar, debes aceptar el Reglamento de Becas y Financiamiento educativo\";\r",
-        "    $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
-        "}\r",
+        "// else if (!$data.aceptoVariables.confirmoDatos){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso5 = \"Para continuar, debes aceptar el campo 'Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos.'\";\r",
+        "//     $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
+        "// } else if (!$data.aceptoVariables.confirmoAutor){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso5 = \"Para continuar, debes aceptar el campo 'Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de solicitud de apoyo educativo de manera negativa y definitiva.'\";\r",
+        "//     $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
+        "// } else if (!$data.aceptoVariables.aceptoAvisoPrivacidad){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso5 = \"Para continuar, debes aceptar el aviso de privacidad\";\r",
+        "//     $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
+        "// } else if (!$data.formOutputTest.isFinalizadaInput){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso5 = \"Para continuar, debes aceptar el Reglamento de Becas y Financiamiento educativo\";\r",
+        "//     $data.tituloErrorPaso5 = \"Valida y envía tu información\";\r",
+        "// }\r",
         "\r",
         "return output;\r",
         "\r",
@@ -21556,6 +21862,60 @@
         "    }\r",
         "});"
       ],
+      "exposed" : false
+    },
+    "nombreCompleto" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "output += $data.objSolicitudDeAdmision[0].primerNombre;",
+        "if($data.objSolicitudDeAdmision[0].segundoNombre){",
+        "    output += (\" \" + $data.objSolicitudDeAdmision[0].segundoNombre)",
+        "}",
+        "",
+        "output += (\" \" + $data.objSolicitudDeAdmision[0].apellidoPaterno);",
+        "",
+        "if($data.objSolicitudDeAdmision[0].apellidoMaterno){",
+        "    output += (\" \" + $data.objSolicitudDeAdmision[0].apellidoMaterno)",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "validar6" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;",
+        "",
+        "if (!$data.aceptoVariables.confirmoDatos){",
+        "    output = false;",
+        "    $data.errorPaso6 = \"Para continuar, debes aceptar el campo 'Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos.'\";",
+        "    $data.tituloErrorPaso6 = \"Valida y envía tu información\";",
+        "} else if (!$data.aceptoVariables.confirmoAutor){",
+        "    output = false;",
+        "    $data.errorPaso6 = \"Para continuar, debes aceptar el campo 'Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de solicitud de apoyo educativo de manera negativa y definitiva.'\";",
+        "    $data.tituloErrorPaso6 = \"Valida y envía tu información\";",
+        "} else if (!$data.aceptoVariables.aceptoAvisoPrivacidad){",
+        "    output = false;",
+        "    $data.errorPaso6 = \"Para continuar, debes aceptar el aviso de privacidad\";",
+        "    $data.tituloErrorPaso6 = \"Valida y envía tu información\";",
+        "} else if (!$data.formOutputTest.isFinalizadaInput){",
+        "    output = false;",
+        "    $data.errorPaso6 = \"Para continuar, debes aceptar el Reglamento de Becas y Financiamiento educativo\";",
+        "    $data.tituloErrorPaso6 = \"Valida y envía tu información\";",
+        "}",
+        "",
+        "return output"
+      ],
+      "exposed" : false
+    },
+    "errorPaso6" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "tituloErrorPaso6" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

@@ -34,6 +34,12 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             e.preventDefault();
         } else if ((valueSize) >= limite || !valid || (fullNumber > $scope.properties.max)) {
             e.preventDefault();
+        } else {
+            debugger;
+            if(!$scope.properties.value && content == "0"){
+                e.preventDefault();
+                $scope.properties.value = 0
+            }
         }
     }
     

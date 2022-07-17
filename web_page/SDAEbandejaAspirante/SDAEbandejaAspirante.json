@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1657307940059,
+  "lastUpdate" : 1658016943215,
   "rows" : [
     [
       {
@@ -1297,7 +1297,15 @@
                         "getDatosSolicitante" : "getDatosSolicitante",
                         "imagenesSocEcoSolicitanteInput" : "getImagenesByCaseId.data",
                         "documentosSolicitanteInput" : "getDocumentosByCaseId.data",
-                        "idModal" : "\"modalBandejaAspiranteDocumento\""
+                        "idModal" : "\"modalBandejaAspiranteDocumento\"",
+                        "avalInfoPersonalModel" : "",
+                        "avalInfoInmuebleModel" : "",
+                        "avalInfoPropiedadModel" : "",
+                        "avalReferenciasBancariasModel" : "",
+                        "avalReferenciaCreditoModel" : "",
+                        "lstDocumentosAval" : "",
+                        "isAutor" : "true",
+                        "lstTipoMoneda" : ""
                       }
                     }
                   ]
@@ -1783,10 +1791,31 @@
   ],
   "assets" : [
     {
+      "id" : "f7025ef8-d3e9-4cba-a0c5-457951e8b904",
+      "name" : "jquery.inputmask.bundle.js",
+      "type" : "js",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "64a42ff7-c11b-4018-a0c1-302fd780bf6e",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
       "id" : "e85f77ef-20b0-488d-a7d5-84faefca0019",
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "0f36cdeb-2069-43eb-b8bf-eaf6bb0bead6",
+      "name" : "politespace.js",
+      "type" : "js",
+      "order" : 5,
       "external" : false
     },
     {
@@ -1807,7 +1836,7 @@
       "id" : "41fb5dd6-8561-4384-8634-c077ac999562",
       "name" : "sweetalert.min (1).js",
       "type" : "js",
-      "order" : 2,
+      "order" : 3,
       "external" : false
     }
   ],
@@ -2388,6 +2417,13 @@
         "        break;\r",
         "    }\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "mascaraIntervalo" : {
+      "type" : "expression",
+      "value" : [
+        "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);\t"
       ],
       "exposed" : false
     }

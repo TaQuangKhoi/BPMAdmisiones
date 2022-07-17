@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisionArtistica",
   "name" : "SDAERevisionArtistica",
-  "lastUpdate" : 1656532210616,
+  "lastUpdate" : 1658010928086,
   "rows" : [
     [
       {
@@ -1052,41 +1052,29 @@
                           "value" : ""
                         },
                         "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension !== \".pdf\""
+                        },
+                        "type" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : "URL"
                         },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : true
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource.trim()"
                         },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Default label"
+                        "document" : {
+                          "type" : "variable",
+                          "value" : ""
                         },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "allowHTML" : {
+                        "showPreview" : {
                           "type" : "constant",
                           "value" : true
-                        },
-                        "text" : {
-                          "type" : "interpolation",
-                          "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{selectedFile.linkSource}}\"\n type=\"application/pdf\"/>"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
                         }
                       },
-                      "reference" : "a5ba54cc-e492-453f-902e-024d1ff62316",
+                      "reference" : "e8c9a3a2-5702-4367-a53b-01216198acdc",
                       "hasValidationError" : false,
-                      "id" : "pbText"
+                      "id" : "customSDAEFileViewer"
                     }
                   ]
                 ]

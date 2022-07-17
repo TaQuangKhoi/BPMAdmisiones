@@ -32,20 +32,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var req = {
             method: method,
             url: url,
-            // data: angular.copy($scope.properties.formOutput)
             data: dataToSend
         };
 
         return $http(req)
-            .success(function(data, status) {
-                
-                let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
-                debugger;
-                window.location.replace(newUrl);
-            })
-            .error(function(data, status) {
-                console.log("task failed")
-            });
+        .success(function(data, status) {
+            // let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+            let newUrl = "/portal/resource/app/aspiranteSDAE/solicitud_apoyo_iniciada/content/?app=aspiranteSDAE"
+            window.location.replace(newUrl);
+        })
+        .error(function(data, status) {
+            console.log("task failed")
+        });
     }
 
     // function getCurrentTask() {

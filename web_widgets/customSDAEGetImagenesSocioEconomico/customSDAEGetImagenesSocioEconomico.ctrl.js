@@ -4,9 +4,7 @@ function ($scope, $http) {
     var objetoCargado = false;
 
     function getImagenesSocioeconomico() {
-        debugger;
         $http.post($scope.properties.url, $scope.properties.dataToSend).success((data) => {
-            debugger;
             $scope.properties.imagenesSocioEconomico = data;
         }).error((err) => {
             swal("Error", "Error al obtener el model. " + err, "error");
@@ -18,7 +16,6 @@ function ($scope, $http) {
             urlCargada = true;
 
             if(urlCargada && objetoCargado){
-                debugger;
                 getImagenesSocioeconomico();
             }
         }
@@ -29,7 +26,6 @@ function ($scope, $http) {
             objetoCargado = true;
 
             if(urlCargada && objetoCargado){
-                debugger;
                 getImagenesSocioeconomico();
             }
         }

@@ -22,7 +22,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function doRequest(method, url) {
-        debugger;
         let dataToSend = angular.copy($scope.properties.formOutput);
         var req = {
             method: method,
@@ -31,14 +30,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req)
-            .success(function(data, status) {
-                
-                let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
-                debugger;
-                window.location.replace(newUrl);
-            })
-            .error(function(data, status) {
-                console.log("task failed")
-            });
+        .success(function(data, status) {
+            // let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+            let newUrl = "/portal/resource/app/aspiranteSDAE/solicitud_apoyo_iniciada/content/?app=aspiranteSDAE"
+            window.location.replace(newUrl);
+        })
+        .error(function(data, status) {
+            console.log("task failed")
+        });
     }
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionFinanciamiento",
   "name" : "SDAEAceptacionFinanciamiento",
-  "lastUpdate" : 1656017913691,
+  "lastUpdate" : 1657846242641,
   "rows" : [
     [
       {
@@ -28,7 +28,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Aceptación de financiamiento"
+            "value" : "Propuesta de financiamiento educativo"
           },
           "alignment" : {
             "type" : "constant",
@@ -134,6 +134,14 @@
           "lstImagenesByTipoApoyo" : {
             "type" : "variable",
             "value" : "imagenesSocioEconomico.data"
+          },
+          "selectedIndex" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "isSolicitud" : {
+            "type" : "constant",
+            "value" : false
           }
         },
         "reference" : "8179735f-33cb-43f1-9769-4773246a6e74",
@@ -6559,28 +6567,44 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
-                        "value" : "color-orange"
+                        "value" : ""
                       },
                       "hidden" : {
                         "type" : "constant",
                         "value" : false
                       },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "¿Desea aceptar el financiamiento?"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 4"
+                        "value" : "<hr>\nEstimado(a): <label class=\"color-orange\">{{nombreCompletoAspirante}}</label>, de acuerdo a su solicitud nos permitimos generarle la siguiente propuesta de financiamiento educativo, la cual aplica solo para el periodo <b>{{objSolicitudDeAdmision[0].catPeriodo.descripcion}}</b>, te agradecemos nos proporciones una respuesta a la brevedad posible para poder aplicar a este beneficio."
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "center"
+                        "value" : "left"
                       }
                     },
-                    "reference" : "ef25b3fb-5c69-4198-b315-8808b41b5445",
+                    "reference" : "f926dd6b-61b6-499d-b1ba-f8da044fbe0d",
                     "hasValidationError" : false,
-                    "id" : "pbTitle"
+                    "id" : "pbText"
                   }
                 ],
                 [
@@ -6615,7 +6639,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Acepta el financiamiento del {{solicitudFinanciamiento.porcComite}}%?"
+                        "value" : "¿Aceptas la propuesta de  financiamiento educativo del {{solicitudFinanciamiento.porcComite}}%?"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -6691,7 +6715,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Por qué no aceptas ninguna de las opciones?"
+                        "value" : "Explica tus motivos:"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -6756,13 +6780,65 @@
                               "type" : "constant",
                               "value" : false
                             },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<hr>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "766bbe00-1a68-45fe-9f34-b61ade6e2749",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
                             "disabled" : {
                               "type" : "constant",
                               "value" : false
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Confirmar"
+                              "value" : "Siguiente"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -6826,6 +6902,58 @@
                           "reference" : "2ac93d23-5d38-4de9-af3b-5136783048fb",
                           "hasValidationError" : false,
                           "id" : "pbButton"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<br><br><br>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "3a39ad83-7285-48d0-8377-e6e3e1ecc6a5",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
                         }
                       ]
                     ]
@@ -6924,7 +7052,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Confirmación de aceptación de financiamiento"
+                          "value" : "Financiamiento educativo"
                         },
                         "level" : {
                           "type" : "constant",
@@ -7010,7 +7138,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "{{formInputEnviarComite.varAceptarFinanciamientoInput ? \"¿Estás segur o que deseas aceptar el apoyo?\": \"¿Estás segur o que deseas rechazar el apoyo?\"}}"
+                          "value" : "{{formInputEnviarComite.varAceptarFinanciamientoInput ? \"¿Quieres <b>aceptar</b> el financiamiento educativo otorgado?\": \"¿Quieres <b>rechazar</b> el financiamiento educativo otorgado?\"}}"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7164,7 +7292,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Finalizar"
+                          "value" : "Enviar"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -8357,6 +8485,25 @@
         "../{{context.solicitudFinanciamientoModel_ref.link}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "nombreCompletoAspirante" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "output += $data.objSolicitudDeAdmision[0].primerNombre;",
+        "if($data.objSolicitudDeAdmision[0].segundoNombre){",
+        "    output += (\" \" + $data.objSolicitudDeAdmision[0].segundoNombre)",
+        "}",
+        "",
+        "output += (\" \" + $data.objSolicitudDeAdmision[0].apellidoPaterno);",
+        "",
+        "if($data.objSolicitudDeAdmision[0].apellidoMaterno){",
+        "    output += (\" \" + $data.objSolicitudDeAdmision[0].apellidoMaterno)",
+        "}",
+        "",
+        "return output;"
+      ],
       "exposed" : false
     }
   },
