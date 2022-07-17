@@ -14,7 +14,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
             if (angular.isDefined($scope.properties.selectedData)) {
                 var dataToSend = {...$scope.properties.selectedData }
                 doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
-                    $window.location.assign("/portal/resource/app/administrativo/cartas/content/?app=administrativo");
+                    $window.location.assign("/portal/resource/app/administrativo/SDAEcartas/content/?app=administrativo");
                 })
             } else {
                 console.error("los datos a enviar no están definidos");

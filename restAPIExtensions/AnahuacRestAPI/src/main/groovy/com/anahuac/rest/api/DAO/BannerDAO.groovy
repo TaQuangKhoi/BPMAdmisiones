@@ -2140,6 +2140,7 @@ class BannerDAO {
 			resultPersonsCredentials = personsCredentials(tokenMatchPerson, idBanner)
 			def personsCredentials = jsonSlurper.parseText(resultPersonsCredentials)
 			assert personsCredentials instanceof List<Map>;
+			
 			if(personsCredentials.size()==0) {
 				throw new Exception("No se encontró aspirante con idBanner: " + idBanner)
 			}
@@ -2201,9 +2202,9 @@ class BannerDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)
+			resultado.setError_info(errorLog+"|| info extra ${infoExtra}")
 			
-			if( !infoExtra.isSuccess() ) {
+			if( !infoExtra.isSuccess() || infoExtra.getError_info().toLowerCase().contains("error") ) {
 				resultado.setInfo(idBanner)				
 			}
 			//resultadoGetConsumeJSON.setSuccess(true);
