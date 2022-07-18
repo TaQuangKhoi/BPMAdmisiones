@@ -516,16 +516,19 @@ class BannerDAO {
 							objEducationalInstitutions.setOperation(objJson.get("operation").toString());
 							objEducationalInstitutions.setClave(objJsonContent.get("code").toString());
 							objEducationalInstitutions.setTypeInd(objJsonContent.get("typeInd").toString());
+							objEducationalInstitutions.setSourceIndicator(objJsonContent.get("sourceIndicator").toString());
 							
 							errorLog = errorLog + " | " + "objEducationalInstitutions.setStreetLine1";
-	
+								
 							objEducationalInstitutions.setStreetLine1("");
 							objEducationalInstitutions.setStreetLine2("");
 							objEducationalInstitutions.setStreetLine3("");
 							objEducationalInstitutions.setNationCode("");
 							objEducationalInstitutions.setStateCode("");
 							objEducationalInstitutions.setCountyCode("");
+							
 							errorLog = errorLog + " | " + "objEducationalInstitutions.setCountyCode";
+							
 							objEducationalInstitutions.setIsEliminado(false);
 							objEducationalInstitutions.setIsEnabled(true);
 							objEducationalInstitutions.setPerteneceRed(false);
@@ -783,6 +786,7 @@ class BannerDAO {
 				errorLog = errorLog + " | row.getClave(): " + (row.getClave());
 				errorLog = errorLog + " | row.getDescripcion(): " + (row.getDescripcion());
 				errorLog = errorLog + " | row.getCodigoPostal(): " + (row.getPostalCode());
+				errorLog = errorLog + " | row.getSourceIndicator(): " + (row.getSourceIndicator());
 				errorLog = errorLog + " | row.getMunicipio(): " + (row.getMunicipio());
 
 				if (row.getOperation().equals("replaced")) {
@@ -903,6 +907,7 @@ class BannerDAO {
 									errorLog = errorLog + " | stateCode: " + objRow.getStateCode();
 									errorLog = errorLog + " | countyCode: " + objRow.getCountyCode();
 									errorLog = errorLog + " | typeInd: " + row.getTypeInd();
+									errorLog = errorLog + " | typeInd: " + row.getSourceIndicator();
 									errorLog = errorLog + " | postal Code: " + row.getTypeInd() +" postalCode2: "+objRow.getPostalCode();									
 									errorLog = errorLog + " | isEliminado: " + !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
 									errorLog = errorLog + " | CON H ---------------------------------------------------------";
@@ -914,6 +919,9 @@ class BannerDAO {
 									|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk) 
 									|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
 										isEliminadoRegla = true; 
+									}else if(objRow.getSourceIndicator() == null || objRow.getSourceIndicator().equals("null") || !objRow.getSourceIndicator().toLowerCase().equals("y") ) {
+										isEliminadoRegla = true;
+										errorLog+= " Eliminado sourceIndicator"
 									}
 									/*CONSTRUCCION DE CONTRATO=====================================================================*/
 									objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
@@ -935,6 +943,7 @@ class BannerDAO {
 									objCatBachilleratosInput.put("ciudad", objRow.getCiudad());
 									objCatBachilleratosInput.put("pais", objRow.getPais());
 									objCatBachilleratosInput.put("id", row.getIdBachillerato());
+									objCatBachilleratosInput.put("sourceIndicator", objRow.getSourceIndicator());
 
 									objCatBachilleratosInput.put("streetLine1", objRow.getStreetLine1());
 									objCatBachilleratosInput.put("streetLine2", objRow.getStreetLine2());
@@ -1008,6 +1017,7 @@ class BannerDAO {
 									objCatBachilleratosInput.put("municipio", row.getMunicipio());
 									objCatBachilleratosInput.put("pais", row.getPais());
 									objCatBachilleratosInput.put("id", row.getIdBachillerato());
+									objCatBachilleratosInput.put("sourceIndicator", objRow.getSourceIndicator());
 
 									objCatBachilleratosInput.put("streetLine1", objRow.getStreetLine1());
 									objCatBachilleratosInput.put("streetLine2", objRow.getStreetLine2());
@@ -1140,6 +1150,9 @@ class BannerDAO {
 											|| (objRow.getPais().equals("Estados Unidos de América") && !isUsaOk)
 											|| (!objRow.getPais().equals("México") && !objRow.getPais().equals("Estados Unidos de América") && !isOtroPaisOk) ){
 												isEliminadoRegla = true;
+										}else if(objRow.getSourceIndicator() == null || objRow.getSourceIndicator().equals("null") || !objRow.getSourceIndicator().toLowerCase().equals("y") ) {
+											isEliminadoRegla = true;
+											errorLog+= " Eliminado sourceIndicator"
 										}
 										/*CONSTRUCCION DE CONTRATO=====================================================================*/
 										objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
@@ -1161,6 +1174,7 @@ class BannerDAO {
 										objCatBachilleratosInput.put("ciudad", row.getCiudad());
 										objCatBachilleratosInput.put("pais", row.getPais());
 										objCatBachilleratosInput.put("id", row.getIdBachillerato());
+										objCatBachilleratosInput.put("sourceIndicator", row.getSourceIndicator());
 
 										objCatBachilleratosInput.put("streetLine1", row.getStreetLine1());
 										objCatBachilleratosInput.put("streetLine2", row.getStreetLine2());
@@ -1207,6 +1221,8 @@ class BannerDAO {
 										objCatBachilleratosInput.put("ciudad", row.getCiudad());
 										objCatBachilleratosInput.put("pais", row.getPais());
 										objCatBachilleratosInput.put("id", row.getIdBachillerato());
+										objCatBachilleratosInput.put("sourceIndicator", objRow.getSourceIndicator());
+										
 
 										objCatBachilleratosInput.put("streetLine1", objRow.getStreetLine1());
 										objCatBachilleratosInput.put("streetLine2", objRow.getStreetLine2());
@@ -1256,6 +1272,7 @@ class BannerDAO {
 								objCatBachilleratosInput.put("pais", row.getPais());
 								objCatBachilleratosInput.put("id", row.getIdBachillerato());
 								objCatBachilleratosInput.put("idDireccion", row.getIdDireccion());
+								objCatBachilleratosInput.put("sourceIndicator", row.getSourceIndicator());
 
 								/*eddressExtended--------------------------------------------------------------------------------*/
 								objCatBachilleratosInput.put("streetLine1", row.getStreetLine1());
@@ -1302,6 +1319,7 @@ class BannerDAO {
 								objCatBachilleratosInput.put("pais", row.getPais());
 								objCatBachilleratosInput.put("id", row.getIdBachillerato());
 								objCatBachilleratosInput.put("idDireccion", row.getIdDireccion());
+								objCatBachilleratosInput.put("sourceIndicator", row.getSourceIndicator());
 
 								/*eddressExtended--------------------------------------------------------------------------------*/
 								objCatBachilleratosInput.put("streetLine1", row.getStreetLine1());
@@ -1607,6 +1625,9 @@ class BannerDAO {
 							}else if( objRow.getTypeInd().equals("null") || objRow.getTypeInd().equals("") || objRow.getTypeInd().equals(null) || objRow.getTypeInd() == null || !objRow.getTypeInd().equals("H") ) {
 								isEliminadoRegla = true;
 								errorLog += "isEliminadoRegla6:"+(isEliminadoRegla)
+							}else if(objRow.getSourceIndicator() == null || objRow.getSourceIndicator().equals("null") || !objRow.getSourceIndicator().toLowerCase().equals("y") ) {
+								isEliminadoRegla = true;
+								errorLog+= " Eliminado sourceIndicator"
 							}
 							/*CONSTRUCCION DE CONTRATO=====================================================================*/
 							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
@@ -1642,6 +1663,19 @@ class BannerDAO {
 							objCatBachilleratosInput.put("ciudad", objLstAddresses.getCiudad());
 							objCatBachilleratosInput.put("pais", objLstAddresses.getPais());
 							objCatBachilleratosInput.put("id", objRow.getId());
+							
+							if(objRow.getSourceIndicator() == null || objRow.getSourceIndicator().equals("null")) {
+								String sourceIndicator= "";
+								object.each{
+									if(objRow.getId()==it?.content?.educationalInstitutionsExtended?.get(0)?.sourceIndicator?.toString()){
+										sourceIndicator = it?.content?.educationalInstitutionsExtended?.get(0)?.sourceIndicator?.toString()
+									}
+								}
+								objCatBachilleratosInput.put("sourceIndicator", sourceIndicator);
+							}else {
+								objCatBachilleratosInput.put("sourceIndicator", objRow.getSourceIndicator());
+							}
+							
 							/*eddressExtended--------------------------------------------------------------------------------*/
 							objCatBachilleratosInput.put("streetLine1", objLstAddresses.getStreetLine1());
 							objCatBachilleratosInput.put("streetLine2", objLstAddresses.getStreetLine2());
