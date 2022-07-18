@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1657927992891,
+  "lastUpdate" : 1658181873460,
   "rows" : [
     [
       {
@@ -965,7 +965,7 @@
                                   },
                                   "alignment" : {
                                     "type" : "constant",
-                                    "value" : "left"
+                                    "value" : "center"
                                   }
                                 },
                                 "reference" : "51463a5b-d135-4f74-9698-a2659dc3a2c2",
@@ -2176,7 +2176,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Promedio preparatoria"
+                              "value" : "Promedio de tu preparatoria:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2253,7 +2253,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Clave de preparatoria:"
+                              "value" : "Clave de tu preparatoria:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2464,15 +2464,15 @@
                             },
                             "minLength" : {
                               "type" : "constant",
-                              "value" : 1
+                              "value" : ""
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 7
+                              "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2480,7 +2480,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Costo mensual de colegiatura ({{returnCatValue.catTipoMoneda.clave}})"
+                              "value" : "Estado de tu preparatoria:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2495,28 +2495,26 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura"
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.estado"
                             },
                             "type" : {
                               "type" : "constant",
-                              "value" : "number"
+                              "value" : "text"
                             },
                             "min" : {
-                              "type" : "constant",
-                              "value" : 0
+                              "type" : "constant"
                             },
                             "max" : {
-                              "type" : "constant",
-                              "value" : 1000000
+                              "type" : "constant"
                             },
                             "step" : {
                               "type" : "constant",
                               "value" : 1
                             }
                           },
-                          "reference" : "c72fe02e-932b-4c14-93db-5a37dba26d78",
+                          "reference" : "b01deae9-43b0-41c7-b8ac-5bee765e5c6e",
                           "hasValidationError" : false,
-                          "id" : "customSDAEInputMoneda"
+                          "id" : "pbInput"
                         }
                       ],
                       [
@@ -2596,183 +2594,6 @@
                           "id" : "pbInput"
                         },
                         {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "fc31e41a-261e-4f42-ab0e-b22c83a27365",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "disabled" : {
-                                    "type" : "expression",
-                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "¿Contó con beca en la preparatoria anterior?"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation",
-                                    "value" : "Selecciona una opción"
-                                  },
-                                  "availableValues" : {
-                                    "type" : "expression",
-                                    "value" : "lstCatContoBecaPreparatoria.data"
-                                  },
-                                  "displayedKey" : {
-                                    "type" : "constant",
-                                    "value" : "descripcion"
-                                  },
-                                  "returnedKey" : {
-                                    "type" : "constant",
-                                    "value" : "persistenceId"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
-                                  }
-                                },
-                                "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
-                                "hasValidationError" : false,
-                                "id" : "pbSelect"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : 3
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Indica el porcentaje de beca:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "number"
-                                  },
-                                  "min" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  },
-                                  "max" : {
-                                    "type" : "constant",
-                                    "value" : 100
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  }
-                                },
-                                "reference" : "bb5ccccb-c4d5-4a05-a64d-e640a7eecbdf",
-                                "hasValidationError" : false,
-                                "id" : "customSDAEInputLimitPercentage"
-                              }
-                            ]
-                          ]
-                        }
-                      ],
-                      [
-                        {
                           "type" : "component",
                           "dimension" : {
                             "xs" : 12,
@@ -2795,15 +2616,15 @@
                             },
                             "minLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 1
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 7
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : true
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2811,7 +2632,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Estado de tu preparatoria:"
+                              "value" : "Costo mensual de tu colegiatura: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2826,26 +2647,173 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.estado"
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura"
                             },
                             "type" : {
                               "type" : "constant",
-                              "value" : "text"
+                              "value" : "number"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 0
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 1000000
                             },
                             "step" : {
                               "type" : "constant",
                               "value" : 1
                             }
                           },
-                          "reference" : "b01deae9-43b0-41c7-b8ac-5bee765e5c6e",
+                          "reference" : "c72fe02e-932b-4c14-93db-5a37dba26d78",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMoneda"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Contó con beca en la preparatoria anterior?"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "lstCatContoBecaPreparatoria.data"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant",
+                              "value" : "persistenceId"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id"
+                            }
+                          },
+                          "reference" : "4138946d-3a5c-494b-83f4-9f9db04a542c",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "returnCatValue.catBecaPreparatoria.descripcion  !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoPersonal"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Indica el porcentaje de beca:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.porcentajeBecaPrepa"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 100
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "bb5ccccb-c4d5-4a05-a64d-e640a7eecbdf",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimitPercentage"
                         }
                       ],
                       [
@@ -2922,7 +2890,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "Certificado oficial"
+                                          "value" : "Kárdex oficial o carta de promedio"
                                         },
                                         "level" : {
                                           "type" : "constant",
@@ -3137,7 +3105,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "Historial académico"
+                                          "value" : "Nuevo kárdex o certificado oficial  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "level" : {
                                           "type" : "constant",
@@ -3181,7 +3149,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "Nuevo Kardex"
+                                          "value" : "Carga el documento"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -3219,8 +3187,7 @@
                                           "value" : ""
                                         },
                                         "isObligatorio" : {
-                                          "type" : "expression",
-                                          "value" : "false"
+                                          "type" : "constant"
                                         },
                                         "urlAzure" : {
                                           "type" : "variable",
@@ -3347,6 +3314,194 @@
                               }
                             ]
                           ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<br>\n<br>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "277913f5-8aa0-49cd-954b-5b054ff57106",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "isValidStep" : {
+                              "type" : "variable",
+                              "value" : "validar1"
+                            },
+                            "errorMessage" : {
+                              "type" : "expression",
+                              "value" : "errorPaso1"
+                            },
+                            "messageTitle" : {
+                              "type" : "expression",
+                              "value" : "tituloErrorPaso1"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskid"
+                            },
+                            "reloadTask" : {
+                              "type" : "variable",
+                              "value" : "reload"
+                            },
+                            "caseId" : {
+                              "type" : "variable",
+                              "value" : "caseId"
+                            },
+                            "userId" : {
+                              "type" : "expression",
+                              "value" : "userData.user_id"
+                            }
+                          },
+                          "reference" : "3a01c860-3997-4fec-a689-15f8c2135442",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<br>\n<br>\n<br>\n<br>\n<br>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "ae5e93ad-7213-4868-a36b-389ecb5bd200",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
                         }
                       ]
                     ]
@@ -5821,7 +5976,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "padre.apellido"
+                              "value" : "padre.apellidos"
                             },
                             "type" : {
                               "type" : "constant",
@@ -6028,8 +6183,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "vista"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -6052,7 +6207,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "padre.carEscolaridad.descripcion"
+                              "value" : "padre.catEscolaridad.descripcion"
                             },
                             "type" : {
                               "type" : "constant",
@@ -7025,8 +7180,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "vista"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -7370,7 +7525,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Teléfono de oficina:"
+                              "value" : "Teléfono de oficina: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -7449,7 +7604,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Télefono de casa:"
+                              "value" : "Teléfono de casa: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -7913,6 +8068,273 @@
                       ]
                     ]
                   }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "98640e54-3930-45ce-b0ea-cb03100d5cc6",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Anterior"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Anterior"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "errorMessage" : {
+                        "type" : "constant"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "userId" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "5a555f9e-f61f-4ffe-80b6-f84b1d7a44c9",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Siguiente"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : "bandera"
+                      },
+                      "errorMessage" : {
+                        "type" : "expression",
+                        "value" : "errorPaso2"
+                      },
+                      "messageTitle" : {
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso2"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskid"
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : "reloadTask"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
+                      }
+                    },
+                    "reference" : "e28fed46-e854-44a3-a231-00ea4f941420",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>\n<br>\n<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "d94cca64-999d-4c40-8c2a-2e49e080b3b4",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
                 ]
               ]
             }
@@ -8275,7 +8697,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Escribe el motivo por el cual se solicita la beca y otra información que creas que el comité de selección deba saber: (Max 1500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Escribe el motivo por el cual se solicita el apoyo y otra información que creas que el comité de selección deba saber: (máximo 1500 caracteres)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -8647,6 +9069,273 @@
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "251526cc-d0d5-47db-8921-f8a93660eb30",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Anterior"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Anterior"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "errorMessage" : {
+                        "type" : "constant"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "userId" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "7ca3e100-5158-4e70-8b04-180f74b2d43e",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Siguiente"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : "bandera"
+                      },
+                      "errorMessage" : {
+                        "type" : "expression",
+                        "value" : "errorPaso3"
+                      },
+                      "messageTitle" : {
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso3"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskid"
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : "reloadTask"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
+                      }
+                    },
+                    "reference" : "4d67c829-0189-4c7e-8d9f-9102128cd94c",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>\n<br>\n<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "2f2dd5f0-83bf-4600-8e1a-0f0e94ad46e6",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -9297,7 +9986,112 @@
                           "hasValidationError" : false,
                           "id" : "customSDAEInputMoneda"
                         }
-                      ],
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "minLength" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "maxLength" : {
+                        "type" : "constant",
+                        "value" : 30
+                      },
+                      "readOnly" : {
+                        "type" : "expression",
+                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "País: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.pais"
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "text"
+                      },
+                      "min" : {
+                        "type" : "constant"
+                      },
+                      "max" : {
+                        "type" : "constant"
+                      },
+                      "step" : {
+                        "type" : "constant",
+                        "value" : 1
+                      }
+                    },
+                    "reference" : "da35ee18-c49c-4909-afed-69202a0f9c40",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEInputLimit"
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "8450a0ba-9714-41fd-9547-0a8c53bbadc4",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
                       [
                         {
                           "type" : "component",
@@ -9316,13 +10110,29 @@
                               "type" : "constant",
                               "value" : false
                             },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 5
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
+                            },
                             "labelHidden" : {
                               "type" : "constant",
-                              "value" : true
+                              "value" : false
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Default label"
+                              "value" : "Código Postal: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -9332,22 +10142,151 @@
                               "type" : "constant",
                               "value" : 4
                             },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
+                            "placeholder" : {
+                              "type" : "interpolation"
                             },
-                            "text" : {
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.codigoPostal"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 99999
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "fb844173-1701-4a17-b83f-9da5ac2f631c",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.pais !== \"México\""
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
                               "type" : "interpolation",
-                              "value" : "<b >Ejemplo: $1,500,000</b>"
+                              "value" : "Buscar CP"
                             },
                             "alignment" : {
                               "type" : "constant",
-                              "value" : "left"
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Open modal"
+                            },
+                            "assign" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "url" : {
+                              "type" : "interpolation"
+                            },
+                            "responseStatusCode" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "dataToSend" : {
+                              "type" : "constant"
+                            },
+                            "dataFromSuccess" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "closeOnSuccess" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "dataFromError" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "targetUrlOnSuccess" : {
+                              "type" : "interpolation"
+                            },
+                            "collectionToModify" : {
+                              "type" : "variable"
+                            },
+                            "modalId" : {
+                              "type" : "constant",
+                              "value" : "modaldatosCPModificar"
+                            },
+                            "collectionPosition" : {
+                              "type" : "constant",
+                              "value" : "Last"
+                            },
+                            "valueToAdd" : {
+                              "type" : "constant"
+                            },
+                            "removeItem" : {
+                              "type" : "variable"
+                            },
+                            "estado" : {
+                              "type" : "variable",
+                              "value" : "codigoBusqueda.estado"
+                            },
+                            "ciudad" : {
+                              "type" : "variable",
+                              "value" : "codigoBusqueda.ciudad"
+                            },
+                            "municipio" : {
+                              "type" : "variable",
+                              "value" : "codigoBusqueda.munucipio"
+                            },
+                            "asentamiento" : {
+                              "type" : "variable",
+                              "value" : "codigoBusqueda.asentamiento"
+                            },
+                            "estadoExtranjero" : {
+                              "type" : "variable",
+                              "value" : "codigoBusqueda.estadoExtranjero"
+                            },
+                            "cp" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.codigoPostal"
+                            },
+                            "haveCiudad" : {
+                              "type" : "variable",
+                              "value" : "codigoBusqueda.haveciudad"
                             }
                           },
-                          "reference" : "b4926f89-3a99-4b7c-a128-8100f7e75263",
+                          "reference" : "64e34d83-df10-4569-ae8c-adacf52a69fa",
                           "hasValidationError" : false,
-                          "id" : "pbText"
+                          "id" : "customSDAEbtnCodigoPostal"
                         }
                       ]
                     ]
@@ -9393,7 +10332,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Calle: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -9408,7 +10347,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.calle"
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.estado"
                       },
                       "type" : {
                         "type" : "constant",
@@ -9425,7 +10364,7 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "0f6f5bbf-2ce8-4610-a8f2-fea5f0bd31b7",
+                    "reference" : "51c5f00d-1dc1-405b-8634-9e8516336d65",
                     "hasValidationError" : false,
                     "id" : "customSDAEInputLimit"
                   },
@@ -9501,234 +10440,6 @@
                       }
                     },
                     "reference" : "c2870397-c061-4e76-b4cd-5e20562a74d7",
-                    "hasValidationError" : false,
-                    "id" : "customSDAEInputLimit"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 3,
-                      "lg" : 4
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : 10
-                      },
-                      "readOnly" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Num. Exterior: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.numExterior"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant",
-                        "value" : 1
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      }
-                    },
-                    "reference" : "73622cae-96b3-4a69-8956-43743aacb505",
-                    "hasValidationError" : false,
-                    "id" : "customSDAEInputLimit"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 3,
-                      "lg" : 4
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : 10
-                      },
-                      "readOnly" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Num. Interior:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.numInterior"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      }
-                    },
-                    "reference" : "1a256d85-77e0-4b5a-a067-019a477ed34d",
-                    "hasValidationError" : false,
-                    "id" : "customSDAEInputLimit"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 4
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : 30
-                      },
-                      "readOnly" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "País: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.pais"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      }
-                    },
-                    "reference" : "da35ee18-c49c-4909-afed-69202a0f9c40",
                     "hasValidationError" : false,
                     "id" : "customSDAEInputLimit"
                   }
@@ -9848,7 +10559,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Calle: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -9863,7 +10574,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.estado"
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.calle"
                       },
                       "type" : {
                         "type" : "constant",
@@ -9880,7 +10591,7 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "51c5f00d-1dc1-405b-8634-9e8516336d65",
+                    "reference" : "0f6f5bbf-2ce8-4610-a8f2-fea5f0bd31b7",
                     "hasValidationError" : false,
                     "id" : "customSDAEInputLimit"
                   }
@@ -9909,11 +10620,11 @@
                       },
                       "minLength" : {
                         "type" : "constant",
-                        "value" : 1
+                        "value" : ""
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 5
+                        "value" : 10
                       },
                       "readOnly" : {
                         "type" : "expression",
@@ -9925,7 +10636,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Código Postal: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Num. Exterior: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -9940,26 +10651,100 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "formOutputTest.solicitudApoyoEducativoInput.codigoPostal"
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.numExterior"
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "number"
+                        "value" : "text"
                       },
                       "min" : {
                         "type" : "constant",
                         "value" : 1
                       },
                       "max" : {
-                        "type" : "constant",
-                        "value" : 99999
+                        "type" : "constant"
                       },
                       "step" : {
                         "type" : "constant",
                         "value" : 1
                       }
                     },
-                    "reference" : "fb844173-1701-4a17-b83f-9da5ac2f631c",
+                    "reference" : "73622cae-96b3-4a69-8956-43743aacb505",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEInputLimit"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "minLength" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "maxLength" : {
+                        "type" : "constant",
+                        "value" : 10
+                      },
+                      "readOnly" : {
+                        "type" : "expression",
+                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoSocioEco"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Num. Interior:"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest.solicitudApoyoEducativoInput.numInterior"
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "text"
+                      },
+                      "min" : {
+                        "type" : "constant"
+                      },
+                      "max" : {
+                        "type" : "constant"
+                      },
+                      "step" : {
+                        "type" : "constant",
+                        "value" : 1
+                      }
+                    },
+                    "reference" : "1a256d85-77e0-4b5a-a067-019a477ed34d",
                     "hasValidationError" : false,
                     "id" : "customSDAEInputLimit"
                   }
@@ -10072,7 +10857,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Listado de automóviles de cualquier miembro del núcleo familiar"
+                        "value" : "Agregar automóviles de cualquier miembro del núcleo familiar"
                       },
                       "level" : {
                         "type" : "constant",
@@ -10350,6 +11135,58 @@
                 ],
                 [
                   {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<label>Todos los campos de esta tabla son obligatorios, si alguno no aplica no lo dejes en blanco, coloca un 0 (cero).</label>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "882a4d16-2153-4880-8801-6c866b6d742e",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
@@ -10551,7 +11388,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Padre</label>"
+                                          "value" : "<label class=\"m-mini\">Padre:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -10740,7 +11577,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Madre</label>"
+                                          "value" : "<label class=\"m-mini\">Madre:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -10929,7 +11766,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Hermano</label>"
+                                          "value" : "<label class=\"m-mini\">Hermano:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -11118,7 +11955,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Tío(a)</label>"
+                                          "value" : "<label class=\"m-mini\">Tío(a):</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -11307,7 +12144,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Abuelo(a)</label>"
+                                          "value" : "<label class=\"m-mini\">Abuelo(a):</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -11496,7 +12333,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Aspirante</label>"
+                                          "value" : "<label class=\"m-mini\"><label class=\"m-mini\">Aspirante:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span></label>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -11625,7 +12462,7 @@
                                   "xs" : 12,
                                   "sm" : 12,
                                   "md" : 4,
-                                  "lg" : 6
+                                  "lg" : 4
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -11685,7 +12522,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Otros</label>"
+                                          "value" : "<label class=\"m-mini\">Otros:</label> <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -11705,7 +12542,7 @@
                                   "xs" : 12,
                                   "sm" : 12,
                                   "md" : 8,
-                                  "lg" : 6
+                                  "lg" : 8
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -11984,7 +12821,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Renta o hipoteca</label>"
+                                          "value" : "<label class=\"m-mini\">Renta o hipoteca:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12173,7 +13010,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Servicios: Agua, Luz, Tel. Otros</label>"
+                                          "value" : "<label class=\"m-mini\">Servicios (agua, luz, teléfono, otros):\n</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12362,7 +13199,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Educación</label>"
+                                          "value" : "<label class=\"m-mini\">Educación:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12551,7 +13388,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Gastos médicos</label>"
+                                          "value" : "<label class=\"m-mini\">Gastos médicos:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12740,7 +13577,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Alimentación</label>"
+                                          "value" : "<label class=\"m-mini\">Alimentación:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -12929,7 +13766,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Vestido</label>"
+                                          "value" : "<label class=\"m-mini\">Vestido:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13118,7 +13955,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Seguros</label>"
+                                          "value" : "<label class=\"m-mini\">Seguros:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13307,7 +14144,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Diversión</label>"
+                                          "value" : "<label class=\"m-mini\">Diversión:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13496,7 +14333,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Ahorro</label>"
+                                          "value" : "<label class=\"m-mini\">Ahorro:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13685,7 +14522,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Créditos / Impuestos</label>"
+                                          "value" : "<label class=\"m-mini\">Créditos / Impuestos:</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -13874,7 +14711,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "<label class=\"m-mini\">Otros</label>"
+                                          "value" : "<label class=\"m-mini\">Otros:\n</label>  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                         },
                                         "alignment" : {
                                           "type" : "constant",
@@ -14178,9 +15015,9 @@
                                     "value" : 1
                                   }
                                 },
-                                "reference" : "bb91dde8-2094-42e1-9862-1a24094a4f2d",
+                                "reference" : "99119a91-e163-4946-9174-b612db1bb753",
                                 "hasValidationError" : false,
-                                "id" : "customSDAEInputMoneda"
+                                "id" : "customSDAEInputMonedaDisplay"
                               }
                             ]
                           ]
@@ -14363,15 +15200,282 @@
                                     "value" : 1
                                   }
                                 },
-                                "reference" : "af3c68bf-2943-4eaf-9e1d-2428c9299cfb",
+                                "reference" : "53ef2e95-d109-4868-a6e8-8b6ebe9e18ea",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customSDAEInputMonedaDisplay"
                               }
                             ]
                           ]
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "8eaf194d-49c2-4ae0-8287-6ff7a9b64ebb",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Anterior"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Anterior"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "errorMessage" : {
+                        "type" : "constant"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "userId" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "a259ec99-8d1d-4d77-8ce8-11736c4e14fe",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Siguiente"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "isValidStep" : {
+                        "type" : "variable",
+                        "value" : "bandera"
+                      },
+                      "errorMessage" : {
+                        "type" : "expression",
+                        "value" : "errorPaso4"
+                      },
+                      "messageTitle" : {
+                        "type" : "expression",
+                        "value" : "tituloErrorPaso4"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : "formOutputTest"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskid"
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : "reloadTask"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      },
+                      "userId" : {
+                        "type" : "expression",
+                        "value" : "userData.user_id"
+                      }
+                    },
+                    "reference" : "835bc9d8-fbe3-4529-8dc0-afa16be4c736",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEcustomBtnWizardValidationNoTask"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>\n<br>\n<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "47357384-4e62-492a-9774-8d689c474b98",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -14572,8 +15676,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14624,8 +15728,8 @@
                         "value" : "color-orange"
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -14660,8 +15764,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14685,7 +15789,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label >Instrucciones: carga las fotografías solicitadas, estas deben ser tomadas en formato horizontal y en calidad media/alta.</label>"
+                        "value" : "<label >Instrucciones: Carga las fotografías solicitadas, estas deben ser tomadas en formato horizontal y en calidad media/alta.</label>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -14712,8 +15816,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!returnCatValue.catTipoApoyo.esSocioEconomico"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -14948,7 +16052,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label>Instrucciones: carga los documentos indicados en JPG, o PDF para completar tu solicitud</label>"
+                        "value" : "<label>Instrucciones: Carga los documentos indicados en JPG, o PDF para completar tu solicitud</label>"
                       },
                       "level" : {
                         "type" : "constant",
@@ -15230,8 +16334,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -15280,8 +16384,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 6,
+                            "lg" : 6
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -15575,7 +16679,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "URL del video de Habilidades"
+                              "value" : "URL del video de habilidades:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "level" : {
                               "type" : "constant",
@@ -15721,6 +16825,58 @@
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "1b513034-d1d0-4faa-ad40-3d1c7d1af5b4",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -16169,6 +17325,43 @@
         "        \"valor\": false",
         "    }",
         "]"
+      ],
+      "exposed" : false
+    },
+    "codigoBusqueda" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "lstCatSituacionAuto" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "lstTipoMoneda" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "catTipoApoyoFiltro" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"idTipoApoyo\": $data.returnCatValue.catTipoApoyo.persistenceId",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "urlIMagenesSocioEconomico" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" + $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita;"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1657059558931,
+  "lastUpdate" : 1658181605966,
   "rows" : [
     [
       {
@@ -62,22 +62,6 @@
             "type" : "variable",
             "value" : "formOutputTest.bienesRaicesInput"
           },
-          "fotoCalleCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoCalleCasaDocumentInput"
-          },
-          "fotoComedorCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoComedorCasaDocumentInput"
-          },
-          "fotoFachadaCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoFachadaCasaDocumentInput"
-          },
-          "fotoSalaCasa" : {
-            "type" : "variable",
-            "value" : "formOutputTest.fotoSalaCasaDocumentInput"
-          },
           "documentos" : {
             "type" : "variable",
             "value" : "formOutputTest.documentosSolicitanteInput"
@@ -96,16 +80,16 @@
           },
           "selectedIndex" : {
             "type" : "variable",
-            "value" : ""
+            "value" : "selectedIndex"
           },
           "isSolicitud" : {
             "type" : "constant",
             "value" : false
           }
         },
-        "reference" : "ea7caa6c-0acd-4101-b2e6-d3913a9c7472",
+        "reference" : "b02266fd-22a1-476e-b650-6e8eaaf0cc8a",
         "hasValidationError" : false,
-        "id" : "customSDAEGetTareaUsuario"
+        "id" : "customSDAEGetTareaUsuarioAspiranteSolicitud"
       }
     ],
     [
@@ -299,7 +283,11 @@
                 "objPadresTutor" : "",
                 "returnCurriculumInfo" : "returnCurriculumInfo",
                 "lstAutomoviles" : "lstCatSituacionAuto",
-                "getDatosSolicitante" : "getDatosSolicitante"
+                "getDatosSolicitante" : "getDatosSolicitante",
+                "codigoBusqueda" : "codigoBusqueda",
+                "lstCatSituacionAuto" : "lstCatSituacionAuto",
+                "lstTipoMoneda" : "lstTipoMoneda",
+                "catTipoApoyoFiltro" : ""
               }
             }
           ],
@@ -841,6 +829,445 @@
           ]
         }
       }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modaldatosCPModificar"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "69cbab2e-afd2-4832-98f8-e96d17ecf578",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "3710321a-5c5f-4a6e-909a-bdff9c3bfdb5",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "4045c281-cccc-49db-ad11-398291666457",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [ ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "8591837e-ecc3-421a-9bb9-a7c4dbfb45fa",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<label class=\"color-orange\">Favor de seleccionar el asentamiento correspondiente a su código postal y dar clic al botón aceptar.</label>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "a27b5e2d-bc2d-4e8c-bfaf-a4b60f688525",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "headers" : {
+                          "type" : "constant",
+                          "value" : [
+                            "Código postal",
+                            "Asentamiento",
+                            "Tipo de Asentamiento",
+                            "Municipio",
+                            "Estado",
+                            "Ciudad"
+                          ]
+                        },
+                        "content" : {
+                          "type" : "expression",
+                          "value" : "cpBusqueda"
+                        },
+                        "columnsKey" : {
+                          "type" : "constant",
+                          "value" : [
+                            "codigoPostal",
+                            "asentamiento",
+                            "tipoAsentamiento",
+                            "municipio",
+                            "estado",
+                            "ciudad"
+                          ]
+                        },
+                        "selectedRow" : {
+                          "type" : "variable",
+                          "value" : "selectedCP"
+                        },
+                        "striped" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "condensed" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "bordered" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "formOutput" : {
+                          "type" : "variable",
+                          "value" : "formOutputTest"
+                        }
+                      },
+                      "reference" : "f0537f1f-6fb8-48b5-8817-82c4cad01e69",
+                      "hasValidationError" : false,
+                      "id" : "customSDAETableCP"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "36418a73-a470-4a61-b986-17898dd060e3",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Cerrar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "info"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Close modal"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "constant"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "53e8caa6-15b5-4868-9cfe-581879bc57c6",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    },
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Aceptar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "right"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "primary"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Close modal"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "constant"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "795a40c1-edb3-4d34-bab3-4b2afaeeb137",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      }
     ]
   ],
   "assets" : [
@@ -856,6 +1283,27 @@
       "name" : "noimageavailabledoc.png",
       "type" : "img",
       "order" : 5,
+      "external" : false
+    },
+    {
+      "id" : "98d1d906-b489-450c-9cdc-ad0ae5da4abe",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 6,
+      "external" : false
+    },
+    {
+      "id" : "8ac134b9-5e5f-4863-a97a-bf6bf4ebcca2",
+      "name" : "jquery.inputmask.bundle.js",
+      "type" : "js",
+      "order" : 7,
+      "external" : false
+    },
+    {
+      "id" : "d352f519-3c31-42fb-8a50-2d548908f1c6",
+      "name" : "politespace.js",
+      "type" : "js",
+      "order" : 8,
       "external" : false
     },
     {
@@ -1232,31 +1680,31 @@
         "var suma = 0;\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoPadre : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoMadre : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoHermano : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoTio : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAbuelo : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoAspirante : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro ? $data.formOutputTest.solicitudApoyoEducativoInput.ingresoOtro : 0);\r",
         "}\r",
         "\r",
         "$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTotal = suma;\r",
@@ -1290,47 +1738,47 @@
         "var suma = 0;\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoRenta : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoServicios : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoEducacion : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoGastosMedicos : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoAlimentacion : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoVestido : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoSeguro : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoDiversion : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoAhorro : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoCreditos : 0);\r",
         "}\r",
         "\r",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros !== null){\r",
-        "    suma = suma + $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros;\r",
+        "    suma = suma + ($data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros ? $data.formOutputTest.solicitudApoyoEducativoInput.egresoOtros : 0);\r",
         "}\r",
         "\r",
         "$data.formOutputTest.solicitudApoyoEducativoInput.egresoTotal = suma;\r",
@@ -2831,6 +3279,37 @@
         "        $data.padre = objectTutor;\r",
         "        break;\r",
         "    } \r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "mascaraIntervalo" : {
+      "type" : "expression",
+      "value" : [
+        "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);\t"
+      ],
+      "exposed" : false
+    },
+    "codigoBusqueda" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "cpBusqueda" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "selectedCP" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catTipoApoyoFiltro" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"idTipoApoyo\": $data.returnCatValue.catTipoApoyo.persistenceId",
         "}"
       ],
       "exposed" : false

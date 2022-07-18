@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1656631360343,
+  "lastUpdate" : 1658184531366,
   "rows" : [
     [
       {
@@ -345,7 +345,16 @@
                 "getDatosSolicitante" : "",
                 "imagenesSocEcoSolicitanteInput" : "",
                 "documentosSolicitanteInput" : "",
-                "idModal" : ""
+                "idModal" : "",
+                "avalInfoPersonalModel" : "",
+                "avalInfoInmuebleModel" : "",
+                "avalInfoPropiedadModel" : "",
+                "avalReferenciasBancariasModel" : "",
+                "avalReferenciaCreditoModel" : "",
+                "lstDocumentosAval" : "",
+                "isAutor" : "",
+                "lstTipoMoneda" : "",
+                "lstAutomoviles" : ""
               }
             }
           ],
@@ -550,9 +559,45 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "color-orange"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "INFORMACIÓN DEL SOLICITANTE"
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 4"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              }
+                            },
+                            "reference" : "937099d2-8be0-41ea-ae22-38ba2c59c5a3",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
                               "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -626,8 +671,8 @@
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -695,14 +740,16 @@
                             "reference" : "698c2b4a-02f2-4842-a559-6822c914c7d2",
                             "hasValidationError" : false,
                             "id" : "pbInput"
-                          },
+                          }
+                        ],
+                        [
                           {
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -776,8 +823,85 @@
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Matricula"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "getSolicitudApoyoEducativo[0].idbanner"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "576ed98a-02d6-4cb4-a9aa-5f4271c7f673",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 6,
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -851,83 +975,8 @@
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Semestre"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "semestre"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "d6d6c5fd-65b1-4f31-a7d9-4e75e1df5843",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -995,89 +1044,16 @@
                             "reference" : "f0afb696-a477-40f3-8c46-f223672822a6",
                             "hasValidationError" : false,
                             "id" : "pbInput"
-                          },
+                          }
+                        ],
+                        [
                           {
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Matricula"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "getSolicitudApoyoEducativo[0].idbanner"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "576ed98a-02d6-4cb4-a9aa-5f4271c7f673",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -1167,7 +1143,7 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "<hr> Datos del aval"
+                                "value" : "<hr> DATOS DEL AVAL"
                               },
                               "level" : {
                                 "type" : "constant",
@@ -1185,244 +1161,1024 @@
                         ],
                         [
                           {
-                            "type" : "component",
+                            "type" : "container",
                             "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
-                              "labelHidden" : {
+                              "cssClasses" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : ""
                               },
                               "hidden" : {
                                 "type" : "constant",
                                 "value" : false
                               },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Nombres"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
+                              "repeatedCollection" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.nombres"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
                                 "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
                               }
                             },
-                            "reference" : "dd5ced9a-25f1-493d-9bbc-0b58fac4d441",
+                            "reference" : "01692935-14be-4e03-b658-d3554783cab4",
                             "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Nombres"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.nombres"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "dd5ced9a-25f1-493d-9bbc-0b58fac4d441",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Apellido Paterno"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.apellidoPaterno"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "9960d6d3-ff33-4487-9922-838b9ac6a889",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Apellido Materno"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.apellidoMaterno"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "e3c8546a-c3b7-4817-8f4b-0b05334e990c",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "CURP:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.curp"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "748ce3b0-104e-459a-9003-f966246559b1",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "RFC:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.rfc"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "df018eab-464f-479c-be3c-3ead4727e98f",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Parentesto:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : ""
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "ce457ae3-9224-4b48-bf63-046dfed91cf4",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ]
+                            ]
                           },
                           {
-                            "type" : "component",
+                            "type" : "container",
                             "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
                             },
                             "propertyValues" : {
-                              "labelHidden" : {
+                              "cssClasses" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : ""
                               },
                               "hidden" : {
                                 "type" : "constant",
                                 "value" : false
                               },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Apellido Paterno"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
+                              "repeatedCollection" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.apellidoPaterno"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
                                 "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
                               }
                             },
-                            "reference" : "9960d6d3-ff33-4487-9922-838b9ac6a889",
+                            "reference" : "ff288e08-1d3e-4483-9e82-f8e16c2c6136",
                             "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Apellido Materno"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.apellidoMaterno"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "e3c8546a-c3b7-4817-8f4b-0b05334e990c",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Ingreso mensual ($):"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.ingresoMensual"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "35f40b58-375e-48e8-b75b-bc239666afbe",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Proveniente de:"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.provenienteDe"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "cc96c1ce-39da-4fea-9d0d-5101c30549c2",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Otro ingreso ($):"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.otroIngreso"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "63f8449d-51f4-4daf-891d-a35cacbcf067",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Ingreso Mensual Total"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.ingresoMensualTotal"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "dbbbb1cf-e563-4bb3-afb6-e2938aa14ab2",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Egreso Mensual Total"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.egresoMensualTotal"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "2fc9a6ff-3c4e-4e63-8e77-83ff5efd9e02",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "md" : 12,
+                                    "sm" : 6,
+                                    "xs" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Saldo Mensual"
+                                    },
+                                    "placeholder" : {
+                                      "type" : "constant"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "dimension" : {
+                                      "type" : "constant",
+                                      "value" : 12
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.saldoMensual"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "00aa9b20-8b50-4b4c-834d-0d58f1f9fe47",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput",
+                                  "description" : ""
+                                }
+                              ]
+                            ]
                           }
                         ],
                         [
@@ -1445,7 +2201,7 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "<hr> Domicilio"
+                                "value" : "<hr> DOMICILIO DEL AVAL"
                               },
                               "level" : {
                                 "type" : "constant",
@@ -1465,10 +2221,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
-                              "sm" : 12,
+                              "md" : 6,
+                              "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -1497,7 +2253,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Calle y número"
+                                "value" : "País"
                               },
                               "placeholder" : {
                                 "type" : "constant"
@@ -1512,7 +2268,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.calleYNumero"
+                                "value" : "avalInfoPersonalModel.pais"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -1537,7 +2293,7 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "296ad1f0-c5fa-461c-9b11-b56855d105b8",
+                            "reference" : "ed76c24d-ac7f-4b1c-84e4-6456b462f84c",
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
@@ -1545,10 +2301,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -1621,176 +2377,16 @@
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Colonia"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.colonia"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "a167ef68-22db-4157-8119-38cb4ae537c5",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
                           }
                         ],
                         [
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Ciudad"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.ciudad"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "7a04c410-fcc6-4d45-9342-b56f2e1befc6",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -1867,10 +2463,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -1899,7 +2495,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "País"
+                                "value" : "Ciudad"
                               },
                               "placeholder" : {
                                 "type" : "constant"
@@ -1914,7 +2510,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.pais"
+                                "value" : "avalInfoPersonalModel.ciudad"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -1939,7 +2535,7 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "ed76c24d-ac7f-4b1c-84e4-6456b462f84c",
+                            "reference" : "7a04c410-fcc6-4d45-9342-b56f2e1befc6",
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
@@ -1949,10 +2545,172 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Colonia"
+                              },
+                              "placeholder" : {
+                                "type" : "constant"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.colonia"
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "a167ef68-22db-4157-8119-38cb4ae537c5",
+                            "hasValidationError" : false,
+                            "id" : "pbInput",
+                            "description" : ""
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 6,
+                              "sm" : 12,
+                              "xs" : 12,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Calle y número"
+                              },
+                              "placeholder" : {
+                                "type" : "constant"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.calleYNumero"
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "296ad1f0-c5fa-461c-9b11-b56855d105b8",
+                            "hasValidationError" : false,
+                            "id" : "pbInput",
+                            "description" : ""
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 6,
+                              "sm" : 6,
+                              "xs" : 12,
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2029,10 +2787,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2127,7 +2885,7 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "<hr> Datos del trabajo del aval"
+                                "value" : "<hr> DATOS DE TRABAJO DEL AVAL"
                               },
                               "level" : {
                                 "type" : "constant",
@@ -2187,10 +2945,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2267,10 +3025,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2343,14 +3101,16 @@
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
-                          },
+                          }
+                        ],
+                        [
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2429,10 +3189,46 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "xs" : 12,
                               "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "color-orange"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "<hr> DOMICILIO DE TRABAJO DEL AVAL"
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 4"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              }
+                            },
+                            "reference" : "53d7df06-12b1-408f-a37d-a91945497a49",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 6,
+                              "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2461,7 +3257,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Calle y número:"
+                                "value" : "País"
                               },
                               "placeholder" : {
                                 "type" : "constant"
@@ -2476,7 +3272,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaCalleYNumero"
+                                "value" : "avalInfoPersonalModel.empresaPais"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2501,7 +3297,7 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "56234afc-c9e9-4111-9d41-5f9b0521884c",
+                            "reference" : "c838e7fd-c5ad-4fed-8a82-e4c7ce55a28b",
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
@@ -2509,90 +3305,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Colonia:"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaColonia"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "34cfa884-c490-4a46-ad86-d523ec2b05cd",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2671,90 +3387,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Ciudad"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaCiudad"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "b4bd6a89-9ae7-4bdf-b2b0-5ff1efe66825",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2831,10 +3467,10 @@
                           {
                             "type" : "component",
                             "dimension" : {
-                              "md" : 4,
+                              "md" : 6,
                               "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2863,7 +3499,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "País"
+                                "value" : "Ciudad"
                               },
                               "placeholder" : {
                                 "type" : "constant"
@@ -2878,7 +3514,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.empresaPais"
+                                "value" : "avalInfoPersonalModel.empresaCiudad"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2903,7 +3539,7 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "c838e7fd-c5ad-4fed-8a82-e4c7ce55a28b",
+                            "reference" : "b4bd6a89-9ae7-4bdf-b2b0-5ff1efe66825",
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
@@ -2913,46 +3549,90 @@
                           {
                             "type" : "component",
                             "dimension" : {
+                              "md" : 6,
+                              "sm" : 6,
                               "xs" : 12,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Colonia:"
+                              },
+                              "placeholder" : {
+                                "type" : "constant"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPersonalModel.empresaColonia"
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "34cfa884-c490-4a46-ad86-d523ec2b05cd",
+                            "hasValidationError" : false,
+                            "id" : "pbInput",
+                            "description" : ""
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 6,
                               "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : "color-orange"
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "text" : {
-                                "type" : "interpolation",
-                                "value" : "<hr> Ingresos del aval"
-                              },
-                              "level" : {
-                                "type" : "constant",
-                                "value" : "Level 4"
-                              },
-                              "alignment" : {
-                                "type" : "constant",
-                                "value" : "center"
-                              }
-                            },
-                            "reference" : "41f5bfc8-89f5-4563-b683-476e865d32cb",
-                            "hasValidationError" : false,
-                            "id" : "pbTitle"
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
                               "xs" : 12,
-                              "lg" : 4
+                              "lg" : 6
                             },
                             "propertyValues" : {
                               "labelHidden" : {
@@ -2981,7 +3661,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Ingreso mensual ($):"
+                                "value" : "Calle y número:"
                               },
                               "placeholder" : {
                                 "type" : "constant"
@@ -2996,7 +3676,7 @@
                               },
                               "value" : {
                                 "type" : "variable",
-                                "value" : "avalInfoPersonalModel.ingresoMensual"
+                                "value" : "avalInfoPersonalModel.empresaCalleYNumero"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -3021,559 +3701,10 @@
                                 "value" : 1
                               }
                             },
-                            "reference" : "35f40b58-375e-48e8-b75b-bc239666afbe",
+                            "reference" : "56234afc-c9e9-4111-9d41-5f9b0521884c",
                             "hasValidationError" : false,
                             "id" : "pbInput",
                             "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Proveniente de:"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.provenienteDe"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "cc96c1ce-39da-4fea-9d0d-5101c30549c2",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Otro ingreso ($):"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.otroIngreso"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "63f8449d-51f4-4daf-891d-a35cacbcf067",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Ingreso Mensual Total"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.ingresoMensualTotal"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "dbbbb1cf-e563-4bb3-afb6-e2938aa14ab2",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Egreso Mensual Total"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.egresoMensualTotal"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "2fc9a6ff-3c4e-4e63-8e77-83ff5efd9e02",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "md" : 4,
-                              "sm" : 6,
-                              "xs" : 12,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 1
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Saldo Mensual"
-                              },
-                              "placeholder" : {
-                                "type" : "constant"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "dimension" : {
-                                "type" : "constant",
-                                "value" : 12
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.saldoMensual"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "00aa9b20-8b50-4b4c-834d-0d58f1f9fe47",
-                            "hasValidationError" : false,
-                            "id" : "pbInput",
-                            "description" : ""
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "CURP:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.curp"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "748ce3b0-104e-459a-9003-f966246559b1",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 6,
-                              "md" : 4,
-                              "lg" : 4
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "RFC:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoPersonalModel.rfc"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "df018eab-464f-479c-be3c-3ead4727e98f",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
                           }
                         ]
                       ]
@@ -3626,7 +3757,7 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "<hr>Datos del inmueble que avala el crédito"
+                                "value" : "<hr>DATOS DEL INMUEBLE QUE AVALA EL CRÉDITO"
                               },
                               "level" : {
                                 "type" : "constant",
@@ -3683,456 +3814,6 @@
                           }
                         ],
                         [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Calle:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.calle"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "55804846-f711-4d4d-9df0-296e5d5df3dc",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Número exterior"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.noExterior"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "63f8e58f-827b-4135-afdb-9566a16440a7",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Colonia"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.colonia"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "53a03a06-0b81-45bf-85df-10ce0c0260dc",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Código postal:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.cp"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "ccd8414b-46f4-4d74-86e3-225e104da32f",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Ciudad:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.ciudad"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "d85a98e8-ec4a-4209-8de2-2ad94f6646a4",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Estado"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "avalInfoInmuebleModel.estado"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "71179cac-3a1e-4b48-b60e-686966dd2fb6",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          },
                           {
                             "type" : "component",
                             "dimension" : {
@@ -4247,6 +3928,462 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
+                                "value" : "Código postal:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.cp"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "ccd8414b-46f4-4d74-86e3-225e104da32f",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Estado"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.estado"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "71179cac-3a1e-4b48-b60e-686966dd2fb6",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Ciudad:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.ciudad"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "d85a98e8-ec4a-4209-8de2-2ad94f6646a4",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Colonia"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.colonia"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "53a03a06-0b81-45bf-85df-10ce0c0260dc",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Calle:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.calle"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "55804846-f711-4d4d-9df0-296e5d5df3dc",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Número exterior"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoInmuebleModel.noExterior"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "63f8e58f-827b-4135-afdb-9566a16440a7",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
                                 "value" : "Número interior:"
                               },
                               "labelPosition" : {
@@ -4311,7 +4448,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<hr> Datos de inscripción en el registro público de la propiedad"
+                          "value" : "<hr> DATOS DE INSCRIPCIÓN EN EL REGISTRO PÚBLICO DE LA PROPIEDAD"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -5078,7 +5215,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<hr> Referencias del Aval"
+                          "value" : "<hr> REFERENCIAS DEL AVAL"
                         },
                         "level" : {
                           "type" : "constant",
@@ -5161,9 +5298,9 @@
                           "type" : "constant",
                           "value" : [
                             "Banco",
-                            "Tipo cuenta",
-                            "Numero Cuenta",
-                            "Saldo Promedio"
+                            "Tipo de cuenta",
+                            "Numero de cuenta",
+                            "Saldo promedio"
                           ]
                         },
                         "content" : {
@@ -5198,6 +5335,9 @@
                         "editar" : {
                           "type" : "constant",
                           "value" : false
+                        },
+                        "moneda" : {
+                          "type" : "constant"
                         }
                       },
                       "reference" : "5b4b60c5-f3b5-468a-8f35-a86bfccc6cc4",
@@ -5272,9 +5412,9 @@
                           "type" : "constant",
                           "value" : [
                             "Banco",
-                            "Tipo cuenta",
-                            "Numero Cuenta",
-                            "Saldo Promedio"
+                            "Tipo de cuenta",
+                            "Numero de cuenta",
+                            "Saldo promedio"
                           ]
                         },
                         "content" : {
@@ -5309,6 +5449,9 @@
                         "editar" : {
                           "type" : "constant",
                           "value" : false
+                        },
+                        "moneda" : {
+                          "type" : "constant"
                         }
                       },
                       "reference" : "c0e2aa2e-1838-4236-9cc2-f73a143953da",
@@ -5356,7 +5499,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "<br/>"
+                          "value" : "<br><br><hr>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -5415,7 +5558,7 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "<hr>Documentación requerida del aval"
+                                "value" : "DOCUMENTACIÓN DEL AVAL"
                               },
                               "level" : {
                                 "type" : "constant",

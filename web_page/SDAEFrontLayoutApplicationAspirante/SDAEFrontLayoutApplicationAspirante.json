@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.46",
   "id" : "SDAEFrontLayoutApplicationAspirante",
   "name" : "SDAEFrontLayoutApplicationAspirante",
-  "lastUpdate" : 1651272099776,
+  "lastUpdate" : 1658184240351,
   "rows" : [
     [
       {
@@ -1054,58 +1054,6 @@
                                     }
                                   },
                                   "reference" : "a4715135-8849-45cc-b1e8-dcfd6b729103",
-                                  "hasValidationError" : false,
-                                  "id" : "pbText"
-                                }
-                              ],
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "xs" : 12,
-                                    "sm" : 12,
-                                    "md" : 12,
-                                    "lg" : 12
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : true
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Default label"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 4
-                                    },
-                                    "allowHTML" : {
-                                      "type" : "constant",
-                                      "value" : true
-                                    },
-                                    "text" : {
-                                      "type" : "interpolation",
-                                      "value" : "{{targetedPageUrl}}"
-                                    },
-                                    "alignment" : {
-                                      "type" : "constant",
-                                      "value" : "left"
-                                    }
-                                  },
-                                  "reference" : "ec5df30c-1164-47c8-b9ee-15e16d22c9ac",
                                   "hasValidationError" : false,
                                   "id" : "pbText"
                                 }
@@ -2820,29 +2768,29 @@
     "userName" : {
       "type" : "expression",
       "value" : [
-        "// if ($data.loggedUser && $data.loggedUser.firstname && $data.loggedUser.lastname) {",
-        "//     return $data.loggedUser.firstname + \" \" + $data.loggedUser.lastname;",
-        "// } else {",
-        "//     return $data.session.user_name;",
-        "// }",
-        "",
-        "if($data.objectSolicitud !== undefined){",
-        "    let nombre = \"\";",
-        "    nombre += ($data.objectSolicitud.primerNombre + \" \");",
-        "    if($data.objectSolicitud.segundoNombre !== \"\" && $data.objectSolicitud.segundoNombre !== null && $data.objectSolicitud.segundoNombre !== undefined){",
-        "        nombre += ($data.objectSolicitud.segundoNombre + \" \");",
-        "    } ",
-        "    ",
-        "    nombre += $data.objectSolicitud.apellidoPaterno;",
-        "    ",
-        "    if($data.objectSolicitud.apellidoMaterno !== \"\" && $data.objectSolicitud.apellidoMaterno !== null && $data.objectSolicitud.apellidoMaterno !== undefined){",
-        "        nombre += (\" \" + $data.objectSolicitud.apellidoMaterno);",
-        "    }",
-        "    ",
-        "    return nombre;",
+        "if ($data.loggedUser && $data.loggedUser.firstname && $data.loggedUser.lastname) {",
+        "    return $data.loggedUser.firstname + \" \" + $data.loggedUser.lastname;",
         "} else {",
         "    return $data.session.user_name;",
-        "}"
+        "}",
+        "",
+        "// if($data.objectSolicitud !== undefined){",
+        "//     let nombre = \"\";",
+        "//     nombre += ($data.objectSolicitud.primerNombre + \" \");",
+        "//     if($data.objectSolicitud.segundoNombre !== \"\" && $data.objectSolicitud.segundoNombre !== null && $data.objectSolicitud.segundoNombre !== undefined){",
+        "//         nombre += ($data.objectSolicitud.segundoNombre + \" \");",
+        "//     } ",
+        "    ",
+        "//     nombre += $data.objectSolicitud.apellidoPaterno;",
+        "    ",
+        "//     if($data.objectSolicitud.apellidoMaterno !== \"\" && $data.objectSolicitud.apellidoMaterno !== null && $data.objectSolicitud.apellidoMaterno !== undefined){",
+        "//         nombre += (\" \" + $data.objectSolicitud.apellidoMaterno);",
+        "//     }",
+        "    ",
+        "//     return nombre;",
+        "// } else {",
+        "//     return $data.session.user_name;",
+        "// }"
       ],
       "exposed" : false
     },

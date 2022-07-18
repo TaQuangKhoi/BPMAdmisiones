@@ -2,13 +2,132 @@
   "modelVersion" : "2.2",
   "id" : "SDAEVerSolicitud",
   "name" : "SDAEVerSolicitud",
-  "lastUpdate" : 1655509616752,
+  "lastUpdate" : 1658163054126,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/humanTask?c=1&f=state=ready&p=0&f=caseId=\" + caseId"
+          },
+          "reloadTask" : {
+            "type" : "variable",
+            "value" : true
+          },
+          "taskId" : {
+            "type" : "variable",
+            "value" : "taskId"
+          },
+          "caseId" : {
+            "type" : "variable",
+            "value" : "caseId"
+          },
+          "urlContext" : {
+            "type" : "expression",
+            "value" : "\"../API/bpm/userTask/\"+taskId+\"/context\""
+          },
+          "solicitudApoyoEducativo" : {
+            "type" : "variable",
+            "value" : "formOutputTest.solicitudApoyoEducativoInput"
+          },
+          "hermanos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.hermanosInput"
+          },
+          "lstDocumentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.lstDocumentosDocumentInput"
+          },
+          "autos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.autosInput"
+          },
+          "bienesRaices" : {
+            "type" : "variable",
+            "value" : "formOutputTest.bienesRaicesInput"
+          },
+          "documentos" : {
+            "type" : "variable",
+            "value" : "formOutputTest.documentosSolicitanteInput"
+          },
+          "imagenesSocioEco" : {
+            "type" : "variable",
+            "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
+          },
+          "lstDocumentosByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "getDocumentosByTipoApoyo.data"
+          },
+          "lstImagenesByTipoApoyo" : {
+            "type" : "variable",
+            "value" : "imagenesSocioEconomico.data"
+          },
+          "selectedIndex" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "isSolicitud" : {
+            "type" : "constant",
+            "value" : false
+          }
+        },
+        "reference" : "e3a7a34c-b4d2-4345-a44b-603df4422994",
+        "hasValidationError" : false,
+        "id" : "customSDAEGetTareaUsuario"
+      }
+    ],
     [
       {
         "type" : "container",
         "dimension" : {
-          "xs" : 12
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 2
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "ff9ba0c4-65fd-426c-b725-7a27f815e2a5",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [ ]
+        ]
+      },
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "md" : 10,
+          "lg" : 8
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -52,7 +171,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Ver solicitud"
+                  "value" : "VER SOLICITUD"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -67,94 +186,6 @@
               "hasValidationError" : false,
               "id" : "pbTitle",
               "description" : ""
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "expression",
-                  "value" : "\"../API/bpm/humanTask?c=1&f=state=ready&p=0&f=caseId=\" + caseId"
-                },
-                "reloadTask" : {
-                  "type" : "variable",
-                  "value" : true
-                },
-                "taskId" : {
-                  "type" : "variable",
-                  "value" : "taskId"
-                },
-                "caseId" : {
-                  "type" : "variable",
-                  "value" : "caseId"
-                },
-                "urlContext" : {
-                  "type" : "expression",
-                  "value" : "\"../API/bpm/userTask/\"+taskId+\"/context\""
-                },
-                "solicitudApoyoEducativo" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.solicitudApoyoEducativoInput"
-                },
-                "hermanos" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.hermanosInput"
-                },
-                "lstDocumentos" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.lstDocumentosDocumentInput"
-                },
-                "autos" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.autosInput"
-                },
-                "bienesRaices" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.bienesRaicesInput"
-                },
-                "documentos" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.documentosSolicitanteInput"
-                },
-                "imagenesSocioEco" : {
-                  "type" : "variable",
-                  "value" : "formOutputTest.imagenesSocEcoSolicitanteInput"
-                },
-                "lstDocumentosByTipoApoyo" : {
-                  "type" : "variable",
-                  "value" : "getDocumentosByTipoApoyo.data"
-                },
-                "lstImagenesByTipoApoyo" : {
-                  "type" : "variable",
-                  "value" : "imagenesSocioEconomico.data"
-                },
-                "selectedIndex" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "isSolicitud" : {
-                  "type" : "constant",
-                  "value" : false
-                }
-              },
-              "reference" : "e3a7a34c-b4d2-4345-a44b-603df4422994",
-              "hasValidationError" : false,
-              "id" : "customSDAEGetTareaUsuario"
             }
           ],
           [
@@ -234,8 +265,17 @@
                 "selectedIndex" : "selectedIndex",
                 "getDatosSolicitante" : "getDatosSolicitante",
                 "imagenesSocEcoSolicitanteInput" : "formOutputTest.imagenesSocEcoSolicitanteInput",
-                "documentosSolicitanteInput" : "formOutputTest.documentosSolicitanteInput",
-                "idModal" : "modalVer"
+                "documentosSolicitanteInput" : "formOutputTest.lstDocumentosDocumentInput",
+                "idModal" : "\"modalPV\"",
+                "avalInfoPersonalModel" : "",
+                "avalInfoInmuebleModel" : "",
+                "avalInfoPropiedadModel" : "",
+                "avalReferenciasBancariasModel" : "",
+                "avalReferenciaCreditoModel" : "",
+                "lstDocumentosAval" : "",
+                "isAutor" : "true",
+                "lstTipoMoneda" : "",
+                "lstAutomoviles" : ""
               }
             }
           ]
@@ -258,7 +298,7 @@
           },
           "modalId" : {
             "type" : "constant",
-            "value" : "modalDocumentoPV"
+            "value" : "modalPV"
           },
           "size" : {
             "type" : "constant",
@@ -294,7 +334,7 @@
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : "modal.header"
+                    "value" : "modal-header"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -445,38 +485,26 @@
                           "type" : "expression",
                           "value" : "selectedFile.extension !== \".pdf\""
                         },
-                        "labelHidden" : {
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "URL"
+                        },
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource.trim()"
+                        },
+                        "document" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "showPreview" : {
                           "type" : "constant",
                           "value" : true
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Default label"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "allowHTML" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "text" : {
-                          "type" : "interpolation",
-                          "value" : "<embed style=\"max-width: 100%;\"\n src=\"{{selectedFile.linkSource}}\"\n type=\"application/pdf\"/>"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
                         }
                       },
-                      "reference" : "6ceff719-4ecd-4468-980c-c2c510246869",
+                      "reference" : "ae8902f4-80f3-4d7c-ab73-a633b9997375",
                       "hasValidationError" : false,
-                      "id" : "pbText"
+                      "id" : "customSDAEFileViewer"
                     }
                   ]
                 ]
@@ -494,7 +522,7 @@
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : ""
+                    "value" : "modal-footer"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -609,10 +637,24 @@
   ],
   "assets" : [
     {
+      "id" : "cb60e848-b224-471a-a207-0e2e9e97e444",
+      "name" : "politespace.js",
+      "type" : "js",
+      "order" : 5,
+      "external" : false
+    },
+    {
       "id" : "8f200048-6000-4e0d-80a2-40146389b693",
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "06c83254-f51b-4069-8973-f148faef8604",
+      "name" : "jquery.inputmask.bundle.js",
+      "type" : "js",
+      "order" : 4,
       "external" : false
     },
     {
@@ -1224,7 +1266,7 @@
     "urlDownloadFileAzure" : {
       "type" : "constant",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getB64FileByPersistenceId&p=0&c=100&persistenceId="
+        "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure="
       ],
       "exposed" : false
     },
@@ -1330,6 +1372,13 @@
         "        break;\r",
         "    }\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "mascaraIntervalo" : {
+      "type" : "expression",
+      "value" : [
+        "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);\t"
       ],
       "exposed" : false
     }
