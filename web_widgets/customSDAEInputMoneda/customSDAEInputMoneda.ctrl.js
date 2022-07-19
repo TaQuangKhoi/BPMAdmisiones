@@ -35,10 +35,9 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
         } else if ((valueSize) >= limite || !valid || (fullNumber > $scope.properties.max)) {
             e.preventDefault();
         } else {
-            debugger;
             if(!$scope.properties.value && content == "0"){
                 e.preventDefault();
-                $scope.properties.value = 0
+                $scope.properties.value = 0;
             }
         }
     }
