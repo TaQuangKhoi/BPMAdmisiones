@@ -544,7 +544,7 @@ class TransferenciasDAO {
             }
 			
 			pstm = con.prepareStatement(Statements.SELECT_PAGO_CAMPUS_TRASNFERENCIA)
-			pstm.setString(1, object.grupoBonita)
+			pstm.setString(1, object.catCampus.grupoBonita)
 			rs= pstm.executeQuery()
 			String pagoid = "";
 			if(rs.next()) {
@@ -568,7 +568,7 @@ class TransferenciasDAO {
 			
 			if(pagoid.length() > 0){
 				pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO)
-				pstm.setString(1, Long.valueOf(pagoid));
+				pstm.setLong(1, Long.valueOf(pagoid));
 				pstm.setString(2, object.caseid);
 				pstm.executeUpdate();
 			}
