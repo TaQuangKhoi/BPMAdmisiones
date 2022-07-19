@@ -9,9 +9,9 @@
                 <th>Edad</th>
                 <th>¿Estudia?</th>
                 <th>Institución</th>
+                <th>Colegiatura mensual ({{properties.tipoMoneda}})</th>
                 <th>¿Tiene beca?</th>
                 <th> % de beca asignado</th>
-                <th>Colegiatura mensual ({{properties.tipoMoneda}})</th>
                 <th>¿Trabaja?</th>
                 <th>Empresa</th>
                 <th>Ingreso mensual ({{properties.tipoMoneda}})</th>
@@ -35,14 +35,14 @@
                 <td>
                     <input class="form-control" ng-model="row.institucion" type="text" ng-disabled="!row.isEstudia  || !properties.editar">
                 </td>
+                <td style="display: inline-flex; position: relative;">
+                    <label class="moneda-display2">$</label><input class="form-control moneda-display2-input" ng-model="row.colegiaturaMensual" ng-disabled="!row.isEstudia || !properties.editar" type="number" pattern="[0-9]*" data-politespace data-grouplength="3" data-delimiter="," data-reverse >
+                </td>
                 <td>
                     <input ng-model="row.isTieneBeca" type="checkbox" ng-disabled="!row.isEstudia || !properties.editar" ng-change="disableBeca(row, $index)">
                 </td>
                 <td>
                     <input class="form-control" ng-model="row.porcentajeBecaAsignado" type="number" ng-disabled="!row.isTieneBeca || !properties.editar">
-                </td>
-                <td style="display: inline-flex; position: relative;">
-                    <label class="moneda-display2">$</label><input class="form-control moneda-display2-input" ng-model="row.colegiaturaMensual" ng-disabled="!row.isEstudia || !properties.editar" type="number" pattern="[0-9]*" data-politespace data-grouplength="3" data-delimiter="," data-reverse >
                 </td>
                 <td>
                     <input ng-model="row.isTrabaja" type="checkbox" ng-change="disableTrabaja(row, $index)" ng-disabled="!properties.editar">
