@@ -8362,7 +8362,7 @@ class ListadoDAO {
 
                 Row espacio = sheet.createRow(++rowCount);
                 def titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA"]
-                if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador") ) && lstParams[0].tipoprueba_pid == "1") {
+                if ( lstParams[0].tipoprueba_pid == "1") {
                     titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","PSICÓLOGO"];
                 }
                 
@@ -8382,7 +8382,7 @@ class ListadoDAO {
 			    bodyStyle.setAlignment(HorizontalAlignment.CENTER);
 				errorLog += "3";
 				def info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia"];
-				if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador")) && lstParams[0].tipoprueba_pid == "1") {
+				if ( lstParams[0].tipoprueba_pid == "1") {
 					info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia","responsable"];
 				}
 				
