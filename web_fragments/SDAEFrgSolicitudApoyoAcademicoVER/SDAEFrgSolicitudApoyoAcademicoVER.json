@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1658339820340,
+  "lastUpdate" : 1658355688327,
   "rows" : [
     [
       {
@@ -1954,7 +1954,7 @@
                 ],
                 [
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
@@ -1970,63 +1970,170 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Preparatoria:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
+                        "value" : ""
                       }
                     },
-                    "reference" : "fc162c80-7616-4294-a318-d7c2547a42e4",
+                    "reference" : "0af1e89e-e7d3-4d56-b289-5a895cb22174",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion === 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "fc162c80-7616-4294-a318-d7c2547a42e4",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion !== 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].bachillerato ? objSolicitudDeAdmision[0].bachillerato : 'N/A'"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "c25a145b-8d18-462f-8b76-d260a9d1f120",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ]
+                    ]
                   },
                   {
                     "type" : "component",
@@ -2181,7 +2288,7 @@
                     "id" : "pbInput"
                   },
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
@@ -2197,68 +2304,175 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Ciudad de tu preparatoria:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "objSolicitudDeAdmision[0].catBachilleratos.ciudad"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
+                        "value" : ""
                       }
                     },
-                    "reference" : "10a8b53c-381e-4033-b3a7-8d8ab870384d",
+                    "reference" : "e27e9ca8-459f-42bc-8f25-82b61710e447",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion === 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Ciudad de tu preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.ciudad"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "10a8b53c-381e-4033-b3a7-8d8ab870384d",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion !== 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Ciudad de tu preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].estadoBachillerato"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "73b6be1b-c477-4787-84f9-e2a075291f3d",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ]
+                    ]
                   }
                 ],
                 [
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
@@ -2271,69 +2485,176 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "usuario.catBachilleratos.descripcion != 'Otro'"
-                      },
-                      "required" : {
                         "type" : "constant",
                         "value" : false
                       },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Otra preparatoria:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "objSolicitudDeAdmision[0].bachillerato"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
+                        "value" : ""
                       }
                     },
-                    "reference" : "c25a145b-8d18-462f-8b76-d260a9d1f120",
+                    "reference" : "f95cdee9-fa48-4385-932a-7de2c123d284",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion === 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Estado de tu preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.estado"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "29274244-83eb-4d9f-ba91-093e65eb5df4",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion !== 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Estado de tu preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].estadoBachillerato"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "baf53b75-4f37-4fc4-81b8-a10b972c8037",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ]
+                    ]
                   },
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
@@ -2349,141 +2670,173 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Estado de tu preparatoria:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
-                        "value" : "objSolicitudDeAdmision[0].catBachilleratos.estado"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
+                        "value" : ""
                       }
                     },
-                    "reference" : "29274244-83eb-4d9f-ba91-093e65eb5df4",
+                    "reference" : "1431a78d-ce0d-42bf-9e48-ca8840386601",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion === 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "País de tu preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.pais"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "9c220f83-bd5e-477e-8cc9-f62332c20b3e",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "objSolicitudDeAdmision[0].catBachilleratos.descripcion !== 'Otro'"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "País de tu preparatoria:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0].paisBachillerato"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "9948c335-29ec-4878-b199-3686994131ff",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ]
+                    ]
                   }
                 ],
                 [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "País de tu preparatoria:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "objSolicitudDeAdmision[0].catBachilleratos.pais"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      }
-                    },
-                    "reference" : "9c220f83-bd5e-477e-8cc9-f62332c20b3e",
-                    "hasValidationError" : false,
-                    "id" : "pbInput"
-                  },
                   {
                     "type" : "component",
                     "dimension" : {

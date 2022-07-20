@@ -4,7 +4,7 @@
             <div class="form-group col-xs-4 col-xs-offset-8">
             <label class="control-label col-xs-12">Fecha de envío:</label>
             <div class="col-xs-12" style="display: inline-flex; position: relative;">
-                <input type="text" disabled class="form-control"  value="{{ properties.lstContenido[0].fecharegistro ? properties.lstContenido[0].fecharegistro : 'N/A'}}">
+                <input type="text" disabled class="form-control"  ng-model="properties.lstContenido[0].fecharegistro ? (properties.lstContenido[0].fecharegistro | date:'dd/MM/yyyy'): 'N/A'">
             </div>
         </div>
         </div>
@@ -73,7 +73,8 @@
             <div class="form-group col-xs-4">
                 <label class="control-label col-xs-12">Preparatoria:</label>
                 <div class="col-xs-12" style="display: inline-flex; position: relative;">
-                    <input type="text" disabled="disabled" class="form-control" ng-model="properties.solicitudDeAdmision[0].catBachilleratos.descripcion">
+                    <input type="text" disabled="disabled" class="form-control" 
+                    ng-model="!properties.solicitudDeAdmision[0].bachillerato ? properties.solicitudDeAdmision[0].catBachilleratos.descripcion : properties.solicitudDeAdmision[0].bachillerato">
                 </div>
             </div>
             <div class="form-group col-xs-4">
@@ -133,3 +134,8 @@
         </div>
     </div>
 </div>
+
+
+<pre>{{ properties.lstContenido[0] | json }}</pre>
+<pre>{{ properties.solicitudDeAdmision[0].catBachilleratos | json }}</pre>
+<pre>{{ properties.solicitudDeAdmision[0].bachillerato | json }}</pre>
