@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1658272180538,
+  "lastUpdate" : 1658343819011,
   "rows" : [
     [
       {
@@ -12028,6 +12028,10 @@
                       "editar" : {
                         "type" : "constant",
                         "value" : true
+                      },
+                      "moneda" : {
+                        "type" : "expression",
+                        "value" : "returnCatValue.catTipoMoneda.clave"
                       }
                     },
                     "reference" : "fcf8abb1-6fa6-4d89-8d4e-cc581d1abdb5",
@@ -21751,12 +21755,12 @@
         "};",
         "if($data.returnCatValue.catTipoApoyo.isArtistica){",
         "    output = {",
-        "        \"documentName\":\"Curriculum Artistico\",",
+        "        \"documentName\":\"CURRICULUM ARTÍSTICO\",",
         "        \"documentDescription\":\"\"",
         "    }",
         "} else if ($data.returnCatValue.catTipoApoyo.isDeportiva){",
         "    output = {",
-        "        \"documentName\":\"Curriculum deportivo\",",
+        "        \"documentName\":\"CURRICULUM DEPORTIVO\",",
         "        \"documentDescription\":\"\"",
         "    }",
         "}",

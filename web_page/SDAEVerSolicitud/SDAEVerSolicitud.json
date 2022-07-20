@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEVerSolicitud",
   "name" : "SDAEVerSolicitud",
-  "lastUpdate" : 1658163054126,
+  "lastUpdate" : 1658343921579,
   "rows" : [
     [
       {
@@ -274,8 +274,8 @@
                 "avalReferenciaCreditoModel" : "",
                 "lstDocumentosAval" : "",
                 "isAutor" : "true",
-                "lstTipoMoneda" : "",
-                "lstAutomoviles" : ""
+                "lstTipoMoneda" : "lstTipoMoneda",
+                "lstAutomoviles" : "getCatSituacionAuto"
               }
             }
           ]
@@ -1380,6 +1380,22 @@
       "value" : [
         "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);\t"
       ],
+      "exposed" : false
+    },
+    "lstTipoMoneda" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatSituacionAuto" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatSituacionAuto"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

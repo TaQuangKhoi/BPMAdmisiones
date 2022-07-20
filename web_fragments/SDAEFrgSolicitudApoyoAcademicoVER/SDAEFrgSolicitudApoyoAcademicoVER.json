@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1658256502189,
+  "lastUpdate" : 1658339820340,
   "rows" : [
     [
       {
@@ -13952,9 +13952,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "567e9e65-fa29-4351-a9c5-ef5251fc461c",
+                          "reference" : "d99a190f-9ea5-4901-9ad4-e9000e8bb2dc",
                           "hasValidationError" : false,
-                          "id" : "customSDAEInputMoneda"
+                          "id" : "customSDAEInputMonedaDisplay"
                         }
                       ]
                     ]
@@ -14137,9 +14137,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "4f0abd18-e766-42f8-8351-34245c34a107",
+                          "reference" : "36bb2237-d095-483a-a2a6-13bde4a67b44",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customSDAEInputMonedaDisplay"
                         }
                       ]
                     ]
@@ -14679,7 +14679,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -16494,11 +16494,27 @@
       "exposed" : true
     },
     "returnCurriculumInfo" : {
-      "type" : "constant",
+      "type" : "expression",
       "value" : [
-        ""
+        "let output = {",
+        "    \"documentName\":\"\",",
+        "    \"documentDescription\":\"\"",
+        "};",
+        "if($data.returnCatValue.catTipoApoyo.isArtistica){",
+        "    output = {",
+        "        \"documentName\":\"CURRICULUM ARTÍSTICO\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "} else if ($data.returnCatValue.catTipoApoyo.isDeportiva){",
+        "    output = {",
+        "        \"documentName\":\"CURRICULUM DEPORTIVO\",",
+        "        \"documentDescription\":\"\"",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
-      "exposed" : true
+      "exposed" : false
     },
     "getDatosSolicitante" : {
       "type" : "constant",

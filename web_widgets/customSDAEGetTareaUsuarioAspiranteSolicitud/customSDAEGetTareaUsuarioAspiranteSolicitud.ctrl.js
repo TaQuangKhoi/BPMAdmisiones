@@ -160,7 +160,6 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.imagenesSocioEco = data;
                 for(let i = 0; i< $scope.properties.imagenesSocioEco.length; i++){
-                    debugger;
                     $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo ? $scope.properties.lstImagenesByTipoApoyo[i] : null;
                 }
             }
@@ -275,7 +274,6 @@ function ($scope, $http) {
             //     $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo[i];
             // }
 
-            debugger;
 			let newImages = [];
 			if($scope.properties.imagenesSocioEco.length < $scope.properties.lstImagenesByTipoApoyo.length){
 			    
