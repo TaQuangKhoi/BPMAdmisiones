@@ -567,17 +567,16 @@ class TransferenciasDAO {
             pstm.executeUpdate();
 			
 			if(pagoid.length() > 0){
+				String statement = Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO
+				
 				if(object?.estatus?.toString().contains("pago") ) {
-					pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO)
-					pstm.setLong(1, Long.valueOf(pagoid));
-					pstm.setString(2, object.caseid);
-					pstm.executeUpdate();
-				}else {
-					pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO2)
-					pstm.setLong(1, Long.valueOf(pagoid));
-					pstm.setString(2, object.caseid);
-					pstm.executeUpdate();
+					statement = Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO2
 				}
+				
+				pstm = con.prepareStatement(statement)
+				pstm.setLong(1, Long.valueOf(pagoid));
+				pstm.setString(2, object.caseid);
+				pstm.executeUpdate();
 				
 			}
 
