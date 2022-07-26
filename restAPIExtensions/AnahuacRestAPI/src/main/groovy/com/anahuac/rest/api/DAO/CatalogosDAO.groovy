@@ -1298,7 +1298,7 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
-					case "CODIGO POSTAL":
+					case "CÓDIGO POSTAL":
                         if (where.contains("WHERE")) {
                             where += " AND "
                         } else {
@@ -1382,7 +1382,7 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
-					case "CLAVE DEL PAIS":
+					case "CLAVE DEL PAÍS":
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
