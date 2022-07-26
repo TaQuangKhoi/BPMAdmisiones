@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1658193033824,
+  "lastUpdate" : 1658455069602,
   "rows" : [
     [
       {
@@ -28,7 +28,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Revisión de solicitud de financiamiento"
+            "value" : "SOLICITUD DE FINANCIAMIENTO EDUCATIVO"
           },
           "alignment" : {
             "type" : "constant",
@@ -1602,7 +1602,7 @@
                                     },
                                     "hidden" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : true
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -1701,76 +1701,73 @@
                                     "lg" : 12
                                   },
                                   "propertyValues" : {
-                                    "labelHidden" : {
+                                    "cssClasses" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : ""
                                     },
                                     "hidden" : {
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "labelPosition" : {
+                                    "required" : {
                                       "type" : "constant",
-                                      "value" : "top"
+                                      "value" : false
                                     },
-                                    "cssClasses" : {
+                                    "minLength" : {
                                       "type" : "constant",
                                       "value" : ""
                                     },
-                                    "labelWidth" : {
+                                    "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 8
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
                                       "value" : true
                                     },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Ingreso mensual ($):"
+                                      "value" : "Ingreso mensual ({{returnCatValue.catTipoMoneda.clave}}):"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
                                     },
                                     "placeholder" : {
-                                      "type" : "constant"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "dimension" : {
-                                      "type" : "constant",
-                                      "value" : 12
+                                      "type" : "interpolation"
                                     },
                                     "value" : {
                                       "type" : "variable",
                                       "value" : "avalInfoPersonalModel.ingresoMensual"
                                     },
-                                    "required" : {
+                                    "type" : {
                                       "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
+                                      "value" : "number"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 1
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100000000000
                                     },
                                     "step" : {
                                       "type" : "constant",
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "35f40b58-375e-48e8-b75b-bc239666afbe",
+                                  "reference" : "eb13f79f-b1a0-4d98-b1de-6478ddedd4fa",
                                   "hasValidationError" : false,
-                                  "id" : "pbInput",
-                                  "description" : ""
+                                  "id" : "customSDAEInputMonedaDisplay"
                                 }
                               ],
                               [
@@ -1783,76 +1780,61 @@
                                     "lg" : 12
                                   },
                                   "propertyValues" : {
-                                    "labelHidden" : {
+                                    "cssClasses" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : ""
                                     },
                                     "hidden" : {
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "readOnly" : {
+                                    "disabled" : {
                                       "type" : "constant",
                                       "value" : true
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
                                     },
                                     "label" : {
                                       "type" : "interpolation",
                                       "value" : "Proveniente de:"
                                     },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
                                     "placeholder" : {
-                                      "type" : "constant"
+                                      "type" : "interpolation"
                                     },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
+                                    "availableValues" : {
+                                      "type" : "expression",
+                                      "value" : "lstCatProvienenIngresos.data"
                                     },
-                                    "dimension" : {
+                                    "displayedKey" : {
                                       "type" : "constant",
-                                      "value" : 12
+                                      "value" : "descripcion"
+                                    },
+                                    "returnedKey" : {
+                                      "type" : "constant",
+                                      "value" : "persistenceId_string"
                                     },
                                     "value" : {
                                       "type" : "variable",
                                       "value" : "avalInfoPersonalModel.provenienteDe"
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
                                     }
                                   },
-                                  "reference" : "cc96c1ce-39da-4fea-9d0d-5101c30549c2",
+                                  "reference" : "54002878-2939-45a2-9081-6ad3a80074de",
                                   "hasValidationError" : false,
-                                  "id" : "pbInput",
-                                  "description" : ""
+                                  "id" : "pbSelect"
                                 }
                               ],
                               [
@@ -1883,7 +1865,7 @@
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 8
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -1895,7 +1877,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Otro ingreso ($):"
+                                      "value" : "Otro ingreso ({{returnCatValue.catTipoMoneda.clave}}):"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -1914,22 +1896,24 @@
                                     },
                                     "type" : {
                                       "type" : "constant",
-                                      "value" : "text"
+                                      "value" : "number"
                                     },
                                     "min" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 1
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100000000000000
                                     },
                                     "step" : {
                                       "type" : "constant",
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "63f8449d-51f4-4daf-891d-a35cacbcf067",
+                                  "reference" : "81d8132f-34dd-4d1d-8ee7-94c685a948ce",
                                   "hasValidationError" : false,
-                                  "id" : "pbInput"
+                                  "id" : "customSDAEInputMonedaDisplay"
                                 }
                               ],
                               [
@@ -1942,60 +1926,56 @@
                                     "lg" : 12
                                   },
                                   "propertyValues" : {
-                                    "labelHidden" : {
+                                    "cssClasses" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : ""
                                     },
                                     "hidden" : {
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "labelPosition" : {
+                                    "required" : {
                                       "type" : "constant",
-                                      "value" : "top"
+                                      "value" : false
                                     },
-                                    "cssClasses" : {
+                                    "minLength" : {
                                       "type" : "constant",
                                       "value" : ""
                                     },
-                                    "labelWidth" : {
+                                    "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 8
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
                                       "value" : true
                                     },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Ingreso mensual Total:"
+                                      "value" : "Ingreso mensual Total ({{returnCatValue.catTipoMoneda.clave}}):"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
                                     },
                                     "placeholder" : {
-                                      "type" : "constant"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "dimension" : {
-                                      "type" : "constant",
-                                      "value" : 12
+                                      "type" : "interpolation"
                                     },
                                     "value" : {
                                       "type" : "variable",
                                       "value" : "avalInfoPersonalModel.ingresoMensualTotal"
                                     },
-                                    "required" : {
+                                    "type" : {
                                       "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
+                                      "value" : "text"
                                     },
                                     "min" : {
                                       "type" : "constant"
@@ -2008,10 +1988,9 @@
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "dbbbb1cf-e563-4bb3-afb6-e2938aa14ab2",
+                                  "reference" : "d12af4b3-6ed9-4ccd-8726-6b2f408a0bd9",
                                   "hasValidationError" : false,
-                                  "id" : "pbInput",
-                                  "description" : ""
+                                  "id" : "customSDAEInputMonedaDisplay"
                                 }
                               ],
                               [
@@ -2024,76 +2003,72 @@
                                     "lg" : 12
                                   },
                                   "propertyValues" : {
-                                    "labelHidden" : {
+                                    "cssClasses" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : ""
                                     },
                                     "hidden" : {
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "labelPosition" : {
+                                    "required" : {
                                       "type" : "constant",
-                                      "value" : "top"
+                                      "value" : false
                                     },
-                                    "cssClasses" : {
+                                    "minLength" : {
                                       "type" : "constant",
                                       "value" : ""
                                     },
-                                    "labelWidth" : {
+                                    "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 8
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
                                       "value" : true
                                     },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Egreso mensual Total:"
+                                      "value" : "Egreso mensual Total ({{returnCatValue.catTipoMoneda.clave}}):"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
                                     },
                                     "placeholder" : {
-                                      "type" : "constant"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "dimension" : {
-                                      "type" : "constant",
-                                      "value" : 12
+                                      "type" : "interpolation"
                                     },
                                     "value" : {
                                       "type" : "variable",
                                       "value" : "avalInfoPersonalModel.egresoMensualTotal"
                                     },
-                                    "required" : {
+                                    "type" : {
                                       "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
+                                      "value" : "number"
                                     },
                                     "min" : {
                                       "type" : "constant"
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 100000000000
                                     },
                                     "step" : {
                                       "type" : "constant",
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "2fc9a6ff-3c4e-4e63-8e77-83ff5efd9e02",
+                                  "reference" : "6db7e4bb-5975-41aa-a3b5-0c7978cab3f0",
                                   "hasValidationError" : false,
-                                  "id" : "pbInput",
-                                  "description" : ""
+                                  "id" : "customSDAEInputMonedaDisplay"
                                 }
                               ],
                               [
@@ -2106,48 +2081,13 @@
                                     "lg" : 12
                                   },
                                   "propertyValues" : {
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
                                     "cssClasses" : {
                                       "type" : "constant",
                                       "value" : ""
                                     },
-                                    "labelWidth" : {
+                                    "hidden" : {
                                       "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : true
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Saldo mensual:"
-                                    },
-                                    "placeholder" : {
-                                      "type" : "constant"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "dimension" : {
-                                      "type" : "constant",
-                                      "value" : 12
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPersonalModel.saldoMensual"
+                                      "value" : false
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -2159,23 +2099,54 @@
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 8
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Saldo mensual ({{returnCatValue.catTipoMoneda.clave}}):"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "avalInfoPersonalModel.saldoMensual"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "number"
                                     },
                                     "min" : {
                                       "type" : "constant"
                                     },
                                     "max" : {
-                                      "type" : "constant"
+                                      "type" : "constant",
+                                      "value" : 1000000000000
                                     },
                                     "step" : {
                                       "type" : "constant",
                                       "value" : 1
                                     }
                                   },
-                                  "reference" : "00aa9b20-8b50-4b4c-834d-0d58f1f9fe47",
+                                  "reference" : "b4253d09-b83d-4c9a-9225-b4c7763f1dcf",
                                   "hasValidationError" : false,
-                                  "id" : "pbInput",
-                                  "description" : ""
+                                  "id" : "customSDAEInputMonedaDisplay"
                                 }
                               ]
                             ]
@@ -4539,7 +4510,7 @@
                                     },
                                     "hidden" : {
                                       "type" : "constant",
-                                      "value" : true
+                                      "value" : false
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -4975,7 +4946,7 @@
                                     },
                                     "hidden" : {
                                       "type" : "constant",
-                                      "value" : true
+                                      "value" : false
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -5337,7 +5308,8 @@
                           "value" : false
                         },
                         "moneda" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "{{returnCatValue.catTipoMoneda.clave}}"
                         }
                       },
                       "reference" : "5b4b60c5-f3b5-468a-8f35-a86bfccc6cc4",
@@ -5451,7 +5423,8 @@
                           "value" : false
                         },
                         "moneda" : {
-                          "type" : "constant"
+                          "type" : "expression",
+                          "value" : "{{returnCatValue.catTipoMoneda.clave}}"
                         }
                       },
                       "reference" : "c0e2aa2e-1838-4236-9cc2-f73a143953da",
@@ -10061,6 +10034,14 @@
       "value" : [
         "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);\t"
       ],
+      "exposed" : false
+    },
+    "lstTipoMoneda" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

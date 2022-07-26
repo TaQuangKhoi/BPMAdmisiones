@@ -59,7 +59,7 @@ function ($scope, $http) {
     }
 
     function getModelSolicitudApoyoEducativo(url) {
-        debugger;
+        
         $http.get(url).success((data) => {
             if (data) {
                 $scope.properties.solicitudApoyoEducativo = [];

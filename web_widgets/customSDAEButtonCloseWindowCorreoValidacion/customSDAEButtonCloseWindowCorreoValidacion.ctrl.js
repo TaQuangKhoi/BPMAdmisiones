@@ -89,6 +89,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     */
    function doRequest(method, url, params) {
       let dataToSend = angular.copy($scope.properties.dataToSend);
+      debugger;
       dataToSend.correoPreautorizacionInput = $scope.properties.correoUsuario;
       vm.busy = true;
       var req = {

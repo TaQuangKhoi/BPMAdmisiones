@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1658361994882,
+  "lastUpdate" : 1658450076833,
   "rows" : [
     [
       {
@@ -14788,8 +14788,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isAutor"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -20918,6 +20918,20 @@
         ""
       ],
       "exposed" : true
+    },
+    "urlIMagenesSocioEconomico" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" + $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita;"
+      ],
+      "exposed" : false
+    },
+    "catTipoApoyoFiltro" : {
+      "type" : "expression",
+      "value" : [
+        "return { \"idTipoApoyo\": $data.returnCatValue.catTipoApoyo.persistenceId }"
+      ],
+      "exposed" : false
     }
   },
   "hasValidationError" : false,

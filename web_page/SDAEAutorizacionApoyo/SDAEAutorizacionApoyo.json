@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1658163145881,
+  "lastUpdate" : 1658449894361,
   "rows" : [
     [
       {
@@ -245,7 +245,7 @@
                 "errorPaso3" : "mensaje",
                 "errorPaso4" : "mensaje",
                 "errorPaso5" : "mensaje",
-                "urlDownloadFileAzure" : "urlDownloadFileAzure",
+                "urlDownloadFileAzure" : "urlDownloadFileAzureUrl",
                 "taskid" : "task",
                 "reload" : "reloadTask",
                 "caseId" : "caseId",
@@ -271,7 +271,9 @@
                 "avalReferenciasBancariasModel" : "",
                 "avalReferenciaCreditoModel" : "",
                 "lstDocumentosAval" : "",
-                "isAutor" : "isAutor"
+                "isAutor" : "isAutor",
+                "lstTipoMoneda" : "lstTipoMoneda",
+                "lstAutomoviles" : "lstCatSituacionAuto"
               }
             }
           ]
@@ -5900,12 +5902,506 @@
                       "id" : "pbButton"
                     },
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
                         "md" : 6,
                         "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "2c20d7c0-fb3a-4b2c-bf04-32a888400377",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Enviar"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formOutputFinal"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "isValid" : {
+                                "type" : "expression",
+                                "value" : "isValid"
+                              },
+                              "errorMessage" : {
+                                "type" : "expression",
+                                "value" : "errorMessage"
+                              }
+                            },
+                            "reference" : "050df20c-586d-4217-b0a4-9c50050938e8",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCloseWindowValidation"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Enviar"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputAprobar"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "isAutorizada" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "isModificar" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "caseid" : {
+                                "type" : "expression",
+                                "value" : "caseId"
+                              }
+                            },
+                            "reference" : "a438e4b6-320d-40bc-95e1-e1d27a267dc6",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCloseWindowAutorizacion"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modalVer"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "dc302aa1-e27c-4653-9c62-12161e0a7ce5",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "c58e8bb7-7d0b-4d04-87c2-b89f52de9ebb",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-header"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "426eb01a-234b-40e2-8600-43262db64ff7",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "{{ selectedFile.fileName }}"
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 4"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        }
+                      },
+                      "reference" : "c71e5e4a-b4c2-4a30-8630-74108e59da34",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-body"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "9a6df895-9cad-4422-8a76-1f617da77943",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension === \".pdf\""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<img  src=\"{{selectedFile.linkSource}}\"  style=\"max-width: 100%;\" class=\"miniatura-pic\">"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        }
+                      },
+                      "reference" : "b37f0438-2ee3-48eb-b7dd-6925136024bb",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.extension !== \".pdf\""
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "URL"
+                        },
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "selectedFile.linkSource.trim()"
+                        },
+                        "document" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "showPreview" : {
+                          "type" : "constant",
+                          "value" : true
+                        }
+                      },
+                      "reference" : "50d61250-6ff5-449f-872c-89c3415c00ed",
+                      "hasValidationError" : false,
+                      "id" : "customSDAEFileViewer"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-footer"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "1195f527-8158-480c-b28d-d21b582b4587",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -5922,7 +6418,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Enviar"
+                          "value" : "Cerrar"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -5930,11 +6426,11 @@
                         },
                         "buttonStyle" : {
                           "type" : "constant",
-                          "value" : "primary"
+                          "value" : "info"
                         },
                         "action" : {
                           "type" : "constant",
-                          "value" : "Submit task"
+                          "value" : "Close modal"
                         },
                         "assign" : {
                           "type" : "constant",
@@ -5948,8 +6444,7 @@
                           "value" : ""
                         },
                         "dataToSend" : {
-                          "type" : "expression",
-                          "value" : "formInputAprobar"
+                          "type" : "constant"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -5982,23 +6477,11 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
-                        },
-                        "isAutorizada" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "isModificar" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "caseid" : {
-                          "type" : "expression",
-                          "value" : "caseId"
                         }
                       },
-                      "reference" : "094678f6-8703-4073-9153-f4ecc3026174",
+                      "reference" : "a4b98281-58a1-4ba3-b304-8a205a21793f",
                       "hasValidationError" : false,
-                      "id" : "customSDAEButtonCloseWindowAutorizacion"
+                      "id" : "pbButton"
                     }
                   ]
                 ]
@@ -6050,6 +6533,13 @@
       "name" : "jquery.inputmask.bundle.js",
       "type" : "js",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "4a6180fa-e938-43b5-94ec-149279681377",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 6,
       "external" : false
     },
     {
@@ -6271,7 +6761,7 @@
         "\t\t\"porcentajeCreditoAutorizacion\":\"\",",
         "\t\t\"porcentajeBecaAutorizacion\":\"\",",
         "\t\t\"promedioMinimoAutorizacion\":\"\",",
-        "\t\t\"descuentoAnticipadoAutorizacion\":\"\",",
+        "\t\t\"descuentoAnticipadoAutorizacion\":0,",
         "\t\t\"fechaPagoInscripcionAutorizacion\": null,",
         "\t\t\"isPagoRealizadoAutorizacion\":false,",
         "\t\t\"motivoRechazoAutorizacionText\":\"\",",
@@ -6480,14 +6970,19 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id}}&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "getDocumentosByTipoApoyo" : {
-      "type" : "json",
+      "type" : "url",
       "value" : [
-        "[]"
+        "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id}}&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "lstCatContoBecaPreparatoria" : {
@@ -6725,6 +7220,68 @@
       "type" : "expression",
       "value" : [
         "setInterval(()=>{ jQuery(document).trigger(\"enhance\"); }, 3000);\t"
+      ],
+      "exposed" : false
+    },
+    "isValid" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;\r",
+        "\r",
+        "if(!$data.formInputAprobar.autorizacionInput.porcentajeBecaAutorizacion){\r",
+        "    $data.errorMessage = \"No puedes autorizar el apoyo sin poner valor en el campo 'Porcentaje de beca autorizado'\";\r",
+        "    output = false;\r",
+        "} else if($data.showFinanciamiento && !$data.formInputAprobar.autorizacionInput.porcentajeCreditoAutorizacion){\r",
+        "    $data.errorMessage = \"Si seleccionaste el campo '¿El apoyo contiene financiamiento educativo?' debes llenar el campo 'Porcentaje financiamiento propuesto'\";\r",
+        "    output = false;\r",
+        "} else if ($data.formInputAprobar.autorizacionInput.porcentajeCreditoAutorizacion + $data.formInputAprobar.autorizacionInput.porcentajeBecaAutorizacion > 100){\r",
+        "    $data.errorMessage = \"La suma del campo 'Porcentaje de beca autorizado' y el campo 'Porcentaje financiamiento propuesto' no debe ses superior al 100%\";\r",
+        "    output = false;\r",
+        "} else if(!$data.formInputAprobar.autorizacionInput.promedioMinimoAutorizacion){\r",
+        "    $data.errorMessage = \"El campo 'Promedio mínimo para conservar el apoyo' no debe ir vacío\";\r",
+        "    output = false;\r",
+        "} else if(!$data.formInputAprobar.autorizacionInput.fechaPagoInscripcionAutorizacion){\r",
+        "    $data.errorMessage = \"El campo 'Fecha límite de inscripción' no debe ir vacío\";\r",
+        "    output = false;\r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "errorMessage" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "lstTipoMoneda" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatSituacionAuto" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatSituacionAuto"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "formOutputFinal" : {
+      "type" : "expression",
+      "value" : [
+        "let autorizacionInput = $data.formInputAprobar.autorizacionInput;\r",
+        "autorizacionInput.porcentajeCreditoAutorizacion = parseInt(autorizacionInput.porcentajeCreditoAutorizacion ? autorizacionInput.porcentajeCreditoAutorizacion : 0);\r",
+        "autorizacionInput.porcentajeBecaAutorizacion = parseInt(autorizacionInput.porcentajeBecaAutorizacion ? autorizacionInput.porcentajeBecaAutorizacion : 0);\r",
+        "autorizacionInput.caseid = parseInt($data.caseId);\r",
+        "\r",
+        "return {\r",
+        "\t\"varAutorizadaInput\": $data.formInputAprobar.varAutorizadaInput,\r",
+        "\t\"isModificacionAutorizcionInput\": $data.formInputAprobar.isModificacionAutorizcionInput,\r",
+        "\t\"autorizacionInput\":autorizacionInput\r",
+        "}"
       ],
       "exposed" : false
     }
