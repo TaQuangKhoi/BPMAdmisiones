@@ -5900,7 +5900,7 @@ class SesionesDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
-				case "SESIÓN ID":
+				case "ID DE LA SESIÓN":
 					if (where.contains("WHERE")) {
 						where += " AND "
 					} else {
@@ -5915,7 +5915,7 @@ class SesionesDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				
-				case "PRUEBA ID":
+				case "ID DE LA PRUEBA":
 					if (where.contains("WHERE")) {
 						where += " AND "
 					} else {
