@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1658449797810,
+  "lastUpdate" : 1658860258026,
   "rows" : [
     [
       {
@@ -3699,13 +3699,15 @@
                         },
                         "type" : {
                           "type" : "constant",
-                          "value" : "text"
+                          "value" : "number"
                         },
                         "min" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : 1
                         },
                         "max" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : 100
                         },
                         "step" : {
                           "type" : "constant",
@@ -4007,7 +4009,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "disabled" : {
                                 "type" : "constant",
@@ -5493,7 +5495,7 @@
       "value" : [
         "let output = true;",
         "",
-        "let porcentajeCredito =  parseInt($data.formInputAprobar.preAutorizacionInput.porcentajeCredito ? $data.formInputAprobar.preAutorizacionInput.porcentajeCredito : \"0\");",
+        "let porcentajeCredito =  parseInt($data.formInputFinanciamiento.preAutorizacionInput.porcentajeCreditoPreAutorizacion ? $data.formInputFinanciamiento.preAutorizacionInput.porcentajeCreditoPreAutorizacion : 0);",
         "",
         "if(!porcentajeCredito){",
         "    $data.errorMessageFinan = \"No puedes enviar la solicitud al área de finanzas sin llenar un valor en el campo 'Porcentaje de crédito'\";",

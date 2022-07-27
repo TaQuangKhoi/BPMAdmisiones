@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionFinanciamiento",
   "name" : "SDAEAceptacionFinanciamiento",
-  "lastUpdate" : 1657846242641,
+  "lastUpdate" : 1658948955988,
   "rows" : [
     [
       {
@@ -7335,7 +7335,7 @@
                         },
                         "targetUrlOnSuccess" : {
                           "type" : "interpolation",
-                          "value" : "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE"
+                          "value" : "/bonita/apps/aspiranteSDAE/nueva_solicitud_SDAE/"
                         },
                         "collectionToModify" : {
                           "type" : "variable"
@@ -8463,7 +8463,7 @@
     "estatusSolicitud" : {
       "type" : "constant",
       "value" : [
-        "Propuesta financiamiento aceptada por aspirante"
+        ""
       ],
       "exposed" : false
     },
@@ -8503,6 +8503,17 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "setEstatusSolicitud" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formInputEnviarComite.varAceptarFinanciamientoInput){",
+        "  $data.estatusSolicitud = \"Propuesta financiamiento aceptada por aspirante\"; ",
+        "} else {",
+        "    $data.estatusSolicitud = \"Propuesta financiamiento rechazada por aspirante\"; ",
+        "}"
       ],
       "exposed" : false
     }

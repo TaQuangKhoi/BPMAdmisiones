@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamientoComite",
   "name" : "SDAERevisarSolicitudFinanciamientoComite",
-  "lastUpdate" : 1658454270673,
+  "lastUpdate" : 1658948503474,
   "rows" : [
     [
       {
@@ -7964,7 +7964,7 @@
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : ""
+                    "value" : "modal-header"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -8030,7 +8030,7 @@
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : ""
+                    "value" : "modal-body"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -8051,8 +8051,8 @@
                       "dimension" : {
                         "xs" : 6,
                         "sm" : 6,
-                        "md" : 6,
-                        "lg" : 6
+                        "md" : 12,
+                        "lg" : 12
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -8088,7 +8088,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -8147,6 +8147,85 @@
                             "reference" : "acbf1ee1-5c1c-497d-9469-f007cc7b2920",
                             "hasValidationError" : false,
                             "id" : "pbInput"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Porcentaje de financiamiento:"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "formInputEnviarComite.solicitudFinanciamientoModelInput.porcComite"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "number"
+                              },
+                              "min" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "max" : {
+                                "type" : "constant",
+                                "value" : 100
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "b709988a-3b3c-4dcb-a350-0820f0a71258",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimitPercentage"
                           }
                         ]
                       ]
@@ -8227,7 +8306,7 @@
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : ""
+                    "value" : "modal-footer"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -8332,7 +8411,7 @@
                       "id" : "pbButton"
                     },
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -8348,85 +8427,222 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Autorizar Financiamiento"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "right"
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "primary"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Submit task"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
                           "value" : ""
-                        },
-                        "dataToSend" : {
-                          "type" : "expression",
-                          "value" : "formInputEnviarComite"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "constant"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
-                        },
-                        "estatusSolicitud" : {
-                          "type" : "variable",
-                          "value" : "estatusSolicitud"
-                        },
-                        "caseId" : {
-                          "type" : "variable",
-                          "value" : "caseIdURL"
                         }
                       },
-                      "reference" : "c8800cb3-be4b-4f8a-a69a-65b2b83b30bc",
+                      "reference" : "97596db7-57ac-47f8-a897-a7860fbd8a03",
                       "hasValidationError" : false,
-                      "id" : "customSDAEButtonCambiarEstatusSolicitud"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Autorizar Financiamiento"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputEnviarComite"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "estatusSolicitud" : {
+                                "type" : "variable",
+                                "value" : "estatusSolicitud"
+                              },
+                              "caseId" : {
+                                "type" : "variable",
+                                "value" : "caseIdURL"
+                              }
+                            },
+                            "reference" : "c8800cb3-be4b-4f8a-a69a-65b2b83b30bc",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCambiarEstatusSolicitud"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Autorizar Financiamiento"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputEnviarComite"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "estatusSolicitud" : {
+                                "type" : "variable",
+                                "value" : "estatusSolicitud"
+                              },
+                              "caseId" : {
+                                "type" : "variable",
+                                "value" : "caseIdURL"
+                              },
+                              "isValid" : {
+                                "type" : "expression",
+                                "value" : "validarFinanciamientocomite"
+                              },
+                              "errorMessage" : {
+                                "type" : "expression",
+                                "value" : "errorMessageComite"
+                              }
+                            },
+                            "reference" : "e955b652-35cd-4356-bbdb-a2f6d6e9817b",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCambiarEstatusSolicitudValidacion"
+                          }
+                        ]
+                      ]
                     }
                   ]
                 ]
@@ -10056,6 +10272,24 @@
         "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CATTIPOMONEDA"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "validarFinanciamientocomite" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;",
+        "",
+        "if(!$data.formInputEnviarComite.solicitudFinanciamientoModelInput.porcComite){",
+        "    output = false;",
+        "    $data.errorMessageComite = \"No  puedes enviar  a comité sin llenar el campo 'Porcentaje de financiamiento'.\";",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "errorMessageComite" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
