@@ -103,7 +103,7 @@ class PDFDocumentDAO {
 						columns.put("nombrePadre", isNullOrBlanck(it?.nombre.toString()));
 						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
 						columns.put("empresaPadre", isNullOrBlanck(it?.empresatrabaja.toString()));
-						columns.put("universidadPadre", isNullOrBlanck(it?.campusanahuac.toString()));
+						columns.put("universidadPadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					}
 					familiares[0] = true;
 				}
@@ -118,7 +118,7 @@ class PDFDocumentDAO {
 						columns.put("nombreMadre", isNullOrBlanck(it?.nombre.toString()));
 						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString())+ " ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
 						columns.put("empresaMadre", isNullOrBlanck(it?.empresatrabaja.toString()));
-						columns.put("universidadMadre", isNullOrBlanck(it?.campusanahuac.toString()));
+						columns.put("universidadMadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					}
 					familiares[1] = true;
 				}
@@ -127,7 +127,7 @@ class PDFDocumentDAO {
 					columns.put("nombreTutor", isNullOrBlanck(it?.nombre.toString()));
 					columns.put("ocupacionTutor", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''}");
 					columns.put("empresaTutor", isNullOrBlanck(it?.empresatrabaja.toString()));
-					columns.put("universidadTutor", isNullOrBlanck(it?.campusanahuac.toString()));
+					columns.put("universidadTutor", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					familiares[2] = true;
 				}
 				
@@ -230,7 +230,9 @@ class PDFDocumentDAO {
 			log = 4;
 			info = getInfoSaludPSeccion(caseid)?.getData();
 			columns.put("vivesSituacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.cat_situacion_discapacidad_descripcion.toString()) );
-			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.situacion_discapacidad?.toString()) );
+			columns.put("tipoDiscapacidad",  isNullOrBlanck(info?.get(0)?.situacion_discapacidad?.toString()) );
+			columns.put("SituacionTipo",  isNullOrBlanck(info?.get(0)?.situaciontipo?.toString()) );
+			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.problemassaludatencioncontinua?.toString()) );
 			columns.put("personaSaludableDescripcion",  isNullOrBlanck(info?.get(0)?.cat_persona_saludable_descripcion.toString()) );
 			columns.put("terapiaDescripcion",  isNullOrBlanck(info?.get(0)?.cat_terapia_descripcion.toString()) );
 			columns.put("tipoTerapia",  isNullOrBlanck(info?.get(0)?.tipo_terapia.toString()) );
@@ -411,7 +413,7 @@ class PDFDocumentDAO {
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT distinct on (pt.catparentezco_pid) pt.catparentezco_pid,cp.descripcion as parentesco, pt.empresatrabaja,puesto,pt.vive_pid, cv.descripcion AS vive, pt.desconozcoDatosPadres ,cc.descripcion as campusAnahuac, CONCAT(pt.nombre,' ',pt.apellidos) AS nombre, pt.isTutor, tpr.jubilado FROM PadresTutor AS pt LEFT JOIN catParentesco as cp ON cp.persistenceid = pt.catparentezco_pid LEFT JOIN catCampus AS CC ON cc.persistenceid = catcampusegreso_pid LEFT JOIN catVive AS cv ON cv.persistenceid = pt.vive_pid LEFT JOIN TestPsicometricoRelativos AS tpr on tpr.caseid = pt.caseid::varchar where  pt.caseid =  "+caseid)
+			pstm = con.prepareStatement("SELECT distinct on (pt.catparentezco_pid) pt.catparentezco_pid,cp.descripcion as parentesco, pt.empresatrabaja,puesto,pt.vive_pid, cv.descripcion AS vive, pt.desconozcoDatosPadres ,cc.descripcion as campusAnahuac, pt.categresoanahuac_pid as egresoAnahuac, CONCAT(pt.nombre,' ',pt.apellidos) AS nombre, pt.isTutor, tpr.jubilado FROM PadresTutor AS pt LEFT JOIN catParentesco as cp ON cp.persistenceid = pt.catparentezco_pid LEFT JOIN catCampus AS CC ON cc.persistenceid = catcampusegreso_pid LEFT JOIN CatEgresadoUniversidadAnahuac AS eua ON eua.persistenceid =  pt.categresoanahuac_pid LEFT JOIN catVive AS cv ON cv.persistenceid = pt.vive_pid LEFT JOIN TestPsicometricoRelativos AS tpr on tpr.caseid = pt.caseid::varchar where  pt.caseid =   "+caseid)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();

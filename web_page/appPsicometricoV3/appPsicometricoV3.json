@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1657736485053,
+  "lastUpdate" : 1658787986517,
   "rows" : [
     [
       {
@@ -4412,6 +4412,73 @@
                                           "type" : "constant",
                                           "value" : false
                                         },
+                                        "disabled" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation",
+                                          "value" : "Selecciona..."
+                                        },
+                                        "availableValues" : {
+                                          "type" : "expression",
+                                          "value" : "catProblemasSaludAtencion_query"
+                                        },
+                                        "displayedKey" : {
+                                          "type" : "constant",
+                                          "value" : "descripcion"
+                                        },
+                                        "returnedKey" : {
+                                          "type" : "constant"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.catProblemasSaludAtencion"
+                                        }
+                                      },
+                                      "reference" : "20b3174e-e225-49be-ab49-e9f639c1bdc0",
+                                      "hasValidationError" : false,
+                                      "id" : "pbSelect"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "autodescripcionV2.catProblemasSaludAtencion.descripcion=='No'"
+                                        },
                                         "readOnly" : {
                                           "type" : "constant",
                                           "value" : true
@@ -4434,7 +4501,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                          "value" : "Describe brevemente que tipo de atención médica necesita"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -5750,6 +5817,10 @@
                       "urlParametro2" : {
                         "type" : "expression",
                         "value" : "intentos"
+                      },
+                      "isFinalizado" : {
+                        "type" : "expression",
+                        "value" : "testPsicom.finalizado"
                       }
                     },
                     "reference" : "d079f9e4-6fa3-4a9b-9329-840614ed8525",
@@ -8604,6 +8675,13 @@
         "    hayDatos.push(false);",
         "}",
         "",
+        "",
+        "if( $data.getCalificacionesExamenes.data[0] !=null && $data.getCalificacionesExamenes.data[0].paan.toString().trim().length>0 && $data.getCalificacionesExamenes.data[0].paav.toString().trim().length>0 && $data.getCalificacionesExamenes.data[0].para.toString().trim().length>0){",
+        "    hayDatos.push(true);",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
         "let count = 0;",
         "for(let i = 0; i<hayDatos.length; i++){",
         "    if(hayDatos[i] === true){",
@@ -8657,6 +8735,13 @@
       "type" : "urlparameter",
       "value" : [
         "intento"
+      ],
+      "exposed" : false
+    },
+    "catProblemasSaludAtencion_query" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatProblemasSaludAtencion [com.anahuac.catalogos.CatProblemasSaludAtencion]\",\"businessObjectName\":\"CatProblemasSaludAtencion\",\"query\":{\"name\":\"getCatProblemasSaludAtencion\",\"displayName\":\"getCatProblemasSaludAtencion\"},\"id\":\"com.anahuac.catalogos.CatProblemasSaludAtencion\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

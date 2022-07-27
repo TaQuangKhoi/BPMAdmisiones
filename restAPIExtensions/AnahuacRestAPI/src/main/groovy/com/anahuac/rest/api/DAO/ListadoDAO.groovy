@@ -8363,7 +8363,7 @@ class ListadoDAO {
                 Row espacio = sheet.createRow(++rowCount);
                 def titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA"]
                 if ( lstParams[0].tipoprueba_pid == "1") {
-                    titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","PSICÓLOGO"];
+                    titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","PSICÓLOGO","HORA DE LA ENTREVISTA"];
                 }
                 
 				errorLog += "1";
@@ -8383,7 +8383,7 @@ class ListadoDAO {
 				errorLog += "3";
 				def info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia"];
 				if ( lstParams[0].tipoprueba_pid == "1") {
-					info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia","responsable"];
+					info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia","responsable","horario"];
 				}
 				
 			    List<Cell> body;
