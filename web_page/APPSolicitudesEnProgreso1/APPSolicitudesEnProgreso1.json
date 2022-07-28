@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "APPSolicitudesEnProgreso1",
   "name" : "APPSolicitudesEnProgreso",
-  "lastUpdate" : 1642632892522,
+  "lastUpdate" : 1655408491634,
   "rows" : [
     [
       {
@@ -324,7 +324,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "dataToSend"
+                        "value" : "dataToFile"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -361,11 +361,15 @@
                       "fileExtension" : {
                         "type" : "constant",
                         "value" : "xls"
+                      },
+                      "nombre" : {
+                        "type" : "constant",
+                        "value" : "Solicitudes en proceso"
                       }
                     },
-                    "reference" : "c7aa92a3-83ed-463f-b048-3d77fc4ef361",
+                    "reference" : "1902b9e2-8426-40c2-a22e-a68c425f7d0a",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnDownloadExcel"
+                    "id" : "customCustomBtnDownloadExcelName"
                   }
                 ]
               ]
@@ -1771,6 +1775,24 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Solicitud en progreso\",\r",
+        "    \"tarea\":\"Llenar solicitud\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"solicitudes_progreso\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};"
       ],
       "exposed" : false
     }

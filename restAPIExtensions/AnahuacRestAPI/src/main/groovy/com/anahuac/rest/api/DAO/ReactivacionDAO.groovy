@@ -9,6 +9,7 @@ import java.sql.Statement
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.bpm.document.DocumentNotFoundException
 import org.bonitasoft.engine.bpm.document.DocumentValue
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
@@ -50,8 +51,10 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
+import java.util.Base64;
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
@@ -476,7 +479,8 @@ class ReactivacionDAO {
 						try {
 							String urlFoto = rs.getString("urlfoto");
 							if(urlFoto != null && !urlFoto.isEmpty()) {
-								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								//columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
 							}else {
 								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 								for(Document doc : doc1) {
@@ -484,10 +488,6 @@ class ReactivacionDAO {
 									columns.put("fotografiab64", encoded);
 								}
 							}
-							/*for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								columns.put("fotografiab64", encoded);
-							}*/
 						} catch (Exception e) {
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();
@@ -512,11 +512,11 @@ class ReactivacionDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -605,9 +605,10 @@ class ReactivacionDAO {
 			//errorLog += "Formateo: "+formateo.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+formateo.getError_info();
 			
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			resultado.setError_info(errorLog)
+			
 		} catch (Exception ex) {
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			if(autoCommit) {
@@ -724,11 +725,11 @@ class ReactivacionDAO {
 			
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 		}finally {
 			if (closeCon) {
@@ -753,12 +754,12 @@ class ReactivacionDAO {
 			errorLog += " Respaldo: "+resultado2.isSuccess().toString()+" Errores: "+resultado2.getError()+" Error_info: "+resultado2.getError_info();
 			
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -816,11 +817,11 @@ class ReactivacionDAO {
 			errorLog+="9"
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 			
 		}finally {
@@ -1252,12 +1253,12 @@ class ReactivacionDAO {
 			errorlog = consulta + " 9" + consultaCount;
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -1476,14 +1477,14 @@ class ReactivacionDAO {
 				}
 	        }
 
-	        resultado.setError_info(errorlog);
+	        
 	        resultado.setSuccess(true);
 	        resultado.setData(lstResultado);
 	    } catch (Exception e) {
 	    	errorlog += " | Exception: "+e;
 	        resultado.setSuccess(false);
 	        resultado.setError(e.getMessage());
-	        resultado.setError_info(errorlog)
+	        
 	    } finally {
 	        if (closeCon) {
 	            new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1561,7 +1562,7 @@ class ReactivacionDAO {
 			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
 			resultado.setSuccess(false);
 			resultado.setError(loginApi.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}
 		return resultado;
 	}
@@ -1963,12 +1964,20 @@ class ReactivacionDAO {
 			contract.put("contactoEmergenciaInput",contacto);
 			
 			sleep(5000);
+			respuesta = validarAspirante(Long.valueOf(object.caseid),caseId, context,contract);
+			errorLog =", tarea:"+ respuesta;
 			
-			respuesta = validarAspirante(caseId, context,contract);
-			errorLog +=", tarea:"+ respuesta;
 			sleep(5000);
 			respuesta = updateDatosSolicitud(object.caseid,caseId.toString(),context);
-			errorLog ="Update:"+ respuesta;
+			errorLog +="Update:"+ respuesta;
+			
+			Result resultado2 = new Result();
+			resultado2 = copiarArchivos(Long.valueOf(object.caseid,),caseId,context)
+			if(resultado2.isSuccess()) {
+				errorLog+= "Se subieron archivos"
+			}else {
+				errorLog+= "Errorsubieron archivos:"+resultado2
+			}
 			
 			List < String> rows = new ArrayList <String> ();
 			rows.add("${caseId}")
@@ -1980,7 +1989,7 @@ class ReactivacionDAO {
 			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
 			resultado.setSuccess(false);
 			resultado.setError(loginApi.getMessage())
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1989,7 +1998,7 @@ class ReactivacionDAO {
 		return resultado;
 	}
 	
-	public Result validarAspirante(Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
+	public Result validarAspirante(Long caseidOrigen,Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
 		Result resultado = new Result();
 		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
 		CatRegistro objCatRegistro = new CatRegistro();
@@ -2028,10 +2037,9 @@ class ReactivacionDAO {
 						}
 					}
 				}
-			}
+			}		
 			
 			sleep(5000);
-			
 			searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Llenar solicitud");
 			final SearchOptions searchOptions2 = searchBuilder.done();
@@ -2053,6 +2061,7 @@ class ReactivacionDAO {
 			}
 			
 			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
@@ -2063,7 +2072,7 @@ class ReactivacionDAO {
 	}
 	
 	
-	public Result updateDatosSolicitud(String caseIdOrigen,caseIdDestino,RestAPIContext context) {
+	public Result updateDatosSolicitud(String caseIdOrigen,String caseIdDestino,RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -2074,7 +2083,7 @@ class ReactivacionDAO {
 			
 			con.setAutoCommit(false)
 			// INSERTAR ISELIMINADO
-			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catConcluisteProceso_pid = sda.catConcluisteProceso_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, urlFoto = sda.urlFoto, urlConstancia = sda.urlConstancia, urlCartaAA = sda.urlCartaAA, urlResultadoPAA = sda.urlResultadoPAA, urlActaNacimiento = sda.urlActaNacimiento, urldescuentos = sda.urldescuentos, isEliminado = false  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catConcluisteProceso_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos, urlFoto,urlConstancia,urlCartaAA,urlResultadoPAA,urlActaNacimiento,urldescuentos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
+			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catConcluisteProceso_pid = sda.catConcluisteProceso_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, isEliminado = false, selectedindex = 1  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catConcluisteProceso_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
 			pstm.executeUpdate();
 			errorLog+="solicitud";
 			
@@ -2159,12 +2168,26 @@ class ReactivacionDAO {
 			}
 			
 			/*for(int i = 0; i<contexto?.lstInformacionEscolar_ref?.storageIds?.size(); i++) {
-				pstm = con.prepareStatement("UPDATE EscuelasHasEstado SET anofin = pt.anofin, anoinicio = pt.anoinicio, caseid = ${caseIdDestino}, ciudad = pt.ciudad, estadostring = pt.estadostring, otraescuela = pt.otraescuela, persistenceversion = pt.persistenceversion, promedio = pt.promedio, escuela_pid = pt.escuela_pid, estado_pid = pt.estado_pid, grado_pid = pt.grado_pid, pais_pid = pt.pais_pid, tipo_pid = pt.tipo_pid, vencido = pt.vencido FROM (SELECT anofin, anoinicio, caseid, ciudad estadostring, otraescuela, persistenceversion, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido FROM EscuelasHasEstado WHERE persistenceId = ${contexto?.lstInformacionEscolar_ref?.storageIds[i]} ) as pt WHERE EscuelasHasEstado.persistenceId = "+contexto2?.lstInformacionEscolar_ref?.storageIds[i]);
+				pstm = con.prepareStatement("INSERT INTO EscuelasHasEstado (persistenceid, anofin, anoinicio, caseid, ciudad, estadostring, otraescuela, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido) SELECT (case when (SELECT max(persistenceId)+1 from EscuelasHasEstado ) is null then 1 else (SELECT max(persistenceId)+1 from EscuelasHasEstado) end) AS persistenceid, pt.anofin, pt.anoinicio, ${caseIdDestino} as caseid,pt.ciudad,pt.estadostring,pt.otraescuela,pt.promedio,pt.escuela_pid,pt.estado_pid,pt.grado_pid,pt.pais_pid,pt.tipo_pid,pt.vencido FROM EscuelasHasEstado as PT WHERE pt.persistenceid =  ${contexto2?.lstInformacionEscolar_ref?.storageIds[i]}");
 				pstm.executeUpdate();
 				errorLog+=", lstInformacionEscolar_ref";
 			}*/
 			
+			pstm = con.prepareStatement("UPDATE sesionaspirante SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", sesionaspirante";
 			
+			pstm = con.prepareStatement("UPDATE CatBitacoraSesiones SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", CatBitacoraSesiones";
+			
+			pstm = con.prepareStatement("UPDATE AspirantesPruebas SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", AspirantesPruebas";
+			
+			pstm = con.prepareStatement("UPDATE paseLista SET username = '${correo} (rechazado)' WHERE username = '${correo}' ");
+			pstm.executeUpdate();
+			errorLog+=", paseLista";
 			
 			
 			con.commit();
@@ -2175,32 +2198,38 @@ class ReactivacionDAO {
 			con.setAutoCommit(false)
 			errorLog+=",INICIO lstInformacionEscolar_ref";
 			List<Long> lstEscuelasHasEstadoids = new ArrayList()
-			pstm = con prepareStatement("SELECT  md.data_id FROM ref_biz_data_inst data  INNER JOIN multi_biz_data md on md.id=data.id where proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
+			pstm = con.prepareStatement("SELECT  md.data_id FROM ref_biz_data_inst data  INNER JOIN multi_biz_data md on md.id=data.id where proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
 			rs = pstm.executeQuery()
 			while(rs.next()) {
 				lstEscuelasHasEstadoids.add(rs.getLong("data_id"))
 			}
-			
+			if(lstEscuelasHasEstadoids.size() < 1) {
+				pstm = con.prepareStatement("SELECT  md.data_id FROM arch_ref_biz_data_inst data  INNER JOIN arch_multi_biz_data md on md.id=data.id where orig_proc_inst_id=${caseIdOrigen} AND data.name='lstInformacionEscolar'")
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					lstEscuelasHasEstadoids.add(rs.getLong("data_id"))
+				}
+			}
+			errorLog+=",autodescripcion";
 			pstm = con.prepareStatement("UPDATE REF_BIZ_DATA_INST SET data_id=? where proc_inst_id=${caseIdDestino} and name='autodescripcionV2' ")
 			pstm.setLong(1,autodescripcionId)
-
 			pstm.executeUpdate();
 			
+			errorLog+=",detalleSolicitud";
 			pstm = con.prepareStatement("UPDATE REF_BIZ_DATA_INST SET data_id=? where proc_inst_id=${caseIdDestino} and name='detalleSolicitud' ")
 			pstm.setLong(1,detalleSolicitudId)
-
 			pstm.executeUpdate();
 			
 			con.commit();
 			
 			con.close()
-			
+			errorLog+=",INICIO2 lstInformacionEscolar_ref";
 			validarConexion()
 			con.setAutoCommit(false)
 			List<Long> lstEscuelasHasEstadoDestinoids = new ArrayList()
 			for(Long escuelasHasEstadoId: lstEscuelasHasEstadoids) {
 				
-				pstm = con.prepareStatement("INSERT INTO EscuelasHasEstado (persistenceid,anofin, anoinicio, ciudad estadostring, otraescuela, persistenceversion, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido,caseid) SELECT (case when (SELECT max(persistenceId)+1 from EscuelasHasEstado ) is null then 1 else (SELECT max(persistenceId)+1 from EscuelasHasEstado) end) AS persistenceid,anofin, anoinicio, ciudad estadostring, otraescuela, persistenceversion, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido, '${caseIdDestino}' as caseid FROM EscuelasHasEstado WHERE persistenceid = '"+escuelasHasEstadoId+"' RETURNING persistenceid")
+				pstm = con.prepareStatement("INSERT INTO EscuelasHasEstado (persistenceid, anofin, anoinicio, caseid, ciudad, estadostring, otraescuela, promedio, escuela_pid, estado_pid, grado_pid, pais_pid, tipo_pid, vencido) SELECT (case when (SELECT max(persistenceId)+1 from EscuelasHasEstado ) is null then 1 else (SELECT max(persistenceId)+1 from EscuelasHasEstado) end) AS persistenceid, pt.anofin, pt.anoinicio, ${caseIdDestino} as caseid,pt.ciudad,pt.estadostring,pt.otraescuela,pt.promedio,pt.escuela_pid,pt.estado_pid,pt.grado_pid,pt.pais_pid,pt.tipo_pid,pt.vencido FROM EscuelasHasEstado as PT WHERE pt.persistenceid = ${escuelasHasEstadoId} RETURNING persistenceid")
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					lstEscuelasHasEstadoDestinoids.add(rs.getLong("persistenceid"))
@@ -2221,36 +2250,15 @@ class ReactivacionDAO {
 			con.close()
 			
 			validarConexion()
-			con.setAutoCommit(false)
-			try {
-				String username = "";
-				String password = "";
-				
-				/*-------------------------------------------------------------*/
-				LoadParametros objLoad = new LoadParametros();
-				PropertiesEntity objProperties = objLoad.getParametros();
-				username = objProperties.getUsuario();
-				password = objProperties.getPassword();
-				/*-------------------------------------------------------------*/
-				
-				org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
-				apiClient.login(username, password)
-				String consulta_bonita = "[\"SELECT id,processinstanceid FROM arch_document_mapping WHERE processinstanceid = ${caseIdOrigen} \"]"
-				def bonita = new NotificacionDAO().simpleSelectBonita(0, 0, consulta_bonita, context)?.getData()?.get(0);
-				Document doc = apiClient.getProcessAPI().getArchivedProcessDocument(Long.parseLong(bonita?.id));
-				//apiClient.getProcessAPI().updateDocument(101, new DocumentValue(apiClient.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), "Fot_47010.jpg"))
-				apiClient.getProcessAPI().addDocument(Long.parseLong(caseIdDestino),"FotoPasaporte","FotoPasaporte", new DocumentValue(apiClient.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), "Fot_${caseIdDestino}.jpg") )
-				
-			}catch(Exception a) {
-				errorLog+="error:"+a
-			}
+			con.setAutoCommit(false);
 			
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())
-			resultado.setError_info(errorLog)
+			resultado.setError_info(errorLog);
 			con.rollback();
 		}finally {
 			if (closeCon) {
@@ -2294,16 +2302,291 @@ class ReactivacionDAO {
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows)
-			resultado.setError_info(errorLog);
+			
 			} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			e.printStackTrace();
 		}
 		return resultado;
 	}
+	
+	public Result getUserArchived(Long caseId,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		try {
+			List<Map<String, Serializable>> rows = new ArrayList<Map<String, Serializable>>();
+			Map<String, Serializable> contract = new HashMap<String, Serializable>();
+			String consulta = "[\"${Statements.GET_ID_DOCUMENT} \"]".replace("[VALOR]", "${caseId}")
+			def document = simpleSelectBonita(0,0, consulta, context)?.getData()
+			errorLog = document.toString()
+			if(document?.size()>0) {
+				document.each{
+					def map = [];
+					Map<String, Serializable> documentos = new HashMap<String, Serializable>();
+					documentos.put("contentType",null);
+					documentos.put("fileName",null);
+					documentos.put("id",it.documentid);
+					documentos.put("tempPath",null);
+					map.add(documentos);
+					switch(it.name) {
+						case "FotoPasaporte":
+						  contract.put("fotoPasaporteDocumentInput",map);
+						break;
+						case "fotoPasaporte":
+							contract.put("fotoPasaporteDocumentInput",map);
+						break;
+
+						case "Constancia":
+						  contract.put("constanciaDocumentInput",map);
+						break;
+						
+						case "constancia":
+							contract.put("constanciaDocumentInput",map);
+						break;
+						
+						case "ResultadoCB":
+						  contract.put("resultadoCBDocumentInput",map);
+						break;
+						case "resultadoCB":
+							contract.put("resultadoCBDocumentInput",map);
+						break;
+						
+						case "Descuento":
+						  contract.put("descuentoDocumentInput",map);
+						break;
+						case "descuento":
+							contract.put("descuentoDocumentInput",map);
+						break;
+						
+						case "ActaNacimiento":
+						  contract.put("actaNacimientoDocumentInput",map);
+						break;
+						case "actaNacimiento":
+							contract.put("actaNacimientoDocumentInput",map);
+						break;
+					}
+				}
+				
+			}
+			
+			rows.add(contract);
+			resultado.setSuccess(true);
+			resultado.setData(rows)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+		}
+		return resultado;
+	}
+	
+	public Result copiarArchivos(Long caseidOrigen,Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			List<DocumentValue> lstDocuments = new ArrayList<DocumentValue>();
+			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			pstm = con.prepareStatement("SELECT urlFoto,urlConstancia,urlCartaAA,urlResultadoPAA,urlActaNacimiento,urlDescuentos FROM solicitudDeAdmision WHERE caseid = "+caseidOrigen);
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List <String> tipo = new ArrayList<String>();
+			List <String> mineType = new ArrayList<String>();
+			List <String> cualArchivo = new ArrayList<String>(); 
+			List <byte[]> archivo = new ArrayList<byte[]>();
+			
+			if(rs.next()) {
+				errorLog ="columnCount = ${columnCount}"
+				for (int i = 1; i <= columnCount; i++) {
+					errorLog+=" || column = ${metaData.getColumnLabel(i).toLowerCase()}"
+					if(rs.getString(i) != null && rs.getString(i) != "null" ) {
+						String url = rs.getString(i)+SSA
+						byte[] decodedString = Base64.getDecoder().decode( (new FileDownload().b64Url( url )));
+						String fileExtencion = "",nombreRecurso = ""; 						
+						switch(metaData.getColumnLabel(i).toLowerCase()) {
+							case  "urlfoto":
+							errorLog+= " IS FOTO ||"
+								fileExtencion = "Fot_"
+								nombreRecurso = "fotoPasaporte"
+							break;
+							
+							case  "urlactanacimiento":
+								fileExtencion = "Act_Nac_"
+								nombreRecurso = "actaNacimiento"
+							break;
+							
+							case  "urlresultadopaa":
+								fileExtencion = "Punt_Exa_Apt_Con_"
+								nombreRecurso = "resultadoCB"
+							break;
+							
+							case  "urlconstancia":
+								fileExtencion = "Kar_"
+								nombreRecurso = "constancia"
+							break;		
+							case  "urldescuentos":
+								fileExtencion = "Des_"
+								nombreRecurso = "descuento"
+							break;
+						}
+						
+						if(rs.getString(i).toLowerCase().contains(".jpeg")) {
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.jpeg", "image/jpeg" , decodedString)
+						}else if(rs.getString(i).toLowerCase().contains(".png")) {
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.png", "image/png" , decodedString)
+						}else if(rs.getString(i).toLowerCase().contains(".jpg")) {
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.jpg", "image/jpg" , decodedString)
+						}else if(rs.getString(i).toLowerCase().contains(".jfif")) {
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.jfif", "image/jfif" , decodedString)
+						}else if(rs.getString(i).toLowerCase().contains(".pdf")) {
+							context.getApiClient().getProcessAPI().attachDocument(caseid, nombreRecurso, "${fileExtencion}${caseid}.pdf", "application/pdf" , decodedString)
+						}
+						
+						
+					}
+					
+				}
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+			resultado.setData(lstDocuments);	
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(e.toString())
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	
+	
+	public Result actualizarProcessoArchivo(Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
+		Result resultado = new Result();
+		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+		CatRegistro objCatRegistro = new CatRegistro();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()
+			apiClient.login(username, password)
+			
+			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Llenar solicitud");
+			
+			final SearchOptions searchOptions = searchBuilder.done();
+			SearchResult<HumanTaskInstance>  SearchHumanTaskInstanceSearch = apiClient.getProcessAPI().searchHumanTaskInstances(searchOptions);
+			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			def catRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
+				lstCatRegistro = catRegistroDAO.findByCaseId(objHumanTaskInstance.getRootContainerId(), 0, 1)
+				if(lstCatRegistro != null) {
+					if(lstCatRegistro.size() > 0) {
+						objCatRegistro = new CatRegistro();
+						objCatRegistro = lstCatRegistro.get(0);
+						if(objCatRegistro.getCaseId().equals(caseid)) {
+							apiClient.getProcessAPI().assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+							apiClient.getProcessAPI().executeFlowNode(objHumanTaskInstance.getId(), contract);
+						}
+					}
+				}
+			}
+			
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	
+	public Result simpleSelectBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexionBonita();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
+	}
+	
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false

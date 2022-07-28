@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "APPNuevasSolicitudes",
   "name" : "APPNuevasSolicitudes",
-  "lastUpdate" : 1642633066917,
+  "lastUpdate" : 1655414646485,
   "rows" : [
     [
       {
@@ -513,7 +513,7 @@
                 },
                 "dataToSend" : {
                   "type" : "expression",
-                  "value" : "dataToSend"
+                  "value" : "dataToFile"
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
@@ -550,11 +550,15 @@
                 "fileExtension" : {
                   "type" : "constant",
                   "value" : "xls"
+                },
+                "nombre" : {
+                  "type" : "constant",
+                  "value" : "Nuevas solicitudes"
                 }
               },
-              "reference" : "6cae6b9e-3786-4f61-8310-d22342544136",
+              "reference" : "64ad36b8-9080-401c-89af-71711ce4c763",
               "hasValidationError" : false,
-              "id" : "customCustomBtnDownloadExcel"
+              "id" : "customCustomBtnDownloadExcelName"
             }
           ],
           [
@@ -1773,6 +1777,24 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Nuevas solicitudes\",\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"nuevas_solicitudes\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};"
       ],
       "exposed" : false
     }

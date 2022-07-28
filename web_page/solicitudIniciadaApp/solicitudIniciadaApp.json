@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "solicitudIniciadaApp",
   "name" : "solicitudIniciadaApp",
-  "lastUpdate" : 1639508652783,
+  "lastUpdate" : 1644978786066,
   "rows" : [
     [
       {
@@ -816,8 +816,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED&f=name=Proceso%20admisiones"
+        "../API/extension/RegistroRest?url=process&p=0&c=10&o=displayName%20ASC&f=activationState%3dENABLED&f=name=Proceso%20admisiones"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "processId" : {
@@ -857,7 +858,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseList[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
@@ -879,7 +880,7 @@
       "type" : "expression",
       "value" : [
         "// return \"/bonita/apps/aspirante/verSolicitudAdmision/?id=\" + $data.currentTask[0].id + \"&displayConfirmation=false\"",
-        "return \"/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=\" + $data.currentTask[0].id + \"&displayConfirmation=false\""
+        "return \"/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=\" + $data.currentTask[0].caseId + \"&displayConfirmation=false\""
       ],
       "exposed" : false
     },
@@ -923,8 +924,9 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskId" : {

@@ -47,8 +47,10 @@ import com.anahuac.rest.api.Entity.db.CatNotificacionesCampus
 import com.anahuac.rest.api.Entity.db.ResponsableDisponible
 import com.anahuac.rest.api.Entity.db.Role
 import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
+import com.anahuac.rest.api.Entity.HubspotConfig
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
+import com.anahuac.rest.api.Security.SecurityFilter
 
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
@@ -72,7 +74,12 @@ class Index implements RestApiController {
 		if (url == null) {
 			return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
         }
-				
+		
+		SecurityFilter security = new SecurityFilter();
+		if(!security.allowedUrlPost(context,url)){
+			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
+		}
+		
 		//VARIABLES===========================================================
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
@@ -138,6 +145,14 @@ class Index implements RestApiController {
 					break;
 				case "getExcelFileCatalogo":
 					result = lDao.getExcelFileCatalogo(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getExcelBachilleratos":
+					result = lDao.getExcelBachilleratos(jsonData, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -765,6 +780,26 @@ class Index implements RestApiController {
 					
 					case "postListaAspirantePAA":
 					result = new ImportacionPAADAO().postListaAspirantePAA(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "bitacoraIntegracionEAC":
+					result = new ImportacionPAADAO().bitacoraIntegracionEAC(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getCatEscalaEAC":
+					result = new ImportacionPAADAO().getCatEscalaEAC(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -1850,7 +1885,16 @@ class Index implements RestApiController {
 					}
 					break;
 					
-					case "updateCorreoElectronico":
+				case "B64File":
+					result = uDAO.getB64File(jsonData);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+				case "updateCorreoElectronico":
 					result = uDAO.updateCorreoElectronico(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -2238,8 +2282,29 @@ class Index implements RestApiController {
 				}
 				break;
 				
+				case "postGetIdSesionByCaseId":
+				result = new SesionesDAO().postGetIdSesionByCaseId(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				case "PostUpdateDeleteCatEscalaINVP":
 				result = new SesionesDAO().PostUpdateDeleteCatEscalaINVP(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "PostUpdateDeleteCatEscalaEAC":
+				result = new ImportacionPAADAO().PostUpdateDeleteCatEscalaEAC(jsonData)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -2257,6 +2322,47 @@ class Index implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				
+				case "insertEmailHubspotConfig":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+
+					HubspotConfig row =new HubspotConfig()
+					row.setEmailHubspotAutodescripcion(object.emailHubspotAutodescripcion)
+					row.setEmailHubspotEnviada(object.emailHubspotEnviada)
+					row.setEmailHubspotEsperaResultado(object.emailHubspotEsperaResultado)
+					row.setEmailHubspotGenerarCredencial(object.emailHubspotGenerarCredencial)
+					row.setEmailHubspotModificar(object.emailHubspotModificar)
+					row.setEmailHubspotNoAsistioPruebas(object.emailHubspotNoAsistioPruebas)
+					row.setEmailHubspotModificar(object.emailHubspotModificar)
+					row.setEmailHubspotPago(object.emailHubspotPago)
+					row.setEmailHubspotRegistro(object.emailHubspotRegistro)
+					row.setEmailHubspotRestaurarRechazoLRoja(object.emailHubspotRestaurarRechazoLRoja)
+					row.setEmailHubspotSeleccionoFechaExamen(object.emailHubspotSeleccionoFechaExamen)
+					row.setEmailHubspotUsuarioRegistrado(object.emailHubspotUsuarioRegistrado)
+					row.setEmailHubspotValidar(object.emailHubspotValidar)
+					row.setEmailHubspotTransferirAspirante(object.emailHubspotTransferirAspirante)
+					row.setEmailHubspotRechazoLRoja(object.emailHubspotRechazoLRoja)
+
+					result = new HubspotDAO().insertUpdateEmail(row)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				
+				case "sendEmailPlantilla":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					result = mgDAO.sendEmailPlantilla(object.correo,object.asunto,object.body,"",object.campus,context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
 				break;
 				
 				default:

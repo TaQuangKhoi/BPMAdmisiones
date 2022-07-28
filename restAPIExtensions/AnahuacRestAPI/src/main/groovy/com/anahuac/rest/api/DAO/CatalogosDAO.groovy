@@ -626,7 +626,7 @@ class CatalogosDAO {
             resultado.setSuccess(true)
 
             resultado.setData(rows)
-            resultado.setError_info(errorLog)
+            
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
@@ -1283,6 +1283,63 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+					case "MUNICIPIO":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        //where += " LOWER(countyCode) ";
+						where += " LOWER(municipio) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "CÓDIGO POSTAL":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(postalCode) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "CALLE LÍNEA 1":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(streetLine1) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "CALLE LÍNEA 3":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(streetLine3) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
                     case "PERSISTENCEID":
                         if (where.contains("WHERE")) {
                             where += " AND "
@@ -1325,6 +1382,36 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+					case "CLAVE DEL PAÍS":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(nationCode) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "CLAVE DEL ESTADO":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(stateCode) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
                     case "PERTENECE A LA RED":
                         if (where.contains("WHERE")) {
                             where += " AND "
@@ -1380,6 +1467,9 @@ class CatalogosDAO {
                 case "PAÍS":
                     orderby += "pais";
                     break;
+				case "MUNICIPIO":
+                    orderby += "municipio";
+                    break;
                 case "ESTADO":
                     orderby += "estado";
                     break;
@@ -1433,6 +1523,8 @@ class CatalogosDAO {
 				row.setStreetLine2(rs.getString("streetLine2"));
 				row.setStreetLine3(rs.getString("streetLine3"));
 				row.setTypeInd(rs.getString("typeInd"));
+				row.setPostalCode(rs.getString("postalCode"));
+				row.setMunicipio(rs.getString("municipio"))
 				
                 rows.add(row)
             }
@@ -1681,7 +1773,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -1976,7 +2068,7 @@ class CatalogosDAO {
         	LOGGER.error "[ERROR] " + Exception.getMessage();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorlog)
+            
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2137,7 +2229,7 @@ class CatalogosDAO {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorlog)
+            
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2309,7 +2401,7 @@ class CatalogosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -2495,7 +2587,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -2676,7 +2768,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -2857,7 +2949,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3248,7 +3340,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3540,7 +3632,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3570,7 +3662,7 @@ class CatalogosDAO {
             resultado.setSuccess(true)
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -3967,7 +4059,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -4221,7 +4313,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -4480,7 +4572,7 @@ class CatalogosDAO {
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -4649,7 +4741,7 @@ class CatalogosDAO {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorlog)
+            
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -4689,7 +4781,7 @@ class CatalogosDAO {
             }
 
             resultado.setSuccess(true)
-            resultado.setError_info(errorLog)
+            
             resultado.setData(rows)
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
@@ -4727,7 +4819,7 @@ class CatalogosDAO {
             }
 
             resultado.setSuccess(true)
-            resultado.setError_info(errorLog)
+            
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
@@ -4765,7 +4857,43 @@ class CatalogosDAO {
             }
 
             resultado.setSuccess(true)
-            resultado.setError_info(errorLog)
+            
+        } catch (Exception e) {
+        	LOGGER.error "[ERROR] " + e.getMessage();
+            resultado.setSuccess(false);
+            resultado.setError(e.getMessage());
+        } finally {
+            if (closeCon) {
+                new DBConnect().closeObj(con, stm, rs, pstm)
+            }
+        }
+        return resultado
+    }
+	
+	public Result getValidarEscalaEAC(Integer P, Integer C, String escala, String id) {
+        Result resultado = new Result();
+        Boolean closeCon = false;
+        List < Boolean > lstResultado = new ArrayList < Boolean > ();
+        try {
+            closeCon = validarConexion();
+            String consulta, errorLog = "";
+
+            consulta = Statements.GET_VALIDARESCALAEAC;
+            if (!id.equals(null) && !id.equals(" ") && !id.equals("")) {
+                consulta = consulta.replace("[ID]", (" AND PERSISTENCEID <> " + id))
+            } else {
+                consulta = consulta.replace("[ID]", " ")
+            }
+			errorLog += " " + consulta
+            pstm = con.prepareStatement(consulta)
+            pstm.setString(1, escala);
+            rs = pstm.executeQuery()
+            while (rs.next()) {
+                resultado.setTotalRegistros(rs.getInt("TOTAL"))
+            }
+
+            resultado.setSuccess(true)
+            
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
@@ -5002,7 +5130,7 @@ class CatalogosDAO {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorlog)
+            
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5030,7 +5158,7 @@ class CatalogosDAO {
             }
 
             errorLog += consulta + ";";
-            resultado.setError_info(errorLog);
+            
             consulta = consulta.replace("[TABLA]", tabla);
             errorLog += consulta + ";";
 
@@ -5077,7 +5205,7 @@ class CatalogosDAO {
             }
 
             errorLog += consulta + ";";
-            resultado.setError_info(errorLog);
+            
             consulta = consulta.replace("[TABLA]", tabla);
             errorLog += consulta + ";";
 
@@ -5129,7 +5257,7 @@ class CatalogosDAO {
 
             consulta = consulta.replace("[TABLA]", tabla);
             String errorLog = consulta;
-            resultado.setError_info(errorLog);
+            
             pstm = con.prepareStatement(consulta);
             pstm.setInt(1, orden);
             if (!id.equals(null) && !id.equals(" ") && !id.equals("")) {
@@ -5175,7 +5303,7 @@ class CatalogosDAO {
             consulta = consulta.replace("[TABLA]", tabla);
 
             String errorLog = consulta;
-            resultado.setError_info(errorLog);
+            
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, idBanner);
             if (!id.equals(null) && !id.equals(" ") && !id.equals("")) {
@@ -5389,7 +5517,7 @@ class CatalogosDAO {
         	LOGGER.error "[ERROR] " + e.getMessage();
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
-            resultado.setError_info(errorlog)
+            
         } finally {
             if (closeCon) {
                 new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5696,12 +5824,12 @@ class CatalogosDAO {
             }
 
             resultado.setSuccess(true)
-            resultado.setError_info(errorlog)
+            
             resultado.setData(rows)
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -5956,11 +6084,11 @@ class CatalogosDAO {
             resultado.setSuccess(true)
 
             resultado.setData(rows)
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -6018,11 +6146,11 @@ class CatalogosDAO {
             resultado.setSuccess(true)
 
             resultado.setData(lstResultado)
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -6177,11 +6305,11 @@ class CatalogosDAO {
             resultado.setSuccess(true)
 
             resultado.setData(rows)
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -6377,11 +6505,11 @@ class CatalogosDAO {
             resultado.setSuccess(true)
 
             resultado.setData(rows)
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -6480,11 +6608,11 @@ class CatalogosDAO {
             }
             resultado.setData(lstCatPropedeuticoFinal);
             resultado.setSuccess(true);
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -6559,11 +6687,11 @@ class CatalogosDAO {
 
             resultado.setData(lstCatPeriodoFinal);
             resultado.setSuccess(true);
-            resultado.setError_info(errorLog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorLog);
+            
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -6638,11 +6766,11 @@ class CatalogosDAO {
 
 			resultado.setData(lstCatPeriodoFinal);
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -6997,11 +7125,11 @@ class CatalogosDAO {
 
             resultado.setSuccess(true);
             resultado.setData(rows);
-            resultado.setError_info(errorlog);
+            
 
         } catch (Exception e) {
         	LOGGER.error "[ERROR] " + e.getMessage();
-            resultado.setError_info(errorlog)
+            
             //resultado.setError_info(consulta)
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
@@ -7033,8 +7161,8 @@ class CatalogosDAO {
 
             if (!type.equals("")) {
 
-                //					dataResult = getCatPais(jsonData, context);
-                dataResult = getCatGenerico(jsonData, context);
+                dataResult = getCatPais(jsonData, context);
+                //dataResult = getCatGenerico(jsonData, context);
 
                 if (dataResult.success) {
                     lstParams = dataResult.getData();
@@ -7207,7 +7335,7 @@ class CatalogosDAO {
 				rows.add(lstEstadosPreparatorias);
 			}
 	
-			resultado.setError_info(errorLog);
+			
 			resultado.setData(rows);
 			resultado.setSuccess(true);
 		} catch (Exception e) {

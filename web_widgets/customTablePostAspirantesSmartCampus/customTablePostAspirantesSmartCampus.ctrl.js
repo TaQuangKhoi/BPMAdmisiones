@@ -279,43 +279,79 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.rutaPagoDownload = function(row) {
         debugger
         $window.title = "RUTA_PAGO - "+row.idbanner
-        $window.open(row.rutaPagob64);
-        /*axios({
-                url: row.rutaPagob64,
-                method: 'GET',
-                responseType: 'blob'
-        })
-            .then((response) => {
-                  const url = window.URL
-                        .createObjectURL(new Blob([response.data]));
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.setAttribute('download', 'RUTA_PAGO - '+row.idbanner+'.pdf');
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-             })*/
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+        "<iframe width='100%' height='100%' src='"+ row.rutaPagob64+ "'></iframe>"
+        )
+        //$window.open(row.rutaPagob64);
     }
     
     $scope.rutaSolicitudDownload = function(row) {
-        $window.open(row.rutasolicitud);
-        
-        /*axios({
-                url: row.rutaSolicitudb64,
-                method: 'GET',
-                responseType: 'blob'
-        })
-            .then((response) => {
-                  const url = window.URL
-                        .createObjectURL(new Blob([response.data]));
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.setAttribute('download', 'RUTA_SOLICITUD - '+row.idbanner+'.pdf');
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-             })*/
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+        "<iframe width='100%' height='100%' src='"+ row.rutasolicitud+ "'></iframe>"
+        )
+        //$window.open(row.rutasolicitud);
     }
+    
+    $scope.rutaArchivosDownload = function(row,archivo) {
+        
+        doRequestRuta('POST','../API/extension/AnahuacRest?url=B64File&p=0&c=100',{'idbanner':row.idbanner,'ruta':archivo})
+        
+    }
+    
+    function doRequestRuta(method, url, info) {
+        blockUI.start();
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(info),
+        };
+  
+        return $http(req)
+            .success(function(data, status) {
+                let pdfWindow = window.open("")
+                if(data.additional_data[0] == "imagen"){
+                    
+                    pdfWindow.document.write(`<img width='50%' height='100%' src='${data.data[0]}'> <br> <a download="${info.ruta}.${data.additional_data[1]}" href="${data.data[0]}">Descargar</a>`)
+                }else{
+                    
+                    const blob = b64toBlob(data.data[0].substr(28), "application/pdf");
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    pdfWindow.document.write(`<embed src="${blobUrl}" width="50%" height="100%"> <br> <a download="${info.ruta}.pdf" href="${blobUrl}">Descargar</a>`)
+                }
+                //console.log(data); 
+            })
+            .error(function(data, status) {
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {
+  
+                blockUI.stop();
+            });
+    }
+    
+    const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+        
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+    }
+
     
     $scope.getCatCampus();
   

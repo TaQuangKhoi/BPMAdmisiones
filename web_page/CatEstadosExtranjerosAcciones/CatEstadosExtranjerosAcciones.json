@@ -1,0 +1,1521 @@
+{
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
+  "id" : "CatEstadosExtranjerosAcciones",
+  "name" : "CatEstadosExtranjerosAcciones",
+  "lastUpdate" : 1651604448270,
+  "rows" : [
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "7d7bdce2-c587-4f96-9b94-9bb9510d0eb1",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Catálogo de Estados USA"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 2"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "3414d02c-576e-4341-b4fa-9aac737ceb74",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'tabla'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "12cf26fd-e24b-4dff-8bfd-1845caaba816",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'agregar'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "44fe5135-5a44-4014-8092-5bd3a7539018",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValor"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Orden",
+                    "Clave",
+                    "Descripción",
+                    "Usuario creación",
+                    "Fecha creación"
+                  ]
+                },
+                "content" : {
+                  "type" : "expression",
+                  "value" : "catEstadosUSA"
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "orden",
+                    "clave",
+                    "descripcion",
+                    "usuarioCreacion",
+                    "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA_selectedNR"
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "formOutputBorrar"
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA"
+                },
+                "urlGet" : {
+                  "type" : "constant",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEstadosUSA?q=getEstadosUSAByOrden&p=0&c=100"
+                }
+              },
+              "reference" : "aeb204b1-91ec-4495-b1fc-df907b707b74",
+              "hasValidationError" : false,
+              "id" : "customTableSeleccionarSinBorrar"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "value" : {
+                  "type" : "expression",
+                  "value" : "countCatEstadosUSA[0]"
+                },
+                "inicio" : {
+                  "type" : "variable",
+                  "value" : "inicio"
+                },
+                "fin" : {
+                  "type" : "variable",
+                  "value" : "final"
+                },
+                "valorSeleccionado" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "adc7b09f-87d6-4a82-b52d-140248348398",
+              "hasValidationError" : false,
+              "id" : "customPaginado"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'editar'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "c6d139cf-caca-4530-a391-40a5e0f1197a",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Editar"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "317e29cb-82fa-4b27-a136-b9d5c957b266",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Orden"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA_selected.orden"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "34334f74-b40a-4d6a-9db0-a39ffb724e57",
+              "hasValidationError" : false,
+              "id" : "customInputNumericoCatalogos"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA_selected.clave"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "e470e74b-aa0a-4113-9b78-a34734a255a3",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descripción"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA_selected.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "1bc8e104-2864-4b51-9289-a3870051e5fe",
+              "hasValidationError" : false,
+              "id" : "customInputMinMayCustom"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 8,
+                "lg" : 8
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cancelar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'tabla'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                },
+                "variableDestino2" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA_selected"
+                },
+                "variableAcopiar2" : {
+                  "type" : "variable",
+                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"id\": \"\",      \"descripcion\": \"\",      \"clave\": \"\",      \"isEliminado\": false,      \"fechaCreacion\":null,     \"usuarioCreacion\":\"\",     \"orden\":\"\",     \"caseId\":\"\",     \"pais\":\"\" }"
+                }
+              },
+              "reference" : "e205048b-2c88-4dae-8ceb-4d41f9d04df7",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValorDoble"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEstadosUSA?q=getEstadosUSAByOrden&p=0&c=100"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"id\": \"\",      \"descripcion\": \"\",      \"clave\": \"\",      \"isEliminado\": false,      \"fechaCreacion\":null,     \"usuarioCreacion\":\"\",     \"orden\":\"\",     \"caseId\":\"\",     \"pais\":\"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA_selected"
+                }
+              },
+              "reference" : "e9d0ba65-fdae-4183-94a7-16fcf94cbee4",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatEstadosUSA"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'agregar'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "213883a6-c26f-4e4b-9ccc-ef577a6366d8",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Agregar"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "413d4a00-ef9b-4fd7-94a4-e71ba91aec0c",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Orden"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatEstadosUSAInput[0].orden"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "287dd1bd-c690-4ccb-b831-241c54f88b67",
+              "hasValidationError" : false,
+              "id" : "customInputNumericoCatalogos"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatEstadosUSAInput[0].clave"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "bb467df8-e25b-4ae0-813c-2793ebc51ad2",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descripción"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatEstadosUSAInput[0].descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "b6e51e8b-dac6-48ca-9b64-d70a1520e13a",
+              "hasValidationError" : false,
+              "id" : "customInputMinMayCustom"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 8,
+                "lg" : 8
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cancelar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'tabla'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                },
+                "variableDestino2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatEstadosUSAInput"
+                },
+                "variableAcopiar2" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "7cc4a118-2d55-4ab6-b2ef-83646f700fd3",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValorDobleEstados"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEstadosUSA?q=getEstadosUSAByOrden&p=0&c=100"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catEstadosUSA"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatEstadosUSAInput\": [         {             \"orden\": \"\",              \"descripcion\": \"\",              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"isEliminado\": false,              \"pais\":\"\",             \"fechaCreacion\":null,             \"caseId\": null         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "127001fb-99f1-45f2-81c5-267e28396063",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatEstadosUSA"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "objEntrada" : {
+            "type" : "variable",
+            "value" : "catEstadosUSA_selectedNR"
+          },
+          "objSalida" : {
+            "type" : "variable",
+            "value" : "catEstadosUSA_selected"
+          }
+        },
+        "reference" : "fc372822-9013-4005-ada9-8815f2fbb6a9",
+        "hasValidationError" : false,
+        "id" : "customCopyData"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "de7c6771-ca46-48f5-85e1-6dcbfcafd370",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "8619209f-f740-43fb-b57f-64dea4ea2f18",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "a0bc3e8a-1d66-4a6c-a0ff-ac84456453c7",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "c9ddc7df-2b43-4113-8217-ffcef5d875f6",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "catEstadosUSA" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEstadosUSA?q=getEstadosUSAByOrden&p=0&c=100"
+      ],
+      "exposed" : false
+    },
+    "catEstadosUSA_selected" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"persistenceId\": 0, \r",
+        "    \"persistenceId_string\": \"0\", \r",
+        "    \"persistenceVersion\": 0, \r",
+        "    \"persistenceVersion_string\": \"0\", \r",
+        "    \"descripcion\": \"\", \r",
+        "    \"clave\": \"\", \r",
+        "    \"isEliminado\": false, \r",
+        "    \"fechaCreacion\":null,\r",
+        "    \"usuarioCreacion\":\"\",\r",
+        "    \"orden\":\"\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "catEstadosUSA_selectedNR" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "countCatEstadosUSA" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEstadosUSA?q=countForFind&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "editable" : {
+      "type" : "constant",
+      "value" : [
+        "tabla"
+      ],
+      "exposed" : false
+    },
+    "final" : {
+      "type" : "constant",
+      "value" : [
+        "10"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "\tlstCatEstadosUSAInput: $data.lstCatEstadosUSA",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutputAgregar" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"lstCatEstadosUSAInput\": [\r",
+        "        {\r",
+        "            \"orden\": \"\", \r",
+        "            \"descripcion\": \"\", \r",
+        "            \"usuarioCreacion\": \"\", \r",
+        "            \"clave\": \"\", \r",
+        "            \"isEliminado\": false, \r",
+        "            \"fechaCreacion\":null\r",
+        "        }\r",
+        "    ]\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutputBorrar" : {
+      "type" : "expression",
+      "value" : [
+        "return { \"lstCatEstadosUSAInput\": $data.lstCatEstadosUSABorrar }"
+      ],
+      "exposed" : false
+    },
+    "processAgregarData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=10&p=0&f=name=Agregar%20EstadoUSA"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "processEditData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=1000&p=0&f=name=Editar%20EstadoUSA"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "urlRefreshPaginado" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatEstadosUSA?q=find&p=\"+$data.inicio+\"&c=500\";"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "usuarioCreacion" : {
+      "type" : "expression",
+      "value" : [
+        "$data.catEstadosUSA_selected.usuarioCreacion = $data.userData.user_name;",
+        "$data.formOutputAgregar.lstCatEstadosUSAInput[0].usuarioCreacion = $data.userData.user_name;"
+      ],
+      "exposed" : false
+    },
+    "inicio" : {
+      "type" : "constant",
+      "value" : [
+        "0"
+      ],
+      "exposed" : false
+    },
+    "lstCatEstadosUSA" : {
+      "type" : "expression",
+      "value" : [
+        "var lstResultado = [];",
+        "",
+        "lstResultado.push($data.catEstadosUSA_selected);",
+        "",
+        "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCatEstadosUSABorrar" : {
+      "type" : "expression",
+      "value" : [
+        "var lstResultado = [];",
+        "",
+        "lstResultado.push($data.catEstadosUSA_selectedNR);",
+        "",
+        "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "validado" : {
+      "type" : "json",
+      "value" : [
+        "{\"validar\":false}\t"
+      ],
+      "exposed" : false
+    },
+    "validarAgregar" : {
+      "type" : "expression",
+      "value" : [
+        "var validado = true;",
+        "if( $data.formOutputAgregar.lstCatEstadosUSAInput.length >=1){",
+        "    $data.formOutputAgregar.lstCatEstadosUSAInput.forEach(element =>{",
+        "        ",
+        "        if(element.orden ===\"\"){",
+        "            validado = false;",
+        "        }else if(element.descripcion ===\"\"){",
+        "            validado = false;",
+        "        }else if(element.clave === \"\"){",
+        "            validado = false;",
+        "        }",
+        "    });  ",
+        "}else{",
+        "    validado = false;",
+        "}",
+        "",
+        "$data.validado.validar = validado;"
+      ],
+      "exposed" : false
+    },
+    "validarEditar" : {
+      "type" : "expression",
+      "value" : [
+        "var validado = true;",
+        "if( $data.formOutput.lstCatEstadosUSAInput.length >=1){",
+        "    $data.formOutput.lstCatEstadosUSAInput.forEach(element =>{",
+        "        ",
+        "        if(element.orden ===\"\"){",
+        "            validado = false;",
+        "        }else if(element.descripcion ===\"\"){",
+        "            validado = false;",
+        "        }else if(element.clave === \"\"){",
+        "            validado = false;",
+        "        }",
+        "    });  ",
+        "}else{",
+        "    validado = false;",
+        "}",
+        "",
+        "$data.validado.validar = validado;"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "45493ad4-3be1-477b-bd02-5d32e8e07540",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}

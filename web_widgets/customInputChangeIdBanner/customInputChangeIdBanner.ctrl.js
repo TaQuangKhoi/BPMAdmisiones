@@ -30,8 +30,9 @@ function PbInputCtrl($scope,$http, $log, widgetNameFactory,blockUI) {
                 if(data.data.length < 1){
                     swal(`¡No se ha encontra un aspirante con ese id banner!`,"","warning")
                 }else{
-                    $scope.properties.valorRetorno = data.data[0].idbanner;
+                    $scope.properties.caseid = data.data[0].caseid;
                     $scope.properties.sesiones = data.data[0].sesiones_pid;
+                    $scope.properties.idbanner = data.data[0].idbanner;
                     //var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+data.data[0].idbanner+"&idsesion="+data.data[0].sesiones_pid+"&individual=true"
                     //window.location.href= url
                 }

@@ -189,6 +189,8 @@ class MailGunDAO {
 		
 		return resultado
 	}
+	
+	
 	public Result sendEmailPlantilla(String correo, String asunto, String body, String cc, String campus,RestAPIContext context ) {
 		Result resultado = new Result()
 		ProcessDefinition objProcessDefinition
@@ -220,12 +222,15 @@ class MailGunDAO {
 				objGrupoCampus.put("descripcion", objCatCampus.getDescripcion());
 				objGrupoCampus.put("valor", objCatCampus.getGrupoBonita());
 				lstGrupoCampus.add(objGrupoCampus);
+				errorlog += " CAMPUS " + " valor " + objCatCampus.getGrupoBonita()
 			}
 			
-			errorlog += ", for Comparar"
+			errorlog += ", for Comparar  "  + lstGrupoCampus.size() + campus
 			for(Map<String, String> row : lstGrupoCampus) {
+				errorlog += row.get("valor") + campus
 				if(row.get("valor").equals(campus)) {
 					objGrupoSelected = row;
+					errorlog += " OBJGRUPOSELECTED " + row
 				}
 			}
 			String correoDe =""
@@ -253,9 +258,9 @@ class MailGunDAO {
 			errorlog += ",jsonNode.toString()= "+jsonNode.toString()
 			resultado.setData(lstResultado)
 			resultado.setSuccess(true)
-			resultado.setError_info(errorlog)
+			resultado.setInfo(errorlog);
 		}catch(Exception ex) {
-			resultado.setError_info(errorlog)
+			resultado.setInfo(errorlog);
 			LOGGER.error ex.getMessage()
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())

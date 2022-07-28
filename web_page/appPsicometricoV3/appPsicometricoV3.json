@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1644011172792,
+  "lastUpdate" : 1658960799803,
   "rows" : [
     [
       {
@@ -212,8 +212,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "getPsicometricoFinalizado[0].finalizado != 't'"
                       },
                       "label" : {
                         "type" : "interpolation",
@@ -1261,6 +1261,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Motivos de ingreso"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "38a29b48-f6ae-4ec2-9a0a-2f72839f9f9e",
@@ -1344,7 +1348,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 3000
+                              "value" : 500
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -1459,6 +1463,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Rasgos observados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "142f2d07-e8e4-4a5f-9af7-d8f1476996bc",
@@ -1619,6 +1627,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Comentarios"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d31386be-86e9-40c7-b4d2-ca935addd77b",
@@ -2165,6 +2177,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Capacidad de adaptación"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "b8a027a2-eafb-4dd9-9c29-7492544c5a2e",
@@ -3996,6 +4012,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Salud"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d239eaef-6fd9-49eb-a89a-363a06ed06e4",
@@ -4384,6 +4404,73 @@
                                           "type" : "constant",
                                           "value" : false
                                         },
+                                        "disabled" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation",
+                                          "value" : "Selecciona..."
+                                        },
+                                        "availableValues" : {
+                                          "type" : "expression",
+                                          "value" : "catProblemasSaludAtencion_query"
+                                        },
+                                        "displayedKey" : {
+                                          "type" : "constant",
+                                          "value" : "descripcion"
+                                        },
+                                        "returnedKey" : {
+                                          "type" : "constant"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.catProblemasSaludAtencion"
+                                        }
+                                      },
+                                      "reference" : "20b3174e-e225-49be-ab49-e9f639c1bdc0",
+                                      "hasValidationError" : false,
+                                      "id" : "pbSelect"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "autodescripcionV2.catProblemasSaludAtencion.descripcion=='No'"
+                                        },
                                         "readOnly" : {
                                           "type" : "constant",
                                           "value" : true
@@ -4406,7 +4493,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                          "value" : "Describe brevemente que tipo de atención médica necesita"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -4907,7 +4994,7 @@
                                   },
                                   "targetUrl" : {
                                     "type" : "expression",
-                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid"
+                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid+\"&caseId=\"+caseId"
                                   },
                                   "pageToken" : {
                                     "type" : "constant"
@@ -5286,6 +5373,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Otras opciones y cursos"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "315dd08c-73c0-49d2-a380-fa5181719a98",
@@ -5616,7 +5707,7 @@
                             },
                             "selectedValues" : {
                               "type" : "variable",
-                              "value" : "dataToSend2.testPsicomInput.custosRecomendados"
+                              "value" : "testPsicom.testPsicomInput.custosRecomendados"
                             }
                           },
                           "reference" : "78570692-be6d-4641-adeb-ac00f8b0a0df",
@@ -5714,6 +5805,10 @@
                       "urlParametro2" : {
                         "type" : "expression",
                         "value" : "intentos"
+                      },
+                      "isFinalizado" : {
+                        "type" : "expression",
+                        "value" : "testPsicom.finalizado"
                       }
                     },
                     "reference" : "d079f9e4-6fa3-4a9b-9329-840614ed8525",
@@ -7532,7 +7627,7 @@
     "testPsicomRasgos" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
+        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{(intentos==null || intentos==\\\"null\\\")?0:intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
       ],
       "exposed" : false
     },
@@ -8568,6 +8663,13 @@
         "    hayDatos.push(false);",
         "}",
         "",
+        "",
+        "if( $data.getCalificacionesExamenes.data[0] !=null && $data.getCalificacionesExamenes.data[0].paan.toString().trim().length>0 && $data.getCalificacionesExamenes.data[0].paav.toString().trim().length>0 && $data.getCalificacionesExamenes.data[0].para.toString().trim().length>0){",
+        "    hayDatos.push(true);",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
         "let count = 0;",
         "for(let i = 0; i<hayDatos.length; i++){",
         "    if(hayDatos[i] === true){",
@@ -8588,8 +8690,9 @@
     "getFechaInvp" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&intento={{intentos}}"
+        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&caseid={{caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "finalizado" : {
@@ -8620,6 +8723,13 @@
       "type" : "urlparameter",
       "value" : [
         "intento"
+      ],
+      "exposed" : false
+    },
+    "catProblemasSaludAtencion_query" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatProblemasSaludAtencion [com.anahuac.catalogos.CatProblemasSaludAtencion]\",\"businessObjectName\":\"CatProblemasSaludAtencion\",\"query\":{\"name\":\"getCatProblemasSaludAtencion\",\"displayName\":\"getCatProblemasSaludAtencion\"},\"id\":\"com.anahuac.catalogos.CatProblemasSaludAtencion\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

@@ -1014,44 +1014,36 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                /* $scope.properties.dataFromSuccess = data;
-                 $scope.properties.responseStatusCode = status;
-                 $scope.properties.dataFromError = undefined;
-                 notifyParentFrame({
-                     message: 'success',
-                     status: status,
-                     dataFromSuccess: data,
-                     dataFromError: undefined,
-                     responseStatusCode: status
-                 });*/
-                /*if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);*/
                 getTask();
-                //topFunction();
-                //$scope.properties.selectedIndex++;
+            })
+            .error(function(data, status) {
+                getTaskAgain();
+            })
+            .finally(function() {
+            });
+    }
+    function getTaskAgain() {
+
+        var req = {
+            method: 'GET',
+            url: $scope.properties.urlCurrentTask
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                doRequest('POST', '../API/bpm/userTask/' + data[0].id  + '/execution', null).then(function() {
+                    localStorageService.delete($window.location.href);
+                });
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")
                 console.log(data);
                 console.log(status);
-                /*$scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });*/
             })
             .finally(function() {
                 //vm.busy = false;
             });
     }
-
     function getTask() {
 
         var req = {
@@ -1090,9 +1082,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             })
             .error(function(data, status) {
-                console.log("Error al avanzar tarea")
-                console.log(data);
-                console.log(status);
+                
             })
             .finally(function() {
                 //vm.busy = false;

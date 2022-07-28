@@ -53,6 +53,7 @@ import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
 import com.anahuac.rest.api.Entity.db.BusinessAppMenu
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.anahuac.rest.api.Entity.db.Role
+import com.anahuac.rest.api.Utilities.FileDownload
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
@@ -414,7 +415,7 @@ class UsuariosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 			e.printStackTrace();
 		}
 		return resultado;
@@ -639,7 +640,12 @@ class UsuariosDAO {
 					}
 					where +=" group_.id ";
 					if(filtro.get("operador").equals("Igual a")) {
-						where+="=[valor]"
+						if(filtro.get("valor").toString().contains("(")) {
+							where+="IN [valor]"
+						}else {
+							where+="=[valor]"
+						}
+						
 					}else {
 						where+="=[valor]"
 					}
@@ -794,7 +800,7 @@ class UsuariosDAO {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -859,7 +865,7 @@ class UsuariosDAO {
 					pstm.setLong(2, flownodedefinitionid)
 					pstm.setLong(3, new Long(object.caseId))
 					pstm.setLong(4, new Long(object.caseId))
-					pstm.setLong(5, Long.parseLong(object.processDefinitionId))
+					pstm.setLong(5, Long.valueOf(object.processDefinitionId))
 					pstm.setLong(6, new Long(object.caseId))
 					pstm.setLong(7, new Long(object.caseId))
 					pstm.execute()
@@ -969,39 +975,6 @@ class UsuariosDAO {
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
 			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
-			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND
-//				if(object.estatusSolicitud !=null) {
-				
-//					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
-				
-				/*if(object.estatusSolicitud.equals("Solicitud lista roja")) {
-					where+=" AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
-				}
-				else if(object.estatusSolicitud.equals("Solicitud rechazada")) {
-					where+=" AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
-				} else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
-				} else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
-				}else if(object.estatusSolicitud.equals("Solicitud en espera de pago")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en espera de pago')"
-				}
-				else if(object.estatusSolicitud.equals("Solicitud con pago aceptado")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud con pago aceptado')"
-				}
-				else if(object.estatusSolicitud.equals("Autodescripción en proceso")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Autodescripción en proceso')"
-				}
-				else if(object.estatusSolicitud.equals("Elección de pruebas no calendarizado")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Elección de pruebas no calendarizado')"
-				}
-				else if(object.estatusSolicitud.equals("No se ha impreso credencial")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='No se ha impreso credencial')"
-				}
-				else if(object.estatusSolicitud.equals("Ya se imprimió su credencial")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Ya se imprimió su credencial')"
-				}*/
-//			}
 			if(lstGrupo.size()>0) {
 				campus+=" AND ("
 			}
@@ -1352,11 +1325,11 @@ class UsuariosDAO {
 					for (int i = 1; i <= columnCount; i++) {
 						
 						String label = metaData.getColumnLabel(i).toLowerCase();
-						if(label.equals("urlfoto") || label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
+						if(label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
 							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
 								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
 							} else {
-								columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA+"&v="+num);
+								columns.put(metaData.getColumnLabel(i).toLowerCase(),  rs.getString(label) + SSA+"&v="+num );
 							}
 							
 						} else {
@@ -1366,7 +1339,7 @@ class UsuariosDAO {
 								try {
 									String urlFoto = rs.getString("urlfoto");
 									if(urlFoto != null && !urlFoto.isEmpty()) {
-										columns.put("fotografiab64", rs.getString("urlfoto") +SSA+"&v="+num);
+										columns.put("fotografiab64",  base64Imagen((rs.getString("urlfoto") + SSA+"&v="+num)) );
 									}else {
 										List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 										for(Document doc : doc1) {
@@ -1387,13 +1360,13 @@ class UsuariosDAO {
 				}
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				//resultado.setError(consulta);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1693,15 +1666,15 @@ class UsuariosDAO {
 			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
 			
 			if(!hResultado.success) {
-				throw new Exception("hubspot: "+hResultado.error + " | " + hResultado.error_info)
+				resultado.setError("hubspot: "+hResultado.error + " | " + hResultado.error_info)
 			}
 			
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();
@@ -1771,10 +1744,10 @@ class UsuariosDAO {
 			pstm.execute();
 			con.commit();
 			resultado.setSuccess(true)
-			resultado.setError_info(errorLog);
+			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();
@@ -1852,7 +1825,7 @@ class UsuariosDAO {
 		
 		try {
 		
-				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				List<Map<String, Boolean>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexionBonita();
 				pstm = con.prepareStatement(Statements.GET_USERS_BY_USERNAME)
 				pstm.setString(1, username)
@@ -1861,14 +1834,8 @@ class UsuariosDAO {
 				rows = new ArrayList<Map<String, Object>>();
 				ResultSetMetaData metaData = rs.getMetaData();
 				int columnCount = metaData.getColumnCount();
-				while(rs.next()) {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-	
-					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}
-	
-					rows.add(columns);
+				while(rs.next()) {	
+					rows.add(true);
 				}
 				resultado.setSuccess(true)
 				
@@ -2509,12 +2476,12 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -2965,12 +2932,12 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3635,7 +3602,9 @@ class UsuariosDAO {
 						try {
 							String urlFoto = rs.getString("urlfoto");
 							if (urlFoto != null && !urlFoto.isEmpty()) {
-								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
+								
+								columns.put("fotografiab64", base64Imagen((rs.getString("urlfoto") + SSA)) );
+								//columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
 							} else {
 								noAzure = true;
 								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
@@ -3665,12 +3634,12 @@ class UsuariosDAO {
 			errorlog = consulta + " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -3711,7 +3680,7 @@ class UsuariosDAO {
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
-			resultado.setError_info(errorlog)
+			
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
@@ -3740,7 +3709,7 @@ class UsuariosDAO {
 				
 				con.commit();
 				resultado.setSuccess(true)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -3850,12 +3819,6 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(fechaEnvioSolicitud) like lower('%[valor]%') ";
-					/*if (filtro.get("operador").equals("Igual a")) {
-						where += "=LOWER('[valor]')"
-					} else {
-						where += "LIKE LOWER('%[valor]%')"
-					}*/
-
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(fechaPago) like lower('%[valor]%') )";
@@ -3879,7 +3842,7 @@ class UsuariosDAO {
 
 					break;
 					
-				case "RESIDENCIA,ESTATUS":
+				case "PAIS PREPARATORIA,RESIDENCIA,ESTATUS":
 					errorlog += "ESTATUS"
 					if (where.contains("WHERE")) {
 						where += " AND "
@@ -3887,9 +3850,8 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(residencia) like lower('%[valor]%') ";
-					where = where.replace("[valor]", filtro.get("valor"))
-
-					where += " OR LOWER(estatus) like lower('%[valor]%') )";
+					where += " OR LOWER(estatus) like lower('%[valor]%') ";	
+					where += " OR LOWER(paispreparatoria) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				
@@ -3900,11 +3862,6 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " ( LOWER(idbanner) like lower('%[valor]%') ";
-					/*if (filtro.get("operador").equals("Igual a")) {
-						where += "=LOWER('[valor]')"
-					} else {
-						where += "LIKE LOWER('%[valor]%')"
-					}*/
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(vpd) like lower('%[valor]%') )";
@@ -3969,9 +3926,9 @@ class UsuariosDAO {
 				case "CORREO":
 					orderby += "correo";
 				break;
-				/*case "CLAVE":
-					orderby += "clavePreparatoria";
-				break;*/
+				case "PAISPREPARATORIA":
+					orderby += "paisPreparatoria";
+				break;
 				default:					
 					orderby += "NOMBRE"
 				break;
@@ -3979,7 +3936,7 @@ class UsuariosDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto, paisPreparatoria, rutaActaNacimiento, rutaKardex", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -3994,6 +3951,8 @@ class UsuariosDAO {
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
+			def num = Math.random();
+			
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
@@ -4004,21 +3963,23 @@ class UsuariosDAO {
 					try {
 						String urlfoto = rs.getString("foto");
 						if (urlfoto != null && !urlfoto.isEmpty()) {
-							columns.put("fotografiab64", rs.getString("foto") + SSA);
-							columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
-							columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
-						} else {
-							noAzure = true;
-							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10);
-							for (Document doc: doc1) {
-									encoded = "../API/formsDocumentImage?document=" + doc.getId();
-									columns.put("fotografiab64", encoded);
-								}
-						}
-						for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								columns.put("fotografiabpm", encoded);
+							
+							
+							if(rs.getString("foto").toLowerCase().contains(".jpeg")) {
+								columns.put("fotografiab64", "data:image/jpeg;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}else if(rs.getString("foto").toLowerCase().contains(".png")) {
+								columns.put("fotografiab64", "data:image/png;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}else if(rs.getString("foto").toLowerCase().contains(".jpg")) {
+								columns.put("fotografiab64", "data:image/jpg;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
+							}else if(rs.getString("foto").toLowerCase().contains(".jfif")) {
+								columns.put("fotografiab64", "data:image/jfif;base64, "+(new FileDownload().b64Url(rs.getString("foto") + SSA+"&v="+num)));
 							}
+							
+							//columns.put("fotografiab64", rs.getString("foto") + SSA);
+							//columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
+							//columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
+						}
+						 
 					}
 					catch(Exception e) {
 						LOGGER.error "[ERROR] " + e.getMessage();
@@ -4028,27 +3989,20 @@ class UsuariosDAO {
 						}
 						errorlog += "" + e.getMessage();
 					}
-					
-				
-
-					/*if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
-						columns.put("foto", rs.getString(i) + SSA);
-					}else {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}*/
 				}
 
 				rows.add(columns);
 			}
-			errorlog = consulta + " 9";
+			//errorlog = consulta + " 9";
+			errorlog = " 9";
 			resultado.setSuccess(true)
 
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows)
 
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -4082,7 +4036,7 @@ class UsuariosDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
-			resultado.setError_info(errorLog)
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError("500 Internal Server Error")
@@ -4093,6 +4047,97 @@ class UsuariosDAO {
 			}
 		}
 		return resultado
+	}
+	
+	
+	public Result getB64File(String jsonData) {
+		Boolean closeCon = false;
+		String errorLog = "";
+		Result resultado = new Result();
+		try {
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			List <String> rows = new ArrayList <String> ();
+			List <String> tipo = new ArrayList <String> ();
+			closeCon = validarConexion();
+			
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			
+			String consulta = Statements.GET_RUTA_FILE_SMART_CAMPUS.replace("[RUTA]",object.ruta)
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.idbanner)
+			rs = pstm.executeQuery();
+			//rutaPago, rutaSolicitud, rutaActaNacimiento, rutaKardex
+			def num = Math.random();
+			if (rs.next()) {
+				String[] elements = rs.getString("RUTA").split("/")
+				
+				def ruta = java.net.URLEncoder.encode(elements[elements.length-1], "UTF-8");
+				
+				String url = "";
+				elements.eachWithIndex{it,index ->
+					url += (url.length() == 0?"":"/")+"${(index == elements.length-1 ? ruta : it)}";
+				}
+				
+				if(rs.getString("RUTA").toLowerCase().contains(".jpeg")) {
+						rows.add( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
+						tipo.add("imagen");
+						tipo.add("jpeg");
+					}else if(rs.getString("RUTA").toLowerCase().contains(".png")) {
+						rows.add( "data:image/png;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
+						tipo.add("imagen");
+						tipo.add("png");
+					}else if(rs.getString("RUTA").toLowerCase().contains(".jpg")) {
+						rows.add( "data:image/jpg;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
+						tipo.add("imagen");
+						tipo.add("jpg");
+					}else if(rs.getString("RUTA").toLowerCase().contains(".jfif")) {
+						rows.add( "data:image/jfif;base64, "+(new FileDownload().b64Url(url + SSA+"&v="+num)));
+						tipo.add("imagen");
+						tipo.add("jfif");
+					}else if(rs.getString("RUTA").toLowerCase().contains(".pdf")) {
+						rows.add( "data:application/pdf;base64, "+(new FileDownload().b64Url(url+ SSA+"&v="+num)));
+						tipo.add("archivo");
+					}
+				
+			}
+
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+			resultado.setAdditional_data(tipo);
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+		
+	}
+	
+	public String base64Imagen(String url)  throws Exception {
+		String b64 = "";
+		if(url.toLowerCase().contains(".jpeg")) {
+				b64 = ( "data:image/jpeg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".png")) {
+				b64 = ( "data:image/png;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jpg")) {
+				b64 = ( "data:image/jpg;base64, "+(new FileDownload().b64Url(url)));
+			}else if(url.toLowerCase().contains(".jfif")) {
+				b64 = ( "data:image/jfif;base64, "+(new FileDownload().b64Url(url)));
+			}
+		return  b64
 	}
 
 }

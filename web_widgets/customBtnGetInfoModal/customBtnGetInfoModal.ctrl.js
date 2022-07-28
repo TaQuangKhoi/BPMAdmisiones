@@ -5,7 +5,7 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
     var vm = this;
 
     $scope.$watch("properties.value", function(newValue, oldValue) {
-        
+
         if (newValue !== undefined) {
             //if($scope.properties.lstContenido.length >1){return }
             doRequest();
@@ -24,10 +24,10 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
         return $http(req)
             .success(function(data, status) {
                 $scope.properties.returnValue = data.data[0].isVencido;
-                if(data.data[0].isVencido == true){
-                    sw2Action()    
+                if (data.data[0].isVencido == true) {
+                    sw2Action()
                 }
-                console.log("datos is vencido"+data);
+                console.log("datos is vencido" + data);
             })
             .error(function(data, status) {
                 $scope.properties.returnValue = false;
@@ -37,23 +37,23 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
                 blockUI.stop();
             });
     }
-    
-    
-    async function sw2Action(){
-        debugger;
+
+
+    async function sw2Action() {
+
         let options = {};
-        $scope.properties.value.forEach( element =>{
-           options[element.persistenceId] = element.descripcion; 
+        $scope.properties.value.forEach(element => {
+            options[element.persistenceId] = element.descripcion;
         });
-        
+
         const { value } = await Swal.fire({
             title: 'El periodo que ha seleccionado ha vencido, deberas seleccionar otro para poder continuar con la solicitud',
             input: 'select',
-            allowOutsideClick:false,
+            allowOutsideClick: false,
             inputOptions: options,
             inputPlaceholder: 'Seleccionar un periodo activo',
             showCancelButton: true,
-            cancelButtonText:'continuar en otra ocasión',
+            cancelButtonText: 'continuar en otra ocasión',
             confirmButtonText: 'Guardar periodo',
             confirmButtonColor: "#FF5900",
             inputValidator: (value) => {
@@ -68,18 +68,18 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
         })
         if (value) {
             doRequest2(value)
-            //Swal.fire(`El periodo seleccionado es ${options[value]}`)
-        }else{
+                //Swal.fire(`El periodo seleccionado es ${options[value]}`)
+        } else {
             Swal.fire(`No se selecciono algun periodo`)
         }
-        
+
     }
-    
+
     function doRequest2(persistenceid) {
         let info = angular.copy({
-                "persistenceid": persistenceid+"",
-                "caseid": $scope.properties.caseId+"",
-            })
+            "persistenceid": persistenceid + "",
+            "caseid": $scope.properties.caseId + "",
+        })
         blockUI.start();
         var req = {
             method: "POST",
@@ -89,15 +89,15 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                 Swal.fire(`sea actualizado el periodo correctamente`)
-                 setTimeout(()=>{
-                     location.reload();
-                 }, 1000);
-                 
+                Swal.fire(`sea actualizado el periodo correctamente`)
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+
             })
             .error(function(data, status) {
                 Swal.fire(`sea sucitado un error al actualizar el periodo`)
-                
+
             }).finally(function() {
 
                 blockUI.stop();
