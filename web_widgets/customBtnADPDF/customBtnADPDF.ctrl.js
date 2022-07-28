@@ -548,7 +548,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
                 doc.text("Finado", respuestasSegundaFila, (height / 2) - 14);
 
                 doc.text("Finado", respuestasPrimeraFila, (height / 2) - 2);
-                doc.text("Finado", respuestasSegundaFila, (height / 2) - 2);
+                doc.text("Finado", respuestasFilaIntermedia, (height / 2) - 2);
             }
 
         } else {
