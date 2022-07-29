@@ -588,7 +588,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
             doc.setFont(undefined, 'normal');
             doc.text($scope.properties.PDFobjMadre.catPais.descripcion, respuestasPrimeraFila, (height / 2) + 23);
             doc.text($scope.properties.PDFobjMadre.codigoPostal, respuestasFilaIntermedia, (height / 2) + 23);
-            doc.text(($scope.properties.PDFobjMadre?.catEstado?.descripcion == null || $scope.properties.PDFobjMadre?.catEstado?.descripcion == "" ? $scope.properties.PDFobjMadre?.estadoExtranjero : $scope.properties.PDFobjPadre?.PDFobjMadre?.descripcion), respuestasSegundaFila, (height / 2) + 23);
+            doc.text(($scope.properties.PDFobjMadre?.catEstado?.descripcion == null || $scope.properties.PDFobjMadre?.catEstado?.descripcion == "" ? $scope.properties.PDFobjMadre?.estadoExtranjero : $scope.properties.PDFobjMadre?.catEstado?.descripcion), respuestasSegundaFila, (height / 2) + 23);
 
             doc.text($scope.properties.PDFobjMadre.ciudad, respuestasPrimeraFila, (height / 2) + 35.5);
             doc.text($scope.properties.PDFobjMadre.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 40);

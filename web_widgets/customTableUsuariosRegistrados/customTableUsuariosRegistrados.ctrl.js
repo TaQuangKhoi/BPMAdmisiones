@@ -1,6 +1,7 @@
 function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
 
   this.isArray = Array.isArray;
+  var vm = this;
 
   this.isClickable = function () {
       return $scope.properties.isBound('selectedRow');
@@ -423,4 +424,92 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
   }
 
   $scope.getCatCampus();
+  
+  $scope.viewEditarDownloadSolicitud = function(rowData) {
+        debugger
+            doRequest2("GET", "/API/bpm/archivedHumanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=aborted&d=processId", null, null, function(dataAborted) {
+                if (dataAborted.length > 0) {
+                    doRequest2("POST", "/bonita/API/extension/AnahuacRest?url=recoveryData&p=0&c=100", null, { "caseId": parseInt(rowData.caseid), "processDefinitionId": dataAborted[0].processId.id }, function(recoveryData) {
+                        var req = {
+                            method: "GET",
+                            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                        };
+
+                        return $http(req)
+                            .success(function(data, status) {
+                                var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&intento=[COUNTRECHAZO]&[RESULTADO]&displayConfirmation=false";
+                                if (data.length > 0) {
+                                    url = url.replace("[TASKID]", data[0].id);
+                                } else {
+                                    url = url.replace("[TASKID]", "");
+                                }
+                                url = url.replace("[CASEID]", rowData.caseid);
+                                url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazos==null? "null":rowData.countrechazos):rowData.countrechazos );
+                                url = url.replace("[RESULTADO]", rowData.catresultadoadmision_pid == '711143' ||  rowData.catresultadoadmision_pid == null ? rowData.catresultadoadmision_pid = true : rowData.catresultadoadmision_pid = false);
+                                window.open(url, '_blank');
+                            })
+                            .error(function(data, status) {
+                                console.error(data);
+                            })
+                            .finally(function() {});
+                    })
+                } else {
+                    var req = {
+                        method: "GET",
+                        url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                    };
+
+                    return $http(req)
+                        .success(function(data, status) {
+                            var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&intento=[COUNTRECHAZO]&[RESULTADO]&displayConfirmation=false";
+                            if (data.length > 0) {
+                                url = url.replace("[TASKID]", data[0].id);
+                            } else {
+                                url = url.replace("[TASKID]", "");
+                            }
+                            url = url.replace("[CASEID]", rowData.caseid);
+                            url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null ? (rowData.countrechazos==null? "null":rowData.countrechazos):rowData.countrechazos );
+                            url = url.replace("[RESULTADO]", rowData.catresultadoadmision_pid == '711143' ||  rowData.catresultadoadmision_pid == null ? rowData.catresultadoadmision_pid = true : rowData.catresultadoadmision_pid = false);
+                                
+
+                            window.open(url, '_blank');
+                        })
+                        .error(function(data, status) {
+                            console.error(data);
+                        })
+                        .finally(function() {});
+                }
+
+            })
+
+        }
+
+           /**
+         * Execute a get/post request to an URL
+         * It also bind custom data from success|error to a data
+         * @return {void}
+         */
+    function doRequest2(method, url, params, dataToSend, callback) {
+        vm.busy = true;
+        var req = {
+            method: method,
+            url: url,
+            data: dataToSend,
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                callback(data);
+            })
+            .error(function(data, status) {
+                console.error(data);
+
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+    
+  
 }
