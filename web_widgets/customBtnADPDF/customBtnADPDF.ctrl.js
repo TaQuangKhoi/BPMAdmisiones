@@ -169,7 +169,12 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
             //doc.rect(margenSegundaFila,((height / 2)-84),35,45)
         doc.rect(157.5, ((height / 2) - 84), 35, 45)
 
-        doc.addImage($scope.properties.urlFoto, "JPG", 160, ((height / 2) - 82), 30, 40);
+        if($scope.properties.rotacion){
+            doc.addImage($scope.properties.urlFoto, "JPG", 160, ((height / 2) - 112), 40, 30,'','NONE',270);
+        }else{
+            doc.addImage($scope.properties.urlFoto, "JPG", 160, ((height / 2) - 82), 30, 40);
+        }
+        
 
 
         //Respuestas
@@ -543,7 +548,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
                 doc.text("Finado", respuestasSegundaFila, (height / 2) - 14);
 
                 doc.text("Finado", respuestasPrimeraFila, (height / 2) - 2);
-                doc.text("Finado", respuestasSegundaFila, (height / 2) - 2);
+                doc.text("Finado", respuestasFilaIntermedia, (height / 2) - 2);
             }
 
         } else {
