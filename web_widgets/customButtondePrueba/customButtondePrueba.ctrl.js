@@ -125,8 +125,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           redirectIfNeeded();
         }
         closeModal($scope.properties.closeOnSuccess);
+        swal("Se ha guardado la informacion", "", "success");
       })
       .error(function(data, status) {
+        swal("Se ha suscitado un error", "", "error");
         $scope.properties.dataFromError = data;
         $scope.properties.responseStatusCode = status;
         $scope.properties.dataFromSuccess = undefined;

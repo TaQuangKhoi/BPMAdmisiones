@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "AppEditarviewDownloadSolicitud",
   "name" : "AppEditarviewDownloadSolicitud",
-  "lastUpdate" : 1659052363196,
+  "lastUpdate" : 1659124553678,
   "rows" : [
     [
       {
@@ -249,13 +249,53 @@
                         "value" : "userData"
                       },
                       "rotacion" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "strRotacion.rotacion"
                       }
                     },
                     "reference" : "0509c4e6-3fa6-4c15-8ec5-01da44d8b4a3",
                     "hasValidationError" : false,
                     "id" : "customBtnADPDF"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Rotar imagen a la derecha"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "strRotacion.rotacion"
+                      }
+                    },
+                    "reference" : "3b1c02ce-b2c3-43a4-aab3-f815ef36a288",
+                    "hasValidationError" : false,
+                    "id" : "pbCheckbox"
                   }
                 ]
               ]
@@ -4099,8 +4139,8 @@
                               "value" : false
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "banderaEditarInfoBachillerato"
                             },
                             "required" : {
                               "type" : "constant",
@@ -8057,8 +8097,8 @@
                                           "value" : ""
                                         },
                                         "dataToSend" : {
-                                          "type" : "variable",
-                                          "value" : ""
+                                          "type" : "expression",
+                                          "value" : "$item"
                                         },
                                         "urlConsulta" : {
                                           "type" : "interpolation"
@@ -8079,6 +8119,57 @@
                                           "value" : ""
                                         },
                                         "index" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "action" : {
+                                          "type" : "constant",
+                                          "value" : "POST"
+                                        },
+                                        "assign" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "url" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "responseStatusCode" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "dataFromSuccess" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "closeOnSuccess" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "dataFromError" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "targetUrlOnSuccess" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "collectionToModify" : {
+                                          "type" : "variable"
+                                        },
+                                        "modalId" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "collectionPosition" : {
+                                          "type" : "constant",
+                                          "value" : "Last"
+                                        },
+                                        "valueToAdd" : {
+                                          "type" : "constant"
+                                        },
+                                        "removeItem" : {
+                                          "type" : "variable"
+                                        },
+                                        "datosPreparatoria" : {
                                           "type" : "variable",
                                           "value" : ""
                                         }
@@ -15298,6 +15389,15 @@
     },
     "catGestionEscolarTipoLicenciatura" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "strRotacion" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"rotacion\":false",
+        "}"
+      ],
       "exposed" : false
     }
   },
