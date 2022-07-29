@@ -26,10 +26,10 @@ function PbCheckboxCtrl($scope, $log, widgetNameFactory, modalService, $http) {
 
         return $http(req)
             .success(function(data, status) {
-                 
+                  console.log("Actualizado ");
             })
             .error(function(data, status) {
-                swal("Error", data.erro, "error");
+                swal("Error", data.error, "error");
             })
             .finally(function() {
                 console.log("Final ");

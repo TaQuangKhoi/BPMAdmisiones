@@ -85,6 +85,17 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 					break;
+				case "getPromedioMinimoApoyoByCampus":
+					String idCampus = request.getParameter "idCampus"
+					result = new CatalogosDAO().getPromedioMinimoApoyoByCampus(Long.valueOf(idCampus));
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					break;
+					
 				case "getDocumentosByTipoApoyo":
 					String campus = request.getParameter "campus"
 					String idTipoApoyo = request.getParameter "idTipoApoyo"

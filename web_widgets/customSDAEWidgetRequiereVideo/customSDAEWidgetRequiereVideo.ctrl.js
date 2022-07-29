@@ -13,7 +13,6 @@ function PbCheckboxCtrl($scope, $log, widgetNameFactory, modalService, $http) {
     }
     
     $scope.updateTipoApoyoVideocase = function(){
-        debugger;
         let _data =  angular.copy($scope.properties.tipoApoyoSeleccionado);
         _data.idCampus = $scope.properties.idCampus;
         
@@ -25,10 +24,10 @@ function PbCheckboxCtrl($scope, $log, widgetNameFactory, modalService, $http) {
 
         return $http(req)
             .success(function(data, status) {
-                 debugger;
+                 console.log("Actualizado ");
             })
             .error(function(data, status) {
-                swal("", data.erro, "error");
+                swal("", data.error, "error");
                 console.log("ERROR" +  data.toString());
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })

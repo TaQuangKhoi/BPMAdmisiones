@@ -9,6 +9,8 @@ class CatTypoApoyo {
 	private String fechaCreacion; 
 	private String usuarioCreacion; 
 	private Boolean isEliminado;
+	
+	//Campos de  la tabla RelacionCampusTipoApoyo
 	private Boolean requiereVideo;
 	private String condicionesVideo;
 	private Boolean esSocioEconomico;
@@ -19,6 +21,8 @@ class CatTypoApoyo {
 	private Boolean isObligatorioDoc;
 	private Boolean requiereCurriculum;
 	private String urlEjemploCurriculum;
+	private Boolean requierePromedioMinimo;
+	private Double promedioMinimo;
 	
 	public Boolean getIsObligatorioDoc() {
 		return isObligatorioDoc;
@@ -128,5 +132,16 @@ class CatTypoApoyo {
 	public void setUrlEjemploCurriculum(String urlEjemploCurriculum) {
 		this.urlEjemploCurriculum = urlEjemploCurriculum;
 	}
-	
+	public Boolean getRequierePromedioMinimo() {
+		return requierePromedioMinimo;
+	}
+	public void setRequierePromedioMinimo(Boolean requierePromedioMinimo) {
+		this.requierePromedioMinimo = requierePromedioMinimo;
+	}
+	public Double getPromedioMinimo() {
+		return promedioMinimo;
+	}
+	public void setPromedioMinimo(Double promedioMinimo) {
+		this.promedioMinimo = promedioMinimo;
+	}
 }

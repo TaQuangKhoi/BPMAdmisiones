@@ -781,8 +781,47 @@ class CatalogosDAO {
 				row.setIsAcademica(rs.getBoolean("ISACADEMICA"));
 				row.setUrlEjemploCurriculum(rs.getString("URLEJEMPLOCURRICULUM"));
 				row.setRequiereCurriculum(rs.getBoolean("REQUIERECURRICULUM"));
+				row.setPromedioMinimo(rs.getDouble("PROMEDIOMINIMO"));
+				row.setRequierePromedioMinimo(rs.getBoolean("REQUIEREPROMEDIOMINIMO"));
 				
 				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	
+	/**
+	 * Obtiene el primedio nimimo mas pequeño de los tipos de apoyo configurados en los campus
+	 * @author José Carlos García Romero
+	 * @param idCampus (Long)
+	 * @return resultado (Result)
+	 */
+	public Result getPromedioMinimoApoyoByCampus(Long idCampus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			String consulta = StatementsCatalogos.GET_PROMEDIO_MINIMO_BY_CAMPUS;
+			List < Double > rows = new ArrayList < Double > ();
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, idCampus);
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				rows.add(rs.getDouble("promediominimo"));
 			}
 			
 			resultado.setSuccess(true);
@@ -1218,13 +1257,18 @@ class CatalogosDAO {
 		try {
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CAT_TIPO_APOYO_VIDEO);
+//			REQUIEREVIDEO = ?, CONICIONESVIDEO = ?, ESSOCIOECONOMICO = ?, requiereCurriculum = ?, 
+//			urlEjemploCurriculum = ?, promedioMinimo = ?, requierePromedioMinimo = ?
 			pstm.setBoolean(1, objCatGenerico.requiereVideo);
 			pstm.setString(2, objCatGenerico.condicionesVideo);
 			pstm.setBoolean(3, objCatGenerico.esSocioEconomico);
 			pstm.setBoolean(4, objCatGenerico.requiereCurriculum);
 			pstm.setString(5, objCatGenerico.urlEjemploCurriculum == null ? "" : objCatGenerico.urlEjemploCurriculum);
-			pstm.setLong(6, objCatGenerico.idCampus);
-			pstm.setLong(7, objCatGenerico.persistenceId);
+//			pstm.setLong(6, objCatGenerico.idCampus);
+			pstm.setDouble(6, objCatGenerico.promedioMinimo  == null ? 0.0 : objCatGenerico.promedioMinimo);
+			pstm.setBoolean(7, objCatGenerico.requierePromedioMinimo  == null ? false : objCatGenerico.requierePromedioMinimo);
+			pstm.setLong(8, objCatGenerico.idCampus);
+			pstm.setLong(9, objCatGenerico.persistenceId);
 			pstm.execute();
 			resultado.setSuccess(true)
 			
@@ -1232,7 +1276,6 @@ class CatalogosDAO {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError("[insertManejoDocumento] " + e.getMessage());
-			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

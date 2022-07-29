@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1658960114242,
+  "lastUpdate" : 1659051176377,
   "rows" : [
     [
       {
@@ -22675,6 +22675,15 @@
         "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
         "} \r",
         "\r",
+        "else if ($data.formOutputTest.solicitudApoyoEducativoInput.nuevoPromedioPrepa && ($data.formOutputTest.solicitudApoyoEducativoInput.nuevoPromedioPrepa < $data.returnCatValue.catTipoApoyo.promedioMinimo)){\r",
+        "    output = false;\r",
+        "    $data.errorPaso3 = \"Tu promedio no cumple con los requisitos mínimos para solicitar este apoyo.\";\r",
+        "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.nuevoPromedioPrepa && ($data.objSolicitudDeAdmision[0].promedioGeneral < $data.returnCatValue.catTipoApoyo.promedioMinimo)){\r",
+        "    output = false;\r",
+        "    $data.errorPaso3 = \"Tu promedio no cumple con los requisitos mínimos para solicitar este apoyo.\";\r",
+        "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
+        "}\r",
         "\r",
         "else if(($data.returnCatValue.catTipoApoyo.isDeportiva || $data.returnCatValue.catTipoApoyo.isArtistica || $data.returnCatValue.catTipoApoyo.isAcademica) && !$data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id){\r",
         "    output = false;\r",
@@ -22686,14 +22695,13 @@
         "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
         "} \r",
         "\r",
-        "\r",
         "else if(!$data.formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni){\r",
         "    output = false;\r",
         "    $data.errorPaso3 = \"El campo '¿Qué cantidad mensual puedes pagar por la universidad?' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
         "} \r",
         "\r",
-        "return output;\r"
+        "return output;"
       ],
       "exposed" : false
     },
@@ -23588,6 +23596,14 @@
       "value" : [
         "{}"
       ],
+      "exposed" : false
+    },
+    "promedioMinimoCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getPromedioMinimoByCampus&p=0&c=0&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
