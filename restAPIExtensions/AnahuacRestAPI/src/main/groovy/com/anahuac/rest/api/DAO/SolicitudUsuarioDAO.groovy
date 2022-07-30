@@ -983,27 +983,28 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
                 pstm.setString(10, object.empresaTrabaja);
                 pstm.setString(11, object.giro);
                 pstm.setString(12, object.puesto);
+				pstm.setLong(13, object.pais_pid);
+				pstm.setString(14, object.codigoPostal);
+				pstm.setString(15, object.estadoExtranjero);
+				pstm.setLong(16, object.estado_pid);
+				pstm.setString(17, object.ciudad);
+				pstm.setString(18, object.delegacionMunicipio);
+				pstm.setString(19, object.colonia);
+				pstm.setString(20, object.calle);
+				pstm.setString(21, object.numExterior);
+				pstm.setString(22, object.numInterior);
+				pstm.setString(23, object.telefono);
+				pstm.setLong(24, object.caseid);
+				
 				
 				if (replaceTablePadresTutor.equals(" PadresTutor ")) {
-					if (object.egresoAnahuac_pid.equals(77)) {
-						pstm.setLong(13, object.caseid);
-						pstm.setLong(14, object.persistenceid);
-					} else {
-						pstm.setLong(13, object.campusegreso_pid);
-						pstm.setLong(14, object.caseid);
-						pstm.setLong(15, object.persistenceid);
-					}
+					pstm.setLong(25, object.persistenceid);
 					replaceTablePadresTutor = " PadresTutorRespaldo ";
 					where = " WHERE caseid = ?  AND countintento = ? AND vive_pid IS NULL AND istutor = 't'";
+					
 				} else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-					if(object.egresoAnahuac_pid.equals(77)) {
-						pstm.setLong(13, object.caseid);
-						pstm.setLong(14, (intento.equals("null") ? 0 : Integer.parseInt(intento)));
-					} else {
-						pstm.setLong(13, object.campusegreso_pid);
-						pstm.setLong(14, object.caseid);
-						pstm.setLong(15, (intento.equals("null") ? 0 : Integer.parseInt(intento)));
-					}
+					pstm.setLong(25, (intento.equals("null") ? 0 : Integer.parseInt(intento)));
+					
                     executionQuery = false;
                 }
                 errorLog += "Fin sección: Información tutor | "+pstm;
