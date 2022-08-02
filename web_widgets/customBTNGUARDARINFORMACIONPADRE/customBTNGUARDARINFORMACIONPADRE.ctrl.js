@@ -23,24 +23,35 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action) {
       debugger
       
-    $scope.ObjetoDomicilioPermanente = {
-
-        "pais_pid": $scope.properties.dataToSend.catPais.persistenceId,
-        "codigoPostal": $scope.properties.dataToSend.codigoPostal,
-        "estado_pid": $scope.properties.dataToSend.catEstado.persistenceId,
-        "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
-        "ciudad": $scope.properties.dataToSend.ciudad,
-        "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
-        "colonia": $scope.properties.dataToSend.colonia,
-        "calle": $scope.properties.dataToSend.calle,
-        "calle2": $scope.properties.dataToSend.calle2,
-        "numExterior": $scope.properties.dataToSend.numExterior,
-        "numInterior": $scope.properties.dataToSend.numInterior,
-        "telefono": $scope.properties.dataToSend.telefono,
-        "otroTelefonoContacto": $scope.properties.dataToSend.otroTelefonoContacto,
-        "caseid": $scope.properties.dataToSend.caseId,
-        "correoElectronico": $scope.properties.dataToSend.correoElectronico
+    $scope.ObjetoInformacionTutor = {
+        "titulo_pid": $scope.properties.dataToSend?.catTitulo?.persistenceId,
+        "nombre": $scope.properties.dataToSend?.nombre,
+        "apellidos": $scope.properties.dataToSend?.apellidos,
+        "parentesco_pid": $scope.properties.dataToSend?.catParentezco?.persistenceId,
+        "otroParentesco": $scope.properties.dataToSend?.otroParentesco,
+        "correoElectronico": $scope.properties.dataToSend?.correoElectronico,
+        "escolaridad_pid": $scope.properties.dataToSend?.catEscolaridad?.persistenceId,
+        "egresoAnahuac_pid": $scope.properties.dataToSend?.catEgresoAnahuac?.persistenceId,
+        "trabaja_pid": $scope.properties.dataToSend?.catTrabaja?.persistenceId,
+        "empresaTrabaja": $scope.properties.dataToSend?.empresaTrabaja,
+        "giro": $scope.properties.dataToSend?.giroEmpresa,
+        "caseid": $scope.properties.dataToSend?.caseId,
+        "persistenceid": $scope.properties.dataToSend?.persistenceId,
+        "pais_pid": $scope.properties.dataToSend?.catPais?.persistenceId,
+        "codigoPostal": $scope.properties.dataToSend?.codigoPostal,
+        "estadoExtranjero": $scope.properties.dataToSend?.estadoExtranjero,
+        "estado_pid": $scope.properties.dataToSend?.catEstado?.persistenceId,
+        "ciudad": $scope.properties.dataToSend?.ciudad,
+        "delegacionMunicipio": $scope.properties.dataToSend?.delegacionMunicipio,
+        "colonia": $scope.properties.dataToSend?.colonia,
+        "calle": $scope.properties.dataToSend?.calle,
+        "numExterior": $scope.properties.dataToSend?.numeroExterior,
+        "numInterior": $scope.properties.dataToSend?.numeroInterior,
+        "telefono": $scope.properties.dataToSend?.telefono,
+        "viveContigo": $scope.properties.dataToSend?.viveContigo
     }
+
+
     //"persistenceversion" : $scope.properties.objtutorTemp.persistenceid
     
       doRequest($scope.properties.action);
@@ -110,9 +121,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     vm.busy = true;
     var req = {
       method: method,
-      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&&key=DP&intento=null&tipoTabla=true",
+      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&&key=IMA&intento=null&tipoTabla=true",
         
-      data: angular.copy($scope.ObjetoDomicilioPermanente),
+      data: angular.copy($scope.ObjetoInformacionTutor),
       params: params
     };
 
