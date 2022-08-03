@@ -1413,4 +1413,43 @@ class ConektaDAO {
 		
 		return resultado;
 	}
+	
+	public Result getConektaPublicKeyV2(String campus_id, RestAPIContext context) {
+		Result resultado = new Result();
+		List<String> lstResultado = new ArrayList<String>();
+		String apiKey = "";
+		String apiKeyCrypted = "";
+//		String campus_id = "";
+		
+		try{
+//			def jsonSlurper = new JsonSlurper();
+//			def object = jsonSlurper.parseText(jsonData);
+//			campus_id = object.campus_id;
+			
+			def objApiKey = context.getApiClient().getDAO(CatApiKeyDAO.class);
+			List<CatApiKey> lstApiKey = objApiKey.find(0, 999);
+			
+			for(int i = 0; i < lstApiKey.size(); i++) {
+				if(campus_id == lstApiKey.get(i).getCampus().getPersistenceId().toString()) {
+					apiKey = lstApiKey.get(i).getConektaPublicKey();
+					break;
+				}
+			}
+			
+			lstResultado.add(apiKey);
+			lstResultado.add(Base64.getEncoder().encodeToString(apiKey.getBytes()));
+			resultado.setData(lstResultado);
+			resultado.setSuccess(true);
+			
+			resultado.toString();
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+	
 }

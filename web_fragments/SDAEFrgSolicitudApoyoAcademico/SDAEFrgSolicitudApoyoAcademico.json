@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1658357676609,
+  "lastUpdate" : 1659135168746,
   "rows" : [
     [
       {
@@ -9196,20 +9196,25 @@
                               "value" : "formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id"
                             },
                             "returnCatValue" : {
-                              "type" : "constant"
+                              "type" : "expression",
+                              "value" : "returnCatValue"
                             },
                             "catPorcentajeBecaId" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id"
                             },
                             "catPorcentajeFinanciamientoId" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id"
+                            },
+                            "modificarDocumentos" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.modificarDocumentos"
                             }
                           },
-                          "reference" : "1693912f-97d1-42bb-83c1-7cb837552d4d",
+                          "reference" : "224de3d7-283f-4b7f-9521-637a9f62a993",
                           "hasValidationError" : false,
-                          "id" : "customSDAESelectTipoApoyo"
+                          "id" : "customSDAESelectTipoApoyoModificar"
                         },
                         {
                           "type" : "component",
@@ -9280,145 +9285,175 @@
                       ],
                       [
                         {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
+                            "md" : 12,
+                            "lg" : 12
                           },
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "bottom-stuck-container"
                             },
                             "hidden" : {
                               "type" : "constant",
                               "value" : false
                             },
-                            "disabled" : {
-                              "type" : "expression",
-                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarMotivoSol"
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "% de financiamiento educativo solicitado:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Selecciona una opción"
-                            },
-                            "availableValues" : {
-                              "type" : "expression",
-                              "value" : "lstCatPorcentajeFinanciamiento.data"
-                            },
-                            "displayedKey" : {
-                              "type" : "constant",
-                              "value" : "descripcion"
-                            },
-                            "returnedKey" : {
-                              "type" : "constant",
-                              "value" : "persistenceId"
-                            },
-                            "value" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id"
+                              "value" : ""
                             }
                           },
-                          "reference" : "6aac67e3-6e32-4584-826e-917a4f1773de",
+                          "reference" : "e8845b0e-553c-4eb6-9c66-cd83807a7342",
                           "hasValidationError" : false,
-                          "id" : "pbSelect"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarMotivoSol"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Qué cantidad mensual puedes pagar por la universidad? ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant"
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "6fe8236b-7433-4495-881d-eacd6c318350",
-                          "hasValidationError" : false,
-                          "id" : "customSDAEInputMoneda"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "lil-xtra-margin"
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarMotivoSol"
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "% de financiamiento educativo solicitado:"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation",
+                                    "value" : "Selecciona una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "lstCatPorcentajeFinanciamiento.data"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id"
+                                  }
+                                },
+                                "reference" : "6aac67e3-6e32-4584-826e-917a4f1773de",
+                                "hasValidationError" : false,
+                                "id" : "pbSelect"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "minLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "maxLength" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "readOnly" : {
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarMotivoSol"
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "¿Qué cantidad mensual puedes pagar por la universidad? ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "text"
+                                  },
+                                  "min" : {
+                                    "type" : "constant"
+                                  },
+                                  "max" : {
+                                    "type" : "constant"
+                                  },
+                                  "step" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  }
+                                },
+                                "reference" : "6fe8236b-7433-4495-881d-eacd6c318350",
+                                "hasValidationError" : false,
+                                "id" : "customSDAEInputMoneda"
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ]

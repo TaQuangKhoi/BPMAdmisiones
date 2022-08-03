@@ -32,6 +32,10 @@ class SecurityFilter {
 				case "getIdiomaByUsername":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
+				case "getConektaPublicKeyV2":
+					allow=bonitaRolFilter(context,"ASPIRANTE")
+					if(allow){break;}
+				break;
 				case "getDescuentosCiudadBachillerato":
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -1090,6 +1094,16 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		  case "pagoTarjetaBecas":
+			allow = bonitaRolFilter(context, "ADMISIONES");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "ASPIRANTE");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "pagoSPEI":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {

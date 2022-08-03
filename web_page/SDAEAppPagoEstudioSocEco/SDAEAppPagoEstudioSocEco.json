@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1658003570168,
+  "lastUpdate" : 1659487505369,
   "rows" : [
     [
       {
@@ -1693,6 +1693,106 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "publicKey" : {
+                              "type" : "constant",
+                              "value" : "key_JwKTypqZPnuwabUtwcyPiHA"
+                            },
+                            "tokenObject" : {
+                              "type" : "variable",
+                              "value" : "tokenObject"
+                            },
+                            "cryptedKey" : {
+                              "type" : "constant",
+                              "value" : "a2V5X2hWNGVyNWtRTjVpWlhzQWlXaEtOdlE="
+                            },
+                            "tokenCard" : {
+                              "type" : "variable",
+                              "value" : "tokenCard"
+                            },
+                            "objSolicitudAdmision" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision[0]"
+                            },
+                            "objectCard" : {
+                              "type" : "variable",
+                              "value" : "objectCard"
+                            }
+                          },
+                          "reference" : "977b03bd-2502-44ce-a5f0-3cc479c32db3",
+                          "hasValidationError" : false,
+                          "id" : "customConektaIframe"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<pre>\n{{ objectCard | json }}</pre><br>\n<pre>\n{{ tokenObject | json }}</pre>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "97425165-c5c6-4726-9758-bdc45b85e150",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
                       [
                         {
                           "type" : "component",
@@ -6540,30 +6640,9 @@
       "exposed" : false
     },
     "objectCard" : {
-      "type" : "expression",
+      "type" : "json",
       "value" : [
-        "let last4 = \"\";",
-        "",
-        "if($data.cardInformation !== undefined){",
-        "    if($data.cardInformation.cardNumber.length > 3){",
-        "        last4 = $data.cardInformation.cardNumber.substr(cardNumber.length - 4);    ",
-        "    }",
-        "    ",
-        "}",
-        "return {",
-        "    \"name\": $data.objSolicitudDeAdmision[0].primerNombre + \" \"+ $data.objSolicitudDeAdmision[0].apellidoPaterno,",
-        "    \"email\": $data.objSolicitudDeAdmision[0].correoElectronico,",
-        "    \"phone\": $data.objSolicitudDeAdmision[0].telefono,",
-        "    \"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\",",
-        "    \"unit_price\": $data.montoParcial === null ? \"\" : parseInt((100 * ($data.montoParcial.montoTotal)))+ \"\",",
-        "    \"idToken\": $data.idTokenCard,",
-        "    \"caseId\" : $data.objSolicitudDeAdmision[0].caseId + \"\",",
-        "    \"last4\": last4,",
-        "    \"nombrePago\": $data.cardInformation.cardholder,",
-        "    \"campus\": $data.objSolicitudDeAdmision[0].catCampus.descripcion,",
-        "    // \"idbanner\": $data.objectDetalleSolicitud.idBanner",
-        "    \"idbanner\":\"\"",
-        "}"
+        "{}"
       ],
       "exposed" : false
     },
@@ -7117,7 +7196,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{session.user_name}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "getConfiguracionPago" : {
@@ -7145,6 +7228,20 @@
         "\t\"isPagoConTarjetainput\": true,\r",
         "\t\"isPagoRegresarInput\": false\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "tokenObject" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "tokenCard" : {
+      "type" : "json",
+      "value" : [
+        "{}"
       ],
       "exposed" : false
     }
