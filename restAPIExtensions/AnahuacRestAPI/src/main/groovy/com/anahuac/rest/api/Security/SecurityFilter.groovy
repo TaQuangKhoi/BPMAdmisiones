@@ -36,6 +36,12 @@ class SecurityFilter {
 					allow=bonitaRolFilter(context,"ASPIRANTE")
 					if(allow){break;}
 				break;
+				case "createToken":
+					allow=bonitaRolFilter(context,"ASPIRANTE")
+					if(allow){
+						break;
+					}
+				break;
 				case "getDescuentosCiudadBachillerato":
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}

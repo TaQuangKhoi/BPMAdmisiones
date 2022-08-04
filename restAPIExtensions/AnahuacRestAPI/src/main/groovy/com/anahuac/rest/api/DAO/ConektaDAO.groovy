@@ -24,6 +24,8 @@ import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
+import com.fasterxml.jackson.databind.ObjectMapper
+
 import groovy.json.JsonSlurper
 import io.conekta.Charge
 import io.conekta.Conekta
@@ -33,6 +35,28 @@ import io.conekta.Order
 import io.conekta.OxxoPayment
 import io.conekta.PaymentMethod
 import io.conekta.SpeiPayment
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpException
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.entity.StringEntity
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import org.apache.http.client.methods.CloseableHttpResponse;
+//import org.apache.http.client.methods.HttpPost;
+//import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+//import org.apache.http.util.EntityUtils;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -1153,7 +1177,7 @@ class ConektaDAO {
 		Long caseId = 0L;
 		String campus = "";
 		String nombrePago = "";
-		String idbanner = "";
+		String concepto = "";
 		
 		try{
 			def jsonSlurper = new JsonSlurper();
@@ -1170,7 +1194,7 @@ class ConektaDAO {
 			caseId = Long.valueOf(object.caseId);
 			nombrePago = object.nombrePago;
 			campus = object.campus;
-			idbanner = object.idbanner;
+			concepto = object.concepto;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -1198,7 +1222,7 @@ class ConektaDAO {
 					+ "'customer_id': '" + customer.getId() + "'"
 				+ "},"
 				+ "'line_items': [{"
-					+ "'name': 'Pago de estudio socio-económico - ID:" + idbanner + "',"
+					+ "'name': '" + concepto + "',"
 					+ "'unit_price': " + unit_price + ","
 					+ "'quantity': 1"
 				+ "}],"
@@ -1224,7 +1248,7 @@ class ConektaDAO {
 				+ payment_method.getVal("type")));
 			
 			//--------------------PARA LA BITACORA DE PAGOS---------------------------
-			OrdenBitacora ordenBit = new OrdenBitacora();
+			/*OrdenBitacora ordenBit = new OrdenBitacora();
 			ordenBit.setNoTransaccion(order.id);
 			ordenBit.setUsuarioAspirante(email);
 			ordenBit.setFechaMovimiento(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:00.000'Z'").format(new Date()));
@@ -1236,7 +1260,7 @@ class ConektaDAO {
 			ordenBit.setNombrePago(nombrePago);
 			ordenBit.setCampus(campus);
 			
-			crearRegistroPago(ordenBit);
+			crearRegistroPago(ordenBit);*/
 			//--------------------FIN PARA LA BITACORA DE PAGOS-----------------------
 			resultado.setData(lstResultado)
 			resultado.setSuccess(true)
@@ -1419,25 +1443,20 @@ class ConektaDAO {
 		List<String> lstResultado = new ArrayList<String>();
 		String apiKey = "";
 		String apiKeyCrypted = "";
-//		String campus_id = "";
-		
 		try{
-//			def jsonSlurper = new JsonSlurper();
-//			def object = jsonSlurper.parseText(jsonData);
-//			campus_id = object.campus_id;
-			
 			def objApiKey = context.getApiClient().getDAO(CatApiKeyDAO.class);
 			List<CatApiKey> lstApiKey = objApiKey.find(0, 999);
 			
 			for(int i = 0; i < lstApiKey.size(); i++) {
 				if(campus_id == lstApiKey.get(i).getCampus().getPersistenceId().toString()) {
 					apiKey = lstApiKey.get(i).getConektaPublicKey();
+					apiKeyCrypted = Base64.getEncoder().encodeToString(lstApiKey.get(i).getConekta().getBytes());
 					break;
 				}
 			}
 			
 			lstResultado.add(apiKey);
-			lstResultado.add(Base64.getEncoder().encodeToString(apiKey.getBytes()));
+			lstResultado.add(apiKeyCrypted);
 			resultado.setData(lstResultado);
 			resultado.setSuccess(true);
 			
@@ -1450,6 +1469,128 @@ class ConektaDAO {
 		}
 
 		return resultado;
+	}
+	
+	public Result createToken(String campus_id, RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog = "Entro al metodo ";
+		StringBuilder restest = new StringBuilder();
+		try {
+			String cryptedKey = "";
+			Result resultApikey = getConektaPublicKeyV2(campus_id, context);
+			if(resultApikey.isSuccess() != true) {
+				throw new Exception(resultApikey.getError());
+			} else {
+				cryptedKey = resultApikey.getData().get(1);
+			}
+			
+//			String basicAuth = "Basic " + cryptedKey;
+//			URL url = new URL("https://api.conekta.io/tokens");
+//			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+//			conexion.setDoOutput(true);
+//			conexion.setRequestProperty("Authorization", basicAuth);
+//			conexion.setRequestProperty("Accept", "application/vnd.conekta-v2.0.0+json");
+//			conexion.setRequestProperty("Accept-Language", "es");
+//			conexion.setRequestMethod("POST");
+//			
+//			errorLog += ":: Se establecieron los headers " + conexion.getRequestProperty("Authorization").toString();
+//			OutputStream os = conexion.getOutputStream();
+//			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+//			osw.write("{'checkout': {'returns_control_on': 'Token'}}");
+//			osw.flush();
+//			osw.close();
+//			os.close(); 
+//			conexion.connect();
+//			
+//			errorLog += ":: Se estableció el body de la petición " + conexion.toString();
+//			BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+//			errorLog += ":: la petición se hizo"
+//			String linea;
+//			while ((linea = rd.readLine()) != null) {
+//				restest.append(linea);
+//			}
+//			rd.close();
+//			conexion.disconnect();
+//			List<StringBuilder> lstResultados = new ArrayList<>();
+//			lstResultados.add(restest);
+//			resultado.setData(lstResultados);
+
+			/*errorLog += " :: Se obtuvo  la key " + cryptedKey ;
+			HttpClient httpClient = HttpClientBuilder.create().build();
+//			HttpGet get = new HttpGet("https://api.conekta.io/tokens");
+			HttpPost post = new HttpPost("https://api.conekta.io/tokens");
+			post.addHeader("Authorization", "Basic " + cryptedKey);
+			post.addHeader("Accept", "application/vnd.conekta-v2.0.0+json");
+			post.addHeader("Accept-Language", "es");	
+			errorLog += " :: Se llenaron los headers ";
+			post.setEntity(new StringEntity("{'checkout': {'returns_control_on': 'Token'}}"));
+			errorLog += " :: Se seteo el data ";
+			HttpResponse responseget = httpClient.execute(post);
+			errorLog += " :: se mando la peticion";
+			HttpEntity entity = responseget.getEntity();
+			errorLog += " :: Se hizo la petición ";
+			if (entity != null) {
+				errorLog += " :: La petición respondió";
+				String response = EntityUtils.toString(entity);
+				JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+				List<JsonObject> lstResultados = new ArrayList<>();
+				lstResultados.add(jsonObject);
+				resultado.setData(lstResultados);
+			}
+			resultado.setError_info(errorLog );*/
+			
+			List <Map<String, Object>  >  list = new ArrayList<Map<String, Object> >();
+			StringBuilder json = new StringBuilder();
+			json.append("{");
+			json.append("\"checkout\":");
+			json.append("{");
+			json.append("\"returns_control_on\" : \"Token\"");
+			json.append("}");
+			json.append("}");
+
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> map = mapper.readValue(sendPOST("https://api.conekta.io/tokens", cryptedKey, json), Map.class);
+list.add(map);
+			resultado.setData(list);
+			resultado.setSuccess(true);
+		} catch(Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorLog );
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		} catch (HttpException ex) {
+			LOGGER.error "[ERROR] " + ex.message;
+			resultado.setError_info(errorLog );
+			resultado.setSuccess(false);
+			resultado.setError(ex.getMessage());
+			ex.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	private static String sendPOST(String url, String cryptedKey, StringBuilder json) throws IOException {
+		
+		String result = "";
+		HttpPost post = new HttpPost(url);
+		post.addHeader("Authorization", "Basic " + cryptedKey);
+		post.addHeader("Accept", "application/vnd.conekta-v2.0.0+json");
+		post.addHeader("Accept-Language", "es");
+		post.addHeader("content-type", "application/json");
+
+		// send a JSON data
+		post.setEntity(new StringEntity(json.toString()));
+
+		try {
+			 CloseableHttpClient httpClient = HttpClients.createDefault();
+			 CloseableHttpResponse response = httpClient.execute(post)
+			 result = EntityUtils.toString(response.getEntity());
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+
+		return result;
 	}
 	
 }

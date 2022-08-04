@@ -7,43 +7,24 @@ function ($scope, $http) {
 
     function getConektaTokenbObject() {
         var req = {
-            method: "POST",
-            url: "https://api.conekta.io/tokens",
-            data: {
-                "checkout": {
-                    "returns_control_on": "Token"
-                }
-            },
-            headers: {
-                "Authorization": "Basic " + $scope.properties.cryptedKey,
-                "Accept": "application/vnd.conekta-v2.0.0+json",
-                "Accept-Language": "es"
-            }
+            method: "GET",
+            url: "../API/extension/AnahuacRestGet?url=createToken&p=0&c=10&campus_id=" + $scope.properties.objSolicitudAdmision.catCampus.persistenceId,
         };
 
         return $http(req).success(function (data, status) {
-            $scope.properties.tokenObject = data;
+            $scope.properties.tokenObject = data[0];
         }).error(function (data, status) {
             // $scope.properties.dataFromError = data;
+            swal("Error", "No se ha podido generar el token temporal, intente de nuevo mas tarde.", "error");
         }).finally(function () {
             if ($scope.properties.tokenObject) {
-                setIframe($scope);
+                setIframe();
             }
         });
     }
 
-    $scope.$watch("properties.publicKey", () => {
-        if ($scope.properties.publicKey && $scope.properties.cryptedKey) {
-            if (!loaded) {
-                loaded = true;
-                getConektaTokenbObject();
-            }
-
-        }
-    });
-
-    $scope.$watch("properties.cryptedKey", () => {
-        if ($scope.properties.publicKey && $scope.properties.cryptedKey) {
+    $scope.$watch("properties.objSolicitudAdmision", () => {
+        if ($scope.properties.objSolicitudAdmision) {
             if (!loaded) {
                 loaded = true;
                 getConektaTokenbObject();
@@ -89,7 +70,6 @@ function ($scope, $http) {
             onCreateTokenSucceeded: function (_token) {
                 var scope = angular.element($("custom-conekta-iframe")).scope();
                 scope.$apply(function(){
-                    // scope.properties.tokenObject["card"] = _token;
                     scope.buildCardObject();
                 })
             },
@@ -98,21 +78,33 @@ function ($scope, $http) {
             }
         });
     }
-    
+
     $scope.buildCardObject = function(){
-        debugger;
         $scope.properties.objectCard = {
-            "name": $scope.properties.objSolicitudAdmision.primerNombre + " " + $scope.properties.objSolicitudAdmision.apellidoPaterno,
+            "name": $scope.properties.objSolicitudAdmision.primerNombre + " "+ $scope.properties.objSolicitudAdmision.apellidoPaterno,
             "email": $scope.properties.objSolicitudAdmision.correoElectronico,
             "phone": $scope.properties.objSolicitudAdmision.telefono,
-            "campus_id": $scope.properties.objSolicitudAdmision.catCampus.persistenceId,
-            "unit_price": "",
+            "campus_id": $scope.properties.objSolicitudAdmision.catCampus.persistenceId + "",
+            "unit_price": $scope.propeties.configuracionesPago.monto * 100,//Conekta acepta le pago en centavos
             "idToken": $scope.properties.tokenObject.id,
-            "caseId" : $scope.properties.objSolicitudAdmision.caseId,
-            "last4": "",
-            "nombrePago": "",
+            "caseId" : $scope.properties.objSolicitudAdmision.caseId + "",
+            "last4": "4444",
+            "nombrePago": "jose garcia",
             "campus": $scope.properties.objSolicitudAdmision.catCampus.descripcion,
-            "idbanner": ""
+            "concepto": $scope.propeties.configuracionesPago.descripcion + " - ID: " + $scope.properties.idBanner 
+        }
+        
+        var req = {
+            method: "POST",
+            url: "/API/extension/AnahuacRest?url=pagoTarjetaBecas&p=0&c=10",
+            data: $scope.properties.objectCard
         };
+
+        return $http(req).success(function (data, status) {
+            swal("Ok", "Pago exitoso. redireccionando...", "success");
+        }).error(function (error, status) {
+            swal("Error",error.data.message_to_purchaser, "error");
+        });
+
     }
 }
