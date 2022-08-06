@@ -1,10 +1,27 @@
 function ($scope, $http) {
 
     var loaded = false;
+    $scope.formInput = {
+    	"solicitudApoyoEducativoInput":{
+    		"ordenPagoConekta":""
+    	},
+    	"isPagoValidadoInput": true,
+    	"isPagoConTarjetainput": true,
+    	"isPagoRegresarInput": false
+    };
+    
     $scope.setCardObject = function (_token) {
         $scope.properties.tokenObject["card"] = _token;
     }
 
+    $scope.showModal = function(){
+        $("#loading").modal("show");
+    };
+    
+    $scope.hideModal = function(){
+        $("#loading").modal("hide");
+    };
+    
     function getConektaTokenbObject() {
         var req = {
             method: "GET",
@@ -58,7 +75,7 @@ function ($scope, $http) {
                 languaje: 'es', // 'es' Español | 'en' Ingles
                 button: {
                     colorText: '#ffffff',
-                    text: 'Alta de tarjeta',
+                    text: 'Pagar',
                     backgroundColor: '#FF5900'
                 },
                 //Elemento que personaliza el diseño del iframe
@@ -69,11 +86,13 @@ function ($scope, $http) {
             },
             onCreateTokenSucceeded: function (_token) {
                 var scope = angular.element($("custom-conekta-iframe")).scope();
+                scope.showModal();
                 scope.$apply(function(){
                     scope.buildCardObject();
                 })
             },
             onCreateTokenError: function (error) {
+                $scope.hideModal();
                 swal("Error", error.data.message_to_purchaser, "error");
             }
         });
@@ -85,13 +104,13 @@ function ($scope, $http) {
             "email": $scope.properties.objSolicitudAdmision.correoElectronico,
             "phone": $scope.properties.objSolicitudAdmision.telefono,
             "campus_id": $scope.properties.objSolicitudAdmision.catCampus.persistenceId + "",
-            "unit_price": $scope.propeties.configuracionesPago.monto * 100,//Conekta acepta le pago en centavos
+            "unit_price": $scope.properties.configuracionesPago.monto * 100,//Conekta acepta le pago en centavos
             "idToken": $scope.properties.tokenObject.id,
             "caseId" : $scope.properties.objSolicitudAdmision.caseId + "",
             "last4": "4444",
             "nombrePago": "jose garcia",
             "campus": $scope.properties.objSolicitudAdmision.catCampus.descripcion,
-            "concepto": $scope.propeties.configuracionesPago.descripcion + " - ID: " + $scope.properties.idBanner 
+            "concepto": $scope.properties.configuracionesPago.descripcion + " - ID: " + $scope.properties.idBanner 
         }
         
         var req = {
@@ -101,10 +120,29 @@ function ($scope, $http) {
         };
 
         return $http(req).success(function (data, status) {
-            swal("Ok", "Pago exitoso. redireccionando...", "success");
+            $scope.formInput.solicitudApoyoEducativoInput.ordenPagoConekta = data.data[0].id;
+            $scope.properties.solicitudApoyoEducativo.ordenPagoConekta = data.data[0].id;
+            executeTask();
         }).error(function (error, status) {
+            $scope.hideModal();
             swal("Error",error.data.message_to_purchaser, "error");
         });
+    }
+    
+    function executeTask(){
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId + "/execution";
+        
+        $http.post(url, $scope.formInput).success(function(data){
+            $scope.hideModal();
+            swal("Pago realizado con éxito.", "Redireccionando...", "success");
 
+            // setTimeout(function(){
+            //     window.location.reload();
+            // }, 5000);  
+            
+        }).error(function(error){
+            $scope.hideModal();
+            swal("Error", "Algo salió mal con el proceso de pago, intenta de nuevo mas tarde.", "error");
+        });
     }
 }

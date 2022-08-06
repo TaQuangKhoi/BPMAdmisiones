@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1659654091808,
+  "lastUpdate" : 1659744045723,
   "rows" : [
     [
       {
@@ -57,7 +57,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "bankInformationSPEI" : {
             "type" : "variable",
@@ -104,9 +104,9 @@
             "value" : "loadedOrder"
           }
         },
-        "reference" : "01b54f12-e583-4c42-90ed-38184a8ffd4a",
+        "reference" : "cfa01301-7f1e-4630-a6ef-80158c8487bd",
         "hasValidationError" : false,
-        "id" : "customCustomExecuceTaskPagoExamenPAGO"
+        "id" : "customSDAEexecuteTaskPagoEstudio"
       }
     ],
     [
@@ -198,6 +198,18 @@
           "idCampus" : {
             "type" : "expression",
             "value" : "objSolicitudDeAdmision[0].catCampusEstudio.persistenceId"
+          },
+          "orderObject" : {
+            "type" : "expression",
+            "value" : "orderObject"
+          },
+          "orderOutput" : {
+            "type" : "variable",
+            "value" : "orderOutput"
+          },
+          "navigationVar" : {
+            "type" : "variable",
+            "value" : "navigationVar"
           }
         },
         "reference" : "e6583003-49dd-447d-963c-76b300efda9e",
@@ -336,7 +348,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -1738,6 +1750,18 @@
                             "configuracionesPago" : {
                               "type" : "variable",
                               "value" : "configuracionesPago"
+                            },
+                            "idBanner" : {
+                              "type" : "expression",
+                              "value" : "objectDetalleSolicitud[0].idBanner"
+                            },
+                            "taskId" : {
+                              "type" : "expression",
+                              "value" : "taskId"
+                            },
+                            "solicitudApoyoEducativo" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput"
                             }
                           },
                           "reference" : "977b03bd-2502-44ce-a5f0-3cc479c32db3",
@@ -2292,7 +2316,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Costo del examen de admisión:"
+                                    "value" : "Costo del estudio socio-económico:"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -2326,7 +2350,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "${{montoParcial.montoParcial}}"
+                                    "value" : "${{configuracionesPago.monto}}"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -2338,106 +2362,6 @@
                                   }
                                 },
                                 "reference" : "8998ff53-fae1-4d50-8d1d-9efb88eb8450",
-                                "hasValidationError" : false,
-                                "id" : "pbTitle"
-                              }
-                            ]
-                          ]
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "expression",
-                              "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "f276a938-d02e-475c-83d1-8adea0ea476c",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 6,
-                                  "sm" : 6,
-                                  "md" : 6,
-                                  "lg" : 6
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : "no-margin"
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                                  },
-                                  "text" : {
-                                    "type" : "interpolation",
-                                    "value" : "Descuento:"
-                                  },
-                                  "level" : {
-                                    "type" : "constant",
-                                    "value" : "Level 4"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "right"
-                                  }
-                                },
-                                "reference" : "d973688b-206f-40b6-b776-0efa2fb2aa2a",
-                                "hasValidationError" : false,
-                                "id" : "pbTitle"
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 6,
-                                  "sm" : 6,
-                                  "md" : 6,
-                                  "lg" : 6
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : "no-margin"
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                                  },
-                                  "text" : {
-                                    "type" : "interpolation",
-                                    "value" : "${{montoParcial.descuento}}"
-                                  },
-                                  "level" : {
-                                    "type" : "constant",
-                                    "value" : "Level 4"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "left"
-                                  }
-                                },
-                                "reference" : "30df994d-64b9-4734-8e28-8506421ccc6c",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               }
@@ -2499,7 +2423,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<label>${{montoParcial.montoTotal}}</label>"
+                              "value" : "<label>${{configuracionesPago.monto}}</label>"
                             },
                             "level" : {
                               "type" : "constant",
@@ -2562,7 +2486,7 @@
                       },
                       "url" : {
                         "type" : "interpolation",
-                        "value" : "../API/extension/AnahuacRest?url=pagoSPEI&p=0&c=10"
+                        "value" : "../API/extension/AnahuacRest?url=pagoSPEIBecas&p=0&c=10"
                       },
                       "responseStatusCode" : {
                         "type" : "variable",
@@ -2868,7 +2792,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Costo del examen de admisión:"
+                                    "value" : "Costo del estudio socio-económico:"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -2902,7 +2826,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "${{montoParcial.montoParcial}}"
+                                    "value" : "${{configuracionesPago.monto}}"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -2914,106 +2838,6 @@
                                   }
                                 },
                                 "reference" : "da67a58f-6c4c-4ec6-bd2b-75a25751e89d",
-                                "hasValidationError" : false,
-                                "id" : "pbTitle"
-                              }
-                            ]
-                          ]
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "expression",
-                              "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "7cdba799-141e-4f17-b213-d142c954b353",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 6,
-                                  "sm" : 6,
-                                  "md" : 6,
-                                  "lg" : 6
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : "no-margin"
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                                  },
-                                  "text" : {
-                                    "type" : "interpolation",
-                                    "value" : "Descuento:"
-                                  },
-                                  "level" : {
-                                    "type" : "constant",
-                                    "value" : "Level 4"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "right"
-                                  }
-                                },
-                                "reference" : "57432614-0aec-4fd6-b5b7-020605f156b3",
-                                "hasValidationError" : false,
-                                "id" : "pbTitle"
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 6,
-                                  "sm" : 6,
-                                  "md" : 6,
-                                  "lg" : 6
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : "no-margin"
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "montoParcial.descuentoPorcentaje === \"0\""
-                                  },
-                                  "text" : {
-                                    "type" : "interpolation",
-                                    "value" : "${{montoParcial.descuento}}"
-                                  },
-                                  "level" : {
-                                    "type" : "constant",
-                                    "value" : "Level 4"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "left"
-                                  }
-                                },
-                                "reference" : "cfd705d1-ddc6-4989-9c3f-76f886484cee",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               }
@@ -3075,7 +2899,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<label>${{montoParcial.montoTotal}}</label>"
+                              "value" : "<label>${{configuracionesPago.monto}}</label>"
                             },
                             "level" : {
                               "type" : "constant",
@@ -3138,7 +2962,7 @@
                       },
                       "url" : {
                         "type" : "interpolation",
-                        "value" : "../API/extension/AnahuacRest?url=pagoOxxoCash&p=0&c=10"
+                        "value" : "../API/extension/AnahuacRest?url=pagoOxxoCashBecas&p=0&c=10"
                       },
                       "responseStatusCode" : {
                         "type" : "variable",
@@ -4390,7 +4214,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "currentTaskName === \"Pago de estudio socio-económico\" || currentTaskName === \"Esperar pago de estudio socio-económico\" || !orderOutput.authorizationCode || orderOutput.status !== \"paid\""
+            "value" : "navigationVar  !== \"cardPaid\""
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -4502,7 +4326,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Pago exitoso de examen de admisión"
+                                    "value" : "Pago exitoso de estudio socio-económico"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -5444,7 +5268,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "{{objectDetalleSolicitud.idBanner}}"
+                                    "value" : "{{objectDetalleSolicitud[0].idBanner}}"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -6075,9 +5899,9 @@
       "exposed" : false
     },
     "objectDetalleSolicitud" : {
-      "type" : "url",
+      "type" : "businessdata",
       "value" : [
-        "../{{taskContext.detalleSolicitud_ref.link}}"
+        "{\"displayValue\":\"findByCaseId [com.anahuac.model.DetalleSolicitud]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.model.DetalleSolicitud\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{formOutputTest.solicitudApoyoEducativoInput.caseIdAdmisiones}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     },
@@ -6189,10 +6013,10 @@
       "value" : [
         "let output;",
         "",
-        "if($data.objectDetalleSolicitud.ordenPago && $data.objectSolicitud.catCampus.persistenceId){",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta && $data.objectSolicitud.catCampus.persistenceId){",
         "    output = {",
-        "        \"order_id\": $data.objectDetalleSolicitud.ordenPago,",
-        "        \"campus_id\":$data.objectSolicitud.catCampus.persistenceId + \"\"",
+        "        \"order_id\": $data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta,",
+        "        \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\"",
         "    }",
         "}",
         "",

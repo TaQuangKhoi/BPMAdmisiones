@@ -253,4 +253,25 @@ function ($scope, $http) {
             }
         }
     });
+    
+    $scope.getOrderInformation = function(){
+        let url = "/bonita/API/extension/AnahuacRest?url=getOrderDetails&p=0&c=10";
+        $http.post(url, $scope.properties.orderObject).success(function(success){
+            $scope.properties.loadedOrder = true;
+            $scope.properties.orderOutput = success.data[0];
+            $scope.properties.navigationVar = "cardPaid";
+            $scope.properties.loadedOrder = true;
+        }).error(function(error){
+            $scope.properties.loadedOrder = true;
+            swal("Error", JSOM.stringify(error), "error");
+        }).finally(function(){
+          
+        })  
+    };
+    
+    $scope.$watch("properties.orderObject", function(){
+        if($scope.properties.orderObject){
+            $scope.getOrderInformation();
+        } 
+    });
 }
