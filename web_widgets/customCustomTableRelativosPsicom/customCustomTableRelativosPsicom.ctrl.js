@@ -24,7 +24,7 @@ function PbTableCtrl($scope) {
 
     this.desconoceSusDatos = function(dato) {
         if (dato === undefined || dato === null || dato.toString().trim().length <= 0) {
-            return "desconoce sus datos";
+            return "Desconoce sus datos";
         }
         return dato;
     }
