@@ -1090,6 +1090,12 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		case "pagoOxxoCashBecas":
+			allow = bonitaRolFilter(context, "ASPIRANTE");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "pagoTarjeta":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
@@ -1120,6 +1126,12 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		case "pagoSPEIBecas":
+			allow = bonitaRolFilter(context, "ASPIRANTE");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "RegistrarUsuario":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {

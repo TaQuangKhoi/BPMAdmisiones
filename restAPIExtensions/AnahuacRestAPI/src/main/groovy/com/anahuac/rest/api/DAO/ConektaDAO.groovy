@@ -15,6 +15,7 @@ import com.anahuac.catalogos.CatApiKeyDAO
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.model.DetalleSolicitudDAO
+import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.ConektaOxxo
@@ -673,11 +674,38 @@ class ConektaDAO {
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			def objDetalleSolicitudDAO = context.getApiClient().getDAO(DetalleSolicitudDAO.class);
 			List<DetalleSolicitud> detalleSolicitud = objDetalleSolicitudDAO.findByOrdenPago(id, 0, 1);
+			def objSolicitudAdmisionDAO = context.getApiClient().getDAO(SolicitudApoyoEducativoDAO.class);
+			List<DetalleSolicitud> solicitudApoyo = objSolicitudAdmisionDAO.findByOrdenPagoConekta(id, 0, 1);
 			apiClient.login(username, password);
-			String caseId = detalleSolicitud.get(0).caseId;
+			String caseId = "";
+			String taskName = "";
+			
+			if(detalleSolicitud.size() > 0) {
+				caseId = detalleSolicitud.get(0).caseId;
+				taskName = "Esperar pago";
+				def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
+				apiClient.processAPI.executeFlowNode(startedBy, apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), taskName, 0, 1).get(0).getId());
+				resultado.setSuccess(true);
+			} else if(solicitudApoyo.size() > 0){
+				caseId = solicitudApoyo.get(0).caseId;
+				taskName = "Esperar pago de estudio socio-económico";
+				def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
+				Map<String, Object> contract = new LinkedHashMap<String, Object>();
+				contract.put("isPagoValidadoInput", true);
+				apiClient.processAPI.assignAndExecuteUserTask(startedBy, apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), taskName, 0, 1).get(0).getId(), contract);
+				resultado.setSuccess(true);
+			} else {
+				throw new Exception("La orden no está relacionada a ningín caso");
+			}
+			
+			
+			
+			/*
+			 String caseId = detalleSolicitud.get(0).caseId;
 			def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
 			apiClient.processAPI.executeFlowNode(startedBy, apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), "Esperar pago", 0, 1).get(0).getId());
 			resultado.setSuccess(true);
+			 */
 		} catch (Exception ex) {
 			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setSuccess(false)
@@ -1062,7 +1090,7 @@ class ConektaDAO {
 		String unit_price = "";
 		String campus_id = "";
 		String campus = "";
-		String idbanner = "";
+		String concepto = "";
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
@@ -1075,7 +1103,7 @@ class ConektaDAO {
 			campus_id = object.campus_id;
 			caseId = Long.valueOf(object.caseId);
 			campus = object.campus;
-			idbanner = object.idbanner;
+			concepto = object.concepto;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -1088,7 +1116,7 @@ class ConektaDAO {
 			Order order = Order.create(
 				new JSONObject("{"
 					+ "'line_items': [{"
-						+ "'name': 'Pago de estudio socio-económico - ID:" + idbanner + "',"
+						+ "'name': '" + concepto + "',"
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
@@ -1310,7 +1338,9 @@ class ConektaDAO {
 		String unit_price = "";
 		String campus_id = "";
 		String campus = "";
-		String idbanner = "idbanner";
+//		String idbanner = "idbanner";
+		String concepto = "";
+		
 		try{
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1321,7 +1351,8 @@ class ConektaDAO {
 			campus_id = object.campus_id;
 			caseId = Long.valueOf(object.caseId);
 			campus = object.campus;
-			idbanner = object.idbanner;
+//			idbanner = object.idbanner;
+			concepto = object.concepto;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -1334,7 +1365,7 @@ class ConektaDAO {
 			Order order = Order.create(
 				new JSONObject("{"
 					+ "'line_items': [{"
-						+ "'name': 'Pago de estudio socio-económico - ID:" + idbanner + "',"
+						+ "'name': '" + concepto + "',"
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
@@ -1483,61 +1514,6 @@ class ConektaDAO {
 			} else {
 				cryptedKey = resultApikey.getData().get(1);
 			}
-			
-//			String basicAuth = "Basic " + cryptedKey;
-//			URL url = new URL("https://api.conekta.io/tokens");
-//			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
-//			conexion.setDoOutput(true);
-//			conexion.setRequestProperty("Authorization", basicAuth);
-//			conexion.setRequestProperty("Accept", "application/vnd.conekta-v2.0.0+json");
-//			conexion.setRequestProperty("Accept-Language", "es");
-//			conexion.setRequestMethod("POST");
-//			
-//			errorLog += ":: Se establecieron los headers " + conexion.getRequestProperty("Authorization").toString();
-//			OutputStream os = conexion.getOutputStream();
-//			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-//			osw.write("{'checkout': {'returns_control_on': 'Token'}}");
-//			osw.flush();
-//			osw.close();
-//			os.close(); 
-//			conexion.connect();
-//			
-//			errorLog += ":: Se estableció el body de la petición " + conexion.toString();
-//			BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
-//			errorLog += ":: la petición se hizo"
-//			String linea;
-//			while ((linea = rd.readLine()) != null) {
-//				restest.append(linea);
-//			}
-//			rd.close();
-//			conexion.disconnect();
-//			List<StringBuilder> lstResultados = new ArrayList<>();
-//			lstResultados.add(restest);
-//			resultado.setData(lstResultados);
-
-			/*errorLog += " :: Se obtuvo  la key " + cryptedKey ;
-			HttpClient httpClient = HttpClientBuilder.create().build();
-//			HttpGet get = new HttpGet("https://api.conekta.io/tokens");
-			HttpPost post = new HttpPost("https://api.conekta.io/tokens");
-			post.addHeader("Authorization", "Basic " + cryptedKey);
-			post.addHeader("Accept", "application/vnd.conekta-v2.0.0+json");
-			post.addHeader("Accept-Language", "es");	
-			errorLog += " :: Se llenaron los headers ";
-			post.setEntity(new StringEntity("{'checkout': {'returns_control_on': 'Token'}}"));
-			errorLog += " :: Se seteo el data ";
-			HttpResponse responseget = httpClient.execute(post);
-			errorLog += " :: se mando la peticion";
-			HttpEntity entity = responseget.getEntity();
-			errorLog += " :: Se hizo la petición ";
-			if (entity != null) {
-				errorLog += " :: La petición respondió";
-				String response = EntityUtils.toString(entity);
-				JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
-				List<JsonObject> lstResultados = new ArrayList<>();
-				lstResultados.add(jsonObject);
-				resultado.setData(lstResultados);
-			}
-			resultado.setError_info(errorLog );*/
 			
 			List <Map<String, Object>  >  list = new ArrayList<Map<String, Object> >();
 			StringBuilder json = new StringBuilder();

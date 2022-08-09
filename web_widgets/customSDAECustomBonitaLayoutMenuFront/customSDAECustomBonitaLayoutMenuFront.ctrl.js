@@ -207,7 +207,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         return $http.get('../API/living/application-menu/?c=100&f=applicationId%3D' + application.id + '&d=applicationPageId&o=menuIndex+ASC')
             .success(function(data) {
                 ctrl.applicationMenuList = data;
-                debugger;
                 ctrl.applicationMenuList[0].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[0].applicationPageId.token);
                 // ctrl.applicationMenuList[4].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[4].applicationPageId.token);
             });

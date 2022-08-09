@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1659744285429,
+  "lastUpdate" : 1660073494932,
   "rows" : [
     [
       {
@@ -129,7 +129,7 @@
           },
           "url" : {
             "type" : "expression",
-            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+session.user_id+\"&f=name=Pago de estudio socio-económico&p=0\""
+            "value" : "\"../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id=\"+session.user_id+\"&f=name=&p=0\""
           },
           "reloadTask" : {
             "type" : "variable",
@@ -210,6 +210,10 @@
           "navigationVar" : {
             "type" : "variable",
             "value" : "navigationVar"
+          },
+          "loadedOrder" : {
+            "type" : "variable",
+            "value" : ""
           }
         },
         "reference" : "e6583003-49dd-447d-963c-76b300efda9e",
@@ -563,7 +567,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "{{ configuracionesPago.instruccionesPago}}"
+                        "value" : "{{ configuracionesPago.instruccionesPago}}\n<br>\n<br>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -687,6 +691,58 @@
                                 "reference" : "bac3da9b-6623-43fc-b51c-664f974c7408",
                                 "hasValidationError" : false,
                                 "id" : "customCustomBtnNavigationByVariable2"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<br>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "d2c39fac-5330-4ef9-a14e-3408b091e35e",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
                               }
                             ],
                             [
@@ -856,7 +912,7 @@
                                   },
                                   "catSolicitudDeAdmision" : {
                                     "type" : "expression",
-                                    "value" : "objectSolicitud"
+                                    "value" : "objSolicitudDeAdmision[0]"
                                   },
                                   "urlDireccion" : {
                                     "type" : "expression",
@@ -866,6 +922,58 @@
                                 "reference" : "0b02921b-0623-4ae0-8744-9f577a770d70",
                                 "hasValidationError" : false,
                                 "id" : "customCustomBtnNavigationByVariable2"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<br>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "bb9ac4d0-17ce-4606-ba4a-6297dc874d40",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
                               }
                             ],
                             [
@@ -1034,7 +1142,7 @@
                                   },
                                   "catSolicitudDeAdmision" : {
                                     "type" : "expression",
-                                    "value" : "objectSolicitud"
+                                    "value" : "objSolicitudDeAdmision[0]"
                                   },
                                   "urlDireccion" : {
                                     "type" : "expression",
@@ -1044,6 +1152,58 @@
                                 "reference" : "beff3583-8f02-4f1b-9b19-99f8da3a6158",
                                 "hasValidationError" : false,
                                 "id" : "customCustomBtnNavigationByVariable2"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<br>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "2941faa4-9747-410a-b52a-5bf03038cd7e",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
                               }
                             ],
                             [
@@ -1096,7 +1256,7 @@
                                 "propertyValues" : {
                                   "cssClasses" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : "hidden-lg hidden-md hidden-sm"
                                   },
                                   "hidden" : {
                                     "type" : "constant",
@@ -2457,8 +2617,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "bankInformationSPEI.success"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -2540,6 +2700,102 @@
                     "reference" : "15a400ce-43f7-42e0-bf09-940b0cf3b834",
                     "hasValidationError" : false,
                     "id" : "customCustomButtonWithSwal2"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Generar referencia de pago"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "POST"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/extension/AnahuacRest?url=pagoSPEIBecas&p=0&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "objectSPEI"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "bankInformationSPEI"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "dc085892-f340-46b7-9e60-101375c2dd3c",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEButtonAvanzarTareaPago"
                   }
                 ]
               ]
@@ -2933,8 +3189,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "paymentInformationOXXO.success"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -3016,6 +3272,102 @@
                     "reference" : "028bdf93-f498-48e0-b0df-c35ccd83da96",
                     "hasValidationError" : false,
                     "id" : "customCustomButtonWithSwal2"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "paymentInformationOXXO.success"
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Generar referencia de pago"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "POST"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/extension/AnahuacRest?url=pagoOxxoCashBecas&p=0&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "objectOXXO"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "paymentInformationOXXO"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
+                      }
+                    },
+                    "reference" : "9d8dc050-a4c5-45d2-8661-c9c93306f387",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEButtonAvanzarTareaPago"
                   }
                 ]
               ]
@@ -4127,56 +4479,6 @@
                   "type" : "constant",
                   "value" : "primary"
                 },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "constant"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
                 "taskId" : {
                   "type" : "variable",
                   "value" : "taskId"
@@ -4188,11 +4490,15 @@
                 "contractObject" : {
                   "type" : "expression",
                   "value" : "cambioMetodoPagoInput"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : true
                 }
               },
-              "reference" : "3ac6f26c-d90b-4e85-b126-70c1a52c72dc",
+              "reference" : "331efb53-1fe1-4254-8b65-f83c2a148ac2",
               "hasValidationError" : false,
-              "id" : "customCustomBtnAssignExecuteTask"
+              "id" : "customSDAEcustomBtnAssignExecuteTask"
             }
           ]
         ]
@@ -4214,7 +4520,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "navigationVar  !== \"cardPaid\""
+            "value" : "navigationVar  !== \"orderPaid\" || (currentTaskName === \"Esperar pago de estudio socio-económico\" || currentTaskName === \"Pago de estudio socio-económico\")"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -5669,17 +5975,29 @@
     "objectSPEI" : {
       "type" : "expression",
       "value" : [
-        " return {",
-        "    \"name\": $data.objectSolicitud.primerNombre + \" \"+ $data.objectSolicitud.apellidoPaterno,",
-        "    \"email\": $data.objectSolicitud.correoElectronico,",
-        "    \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
-        "    \"country\": $data.objectSolicitud.catPais.clave,",
-        "    \"phone\": $data.objectSolicitud.telefono,",
-        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
-        "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
-        "    \"campus\": $data.objectSolicitud.catCampus.descripcion,",
-        "    \"idbanner\": $data.objectDetalleSolicitud.idBanner",
-        "}"
+        "return {",
+        "\t\"name\": $data.objSolicitudDeAdmision[0].primerNombre + \" \"+ $data.objSolicitudDeAdmision[0].apellidoPaterno,",
+        "\t\"email\": $data.objSolicitudDeAdmision[0].correoElectronico,",
+        "\t\"phone\": $data.objSolicitudDeAdmision[0].telefono,",
+        "    \"country\": $data.objSolicitudDeAdmision[0].catPais.clave,",
+        "\t\"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\",",
+        "\t\"unit_price\": $data.configuracionesPago.monto * 100,//Conekta acepta le pago en centavos",
+        "\t\"campus\": $data.objSolicitudDeAdmision[0].catCampus.descripcion,",
+        "\t\"concepto\": $data.configuracionesPago.descripcion + \" - ID: \" +  $data.objectDetalleSolicitud[0].idBanner,",
+        "    \"caseId\" : $data.caseid + \"\"",
+        "}",
+        "",
+        "//  return {",
+        "//     \"name\": $data.objectSolicitud.primerNombre + \" \"+ $data.objectSolicitud.apellidoPaterno,",
+        "//     \"email\": $data.objectSolicitud.correoElectronico,",
+        "//     \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
+        "//     \"country\": $data.objectSolicitud.catPais.clave,",
+        "//     \"phone\": $data.objectSolicitud.telefono,",
+        "//     \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
+        "//     \"caseId\" : $data.objectSolicitud.caseId + \"\",",
+        "//     \"campus\": $data.objectSolicitud.catCampus.descripcion,",
+        "//     \"idbanner\": $data.objectDetalleSolicitud.idBanner",
+        "// }"
       ],
       "exposed" : false
     },
@@ -5707,17 +6025,28 @@
     "objectOXXO" : {
       "type" : "expression",
       "value" : [
-        " return {",
-        "    \"name\": $data.objectSolicitud.primerNombre + \" \"+ $data.objectSolicitud.apellidoPaterno,",
-        "    \"email\": $data.objectSolicitud.correoElectronico,",
-        "    \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
-        "    \"country\": $data.objectSolicitud.catPais.clave,",
-        "    \"phone\": $data.objectSolicitud.telefono,",
-        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
-        "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
-        "    \"campus\": $data.objectSolicitud.catCampus.descripcion,",
-        "    \"idbanner\": $data.objectDetalleSolicitud.idBanner",
-        "}"
+        "return {",
+        "\t\"name\": $data.objSolicitudDeAdmision[0].primerNombre + \" \"+ $data.objSolicitudDeAdmision[0].apellidoPaterno,",
+        "\t\"email\": $data.objSolicitudDeAdmision[0].correoElectronico,",
+        "\t\"phone\": $data.objSolicitudDeAdmision[0].telefono,",
+        "    \"country\": $data.objSolicitudDeAdmision[0].catPais.clave,",
+        "\t\"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\",",
+        "\t\"unit_price\": $data.configuracionesPago.monto * 100,//Conekta acepta le pago en centavos",
+        "\t\"campus\": $data.objSolicitudDeAdmision[0].catCampus.descripcion,",
+        "\t\"concepto\": $data.configuracionesPago.descripcion + \" - ID: \" +  $data.objectDetalleSolicitud[0].idBanner,",
+        "    \"caseId\" : $data.caseid + \"\"",
+        "}",
+        "//  return {",
+        "//     \"name\": $data.objectSolicitud.primerNombre + \" \"+ $data.objectSolicitud.apellidoPaterno,",
+        "//     \"email\": $data.objectSolicitud.correoElectronico,",
+        "//     \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
+        "//     \"country\": $data.objectSolicitud.catPais.clave,",
+        "//     \"phone\": $data.objectSolicitud.telefono,",
+        "//     \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
+        "//     \"caseId\" : $data.objectSolicitud.caseId + \"\",",
+        "//     \"campus\": $data.objectSolicitud.catCampus.descripcion,",
+        "//     \"idbanner\": $data.objectDetalleSolicitud.idBanner",
+        "// }"
       ],
       "exposed" : false
     },
@@ -5847,7 +6176,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{session.user_id}}&f=name=Pago de estudio socio-económico&p=0"
+        "../API/bpm/humanTask?c=50&f=state=ready&f=assigned_id={{session.user_id}}&p=0"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -6013,10 +6342,10 @@
       "value" : [
         "let output;",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta && $data.objectSolicitud.catCampus.persistenceId){",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta && $data.objSolicitudDeAdmision[0].catCampus.persistenceId){",
         "    output = {",
         "        \"order_id\": $data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta,",
-        "        \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\"",
+        "        \"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\"",
         "    }",
         "}",
         "",
@@ -6035,10 +6364,7 @@
       "type" : "json",
       "value" : [
         "{ ",
-        "    \"isCambioMetodoPago\" : true,",
-        "    \"isCambioMetodoPagoCont\" : true,",
-        "    \"isPagoValidadoCont\": false,",
-        "    \"isDescuento100\":false",
+        "    \"isPagoValidadoInput\":false",
         "}"
       ],
       "exposed" : false
@@ -6255,22 +6581,17 @@
     "testConfirmExit" : {
       "type" : "expression",
       "value" : [
+        "\r",
         "// window.onbeforeunload = confirmExit;\r",
         "// function confirmExit() {\r",
-        "//     alert(\"cosa\");\r",
-        "//     return \"You have attempted to leave this page. Are you sure?\";\r",
-        "// }\r",
-        "\r",
-        "window.onbeforeunload = confirmExit;\r",
-        "function confirmExit() {\r",
         "    \r",
-        "    let loaderOrder = ($data.loadedOrder === false || $data.loadedOrder === \"false\" || $data.loadedOrder === null || $data.loadedOrder === undefined ) ? false: true;\r",
-        "    let testMensaje =  ($data.testMensaje === false || $data.testMensaje === \"false\" || $data.testMensaje === null || $data.testMensaje === undefined ) ? false: true;\r",
-        "    // !$data.loadedOrder && !$data.testMensaje\r",
-        "    if (!loaderOrder && !testMensaje) {\r",
-        "        return \"You have attempted to leave this page. Are you sure?\";\r",
-        "    }\r",
-        "}"
+        "//     let loaderOrder = ($data.loadedOrder === false || $data.loadedOrder === \"false\" || $data.loadedOrder === null || $data.loadedOrder === undefined ) ? false: true;\r",
+        "//     let testMensaje =  ($data.testMensaje === false || $data.testMensaje === \"false\" || $data.testMensaje === null || $data.testMensaje === undefined ) ? false: true;\r",
+        "//     // !$data.loadedOrder && !$data.testMensaje\r",
+        "//     if (!loaderOrder && !testMensaje) {\r",
+        "//         return \"You have attempted to leave this page. Are you sure?\";\r",
+        "//     }\r",
+        "// }"
       ],
       "exposed" : false
     },
@@ -6338,7 +6659,7 @@
     "urlDireccion" : {
       "type" : "constant",
       "value" : [
-        "https://procesos.bpm.anahuac.mx/apps/login/admisiones/"
+        "../apps/aspiranteSDAE/nueva_solicitud_SDAE"
       ],
       "exposed" : false
     },

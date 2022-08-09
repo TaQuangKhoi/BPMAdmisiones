@@ -36,8 +36,9 @@ function PbTableCtrl($scope) {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/modificar_aval/content/?_l=es&app=aspiranteSDAE&id=" + row.id;
         } else if (row.name === "Pago de estudio socio-económico") {
             url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/pago_estudio/content/?_l=es&app=aspiranteSDAE&id=" + row.id + "&caseId=" + row.caseId;
+        } else if (row.name === "Esperar pago de estudio socio-económico") {
+            url = window.location.protocol + "//" + window.location.hostname + "/portal/resource/app/aspiranteSDAE/pago_estudio/content/?_l=es&app=aspiranteSDAE&id=" + row.id + "&caseId=" + row.caseId;
         } 
-
         
         window.location.replace(url);
     };   

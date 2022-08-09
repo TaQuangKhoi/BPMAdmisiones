@@ -259,7 +259,10 @@ function ($scope, $http) {
         $http.post(url, $scope.properties.orderObject).success(function(success){
             $scope.properties.loadedOrder = true;
             $scope.properties.orderOutput = success.data[0];
-            $scope.properties.navigationVar = "cardPaid";
+            if(success.data[0].status === "paid"){
+                $scope.properties.navigationVar = "orderPaid";    
+            }
+            
             $scope.properties.loadedOrder = true;
         }).error(function(error){
             $scope.properties.loadedOrder = true;
