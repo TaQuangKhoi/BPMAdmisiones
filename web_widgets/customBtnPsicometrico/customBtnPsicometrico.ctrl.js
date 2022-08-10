@@ -73,7 +73,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function mensajeIsFinalizado() {
         if ($scope.properties.isFinalizado) {
-            swal("Guardado", "Finalizado", "success");
+            swal("Guardado", "", "success");
         } else {
             //swal("Guardado", "Tus cambios han sido guardados correctamente, recuerda que aun tienes información pendiente por capturar", "success");   
         }
