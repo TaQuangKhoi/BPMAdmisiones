@@ -1230,6 +1230,16 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		  case "generateHtmlSDAE":
+			allow = bonitaRolFilter(context, "ADMISIONES");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "ASPIRANTE");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "getTestUpdate":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {

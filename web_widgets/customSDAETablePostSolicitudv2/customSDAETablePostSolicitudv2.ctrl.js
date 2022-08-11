@@ -5,23 +5,23 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.avanzarPreAutorizacion = false;
     $scope.avanzarFinanciamiento = false;
     $scope.avanzarArchivar = false;
-    
+
     this.isArray = Array.isArray;
-  
-    this.isClickable = function() {
+
+    this.isClickable = function () {
         return $scope.properties.isBound('selectedRow');
     };
-  
-    this.selectRow = function(row) {
+
+    this.selectRow = function (row) {
         if (this.isClickable()) {
             $scope.properties.selectedRow = row;
         }
     };
-  
-    this.isSelected = function(row) {
+
+    this.isSelected = function (row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
-  
+
     function doRequest(method, url, params) {
         blockUI.start();
         var req = {
@@ -30,294 +30,224 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             data: angular.copy($scope.properties.dataToSend),
             params: params
         };
-  
-        return $http(req).success(function(data, status) {
-                $scope.properties.lstContenido = data.data;
-                $scope.value = data.totalRegistros;
-                $scope.loadPaginado();
-                console.log(data.data)
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-                blockUI.stop();
-            });
+
+        return $http(req).success(function (data, status) {
+            $scope.properties.lstContenido = data.data;
+            $scope.value = data.totalRegistros;
+            $scope.loadPaginado();
+            console.log(data.data)
+        }).error(function (data, status) {
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        }).finally(function () {
+            blockUI.stop();
+        });
     }
-  
-    $scope.verSolicitud = function(rowData) {
-         $scope.isTareaPreAutorizacion = true;
-         
-         var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
-  
-        return $http(req).success(function(data, status) {
-                debugger;
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                $scope.preProcesoAsignarTarea(rowData)
-                
-                //let taskId = data[0].id;
-                //var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
-                //window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-  
-      /*
-      }else{
+
+    $scope.verSolicitud = function (rowData) {
+        $scope.isTareaPreAutorizacion = true;
+
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
         };
-  
-        return $http(req).success(function(data, status) {
-                let taskId = data[0].id;
-                var url = "/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=" + rowData.caseid + "&displayConfirmation=false";
-                //window.location.href = url;
-                window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-          }*/
+
+        return $http(req).success(function (data, status) {
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            $scope.preProcesoAsignarTarea(rowData);
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () { 
+
+        });
+
     }
-  
-    $scope.preAsignarTarea = function(rowData) {
+
+    $scope.preAsignarTarea = function (rowData) {
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
         };
-  
-        return $http(req).success(function(data, status) {
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                //rowData.taskName=
-                $scope.preProcesoAsignarTarea(rowData);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {
-  
-            });
+
+        return $http(req).success(function (data, status) {
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            $scope.preProcesoAsignarTarea(rowData);
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () {
+
+        });
     }
-    
-    $scope.preProcesoAsignarTarea = function(rowData) {
-  
+
+    $scope.preProcesoAsignarTarea = function (rowData) {
         var req = {
             method: "GET",
             url: `/API/bpm/process/${rowData.processId}?d=deployedBy&n=openCases&n=failedCases`
         };
-  
-        return $http(req).success(function(data, status) {
-                rowData.processName = data.name;
-                rowData.processVersion = data.version;
-                $scope.asignarTarea(rowData);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {
-  
-            });
+
+        return $http(req).success(function (data, status) {
+            rowData.processName = data.name;
+            rowData.processVersion = data.version;
+            $scope.asignarTarea(rowData);
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () {
+
+        });
     }
-  
-    $scope.asignarTarea = function(rowData) {
+
+    $scope.asignarTarea = function (rowData) {
         var req = {
             method: "PUT",
             url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
             data: angular.copy({ "assigned_id": "" })
         };
-  
-        return $http(req).success(function(data, status) {
-                redireccionarTarea(rowData);
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-  
-            });
+
+        return $http(req).success(function (data, status) {
+            redireccionarTarea(rowData);
+        }).error(function (data, status) {
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        }).finally(function () {
+
+        });
     }
-  
+
     function redireccionarTarea(rowData) {
-        
+        // ASIGNAR TARA AL USUARIO
+        var req = {
+            method: "PUT",
+            url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
+            data: angular.copy({ "assigned_id": $scope.properties.userId })
+        };
 
-            // ASIGNAR TARA AL USUARIO
-            var req = {
-                method: "PUT",
-                url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-                data: angular.copy({ "assigned_id": $scope.properties.userId })
-            };
-      
-            return $http(req).success(function(data, status) {
-                    
-                    if($scope.isTareaPreAutorizacion){
-                        var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
-                        window.open(url, '_blank');
-                    }else{
-                        
-                        var contrato = {};
-                        var estatus = "";
-            
-                        if($scope.avanzarSolicitud){ //DICTAMEN
-                            
-                            contrato = {
-                                "varRegresarRevisionInput" : false,
-                                "varAdmitidoInput" : true,
-                                "varFinanaciamientoInput" : false
-                            };
-                            
-                            estatus = "En espera de autorización";
-                            
-                                    
-                        }else if($scope.avanzarArchivar){ //ARCHIVAR
-                            contrato = {
-                                "varRegresarRevisionInput" : false,
-                                "varAdmitidoInput" : false,
-                                "varFinanaciamientoInput" : false
-                            };
-                            
-                            estatus = "Solicitud Rechazada";
-                        }else if($scope.avanzarFinanciamiento){ //SUB PROCESO FINANCIAMIENTO
-                            contrato = {
-                                "varRegresarRevisionInput" : false,
-                                "varAdmitidoInput" : false,
-                                "varFinanaciamientoInput" : true
-                            };
-                            
-                            estatus = "Solicitud de Financiamiento en Proceso";
-                            
-                        }else{ // REACTIVAR SOLICITUD
-                            contrato = {
-                                
-                            };
-                            
-                            estatus = "Esperando Pre-Autorización";
-                        }
-            
-                    var params = getUserParam();
-                    doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato, estatus, $scope.caseIdTarea).then(function() {
-                       console.log("tarea avanzada");
-                    });
-                        
-                    }
-                    /*
-                    var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
-                    url = url.replace("[NOMBREPROCESO]", rowData.processName);
-                    url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
-                    url = url.replace("[NOMBRETAREA]", rowData.taskName);
-                    url = url.replace("[TASKID]", rowData.taskId);
-                    $window.location.assign(url);*/
-                })
-                .error(function(data, status) {
-                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                })
-                .finally(function() {
-      
+        return $http(req).success(function (data, status) {
+
+            if ($scope.isTareaPreAutorizacion) {
+                var url = "/bonita/portal/resource/app/sdae/" + $scope.properties.abrirPagina + "/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+                window.open(url, '_blank');
+            } else {
+                var contrato = {};
+                var estatus = "";
+
+                if ($scope.avanzarSolicitud) { //DICTAMEN
+                    contrato = {
+                        "varRegresarRevisionInput": false,
+                        "varAdmitidoInput": true,
+                        "varFinanaciamientoInput": false
+                    };
+                    estatus = "En espera de pago";
+                } else if ($scope.avanzarArchivar) { //ARCHIVAR
+                    contrato = {
+                        "varRegresarRevisionInput": false,
+                        "varAdmitidoInput": false,
+                        "varFinanaciamientoInput": false
+                    };
+                    estatus = "Solicitud Rechazada";
+                } else if ($scope.avanzarFinanciamiento) { //SUB PROCESO FINANCIAMIENTO
+                    contrato = {
+                        "varRegresarRevisionInput": false,
+                        "varAdmitidoInput": false,
+                        "varFinanaciamientoInput": true
+                    };
+                    estatus = "En espera de pago";
+                } else { // REACTIVAR SOLICITUD
+                    contrato = {};
+                    estatus = "Esperando Pre-Autorización";
+                }
+
+                var params = getUserParam();
+                doRequest2('POST', '../API/bpm/userTask/' + rowData.taskId + '/execution', params, contrato, estatus, $scope.caseIdTarea).then(function () {
+                    console.log("tarea avanzada");
                 });
+            }
+        }).error(function (data, status) {
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        }).finally(function () {
 
-           
+        });
     }
-    
-    function getUserParam() {
-      return { 'user': $scope.properties.userId };
-   }
-    
-    function doRequest2(method, url, params, data, estatus, caseId) {
-    blockUI.start();
-    var req = {
-      method: method,
-      url: url,
-      data: angular.copy(data),
-      params: params
-    };
 
-    return $http(req)
-      .success(function(data, status) {
-        actualizarEstatus(estatus, caseId);
-      })
-      .error(function(data, status) {
-        console.log(data);
-        console.log(status);
-      })
-      .finally(function() {
-        blockUI.stop();
-      });
-  }
-  
-    function actualizarEstatus (estatus, caseId) {
+    function getUserParam() {
+        return { 'user': $scope.properties.userId };
+    }
+
+    function doRequest2(method, url, params, data, estatus, caseId) {
         blockUI.start();
-        
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(data),
+            params: params
+        };
+
+        return $http(req).success(function (data, status) {
+            actualizarEstatus(estatus, caseId);
+        })
+        .error(function (data, status) {
+            console.log(data);
+            console.log(status);
+        })
+        .finally(function () {
+            blockUI.stop();
+        });
+    }
+
+    function actualizarEstatus(estatus, caseId) {
+        blockUI.start();
+
         var req = {
             method: "GET",
-            url: "/API/extension/AnahuacBecasRestGET?url=updateEstatusSolicitud&p=0&c=100&&estatus="+estatus+"&caseId="+ caseId,
+            url: "/API/extension/AnahuacBecasRestGET?url=updateEstatusSolicitud&p=0&c=100&&estatus=" + estatus + "&caseId=" + caseId,
             data: {}
         };
-  
-        return $http(req).success(function(data, status) {
-                $('#modalEnviarDictamen').modal('hide'); 
-                $('#modalEnviarArchivo').modal('hide'); 
-                $('#modalReactivarSolicitud').modal('hide');
-                
-                if(estatus == "Solicitud Rechazada"){
-                  $scope.sendMail($scope.mensaje,false);
-                }else{
-                    window.location.reload();
-                }
-                
-            })
-            .error(function(data, status) {
-               console.error(data);
-               console.error(status);
-            })
-            .finally(function() {
-                blockUI.stop();
-            });
+
+        return $http(req).success(function (data, status) {
+            $('#modalEnviarDictamen').modal('hide');
+            $('#modalEnviarArchivo').modal('hide');
+            $('#modalReactivarSolicitud').modal('hide');
+
+            if (estatus == "Solicitud Rechazada") {
+                $scope.sendMail($scope.mensaje, false);
+            } else {
+                window.location.reload();
+            }
+        }).error(function (data, status) {
+            console.error(data);
+            console.error(status);
+        })
+        .finally(function () {
+            blockUI.stop();
+        });
     }
-    
-  
+
+
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";
-  
-    $scope.envelope = function(row) {
+
+    $scope.envelope = function (row) {
         $scope.isenvelope = true;
         $scope.mensaje = "";
         $scope.selectedrow = row;
     }
-  
-    $scope.envelopeCancel = function() {
+
+    $scope.envelopeCancel = function () {
         $scope.isenvelope = false;
         $scope.selectedrow = {};
     }
-  
-    $scope.sendMail = function(mensaje, rechazoAdmision) {
-        /*if (row.catCampus.grupoBonita == undefined) {
-            for (var i = 0; i < $scope.lstCampus.length; i++) {
-                if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {
-                    row.catCampus.grupoBonita = $scope.lstCampus[i].valor;
-                }
-            }
-        }*/
-        debugger;
-        
+
+    $scope.sendMail = function (mensaje, rechazoAdmision) {
         var plantillaCorreo = "";
-        
-        if(rechazoAdmision){
+
+        if (rechazoAdmision) {
             plantillaCorreo = "BC_RECHAZADO_ADMISION";
-        }else{
+        } else {
             plantillaCorreo = "BC_RECHAZADO";
         }
-        
+
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
@@ -329,25 +259,25 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 "mensaje": mensaje
             })
         };
-  
-        return $http(req).success(function(data, status) {
-  
-                $scope.envelopeCancel();
-                window.location.reload();
-            })
-            .error(function(data, status) {
-                console.error(data)
-            })
-            .finally(function() {});
+
+        return $http(req).success(function (data, status) {
+
+            $scope.envelopeCancel();
+            window.location.reload();
+        }).error(function (data, status) {
+            console.error(data)
+        }).finally(function () { 
+
+        });
     }
+
     $scope.lstCampus = [];
-  
-    $(function() {
+
+    $(function () {
         doRequest("POST", $scope.properties.urlPost);
-    })
-  
-  
-    $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
+    });
+
+    $scope.$watch("properties.dataToSend", function (newValue, oldValue) {
         if (newValue !== undefined) {
             if ($scope.properties.campusSeleccionado !== undefined) {
                 doRequest("POST", $scope.properties.urlPost);
@@ -355,8 +285,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         console.log($scope.properties.dataToSend);
     });
-  
-    $scope.$watch("properties.campusSeleccionado", function(newValue, oldValue) {
+
+    $scope.$watch("properties.campusSeleccionado", function (newValue, oldValue) {
         if (newValue !== undefined) {
             if ($scope.properties.campusSeleccionado !== undefined) {
                 doRequest("POST", $scope.properties.urlPost);
@@ -364,8 +294,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         console.log($scope.properties.dataToSend);
     });
-  
-    $scope.setOrderBy = function(order) {
+
+    $scope.setOrderBy = function (order) {
         if ($scope.properties.dataToSend.orderby == order) {
             $scope.properties.dataToSend.orientation = ($scope.properties.dataToSend.orientation == "ASC") ? "DESC" : "ASC";
         } else {
@@ -374,9 +304,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         doRequest("POST", $scope.properties.urlPost);
     }
-    $scope.filterKeyPress = function(columna, press) {
+
+    $scope.filterKeyPress = function (columna, press) {
         var aplicado = true;
-  
+
         for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
             const element = $scope.properties.dataToSend.lstFiltro[index];
             if (element.columna == columna) {
@@ -384,23 +315,24 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 $scope.properties.dataToSend.lstFiltro[index].operador = "Que contengan";
                 aplicado = false;
             }
-  
+
         }
+
         if (aplicado) {
             var obj = { "columna": columna, "operador": "Que contengan", "valor": press }
             $scope.properties.dataToSend.lstFiltro.push(obj);
         }
-  
+
         doRequest("POST", $scope.properties.urlPost);
     }
-  
+
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
     $scope.iniciarP = 1;
     $scope.finalP = 10;
     $scope.valorTotal = 10;
-  
-    $scope.loadPaginado = function() {
+
+    $scope.loadPaginado = function () {
         $scope.valorTotal = Math.ceil($scope.value / $scope.properties.dataToSend.limit);
         $scope.lstPaginado = []
         if ($scope.valorSeleccionado <= 5) {
@@ -411,7 +343,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.finalP = $scope.valorTotal > ($scope.valorSeleccionado + 4) ? ($scope.valorSeleccionado + 4) : $scope.valorTotal;
         }
         for (var i = $scope.iniciarP; i <= $scope.finalP; i++) {
-  
             var obj = {
                 "numero": i,
                 "inicio": ((i * 10) - 9),
@@ -421,8 +352,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.lstPaginado.push(obj);
         }
     }
-  
-    $scope.siguiente = function() {
+
+    $scope.siguiente = function () {
         var objSelected = {};
         for (var i in $scope.lstPaginado) {
             if ($scope.lstPaginado[i].seleccionado) {
@@ -436,8 +367,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
-  
-    $scope.anterior = function() {
+
+    $scope.anterior = function () {
         var objSelected = {};
         for (var i in $scope.lstPaginado) {
             if ($scope.lstPaginado[i].seleccionado) {
@@ -451,8 +382,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
-  
-    $scope.seleccionarPagina = function(valorSeleccionado) {
+
+    $scope.seleccionarPagina = function (valorSeleccionado) {
         var objSelected = {};
         for (var i in $scope.lstPaginado) {
             if ($scope.lstPaginado[i].numero == valorSeleccionado) {
@@ -462,11 +393,11 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 $scope.properties.dataToSend.offset = (($scope.lstPaginado[i].numero - 1) * $scope.properties.dataToSend.limit)
             }
         }
-  
+
         doRequest("POST", $scope.properties.urlPost);
     }
-  
-    $scope.getCampusByGrupo = function(campus) {
+
+    $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
@@ -480,29 +411,30 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         return retorno;
     }
-  
+
     $scope.lstMembership = [];
-    $scope.$watch("properties.userId", function(newValue, oldValue) {
+
+    $scope.$watch("properties.userId", function (newValue, oldValue) {
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
                 url: `/API/identity/membership?p=0&c=100&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
-  
-            return $http(req)
-                .success(function(data, status) {
-                    $scope.lstMembership = data;
-                    $scope.campusByUser();
-                })
-                .error(function(data, status) {
-                    console.error(data);
-                })
-                .finally(function() {});
+
+            return $http(req).success(function (data, status) {
+                $scope.lstMembership = data;
+                $scope.campusByUser();
+            }).error(function (data, status) {
+                console.error(data);
+            }).finally(function () { 
+
+            });
         }
     });
-  
+
     $scope.lstCampusByUser = [];
-    $scope.campusByUser = function() {
+
+    $scope.campusByUser = function () {
         var resultado = [];
         // var isSerua = true;
         resultado.push("Todos los campus")
@@ -519,19 +451,20 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
         }
-        // if(isSerua){
-        //     resultado.push("Todos los campus")
-        // }
+
         $scope.lstCampusByUser = resultado;
     }
-    $scope.filtroCampus = ""
-    $scope.addFilter = function() {
+
+    $scope.filtroCampus = "";
+
+    $scope.addFilter = function () {
         if ($scope.filtroCampus != "Todos los campus") {
             var filter = {
                 "columna": "CAMPUS",
                 "operador": "Igual a",
                 "valor": $scope.filtroCampus
-            }
+            };
+
             if ($scope.properties.dataToSend.lstFiltro.length > 0) {
                 var encontrado = false;
                 for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
@@ -548,7 +481,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         encontrado = true
                     }
                 }
-  
+
                 if (!encontrado) {
                     $scope.properties.dataToSend.lstFiltro.push(filter);
                     for (let index2 = 0; index2 < $scope.lstCampus.length; index2++) {
@@ -566,7 +499,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
         } else {
-  
+
             if ($scope.properties.dataToSend.lstFiltro.length > 0) {
                 var encontrado = false;
                 for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
@@ -579,11 +512,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             } else {
                 $scope.properties.campusSeleccionado = null;
             }
-  
+
         }
-  
+
     }
-    $scope.sizing = function() {
+
+    $scope.sizing = function () {
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
         $scope.iniciarP = 1;
@@ -591,196 +525,182 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         try {
             $scope.properties.dataToSend.limit = parseInt($scope.properties.dataToSend.limit);
         } catch (exception) {
-  
+
         }
-  
+
         doRequest("POST", $scope.properties.urlPost);
     }
-  
-    $scope.getCatCampus = function() {
+
+    $scope.getCatCampus = function () {
         var req = {
             method: "GET",
             url: "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=100"
         };
-  
-        return $http(req)
-            .success(function(data, status) {
-                $scope.lstCampus = [];
-                for (var index in data) {
-                    $scope.lstCampus.push({
-                        "descripcion": data[index].descripcion,
-                        "valor": data[index].grupoBonita
-                    })
-                }
-            })
-            .error(function(data, status) {
-                console.error(data);
-            });
+
+        return $http(req).success(function (data, status) {
+            $scope.lstCampus = [];
+            for (var index in data) {
+                $scope.lstCampus.push({
+                    "descripcion": data[index].descripcion,
+                    "valor": data[index].grupoBonita
+                })
+            }
+        })
+        .error(function (data, status) {
+            console.error(data);
+        });
     }
-    $scope.isPeriodoVencido = function(periodofin) {
+
+    $scope.isPeriodoVencido = function (periodofin) {
         var fecha = new Date(periodofin.slice(0, 10))
         return fecha < new Date();
     }
-  
 
-  $scope.caseIdTarea = 0;
-  
-  $scope.abrirModalAvanzarSolicitud = function(rowData) {
-      $scope.isTareaPreAutorizacion = false;
-      $scope.avanzarSolicitud = true;
-      $scope.avanzarPreAutorizacion = false;
-      $scope.avanzarFinanciamiento = false;
-      $scope.avanzarArchivar = false;
-      $scope.caseIdTarea = rowData.caseid;
-      $('#modalEnviarDictamen').modal('show'); 
-      
-  }
-  
-  $scope.abrirModalArchivarSolicitud = function(rowData) {
-      $scope.isTareaPreAutorizacion = false;
-      $scope.avanzarSolicitud = false;
-      $scope.avanzarPreAutorizacion = false;
-      $scope.avanzarFinanciamiento = false;
-      $scope.avanzarArchivar = true;
-      $scope.caseIdTarea = rowData.caseid;
 
-      $scope.properties.selectedRow = rowData;
-      $('#modalEnviarArchivo').modal('show'); 
-      
-  }
-  
-  $scope.abrirModalReactivarSolicitud = function(rowData) {
-      $scope.isTareaPreAutorizacion = false;
-      $scope.avanzarSolicitud = false;
-      $scope.avanzarPreAutorizacion = true;
-      $scope.avanzarFinanciamiento = false;
-      $scope.avanzarArchivar = false;
-      $scope.caseIdTarea = rowData.caseid;
-      $('#modalReactivarSolicitud').modal('show'); 
-      
-  }
-  
-  $scope.abrirModalAvanzarFinanciamiento = function(rowData) {
-      $scope.isTareaPreAutorizacion = false;
-      $scope.avanzarSolicitud = false;
-      $scope.avanzarPreAutorizacion = false;
-      $scope.avanzarFinanciamiento = true;
-      $scope.avanzarArchivar = false;
-      
-      $scope.caseIdTarea = rowData.caseid;
-      $('#modalEnviarFinanciamiento').modal('show'); 
-      
-  }
-  
-  $scope.avanzarTareaDictamen = function() {
-      
+    $scope.caseIdTarea = 0;
+
+    $scope.abrirModalAvanzarSolicitud = function (rowData) {
+        $scope.isTareaPreAutorizacion = false;
+        $scope.avanzarSolicitud = true;
+        $scope.avanzarPreAutorizacion = false;
+        $scope.avanzarFinanciamiento = false;
+        $scope.avanzarArchivar = false;
+        $scope.caseIdTarea = rowData.caseid;
+        $('#modalEnviarDictamen').modal('show');
+
+    }
+
+    $scope.abrirModalArchivarSolicitud = function (rowData) {
+        $scope.isTareaPreAutorizacion = false;
+        $scope.avanzarSolicitud = false;
+        $scope.avanzarPreAutorizacion = false;
+        $scope.avanzarFinanciamiento = false;
+        $scope.avanzarArchivar = true;
+        $scope.caseIdTarea = rowData.caseid;
+
+        $scope.properties.selectedRow = rowData;
+        $('#modalEnviarArchivo').modal('show');
+
+    }
+
+    $scope.abrirModalReactivarSolicitud = function (rowData) {
+        $scope.isTareaPreAutorizacion = false;
+        $scope.avanzarSolicitud = false;
+        $scope.avanzarPreAutorizacion = true;
+        $scope.avanzarFinanciamiento = false;
+        $scope.avanzarArchivar = false;
+        $scope.caseIdTarea = rowData.caseid;
+        $('#modalReactivarSolicitud').modal('show');
+    }
+
+    $scope.abrirModalAvanzarFinanciamiento = function (rowData) {
+        $scope.isTareaPreAutorizacion = false;
+        $scope.avanzarSolicitud = false;
+        $scope.avanzarPreAutorizacion = false;
+        $scope.avanzarFinanciamiento = true;
+        $scope.avanzarArchivar = false;
+        $scope.caseIdTarea = rowData.caseid;
+        $('#modalEnviarFinanciamiento').modal('show');
+
+    }
+
+    $scope.avanzarTareaDictamen = function () {
+
         var rowData = {
             caseid: $scope.caseIdTarea
         };
-      
-         
-         var req = {
+
+        var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
         };
-  
-        return $http(req).success(function(data, status) {
-                debugger;
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                $scope.preProcesoAsignarTarea(rowData)
-                
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+
+        return $http(req).success(function (data, status) {
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            $scope.preProcesoAsignarTarea(rowData)
+
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () {
+
+        });
     }
-    
-    $scope.avanzarTareaArchivo = function() {
-      
+
+    $scope.avanzarTareaArchivo = function () {
+
         var rowData = {
             caseid: $scope.caseIdTarea
         };
-      
-         
-         var req = {
+
+        var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
         };
-  
-        return $http(req).success(function(data, status) {
-                debugger;
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                $scope.preProcesoAsignarTarea(rowData)
-                
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+
+        return $http(req).success(function (data, status) {
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            $scope.preProcesoAsignarTarea(rowData)
+
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () {
+
+        });
     }
-    
-    $scope.avanzarTareaPreaAutorizacion = function() {
-      
+
+    $scope.avanzarTareaPreaAutorizacion = function () {
         var rowData = {
             caseid: $scope.caseIdTarea
         };
-      
-         
-         var req = {
+
+        var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
         };
-  
-        return $http(req).success(function(data, status) {
-                debugger;
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                $scope.preProcesoAsignarTarea(rowData)
-                
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+
+        return $http(req).success(function (data, status) {
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            $scope.preProcesoAsignarTarea(rowData)
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () {
+
+        });
     }
-    
-    $scope.avanzarTareaFinanciamiento = function() {
-      
+
+    $scope.avanzarTareaFinanciamiento = function () {
+
         var rowData = {
             caseid: $scope.caseIdTarea
         };
-      
-         
-         var req = {
+
+        var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.caseIdTarea}&f=isFailed%3dfalse`
         };
-  
-        return $http(req).success(function(data, status) {
-                debugger;
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                $scope.preProcesoAsignarTarea(rowData)
-                
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+
+        return $http(req).success(function (data, status) {
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            $scope.preProcesoAsignarTarea(rowData)
+        }).error(function (data, status) {
+            console.error(data);
+        }).finally(function () {
+
+        });
     }
-    
-    $scope.abrirSolicitud = function(row) {
-        debugger;
-        var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&caseId=" + row.caseid;
+
+    $scope.abrirSolicitud = function (row) {
+        var url = "/bonita/portal/resource/app/sdae/" + $scope.properties.abrirPagina + "/content/?app=sdae&caseId=" + row.caseid;
         window.open(url, '_blank');
     }
-  
+
     $scope.getCatCampus();
-  }
+}
