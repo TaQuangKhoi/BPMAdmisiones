@@ -67,15 +67,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             })
             .finally(function () {
                 vm.busy = false;
-                mensajeIsFinalizado();
             });
     }
 
     function mensajeIsFinalizado() {
-        if ($scope.properties.isFinalizado) {
-            swal("Guardado", "Finalizado", "success");
-        } else {
+        swal("Guardado", "", "success");
+        //if ($scope.properties.isFinalizado) {
+          //  swal("Guardado", "", "success");
+        //} else {
             //swal("Guardado", "Tus cambios han sido guardados correctamente, recuerda que aun tienes información pendiente por capturar", "success");   
-        }
+        //}
     }
 }
