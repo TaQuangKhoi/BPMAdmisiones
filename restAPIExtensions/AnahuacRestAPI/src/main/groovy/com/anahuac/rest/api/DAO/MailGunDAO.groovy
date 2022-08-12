@@ -387,15 +387,16 @@ class MailGunDAO {
 			String correoDe = "";
 			def daoCatApiKey = context.getApiClient().getDAO(CatApiKeyDAO.class);
 
-			for(CatApiKey ca:daoCatApiKey.find(0,9999)) {
-				errorlog += ", APIKEY " + ca.getCampus().getClave() +" = objGrupoSelected " + objGrupoSelected.get("valor");
+			for(CatApiKey ca : daoCatApiKey.find(0,9999)) {
+//				errorlog += ", APIKEY " + ca.getCampus().getClave() +" = objGrupoSelected " + objGrupoSelected.get("valor");
+				errorlog += ", APIKEY " + ca.getCampus().getClave() +" = objGrupoSelected " + objGrupoSelected.get("descripcion") + "CA = " + ca.getCampus().getDescripcion();
 				if(ca.getCampus().getDescripcion().equals(objGrupoSelected.get("descripcion"))) {
 					estructura.setSandBox(ca.getMailgunDominioSDAE());
 					estructura.setApiKey(ca.getMailgunSDAE());
 					errorlog += " estructura.sandbox= " + estructura.getSandBox();
-					errorlog += ", estructura.MailgunDominio= " + ca.getMailgunDominio();
-					errorlog += ", estructura.getMailgun= " + ca.getMailgun();
-					errorlog += ", estructura.getMailgunCorreo= " + ca.getMailgunCorreo();
+					errorlog += ", estructura.MailgunDominio= " + ca.getMailgunDominioSDAE();
+					errorlog += ", estructura.getMailgun= " + ca.getMailgunSDAE();
+					errorlog += ", estructura.getMailgunCorreo= " + ca.getMailgunCorreoSDAE();
 					correoDe = ca.getMailgunCorreoSDAE();
 				}
 			}

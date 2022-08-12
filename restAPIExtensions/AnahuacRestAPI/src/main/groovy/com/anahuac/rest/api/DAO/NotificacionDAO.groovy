@@ -2056,7 +2056,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			
 			try {
 				Result hffc = new Result()
-				hffc = getCatNotificacionesCampusCodigoCampus(object.codigo, object.campus)
+				hffc = getCatNotificacionesCampusCodigoCampus(object.codigo, object.campus);
 				if(hffc.getData().size()>0) {
 					CatNotificacionesCampus catHffc = (CatNotificacionesCampus) hffc.getData().get(0)
 					plantilla=plantilla.replace("[HEADER-IMG]", catHffc.getHeader())
@@ -2085,12 +2085,14 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			lstData.add(plantilla);
 			resultado.setData(lstData);
 			
+			errorlog += "| Variable 16.04";
 			MailGunDAO mgd = new MailGunDAO();
 			lstAdditionalData.add("correo="+correo)
 			lstAdditionalData.add("asunto="+asunto)
 			lstAdditionalData.add("cc="+cc)
 			if((object.isEnviar && object.codigo!="carta-informacion") ||(object.isEnviar && object.codigo=="carta-informacion" && cartaenviar) ) {
-				resultado = mgd.sendEmailPlantillaSDAE(correo, asunto, plantilla.replace("\\", ""), cc, object.campus, context)
+				resultado = mgd.sendEmailPlantillaSDAE(correo, asunto, plantilla.replace("\\", ""), cc, object.campus, context);
+				
 				CatBitacoraCorreo catBitacoraCorreo = new CatBitacoraCorreo();
 				catBitacoraCorreo.setCodigo(object.codigo)
 				catBitacoraCorreo.setDe(resultado.getAdditional_data().get(0))
