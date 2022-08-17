@@ -8,18 +8,25 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
 
     $scope.generateObjContrato = function() {
         console.log($scope.properties.informacionEnviar)
-        if (angular.isDefined($scope.properties.taskId)) {
-            $scope.asignarTarea();
-        } else {
-            if (angular.isDefined($scope.properties.selectedData)) {
-                var dataToSend = {...$scope.properties.selectedData }
-                doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
-                    $window.location.assign("/portal/resource/app/administrativo/SDAEcartas/content/?app=administrativo");
-                })
-            } else {
-                console.error("los datos a enviar no están definidos");
-            }
-        }
+        debugger;
+        var dataToSend = {...$scope.properties.selectedData };
+        doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
+            debugger;
+            $window.location.assign("/portal/resource/app/administrativo/SDAEcartas/content/?app=administrativo");
+        });
+        // if (angular.isDefined($scope.properties.taskId)) {
+        //     $scope.asignarTarea();
+        // } else {
+        //     if (angular.isDefined($scope.properties.selectedData)) {
+        //         var dataToSend = {...$scope.properties.selectedData }
+        //         doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
+        //             debugger;
+        //             $window.location.assign("/portal/resource/app/administrativo/SDAEcartas/content/?app=administrativo");
+        //         })
+        //     } else {
+        //         console.error("los datos a enviar no están definidos");
+        //     }
+        // }
     }
 
     $scope.sendData = function() {
@@ -52,7 +59,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                     if (angular.isDefined($scope.properties.selectedData)) {
                         var dataToSend = {...$scope.properties.selectedData }
                         doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
-                            $window.location.assign("/portal/resource/app/administrativo/notificaciones/content/?app=administrativo");
+                            $window.location.assign("/portal/resource/app/administrativo/SDAECartas/content/?app=administrativo");
                         })
                     } else {
                         console.error("los datos a enviar no están definidos");
@@ -270,6 +277,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
             caseId = value[0].caseId;
             doRequest("GET", `../API/bdm/businessData/com.anahuac.catalogos.CatNotificaciones?q=findByCaseId&p=0&c=9999&f=caseId=${caseId}`, null, null, function(value) {
                 vm.busy = false;
+                debugger;
                 lstCatNotificacionesInput = value;
                 if ($scope.properties.selectedData.persistenceId_string == "") {
                     lstCatNotificacionesInput.push($scope.properties.selectedData);
@@ -395,10 +403,11 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                                 generated.docGuiaEstudioDocumentInput = [];
                             }
                             console.log(generated);
+                            debugger;
                             doRequest("POST", `/bonita/API/bpm/userTask/${$scope.properties.taskId}/execution?assign=false`, null, generated, function(value) {
                                 vm.busy = false;
                                 //$scope.getConsulta();
-                                $window.location.assign("/portal/resource/app/administrativo/notificaciones/content/?app=administrativo");
+                                $window.location.assign("/portal/resource/app/administrativo/SDAECartas/content/?app=administrativo");
                             })
 
                         }

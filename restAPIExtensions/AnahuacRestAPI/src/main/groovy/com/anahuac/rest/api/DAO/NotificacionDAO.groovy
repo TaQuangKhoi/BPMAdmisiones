@@ -26,6 +26,7 @@ import groovy.json.JsonSlurper
 import javax.imageio.ImageIO
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
+import java.nio.charset.StandardCharsets
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -3335,6 +3336,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			return ""
 		}
 	}
+	
 	public Result getCatNotificacionesCampus(String grupoBonita) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -3418,7 +3420,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			CatNotificaciones row = new CatNotificaciones()
 			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
 			closeCon = validarConexion();
-			String consulta = Statements.GET_CARTAS_NOTIFICACIONES
+			String consulta = Statements.GET_CARTAS_NOTIFICACIONES;
 			pstm = con.prepareStatement(consulta)
 			pstm.setString(1, campus)
 			rs = pstm.executeQuery()
@@ -3462,12 +3464,70 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 		return resultado
 	}
 	
+	public Result getCartasNotificacionesByEstatus(String campus, String filtroEstatus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			CatNotificaciones row = new CatNotificaciones();
+			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
+			String url = java.net.URLDecoder.decode(filtroEstatus, StandardCharsets.UTF_8.name());
+			String consulta = Statements.GET_CARTAS_NOTIFICACIONES_ESTATUS.replace("[ESTATUS]", url);
+			errorLog += " campus :: " + campus;
+			errorLog += " consulta :: " + consulta;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, campus);
+			rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				row = new CatNotificaciones();
+				row.anguloImagenFooter = rs.getString("anguloImagenFooter");
+				row.anguloImagenHeader = rs.getString("anguloImagenHeader");
+				row.asunto = rs.getString("asunto");
+				row.caseId = rs.getString("caseId");
+				row.codigo = rs.getString("codigo");
+				row.comentarioLeon = rs.getString("comentarioLeon");
+				row.contenido  = rs.getString("contenido");
+				row.contenidoCorreo = rs.getString("contenidoCorreo");
+				row.contenidoLeonel = rs.getString("contenidoLeonel");
+				row.descripcion = rs.getString("descripcion");
+				row.docGuiaEstudio = rs.getString("docGuiaEstudio");
+				row.enlaceBanner = rs.getString("enlaceBanner");
+				row.enlaceContacto = rs.getString("enlaceContacto");
+				row.enlaceFacebook = rs.getString("enlaceFacebook");
+				row.enlaceFooter = rs.getString("enlaceFooter");
+				row.enlaceInstagram = rs.getString("enlaceInstagram");
+				row.enlaceTwitter = rs.getString("enlaceTwitter");
+				row.nombreImagenFooter = rs.getString("nombreImagenFooter");
+				row.textoFooter  = rs.getString("textoFooter");
+				row.tipoCorreo = rs.getString("tipoCorreo");
+				row.titulo = rs.getString("titulo");
+				row.urlImgFooter = rs.getString("urlImgFooter");
+				row.urlImgHeader = rs.getString("urlImgHeader");
+				rows.add(row);
+			}
+			
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
+	}
+	
 	public Result insertCatNotificacionesCampus(CatNotificacionesCampus row) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		try {
-
-			
 			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
 			closeCon = validarConexion();
 			String consulta = CatNotificacionesCampus.GET_CATNOTIFICACIONESCAMPUS_CODIGO_CAMPUS

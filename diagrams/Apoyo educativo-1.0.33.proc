@@ -3160,7 +3160,7 @@
         <value xmi:type="expression:Expression" xmi:id="_PpGy22c7EeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.39">
+    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.40">
       <elements xmi:type="process:Lane" xmi:id="_EmGwkGdBEeyAHufroJpG_Q" name="Aspirante" actor="_Frl3UGdUEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_HtHk0GdBEeyAHufroJpG_Q" name="Solicitud de beca aspirante" outgoing="_KMB3QGdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HtHk0mdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -4365,6 +4365,61 @@
               <inputTypes>java.lang.Long</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_rc838Bz0Ee23QI8m4FPBfQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_rc838Rz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_sGVMIBz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_rc838hz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput.urlAzureNuevoKardex" content="solicitudApoyoEducativoInput?.urlAzureNuevoKardex" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_xdEAQBz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_rc838xz0Ee23QI8m4FPBfQ" type="JAVA_METHOD" expression="setUrlAzureNuevoKardex">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_0TyVwBz0Ee23QI8m4FPBfQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0TyVwRz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_1ARBQBz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0TyVwhz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput.nuevoKardex" content="solicitudApoyoEducativoInput?.nuevoKardex" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_9w038Bz0Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0TyVwxz0Ee23QI8m4FPBfQ" type="JAVA_METHOD" expression="setNuevoKardex">
+              <inputTypes>java.lang.Boolean</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_A8VxsBz1Ee23QI8m4FPBfQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_A8VxsRz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_BlW5gBz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_A8Vxshz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput.nuevoPromedioPrepa" content="solicitudApoyoEducativoInput?.nuevoPromedioPrepa" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_FvUYgBz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_A8Vxsxz1Ee23QI8m4FPBfQ" type="JAVA_METHOD" expression="setNuevoPromedioPrepa">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_F6siEBz1Ee23QI8m4FPBfQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_F6siERz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_GqUoMBz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_F6siEhz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput.ingresoOtro" content="solicitudApoyoEducativoInput?.ingresoOtro" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Double">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_KJ34QBz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_F6siExz1Ee23QI8m4FPBfQ" type="JAVA_METHOD" expression="setIngresoOtro">
+              <inputTypes>java.lang.Double</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_KcKiIBz1Ee23QI8m4FPBfQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_KcKiIRz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" content="solicitudApoyoEducativo" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.SolicitudApoyoEducativo">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_LDdLoBz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_KcKiIhz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput.ingresoTrabajoAspirante" content="solicitudApoyoEducativoInput?.ingresoTrabajoAspirante" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Double">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_PDIGMBz1Ee23QI8m4FPBfQ" name="solicitudApoyoEducativoInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_KcKiIxz1Ee23QI8m4FPBfQ" type="JAVA_METHOD" expression="setIngresoTrabajoAspirante">
+              <inputTypes>java.lang.Double</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_BmyN1GdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_BmyN1WdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_BmyN1mdDEeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -4445,6 +4500,21 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_lnzTkNFzEeyhG6GgIeE5bg" name="catEstadoCivilPadres_id">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_lnzTkdFzEeyhG6GgIeE5bg"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_M645QBzzEe23QI8m4FPBfQ" name="urlAzureNuevoKardex">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_M645QRzzEe23QI8m4FPBfQ"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_nKARgBzzEe23QI8m4FPBfQ" name="nuevoKardex">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_nKARgRzzEe23QI8m4FPBfQ"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_nlWwwBzzEe23QI8m4FPBfQ" name="nuevoPromedioPrepa">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_nlWwwRzzEe23QI8m4FPBfQ"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_n_S6wBzzEe23QI8m4FPBfQ" name="ingresoOtro">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_n_S6wRzzEe23QI8m4FPBfQ"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_y8wt4BzzEe23QI8m4FPBfQ" name="ingresoTrabajoAspirante">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_y8wt4RzzEe23QI8m4FPBfQ"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_7r1VwKYhEeydlpW9zcd1oA" name="hermanosInput" type="COMPLEX" multiple="true" dataReference="hermanos" createMode="false">
@@ -8954,7 +9024,7 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_WSUO8MyfEeyRFMlEo8a1KQ" name="urlLogin" value="https://qa.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String" description=""/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AMyfEeyRFMlEo8a1KQ" name="usuario" value="Administrador" typeClassname="java.lang.String" description=""/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AcyfEeyRFMlEo8a1KQ" name="password" value="bpm2022BPM$" typeClassname="java.lang.String" description=""/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AsyfEeyRFMlEo8a1KQ" name="urlEnvioCorreo" value="https://qa.bpm.anahuac.mx/API/extension/AnahuacRest?url=generateHtml&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_WSU2AsyfEeyRFMlEo8a1KQ" name="urlEnvioCorreo" value="https://qa.bpm.anahuac.mx/API/extension/AnahuacRest?url=generateHtmlSDAE&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
       </configurations>
       <configurations xmi:type="configuration:Configuration" xmi:id="_cuBuIMyfEeyRFMlEo8a1KQ" name="Production" version="7.12.0-004" username="Administrador" password="bpm">
         <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_cuCVMMyfEeyRFMlEo8a1KQ">

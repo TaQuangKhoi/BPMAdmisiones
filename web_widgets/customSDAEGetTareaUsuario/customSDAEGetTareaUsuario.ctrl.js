@@ -64,6 +64,7 @@ function ($scope, $http) {
             if (data) {
                 $scope.properties.solicitudApoyoEducativo = [];
                 $scope.properties.solicitudApoyoEducativo = data;
+                $scope.properties.solicitudApoyoEducativoInput.modificarDocumentos = true;
                 
                 if($scope.properties.isSolicitud){
                     if(data.pageIndex > 1){

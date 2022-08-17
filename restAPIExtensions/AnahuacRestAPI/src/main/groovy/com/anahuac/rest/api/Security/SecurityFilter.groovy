@@ -66,6 +66,18 @@ class SecurityFilter {
 				case "getCartasNotificaciones":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
+				case "getCartasNotificacionesByEstatus":
+					allow = bonitaRolFilter(context,"ADMISIONES");
+					if(allow){
+						break;
+					}
+				break;
+				case "getCartasNotificacionesSDAE":
+					allow=bonitaRolFilter(context,"ADMISIONES")
+					if(allow){
+						break;
+					}
+				break;
 				case "getCatTitulo":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;

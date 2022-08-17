@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1658449894361,
+  "lastUpdate" : 1660689821739,
   "rows" : [
     [
       {
@@ -1644,7 +1644,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formInputAprobar"
+                          "value" : "formOutputFinalRechazar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -2101,7 +2101,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formInputAprobar"
+                          "value" : "formOutputFinalRechazar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -2142,6 +2142,9 @@
                         "isModificar" : {
                           "type" : "constant",
                           "value" : true
+                        },
+                        "caseid" : {
+                          "type" : "constant"
                         }
                       },
                       "reference" : "ab46cc90-b249-498e-b98f-5984145d0810",
@@ -6742,8 +6745,23 @@
     "formInputRechazo" : {
       "type" : "json",
       "value" : [
-        "{\r",
-        "  \"varAutorizadaInput\" : false\r",
+        "{ ",
+        "    \"varAutorizadaInput\": false,",
+        "\t\"autorizacionInput\": {",
+        "\t\t\"isAutorizada\": false,",
+        "\t\t\"motivoRechazoAutorizacion\":\"\",",
+        "\t\t\"promedioMinimoBeca\":\"\",",
+        "\t\t\"cambiosSolicitudAutorizacion\":\"\",",
+        "\t\t\"porcentajeCreditoAutorizacion\":\"\",",
+        "\t\t\"porcentajeBecaAutorizacion\":\"\",",
+        "\t\t\"promedioMinimoAutorizacion\":\"\",",
+        "\t\t\"descuentoAnticipadoAutorizacion\":0,",
+        "\t\t\"fechaPagoInscripcionAutorizacion\": null,",
+        "\t\t\"isPagoRealizadoAutorizacion\":false,",
+        "\t\t\"motivoRechazoAutorizacionText\":\"\",",
+        "\t\t\"cambiosSolicitudAutorizacionText\":\"\"",
+        "\t},",
+        "\t\"isModificacionAutorizcionInput\":false",
         "}"
       ],
       "exposed" : false
@@ -6752,7 +6770,7 @@
       "type" : "json",
       "value" : [
         "{ ",
-        "    \"varAutorizadaInput\": false,",
+        "    \"varAutorizadaInput\": true,",
         "\t\"autorizacionInput\": {",
         "\t\t\"isAutorizada\": false,",
         "\t\t\"motivoRechazoAutorizacion\":\"\",",
@@ -7279,6 +7297,22 @@
         "\r",
         "return {\r",
         "\t\"varAutorizadaInput\": $data.formInputAprobar.varAutorizadaInput,\r",
+        "\t\"isModificacionAutorizcionInput\": $data.formInputAprobar.isModificacionAutorizcionInput,\r",
+        "\t\"autorizacionInput\":autorizacionInput\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutputFinalRechazar" : {
+      "type" : "expression",
+      "value" : [
+        "let autorizacionInput = $data.formInputAprobar.autorizacionInput;\r",
+        "// autorizacionInput.porcentajeCreditoAutorizacion = parseInt(autorizacionInput.porcentajeCreditoAutorizacion ? autorizacionInput.porcentajeCreditoAutorizacion : 0);\r",
+        "// autorizacionInput.porcentajeBecaAutorizacion = parseInt(autorizacionInput.porcentajeBecaAutorizacion ? autorizacionInput.porcentajeBecaAutorizacion : 0);\r",
+        "autorizacionInput.caseid = parseInt($data.caseId);\r",
+        "\r",
+        "return {\r",
+        "\t\"varAutorizadaInput\": false,\r",
         "\t\"isModificacionAutorizcionInput\": $data.formInputAprobar.isModificacionAutorizcionInput,\r",
         "\t\"autorizacionInput\":autorizacionInput\r",
         "}"

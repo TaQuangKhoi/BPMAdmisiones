@@ -119,7 +119,6 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
-					
 				case "getSolicitudDeAdmision":
 					String email = request.getParameter "email"
 					result = new SolicitudDeAdmisionDAO().getSolicitudDeAdmision(email);

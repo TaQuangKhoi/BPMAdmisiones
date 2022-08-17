@@ -1,11 +1,40 @@
 function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window, $element) {
-   var ctrl = this;
+    var ctrl = this;
 
-   $scope.clearPerc = function () {
-       $scope.properties.modificarDocumentos = true;
-       $scope.properties.catPorcentajeBecaId = null;
-       $scope.properties.catPorcentajeFinanciamientoId = null;
-   }
+    $scope.backupValue = "";
+    
+    $scope.clearPerc = function () {
+        swal({
+            title: "¿Realmente deseas cambiar el tipo de apoyo?",
+            text: "Si cambias el tipo de apoyo , perderás los documentos cargados previamente y tendrás que cargarlos nuevamente.",
+            icon: "warning",
+            buttons: [
+                'No,cancelar',
+                'Si, Cambiar'
+            ],
+            dangerMode: false,
+        }).then(function(isConfirm){
+            if (isConfirm) {
+                $scope.properties.modificarDocumentos = true;
+                $scope.properties.catPorcentajeBecaId = null;
+                $scope.properties.catPorcentajeFinanciamientoId = null;
+                
+                swal({
+                    title: 'Ok',
+                    text: 'Tu tipo de apoyo ha sido cambiado',
+                    icon: 'success'
+                });
+            } else {
+                $scope.properties.value = $scope.backupValue;
+                $scope.$apply();//Para forzar el cambio de valor 
+                swal("Cancelado", "Tus cambiso se han revertido.", "success");
+            }
+        });
+        
+        // $scope.properties.modificarDocumentos = true;
+        // $scope.properties.catPorcentajeBecaId = null;
+        // $scope.properties.catPorcentajeFinanciamientoId = null;
+    }
 
    function comparator(initialValue, item) {
        return angular.equals(initialValue, ctrl.getValue(item));

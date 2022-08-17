@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1660158391052,
+  "lastUpdate" : 1660677743941,
   "rows" : [
     [
       {
@@ -1846,8 +1846,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.tieneHijos"
                                   },
                                   "required" : {
                                     "type" : "constant",
@@ -1925,8 +1925,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!formOutputTest.solicitudApoyoEducativoInput.tieneHijos"
                                   },
                                   "readOnly" : {
                                     "type" : "expression",
@@ -9230,8 +9230,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "!returnCatValue.catTipoApoyo.isArtistica && !returnCatValue.catTipoApoyo.isDeportiva && !returnCatValue.catTipoApoyo.isAcademica"
                             },
                             "disabled" : {
                               "type" : "expression",
@@ -9325,8 +9325,8 @@
                                     "value" : "lil-xtra-margin"
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "!returnCatValue.catTipoApoyo.isFinanciamiento"
                                   },
                                   "disabled" : {
                                     "type" : "expression",
@@ -9400,11 +9400,11 @@
                                   },
                                   "minLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 1
                                   },
                                   "maxLength" : {
                                     "type" : "constant",
-                                    "value" : ""
+                                    "value" : 7
                                   },
                                   "readOnly" : {
                                     "type" : "expression",
@@ -9435,13 +9435,15 @@
                                   },
                                   "type" : {
                                     "type" : "constant",
-                                    "value" : "text"
+                                    "value" : "number"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 1
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 10000000
                                   },
                                   "step" : {
                                     "type" : "constant",

@@ -3,11 +3,11 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
     this.isArray = Array.isArray;
     $scope.loading = false;
 
-    this.isClickable = function() {
+    this.isClickable = function () {
         return $scope.properties.isBound('selectedRow');
     };
 
-    this.selectRow = function(row) {
+    this.selectRow = function (row) {
         if (this.isClickable()) {
             //$scope.properties.selectedRow = row;
             console.log($scope.properties.selectedRow);
@@ -15,15 +15,16 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
     };
 
 
-    this.isSelected = function(row) {
+    this.isSelected = function (row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
 
 
-    $scope.modificarData = function(row, index) {
+    $scope.modificarData = function (row, index) {
         $scope.properties.selectedToModificate = row;
+        $scope.properties.selectedToModificate.persistenceId_string =  $scope.properties.selectedToModificate.persistenceId + "";
         $scope.properties.selectedIndex = index;
-        localStorage.setItem("index",index);
+        localStorage.setItem("index", index);
         /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
             $scope.properties.selectedIndex--;
         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -59,8 +60,7 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
     }
 
 
-    $scope.deleteData = function(row, index) {
-
+    $scope.deleteData = function (row, index) {
         if ($scope.loading === false) {
             $("#loading").modal("show");
             $scope.loading = true;
@@ -72,8 +72,7 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
         }
     }
 
-    $scope.sendData = function(row, index) {
-
+    $scope.sendData = function (row, index) {
         if ($scope.loading === false) {
             $("#loading").modal("show");
             console.log(index)
@@ -86,7 +85,7 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
         }
     }
 
-    $scope.asignarTarea = function() {
+    $scope.asignarTarea = function () {
         var req = {
             method: "PUT",
             url: "/bonita/API/bpm/humanTask/" + $scope.properties.taskId,
@@ -94,15 +93,15 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
         };
 
         return $http(req)
-            .success(function(data, status) {
+            .success(function (data, status) {
                 redireccionarTarea();
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function() {});
+            .finally(function () { });
     }
 
     function redireccionarTarea() {
@@ -113,18 +112,18 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
         };
 
         return $http(req)
-            .success(function(data, status) {
+            .success(function (data, status) {
                 $scope.submitTask();
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function() {});
+            .finally(function () { });
     }
 
-    $scope.submitTask = function() {
+    $scope.submitTask = function () {
         console.log($scope.properties.dataToSend)
         var req = {
             method: "POST",
@@ -132,85 +131,85 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
             data: angular.copy($scope.properties.dataToSend)
         };
 
-        return $http(req)
-            .success(function(data, status) {
-                $scope.getConsulta();
-            })
-            .error(function(data, status) {
-                $("#loading").modal("hide");
-                $scope.loading = false;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {});
+        return $http(req).success(function (data, status) {
+            $scope.getConsulta();
+        })
+        .error(function (data, status) {
+            $("#loading").modal("hide");
+            $scope.loading = false;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () { 
+            
+        });
     }
 
-    $scope.getConsulta = function() {
+    $scope.getConsulta = function () {
         var req = {
             method: "GET",
             url: $scope.properties.urlConsulta
         };
 
-        return $http(req)
-            .success(function(data, status) {
-                $scope.properties.contenido = [];
-                $scope.properties.contenido = data;
-                $scope.getObjTaskInformation();
-            })
-            .error(function(data, status) {
-                $("#loading").modal("hide");
-                $scope.loading = false;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {});
+        return $http(req).success(function (data, status) {
+            $scope.properties.contenido = [];
+            $scope.properties.contenido = data;
+            $scope.getObjTaskInformation();
+        })
+        .error(function (data, status) {
+            $("#loading").modal("hide");
+            $scope.loading = false;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () { 
+
+        });
     }
 
-    $scope.getObjTaskInformation = function() {
+    $scope.getObjTaskInformation = function () {
         var req = {
             method: "GET",
             url: $scope.properties.urlTaskInformation
         };
 
-        return $http(req)
-            .success(function(data, status) {
-                $scope.properties.objTaskInformation = data;
-                $scope.loading = false;
-                $("#loading").modal("hide");
-            })
-            .error(function(data, status) {
-                $("#loading").modal("hide");
-                $scope.loading = false;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {});
+        return $http(req).success(function (data, status) {
+            $scope.properties.objTaskInformation = data;
+            $scope.loading = false;
+            $("#loading").modal("hide");
+        })
+        .error(function (data, status) {
+            $("#loading").modal("hide");
+            $scope.loading = false;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function () { 
+
+        });
     }
-    
-        $scope.preview = function(codigo) {
-         blockUI.start()   
+
+    $scope.preview = function (codigo) {
+        blockUI.start()
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
-                                  "campus": $scope.properties.campusSelected,
-                                  "correo": "braul5497@gmail.com",
-                                  "codigo": codigo,
-                                  "isEnviar": false
-                                })
+                "campus": $scope.properties.campusSelected,
+                "correo": "braul5497@gmail.com",
+                "codigo": codigo,
+                "isEnviar": false
+            })
         };
 
-        return $http(req)
-            .success(function(data, status) {
-                $scope.properties.previewHtml = data.data[0]
-                modalService.open("previewerid");
-                $scope.$apply();
-
-
-            })
-            .error(function(data, status) {
-                $("#loading").modal("hide");
-                console.error(data)
-            })
-            .finally(function() {
-                blockUI.stop()
-            });
+        return $http(req).success(function (data, status) {
+            $scope.properties.previewHtml = data.data[0]
+            modalService.open("previewerid");
+            $scope.$apply();
+        })
+        .error(function (data, status) {
+            $("#loading").modal("hide");
+            console.error(data)
+        })
+        .finally(function () {
+            blockUI.stop()
+        });
     }
 }

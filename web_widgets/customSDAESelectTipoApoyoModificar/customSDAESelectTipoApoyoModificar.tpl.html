@@ -18,7 +18,8 @@
                 ng-options="ctrl.getValue(option) as (ctrl.getLabel(option) | uiTranslate) for option in properties.availableValues"
                 ng-required="properties.required"
                 ng-disabled="properties.disabled"
-                ng-change="clearPerc()">
+                ng-change="clearPerc()"
+                ng-focus="backupValue = properties.value">
                 <option style="display:none" value="">
                     {{ properties.placeholder | uiTranslate }}
                 </option>
