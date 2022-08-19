@@ -8,7 +8,7 @@ function PbTableCtrl($scope) {
 
   this.selectRow = function (row) {
     if (this.isClickable()) {
-    //   $scope.properties.selectedRow = row;
+        $scope.properties.selectedRow = row;
         $scope.properties.formOutput.solicitudApoyoEducativoInput.estado  = row.estado;
         $scope.properties.formOutput.solicitudApoyoEducativoInput.delegacionCiudad = row.municipio;
         $scope.properties.formOutput.solicitudApoyoEducativoInput.colonia = row.asentamiento;

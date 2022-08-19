@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1660765350109,
+  "lastUpdate" : 1660932137859,
   "rows" : [
     [
       {
@@ -6083,8 +6083,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "tutor.catTrabaja.descripcion !== \"Sí\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -6143,6 +6143,85 @@
                             }
                           },
                           "reference" : "3b9540c1-ea83-4fb7-b5d5-f470edae51e3",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "tutor.catTrabaja.descripcion !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Extensión:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.extensionTelefonoTrabajoTutor"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 9999
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "51a70822-28aa-46b9-8a51-145f54f92452",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputLimit"
                         }
@@ -6711,6 +6790,83 @@
                           "reference" : "b8f54a95-02c0-4a29-944c-a82c28841312",
                           "hasValidationError" : false,
                           "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Descripción otro ingreso"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "35761c7f-a5fd-4053-af36-2685b451030b",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
                         }
                       ]
                     ]
@@ -7993,7 +8149,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.catTrabaja.descripcion !== \"Sí\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -8072,7 +8228,84 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.catTrabaja.descripcion !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Extensión:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.extensionTelefonoTrabajoPadre"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "33425700-ce02-4c41-b2df-75755ce4bcdc",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
                             },
                             "required" : {
                               "type" : "constant",
@@ -8990,7 +9223,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.catTrabaja.descripcion !== \"Sí\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -9069,7 +9302,86 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.catTrabaja.descripcion !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Extensión"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.extensionTelefonoTrabajoMadre"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 9999
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "965b5c8c-e72a-45c0-bbe2-f406f1a85347",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
                             },
                             "required" : {
                               "type" : "constant",
@@ -22480,9 +22792,10 @@
       "type" : "expression",
       "value" : [
         "let output =  true;\r",
+        "\r",
         "if($data.getAutodescripcion[0].catActualnenteTrabajas.descripcion === \"Sí\" && !$data.formOutputTest.solicitudApoyoEducativoInput.ingresoTrabajoAspirante){\r",
         "    output = false;\r",
-        "    $data.errorPaso1 = \"El campo '' no debe ir vacío.\";\r",
+        "    $data.errorPaso1 = \"El campo '¿Cuánto es tu ingreso proveniente de este trabajo?' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso1 = \"Información personal\";\r",
         "} else if($data.formOutputTest.solicitudApoyoEducativoInput.tieneHijos === null){\r",
         "    output = false;\r",
@@ -22496,7 +22809,7 @@
         "    output = false;\r",
         "    $data.errorPaso1 = \"Si seleccionaste 'Sí' en el campo '¿Tienes hijos?' debes llenar el campo 'Edad de los hijos'.\";\r",
         "    $data.tituloErrorPaso1 = \"Información personal\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura){\r",
+        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura && $data.formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura != 0){\r",
         "    output = false;\r",
         "    $data.errorPaso1 = \"El campo 'Costo mensual de tu colegiatura' no debe ir vacío y debe contener un valor numérico.\";\r",
         "    $data.tituloErrorPaso1 = \"Información Escolar\";\r",
@@ -22557,7 +22870,8 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío, debe llenarse con un valor numérico y ser de al menos 10 caracteres para México y 14 para extranjero.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
-        "} else if(!$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor  || $data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor.length < 10){\r",
+        "} \r",
+        "else if(  $data.tutor.catTrabaja.descripcion === \"Sí\" && (!$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor  || $data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor.length < 10)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío,  debe llenarse con un valor numérico y ser de al menos 10 caracteres para México y 14 para extranjero.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
@@ -22581,7 +22895,8 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"Debes seleccionar un valor en el campo 'Mis padres están'.\";\r",
         "    $data.tituloErrorPaso2 = \"Información familiar\";\r",
-        "} else if($data.padre.vive.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre)){\r",
+        "} \r",
+        "else if($data.padre.vive.descripcion === \"Sí\" && $data.padre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de padre\";\r",
@@ -22589,7 +22904,8 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de padre\";\r",
-        "} else if($data.madre.vive.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
+        "} \r",
+        "else if($data.madre.vive.descripcion === \"Sí\" && $data.madre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de madre\";\r",

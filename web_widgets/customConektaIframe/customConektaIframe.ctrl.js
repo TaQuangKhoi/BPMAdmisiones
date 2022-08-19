@@ -136,9 +136,9 @@ function ($scope, $http) {
             $scope.hideModal();
             swal("Pago realizado con éxito.", "Redireccionando...", "success");
 
-            // setTimeout(function(){
-            //     window.location.reload();
-            // }, 5000);  
+            setTimeout(function(){
+                window.location.reload();
+            }, 5000);  
             
         }).error(function(error){
             $scope.hideModal();

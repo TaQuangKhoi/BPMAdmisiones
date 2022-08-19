@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1660696896240,
+  "lastUpdate" : 1660868418257,
   "rows" : [
     [
       {
@@ -475,7 +475,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Bienvenido {{loggedUser.firstname}}"
+                        "value" : "Apreciable: {{nombreCompleto}}"
                       },
                       "level" : {
                         "type" : "constant",
@@ -543,7 +543,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -575,6 +575,58 @@
                       }
                     },
                     "reference" : "86df0db8-2972-42fa-aef7-4d9fd3e52356",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<ul>\n    <li>Por favor selecciona un método de pago.</li>\n    <li>En el caso de Oxxo cash y SPEI, descarga tu referencia bancaria para realizar el pago.</li>\n    <li>En el caso de que desees pagar en línea simplemente da click en \"Pagar con tarjeta\" y rellena los datos del formulario para pagar con tarjeta.</li>\n    <li>Realiza tu pago correspondiente por el medio de tu preferencia y conserva muy bien tu comprobante para cualquier aclaración, no es necesario que nos envíes el comprobante de pago, nosotros validaremos tu pago de manera automatizada.</li>\n    <li>En caso de requerir factura, ten a la mano tus datos de facturación para solicitar tu factura por este mismo medio.</li>\n    <li>Una vez realizado el pago, no existen devoluciones.</li>\n</ul>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "8c02af00-7803-43aa-9eb7-5cecc5755cf9",
                     "hasValidationError" : false,
                     "id" : "pbText"
                   }
@@ -6750,6 +6802,25 @@
       "type" : "json",
       "value" : [
         "{}"
+      ],
+      "exposed" : false
+    },
+    "nombreCompleto" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "output += $data.objSolicitudDeAdmision[0].primerNombre;",
+        "if($data.objSolicitudDeAdmision[0].segundoNombre){",
+        "    output += (\" \" + $data.objSolicitudDeAdmision[0].segundoNombre)",
+        "}",
+        "",
+        "output += (\" \" + $data.objSolicitudDeAdmision[0].apellidoPaterno);",
+        "",
+        "if($data.objSolicitudDeAdmision[0].apellidoMaterno){",
+        "    output += (\" \" + $data.objSolicitudDeAdmision[0].apellidoMaterno)",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }
