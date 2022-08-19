@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademico",
   "name" : "SDAEFrgSolicitudApoyoAcademico",
-  "lastUpdate" : 1660677743941,
+  "lastUpdate" : 1660946368449,
   "rows" : [
     [
       {
@@ -4959,6 +4959,86 @@
                           "hasValidationError" : false,
                           "id" : "customSDAEInputLimit"
                         }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "tutor.catTrabaja.descripcion !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Extensión:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : ""
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.extensionTelefonoTrabajoTutor"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 9999
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "ece2c9fc-b934-47a5-8b0d-d69ca53b5494",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
                       ]
                     ]
                   }
@@ -5523,6 +5603,66 @@
                           "reference" : "b8f54a95-02c0-4a29-944c-a82c28841312",
                           "hasValidationError" : false,
                           "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "returnCatValue.catProvienenIngresos.clave !== \"otro\" || !returnCatValue.catProvienenIngresos"
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 100
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Especifique:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.otroIngresoTutorDescripcion"
+                            }
+                          },
+                          "reference" : "e85b017d-92ea-47c2-b67f-93d14fadf03e",
+                          "hasValidationError" : false,
+                          "id" : "customCustomTextAreaLimit"
                         }
                       ]
                     ]
@@ -6936,6 +7076,85 @@
                             },
                             "hidden" : {
                               "type" : "expression",
+                              "value" : "padre.catTrabaja.descripcion !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Extensión:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.extensionTelefonoTrabajoPadre"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 9999
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "2ec06e10-3aed-4ea6-bc65-e2367b7f38a4",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
                               "value" : "!padre.vive"
                             },
                             "required" : {
@@ -7913,6 +8132,85 @@
                             }
                           },
                           "reference" : "4e814d52-682f-4646-a2fb-43189cf12c15",
+                          "hasValidationError" : false,
+                          "id" : "customSDAEInputLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "madre.catTrabaja.descripcion !== \"Sí\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Extensión:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.extensionTelefonoTrabajoMadre"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "number"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 9999
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "5b349e36-8540-40d4-a5ce-5dbb4c2cd598",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputLimit"
                         }
@@ -17363,51 +17661,82 @@
     "returnCatValue" : {
       "type" : "expression",
       "value" : [
-        "let output = {",
-        "    \"catTienesHijos\": null,",
-        "    \"catBecaPreparatoria\": null,",
-        "    \"catTipoApoyo\": null,",
-        "    \"catTipoMoneda\": null,",
-        "    \"catTienesHermanos\": null",
-        "};",
-        "",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){",
-        "    for(let cat of $data.lstCatTienesHermanos.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
-        "            output[\"catTienesHermanos\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){",
-        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "            output[\"catBecaPreparatoria\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){",
-        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
-        "            output[\"catTipoApoyo\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){",
-        "    for(let cat of $data.lstTipoMoneda.data){",
-        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
-        "            output[\"catTipoMoneda\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
+        "let output = {\r",
+        "    \"catTienesHijos\": null,\r",
+        "    \"catBecaPreparatoria\": null,\r",
+        "    \"catTipoApoyo\": null,\r",
+        "    \"catTipoMoneda\": null,\r",
+        "    \"catTienesHermanos\": null,\r",
+        "    \"catPorcentajeBeca\": null,\r",
+        "    \"catPorcentajeFinanciamiento\": null,\r",
+        "    \"catProvienenIngresos\":null\r",
+        "};\r",
+        "\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id && $data.lstCatTienesHermanos){\r",
+        "    for(let cat of $data.lstCatTienesHermanos.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){\r",
+        "            output[\"catTienesHermanos\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){\r",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){\r",
+        "            output[\"catBecaPreparatoria\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){\r",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){\r",
+        "            output[\"catTipoApoyo\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id && $data.lstTipoMoneda){\r",
+        "    for(let cat of $data.lstTipoMoneda.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){\r",
+        "            output[\"catTipoMoneda\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id && $data.lstCatPorcentajeBeca){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id && $data.lstCatPorcentajeFinanciamiento){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catProvienenIngresos_id && $data.lstCatProvienenIngresos){\r",
+        "    for(let cat of $data.lstCatProvienenIngresos.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catProvienenIngresos_id){\r",
+        "            output[\"catProvienenIngresos\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "\r",
         "return output;"
       ],
       "exposed" : false

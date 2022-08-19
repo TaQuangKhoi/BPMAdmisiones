@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1660932137859,
+  "lastUpdate" : 1660946113298,
   "rows" : [
     [
       {
@@ -6221,7 +6221,7 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "51a70822-28aa-46b9-8a51-145f54f92452",
+                          "reference" : "176283ec-2999-46ec-9716-d8d49af49102",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputLimit"
                         }
@@ -6807,6 +6807,10 @@
                               "value" : ""
                             },
                             "hidden" : {
+                              "type" : "expression",
+                              "value" : "returnCatValue.catProvienenIngresos.clave !== \"otro\" || !returnCatValue.catProvienenIngresos"
+                            },
+                            "readOnly" : {
                               "type" : "constant",
                               "value" : false
                             },
@@ -6816,15 +6820,11 @@
                             },
                             "minLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 1
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 1
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "value" : 100
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -6832,7 +6832,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Descripción otro ingreso"
+                              "value" : "Especifique:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -6842,31 +6842,14 @@
                               "type" : "constant",
                               "value" : 4
                             },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
                             "value" : {
                               "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant"
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
+                              "value" : "formOutputTest.solicitudApoyoEducativoInput.otroIngresoTutorDescripcion"
                             }
                           },
-                          "reference" : "35761c7f-a5fd-4053-af36-2685b451030b",
+                          "reference" : "3e07ac8d-430b-46da-b2cd-d544ea41d818",
                           "hasValidationError" : false,
-                          "id" : "customSDAEInputLimit"
+                          "id" : "customCustomTextAreaLimit"
                         }
                       ]
                     ]
@@ -8284,7 +8267,7 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "33425700-ce02-4c41-b2df-75755ce4bcdc",
+                          "reference" : "28bf66eb-575f-454c-ace1-0b4c357f319b",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputLimit"
                         }
@@ -9360,7 +9343,7 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "965b5c8c-e72a-45c0-bbe2-f406f1a85347",
+                          "reference" : "32cef7e5-1a04-411a-b781-c3951b1a8450",
                           "hasValidationError" : false,
                           "id" : "customSDAEInputLimit"
                         }
@@ -22887,7 +22870,13 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Los ingresos provienen de:' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
-        "} else if(!validateBienesRaices()){\r",
+        "} \r",
+        "else if(!validarOtroIngreso()){\r",
+        "    output = false;\r",
+        "    $data.errorPaso2 = \"Si seleccionaste 'Otro' en el campo 'Los ingresos provienen de' debes llenar el campo 'Especifique'.\";\r",
+        "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
+        "} \r",
+        "else if(!validateBienesRaices()){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"Si  agregaste un valor a la tabla de bienes raices, todos los datos de este deben ser llenados.\";\r",
         "    $data.tituloErrorPaso2 = \"Menciona los bienes raíces o las inversiones que posea:\";\r",
@@ -22895,8 +22884,7 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"Debes seleccionar un valor en el campo 'Mis padres están'.\";\r",
         "    $data.tituloErrorPaso2 = \"Información familiar\";\r",
-        "} \r",
-        "else if($data.padre.vive.descripcion === \"Sí\" && $data.padre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre)){\r",
+        "} else if($data.padre.vive.descripcion === \"Sí\" && $data.padre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de padre\";\r",
@@ -22904,8 +22892,7 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de padre\";\r",
-        "} \r",
-        "else if($data.madre.vive.descripcion === \"Sí\" && $data.madre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
+        "} else if($data.madre.vive.descripcion === \"Sí\" && $data.madre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de madre\";\r",
@@ -22966,6 +22953,18 @@
         "    if(!_telefono){\r",
         "        output = false;\r",
         "    } else if (_telefono.toString().length < 10 || _telefono.toString().length > 14){\r",
+        "        output = false;\r",
+        "    }\r",
+        "\r",
+        "    return output;\r",
+        "}\r",
+        "\r",
+        "function validarOtroIngreso(){\r",
+        "    let output = true;\r",
+        "    \r",
+        "    if(!$data.returnCatValue.catProvienenIngresos){\r",
+        "        output = false;\r",
+        "    } else if($data.returnCatValue.catProvienenIngresos.clave === \"otro\" && !$data.formOutputTest.solicitudApoyoEducativoInput.otroIngresoTutorDescripcion){\r",
         "        output = false;\r",
         "    }\r",
         "\r",
@@ -23492,7 +23491,8 @@
         "    \"catTipoMoneda\": null,\r",
         "    \"catTienesHermanos\": null,\r",
         "    \"catPorcentajeBeca\": null,\r",
-        "    \"catPorcentajeFinanciamiento\": null\r",
+        "    \"catPorcentajeFinanciamiento\": null,\r",
+        "    \"catProvienenIngresos\":null\r",
         "};\r",
         "\r",
         "\r",
@@ -23549,6 +23549,16 @@
         "        }    \r",
         "    }\r",
         "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catProvienenIngresos_id && $data.lstCatProvienenIngresos){\r",
+        "    for(let cat of $data.lstCatProvienenIngresos.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catProvienenIngresos_id){\r",
+        "            output[\"catProvienenIngresos\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
         "\r",
         "return output;"
       ],
