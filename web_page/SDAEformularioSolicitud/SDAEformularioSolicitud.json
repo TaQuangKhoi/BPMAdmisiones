@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1660946113298,
+  "lastUpdate" : 1661290354729,
   "rows" : [
     [
       {
@@ -7347,8 +7347,8 @@
                         "value" : "color-orange"
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "!padre.vive"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -8366,6 +8366,78 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "padre.vive.descripcion !== \"No\""
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "El padre está finado"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "6a7d3484-4f73-4472-90af-1f7fa562a9b2",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!padre.desconozcoDatosPadres"
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "La información de el padre se desconoce"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "c2c2d14a-ee8e-473c-88ab-44d3f6a9ab73",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
                         "value" : ""
                       },
                       "hidden" : {
@@ -8421,8 +8493,8 @@
                         "value" : "color-orange"
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "!madre.vive"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -9428,6 +9500,78 @@
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "madre.vive.descripcion !== \"No\""
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "La madre está finada"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "1e7c36be-91c5-435c-bdc2-0bbcf1b788f4",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!madre.desconozcoDatosPadres"
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "La información de la madre se desconoce"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "3c29930e-3249-4564-afe9-f9547d6fcea1",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
                   }
                 ],
                 [
@@ -19613,7 +19757,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Acepto el <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad Anahuác"
+                          "value" : "Acepto el <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad"
                         },
                         "value" : {
                           "type" : "variable",
@@ -22853,8 +22997,7 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío, debe llenarse con un valor numérico y ser de al menos 10 caracteres para México y 14 para extranjero.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
-        "} \r",
-        "else if(  $data.tutor.catTrabaja.descripcion === \"Sí\" && (!$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor  || $data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor.length < 10)){\r",
+        "} else if(  $data.tutor.catTrabaja.descripcion === \"Sí\" && (!$data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor  || $data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaTutor.length < 10)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío,  debe llenarse con un valor numérico y ser de al menos 10 caracteres para México y 14 para extranjero.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
@@ -22870,13 +23013,11 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Los ingresos provienen de:' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
-        "} \r",
-        "else if(!validarOtroIngreso()){\r",
+        "} else if(!validarOtroIngreso()){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"Si seleccionaste 'Otro' en el campo 'Los ingresos provienen de' debes llenar el campo 'Especifique'.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de tutor\";\r",
-        "} \r",
-        "else if(!validateBienesRaices()){\r",
+        "} else if(!validateBienesRaices()){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"Si  agregaste un valor a la tabla de bienes raices, todos los datos de este deben ser llenados.\";\r",
         "    $data.tituloErrorPaso2 = \"Menciona los bienes raíces o las inversiones que posea:\";\r",
@@ -22884,23 +23025,38 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"Debes seleccionar un valor en el campo 'Mis padres están'.\";\r",
         "    $data.tituloErrorPaso2 = \"Información familiar\";\r",
-        "} else if($data.padre.vive.descripcion === \"Sí\" && $data.padre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre)){\r",
+        "} \r",
+        "// else if($data.padre.vive.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaPadre)){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
+        "//     $data.tituloErrorPaso2 = \"Información de padre\";\r",
+        "// } else if($data.madre.vive.descripcion === \"Sí\" && $data.madre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
+        "//     $data.tituloErrorPaso2 = \"Información de madre\";\r",
+        "// } else if($data.madre.vive.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaMadre)){\r",
+        "//     output = false;\r",
+        "//     $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
+        "//     $data.tituloErrorPaso2 = \"Información de madre\";\r",
+        "// } \r",
+        "else if(!validarPadresTutorTrabaja($data.padre, $data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaPadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de padre\";\r",
-        "} else if($data.padre.vive.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaPadre)){\r",
+        "} else if(!validarPadresTutor($data.padre, $data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaPadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de padre\";\r",
-        "} else if($data.madre.vive.descripcion === \"Sí\" && $data.madre.catTrabaja.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
+        "} else if(!validarPadresTutorTrabaja($data.madre, $data.formOutputTest.solicitudApoyoEducativoInput.telefonoOficinaMadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de oficina' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de madre\";\r",
-        "} else if($data.madre.vive.descripcion === \"Sí\" && !validarTelefono($data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaMadre)){\r",
+        "} else if(!validarPadresTutor($data.madre, $data.formOutputTest.solicitudApoyoEducativoInput.telefonoCasaMadre)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"El campo 'Teléfono de casa' no debe ir vacío y el valor debe ser numérico y entre 10 y 14 caracteres de largo.\";\r",
         "    $data.tituloErrorPaso2 = \"Información de madre\";\r",
-        "} else if ($data.formOutputTest.solicitudApoyoEducativoInput.tieneHermanos ==  null || $data.formOutputTest.solicitudApoyoEducativoInput.tieneHermanos ==  undefined){\r",
+        "} \r",
+        "else if ($data.formOutputTest.solicitudApoyoEducativoInput.tieneHermanos ==  null || $data.formOutputTest.solicitudApoyoEducativoInput.tieneHermanos ==  undefined){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"Debes seleccionar un valor en el campo '¿Tienes hermanos?'\";\r",
         "    $data.tituloErrorPaso2 = \"Hermanos\";\r",
@@ -22966,6 +23122,30 @@
         "        output = false;\r",
         "    } else if($data.returnCatValue.catProvienenIngresos.clave === \"otro\" && !$data.formOutputTest.solicitudApoyoEducativoInput.otroIngresoTutorDescripcion){\r",
         "        output = false;\r",
+        "    }\r",
+        "\r",
+        "    return output;\r",
+        "}\r",
+        "\r",
+        "function validarPadresTutorTrabaja(_padreTutor, _telefono){\r",
+        "    let output = true;\r",
+        "    \r",
+        "    if(!_padreTutor.desconozcoDatosPadres){\r",
+        "        if(_padreTutor.vive.descripcion === \"Sí\" && _padreTutor.catTrabaja.descripcion === \"Sí\" && !validarTelefono(_telefono)){\r",
+        "            output = false;\r",
+        "        }\r",
+        "    }\r",
+        "\r",
+        "    return output;\r",
+        "}\r",
+        "\r",
+        "function validarPadresTutor(_padreTutor, _telefono){\r",
+        "    let output = true;\r",
+        "    \r",
+        "    if(!_padreTutor.desconozcoDatosPadres){\r",
+        "        if(_padreTutor.vive.descripcion === \"Sí\" && !validarTelefono(_telefono)){\r",
+        "            output = false;\r",
+        "        }\r",
         "    }\r",
         "\r",
         "    return output;\r",

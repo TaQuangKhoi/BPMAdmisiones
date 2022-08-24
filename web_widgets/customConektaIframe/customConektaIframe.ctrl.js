@@ -134,11 +134,11 @@ function ($scope, $http) {
         
         $http.post(url, $scope.formInput).success(function(data){
             $scope.hideModal();
-            swal("Pago realizado con éxito.", "Redireccionando...", "success");
+            swal("Pago realizado con éxito.", "", "success");
 
-            setTimeout(function(){
-                window.location.reload();
-            }, 5000);  
+            // setTimeout(function(){
+            //     window.location.reload();
+            // }, 5000);  
             
         }).error(function(error){
             $scope.hideModal();

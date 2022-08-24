@@ -6,12 +6,14 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
     $scope.clearPerc = function () {
         swal({
             title: "¿Realmente deseas cambiar el tipo de apoyo?",
-            text: "Si cambias el tipo de apoyo , perderás los documentos cargados previamente y tendrás que cargarlos nuevamente.",
+            text: "Si cambias el tipo de apoyo perderás los documentos enviados previamente.",
             icon: "warning",
             buttons: [
-                'No,cancelar',
+                'No, cancelar',
                 'Si, Cambiar'
             ],
+            cancelButtonColor: "#231F20",
+            confirmButtonColor: "#FF5900",
             dangerMode: false,
         }).then(function(isConfirm){
             if (isConfirm) {

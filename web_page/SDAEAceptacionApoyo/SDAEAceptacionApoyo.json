@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionApoyo",
   "name" : "SDAEAceptacionApoyo",
-  "lastUpdate" : 1658013312173,
+  "lastUpdate" : 1661284332081,
   "rows" : [
     [
       {
@@ -519,6 +519,58 @@
                 }
               },
               "reference" : "7fa019f6-51a0-4abc-ba2e-3e4a70ce7f82",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Tipo de apoyo seleccionado: <b class=\"color-orange\">{{returnCatValue.catTipoApoyo.descripcion}}</b>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "bde5e52b-4085-43ae-86b5-7346f2a0b692",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -3283,49 +3335,81 @@
     "returnCatValue" : {
       "type" : "expression",
       "value" : [
-        "let output = {",
-        "    \"catBecaPreparatoria\": null,",
-        "    \"catTipoApoyo\": null,",
-        "    \"catTipoMoneda\": null,",
-        "    \"catTienesHermanos\": null",
-        "};",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
-        "    for(let cat of $data.lstCatTienesHermanos.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
-        "            output[\"catTienesHermanos\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catBecaPreparatoria_id){",
-        "            output[\"catBecaPreparatoria\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
-        "    for(let cat of $data.getCatTipoApoyoByCampus.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){",
-        "            output[\"catTipoApoyo\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
-        "    for(let cat of $data.lstTipoMoneda.data){",
-        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
-        "            output[\"catTipoMoneda\"] =  cat;",
-        "            break;",
-        "        }    ",
-        "    }",
-        "}",
-        "",
+        "let output = {\r",
+        "    \"catTienesHijos\": null,\r",
+        "    \"catBecaPreparatoria\": null,\r",
+        "    \"catTipoApoyo\": null,\r",
+        "    \"catTipoMoneda\": null,\r",
+        "    \"catTienesHermanos\": null,\r",
+        "    \"catPorcentajeBeca\": null,\r",
+        "    \"catPorcentajeFinanciamiento\": null,\r",
+        "    \"catProvienenIngresos\":null\r",
+        "};\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catTienesHermanos_id && $data.lstCatTienesHermanos){\r",
+        "    for(let cat of $data.lstCatTienesHermanos.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catTienesHermanos_id){\r",
+        "            output[\"catTienesHermanos\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catBecaPreparatoria_id && $data.lstCatContoBecaPreparatoria){\r",
+        "    for(let cat of $data.lstCatContoBecaPreparatoria.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catBecaPreparatoria_id){\r",
+        "            output[\"catBecaPreparatoria\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){\r",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catTipoApoyo_id){\r",
+        "            output[\"catTipoApoyo\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catTipoMoneda_id && $data.lstTipoMoneda){\r",
+        "    for(let cat of $data.lstTipoMoneda.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catTipoMoneda_id){\r",
+        "            output[\"catTipoMoneda\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catPorcentajeBeca_id && $data.lstCatPorcentajeBeca){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catPorcentajeFinanciamiento_id && $data.lstCatPorcentajeFinanciamiento){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudDeApoyoEducativo.catProvienenIngresos_id && $data.lstCatProvienenIngresos){\r",
+        "    for(let cat of $data.lstCatProvienenIngresos.data){\r",
+        "        if(cat.persistenceId == $data.solicitudDeApoyoEducativo.catProvienenIngresos_id){\r",
+        "            output[\"catProvienenIngresos\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "\r",
         "return output;"
       ],
       "exposed" : false
@@ -3663,6 +3747,14 @@
         "",
         "return output;"
       ],
+      "exposed" : false
+    },
+    "solicitudDeApoyoEducativo" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.solicitudApoyoEducativo_ref.link}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
