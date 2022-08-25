@@ -69,7 +69,8 @@ class SecurityFilter {
 				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
-				case "getMenuAdministrativo":allow=bonitaRolFilter(context,"ADMISIONES")
+				case "getMenuAdministrativo":
+				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
 				if(allow){break;}
