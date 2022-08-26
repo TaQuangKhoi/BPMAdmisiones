@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1661294115182,
+  "lastUpdate" : 1661477690691,
   "rows" : [
     [
       {
@@ -3065,7 +3065,7 @@
         "    \r",
         "    for(let hermano of $data.formOutputTest.hermanosInput){\r",
         "        if(!hermano.nombres || !hermano.apellidos || !hermano.edad || \r",
-        "            (hermano.isEstudia && (!hermano.institucion || !hermano.colegiaturaMensual))  ||\r",
+        "            (hermano.isEstudia && (!hermano.institucion || (!hermano.colegiaturaMensual && hermano.colegiaturaMensual != 0)))  ||\r",
         "            (hermano.isTieneBeca && !hermano.porcentajeBecaAsignado)  ||\r",
         "            (hermano.isTrabaja && (!hermano.empresa || !hermano.ingresoMensual))\r",
         "        ){\r",

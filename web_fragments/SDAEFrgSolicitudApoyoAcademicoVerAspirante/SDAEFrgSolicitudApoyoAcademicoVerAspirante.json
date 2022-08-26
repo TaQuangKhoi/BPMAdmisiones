@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1661281977368,
+  "lastUpdate" : 1661471251405,
   "rows" : [
     [
       {
@@ -5446,8 +5446,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "returnCatValue.catProvienenIngresos.clave !== \"otro\" || !returnCatValue.catProvienenIngresos"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -5638,6 +5638,10 @@
                 "editar" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "tipoMoneda" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catTipoMoneda.clave"
                 }
               },
               "reference" : "86c179f7-49a8-417c-8dc1-2b7eb05cca84",
@@ -10833,7 +10837,8 @@
                   "value" : false
                 },
                 "moneda" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "returnCatValue.catTipoMoneda.clave"
                 }
               },
               "reference" : "3b00860b-a33d-42cc-b561-b8cab23c1315",
