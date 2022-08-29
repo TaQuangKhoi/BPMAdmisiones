@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1661541992628,
+  "lastUpdate" : 1661815239300,
   "rows" : [
     [
       {
@@ -23025,7 +23025,8 @@
         "    output = false;\r",
         "    $data.errorPaso2 = \"Si  agregaste un valor a la tabla de bienes raices, todos los datos de este deben ser llenados.\";\r",
         "    $data.tituloErrorPaso2 = \"Menciona los bienes raíces o las inversiones que posea:\";\r",
-        "} else if ($data.formOutputTest.solicitudApoyoEducativoInput.catEstadoCivilPadres_id == null || $data.formOutputTest.solicitudApoyoEducativoInput.catEstadoCivilPadres_id == undefined){\r",
+        "} else if (\r",
+        "    (!$data.padre.desconozcoDatosPadres || !$data.madre.desconozcoDatosPadres) && ($data.formOutputTest.solicitudApoyoEducativoInput.catEstadoCivilPadres_id == null || $data.formOutputTest.solicitudApoyoEducativoInput.catEstadoCivilPadres_id == undefined)){\r",
         "    output = false;\r",
         "    $data.errorPaso2 = \"Debes seleccionar un valor en el campo 'Mis padres están'.\";\r",
         "    $data.tituloErrorPaso2 = \"Información familiar\";\r",

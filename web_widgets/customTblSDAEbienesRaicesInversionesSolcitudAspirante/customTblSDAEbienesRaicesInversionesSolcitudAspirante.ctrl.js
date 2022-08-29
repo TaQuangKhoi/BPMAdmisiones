@@ -18,6 +18,6 @@ function PbTableCtrl($scope) {
     }
   
     $scope.removeElement = function(_row){
-        $scope.properties.content.splice($scope.properties.content.indexOf($scope.properties.content), 1);
+        $scope.properties.content.splice($scope.properties.content.indexOf(_row), 1);
     }
 }

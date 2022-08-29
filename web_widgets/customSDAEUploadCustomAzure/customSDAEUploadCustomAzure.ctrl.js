@@ -279,6 +279,8 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         $scope.linkSource  = '';
         $scope.fileName  = '';
         $scope.extension  = '';
+        $scope.properties.urlzure = "";
+        
         let obj = {
             "linkSource": "",
             "fileName":  "",

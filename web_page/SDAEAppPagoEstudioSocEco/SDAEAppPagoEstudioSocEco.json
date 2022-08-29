@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1661553824490,
+  "lastUpdate" : 1661814372159,
   "rows" : [
     [
       {
@@ -334,98 +334,6 @@
               "reference" : "3888a691-2ef1-446c-9e0c-e82e2314bec8",
               "hasValidationError" : false,
               "id" : "pbText"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Continuar sin pago"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation",
-                  "value" : "/bonita/apps/aspiranteSDAE/nueva_solicitud_SDAE/"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                }
-              },
-              "reference" : "2510d7f0-4e98-41e1-a6d6-7274eb7344b2",
-              "hasValidationError" : false,
-              "id" : "pbButton"
             }
           ],
           [
@@ -5702,10 +5610,10 @@
                 ],
                 [
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
-                      "xs" : 6,
-                      "sm" : 6,
+                      "xs" : 12,
+                      "sm" : 12,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -5715,49 +5623,153 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "currentTaskName === \"Pago de estudio socio-económico\""
                       },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Descargar"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "right"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "primary"
-                      },
-                      "elementSelector" : {
-                        "type" : "constant",
-                        "value" : ".modal-print-3"
-                      },
-                      "fileName" : {
-                        "type" : "constant",
-                        "value" : "cardReceipt"
-                      },
-                      "idEditor" : {
-                        "type" : "constant",
-                        "value" : "cardEditor"
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
-                    "reference" : "f8c1387d-3227-4a1f-a5f4-2997a1ecfcb9",
+                    "reference" : "502aaa9f-717f-46a4-b238-181e51daaf3a",
                     "hasValidationError" : false,
-                    "id" : "customCustomPdfPrint"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 6,
+                            "sm" : 6,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Descargar"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "elementSelector" : {
+                              "type" : "constant",
+                              "value" : ".modal-print-3"
+                            },
+                            "fileName" : {
+                              "type" : "constant",
+                              "value" : "cardReceipt"
+                            },
+                            "idEditor" : {
+                              "type" : "constant",
+                              "value" : "cardEditor"
+                            }
+                          },
+                          "reference" : "f8c1387d-3227-4a1f-a5f4-2997a1ecfcb9",
+                          "hasValidationError" : false,
+                          "id" : "customCustomPdfPrint"
+                        }
+                      ]
+                    ]
                   },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "currentTaskName === \"Pago de estudio socio-económico\""
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "38f695f6-b52f-46ab-b0c2-d6928994500f",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 6,
+                            "sm" : 6,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "currentTaskName === \"Pago de estudio socio-económico\""
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Continuar"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "success"
+                            },
+                            "url" : {
+                              "type" : "interpolation",
+                              "value" : "/apps/aspiranteSDAE/nueva_solicitud_SDAE/"
+                            }
+                          },
+                          "reference" : "4b481127-b169-4bc7-ad02-adf1f369640d",
+                          "hasValidationError" : false,
+                          "id" : "customCustomBtnRedirectLayout"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 6,
-                      "sm" : 6,
-                      "md" : 6,
-                      "lg" : 6
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -5765,8 +5777,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "currentTaskName !== \"Pago de estudio socio-económico\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -5778,20 +5790,68 @@
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "left"
+                        "value" : "center"
                       },
                       "buttonStyle" : {
                         "type" : "constant",
-                        "value" : "success"
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
                       },
                       "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
                         "type" : "interpolation",
-                        "value" : "/apps/aspiranteSDAE/nueva_solicitud_SDAE/"
+                        "value" : "/bonita/apps/aspiranteSDAE/nueva_solicitud_SDAE/"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
                       }
                     },
-                    "reference" : "4b481127-b169-4bc7-ad02-adf1f369640d",
+                    "reference" : "2510d7f0-4e98-41e1-a6d6-7274eb7344b2",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnRedirectLayout"
+                    "id" : "pbButton"
                   }
                 ]
               ]
