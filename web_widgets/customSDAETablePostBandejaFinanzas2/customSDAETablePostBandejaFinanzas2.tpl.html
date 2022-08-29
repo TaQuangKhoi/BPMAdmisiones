@@ -76,9 +76,15 @@
                 <!--td>
                     {{row.updateDate}}
                 </td-->
-                <td class="text-center">
-                    <button class="btn btn-default" ng-click="verSolicitud(row)" ng-show="row.estatusfinanciamiento === 'Solicitud de financiamiento completada' || row.estatusfinanciamiento === 'Solicitud de financimiento reactivada'">
+                <td class="text-center" style="display: inline-flex; border-bottom: none;">
+                    <!--<button class="btn btn-default" ng-click="verSolicitud(row)" ng-show="row.estatusfinanciamiento === 'Solicitud de financiamiento completada' || row.estatusfinanciamiento === 'Solicitud de financimiento reactivada'">-->
+                    <!--    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>-->
+                    <!--</button>-->
+                    <button class="btn btn-default" ng-click="abrirSolicitud(row)" style="margin: 1.5px;">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-default" ng-click="verSolicitud(row)" style="margin: 1.5px;">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </button>
                 </td>
             </tr>

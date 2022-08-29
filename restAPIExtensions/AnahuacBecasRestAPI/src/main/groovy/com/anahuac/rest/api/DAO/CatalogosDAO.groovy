@@ -2326,7 +2326,7 @@ class CatalogosDAO {
 			while (rs.next()) {
 				row = new DocumentosSolicitante();
 				
-				row.setCatManejoDocumentos_id(rs.getLong("doc_catmanejodocumentos_pid"));
+				row.setCatManejoDocumentos_id(rs.getLong("cma_persistenceid"));
 				row.setCaseId(rs.getLong("doc_caseid"));
 				row.setUrlDocumento(rs.getString("doc_urlDocumento"));
 				catManejoDocumentos = new CatManejoDocumentos();

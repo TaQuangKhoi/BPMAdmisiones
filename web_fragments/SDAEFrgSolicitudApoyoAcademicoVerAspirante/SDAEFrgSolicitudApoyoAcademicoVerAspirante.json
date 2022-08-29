@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1661471251405,
+  "lastUpdate" : 1661559800092,
   "rows" : [
     [
       {
@@ -1891,7 +1891,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Edad de los hijos"
+                              "value" : "Edad de los hijos:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4729,8 +4729,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "tutor.catTrabaja.descripcion !== \"Sí\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6627,7 +6627,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.catTrabaja.descripcion !== \"Sí\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7769,7 +7769,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.catTrabaja.descripcion !== \"Sí\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -10790,7 +10790,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -10844,6 +10844,78 @@
               "reference" : "3b00860b-a33d-42cc-b561-b8cab23c1315",
               "hasValidationError" : false,
               "id" : "customTblSDAEinformacionAutomoviles"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "content" : {
+                  "type" : "expression",
+                  "value" : "formOutputTest.autosInput"
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "lstSituacionAuto" : {
+                  "type" : "variable",
+                  "value" : "lstAutomoviles"
+                },
+                "editar" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "moneda" : {
+                  "type" : "expression",
+                  "value" : "returnCatValue.catTipoMoneda.clave"
+                }
+              },
+              "reference" : "d1135c99-12aa-4ac0-8a4f-7626e745d97e",
+              "hasValidationError" : false,
+              "id" : "customTblSDAEinformacionAutomovilesVer"
             }
           ],
           [

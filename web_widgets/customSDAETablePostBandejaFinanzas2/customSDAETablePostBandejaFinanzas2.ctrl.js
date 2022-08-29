@@ -88,19 +88,20 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                //rowData.taskName=
-                $scope.preProcesoAsignarTarea(rowData);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
+            rowData.taskId = data[0].id;
+            rowData.taskName = data[0].name;
+            rowData.processId = data[0].processId;
+            //rowData.taskName=
+            $scope.preProcesoAsignarTarea(rowData);
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
             .finally(function() {
   
             });
     }
+    
     $scope.preProcesoAsignarTarea = function(rowData) {
   
         var req = {
@@ -109,16 +110,16 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                rowData.processName = data.name;
-                rowData.processVersion = data.version;
-                $scope.asignarTarea(rowData);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {
-  
-            });
+            rowData.processName = data.name;
+            rowData.processVersion = data.version;
+            $scope.asignarTarea(rowData);
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
+        .finally(function() {
+
+        });
     }
   
     $scope.asignarTarea = function(rowData) {
@@ -129,14 +130,19 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                redireccionarTarea(rowData);
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-  
-            });
+            redireccionarTarea(rowData);
+        })
+        .error(function(data, status) {
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {
+
+        });
+    }
+
+    $scope.abrirSolicitud = function (rowData) {
+        var url = "/bonita/portal/resource/app/sdae/verSolicitud/content/?app=sdae&caseId=" + rowData.caseid;
+        window.open(url, '_blank');
     }
   
     function redireccionarTarea(rowData) {
@@ -147,23 +153,23 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-                var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
-                window.open(url, '_blank');
-                
-                /*
-                var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[NOMBREPROCESO]", rowData.processName);
-                url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
-                url = url.replace("[NOMBRETAREA]", rowData.taskName);
-                url = url.replace("[TASKID]", rowData.taskId);
-                $window.location.assign(url);*/
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-  
-            });
+            var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
+            window.open(url, '_blank');
+            
+            /*
+            var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
+            url = url.replace("[NOMBREPROCESO]", rowData.processName);
+            url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
+            url = url.replace("[NOMBRETAREA]", rowData.taskName);
+            url = url.replace("[TASKID]", rowData.taskId);
+            $window.location.assign(url);*/
+        })
+        .error(function(data, status) {
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {
+
+        });
     }
   
     $scope.isenvelope = false;
@@ -202,20 +208,19 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-  
-                $scope.envelopeCancel();
-            })
-            .error(function(data, status) {
-                console.error(data)
-            })
-            .finally(function() {});
+            $scope.envelopeCancel();
+        })
+        .error(function(data, status) {
+            console.error(data)
+        })
+        .finally(function() {});
     }
+    
     $scope.lstCampus = [];
   
     $(function() {
         doRequest("POST", $scope.properties.urlPost);
     })
-  
   
     $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
         if (newValue !== undefined) {
@@ -244,6 +249,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
         doRequest("POST", $scope.properties.urlPost);
     }
+    
     $scope.filterKeyPress = function(columna, press) {
         var aplicado = true;
   
@@ -352,6 +358,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.lstMembership = [];
+    
     $scope.$watch("properties.userId", function(newValue, oldValue) {
         if (newValue !== undefined) {
             var req = {
@@ -360,18 +367,19 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             };
   
             return $http(req)
-                .success(function(data, status) {
-                    $scope.lstMembership = data;
-                    $scope.campusByUser();
-                })
-                .error(function(data, status) {
-                    console.error(data);
-                })
-                .finally(function() {});
+            .success(function(data, status) {
+                $scope.lstMembership = data;
+                $scope.campusByUser();
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
         }
     });
   
     $scope.lstCampusByUser = [];
+    
     $scope.campusByUser = function() {
         var resultado = [];
         // var isSerua = true;
@@ -394,7 +402,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         // }
         $scope.lstCampusByUser = resultado;
     }
-    $scope.filtroCampus = ""
+    
+    $scope.filtroCampus = "";
+    
     $scope.addFilter = function() {
         if ($scope.filtroCampus != "Todos los campus") {
             var filter = {
@@ -453,11 +463,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
   
     }
+    
     $scope.sizing = function() {
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
         $scope.iniciarP = 1;
         $scope.finalP = 10;
+        
         try {
             $scope.properties.dataToSend.limit = parseInt($scope.properties.dataToSend.limit);
         } catch (exception) {
@@ -473,20 +485,20 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             url: "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=100"
         };
   
-        return $http(req)
-            .success(function(data, status) {
-                $scope.lstCampus = [];
-                for (var index in data) {
-                    $scope.lstCampus.push({
-                        "descripcion": data[index].descripcion,
-                        "valor": data[index].grupoBonita
-                    })
-                }
-            })
-            .error(function(data, status) {
-                console.error(data);
-            });
+        return $http(req).success(function(data, status) {
+            $scope.lstCampus = [];
+            for (var index in data) {
+                $scope.lstCampus.push({
+                    "descripcion": data[index].descripcion,
+                    "valor": data[index].grupoBonita
+                })
+            }
+        })
+        .error(function(data, status) {
+            console.error(data);
+        });
     }
+    
     $scope.isPeriodoVencido = function(periodofin) {
         var fecha = new Date(periodofin.slice(0, 10))
         return fecha < new Date();
@@ -494,4 +506,4 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
   
     $scope.getCatCampus();
-  }
+}

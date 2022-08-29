@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEVerSolicitud",
   "name" : "SDAEVerSolicitud",
-  "lastUpdate" : 1661470970601,
+  "lastUpdate" : 1661559952304,
   "rows" : [
     [
       {
@@ -28,7 +28,7 @@
           },
           "reloadTask" : {
             "type" : "variable",
-            "value" : true
+            "value" : "true"
           },
           "taskId" : {
             "type" : "variable",
@@ -87,9 +87,9 @@
             "value" : false
           }
         },
-        "reference" : "e3a7a34c-b4d2-4345-a44b-603df4422994",
+        "reference" : "2a12e202-3e0b-428c-80c4-bcc18f0c36f0",
         "hasValidationError" : false,
-        "id" : "customSDAEGetTareaUsuario"
+        "id" : "customSDAEGetTareaUsuarioVer"
       }
     ],
     [
@@ -257,7 +257,7 @@
                 "fotoB64" : "fotoB64",
                 "userDataEmail" : "userDataEmail",
                 "selectedFile" : "selectedFile",
-                "getAutodescripcion" : "getAutosSolicitantes",
+                "getAutodescripcion" : "getAutodescripcion",
                 "objPadresTutor" : "objPadresTutor",
                 "returnCurriculumInfo" : "returnCurriculumInfo",
                 "getInformacionEscolar" : "getInformacionEscolar",
@@ -265,7 +265,7 @@
                 "selectedIndex" : "selectedIndex",
                 "getDatosSolicitante" : "getDatosSolicitante",
                 "imagenesSocEcoSolicitanteInput" : "formOutputTest.imagenesSocEcoSolicitanteInput",
-                "documentosSolicitanteInput" : "formOutputTest.lstDocumentosDocumentInput",
+                "documentosSolicitanteInput" : "formOutputTest.documentosSolicitanteInput",
                 "idModal" : "\"modalPV\"",
                 "avalInfoPersonalModel" : "",
                 "avalInfoInmuebleModel" : "",
@@ -1023,7 +1023,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCaseId&p=0&c=10&f=caseId={{formOutputTest.solicitudApoyoEducativoInput.caseIdAdmisiones}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "mensaje" : {
@@ -1308,7 +1312,7 @@
     "getAutodescripcion" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.AutodescripcionV2?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
+        "../API/bdm/businessData/com.anahuac.model.AutodescripcionV2?q=findByCaseId&p=0&c=10&f=caseId={{formOutputTest.solicitudApoyoEducativoInput.caseIdAdmisiones}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

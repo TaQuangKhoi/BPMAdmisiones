@@ -142,7 +142,7 @@ function ($scope, $http) {
             
         }).error(function(error){
             $scope.hideModal();
-            swal("Error", "Algo salió mal con el proceso de pago, intenta de nuevo mas tarde.", "error");
+            swal("Error", "Algo salió mal con el proceso de pago. Revisa que los datos de la tarjeta estén correctos.", "error");
         });
     }
 }
