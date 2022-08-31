@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1661297330135,
+  "lastUpdate" : 1661907665249,
   "rows" : [
     [
       {
@@ -3415,7 +3415,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Fecha límite de inscripción"
+                                      "value" : "Fecha límite de inscripción:"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -3482,8 +3482,8 @@
                                       "value" : 3
                                     },
                                     "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : true
+                                      "type" : "expression",
+                                      "value" : "!getConfiguracionCampus.data[0].descuentoProntoPago"
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -4614,7 +4614,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Fecha límite de inscripción"
+                                      "value" : "Fecha límite de inscripción:"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -4681,8 +4681,8 @@
                                       "value" : 1
                                     },
                                     "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : true
+                                      "type" : "expression",
+                                      "value" : "!getConfiguracionCampus.data[0].descuentoProntoPago"
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -5612,7 +5612,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Fecha límite de inscripción"
+                                      "value" : "Fecha límite de inscripción:"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -5679,8 +5679,8 @@
                                       "value" : 1
                                     },
                                     "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : true
+                                      "type" : "expression",
+                                      "value" : "!getConfiguracionCampus.data[0].descuentoProntoPago"
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -7265,6 +7265,14 @@
         "\t\"autorizacionInput\":autorizacionInput\r",
         "}"
       ],
+      "exposed" : false
+    },
+    "getConfiguracionCampus" : {
+      "type" : "url",
+      "value" : [
+        "/API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
