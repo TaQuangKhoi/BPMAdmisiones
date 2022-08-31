@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1661903542749,
+  "lastUpdate" : 1661969373696,
   "rows" : [
     [
       {
@@ -7370,6 +7370,78 @@
                 ],
                 [
                   {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "padre.vive.descripcion !== \"No\""
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Finado(a)"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "6a7d3484-4f73-4472-90af-1f7fa562a9b2",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!padre.desconozcoDatosPadres"
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Se desconoce"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "c2c2d14a-ee8e-473c-88ab-44d3f6a9ab73",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
@@ -7642,7 +7714,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -7719,7 +7791,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -7796,7 +7868,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -7901,7 +7973,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -7978,7 +8050,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -8055,7 +8127,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!padre.vive"
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -8287,8 +8359,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "padre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -8352,78 +8424,6 @@
                         }
                       ]
                     ]
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "padre.vive.descripcion !== \"No\""
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "El padre está finado"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 4"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "6a7d3484-4f73-4472-90af-1f7fa562a9b2",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "!padre.desconozcoDatosPadres"
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "Se desconoce"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 4"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "c2c2d14a-ee8e-473c-88ab-44d3f6a9ab73",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
                   }
                 ],
                 [
@@ -8510,6 +8510,78 @@
                       }
                     },
                     "reference" : "65184a2a-8162-4dea-b2a0-80a4e81edbeb",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "madre.vive.descripcion !== \"No\""
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Finado(a)"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "1e7c36be-91c5-435c-bdc2-0bbcf1b788f4",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!madre.desconozcoDatosPadres"
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Se desconoce"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "3c29930e-3249-4564-afe9-f9547d6fcea1",
                     "hasValidationError" : false,
                     "id" : "pbTitle"
                   }
@@ -8788,7 +8860,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -8865,7 +8937,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -8942,7 +9014,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -9047,7 +9119,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -9124,7 +9196,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -9201,7 +9273,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "!madre.vive"
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -9435,8 +9507,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "madre.vive.descripcion === \"No\""
                             },
                             "required" : {
                               "type" : "constant",
@@ -9500,78 +9572,6 @@
                         }
                       ]
                     ]
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "madre.vive.descripcion !== \"No\""
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "La madre está finada"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 4"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "1e7c36be-91c5-435c-bdc2-0bbcf1b788f4",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "!madre.desconozcoDatosPadres"
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "Se desconoce"
-                      },
-                      "level" : {
-                        "type" : "constant",
-                        "value" : "Level 4"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "3c29930e-3249-4564-afe9-f9547d6fcea1",
-                    "hasValidationError" : false,
-                    "id" : "pbTitle"
                   }
                 ],
                 [

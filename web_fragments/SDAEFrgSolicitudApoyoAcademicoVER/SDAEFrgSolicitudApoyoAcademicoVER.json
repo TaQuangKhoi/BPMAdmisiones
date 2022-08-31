@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVER",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVER",
-  "lastUpdate" : 1661817996409,
+  "lastUpdate" : 1661968684766,
   "rows" : [
     [
       {
@@ -4680,8 +4680,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "tutor.catTrabaja.descripcion !== \"Sí\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -5885,8 +5885,8 @@
                   "value" : "color-orange"
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "!padre.vive"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -5902,6 +5902,78 @@
                 }
               },
               "reference" : "93b8a4db-befc-45c4-9494-7da99c75a4e9",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "padre.vive.descripcion !== \"No\""
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Finado(a)"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "d067313c-bc55-4336-9d07-79fbdd7173a6",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!padre.desconozcoDatosPadres"
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Se desconoce"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "711ff4c3-920d-499a-9697-6b0115609fc6",
               "hasValidationError" : false,
               "id" : "pbTitle"
             }
@@ -6180,7 +6252,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6257,7 +6329,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6334,7 +6406,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6439,7 +6511,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6516,7 +6588,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6593,7 +6665,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6670,7 +6742,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.catTrabaja.descripcion !== \"Sí\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6824,7 +6896,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!padre.vive"
+                        "value" : "padre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -6900,78 +6972,6 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "padre.vive.descripcion !== \"No\""
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "El padre está finado"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "d067313c-bc55-4336-9d07-79fbdd7173a6",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "!padre.desconozcoDatosPadres"
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "La información de el padre se desconoce"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "711ff4c3-920d-499a-9697-6b0115609fc6",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
                   "value" : ""
                 },
                 "hidden" : {
@@ -7027,8 +7027,8 @@
                   "value" : "color-orange"
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "!madre.vive"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -7044,6 +7044,78 @@
                 }
               },
               "reference" : "bfe4ea9f-cf86-4a12-98ce-af31fb1fed58",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "madre.vive.descripcion !== \"No\""
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Finado(a)"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "93381e11-d0c0-4bab-abd4-e11cf18324fc",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!madre.desconozcoDatosPadres"
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Se desconoce"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "b34ac211-f778-49d9-bcdb-13b9cd07e363",
               "hasValidationError" : false,
               "id" : "pbTitle"
             }
@@ -7322,7 +7394,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7399,7 +7471,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7476,7 +7548,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7581,7 +7653,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7658,7 +7730,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7735,7 +7807,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7812,7 +7884,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.catTrabaja.descripcion !== \"Sí\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7966,7 +8038,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!madre.vive"
+                        "value" : "madre.vive.descripcion === \"No\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -7981,8 +8053,8 @@
                         "value" : ""
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "!formOutputTest.solicitudApoyoEducativoInput.modificarInfoFamiliar"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -8028,78 +8100,6 @@
                   }
                 ]
               ]
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "madre.vive.descripcion !== \"No\""
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "La madre está finada"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "93381e11-d0c0-4bab-abd4-e11cf18324fc",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "!madre.desconozcoDatosPadres"
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "La información de la madre se desconoce"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "b34ac211-f778-49d9-bcdb-13b9cd07e363",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
             }
           ],
           [
