@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
   "name" : "SDAEFrgSolicitudApoyoAcademicoVerAspirante",
-  "lastUpdate" : 1661970902647,
+  "lastUpdate" : 1661994962210,
   "rows" : [
     [
       {
@@ -15300,8 +15300,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "!isAutor"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -16603,6 +16603,769 @@
                 ]
               ]
             }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Anterior"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Anterior"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "errorMessage" : {
+                  "type" : "constant"
+                },
+                "messageTitle" : {
+                  "type" : "constant"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "ee85ceb9-e3a5-483c-95f8-13e352f04ebc",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Siguiente"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Siguiente"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : "validar5"
+                },
+                "errorMessage" : {
+                  "type" : "expression",
+                  "value" : "errorPaso5"
+                },
+                "messageTitle" : {
+                  "type" : "expression",
+                  "value" : "tituloErrorPaso5"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : "formOutputTest"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "taskid"
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : "reloadTask"
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "userId" : {
+                  "type" : "expression",
+                  "value" : "userData.user_id"
+                }
+              },
+              "reference" : "e1fa9920-fd3e-44e0-9486-4726d8d93b16",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "transition-page"
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "selectedIndex  !== 5"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "047e0d1b-4023-4150-b7df-5b0f37bb61f2",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Anterior"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Anterior"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "errorMessage" : {
+                  "type" : "constant"
+                },
+                "messageTitle" : {
+                  "type" : "constant"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "525d722b-82f9-478e-ba8b-31a3064144b6",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!isAutor"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Siguiente"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Siguiente"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : "true"
+                },
+                "errorMessage" : {
+                  "type" : "constant"
+                },
+                "messageTitle" : {
+                  "type" : "constant"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : "formOutputTest"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "taskid"
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : "reloadTask"
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "userId" : {
+                  "type" : "expression",
+                  "value" : "userData.user_id"
+                }
+              },
+              "reference" : "fc5dba63-3772-4dfb-9b0c-42e0e3e92b98",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<label>Valida y envía tu información</label>"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "78b84b11-7563-4c52-9dcf-dd1c549f2de3",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<label class=\"color-orange\">Si has revisado cuidadosamente tu información, si es verídica y correcta, es momento de enviar tu solicitud.</label><br>\n<label class=\"color-orange\">Nuestro equipo de  apoyo educativo te apoyará en este proceso y te acompañará para mantenerte al tanto de tu solicitud. ¡Te deseamos mucha suerte!</label>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "864fbd5f-fad6-4a74-be76-c6fc75e58446",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos."
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "true"
+                }
+              },
+              "reference" : "1c0a1a09-64e3-4806-aea8-d4e2d95ecf24",
+              "hasValidationError" : false,
+              "id" : "pbCheckbox"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de solicitud de apoyo educativo de manera negativa y definitiva."
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "true"
+                }
+              },
+              "reference" : "820495a2-88d6-4ced-a765-8726958375ed",
+              "hasValidationError" : false,
+              "id" : "pbCheckbox"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "He leido y acepto el <a class=\"color-orange\" href=\"https://procesos.bpm.anahuac.mx/apps/login/AvisoPrivacidad/\" target=\"blank\">Aviso de privacidad</a>"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "true"
+                }
+              },
+              "reference" : "a2c6f7da-9aff-41ba-8d48-93d9558b7f37",
+              "hasValidationError" : false,
+              "id" : "pbCheckbox"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Acepto el <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Reglamento de Becas y Financiamiento educativo</a> de la Universidad"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "true"
+                }
+              },
+              "reference" : "da869163-875b-425f-b44e-0d26fb55170e",
+              "hasValidationError" : false,
+              "id" : "pbCheckbox"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Anterior"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Anterior"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "errorMessage" : {
+                  "type" : "constant"
+                },
+                "messageTitle" : {
+                  "type" : "constant"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "823ee166-86f3-4795-acac-bff53ed0a148",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!isAutor"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Siguiente"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Siguiente"
+                },
+                "isValidStep" : {
+                  "type" : "variable",
+                  "value" : "true"
+                },
+                "errorMessage" : {
+                  "type" : "constant"
+                },
+                "messageTitle" : {
+                  "type" : "constant"
+                },
+                "formOutput" : {
+                  "type" : "variable",
+                  "value" : "formOutputTest"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "taskid"
+                },
+                "reloadTask" : {
+                  "type" : "variable",
+                  "value" : "reloadTask"
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "userId" : {
+                  "type" : "expression",
+                  "value" : "userData.user_id"
+                }
+              },
+              "reference" : "4f15e155-842b-4a66-9db5-24b26a575901",
+              "hasValidationError" : false,
+              "id" : "customSDAEcustomBtnWizardValidationNoTask"
+            }
           ]
         ]
       }
@@ -16623,7 +17386,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "selectedIndex  !== 5 || isAutor == true"
+            "value" : "selectedIndex  !== 6 || isAutor == true"
           },
           "repeatedCollection" : {
             "type" : "variable",

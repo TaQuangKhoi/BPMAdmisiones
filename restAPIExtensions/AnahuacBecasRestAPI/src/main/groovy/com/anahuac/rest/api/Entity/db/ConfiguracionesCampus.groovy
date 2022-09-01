@@ -10,7 +10,14 @@ class ConfiguracionesCampus {
 	Boolean descuentoProntoPago;
 	Long idCampus;
 	Double promedioMinimo;
+	String urlDocumentoCondicionesFinanciamiento;
 	
+	public String getUrlDocumentoCondicionesFinanciamiento() {
+		return urlDocumentoCondicionesFinanciamiento;
+	}
+	public void setUrlDocumentoCondicionesFinanciamiento(String urlDocumentoCondicionesFinanciamiento) {
+		this.urlDocumentoCondicionesFinanciamiento = urlDocumentoCondicionesFinanciamiento;
+	}
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
