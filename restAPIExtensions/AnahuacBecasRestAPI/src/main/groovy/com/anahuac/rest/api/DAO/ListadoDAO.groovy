@@ -232,7 +232,54 @@ class ListadoDAO {
 							}
 							where = where.replace("[valor]", filtro.get("valor"))
 							break;
+						case "P-BECA":
+							errorlog += "P-BECA"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " (LOWER(AA.porcentajeBecaAutorizacion::varchar(255)) ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%'))"
+							}
 	
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "P-FINAN":
+							errorlog += "P-FINAN"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " (LOWER(SF.porcComite::varchar(255)) ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%'))"
+							}
+	
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "F-TRAMITE":
+							errorlog += "F-TRAMITE"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " (LOWER( CASE SF.finalizada WHEN 't' THEN 'Concluido' WHEN 'f' THEN 'En proceso' ELSE 'N/A' END ) ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%'))"
+							}
+	
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
 						default:
 							break;
 					}

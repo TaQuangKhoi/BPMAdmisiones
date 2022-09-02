@@ -1,8 +1,8 @@
 {
   "modelVersion" : "2.2",
-  "id" : "SDAEArchivoSolicitudesCompletadas",
-  "name" : "SDAEArchivoSolicitudesCompletadas",
-  "lastUpdate" : 1662157215254,
+  "id" : "SDAESeguimientoSolicitudes",
+  "name" : "SDAESeguimientoSolicitudes",
+  "lastUpdate" : 1662146764126,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
             "value" : ""
           }
         },
-        "reference" : "a3fc68a6-5f8f-4dfd-b97e-e2d5457364c2",
+        "reference" : "c64614de-a44a-4aaf-8a69-4d1cdffd332c",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -52,7 +52,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Solicitudes en proceso de cierre"
+                  "value" : "Seguimiento procesadas<br> (En construcción <span class=\"glyphicon glyphicon-wrench\"></span> )"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -63,7 +63,7 @@
                   "value" : 12
                 }
               },
-              "reference" : "76c98138-7514-4a34-a6ab-b70715767858",
+              "reference" : "951b32c8-e1bf-4e15-b9f6-d46598741d03",
               "hasValidationError" : false,
               "id" : "pbTitle",
               "description" : ""
@@ -92,7 +92,7 @@
                   "value" : ""
                 }
               },
-              "reference" : "3a6b9936-87c3-4ec4-99ef-c5d01d8571e6",
+              "reference" : "1f9a902f-41bf-48d2-abad-086d622db6ec",
               "hasValidationError" : false,
               "id" : "pbContainer",
               "rows" : [
@@ -119,7 +119,7 @@
                         "value" : "lstFiltros"
                       }
                     },
-                    "reference" : "2915b286-d71d-4eab-8916-12f92b92b2c6",
+                    "reference" : "94dad1d6-e569-40a1-8108-4f6e6b526759",
                     "hasValidationError" : false,
                     "id" : "customSDAElistFiltrosBloqueoCampus"
                   }
@@ -203,12 +203,12 @@
                       },
                       "abrirPagina" : {
                         "type" : "constant",
-                        "value" : "verSolicitud"
+                        "value" : "solicitudRechazada"
                       }
                     },
-                    "reference" : "7fc30ff9-5953-44dc-9741-8bd58d8b47ef",
+                    "reference" : "03ba641f-f906-481a-98cb-f5dbea38093a",
                     "hasValidationError" : false,
-                    "id" : "customSDAEArchivoSolicitudesCompletadasTabla"
+                    "id" : "customSDAESeguimientoSolicitudesTabla"
                   }
                 ]
               ]
@@ -287,7 +287,29 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Propuesta aceptada por aspirante', 'Propuesta financiamiento aceptada por aspirante', 'Solicitud de Financiamiento en Proceso', 'Solicitud de financiamiento autorizada'\",\r",
+        "    \"estatusSolicitud\":\r",
+        "        \"'Solicitud de apoyo en progreso', \" \r",
+        "        + \"'Esperando Pre-Autorización', \" \r",
+        "        + \"'Correcciones realizadas', \"\r",
+        "        + \"'Esperando revisión área deportiva', \" \r",
+        "        + \"'Esperando revisión área artistica', \" \r",
+        "        + \"'En espera de resultado', \" \r",
+        "        + \"'En espera de pago', \" \r",
+        "        + \"'En espera de validación de pago', \" \r",
+        "        + \"'En espera de autorización', \" \r",
+        "        + \"'Solicitud autorizada', \" \r",
+        "        + \"'Solicitud Rechazada', \" \r",
+        "        + \"'Solicitud no autorizada', \" \r",
+        "        + \"'Solicitud de financimiento iniciado', \" \r",
+        "        + \"'Finanzas solicita modificaciones', \" \r",
+        "        + \"'Solicitud de financiamiento completada', \" \r",
+        "        + \"'Modificaciones realizadas', \" \r",
+        "        + \"'Solicitud de financiamiento en autorización', \" \r",
+        "        + \"'Solicitud validada por comité de finanzas', \" \r",
+        "        + \"'Propuesta de financiamiento aceptada por aspirante', \" \r",
+        "        + \"'Solicitud de financimiento reactivada', \" \r",
+        "        + \"'Solicitud de financiamiento archivada'\"\r",
+        "    ,\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
@@ -311,7 +333,7 @@
     }
   },
   "hasValidationError" : false,
-  "uuid" : "75606816-cb98-4568-8930-3d7574b2869b",
+  "uuid" : "052255b5-a118-4025-83ec-e4473e88fa3e",
   "type" : "page",
   "description" : "Page generated with Bonita UI designer"
 }

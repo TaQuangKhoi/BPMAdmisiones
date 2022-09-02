@@ -1,10 +1,19 @@
 package com.anahuac.rest.api.DAO
 
 import org.bonitasoft.engine.api.APIClient
+import org.bonitasoft.engine.api.ProcessAPI;
+import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
+import org.bonitasoft.engine.session.APISession;
+//import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import org.bonitasoft.engine.bdm.BDMQueryUtil
-import org.bonitasoft.engine.bpm.process.ProcessDefinition
+//import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
+//import org.bonitasoft.engine.bpm.process.ProcessDefinition
+//import org.bonitasoft.engine.session.APISession
 import org.hamcrest.core.IsNull
 import org.json.JSONObject
+//import org.json.simple.parser.JSONParser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -24,6 +33,7 @@ import com.anahuac.rest.api.Entity.OrdenBitacora
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Utilities.LoadParametros
+//import com.bonitasoft.engine.api.ProcessAPI
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -65,6 +75,10 @@ import java.sql.ResultSet
 import java.sql.Statement
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+
+import javax.servlet.ServletException
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 class ConektaDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConektaDAO.class);
@@ -1568,5 +1582,4 @@ class ConektaDAO {
 
 		return result;
 	}
-	
 }
