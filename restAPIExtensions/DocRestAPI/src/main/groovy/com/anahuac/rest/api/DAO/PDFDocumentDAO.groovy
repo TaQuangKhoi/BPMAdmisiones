@@ -62,6 +62,8 @@ class PDFDocumentDAO {
 			Result dataResult = new Result();
 			List<List < Object >> lstParams;
 			
+			object.intento = object.intento == null?0:object.intento;
+			
 			List<?> info = getInfoReportes(object.email, object.intento).getData();
 			if(info.size() < 1) {
 				throw new Exception("400 Bad Request Usuario no encontrado");
