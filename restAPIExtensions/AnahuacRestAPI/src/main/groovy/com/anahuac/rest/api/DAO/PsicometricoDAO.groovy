@@ -991,7 +991,7 @@ class PsicometricoDAO {
 				pstm.setString(19, (testPsicomInput.otroTipoAsistencia != null && testPsicomInput.otroTipoAsistencia != "") ? testPsicomInput.otroTipoAsistencia : "");
 				pstm.setString(20, (testPsicomInput.participacionActividadesVoluntaria != null && testPsicomInput.participacionActividadesVoluntaria != "") ? testPsicomInput.participacionActividadesVoluntaria : "");
 				pstm.setInt(21, 0);
-				pstm.setInt(22, (testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "") ? Integer.parseInt(testPsicomInput.puntuacionINVP+"") : 0);
+				pstm.setInt(22, (testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "" && testPsicomInput.puntuacionINVP.toString().length > 0) ? Integer.parseInt(testPsicomInput.puntuacionINVP+"") : 0);
 				pstm.setString(23, (testPsicomInput.quienIntegro != null && testPsicomInput.quienIntegro != "") ? testPsicomInput.quienIntegro : "");
 				pstm.setString(24, (testPsicomInput.quienRealizoEntrevista != null && testPsicomInput.quienRealizoEntrevista != "") ? testPsicomInput.quienRealizoEntrevista : "");
 				pstm.setString(25, (testPsicomInput.resumenSalud != null && testPsicomInput.resumenSalud != "") ? testPsicomInput.resumenSalud : "");
@@ -3635,7 +3635,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 		String errorLog = "";
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			int intentos = ((intento == null || intento.equals("null"))?0:Integer.parseInt(intento))
+			int intentos = ((intento == null || intento.toString().toLowerCase().equals("null"))?0:Integer.parseInt(intento))
 			
 			closeCon = validarConexion();
 			pstm = con.prepareStatement("SELECT finalizado FROM testPsicometrico AS tp INNER JOIN SolicitudDeAdmision AS sda ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? AND countRechazo = "+intentos)
@@ -3651,9 +3651,12 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 				}
 
+				//columns.put("intetos",intentos);
+
 				rows.add(columns);
 			}
 			resultado.setSuccess(true);
+			resultado.setError(intentos+"");
 			resultado.setData(rows);
 		}catch (Exception e) {
 			
