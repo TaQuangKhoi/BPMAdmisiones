@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1661967586914,
+  "lastUpdate" : 1662502349459,
   "rows" : [
     [
       {
@@ -4480,7 +4480,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "navigationVar  !== \"orderPaid\" && (currentTaskName === \"Esperar pago de estudio socio-económico\" || currentTaskName === \"Pago de estudio socio-económico\")"
+            "value" : "(navigationVar  !== \"orderPaid\" && currentTaskName === \"Pago de estudio socio-económico\") || (currentTaskName === \"Esperar pago de estudio socio-económico\")"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -5859,6 +5859,58 @@
           ]
         ]
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{ solicitudBDM | json }}</pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "29ea9431-bcff-4e34-836f-15f9d0ee7f87",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
     ]
   ],
   "assets" : [
@@ -6781,6 +6833,13 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "solicitudBDM" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.SolicitudApoyoEducativo]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.SolicitudApoyoEducativo\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{caseid}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

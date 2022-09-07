@@ -34,4 +34,6 @@ class Statements {
 	public static final String GET_URL_CURRICULUM_BY_CASE_ID = "SELECT urlCurriculum FROM SolicitudApoyoEducativo WHERE caseId = ?";
 	
 	public static final String GET_BITACORA_SDAE = "SELECT idBanner,correo,estatus,comentario,beca,financiamiento,usuarios,fecha FROM BitacoraSDAE WHERE idBanner is not null [WHERE] [ORDERBY] [LIMITOFFSET]";
+	
+	public static final String GET_BITACORA_SDAE_CASEID = "SELECT idBanner, correo, estatus, comentario, beca, financiamiento, usuarios, fecha FROM BitacoraSDAE WHERE caseid = ?";
 }

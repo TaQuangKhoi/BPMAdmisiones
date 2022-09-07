@@ -15,8 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_TjocGvu7Eeyy_Yp4i9TTrA" name="lstBitacoraSDAE" multiple="true" dataType="_Tjocu_u7Eeyy_Yp4i9TTrA" className="com.anahuac.SDAE.bitacora.BitacoraSDAE">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_TjocG_u7Eeyy_Yp4i9TTrA" name="initLstBitacoraSDAE()" content="import java.time.LocalDateTime&#xD;&#xA;def bitacoraSDAEList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstBitacoraSDAEInput.each{&#xD;&#xA;&#x9;//Add a new composed CatPais instance&#xD;&#xA;&#x9;bitacoraSDAEList.add({ currentBitacoraSDAEInput ->&#xD;&#xA;&#x9;&#x9;def bitacoraSDAEVar = new com.anahuac.SDAE.bitacora.BitacoraSDAE()&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.idBanner = currentBitacoraSDAEInput.idBanner&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.correo = currentBitacoraSDAEInput.correo&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.fecha =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.usuarios = currentBitacoraSDAEInput.usuario&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.comentario = currentBitacoraSDAEInput?.comentario&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.beca = currentBitacoraSDAEInput?.beca&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.financiamiento = currentBitacoraSDAEInput.financiamiento&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.estatus = currentBitacoraSDAEInput.estatus&#xD;&#xA;&#x9;&#x9;return bitacoraSDAEVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return bitacoraSDAEList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_z6_RAPvTEeytMI21YWL2jA" name="lstBitacoraSDAEInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_TjocG_u7Eeyy_Yp4i9TTrA" name="initLstBitacoraSDAE()" content="import java.time.LocalDateTime&#xD;&#xA;def bitacoraSDAEList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstBitacoraSDAEInput.each{&#xD;&#xA;&#x9;//Add a new composed CatPais instance&#xD;&#xA;&#x9;bitacoraSDAEList.add({ currentBitacoraSDAEInput ->&#xD;&#xA;&#x9;&#x9;def bitacoraSDAEVar = new com.anahuac.SDAE.bitacora.BitacoraSDAE()&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.idBanner = currentBitacoraSDAEInput.idBanner&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.correo = currentBitacoraSDAEInput.correo&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.fecha =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.usuarios = currentBitacoraSDAEInput.usuario&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.comentario = currentBitacoraSDAEInput?.comentario&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.beca = currentBitacoraSDAEInput?.beca&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.financiamiento = currentBitacoraSDAEInput.financiamiento&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.estatus = currentBitacoraSDAEInput.estatus&#xD;&#xA;&#x9;&#x9;bitacoraSDAEVar.caseId = Long.valueOf(currentBitacoraSDAEInput.caseId);&#xD;&#xA;&#x9;&#x9;return bitacoraSDAEVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return bitacoraSDAEList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_Q_ch0C1wEe2W_vpciufxMA" name="lstBitacoraSDAEInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_TjocHfu7Eeyy_Yp4i9TTrA" type="NONE">
@@ -115,6 +115,9 @@
           </inputs>
           <inputs xmi:type="process:ContractInput" xmi:id="_qOmisPu8Eeyy_Yp4i9TTrA" name="usuario">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_qOmisfu8Eeyy_Yp4i9TTrA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_DL0PUC1vEe2W_vpciufxMA" name="caseId">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_DL0PUS1vEe2W_vpciufxMA"/>
           </inputs>
         </inputs>
       </contract>

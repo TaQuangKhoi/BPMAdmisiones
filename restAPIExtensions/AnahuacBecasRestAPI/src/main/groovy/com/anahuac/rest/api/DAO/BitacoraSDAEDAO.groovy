@@ -56,7 +56,6 @@ class BitacoraSDAEDAO {
 			List < ProcessDeploymentInfo > lstProcessDeploymentInfo = new ArrayList < ProcessDeploymentInfo > ();
 			SearchOptions searchOptionsProccess = null;
 			Long processId = null;
-
 			searchBuilderProccess = new SearchOptionsBuilder(0, 99999);
 			searchBuilderProccess.filter(ProcessDeploymentInfoSearchDescriptor.NAME, "Agregar BitacoraSDAE");
 			searchOptionsProccess = searchBuilderProccess.done();
@@ -77,6 +76,7 @@ class BitacoraSDAEDAO {
 			objBitacoraSDAEInput.put("comentario", isNullOrBlanck(object?.comentario))
 			objBitacoraSDAEInput.put("beca", isNullOrBlanck(object?.beca))
 			objBitacoraSDAEInput.put("financiamiento", isNullOrBlanck(object?.financiamiento));
+			
 			lstBitacoraSDAEInput.add(objBitacoraSDAEInput);
 			contracto.put("lstBitacoraSDAEInput", lstBitacoraSDAEInput);
 
@@ -233,6 +233,53 @@ class BitacoraSDAEDAO {
 
 		} catch (Exception e) {
 			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getBitacoraSDAEByCaseId(Long caseId, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "",campus = "", orderby = "", errorlog = "";
+		List < String > lstGrupo = new ArrayList < String > ();
+
+		Long userLogged = 0L;
+		Long total = 0L;
+		String errorLog = "";
+		
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+
+			String consulta = Statements.GET_BITACORA_SDAE_CASEID;
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, caseId);
+			errorLog += consulta;
+			rs = pstm.executeQuery();
+			
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorlog);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {

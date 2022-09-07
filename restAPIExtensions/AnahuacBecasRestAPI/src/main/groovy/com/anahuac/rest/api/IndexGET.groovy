@@ -13,6 +13,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DAO.BitacoraDAO
+import com.anahuac.rest.api.DAO.BitacoraSDAEDAO
 import com.anahuac.rest.api.DAO.BonitaGetsDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
@@ -183,6 +184,16 @@ class IndexGET implements RestApiController {
 				case "getLinkDescarga":
 					String linkAzure = request.getParameter "linkAzure"
 					result = new SolicitudDeAdmisionDAO().getLinkAzureDescarga(linkAzure, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getBitacoraSDAEByCaseId":
+					String caseId = request.getParameter "caseId"
+					result = new BitacoraSDAEDAO().getBitacoraSDAEByCaseId(Long.valueOf(caseId), context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
