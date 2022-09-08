@@ -991,11 +991,7 @@ class PsicometricoDAO {
 				pstm.setString(19, (testPsicomInput.otroTipoAsistencia != null && testPsicomInput.otroTipoAsistencia != "") ? testPsicomInput.otroTipoAsistencia : "");
 				pstm.setString(20, (testPsicomInput.participacionActividadesVoluntaria != null && testPsicomInput.participacionActividadesVoluntaria != "") ? testPsicomInput.participacionActividadesVoluntaria : "");
 				pstm.setInt(21, 0);
-<<<<<<< HEAD
 				pstm.setInt(22, (testPsicomInput.puntuacionINVP != null && !testPsicomInput.puntuacionINVP.equals("") && testPsicomInput.puntuacionINVP.toString().length > 0) ? Integer.parseInt(testPsicomInput.puntuacionINVP+"") : 0);
-=======
-				pstm.setInt(22, (testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "" && testPsicomInput.puntuacionINVP.toString().size() > 0) ? Integer.parseInt(testPsicomInput.puntuacionINVP+"") : 0);
->>>>>>> develop
 				pstm.setString(23, (testPsicomInput.quienIntegro != null && testPsicomInput.quienIntegro != "") ? testPsicomInput.quienIntegro : "");
 				pstm.setString(24, (testPsicomInput.quienRealizoEntrevista != null && testPsicomInput.quienRealizoEntrevista != "") ? testPsicomInput.quienRealizoEntrevista : "");
 				pstm.setString(25, (testPsicomInput.resumenSalud != null && testPsicomInput.resumenSalud != "") ? testPsicomInput.resumenSalud : "");
