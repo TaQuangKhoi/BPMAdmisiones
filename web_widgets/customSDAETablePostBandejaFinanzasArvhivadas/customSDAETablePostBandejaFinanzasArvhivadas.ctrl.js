@@ -569,10 +569,11 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
 
         return $http(req).success(function (data, status) {
-            swal("Ok", "Solicitud reactivada", "success")
-            .then(() => {
-                window.location.reload();
-            });
+            window.location.reload();
+            // swal("Ok", "Solicitud reactivada", "success")
+            // .then(() => {
+            //     window.location.reload();
+            // });
         }).error(function (data, status) {
             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
         }).finally(function () {

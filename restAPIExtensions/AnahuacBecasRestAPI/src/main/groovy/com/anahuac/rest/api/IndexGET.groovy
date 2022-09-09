@@ -76,6 +76,16 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "getSDAEGestionEscolarByCarrera":
+					String idCarrera =request.getParameter "idCarrera"
+					result = new CatalogosDAO().getSDAEGestionEscolarByCarrera(Long.valueOf(idCarrera));
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "getCatTipoAoyoByCampus":
 					String campus = request.getParameter "campus"
 					result = new CatalogosDAO().getCatTipoAoyoByCampus(campus, jsonData, context);

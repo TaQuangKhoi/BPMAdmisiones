@@ -1775,30 +1775,36 @@ class CatalogosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;;
 		String where = "";
+		String errorLog = "";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
+			errorLog += "Entro al metodo || ";
 			String consulta = StatementsCatalogos.INSERT_SDAECAT_GESTION_ESCOLAR;
 			closeCon = validarConexion();
 			con.setAutoCommit(false)
-			
+			errorLog += "Ejecuto la consulta paso 1 || ";
 			pstm = con.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, object.parcialidad);
 			pstm.setInt(2, Integer.parseInt(object.creditosemestre.toString()));
 			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
 			pstm.setLong(4, Long.parseLong(object.catgestionescolar_pid.toString()));
 			pstm.executeUpdate();
+			errorLog += "Ejecuto el update || ";
 			con.commit();
 			rs = pstm.getGeneratedKeys();
+			errorLog += "Llaves generadas || ";
 			List<String> info = new ArrayList<String>();
 			if(rs.next()) {
+				errorLog += " || ";
 				info.add( rs.getString("persistenceid"))
 			}
+			errorLog += "Termino ejecución || ";
 			resultado.setSuccess(true);
 			resultado.setData(info);
 		} catch (Exception e) {
-			
 			LOGGER.error "[ERROR] " + e.getMessage();
+			errorLog += " error || " + e.getMessage() + " || ";
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			con.rollback();
@@ -2022,6 +2028,47 @@ class CatalogosDAO {
 			}
 		}
 		return resultado
+	}
+	
+	public Result getSDAEGestionEscolarByCarrera(Long catgestionescolar_pid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "";
+		
+		try {
+			String consulta = StatementsCatalogos.GET_SDAECAT_GESTION_ESCOLAR_BY_CARRERA;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, catgestionescolar_pid);
+			rs = pstm.executeQuery();
+			
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(catgestionescolar_pid.toString());
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
 	}
 	
 	public Result getCreditoGE(Long SDAEGestionEscolar_pid,String fecha) {

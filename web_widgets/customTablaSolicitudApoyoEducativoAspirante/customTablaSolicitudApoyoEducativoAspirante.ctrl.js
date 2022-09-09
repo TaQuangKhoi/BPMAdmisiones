@@ -24,4 +24,12 @@ function PbTableCtrl($scope, modalService) {
     $scope.openModal = function(){
         openModal($scope.properties.modalVerSolicitud);
     }
+    
+    $scope.verPago = function(_row){
+        $scope.properties.urlPago = window.location.protocol + "//" 
+            + window.location.host 
+            + "/portal/resource/app/aspiranteSDAE/ver_pago_estudio/content/?app=sdae&caseId=" 
+            + _row.folio;
+        openModal($scope.properties.idModalPago);
+    }
 }

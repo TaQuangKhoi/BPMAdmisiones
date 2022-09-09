@@ -36,4 +36,6 @@ class Statements {
 	public static final String GET_BITACORA_SDAE = "SELECT idBanner,correo,estatus,comentario,beca,financiamiento,usuarios,fecha FROM BitacoraSDAE WHERE idBanner is not null [WHERE] [ORDERBY] [LIMITOFFSET]";
 	
 	public static final String GET_BITACORA_SDAE_CASEID = "SELECT idBanner, correo, estatus, comentario, beca, financiamiento, usuarios, fecha FROM BitacoraSDAE WHERE caseid = ?";
+	
+	public static final String INSERT_BITACORA_SDAE = "INSERT ";
 }

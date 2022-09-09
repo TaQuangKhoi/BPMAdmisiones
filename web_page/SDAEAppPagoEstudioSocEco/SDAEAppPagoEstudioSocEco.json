@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1662502349459,
+  "lastUpdate" : 1662663580238,
   "rows" : [
     [
       {
@@ -5612,8 +5612,8 @@
                   {
                     "type" : "container",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -5639,8 +5639,8 @@
                         {
                           "type" : "component",
                           "dimension" : {
-                            "xs" : 6,
-                            "sm" : 6,
+                            "xs" : 12,
+                            "sm" : 12,
                             "md" : 12,
                             "lg" : 12
                           },
@@ -5692,8 +5692,8 @@
                   {
                     "type" : "container",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -5719,8 +5719,8 @@
                         {
                           "type" : "component",
                           "dimension" : {
-                            "xs" : 6,
-                            "sm" : 6,
+                            "xs" : 12,
+                            "sm" : 12,
                             "md" : 12,
                             "lg" : 12
                           },
@@ -5858,58 +5858,6 @@
             }
           ]
         ]
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "<pre>{{ solicitudBDM | json }}</pre>"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "left"
-          }
-        },
-        "reference" : "29ea9431-bcff-4e34-836f-15f9d0ee7f87",
-        "hasValidationError" : false,
-        "id" : "pbText"
       }
     ]
   ],
@@ -6294,7 +6242,7 @@
     "objectDetalleSolicitud" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseId [com.anahuac.model.DetalleSolicitud]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.model.DetalleSolicitud\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{formOutputTest.solicitudApoyoEducativoInput.caseIdAdmisiones}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"findByCaseId [com.anahuac.model.DetalleSolicitud]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.model.DetalleSolicitud\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{solicitudBDM[0].caseIdAdmisiones}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     },
@@ -6406,14 +6354,25 @@
       "value" : [
         "let output;",
         "",
-        "if($data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta && $data.objSolicitudDeAdmision[0].catCampus.persistenceId){",
+        "if($data.solicitudBDM[0].ordenPagoConekta && $data.objSolicitudDeAdmision[0].catCampus.persistenceId){",
         "    output = {",
-        "        \"order_id\": $data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta,",
+        "        \"order_id\": $data.solicitudBDM[0].ordenPagoConekta,",
         "        \"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\"",
         "    }",
         "}",
         "",
-        "return output;"
+        "return output;",
+        "",
+        "// let output;",
+        "",
+        "// if($data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta && $data.objSolicitudDeAdmision[0].catCampus.persistenceId){",
+        "//     output = {",
+        "//         \"order_id\": $data.formOutputTest.solicitudApoyoEducativoInput.ordenPagoConekta,",
+        "//         \"campus_id\": $data.objSolicitudDeAdmision[0].catCampus.persistenceId + \"\"",
+        "//     }",
+        "// }",
+        "",
+        "// return output;"
       ],
       "exposed" : false
     },

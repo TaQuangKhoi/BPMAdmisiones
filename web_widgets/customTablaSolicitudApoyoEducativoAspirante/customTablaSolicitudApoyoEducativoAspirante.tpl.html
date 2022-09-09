@@ -6,7 +6,13 @@
                     <span style="cursor:pointer" ng-click="setOrderBy(header)">{{ header | uiTranslate }}<i class="" ng-class="(properties.dataToFilter.orientation=='ASC')?'glyphicon glyphicon-arrow-up':'glyphicon glyphicon-arrow-down'" ng-show="properties.dataToFilter.orderby==header.toUpperCase()"></i></span>
                 </th>
                 <th  class="middle-td text-center" style="width: 110px;">
-                    Ver
+                    Solicitud
+                </th>
+                <th  class="middle-td text-center" style="width: 110px;">
+                    Pago
+                </th>
+                <th  class="middle-td text-center" style="width: 110px;">
+                    Aval
                 </th>
             </tr>
         </thead>
@@ -23,6 +29,18 @@
                     <!--ng-click="ctrl.selectRow(row)"-->
                     <button class="btn btn-default" ng-click="openModal()">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td class="middle-td" style="align-items: center;">
+                    <!--ng-click="ctrl.selectRow(row)"-->
+                    <button class="btn btn-default" ng-click="verPago(row)">
+                        <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td class="middle-td" style="align-items: center;">
+                    <!--ng-click="ctrl.selectRow(row)"-->
+                    <button class="btn btn-default">
+                        <span class="glyphicon glyphicon-eye" aria-hidden="true"></span>
                     </button>
                 </td>
             </tr>

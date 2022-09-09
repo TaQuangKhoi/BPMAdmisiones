@@ -4,6 +4,7 @@ import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
+import java.sql.Statement
 
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
@@ -26,7 +27,7 @@ import groovy.json.JsonSlurper
 
 class BitacoraSDAEDAO {
 	Connection con;
-	Statements stm;
+	Statement stm;
 	ResultSet rs;
 	PreparedStatement pstm;
 
@@ -290,4 +291,45 @@ class BitacoraSDAEDAO {
 		return resultado
 	}
 
+	
+	public Result insertBitacoraSDAE(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+		String errorLog = "Entro";
+		
+		try {
+			errorLog+= " 1";
+			closeCon = validarConexion();
+			if(objCatGenerico.persistenceId != 0) {
+				 errorLog+= " update";
+				pstm = con.prepareStatement(Statements.INSERT_BITACORA_SDAE);
+				pstm.setString(1, objCatGenerico.clave);
+				pstm.setString(2, objCatGenerico.descripcion);
+				pstm.setBoolean(3, objCatGenerico.isEliminado);
+				pstm.setString(4, objCatGenerico.usuarioCreacion);
+				pstm.setLong(5, objCatGenerico.persistenceId);
+				pstm.execute();
+			}else {
+				errorLog+= " insert";
+				pstm = con.prepareStatement(Statements.INSERT_BITACORA_SDAE);
+				pstm.setString(1, objCatGenerico.clave);
+				pstm.setString(2, objCatGenerico.descripcion);
+				pstm.setString(3, objCatGenerico.usuarioCreacion);
+				pstm.execute();
+			}
+			errorLog+= " salio";
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
+			
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
 }

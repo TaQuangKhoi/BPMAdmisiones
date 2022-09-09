@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAvalModificar",
   "name" : "SDAESolicitudFinanciamientoAvalModificar",
-  "lastUpdate" : 1661901273945,
+  "lastUpdate" : 1662682155819,
   "rows" : [
     [
       {
@@ -12924,6 +12924,14 @@
         "    \"aceptoCondiciones\": false",
         "}"
       ],
+      "exposed" : false
+    },
+    "getDocumentosAval" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{getFinanciamiento.persistenceId}}&campus={{objSolicitudDeAdmision[0].catCampus.grupoBonita}}&isAval=true"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

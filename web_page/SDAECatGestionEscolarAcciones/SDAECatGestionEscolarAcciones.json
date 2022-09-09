@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAECatGestionEscolarAcciones",
   "name" : "SDAECatGestionEscolarAcciones",
-  "lastUpdate" : 1652113883556,
+  "lastUpdate" : 1662585571965,
   "rows" : [
     [
       {
@@ -4022,6 +4022,58 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<pre>{{ datos | json }}</pre>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "0e7a7d2f-f506-47c2-a285-53b8301d546e",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
                 "sm" : 10,
                 "md" : 6,
                 "lg" : 10
@@ -5593,7 +5645,6 @@
       "type" : "expression",
       "value" : [
         "if($data.editable  === \"editar\"){",
-        "    debugger",
         "    if($data.catGestionEscolar_selected.tipoLicenciatura === \"Cuatrimestral\"){",
         "        $data.datos[3][0].creditoagosto = \"0\";",
         "        $data.datos[3][1].creditoagosto = \"0\";",
