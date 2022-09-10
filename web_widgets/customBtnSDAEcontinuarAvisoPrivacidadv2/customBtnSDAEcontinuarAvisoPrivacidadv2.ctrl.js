@@ -3,6 +3,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     'use strict';
 
     var vm = this;
+    var validStatus = [
+        "Autodescripción concluida",
+        "Ya se imprimió su credencial",
+        "Elección de pruebas calendarizado",
+        "Resultado final del comité",
+        "Carga y consulta de resultados"
+    ]
 
     this.action = function action() {
         let url = "../API/extension/AnahuacBecasRestGET?url=getPromedioMinimoApoyoByCampus&p=0&c=0&idCampus=" + $scope.properties.idCampus;
@@ -13,6 +20,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("Atención", "No puedes solicitar apoyo educativo por que tu promedio es inferior al promedio mínimo marcado por el Campus.", "warning");
             } else if ($scope.properties.aceptado === false){
                 swal("Atención", "No puedes solicitar un apoyo educativo por que tu soicitud de admisión fué rechazada", "warning");
+            } else if (!validarEstatus($scope.properties.estatusSolicitud)){
+                swal("Atención", "Aun no se cuenta con la información suficiente para iniciar tu solicitud de apoyo educativo, es necesario que concluyas el llenado de la autodescripción en tu proceso de admisión.", "warning");
             } else {
                 if ($scope.properties.aceptoAvisoPrivacidad === true) {
                     startProcess();
@@ -24,6 +33,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             
         });
     };
+
+    function validarEstatus(_input){
+        let output = false;
+        
+        for(let estatus of validStatus){
+            if(_input === estatus){
+                output = true;
+                break;
+            }
+        }
+
+        return output;
+    }
 
     function startProcess() {
         //var id = getUrlParam('id');
@@ -120,6 +142,5 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $window.parent.postMessage(JSON.stringify(dataToSend), '*');
         }
     }
-
 
 }

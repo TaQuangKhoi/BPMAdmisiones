@@ -291,34 +291,29 @@ class BitacoraSDAEDAO {
 		return resultado
 	}
 
-	
 	public Result insertBitacoraSDAE(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		def jsonSlurper = new JsonSlurper();
-		def objCatGenerico = jsonSlurper.parseText(jsonData);
+		def objetoBitacoraSDAE = jsonSlurper.parseText(jsonData);
 		String errorLog = "Entro";
 		
 		try {
 			errorLog+= " 1";
 			closeCon = validarConexion();
-			if(objCatGenerico.persistenceId != 0) {
-				 errorLog+= " update";
-				pstm = con.prepareStatement(Statements.INSERT_BITACORA_SDAE);
-				pstm.setString(1, objCatGenerico.clave);
-				pstm.setString(2, objCatGenerico.descripcion);
-				pstm.setBoolean(3, objCatGenerico.isEliminado);
-				pstm.setString(4, objCatGenerico.usuarioCreacion);
-				pstm.setLong(5, objCatGenerico.persistenceId);
-				pstm.execute();
-			}else {
-				errorLog+= " insert";
-				pstm = con.prepareStatement(Statements.INSERT_BITACORA_SDAE);
-				pstm.setString(1, objCatGenerico.clave);
-				pstm.setString(2, objCatGenerico.descripcion);
-				pstm.setString(3, objCatGenerico.usuarioCreacion);
-				pstm.execute();
-			}
+			
+			pstm = con.prepareStatement(Statements.INSERT_BITACORA_SDAE);
+			pstm.setString(1, objetoBitacoraSDAE.beca);
+			pstm.setString(2, objetoBitacoraSDAE.comentario);
+			pstm.setString(3, objetoBitacoraSDAE.correo);
+			pstm.setString(3, objetoBitacoraSDAE.estatus);
+			pstm.setString(3, objetoBitacoraSDAE.financiamiento);
+			pstm.setString(3, objetoBitacoraSDAE.idbanner);
+			pstm.setString(3, objetoBitacoraSDAE.usuarios);
+			pstm.setString(3, objetoBitacoraSDAE.caseid);
+			
+			pstm.execute();
+			
 			errorLog+= " salio";
 			resultado.setSuccess(true);
 		} catch (Exception e) {

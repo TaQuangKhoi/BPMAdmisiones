@@ -37,5 +37,6 @@ class Statements {
 	
 	public static final String GET_BITACORA_SDAE_CASEID = "SELECT idBanner, correo, estatus, comentario, beca, financiamiento, usuarios, fecha FROM BitacoraSDAE WHERE caseid = ?";
 	
-	public static final String INSERT_BITACORA_SDAE = "INSERT ";
+	public static final String INSERT_BITACORA_SDAE = "INSERT BITACORASDAE  (persistenceid, persistenceversion, beca, comentario, correo, estatus, fecha, financiamiento, idbanner, usuarios, caseid) VALUES ( (SELECT CASE WHEN max(PERSISTENCEID) IS NULL THEN 1 ELSE max(PERSISTENCEID)+1 END FROM BITACORASDAE), 1, ?, ?, ?, ?, now(), ?, ?, ?, ?) ";
+	
 }
