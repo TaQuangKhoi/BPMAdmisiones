@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1661995836580,
+  "lastUpdate" : 1663098681673,
   "rows" : [
     [
       {
@@ -273,7 +273,8 @@
                 "lstDocumentosAval" : "",
                 "isAutor" : "isAutor",
                 "lstTipoMoneda" : "lstTipoMoneda",
-                "lstAutomoviles" : "lstCatSituacionAuto"
+                "lstAutomoviles" : "lstCatSituacionAuto",
+                "getConfiguracionCampus" : "getConfiguracionCampus"
               }
             }
           ],
@@ -292,8 +293,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "selectedIndex !== 4"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -371,8 +372,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "selectedIndex !== 4"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -1813,11 +1814,11 @@
                         },
                         "labelHidden" : {
                           "type" : "constant",
-                          "value" : true
+                          "value" : false
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Default label"
+                          "value" : "Escribe los comentarios por los cuales se desea archivar la solicitud"
                         },
                         "labelPosition" : {
                           "type" : "constant",
@@ -2023,7 +2024,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
+                          "value" : "Archivar solicitud"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -2857,6 +2858,83 @@
                   ],
                   [
                     {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Tipo de apoyo:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "returnCatValue.catTipoApoyo.descripcion"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "55f9c3ac-c52a-485d-a413-8c78d08431d3",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
                       "type" : "container",
                       "dimension" : {
                         "xs" : 12,
@@ -3482,7 +3560,7 @@
                                     },
                                     "value" : {
                                       "type" : "variable",
-                                      "value" : "solicitudApoyoEducativo.observacionesDeportiva"
+                                      "value" : "solicitudApoyoEducativo.motivoAprobadaDeportiva"
                                     }
                                   },
                                   "reference" : "9e856d45-2ea6-4de4-947a-8f741c42bb55",
@@ -4009,7 +4087,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Descuento anticipado:"
+                                      "value" : "Porcentaje por pronto pago:"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -4681,7 +4759,7 @@
                                     },
                                     "value" : {
                                       "type" : "variable",
-                                      "value" : "solicitudApoyoEducativo.observacionesArtistica"
+                                      "value" : "solicitudApoyoEducativo.motivoAprobadaArtistica"
                                     }
                                   },
                                   "reference" : "6cee087a-1fa3-43b7-be36-f381eb5fa3b2",
@@ -4777,11 +4855,11 @@
                                     },
                                     "minLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 0
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "constant",
@@ -5208,7 +5286,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Descuento anticipado:"
+                                      "value" : "Porcentaje por pronto pago:"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -6206,7 +6284,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Descuento anticipado:"
+                                      "value" : "Porcentaje por pronto pago:"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -6420,7 +6498,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Enviar"
+                                "value" : "Autorizar solicitud"
                               },
                               "alignment" : {
                                 "type" : "constant",

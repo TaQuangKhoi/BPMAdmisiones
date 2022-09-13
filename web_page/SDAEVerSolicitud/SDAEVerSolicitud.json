@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEVerSolicitud",
   "name" : "SDAEVerSolicitud",
-  "lastUpdate" : 1661995351180,
+  "lastUpdate" : 1663091932324,
   "rows" : [
     [
       {
@@ -1403,6 +1403,21 @@
       "type" : "url",
       "value" : [
         "{{ligaApiGetCatalogos}}CatSituacionAuto"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "urlIMagenesSocioEconomico" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/extension/AnahuacBecasRest?url=getImagenesByTipoApoyo&p=0&c=0&campus=\" + $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita;"
+      ],
+      "exposed" : false
+    },
+    "getImagenesByCaseId" : {
+      "type" : "url",
+      "value" : [
+        "/API/extension/AnahuacBecasRestGET?url=getImagenesByCaseId&c=0&p=0&caseId={{caseId}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

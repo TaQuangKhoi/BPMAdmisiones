@@ -11,9 +11,9 @@
                 <th  class="middle-td text-center" style="width: 110px;">
                     Pago
                 </th>
-                <th  class="middle-td text-center" style="width: 110px;">
+                <!-- <th  class="middle-td text-center" style="width: 110px;">
                     Aval
-                </th>
+                </th> -->
             </tr>
         </thead>
         <tbody>
@@ -26,23 +26,22 @@
                     <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
                 </td>
                 <td class="middle-td" style="align-items: center;">
-                    <!--ng-click="ctrl.selectRow(row)"-->
                     <button class="btn btn-default" ng-click="openModal()">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </button>
                 </td>
                 <td class="middle-td" style="align-items: center;">
-                    <!--ng-click="ctrl.selectRow(row)"-->
-                    <button class="btn btn-default" ng-click="verPago(row)">
+                    <button ng-if="row.pago" class="btn btn-default" ng-click="verPago(row)">
                         <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
                     </button>
+                    <label ng-if="!row.pago">-</label>
                 </td>
-                <td class="middle-td" style="align-items: center;">
-                    <!--ng-click="ctrl.selectRow(row)"-->
+                <!-- <td class="middle-td" style="align-items: center;">
                     <button class="btn btn-default">
                         <span class="glyphicon glyphicon-eye" aria-hidden="true"></span>
                     </button>
-                </td>
+                    <label>N/A</label>
+                </td> -->
             </tr>
         </tbody>
         <tbody ng-if="ctrl.isArray(properties.contenido) && !ctrl.isArray(properties.columnsKey)">

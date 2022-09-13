@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisionDeportiva",
   "name" : "SDAERevisionDeportiva",
-  "lastUpdate" : 1661299304694,
+  "lastUpdate" : 1663028624917,
   "rows" : [
     [
       {
@@ -258,11 +258,51 @@
                 "porcentajeFinanciamiento" : {
                   "type" : "expression",
                   "value" : "returnCatValue.catPorcentajeFinanciamiento.descripcion"
+                },
+                "isArtisticaOrDeportiva" : {
+                  "type" : "constant",
+                  "value" : true
                 }
               },
               "reference" : "4a835009-ab71-4c1d-ad97-74e79aec2bbc",
               "hasValidationError" : false,
               "id" : "customSDAEFormInfoAspirante"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "color-orange"
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>Currículum"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "f431e60d-713a-42bd-8e44-cd92bb712c7a",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
             }
           ],
           [
@@ -408,6 +448,42 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>Video  de habilidades"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "4cd9079c-6b2e-4ce8-a052-8a0a765cc2eb",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -503,7 +579,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : ""
+                  "value" : "<br><br><br>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -1277,7 +1353,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Porcentaje de beca sugerido"
+                          "value" : "Porcentaje de beca sugerido:"
                         },
                         "labelPosition" : {
                           "type" : "constant",
@@ -1354,7 +1430,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Porcentaje de beca sugerido"
+                          "value" : "Porcentaje de beca sugerido:"
                         },
                         "labelPosition" : {
                           "type" : "constant",
@@ -1433,7 +1509,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Aprobar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>"
+                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Aprobar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>:"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -2075,7 +2151,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>"
+                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>:"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -2606,7 +2682,7 @@
       "type" : "json",
       "value" : [
         "{",
-        "    \"documentName\":\"Curriculum Deportivo\",",
+        "    \"documentName\":\"Currículum deportivo\",",
         "    \"documentDescription\":\"\"",
         "}"
       ],

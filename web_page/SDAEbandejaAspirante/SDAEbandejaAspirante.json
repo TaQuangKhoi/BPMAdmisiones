@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1662662543866,
+  "lastUpdate" : 1663031495149,
   "rows" : [
     [
       {
@@ -2178,7 +2178,8 @@
         "        \"periodo\": $data.objSolicitudDeAdmision[0].catPeriodo.descripcion,",
         "        \"nombre\": buildName($data.objSolicitudDeAdmision[0]),",
         "        // \"estado\": $data.objSolicitudDeAdmision[0].catCampusEstudio.estado.descripcion",
-        "        \"estado\": $data.objSolicitudApoyo[$data.objSolicitudApoyo.length - 1].estatusSolicitud",
+        "        \"estado\": $data.objSolicitudApoyo[$data.objSolicitudApoyo.length - 1].estatusSolicitud,",
+        "        \"pago\": $data.objSolicitudApoyo[$data.objSolicitudApoyo.length - 1].ordenPagoConekta,",
         "    }    ",
         "    ",
         "    output.push(object);",
@@ -2620,7 +2621,11 @@
       "value" : [
         "/API/extension/AnahuacBecasRestGET?url=getImagenesByCaseId&c=0&p=0&caseId={{buildContent[0].folio}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "getDatosSolicitante" : {
@@ -2696,6 +2701,14 @@
       "value" : [
         ""
       ],
+      "exposed" : false
+    },
+    "getConfiguracionCampus" : {
+      "type" : "url",
+      "value" : [
+        "/API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1661990587626,
+  "lastUpdate" : 1663027603184,
   "rows" : [
     [
       {
@@ -299,7 +299,8 @@
                 "getDatosSolicitante" : "getDatosSolicitante",
                 "urlConstancia" : "objSolicitudDeAdmision[0].urlConstancia",
                 "lstAutomoviles" : "lstCatSituacionAuto",
-                "lstTipoMoneda" : "lstTipoMoneda"
+                "lstTipoMoneda" : "lstTipoMoneda",
+                "getConfiguracionCampus" : "getConfiguracionCampus"
               }
             }
           ]
@@ -520,6 +521,10 @@
                 "porcentajeFinanciamiento" : {
                   "type" : "expression",
                   "value" : "returnCatValue.catPorcentajeFinanciamiento.descripcion"
+                },
+                "isArtisticaOrDeportiva" : {
+                  "type" : "constant",
+                  "value" : false
                 }
               },
               "reference" : "2b3e84f1-1deb-49a1-99bc-ac7fbe14445e",
@@ -2567,7 +2572,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>"
+                          "value" : "Escribe  a continuación la razón por la cual vas a <b>Rechazar</b> la solicitud de <b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b>."
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -3029,7 +3034,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Escribe  a continuación los cambios que solicitas al registro de <b><b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b></b>"
+                          "value" : "Escribe  a continuación los cambios que solicitas al registro de <b><b>{{getInformacionPersonal[0].primerNombre}} {{getInformacionPersonal[0].segundoNombre}} {{getInformacionPersonal[0].primerApellido}} {{getInformacionPersonal[0].segundoApellido}}</b></b>."
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -3413,7 +3418,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Asignar a financiamiento educativo"
+                          "value" : "Asignar a Financiamiento Educativo"
                         },
                         "level" : {
                           "type" : "constant",
@@ -5402,6 +5407,14 @@
     },
     "errorMessageFinan" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "getConfiguracionCampus" : {
+      "type" : "url",
+      "value" : [
+        "/API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

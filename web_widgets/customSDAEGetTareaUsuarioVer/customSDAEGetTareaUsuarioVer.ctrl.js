@@ -1,5 +1,6 @@
 function ($scope, $http) {
 
+    var task = false;
     function getCurrentTaskId() {
         $http.get($scope.properties.url).success((data) => {
             if (data.length) {
@@ -14,6 +15,7 @@ function ($scope, $http) {
 
     function getCurrentContext() {
         $http.get($scope.properties.urlContext).success((data) => {
+            task = true;
             if (data.solicitudApoyoEducativo_ref) {
                 getModelSolicitudApoyoEducativo("../" + data.solicitudApoyoEducativo_ref.link);
                 getModelHermanos("../" + data.hermanos_ref.link);
@@ -41,6 +43,7 @@ function ($scope, $http) {
                     $scope.properties.lstDocumentos = lstDoc;
                 }
             } else {
+                task = false;
                 getModelSolicitudApoyoEducativoAlt("../API/bdm/businessData/com.anahuac.SDAE.model.SolicitudApoyoEducativo?q=findByCaseId&p=0&c=10&f=caseId=" + $scope.properties.caseId);
                 getModelAutos("../API/bdm/businessData/com.anahuac.SDAE.model.AutosSolicitante?q=findByCaseId&p=0&c=10&f=caseId=" + $scope.properties.caseId);
                 getModelHermanos("../API/bdm/businessData/com.anahuac.SDAE.model.HermanosSolicitante?q=findByCaseId&p=0&c=10&f=caseId=" + $scope.properties.caseId);
@@ -49,7 +52,7 @@ function ($scope, $http) {
                 getModelImagenesSocioEcoNoTask("../API/extension/AnahuacBecasRestGET?url=getImagenesByCaseId&c=0&p=0&caseId=" + $scope.properties.caseId);
             }
         }).error((err) => {
-            console.log("Error al obtener el context");
+            task = false;
             getModelSolicitudApoyoEducativoAlt("../API/bdm/businessData/com.anahuac.SDAE.model.SolicitudApoyoEducativo?q=findByCaseId&p=0&c=10&f=caseId=" + $scope.properties.caseId);
             getModelAutos("../API/bdm/businessData/com.anahuac.SDAE.model.AutosSolicitante?q=findByCaseId&p=0&c=10&f=caseId=" + $scope.properties.caseId);
             getModelHermanos("../API/bdm/businessData/com.anahuac.SDAE.model.HermanosSolicitante?q=findByCaseId&p=0&c=10&f=caseId=" + $scope.properties.caseId);
@@ -264,19 +267,19 @@ function ($scope, $http) {
         getCurrentTaskId();
     });
 
-    // $scope.$watch("properties.lstDocumentosByTipoApoyo", ()=>{
-    //     if($scope.properties.lstDocumentosByTipoApoyo){
-    //         for(let i = 0; i< $scope.properties.documentos.length; i++){
-    //             $scope.properties.documentos[i].catManejoDocumentos = $scope.properties.lstDocumentosByTipoApoyo[i];
-    //         }
-    //     }
-    // });
+    $scope.$watch("properties.lstDocumentosByTipoApoyo", ()=>{
+        if($scope.properties.lstDocumentosByTipoApoyo && task){
+            for(let i = 0; i< $scope.properties.documentos.length; i++){
+                $scope.properties.documentos[i].catManejoDocumentos = $scope.properties.lstDocumentosByTipoApoyo[i];
+            }
+        }
+    });
 
-    // $scope.$watch("properties.lstImagenesByTipoApoyo", ()=>{
-    //     if($scope.properties.lstImagenesByTipoApoyo){
-    //         for(let i = 0; i< $scope.properties.imagenesSocioEco.length; i++){
-    //             $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo[i];
-    //         }
-    //     }
-    // });
+    $scope.$watch("properties.lstImagenesByTipoApoyo", ()=>{
+        if($scope.properties.lstImagenesByTipoApoyo && task){
+            for(let i = 0; i< $scope.properties.imagenesSocioEco.length; i++){
+                $scope.properties.imagenesSocioEco[i].imagenSocioEconomico = $scope.properties.lstImagenesByTipoApoyo[i];
+            }
+        }
+    });
 }

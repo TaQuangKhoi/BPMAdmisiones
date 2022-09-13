@@ -60,7 +60,7 @@
                     <input type="text" disabled="disabled" class="form-control" value="{{ properties.solicitudDeAdmision[0].catPropedeutico.descripcion ? properties.solicitudDeAdmision[0].catPropedeutico.descripcion : 'N/A'}}">
                 </div>
             </div>
-            <div class="form-group col-xs-12">
+            <div class="form-group col-xs-12" ng-hide="properties.isArtisticaOrDeportiva">
                 <label class="control-label col-xs-12">Estatus de admisión:</label>
                 <div class="col-xs-12" style="display: inline-flex; position: relative;">
                     <input type="text" disabled="disabled" class="form-control" value="{{ properties.solicitudDeAdmision[0].aceptado ? 'Aceptado' : 'En proceso'}}">
@@ -120,8 +120,8 @@
                 </div>
             </div>
             <div class="form-group col-xs-4">
-                <label class="control-label col-xs-12">Puntuación PAA:</label>
-                <div class="col-xs-12" style="display: inline-flex; position: relative;">
+                <label class="control-label col-xs-12" ng-hide="properties.isArtisticaOrDeportiva">Puntuación PAA:</label>
+                <div class="col-xs-12" style="display: inline-flex; position: relative;" ng-hide="properties.isArtisticaOrDeportiva">
                     <input type="text" disabled="disabled" class="form-control" value="{{ properties.lstContenido[0].puntuacionpaa ? properties.lstContenido[0].puntuacionpaa : 'N/A'}}">
                 </div>
             </div>
