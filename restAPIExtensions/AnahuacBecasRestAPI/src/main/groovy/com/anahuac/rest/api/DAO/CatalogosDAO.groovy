@@ -1195,7 +1195,7 @@ class CatalogosDAO {
 			CatManejoDocumentos row = new CatManejoDocumentos();
 			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
 			closeCon = validarConexion();
-			where += " WHERE doc.ISELIMINADO <> TRUE AND rel.IDTYPOAPOYO = ? AND cc.GRUPOBONITA = ? ";
+			where += " WHERE doc.ISELIMINADO <> TRUE AND  doc.idtipoapoyo = ? AND cc.GRUPOBONITA = ? ";
 			isAval == true ? (where += " AND doc.isaval = true" ) : (where += "AND (doc.isaval is null OR doc.isaval = false)");
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
@@ -1214,7 +1214,7 @@ class CatalogosDAO {
 				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));
 				row.setIsObligatorio(rs.getBoolean("ISOBLIGATORIODOC").toString());
 				row.setIdCampus(rs.getLong("IDCAMPUS"));
-				row.setIdTipoApoyo(rs.getLong("IDTYPOAPOYO"));
+				row.setIdTipoApoyo(rs.getLong("idtipoapoyo"));
 				row.setIsObligatorioDoc(rs.getBoolean("ISOBLIGATORIODOC"));
 				row.setRequiereEjemplo(rs.getBoolean("requiereEjemplo"));		
 				row.setIsAval(rs.getBoolean("isAval"));
