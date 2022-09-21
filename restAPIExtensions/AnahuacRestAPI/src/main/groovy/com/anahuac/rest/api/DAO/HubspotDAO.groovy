@@ -1767,7 +1767,7 @@ class HubspotDAO {
 					//objHubSpotData.put("estatus_admision_bpm", "Registro");
 					objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 					objHubSpotData.put("fecha_nacimiento_bpm", dfSalida.format(fechaNacimiento));
-					objHubSpotData.put("promedio_bpm", lstSolicitudDeAdmision.get(0).getPromedioGeneral() == null ? "" : lstSolicitudDeAdmision.get(0).getPromedioGeneral());
+//					objHubSpotData.put("promedio_bpm", lstSolicitudDeAdmision.get(0).getPromedioGeneral() == null ? "" : lstSolicitudDeAdmision.get(0).getPromedioGeneral());
 					objHubSpotData.put("porcentaje_de_descuento_bpm", lstDetalleSolicitud.get(0).getDescuento()==null ? (lstDetalleSolicitud.get(0).getCatDescuentos() == null ? "0" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento()):lstDetalleSolicitud.get(0).getDescuento());
 					objHubSpotData.put("tipo_de_alumno_bpm", lstDetalleSolicitud.get(0).getCatTipoAlumno().getClave());
 					objHubSpotData.put("tipo_de_admision_bpm", tipoAdmision);

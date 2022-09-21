@@ -542,7 +542,15 @@ class TransferenciasDAO {
                     }
                 }
             }
-
+			
+			pstm = con.prepareStatement(Statements.SELECT_PAGO_CAMPUS_TRASNFERENCIA)
+			pstm.setString(1, object.catCampus.grupoBonita)
+			rs= pstm.executeQuery()
+			String pagoid = "";
+			if(rs.next()) {
+				pagoid = rs.getString("persistenceid")
+			}
+			
             con.setAutoCommit(false)
             pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA)
             pstm.setLong(1, object.campus);
@@ -557,6 +565,20 @@ class TransferenciasDAO {
 			pstm.setString(6, object.estatus)
             pstm.setLong(7, Long.valueOf(object.caseid));
             pstm.executeUpdate();
+			
+			if(pagoid.length() > 0){
+				String statement = Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO
+				
+				if(object?.estatus?.toString().contains("pago") ) {
+					statement = Statements.UPDATE_DATOS_TRASNFERENCIA_PAGO2
+				}
+				
+				pstm = con.prepareStatement(statement)
+				pstm.setLong(1, Long.valueOf(pagoid));
+				pstm.setString(2, object.caseid);
+				pstm.executeUpdate();
+				
+			}
 
             con.commit();
             errorLog += " DESPUES del update "

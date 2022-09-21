@@ -62,6 +62,8 @@ class PDFDocumentDAO {
 			Result dataResult = new Result();
 			List<List < Object >> lstParams;
 			
+			object.intento = object.intento == null?0:object.intento;
+			
 			List<?> info = getInfoReportes(object.email, object.intento).getData();
 			if(info.size() < 1) {
 				throw new Exception("400 Bad Request Usuario no encontrado");
@@ -82,7 +84,7 @@ class PDFDocumentDAO {
 			columns.put("paav", isNullOrBlanck(info.get(0)?.paav.toString()));
 			columns.put("paan", isNullOrBlanck(info.get(0)?.paan.toString()));
 			columns.put("para", isNullOrBlanck(info.get(0)?.para.toString()));
-			columns.put("paat", isNullOrBlanck(info.get(0)?.promedio.toString()));
+			columns.put("paat", isNullOrBlanck( sumStrings(isNullOrBlanck(info.get(0)?.para.toString()),isNullOrBlanck(info.get(0)?.paan.toString()),isNullOrBlanck(info.get(0)?.paav.toString()) ) ));
 			columns.put("invp", isNullOrBlanck(info.get(0)?.invp.toString()));
 			columns.put("tipoAdmision", isNullOrBlanck(info.get(0)?.tipoadmision.toString()));
 			columns.put("periodoIngreso", isNullOrBlanck(info.get(0)?.periodo.toString()));
@@ -94,16 +96,21 @@ class PDFDocumentDAO {
 			Boolean[] familiares = [false,false,false]
 			info.each{
 				if(it?.parentesco.toString().equals("Padre") && !familiares[0]) {
-					if(it?.desconozcodatospadres.toString().equals("t")) {
+					if(it?.desconozcodatospadres.toString().equals("t")  ) {
 						columns.put("nombrePadre", "Se desconoce");
 						columns.put("ocupacionPadre", "Se desconoce");
 						columns.put("empresaPadre", "Se desconoce");
 						columns.put("universidadPadre", "Se desconoce");
-					}else {
+					} else if (it?.trabaja.toString().equals("No")) {
 						columns.put("nombrePadre", isNullOrBlanck(it?.nombre.toString()));
-						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString()));
+						columns.put("ocupacionPadre", it?.jubilado.toString().equals("t") ?isNullOrBlanck("Jubilado") : isNullOrBlanck("No trabaja"));
+						columns.put("empresaPadre", isNullOrBlanck("No trabaja"));
+						columns.put("universidadPadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
+					} else {
+						columns.put("nombrePadre", isNullOrBlanck(it?.nombre.toString()));
+						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString().equals('t')?'(jubilado)':'' ) :''} ");
 						columns.put("empresaPadre", isNullOrBlanck(it?.empresatrabaja.toString()));
-						columns.put("universidadPadre", isNullOrBlanck(it?.campusanahuac.toString()));
+						columns.put("universidadPadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					}
 					familiares[0] = true;
 				}
@@ -114,20 +121,26 @@ class PDFDocumentDAO {
 						columns.put("ocupacionMadre", "Se desconoce");
 						columns.put("empresaMadre", "Se desconoce");
 						columns.put("universidadMadre", "Se desconoce");
-					}else {
+					} else if (it?.trabaja.toString().equals("No")) {
 						columns.put("nombreMadre", isNullOrBlanck(it?.nombre.toString()));
-						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString()));
+						columns.put("ocupacionMadre", it?.jubilado.toString().equals("t") ?isNullOrBlanck("Jubilado") : isNullOrBlanck("No trabaja"));
+						columns.put("empresaMadre", isNullOrBlanck("No trabaja"));
+						columns.put("universidadMadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
+					} else {
+						columns.put("nombreMadre", isNullOrBlanck(it?.nombre.toString()));
+						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString())+ " ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
 						columns.put("empresaMadre", isNullOrBlanck(it?.empresatrabaja.toString()));
-						columns.put("universidadMadre", isNullOrBlanck(it?.campusanahuac.toString()));
+						columns.put("universidadMadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					}
+					
 					familiares[1] = true;
 				}
 				
-				if(it?.istutor.toString().equals("t") && !familiares[2]) {
+				if(it?.istutor.toString().equals("t")  && !familiares[2]) {
 					columns.put("nombreTutor", isNullOrBlanck(it?.nombre.toString()));
-					columns.put("ocupacionTutor", isNullOrBlanck(it?.puesto.toString()));
+					columns.put("ocupacionTutor", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.puesto.toString()) !='N/A'? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''}");
 					columns.put("empresaTutor", isNullOrBlanck(it?.empresatrabaja.toString()));
-					columns.put("universidadTutor", isNullOrBlanck(it?.campusanahuac.toString()));
+					columns.put("universidadTutor", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					familiares[2] = true;
 				}
 				
@@ -230,7 +243,9 @@ class PDFDocumentDAO {
 			log = 4;
 			info = getInfoSaludPSeccion(caseid)?.getData();
 			columns.put("vivesSituacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.cat_situacion_discapacidad_descripcion.toString()) );
-			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.situacion_discapacidad?.toString()) );
+			columns.put("tipoDiscapacidad",  isNullOrBlanck(info?.get(0)?.tipo_discapacidad?.toString()) );
+			columns.put("SituacionTipo",  isNullOrBlanck(info?.get(0)?.situaciontipo?.toString()) );
+			columns.put("situacionDiscapacidad",  isNullOrBlanck(info?.get(0)?.problemassaludatencioncontinua?.toString()) );
 			columns.put("personaSaludableDescripcion",  isNullOrBlanck(info?.get(0)?.cat_persona_saludable_descripcion.toString()) );
 			columns.put("terapiaDescripcion",  isNullOrBlanck(info?.get(0)?.cat_terapia_descripcion.toString()) );
 			columns.put("tipoTerapia",  isNullOrBlanck(info?.get(0)?.tipo_terapia.toString()) );
@@ -302,6 +317,10 @@ class PDFDocumentDAO {
 		}
 		
 		return resultado;
+	}
+	
+	private String sumStrings(String val1="",val2="",val3="") {
+		return "${((val1 == "N/A"?0:val1 as Integer) + (val2 == "N/A"?0:val2 as Integer) + (val3 == "N/A"?0:val3 as Integer))}"
 	}
 	
 	private String isNullOrBlanck(String text) {
@@ -407,7 +426,7 @@ class PDFDocumentDAO {
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT distinct on (pt.catparentezco_pid) pt.catparentezco_pid,cp.descripcion as parentesco,empresatrabaja,puesto,pt.vive_pid, cv.descripcion AS vive, pt.desconozcoDatosPadres ,cc.descripcion as campusAnahuac, CONCAT(pt.nombre,' ',pt.apellidos) AS nombre, pt.isTutor FROM PadresTutor AS pt LEFT JOIN catParentesco as cp ON cp.persistenceid = pt.catparentezco_pid LEFT JOIN catCampus AS CC ON cc.persistenceid = catcampusegreso_pid LEFT JOIN catVive AS cv ON cv.persistenceid = pt.vive_pid where  pt.caseid =  "+caseid)
+			pstm = con.prepareStatement("SELECT distinct on (pt.catparentezco_pid) pt.catparentezco_pid,cp.descripcion as parentesco, pt.empresatrabaja,puesto,pt.vive_pid, cv.descripcion AS vive, pt.desconozcoDatosPadres , cc.descripcion as campusAnahuac, pt.categresoanahuac_pid as egresoAnahuac, CONCAT(pt.nombre,' ',pt.apellidos) AS nombre, pt.isTutor, tpr.jubilado, ctr.descripcion AS trabaja FROM PadresTutor AS pt LEFT JOIN catParentesco as cp ON cp.persistenceid = pt.catparentezco_pid LEFT JOIN catCampus AS CC ON cc.persistenceid = catcampusegreso_pid LEFT JOIN CatEgresadoUniversidadAnahuac AS eua ON eua.persistenceid =  pt.categresoanahuac_pid LEFT JOIN catVive AS cv ON cv.persistenceid = pt.vive_pid LEFT JOIN TestPsicometricoRelativos AS tpr on tpr.caseid = pt.caseid::varchar AND tpr.catparentezco_pid = pt.catparentezco_pid LEFT JOIN CatPadreTrabaja AS ctr on ctr.persistenceid = pt.cattrabaja_pid where  pt.caseid ="+caseid)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();

@@ -169,7 +169,12 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
             //doc.rect(margenSegundaFila,((height / 2)-84),35,45)
         doc.rect(157.5, ((height / 2) - 84), 35, 45)
 
-        doc.addImage($scope.properties.urlFoto, "JPG", 160, ((height / 2) - 82), 30, 40);
+        if($scope.properties.rotacion){
+            doc.addImage($scope.properties.urlFoto, "JPG", 160, ((height / 2) - 112), 40, 30,'','NONE',270);
+        }else{
+            doc.addImage($scope.properties.urlFoto, "JPG", 160, ((height / 2) - 82), 30, 40);
+        }
+        
 
 
         //Respuestas
@@ -254,7 +259,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.setFont(undefined, 'normal');
         doc.text($scope.properties.PDFobjSolicitudDeAdmision.catPais.descripcion, respuestasPrimeraFila, (height / 2) + 75);
         doc.text($scope.properties.PDFobjSolicitudDeAdmision.codigoPostal, respuestasFilaIntermedia, (height / 2) + 75);
-        doc.text(($scope.properties.PDFobjSolicitudDeAdmision.catEstado.descripcion == null || $scope.properties.PDFobjSolicitudDeAdmision.catEstado.descripcion == "" ? $scope.properties.PDFobjSolicitudDeAdmision.estadoExtranjero : $scope.properties.PDFobjSolicitudDeAdmision.catEstado.descripcion), respuestasSegundaFila, (height / 2) + 75);
+        doc.text(($scope.properties.PDFobjSolicitudDeAdmision?.catEstado?.descripcion == null || $scope.properties.PDFobjSolicitudDeAdmision?.catEstado?.descripcion == "" ? $scope.properties.PDFobjSolicitudDeAdmision.estadoExtranjero : $scope.properties.PDFobjSolicitudDeAdmision?.catEstado?.descripcion), respuestasSegundaFila, (height / 2) + 75);
 
         doc.text($scope.properties.PDFobjSolicitudDeAdmision.ciudad, respuestasPrimeraFila, (height / 2) + 88.5);
         doc.text($scope.properties.PDFobjSolicitudDeAdmision.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 92);
@@ -361,7 +366,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.setFont(undefined, 'normal');
         doc.text($scope.properties.PDFobjTutor[0].catPais.descripcion, respuestasPrimeraFila, (height / 2) - 5);
         doc.text($scope.properties.PDFobjTutor[0].codigoPostal, respuestasFilaIntermedia, (height / 2) - 5);
-        doc.text($scope.properties.PDFobjTutor[0].catEstado.descripcion, respuestasSegundaFila, (height / 2) - 5);
+        doc.text(($scope.properties.PDFobjTutor[0]?.catEstado?.descripcion == null || $scope.properties.PDFobjTutor[0]?.catEstado?.descripcion == "" ? $scope.properties.PDFobjTutor[0]?.estadoExtranjero : $scope.properties.PDFobjTutor[0]?.catEstado?.descripcion) , respuestasSegundaFila, (height / 2) - 5);
 
         doc.text($scope.properties.PDFobjTutor[0].ciudad, respuestasPrimeraFila, (height / 2) + 7.5);
         doc.text($scope.properties.PDFobjTutor[0].delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 12);
@@ -464,7 +469,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
             doc.setFont(undefined, 'normal');
             doc.text($scope.properties.PDFobjPadre.catPais.descripcion, respuestasPrimeraFila, (height / 2) - 101);
             doc.text($scope.properties.PDFobjPadre.codigoPostal, respuestasFilaIntermedia, (height / 2) - 101);
-            doc.text($scope.properties.PDFobjPadre.catEstado.descripcion, respuestasSegundaFila, (height / 2) - 101);
+            doc.text(($scope.properties.PDFobjPadre?.catEstado?.descripcion == null || $scope.properties.PDFobjPadre?.catEstado?.descripcion == "" ? $scope.properties.PDFobjPadre?.estadoExtranjero : $scope.properties.PDFobjPadre?.catEstado?.descripcion), respuestasSegundaFila, (height / 2) - 101);
 
             doc.text($scope.properties.PDFobjPadre.ciudad, respuestasPrimeraFila, (height / 2) - 86.5);
             doc.text($scope.properties.PDFobjPadre.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) - 83);
@@ -543,7 +548,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
                 doc.text("Finado", respuestasSegundaFila, (height / 2) - 14);
 
                 doc.text("Finado", respuestasPrimeraFila, (height / 2) - 2);
-                doc.text("Finado", respuestasSegundaFila, (height / 2) - 2);
+                doc.text("Finado", respuestasFilaIntermedia, (height / 2) - 2);
             }
 
         } else {
@@ -583,7 +588,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
             doc.setFont(undefined, 'normal');
             doc.text($scope.properties.PDFobjMadre.catPais.descripcion, respuestasPrimeraFila, (height / 2) + 23);
             doc.text($scope.properties.PDFobjMadre.codigoPostal, respuestasFilaIntermedia, (height / 2) + 23);
-            doc.text($scope.properties.PDFobjMadre.catEstado.descripcion, respuestasSegundaFila, (height / 2) + 23);
+            doc.text(($scope.properties.PDFobjMadre?.catEstado?.descripcion == null || $scope.properties.PDFobjMadre?.catEstado?.descripcion == "" ? $scope.properties.PDFobjMadre?.estadoExtranjero : $scope.properties.PDFobjPadre?.PDFobjMadre?.descripcion), respuestasSegundaFila, (height / 2) + 23);
 
             doc.text($scope.properties.PDFobjMadre.ciudad, respuestasPrimeraFila, (height / 2) + 35.5);
             doc.text($scope.properties.PDFobjMadre.delegacionMunicipio, respuestasFilaIntermedia, (height / 2) + 40);

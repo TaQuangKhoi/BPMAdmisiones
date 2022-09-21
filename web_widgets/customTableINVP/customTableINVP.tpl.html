@@ -36,6 +36,11 @@
             <table class="table scrollbars" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}" style="width: 100%">
                 <thead>
                     <tr>
+                        
+                        <th><span style="cursor:pointer" ng-click="setOrderBy('IDSESION')">Id de la sesion<i class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='ID'"></i></span></th>
+                                
                         <th><span style="cursor:pointer" ng-click="setOrderBy('NOMBRE_SESION')">Nombre de la sesion<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='NOMBRE_SESION'"></i></span></th>  
@@ -73,6 +78,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td><input ng-model="dynamicInput['idS']" class="form-control" ng-enter="filterKeyPress('ID DE LA SESION',dynamicInput['idS'])"></td>
                         <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('NOMBRE DE LA SESION',dynamicInput['sesion'])"></td>
                         <td><input ng-model="dynamicInput['id']" class="form-control" ng-enter="filterKeyPress('ID',dynamicInput['id'])"></td>
                         <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE DE LA PRUEBA',dynamicInput['nombre'])"></td>
@@ -86,6 +92,9 @@
                         <td></td>
                     </tr>
                     <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                        <td>
+                            {{row.id_sesion}}
+                        </td>
                         <td>
                             {{row.sesion}}
                         </td>
