@@ -714,7 +714,6 @@
                     <description>postalCode</description>
                 </field>
                 <field type="STRING" length="255" name="municipio" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="sourceIndicator" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -2008,16 +2007,6 @@
                 </query>
                 <query name="getCatNotificacionesBecas" content="SELECT c &#13;&#10;FROM CatNotificaciones c &#13;&#10;WHERE  c.codigo like ('%BC_%')&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatNotificaciones">
                     <queryParameters/>
-                </query>
-                <query name="findByCaseIdTipoCorreo" content="SELECT c &#13;&#10;FROM CatNotificaciones c &#13;&#10;WHERE  c.tipoCorreo in ('Notificaciones Admisiones' ,'Cartas Admisiones&quot;')&#13;&#10;AND c.caseId = :caseId&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatNotificaciones">
-                    <queryParameters>
-                        <queryParameter name="caseId" className="java.lang.String"/>
-                    </queryParameters>
-                </query>
-                <query name="findByCaseIdTipoCorreoSDAE" content="SELECT c &#13;&#10;FROM CatNotificaciones c &#13;&#10;WHERE  c.tipoCorreo in ('Notificaciones SDAE BC', 'Notificaciones SDAE FNZ', 'Cartas SDAE BC','Cartas SDAE FNZ')&#13;&#10;AND c.caseId = :caseId&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatNotificaciones">
-                    <queryParameters>
-                        <queryParameter name="caseId" className="java.lang.String"/>
-                    </queryParameters>
                 </query>
             </queries>
             <indexes/>

@@ -17,7 +17,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory,$http) {
             $scope.properties.value = null;
             $scope.properties.value = $scope.properties.max+"";
         }else{
-            //doRequest($scope.properties.value);
+            doRequest($scope.properties.value);
         }
     }else{
             $scope.properties.value = null;

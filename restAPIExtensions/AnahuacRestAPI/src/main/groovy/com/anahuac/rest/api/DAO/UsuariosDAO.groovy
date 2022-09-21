@@ -1747,7 +1747,7 @@ class UsuariosDAO {
 			
 		}catch(Exception ex){
 			LOGGER.error "[ERROR] " + ex.getMessage();
-			resultado.setError_info(errorLog);
+			
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
 			con.rollback();

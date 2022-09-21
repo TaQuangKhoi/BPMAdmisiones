@@ -24,17 +24,7 @@ class CatBachillerato {
 	private String postalCode;
 	private String typeInd;
 	private String municipio;
-	private String sourceIndicator;
 	
-	
-	public String getSourceIndicator() {
-		return sourceIndicator;
-	}
-
-	public void setSourceIndicator(String sourceIndicator) {
-		this.sourceIndicator = sourceIndicator;
-	}
-
 	public String getMunicipio() {
 		return municipio;
 	}
@@ -228,7 +218,7 @@ class CatBachillerato {
 				+ ", idBachillerato=" + idBachillerato + ", operation=" + operation + ", streetLine1=" + streetLine1
 				+ ", streetLine2=" + streetLine2 + ", streetLine3=" + streetLine3 + ", nationCode=" + nationCode
 				+ ", stateCode=" + stateCode + ", countyCode=" + countyCode + ", postalCode=" + postalCode
-				+ ", typeInd=" + typeInd + ", sourceIndicator=" + sourceIndicator + "]";
+				+ ", typeInd=" + typeInd + "]";
 	}
 
 	

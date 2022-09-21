@@ -8038,7 +8038,7 @@ class ListadoDAO {
 			cellusuarioData.setCellValue(object.usuario);
 
 			Row espacio = sheet.createRow(++rowCount);
-			def titulos = ["ID BANNER","CLAVE","DESCRIPCION","CLAVE DEL PAIS","PAIS","CLAVE DEL ESTADO","ESTADO","CIUDAD","MUNICIPIO","PERTENECE A LA RED","ACTIVO","CODIGO POSTAL","CALLE 1","CALLE 2","CALLE 3","TIPO","FECHA DE CREACION","FECHA DE IMPORTACIÓN"];			
+			def titulos = ["ID BANNER","CLAVE","DESCRIPCION","PAIS","ESTADO","CIUDAD","MUNICIPIO","PERTENECE A LA RED","ACTIVO","CLAVE DEL PAIS","CLAVE DEL CONDADO","CLAVE DEL ESTADO","CODIGO POSTAL","CALLE 1","CALLE 2","CALLE 3","TIPO","FECHA DE CREACION","FECHA DE IMPORTACIÓN"];			
 			
 			errorLog += "1";
 			Row headersRow = sheet.createRow(++rowCount);
@@ -8055,7 +8055,7 @@ class ListadoDAO {
 			bodyStyle.setWrapText(true);
 			bodyStyle.setAlignment(HorizontalAlignment.CENTER);
 			errorLog += "3";
-			def info = ["id","clave","descripcion","nationCode","pais","stateCode","estado","ciudad","municipio","perteneceRed","isEnabled","postalCode","streetLine1","streetLine2","streetLine3","typeInd","fechaCreacion","fechaImportacion"];
+			def info = ["id","clave","descripcion","pais","estado","ciudad","municipio","perteneceRed","isEnabled","nationCode","countyCode","stateCode","postalCode","streetLine1","streetLine2","streetLine3","typeInd","fechaCreacion","fechaImportacion"];
 			
 			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			Date fechaCreacion = new Date();
@@ -8362,8 +8362,8 @@ class ListadoDAO {
 
                 Row espacio = sheet.createRow(++rowCount);
                 def titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA"]
-                if ( lstParams[0].tipoprueba_pid == "1") {
-                    titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","PSICÓLOGO","HORA DE LA ENTREVISTA"];
+                if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador") ) && lstParams[0].tipoprueba_pid == "1") {
+                    titulos = ["ID BANNER","NOMBRE","EMAIL","CURP","SEXO","CAMPUS","PROGRAMA","INGRESO","PROCEDENCIA","PREPARATORIA","PROMEDIO","RESIDENCIA","TELEFONO","ASISTENCIA","PSICÓLOGO"];
                 }
                 
 				errorLog += "1";
@@ -8382,8 +8382,8 @@ class ListadoDAO {
 			    bodyStyle.setAlignment(HorizontalAlignment.CENTER);
 				errorLog += "3";
 				def info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia"];
-				if ( lstParams[0].tipoprueba_pid == "1") {
-					info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia","responsable","horario"];
+				if ( (type.equals("paselistareportelistado") || type.equals("paselistapsicologoadministrador")) && lstParams[0].tipoprueba_pid == "1") {
+					info = ["idbanner","nombre","correoelectronico","curp","sexo","campus","licenciatura","periodo","procedencia","preparatoria","promediogeneral","residencia","telefonocelular","asistencia","responsable"];
 				}
 				
 			    List<Cell> body;

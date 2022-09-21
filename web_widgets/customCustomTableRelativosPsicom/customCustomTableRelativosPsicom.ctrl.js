@@ -8,11 +8,10 @@ function PbTableCtrl($scope) {
 
     this.isArray = Array.isArray;
 
-    this.isJubilado = function(id,parentesco) {
+    this.isJubilado = function(id) {
         for (let i = 0; i < $scope.properties.content.length; i++) {
-            if ($scope.properties.content[i].persistenceId != id && $scope.properties.content[i].catParentezco.descripcion == parentesco) {
-                $scope.properties.content[i].jubilado = !$scope.properties.content[i].jubilado;
-                console.log("parentesco"+parentesco)
+            if ($scope.properties.content[i].persistenceId == id) {
+                //$scope.properties.content[i].jubilado = !$scope.properties.content[i].jubilado;
                 console.log($scope.properties.content[i].jubilado);
             }
         }
@@ -24,7 +23,7 @@ function PbTableCtrl($scope) {
 
     this.desconoceSusDatos = function(dato) {
         if (dato === undefined || dato === null || dato.toString().trim().length <= 0) {
-            return "Desconoce sus datos";
+            return "desconoce sus datos";
         }
         return dato;
     }

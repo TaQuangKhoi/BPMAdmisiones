@@ -7,7 +7,7 @@ class FileDownload {
 	    URL url = new URL(imageUrl);
 	    InputStream is = url.openStream();
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		
+	   
 	    int nRead;
 		byte[] data = new byte[16384];
 		
