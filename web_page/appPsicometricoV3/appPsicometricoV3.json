@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1662686379081,
+  "lastUpdate" : 1663792126742,
   "rows" : [
     [
       {
@@ -1458,7 +1458,7 @@
                   "propertyValues" : {
                     "cssClasses" : {
                       "type" : "constant",
-                      "value" : ""
+                      "value" : "rasgoObservado"
                     },
                     "hidden" : {
                       "type" : "constant",
@@ -1470,7 +1470,7 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Rasgos observados"
+                      "value" : "{{tituloRasgosObservados}}"
                     },
                     "active" : {
                       "type" : "variable",
@@ -2167,7 +2167,7 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Capacidad de adaptación"
+                      "value" : "{{tituloCapacidadAdaptacion}}"
                     },
                     "active" : {
                       "type" : "variable",
@@ -8568,6 +8568,98 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatProblemasSaludAtencion [com.anahuac.catalogos.CatProblemasSaludAtencion]\",\"businessObjectName\":\"CatProblemasSaludAtencion\",\"query\":{\"name\":\"getCatProblemasSaludAtencion\",\"displayName\":\"getCatProblemasSaludAtencion\"},\"id\":\"com.anahuac.catalogos.CatProblemasSaludAtencion\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "validarRasgosObservados" : {
+      "type" : "expression",
+      "value" : [
+        "// {\r",
+        "//     \"rasgo\": {\r",
+        "//       \"persistenceId\": 712229,\r",
+        "//       \"persistenceId_string\": \"712229\",\r",
+        "//       \"persistenceVersion\": 3,\r",
+        "//       \"persistenceVersion_string\": \"3\",\r",
+        "//       \"orden\": 1,\r",
+        "//       \"clave\": \"saluda\",\r",
+        "//       \"descripcion\": \"Salud aparente\",\r",
+        "//       \"fechaCreacion\": null,\r",
+        "//       \"usuarioCreacion\": \"Administrador\",\r",
+        "//       \"isEliminado\": false\r",
+        "//     },\r",
+        "//     \"calificacion\": null\r",
+        "// }\r",
+        "\r",
+        "let output = true;\r",
+        "\r",
+        "for(let rasgo of $data.rasgos){\r",
+        "    if(!rasgo.calificacion){\r",
+        "        output = false;\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "validarCapacidadAdaptacion" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;\r",
+        "\r",
+        "if(!$data.testPsicom.ajusteMedioFamiliar){\r",
+        "\toutput = false;\r",
+        "} else if(!$data.testPsicom.califAjusteMedioFamiliar){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteEscolarPrevio){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteEscolarPrevio){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteMedioSocial){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteMedioSocial){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteEfectivo){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteAfectivo){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteReligioso){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteReligioso){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteExistencial){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteExistencial){\r",
+        "    output = false;\r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "tituloRasgosObservados" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"Rasgos observados \";",
+        "",
+        "if(!$data.validarRasgosObservados){",
+        "    output += '<span class=\"alert-icon glyphicon glyphicon-exclamation-sign\"></span>';",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "tituloCapacidadAdaptacion" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"Capacidad de adaptación \";",
+        "",
+        "if(!$data.validarCapacidadAdaptacion){",
+        "    output += '<span class=\"alert-icon glyphicon glyphicon-exclamation-sign\"></span>';",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }
