@@ -1024,6 +1024,7 @@ class PsicometricoDAO {
 				} else {
 					pstm.setNull(28, Types.INTEGER);
 				}
+				
 				if(catVivesEstadoDiscapacidad != null) {
 					if(catVivesEstadoDiscapacidad.persistenceId != null && catVivesEstadoDiscapacidad.persistenceId != ""){
 						pstm.setInt(29, catVivesEstadoDiscapacidad.persistenceId);
