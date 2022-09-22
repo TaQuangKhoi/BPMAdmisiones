@@ -428,11 +428,20 @@ class SecurityFilter {
 				case "getSesions":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
-				case "getPropedeuticosNoFecha":allow=bonitaRolFilter(context,"ADMISIONES")
+				case "getPropedeuticosNoFecha":
+				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Area Artistica")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Area Deportiva")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Finanzas")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Comite de Finanzas")
 				if(allow){break;}
 				break;
 				case "getActiveProcess":allow=bonitaRolFilter(context,"ADMISIONES")

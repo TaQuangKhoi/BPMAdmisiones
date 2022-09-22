@@ -38,7 +38,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function errorSwal(){
-        swal("Algo ha fallado", "No se ha podido guardar la información, verifique su conexión a internet e inténtelo de nuevo.", "error");
+        swal("Algo salió mal.", "La conexión con el servidor se perdió. Consulta con el administrador.", "error");
     }
 
     function notifyParentFrame(additionalProperties) {
@@ -48,8 +48,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
-
-
     function doRequest2(method, url) {
         vm.busy = true;
         var req = {
@@ -57,17 +55,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             url: url
         };
 
-        return $http(req)
-            .success(function (data, status) {
-                $scope.properties.returnValues = data;
-            })
-            .error(function (data, status) {
-                console.log("Error: " + data);
-                errorSwal();
-            })
-            .finally(function () {
-                vm.busy = false;
-            });
+        return $http(req).success(function (data, status) {
+            $scope.properties.returnValues = data;
+        })
+        .error(function (data, status) {
+            console.log("Error: " + data);
+            errorSwal();
+        })
+        .finally(function () {
+            vm.busy = false;
+        });
     }
 
     function mensajeIsFinalizado() {
