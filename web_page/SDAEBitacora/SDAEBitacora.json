@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEBitacora",
   "name" : "SDAEBitacora",
-  "lastUpdate" : 1662503838695,
+  "lastUpdate" : 1663893089860,
   "rows" : [
     [
       {
@@ -42,7 +42,7 @@
     ],
     [
       {
-        "type" : "component",
+        "type" : "container",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -58,43 +58,95 @@
             "type" : "constant",
             "value" : false
           },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "{{$data.dynamicInput}}"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "left"
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
           }
         },
-        "reference" : "742b1b06-be10-42db-af77-432984f0c31d",
+        "reference" : "10432bca-e643-4129-b1c9-259799095788",
         "hasValidationError" : false,
-        "id" : "pbText"
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id banner",
+                    "Correo",
+                    "Estatus",
+                    "Comentario",
+                    "Beca",
+                    "Financiamiento",
+                    "Usuario",
+                    "Fecha"
+                  ]
+                },
+                "content" : {
+                  "type" : "expression",
+                  "value" : "getBitacoraSDAE"
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "idbanner",
+                    "correo",
+                    "estatus",
+                    "comentario",
+                    "beca",
+                    "financiamiento",
+                    "usuarios",
+                    "fecha | date:'dd/MM/yyyy hh:mm'"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                }
+              },
+              "reference" : "9f794995-a2d0-4aec-a976-a17f59cac641",
+              "hasValidationError" : false,
+              "id" : "pbTable"
+            }
+          ]
+        ]
       }
     ],
     [
       {
-        "type" : "component",
+        "type" : "container",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -108,118 +160,200 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
-          },
-          "content" : {
-            "type" : "variable",
-            "value" : "lstFiltros"
-          }
-        },
-        "reference" : "112c87c5-3ed1-4cec-9961-dc031d696ef8",
-        "hasValidationError" : false,
-        "id" : "customListFiltrosBloqueoCampus"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "allowHTML" : {
-            "type" : "constant",
             "value" : true
           },
-          "headers" : {
-            "type" : "expression",
-            "value" : "lsTitulos"
-          },
-          "columnsKey" : {
-            "type" : "expression",
-            "value" : "listData"
-          },
-          "selectedRow" : {
-            "type" : "variable",
-            "value" : "comentario_selectedNR"
-          },
-          "striped" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "condensed" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "bordered" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "urlPost" : {
-            "type" : "expression",
-            "value" : "urlPost"
-          },
-          "dataToSend" : {
-            "type" : "variable",
-            "value" : "dataToFilter"
-          },
-          "lstContenido" : {
-            "type" : "variable",
-            "value" : "lstContenido"
-          },
-          "userId" : {
-            "type" : "variable",
-            "value" : "userData.user_id"
-          },
-          "lstCampus" : {
-            "type" : "variable",
-            "value" : "lstCampus"
-          },
-          "campusSeleccionado" : {
-            "type" : "variable",
-            "value" : "getCampus"
-          },
-          "listaBitacoras" : {
-            "type" : "constant"
-          },
-          "bitacoraSelected" : {
+          "repeatedCollection" : {
             "type" : "variable",
             "value" : ""
-          },
-          "inputList" : {
-            "type" : "expression",
-            "value" : "dynamicInput"
-          },
-          "desactivarFiltro" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "desactivarOrder" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "responsables" : {
-            "type" : "variable",
-            "value" : ""
-          },
-          "modalName" : {
-            "type" : "constant"
           }
         },
-        "reference" : "741217b5-7b45-4b66-ab22-8a92c6045c3c",
+        "reference" : "621df98d-9f08-43f6-bd2b-e4afa5816f70",
         "hasValidationError" : false,
-        "id" : "customTablePostBitacoraSDAE"
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{$data.dynamicInput}}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "742b1b06-be10-42db-af77-432984f0c31d",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "content" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                }
+              },
+              "reference" : "112c87c5-3ed1-4cec-9961-dc031d696ef8",
+              "hasValidationError" : false,
+              "id" : "customListFiltrosBloqueoCampus"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "expression",
+                  "value" : "lsTitulos"
+                },
+                "columnsKey" : {
+                  "type" : "expression",
+                  "value" : "listData"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : "comentario_selectedNR"
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "urlPost" : {
+                  "type" : "expression",
+                  "value" : "urlPost"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToFilter"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCampus"
+                },
+                "campusSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "getCampus"
+                },
+                "listaBitacoras" : {
+                  "type" : "constant"
+                },
+                "bitacoraSelected" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "inputList" : {
+                  "type" : "expression",
+                  "value" : "dynamicInput"
+                },
+                "desactivarFiltro" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "desactivarOrder" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "responsables" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "modalName" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "741217b5-7b45-4b66-ab22-8a92c6045c3c",
+              "hasValidationError" : false,
+              "id" : "customTablePostBitacoraSDAE"
+            }
+          ]
+        ]
       }
     ]
   ],
@@ -458,6 +592,21 @@
         "    \"totalRows\":0,",
         "    \"pageSize\":20",
         "}"
+      ],
+      "exposed" : false
+    },
+    "getBitacoraSDAE" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getBitacoraSDAEByCaseId&p=0&c=10&caseId={{caseId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "caseId" : {
+      "type" : "urlparameter",
+      "value" : [
+        "caseId"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1663113868855,
+  "lastUpdate" : 1663894571398,
   "rows" : [
     [
       {
@@ -563,6 +563,10 @@
                         "estatusSolicitud" : {
                           "type" : "expression",
                           "value" : "objSolicitudDeAdmision[0].estatusSolicitud"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraInicioProceso"
                         }
                       },
                       "reference" : "76c6b091-4ab3-407e-88b7-58275c6f5c36",
@@ -24132,6 +24136,22 @@
         "../API/extension/AnahuacBecasRestGET?url=getSDAEGestionEscolarByCarrera&c=0&p=0&idCarrera={{}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraInicioProceso" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"Registro de solicitud\",\r",
+        "  \t\"correo\": $data.userDataEmail.userName,\r",
+        "  \t\"estatus\": \"Solicitud iniciada\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userDataEmail.userName,\r",
+        "  \t\"caseid\": \"\"\r",
+        "}"
+      ],
       "exposed" : false
     }
   },
