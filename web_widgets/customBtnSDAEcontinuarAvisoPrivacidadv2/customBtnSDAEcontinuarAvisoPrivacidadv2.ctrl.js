@@ -9,12 +9,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         "Elección de pruebas calendarizado",
         "Resultado final del comité",
         "Carga y consulta de resultados"
-    ]
+    ];
+
+    var caseid = 0;
 
     this.action = function action() {
-        let url = "../API/extension/AnahuacBecasRestGET?url=getPromedioMinimoApoyoByCampus&p=0&c=0&idCampus=" + $scope.properties.idCampus;
+        let url = "../API/extension/AnahuacBecasRestGET?url=getPRomedioMinimoByCampus&p=0&c=0&idCampus=" + $scope.properties.idCampus;
         $http.get(url).success((result)=>{
-            let promedioMinimo = parseFloat(result[0].promedioMinimo);
+            debugger;
+            let promedioMinimo = parseFloat(result.data[0].promedioMinimo);
             let promedioGeneral = parseFloat($scope.properties.promedioGeneral);
             if(promedioMinimo > promedioGeneral){
                 swal("Atención", "No puedes solicitar apoyo educativo por que tu promedio es inferior al promedio mínimo marcado por el Campus.", "warning");
@@ -107,6 +110,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
+                debugger;
+                caseid = data.caseId;
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -123,9 +128,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function () {
+                debugger;
                 vm.busy = false;
-                window.location.reload();
+                insertBitacora();
+                // window.location.reload();
             });
+    }
+
+    function insertBitacora(){
+        debugger;
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+        dataToSend.caseid = caseid;
+
+        $http.post(url, dataToSend).success(function(){
+            debugger;
+        }).error(function(){
+            debugger;
+        }).finally(function(){
+            window.location.reload();
+        });
     }
 
     function redirectIfNeeded() {
@@ -142,5 +164,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $window.parent.postMessage(JSON.stringify(dataToSend), '*');
         }
     }
-
 }

@@ -16,6 +16,7 @@ class SecurityFilter {
 				valid=true
 			}
 		}
+		
 		return valid;
 	} 
 	
@@ -646,6 +647,9 @@ class SecurityFilter {
 			allow=bonitaRolFilter(context,"Becas")
 			if(allow){break;}
 		    break;
+			allow=bonitaRolFilter(context,"PreAutorizacion")
+			if(allow){break;}
+			break;
 		  case "selectAspirantesEnRed":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {

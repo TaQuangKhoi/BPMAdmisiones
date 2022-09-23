@@ -2205,11 +2205,14 @@ class CatalogosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;;
 		String where = "";
+		String errorLog = "";
 		
 		try {
+			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			if(object.persistenceId == null) {
+				errorLog = "INSERT";
 				String consulta = StatementsCatalogos.INSERT_CAMPUS_CONFIG;
 				closeCon = validarConexion();
 				con.setAutoCommit(false);
@@ -2228,6 +2231,7 @@ class CatalogosDAO {
 				
 				con.commit();
 			} else {
+				errorLog = "UPDATE";
 				String consulta = StatementsCatalogos.UPDATE_CAMPUS_CONFIG;
 				closeCon = validarConexion();
 				con.setAutoCommit(false);
@@ -2246,10 +2250,12 @@ class CatalogosDAO {
 				
 				con.commit();
 			}
+			resultado.setError_info(errorLog);
 			resultado.setSuccess(true);
 		} catch (Exception e) {
 			
 			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(e.getMessage());
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			con.rollback();
