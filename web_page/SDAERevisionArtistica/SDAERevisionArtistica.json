@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisionArtistica",
   "name" : "SDAERevisionArtistica",
-  "lastUpdate" : 1663028659177,
+  "lastUpdate" : 1664234669016,
   "rows" : [
     [
       {
@@ -1909,6 +1909,14 @@
                               "errorMessage" : {
                                 "type" : "expression",
                                 "value" : "errorMessage"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraAceptar"
                               }
                             },
                             "reference" : "0f62cccc-f025-4e2d-a347-57b76f13576a",
@@ -2343,7 +2351,7 @@
                       "id" : "pbButton"
                     },
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -2359,78 +2367,215 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "right"
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "danger"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Submit task"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
                           "value" : ""
-                        },
-                        "dataToSend" : {
-                          "type" : "expression",
-                          "value" : "formInputRechazo"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation",
-                          "value" : "/apps/sdae/bandeja/"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "constant"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
                         }
                       },
-                      "reference" : "0981e719-5fc0-4c13-bb79-3c9a094e6b09",
+                      "reference" : "09ec8bae-a714-40f3-8ad4-cce5f56c8ea0",
                       "hasValidationError" : false,
-                      "id" : "customSDAEButtonCloseWindow"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Rechazar solicitud"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "danger"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputRechazo"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation",
+                                "value" : "/apps/sdae/bandeja/"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              }
+                            },
+                            "reference" : "0981e719-5fc0-4c13-bb79-3c9a094e6b09",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCloseWindow"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Rechazar solicitud"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "danger"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputRechazo"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "isValid" : {
+                                "type" : "expression",
+                                "value" : "formInputAprobar.solicitudApoyoEducativoInput.motivoRechazoArtistica"
+                              },
+                              "errorMessage" : {
+                                "type" : "constant",
+                                "value" : "El motivo de rechazo no sebe ir vacío"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraRechazar"
+                              }
+                            },
+                            "reference" : "e8a74ac3-b8b1-4ff5-aa43-c1ad13023f49",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCloseWindowValidation"
+                          }
+                        ]
+                      ]
                     }
                   ],
                   [
@@ -2700,7 +2845,8 @@
       "value" : [
         "let output = {\r",
         "    \"catPorcentajeBeca\": null, \r",
-        "    \"catPorcentajeFinanciamiento\": null\r",
+        "    \"catPorcentajeFinanciamiento\": null,\r",
+        "    \"catTipoApoyo\": null\r",
         "};\r",
         "\r",
         "if($data.solicitudApoyoEducativo){\r",
@@ -2716,6 +2862,15 @@
         "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
         "        if(cat.persistenceId === $data.solicitudApoyoEducativo.catPorcentajeFinanciamiento_id){\r",
         "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.solicitudApoyoEducativo){\r",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
+        "        if(cat.persistenceId == $data.solicitudApoyoEducativo.catTipoApoyo_id){\r",
+        "            output[\"catTipoApoyo\"] =  cat;\r",
         "            break;\r",
         "        }    \r",
         "    }\r",
@@ -2771,6 +2926,56 @@
         "{{ligaApiGetCatalogos}}CatPorcentajeFinanciamiento"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraAceptar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.formInputAprobar.solicitudApoyoEducativoInput.procRecAreaArtistica ? $data.formInputAprobar.solicitudApoyoEducativoInput.procRecAreaArtistica : \"N/A\",\r",
+        "  \t\"comentario\": $data.formInputAprobar.solicitudApoyoEducativoInput.motivoAprobadaArtistica,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Preautorización aporobada\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getCatTipoApoyoByCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatTipoAoyoByCampus&p=0&c=0&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraRechazar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": $data.formInputAprobar.solicitudApoyoEducativoInput.motivoRechazoArtistica,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Preautorización aporobada\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
       "exposed" : false
     }
   },

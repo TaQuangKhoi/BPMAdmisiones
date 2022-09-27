@@ -38,11 +38,28 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
         .success(function(data, status) {
             // let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
-            let newUrl = "/portal/resource/app/aspiranteSDAE/solicitud_apoyo_iniciada/content/?app=aspiranteSDAE"
-            window.location.replace(newUrl);
+            // let newUrl = "/portal/resource/app/aspiranteSDAE/solicitud_apoyo_iniciada/content/?app=aspiranteSDAE"
+            // window.location.replace(newUrl);
+            insertBitacora();
         })
         .error(function(data, status) {
             console.log("task failed")
+        });
+    }
+    
+    function insertBitacora(){
+        debugger;
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+
+        $http.post(url, dataToSend).success(function(){
+
+        }).error(function(){
+
+        }).finally(function(){
+            debugger;
+            let newUrl = "/portal/resource/app/aspiranteSDAE/solicitud_apoyo_iniciada/content/?app=aspiranteSDAE"
+            window.location.replace(newUrl);
         });
     }
 

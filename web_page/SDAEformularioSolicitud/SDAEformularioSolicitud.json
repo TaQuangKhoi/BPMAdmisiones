@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1663971451017,
+  "lastUpdate" : 1664211730561,
   "rows" : [
     [
       {
@@ -19084,6 +19084,14 @@
                       "idModal" : {
                         "type" : "constant",
                         "value" : "confirmarWi"
+                      },
+                      "urlBitacora" : {
+                        "type" : "constant",
+                        "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                      },
+                      "objetoBitacora" : {
+                        "type" : "expression",
+                        "value" : "bitacoraFinSolicitud"
                       }
                     },
                     "reference" : "b4636240-7b06-4d88-b332-a517d0d30e8c",
@@ -19972,6 +19980,14 @@
                         "caseId" : {
                           "type" : "variable",
                           "value" : "caseId"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraFinSolicitud"
                         }
                       },
                       "reference" : "e8f5fb65-1c5c-40af-8689-89b4d2f08998",
@@ -24153,7 +24169,25 @@
         "  \t\"financiamiento\": \"N/A\",\r",
         "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
         "  \t\"usuarios\": $data.userDataEmail.userName,\r",
-        "  \t\"caseid\": \"\"\r",
+        "  \t\"caseid\": \"\",\r",
+        "  \t\"tipoapoyo\": \"\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraFinSolicitud" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.returnCatValue.catPorcentajeBeca ? $data.returnCatValue.catPorcentajeBeca.descripcion : \"N/A\",\r",
+        "  \t\"comentario\": \"N/A\",\r",
+        "  \t\"correo\": $data.userDataEmail.userName,\r",
+        "  \t\"estatus\": \"Esperando Pre-Autorización\",\r",
+        "  \t\"financiamiento\": $data.returnCatValue.catPorcentajeFinanciamiento ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion: \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userDataEmail.userName,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
         "}"
       ],
       "exposed" : false

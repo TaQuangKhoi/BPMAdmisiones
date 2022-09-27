@@ -33,10 +33,10 @@ class Statements {
 	
 	public static final String GET_URL_CURRICULUM_BY_CASE_ID = "SELECT urlCurriculum FROM SolicitudApoyoEducativo WHERE caseId = ?";
 	
-	public static final String GET_BITACORA_SDAE = "SELECT idBanner,correo,estatus,comentario,beca,financiamiento,usuarios,fecha FROM BitacoraSDAE WHERE idBanner is not null [WHERE] [ORDERBY] [LIMITOFFSET]";
+	public static final String GET_BITACORA_SDAE = "SELECT idBanner,correo,estatus,comentario,beca,financiamiento,usuarios,fecha, tipoapoyo FROM BitacoraSDAE WHERE idBanner is not null [WHERE] [ORDERBY] [LIMITOFFSET]";
 	
-	public static final String GET_BITACORA_SDAE_CASEID = "SELECT idBanner, correo, estatus, comentario, beca, financiamiento, usuarios, fecha FROM BitacoraSDAE WHERE caseid = ? ORDER BY FECHA DESC";
+	public static final String GET_BITACORA_SDAE_CASEID = "SELECT idBanner, correo, estatus, comentario, beca, financiamiento, usuarios, fecha, tipoapoyo, caseid FROM BitacoraSDAE WHERE caseid = ? ORDER BY FECHA DESC";
 	
-	public static final String INSERT_BITACORA_SDAE = "INSERT INTO BITACORASDAE (persistenceid, persistenceversion, beca, comentario, correo, estatus, fecha, financiamiento, idbanner, usuarios, caseid) VALUES ( (SELECT CASE WHEN max(PERSISTENCEID) IS NULL THEN 1 ELSE max(PERSISTENCEID)+1 END FROM BITACORASDAE), 1, ?, ?, ?, ?, now(), ?, ?, ?, ?) ";
+	public static final String INSERT_BITACORA_SDAE = "INSERT INTO BITACORASDAE (persistenceid, persistenceversion, beca, comentario, correo, estatus, fecha, financiamiento, idbanner, usuarios, caseid, tipoapoyo) VALUES ( (SELECT CASE WHEN max(PERSISTENCEID) IS NULL THEN 1 ELSE max(PERSISTENCEID)+1 END FROM BITACORASDAE), 1, ?, ?, ?, ?, now(), ?, ?, ?, ?, ?) ";
 	
 }

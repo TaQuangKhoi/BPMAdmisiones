@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEModificarSolicitud",
   "name" : "SDAEModificarSolicitud",
-  "lastUpdate" : 1663866647371,
+  "lastUpdate" : 1664218635955,
   "rows" : [
     [
       {
@@ -1810,6 +1810,14 @@
                         "caseId" : {
                           "type" : "variable",
                           "value" : "caseId"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraModificar"
                         }
                       },
                       "reference" : "f45bbd7d-ae1c-4bbb-8aac-a5603d2a8682",
@@ -2345,13 +2353,9 @@
     "getDatosSolicitante" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userDataEmail[0].userName}}"
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userData.user_name}}"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getDatosPadres" : {
@@ -4150,6 +4154,24 @@
         "../API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraModificar" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;\r",
+        "return {\r",
+        "\t\"beca\": $data.returnCatValue.catPorcentajeBeca ? $data.returnCatValue.catPorcentajeBeca.descripcion : \"N/A\",\r",
+        "  \t\"comentario\": \"N/A\",\r",
+        "  \t\"correo\": $data.userData.user_name,\r",
+        "  \t\"estatus\": \"Modificaciones realizadas\",\r",
+        "  \t\"financiamiento\": $data.returnCatValue.catPorcentajeFinanciamiento ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion: \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
       "exposed" : false
     }
   },

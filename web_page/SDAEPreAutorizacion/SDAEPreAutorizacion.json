@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEPreAutorizacion",
   "name" : "SDAEPreAutorizacion",
-  "lastUpdate" : 1663114060303,
+  "lastUpdate" : 1664229315192,
   "rows" : [
     [
       {
@@ -1918,6 +1918,58 @@
                       "id" : "pbInput",
                       "description" : ""
                     }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<pre>{{ bitacoraAceptar | json }}</pre>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "56f8f206-8382-4b11-9c46-40bcb6dfbad3",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
                   ]
                 ]
               }
@@ -2187,6 +2239,14 @@
                               "errorMessage" : {
                                 "type" : "expression",
                                 "value" : "errorMessageAprobar"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraAceptar"
                               }
                             },
                             "reference" : "d060ac62-38d1-4c26-bb2c-b7f120c92355",
@@ -2643,6 +2703,58 @@
                       "hasValidationError" : false,
                       "id" : "customCustomTextAreaLimit"
                     }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<pre>{{ bitacoraRechazar | json }}</pre>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "dc57d05d-58a8-4319-8456-6579b98b6141",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
                   ]
                 ]
               }
@@ -2764,7 +2876,7 @@
                       "id" : "pbButton"
                     },
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -2780,78 +2892,215 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Rechazar solicitud"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "right"
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "danger"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Submit task"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
                           "value" : ""
-                        },
-                        "dataToSend" : {
-                          "type" : "expression",
-                          "value" : "formInputRechazo"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation",
-                          "value" : "/apps/sdae/bandeja/"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "constant"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
                         }
                       },
-                      "reference" : "17ef2f9a-a009-4e47-9e66-6430e34e1c3c",
+                      "reference" : "d998fd08-da19-446f-9a1f-306705416ddd",
                       "hasValidationError" : false,
-                      "id" : "customSDAEButtonCloseWindow"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Rechazar solicitud"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "danger"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputRechazo"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "isValid" : {
+                                "type" : "expression",
+                                "value" : "formInputRechazo.preAutorizacionInput.motivoRechazoPreAutorizacion"
+                              },
+                              "errorMessage" : {
+                                "type" : "constant",
+                                "value" : "El motivo de rechazo no debe ir vacío"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraRechazar"
+                              }
+                            },
+                            "reference" : "6b10e9e7-0e7d-4198-9301-dffade0a3e6e",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCloseWindowValidation"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Rechazar solicitud"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "danger"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputRechazo"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation",
+                                "value" : "/apps/sdae/bandeja/"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              }
+                            },
+                            "reference" : "17ef2f9a-a009-4e47-9e66-6430e34e1c3c",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCloseWindow"
+                          }
+                        ]
+                      ]
                     }
                   ]
                 ]
@@ -3317,6 +3566,14 @@
                         "errorMessage" : {
                           "type" : "constant",
                           "value" : "No se  pueden solicitar modificaciones sin seleccionar al menos una sección donde las modificaciones son  requeridas"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraModificar"
                         }
                       },
                       "reference" : "63d0ffc0-cb32-4027-8962-f6f9cb7b89fd",
@@ -3619,6 +3876,58 @@
                       "hasValidationError" : false,
                       "id" : "customSDAEInputLimitPercentage"
                     }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<pre>{{ bitacoraFinanciamiento | json }}</pre>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "8840b635-517c-4b80-8f1c-610fa84053d1",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
                   ]
                 ]
               }
@@ -3887,6 +4196,14 @@
                               "errorMessage" : {
                                 "type" : "expression",
                                 "value" : "errorMessageFinan"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraFinanciamiento"
                               }
                             },
                             "reference" : "5e38b8d3-b42c-4b51-a8ea-29a74efec4b6",
@@ -5415,6 +5732,74 @@
         "/API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraModificar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.returnCatValue.catPorcentajeBeca ? $data.returnCatValue.catPorcentajeBeca.descripcion : \"N/A\",\r",
+        "  \t\"comentario\": $data.formInput.preAutorizacionInput.cambiosSolicitudPreAutorizacion,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Preautorización solicita modificaciones\",\r",
+        "  \t\"financiamiento\": $data.returnCatValue.catPorcentajeFinanciamiento ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion: \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraAceptar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.formInputAprobar.preAutorizacionInput.porcentajeBeca ? $data.formInputAprobar.preAutorizacionInput.porcentajeBeca : \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Preautorización aporobada\",\r",
+        "  \t\"financiamiento\": $data.formInputAprobar.preAutorizacionInput.porcentajeCredito ? $data.formInputAprobar.preAutorizacionInput.porcentajeCredito : \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraFinanciamiento" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Asignada a financiamiento\",\r",
+        "  \t\"financiamiento\": $data.formInputFinanciamiento.preAutorizacionInput.porcentajeCreditoPreAutorizacion,\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraRechazar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.returnCatValue.catPorcentajeBeca ? $data.returnCatValue.catPorcentajeBeca.descripcion : \"N/A\",\r",
+        "  \t\"comentario\": $data.formInputRechazo.preAutorizacionInput.motivoRechazoPreAutorizacion,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Rechazada por Pre-autorización\",\r",
+        "  \t\"financiamiento\": $data.returnCatValue.catPorcentajeFinanciamiento ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion: \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
       "exposed" : false
     }
   },

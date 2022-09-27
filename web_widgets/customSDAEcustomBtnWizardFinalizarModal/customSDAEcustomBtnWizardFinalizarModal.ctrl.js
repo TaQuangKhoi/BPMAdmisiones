@@ -37,16 +37,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             data: dataToSend
         };
 
-        return $http(req)
-            .success(function(data, status) {
-                
-                let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
-                debugger;
-                window.location.replace(newUrl);
-            })
-            .error(function(data, status) {
-                console.log("task failed")
-            });
+        return $http(req).success(function(data, status) {
+            
+            let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+            window.location.replace(newUrl);
+            // insertBitacora();
+        })
+        .error(function(data, status) {
+            console.log("task failed")
+        });
+    }
+    
+    function insertBitacora(){
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+
+        $http.post(url, dataToSend).success(function(){
+
+        }).error(function(){
+
+        }).finally(function(){
+            // window.location.reload();
+            let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+            window.location.replace(newUrl);
+        });
     }
 
     // function getCurrentTask() {

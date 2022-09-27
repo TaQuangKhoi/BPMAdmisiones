@@ -311,7 +311,8 @@ class BitacoraSDAEDAO {
 			pstm.setString(5, objetoBitacoraSDAE.financiamiento);
 			pstm.setString(6, objetoBitacoraSDAE.idbanner);
 			pstm.setString(7, objetoBitacoraSDAE.usuarios);
-			pstm.setLong(8, objetoBitacoraSDAE.caseid);
+			pstm.setLong(8, Long.valueOf(objetoBitacoraSDAE.caseid));
+			pstm.setString(9, objetoBitacoraSDAE.tipoapoyo);
 			
 			pstm.execute();
 			
