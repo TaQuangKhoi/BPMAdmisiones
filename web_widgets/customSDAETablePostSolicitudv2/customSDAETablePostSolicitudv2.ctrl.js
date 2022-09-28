@@ -13,9 +13,16 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     };
 
     this.selectRow = function (row) {
-        if (this.isClickable()) {
-            $scope.properties.selectedRow = row;
-        }
+        $scope.properties.selectedRow = row;
+        debugger;
+
+        $http.get("../API/bpm/task/" + row.taskId + "/context").success(function(data){
+
+        }).error(function(err){
+
+        }).finally(function(){
+
+        });
     };
 
     this.isSelected = function (row) {

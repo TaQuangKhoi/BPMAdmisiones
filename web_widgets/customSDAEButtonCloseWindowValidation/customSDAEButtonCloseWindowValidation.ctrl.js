@@ -127,7 +127,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function insertBitacora() {
-        debugger;
         let url = $scope.properties.urlBitacora;
         let dataToSend = angular.copy($scope.properties.objetoBitacora);
 
