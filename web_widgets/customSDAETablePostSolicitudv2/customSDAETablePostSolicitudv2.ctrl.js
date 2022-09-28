@@ -5,6 +5,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.avanzarPreAutorizacion = false;
     $scope.avanzarFinanciamiento = false;
     $scope.avanzarArchivar = false;
+    $scope.bitacora = [];
 
     this.isArray = Array.isArray;
 
@@ -14,14 +15,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.selectRow = function (row) {
         $scope.properties.selectedRow = row;
-        debugger;
-
-        $http.get("../API/bpm/task/" + row.taskId + "/context").success(function(data){
-
-        }).error(function(err){
-
-        }).finally(function(){
-
+        $http.get("../API/extension/AnahuacBecasRestGET?url=getInfoBitacora&p=0&c=0&caseId=" + row.caseid).success(function(data){
+            $scope.bitacora["tipoapoyo"] = data[0].tipoapoyo;
+            $scope.bitacora["beca"] = data[0].beca;
+            $scope.bitacora["financiamiento"] = data[0].financiamiento;
+            $scope.bitacora["correoelectronico"] = row["correoelectronico"];
+            $scope.bitacora["idbanner"] = row["idbanner"];
+            $scope.bitacora["caseid"] = row["caseid"];
         });
     };
 
@@ -177,6 +177,28 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         });
     }
 
+    function insertBitacora(_estatus) {
+        let url = $scope.properties.urlBitacora;
+        
+        let dataToSend =  {
+            "beca": $scope.bitacora["beca"],
+            "comentario": "",
+            "correo": $scope.bitacora["correoelectronico"],
+            "estatus": _estatus,
+            "financiamiento": $scope.bitacora["financiamiento"],
+            "idbanner": $scope.bitacora["idbanner"],
+            "usuarios": $scope.properties.correoUsuario,
+            "caseid": parseInt($scope.bitacora["caseid"]),
+            "tipoapoyo": $scope.bitacora["tipoapoyo"]
+        }
+
+        $http.post(url, dataToSend).success(function (success) {
+            
+        }).finally(function(){
+            window.location.reload();
+        });
+    }
+    
     function getUserParam() {
         return { 'user': $scope.properties.userId };
     }
@@ -219,14 +241,15 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             if (estatus == "Solicitud Rechazada") {
                 $scope.sendMail($scope.mensaje, false);
             } else {
-                window.location.reload();
+                // window.location.reload();
             }
         }).error(function (data, status) {
             console.error(data);
             console.error(status);
         })
         .finally(function () {
-            blockUI.stop();
+            insertBitacora(estatus);
+            // blockUI.stop();
         });
     }
 

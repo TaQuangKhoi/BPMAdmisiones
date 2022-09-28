@@ -70,6 +70,8 @@ class StatementsCatalogos {
 	public static final String GET_SDAECAT_GESTION_ESCOLAR = "SELECT PERSISTENCEID,PARCIALIDAD,CREDITOSEMESTRE,MANEJAAPOYO,CATGESTIONESCOLAR_PID FROM SDAECATGESTIONESCOLAR WHERE CATGESTIONESCOLAR_PID = ?"
 	public static final String GET_SDAECAT_GESTION_ESCOLAR_BY_CARRERA = "SELECT * FROM  SDAECATGESTIONESCOLAR WHERE catgestionescolar_pid = ?;";
 	
+	public static final String GET_DATOS_BITACORA = "SELECT sdae.caseid, cta.descripcion As tipoapoyo, sdae.estatussolicitud, cpb.descripcion AS beca, cpf.descripcion AS financiamiento, prea.porcentajebeca AS porcentajecreditopreautorizacion, prea.porcentajecredito AS porcentajecreditopreautorizacion, auto.porcentajebecaautorizacion, auto.porcentajecreditoautorizacion  FROM SOLICITUDAPOYOEDUCATIVO AS sdae  INNER JOIN catporcentajebeca AS cpb ON sdae.catporcentajebeca_id = cpb.persistenceid INNER JOIN catporcentajefinanciamiento AS cpf ON sdae.catporcentajefinanciamiento_id = cpf.persistenceid INNER JOIN cattipoapoyo AS cta ON cta.persistenceid = sdae.cattipoapoyo_id LEFT JOIN preautorizacion AS prea ON prea.caseid = sdae.caseid LEFT JOIN autorizacionapoyo AS auto ON auto.caseid = sdae.caseid WHERE sdae.caseid = ?;";
+	
 	public static final String GET_YEAR = "SELECT date_part('year', CURRENT_DATE) as fecha ";
 	
 	public static final String GET_CAMPUS_CONFIG = "SELECT PERSISTENCEID, DESCUENTOPRONTOPAGO, IDCAMPUS, INTERESCOLEGIATURA, INTERESINSCRIPCION, PORCENTAJEINTERESFINANCIAMIENTO, TIENEFINANCIAMIENTO, URLREGLAMENTO, PROMEDIOMINIMO, URLDOCUMENTOCONDICIONESFINANCIAMIENTO  FROM CONFIGURACIONESCAMPUS WHERE  IDCAMPUS = ?;";

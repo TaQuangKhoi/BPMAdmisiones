@@ -2201,6 +2201,46 @@ class CatalogosDAO {
 		return resultado;
 	}
 	
+	public Result getInfoBitacora(Long caseId) {
+		Result resultado = new Result();
+		Boolean closeCon = false;;
+		String where = "";
+		
+		try {
+			String consulta = StatementsCatalogos.GET_DATOS_BITACORA;
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setLong(1, caseId);
+			rs = pstm.executeQuery();
+			
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
+	
 	public Result insertUpdateConfigCampus(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;;
