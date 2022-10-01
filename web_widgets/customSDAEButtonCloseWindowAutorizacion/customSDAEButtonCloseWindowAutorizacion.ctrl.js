@@ -111,7 +111,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromError = undefined;
                 notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
 
-                $window.close();
+                // $window.close();
+                insertBitacora();
                 if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                     //redirectIfNeeded();
                 }
@@ -126,6 +127,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function () {
                 vm.busy = false;
             });
+    }
+
+    function insertBitacora() {
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+
+        $http.post(url, dataToSend).success(function () {
+            debugger;
+        }).error(function () {
+            debugger;
+        }).finally(function () {
+            $window.close();
+        });
     }
 
     function redirectIfNeeded() {

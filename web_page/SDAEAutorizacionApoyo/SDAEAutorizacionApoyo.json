@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1663098681673,
+  "lastUpdate" : 1664584592563,
   "rows" : [
     [
       {
@@ -1830,7 +1830,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "formInputAprobar.autorizacionInput.motivoRechazoAutorizacionText"
                         }
                       },
                       "reference" : "a6575f03-f907-41fd-b86c-1be81848dce5",
@@ -2096,6 +2096,14 @@
                         },
                         "caseid" : {
                           "type" : "constant"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraRechazar"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                         }
                       },
                       "reference" : "10af6faf-50f8-4a50-b679-d861ff29098c",
@@ -2347,7 +2355,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "formInputAprobar.autorizacionInput.motivoRechazoAutorizacionText"
+                          "value" : "formInputAprobar.autorizacionInput.cambiosSolicitudAutorizacionText"
                         }
                       },
                       "reference" : "268e5698-d79e-4bcd-a81e-7b41dd4a51a7",
@@ -2612,6 +2620,14 @@
                         },
                         "caseid" : {
                           "type" : "constant"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraModificar"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                         }
                       },
                       "reference" : "ab46cc90-b249-498e-b98f-5984145d0810",
@@ -6566,6 +6582,14 @@
                               "errorMessage" : {
                                 "type" : "expression",
                                 "value" : "errorMessage"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraAceptar"
                               }
                             },
                             "reference" : "050df20c-586d-4217-b0a4-9c50050938e8",
@@ -7874,6 +7898,57 @@
         "/API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraAceptar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.formInputAprobar.autorizacionInput.porcentajeBecaAutorizacion ? $data.formInputAprobar.autorizacionInput.porcentajeBecaAutorizacion : \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Solicitud aprobada\",\r",
+        "  \t\"financiamiento\": $data.formInputAprobar.autorizacionInput.porcentajeCreditoAutorizacion ? $data.formInputAprobar.autorizacionInput.porcentajeCreditoAutorizacion : \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraRechazar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": $data.formInputAprobar.autorizacionInput.motivoRechazoAutorizacionText,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Rechazado por comité de becas\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraModificar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": $data.formInputAprobar.autorizacionInput.cambiosSolicitudAutorizacionText,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Comité de becas solicita modificaciones\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
       "exposed" : false
     }
   },

@@ -136,16 +136,26 @@ function ($scope, $http) {
             $scope.hideModal();
             swal("Pago realizado con éxito.", "", "success")
             .then(() => {
-                window.location.reload();
+                // window.location.reload();
+                insertBitacora();
             });
-
-            // setTimeout(function(){
-            //     window.location.reload();
-            // }, 2000);  
+        }).error(function(error){
+            $scope.hideModal();
+            swal("Error", "Algo salió mal con el proceso de pago. Revisa que los datos de la tarjeta estén correctos.", "error");
+        });
+    }
+    
+    function insertBitacora(){
+        let url = "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10";
+        
+        $http.post(url, $scope.formInput).success(function(data){
             
         }).error(function(error){
             $scope.hideModal();
             swal("Error", "Algo salió mal con el proceso de pago. Revisa que los datos de la tarjeta estén correctos.", "error");
+        }).finally(function(){
+            $scope.hideModal();
+            window.location.reload();
         });
     }
 }

@@ -58,7 +58,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-           window.location.reload();
+        //   window.location.reload();
+            insertBitacora();
         })
         .error(function(data, status) {
        
@@ -67,4 +68,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             vm.busy = false;
         });
     }
+    
+     function insertBitacora() {
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+
+        $http.post(url, dataToSend).success(function () {
+            debugger;
+        }).error(function () {
+            debugger;
+        }).finally(function () {
+            window.location.reload();
+        });
+    }
+    
 }

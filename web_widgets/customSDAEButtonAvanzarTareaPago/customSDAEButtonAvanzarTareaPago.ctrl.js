@@ -107,7 +107,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
             .success(function (data, status) {
                 $scope.properties.dataFromSuccess = data;
-                 $scope.formInput = {
+                $scope.formInput = {
                     "solicitudApoyoEducativoInput": {
                         "ordenPagoConekta": data.data[0].id
                     },
@@ -115,7 +115,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     "isPagoConTarjetainput": false,
                     "isPagoRegresarInput": false
                 };
-                debugger;
+
                 submitTask();
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -135,7 +135,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 vm.busy = false;
             });
     }
-    
+
     /**
      * Execute a get/post request to an URL
      * It also bind custom data from success|error to a data
@@ -211,10 +211,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function submitTask() {
-        doRequest2('POST', '../API/bpm/userTask/' + $scope.properties.taskId+ '/execution').then(function () {
+        doRequest2('POST', '../API/bpm/userTask/' + $scope.properties.taskId + '/execution').then(function () {
             localStorageService.delete($window.location.href);
-            window.location.reload();
+            // window.location.reload();
+            insertBitacora();
         });
     }
 
+
+    function insertBitacora() {
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+
+        $http.post(url, dataToSend).success(function () {
+            debugger;
+        }).error(function () {
+            debugger;
+        }).finally(function () {
+            // $window.close();
+            window.location.reload();
+        });
+    }
 }

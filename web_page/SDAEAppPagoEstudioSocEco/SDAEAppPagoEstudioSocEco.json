@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1662746618818,
+  "lastUpdate" : 1664579878678,
   "rows" : [
     [
       {
@@ -1882,6 +1882,10 @@
                             "solicitudApoyoEducativo" : {
                               "type" : "variable",
                               "value" : "formOutputTest.solicitudApoyoEducativoInput"
+                            },
+                            "objetoBitacora" : {
+                              "type" : "expression",
+                              "value" : "bitacoraPagoTarjeta"
                             }
                           },
                           "reference" : "977b03bd-2502-44ce-a5f0-3cc479c32db3",
@@ -2751,6 +2755,14 @@
                       "taskId" : {
                         "type" : "variable",
                         "value" : "taskId"
+                      },
+                      "objetoBitacora" : {
+                        "type" : "expression",
+                        "value" : "bitacoraPagoSPEI"
+                      },
+                      "urlBitacora" : {
+                        "type" : "constant",
+                        "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                       }
                     },
                     "reference" : "dc085892-f340-46b7-9e60-101375c2dd3c",
@@ -3323,6 +3335,14 @@
                       "taskId" : {
                         "type" : "variable",
                         "value" : "taskId"
+                      },
+                      "objetoBitacora" : {
+                        "type" : "expression",
+                        "value" : "bitacoraPagoOXXO"
+                      },
+                      "urlBitacora" : {
+                        "type" : "constant",
+                        "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                       }
                     },
                     "reference" : "9d8dc050-a4c5-45d2-8661-c9c93306f387",
@@ -4454,6 +4474,14 @@
                 "assign" : {
                   "type" : "constant",
                   "value" : true
+                },
+                "objetoBitacora" : {
+                  "type" : "expression",
+                  "value" : "bitacoraCambioMetodoPago"
+                },
+                "urlBitacora" : {
+                  "type" : "constant",
+                  "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                 }
               },
               "reference" : "30820066-0124-408d-82bb-94d20f74a073",
@@ -6799,6 +6827,153 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.SolicitudApoyoEducativo]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.SolicitudApoyoEducativo\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{caseid}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraPagoTarjeta" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Pago con tarjeta realizado\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.session.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseid),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraPagoSPEI" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Pago con SPEI (Pendiente validación)\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.session.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseid),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraPagoOXXO" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Pago con OXXO (Pendiente validación)\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.session.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseid),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "returnCatValue" : {
+      "type" : "expression",
+      "value" : [
+        "let output = {\r",
+        "    \"catTipoApoyo\": null,\r",
+        "    \"catPorcentajeBeca\": null, \r",
+        "    \"catPorcentajeFinanciamiento\": null\r",
+        "};\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id && $data.getCatTipoApoyoByCampus){\r",
+        "    for(let cat of $data.getCatTipoApoyoByCampus.data){\r",
+        "        if(cat.persistenceId == $data.formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id){\r",
+        "            output[\"catTipoApoyo\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput){\r",
+        "    for(let cat of $data.lstCatPorcentajeBeca.data){\r",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeBeca_id){\r",
+        "            output[\"catPorcentajeBeca\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "if($data.formOutputTest.solicitudApoyoEducativoInput){\r",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){\r",
+        "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catPorcentajeFinanciamiento_id){\r",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;\r",
+        "            break;\r",
+        "        }    \r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "getCatTipoApoyoByCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatTipoAoyoByCampus&p=0&c=0&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatPorcentajeBeca" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatPorcentajeBeca"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "ligaApiGetCatalogos" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo="
+      ],
+      "exposed" : false
+    },
+    "lstCatPorcentajeFinanciamiento" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatPorcentajeFinanciamiento"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "bitacoraCambioMetodoPago" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Cambio de método de pago\",\r",
+        "  \t\"financiamiento\": \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.session.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseid),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
       ],
       "exposed" : false
     }
