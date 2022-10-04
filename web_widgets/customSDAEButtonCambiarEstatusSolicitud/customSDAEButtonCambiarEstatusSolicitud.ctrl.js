@@ -32,7 +32,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 console.log(data.data)
             })
             .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {
                 blockUI.stop();
@@ -132,7 +132,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 redireccionarTarea(rowData);
             })
             .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {
   
@@ -160,7 +160,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 $window.location.assign(url);*/
             })
             .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {
   
@@ -213,9 +213,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
     $scope.lstCampus = [];
   
-    $(function() {
-        doRequest("POST", $scope.properties.urlPost);
-    })
+    // $(function() {
+    //     doRequest("POST", $scope.properties.urlPost);
+    // })
   
   
     $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
@@ -555,7 +555,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req).success(function (data, status) {
             $scope.ejecutarTarea(rowData);
         }).error(function (data, status) {
-            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
         }).finally(function () {
 
         });
@@ -571,12 +571,26 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req).success(function (data, status) {
             swal("Ok", "Solicitud reactivada", "success")
             .then(() => {
-                window.location.reload();
+                // window.location.reload();
+                insertBitacora();
             });
         }).error(function (data, status) {
-            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
         }).finally(function () {
 
+        });
+    }
+
+    function insertBitacora() {
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+
+        $http.post(url, dataToSend).success(function () {
+            debugger;
+        }).error(function () {
+            debugger;
+        }).finally(function () {
+            window.location.reload();
         });
     }
 

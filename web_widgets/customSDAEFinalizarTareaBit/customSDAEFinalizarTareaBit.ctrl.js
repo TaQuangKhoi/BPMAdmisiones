@@ -14,11 +14,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            if ($scope.properties.isValid) {
-                submitTask();
-            } else {
-                swal("Atención", $scope.properties.errorMessage, "warning");
-            }
+            submitTask();
         } else if ($scope.properties.action === 'Open modal') {
             closeModal($scope.properties.closeOnSuccess);
             openModal($scope.properties.modalId);
@@ -100,27 +96,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             params: params
         };
 
-        return $http(req).success(function (data, status) {
-            $scope.properties.dataFromSuccess = data;
-            $scope.properties.responseStatusCode = status;
-            $scope.properties.dataFromError = undefined;
-            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-
-            actualizarEstatus();
-            /*if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                redirectIfNeeded();
-            }*/
-            closeModal($scope.properties.closeOnSuccess);
-        })
-        .error(function (data, status) {
-            $scope.properties.dataFromError = data;
-            $scope.properties.responseStatusCode = status;
-            $scope.properties.dataFromSuccess = undefined;
-            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-        })
-        .finally(function () {
-            vm.busy = false;
-        });
+        return $http(req)
+            .success(function (data, status) {
+                $scope.properties.dataFromSuccess = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                    redirectIfNeeded();
+                }
+                closeModal($scope.properties.closeOnSuccess);
+            })
+            .error(function (data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                vm.busy = false;
+            });
     }
 
     function redirectIfNeeded() {
@@ -170,44 +165,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             params.assign = $scope.properties.assign;
             doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function () {
                 localStorageService.delete($window.location.href);
+                // let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+                // window.location.replace(newUrl);
+                insertBitacora();
             });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
 
-    function actualizarEstatus() {
-        vm.busy = true;
-
-        var req = {
-            method: "GET",
-            url: "/API/extension/AnahuacBecasRestGET?url=updateEstatusSolicitud&p=0&c=100&&estatus=" + $scope.properties.estatusSolicitud + "&caseId=" + $scope.properties.caseId,
-            data: {}
-        };
-
-        return $http(req).success(function (data, status) {
-            // $window.close();
-            insertBitacora();
-        }).error(function (data, status) {
-            console.error(data);
-            console.error(status);
-        })
-        .finally(function () {
-            vm.busy = false;
-        });
-    }
-    
     function insertBitacora() {
-        debugger;
         let url = $scope.properties.urlBitacora;
         let dataToSend = angular.copy($scope.properties.objetoBitacora);
 
         $http.post(url, dataToSend).success(function () {
             debugger;
-        }).error(function (err) {
+        }).error(function () {
             debugger;
         }).finally(function () {
-            $window.close();
+            // $window.close();
+            let newUrl = "/portal/resource/app/aspiranteSDAE/home/content/?app=aspiranteSDAE";
+            window.location.replace(newUrl);
         });
     }
 

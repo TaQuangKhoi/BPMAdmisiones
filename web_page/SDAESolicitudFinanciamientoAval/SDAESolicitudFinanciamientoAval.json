@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1661980574369,
+  "lastUpdate" : 1664838736636,
   "rows" : [
     [
       {
@@ -7916,6 +7916,14 @@
                         "caseId" : {
                           "type" : "variable",
                           "value" : "caseId"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "bitacoraAceptar"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                         }
                       },
                       "reference" : "0b42f1db-70e2-4c4f-a0d8-49133b0564b1",
@@ -10325,7 +10333,8 @@
         "    \"catBecaPreparatoria\": null,",
         "    \"catTipoApoyo\": null,",
         "    \"catTipoMoneda\": null,",
-        "    \"catTienesHermanos\": null",
+        "    \"catTienesHermanos\": null,",
+        "    \"catPorcentajeFinanciamiento\": null",
         "};",
         "",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
@@ -10359,6 +10368,16 @@
         "    for(let cat of $data.lstTipoMoneda.data){",
         "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
         "            output[\"catTipoMoneda\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "",
+        "if($data.solicitudDeApoyo){",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){",
+        "        if(cat.persistenceId === $data.solicitudDeApoyo[0].catPorcentajeFinanciamiento_id){",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;",
         "            break;",
         "        }    ",
         "    }",
@@ -13421,6 +13440,35 @@
         "",
         "return suma;"
       ],
+      "exposed" : false
+    },
+    "bitacoraAceptar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Finalizado llenado de datos del aval\",\r",
+        "  \t\"financiamiento\":  $data.returnCatValue.catPorcentajeFinanciamiento.descripcion ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion : \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     }
   },

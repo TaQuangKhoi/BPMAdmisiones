@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAceptacionApoyo",
   "name" : "SDAEAceptacionApoyo",
-  "lastUpdate" : 1661284332081,
+  "lastUpdate" : 1664827103282,
   "rows" : [
     [
       {
@@ -276,7 +276,10 @@
                 "objPadresTutor" : "",
                 "returnCurriculumInfo" : "returnCurriculumInfo",
                 "lstAutomoviles" : "lstCatSituacionAuto",
-                "getDatosSolicitante" : "getDatosSolicitante"
+                "getDatosSolicitante" : "getDatosSolicitante",
+                "codigoBusqueda" : "",
+                "lstCatSituacionAuto" : "",
+                "lstTipoMoneda" : ""
               }
             }
           ],
@@ -353,6 +356,12 @@
                 "caseId" : {
                   "type" : "variable",
                   "value" : "caseId"
+                },
+                "urlBitacora" : {
+                  "type" : "constant"
+                },
+                "objetoBitacora" : {
+                  "type" : "constant"
                 }
               },
               "reference" : "3cef562e-3659-42e0-bdcb-67dcee0a83da",
@@ -1236,11 +1245,19 @@
                         },
                         "removeItem" : {
                           "type" : "variable"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "expression",
+                          "value" : "objetoBitacora"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant",
+                          "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
                         }
                       },
-                      "reference" : "e294a4ef-416f-40e6-a994-0f0ce8409aba",
+                      "reference" : "ef509096-5267-4cde-8ba0-4c7b13d8c40a",
                       "hasValidationError" : false,
-                      "id" : "customSDAEFinalizarTarea"
+                      "id" : "customSDAEFinalizarTareaBit"
                     }
                   ]
                 ]
@@ -2154,13 +2171,9 @@
     "getDatosSolicitante" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userDataEmail[0].userName}}"
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{userData.user_name}}"
       ],
-      "advancedOptions" : {
-        "headers" : "",
-        "statusCode" : "",
-        "failedResponseValue" : ""
-      },
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getDatosPadres" : {
@@ -2995,7 +3008,10 @@
       "exposed" : false
     },
     "caseId" : {
-      "type" : "constant",
+      "type" : "expression",
+      "value" : [
+        "if($data.assignedTask){ return $data.assignedTask[0].caseId; }"
+      ],
       "exposed" : false
     },
     "formOutputReal" : {
@@ -3229,23 +3245,23 @@
     "returnFormOutput" : {
       "type" : "expression",
       "value" : [
-        "let output = $data.formOutputTest;",
-        "output.solicitudApoyoEducativoInput.pageIndex = $data.selectedIndex;",
-        "output.solicitudApoyoEducativoInput.caseId = $data.caseId;",
-        "output.solicitudApoyoEducativoInput.caseIdAdmisiones = $data.objSolicitudDeAdmision[0].caseId;",
-        "// output.solicitudApoyoEducativoInput.hermanos = [];",
+        "// let output = $data.formOutputTest;",
+        "// output.solicitudApoyoEducativoInput.pageIndex = $data.selectedIndex;",
+        "// output.solicitudApoyoEducativoInput.caseId = $data.caseId;",
+        "// output.solicitudApoyoEducativoInput.caseIdAdmisiones = $data.objSolicitudDeAdmision[0].caseId;",
+        "// // output.solicitudApoyoEducativoInput.hermanos = [];",
         "",
-        "if(!output.lstDocumentosDocumentInput){",
-        "    output.lstDocumentosDocumentInput = [];",
-        "}",
+        "// if(!output.lstDocumentosDocumentInput){",
+        "//     output.lstDocumentosDocumentInput = [];",
+        "// }",
         "",
-        "output.fotoCalleCasaDocumentInput  = $data.formOutputTest.fotoCalleCasaDocumentInput;",
-        "output.fotoFachadaCasaDocumentInput = $data.formOutputTest.fotoFachadaCasaDocumentInput;",
-        "output.fotoSalaCasaDocumentInput = $data.formOutputTest.fotoSalaCasaDocumentInput;",
-        "output.fotoComedorCasaDocumentInput =  $data.formOutputTest.fotoComedorCasaDocumentInput;",
+        "// output.fotoCalleCasaDocumentInput  = $data.formOutputTest.fotoCalleCasaDocumentInput;",
+        "// output.fotoFachadaCasaDocumentInput = $data.formOutputTest.fotoFachadaCasaDocumentInput;",
+        "// output.fotoSalaCasaDocumentInput = $data.formOutputTest.fotoSalaCasaDocumentInput;",
+        "// output.fotoComedorCasaDocumentInput =  $data.formOutputTest.fotoComedorCasaDocumentInput;",
         "",
         "",
-        "return output;"
+        "// return output;"
       ],
       "exposed" : false
     },
@@ -3755,6 +3771,37 @@
         "../{{context.solicitudApoyoEducativo_ref.link}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "objetoBitacora" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": $data.autorizacion.porcentajeBecaAutorizacion,\r",
+        "  \t\"comentario\": getEstatus(\"comentario\"),\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": getEstatus(\"estatus\"),\r",
+        "  \t\"financiamiento\": $data.autorizacion.porcentajeCreditoAutorizacion ? $data.autorizacion.porcentajeCreditoAutorizacion : \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}\r",
+        "\r",
+        "function getEstatus(_type){\r",
+        "    let output;\r",
+        "    \r",
+        "    if($data.formOutput.varSoloBecaInput){\r",
+        "        output = _type === \"estatus\" ? \"Propuesta aceptada por aspirante\" : \"Beca\";\r",
+        "    } else if ($data.formOutput.varBecaFinanciamientoInput){\r",
+        "        output = _type === \"estatus\" ? \"Propuesta aceptada por aspirante\" : \"Beca y financiamiento\";\r",
+        "    } else {\r",
+        "        output = _type === \"estatus\" ? \"Propuesta rechazada por aspirante\" : \"\";\r",
+        "    }\r",
+        "    \r",
+        "    return output;\r",
+        "}"
+      ],
       "exposed" : false
     }
   },

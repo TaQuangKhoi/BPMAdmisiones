@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAvalModificar",
   "name" : "SDAESolicitudFinanciamientoAvalModificar",
-  "lastUpdate" : 1662761361162,
+  "lastUpdate" : 1664845829990,
   "rows" : [
     [
       {
@@ -253,6 +253,58 @@
                 }
               },
               "reference" : "e6e2814e-ecb7-4085-9b47-62c7762d0943",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<pre>{{ objetoBitacora | json }}</pre>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "dc48efe5-93d8-437c-a0e5-2dcef5fd5b00",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -8968,6 +9020,12 @@
                         "caseId" : {
                           "type" : "variable",
                           "value" : "caseId"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "constant"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant"
                         }
                       },
                       "reference" : "ecffa998-b6d9-4149-8132-02dbcecbae09",
@@ -9890,7 +9948,8 @@
         "    \"catBecaPreparatoria\": null,",
         "    \"catTipoApoyo\": null,",
         "    \"catTipoMoneda\": null,",
-        "    \"catTienesHermanos\": null",
+        "    \"catTienesHermanos\": null,",
+        "    \"catPorcentajeFinanciamiento\": null",
         "};",
         "",
         "if($data.formOutputTest.solicitudApoyoEducativoInput.catTienesHermanos_id){",
@@ -9924,6 +9983,16 @@
         "    for(let cat of $data.lstTipoMoneda.data){",
         "        if(cat.persistenceId === $data.formOutputTest.solicitudApoyoEducativoInput.catTipoMoneda_id){",
         "            output[\"catTipoMoneda\"] =  cat;",
+        "            break;",
+        "        }    ",
+        "    }",
+        "}",
+        "",
+        "",
+        "if($data.solicitudDeApoyo){",
+        "    for(let cat of $data.lstCatPorcentajeFinanciamiento.data){",
+        "        if(cat.persistenceId === $data.solicitudDeApoyo[0].catPorcentajeFinanciamiento_id){",
+        "            output[\"catPorcentajeFinanciamiento\"] =  cat;",
         "            break;",
         "        }    ",
         "    }",
@@ -12984,6 +13053,35 @@
         "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{getFinanciamiento.persistenceId}}&campus={{objSolicitudDeAdmision[0].catCampus.grupoBonita}}&isAval=true"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "objetoBitacora" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Solicitud aprobada\",\r",
+        "  \t\"financiamiento\":  $data.returnCatValue.catPorcentajeFinanciamiento.descripcion ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion : \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseId),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "getDatosSolicitante" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSolicitudDeAdmision&p=0&c=100&email={{objSolicitudDeAdmision[0].correoElectronico}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     }
   },
