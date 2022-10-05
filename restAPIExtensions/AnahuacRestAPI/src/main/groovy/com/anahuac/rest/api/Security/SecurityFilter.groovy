@@ -1571,6 +1571,12 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		  case "updateCatNotificacionesSDAE":
+			allow = bonitaRolFilter(context, "ADMISIONES");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "transferirAspirante":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {

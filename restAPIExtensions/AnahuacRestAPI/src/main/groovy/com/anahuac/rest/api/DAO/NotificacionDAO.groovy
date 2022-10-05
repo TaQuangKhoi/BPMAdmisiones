@@ -1244,18 +1244,28 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				def catNotificacionesDAO = context.getApiClient().getDAO(CatNotificacionesDAO.class);
 				catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
 				cn=catNotificaciones
+				if(cn == null) {
+					errorlog += "| Forzar a bsucar en la BD ";
+					throw new Exception("Forzar a bsucar en la BD");
+				}
 			} catch (Exception e) {
 				Boolean closeCon2=false;
 				try {
 					closeCon2 = validarConexion();
 					String ordenpago = ""
 					String campus_id =""
-					pstm = con.prepareStatement(Statements.GET_CAT_NOTIFICACIONES_CAMPUS_PROCESO_CODIGO)
-					pstm.setString(1, object.campus)
-					pstm.setString(2, object.codigo)
-					rs = pstm.executeQuery()
+					
+					errorlog += "| CONSULTA:" + Statements.GET_CAT_NOTIFICACIONES_CAMPUS_PROCESO_CODIGO;
+					pstm = con.prepareStatement(Statements.GET_CAT_NOTIFICACIONES_CAMPUS_PROCESO_CODIGO);
+					pstm.setString(1, object.campus);
+					pstm.setString(2, object.codigo);
+					errorlog += "| CAMPUS: " + object.campus;
+					errorlog += "| CODIGO: " + object.codigo;
+					rs = pstm.executeQuery();
+					
 					if (rs.next()) {
-						catNotificaciones = new CatNotificaciones()
+						errorlog += "| ENCONTRADO EN LA BD  ";
+						catNotificaciones = new CatNotificaciones();
 						catNotificaciones.setAnguloImagenFooter(rs.getString("anguloImagenFooter"))
 						catNotificaciones.setAnguloImagenHeader(rs.getString("anguloImagenHeader"))
 						catNotificaciones.setAsunto(rs.getString("asunto"))
@@ -1285,7 +1295,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						catNotificaciones.setTitulo(rs.getString("titulo"))
 						catNotificaciones.setLstCorreoCopia(new ArrayList<String>())
 						catNotificaciones.setLstVariableNotificacion(new ArrayList<String>())
-						procesoCaso.setCaseId(rs.getString("caseId"))
+						procesoCaso.setCaseId(rs.getString("caseId"));
+						errorlog +=" | Se lleno el objeto 1  ";
+						cn = new CatNotificaciones();
 						cn.setAnguloImagenFooter(rs.getString("anguloImagenFooter"))
 						cn.setAnguloImagenHeader(rs.getString("anguloImagenHeader"))
 						cn.setAsunto(rs.getString("asunto"))
@@ -1313,15 +1325,14 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						cn.setTextoFooter(rs.getString("textoFooter"))
 						cn.setTipoCorreo(rs.getString("tipoCorreo"))
 						cn.setTitulo(rs.getString("titulo"))
-						
+						errorlog +=" | Se lleno el objeto 2  ";
 					}
-				}catch(Exception ex) {
+				} catch(Exception ex) {
 					errorlog +=", consulta custom " + ex.getMessage();
-				}finally {
-				if(closeCon2) {
-					new DBConnect().closeObj(con, stm, rs, pstm);
-				}
-					
+				} finally {
+					if(closeCon2) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
 				}
 			}
 			
@@ -1947,8 +1958,8 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 					
 				}
-			} else if(object.codigo.equals("BC_SOLICITUD_BECASYFINAN_AUTORIZADA")) {
-				errorlog += "| PLANTILLA :: BC_SOLICITUD_BECASYFINAN_AUTORIZADA  ";
+			} else if(object.codigo.equals("sdae.propuestasolobeca-becas")) {
+				errorlog += "| PLANTILLA :: sdae.propuestasolobeca-becas  ";
 				Integer costoCredito = 0;
 				Integer creditosemestre = 0;
 				Integer parcialidad = 0;
@@ -2036,7 +2047,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						new DBConnect().closeObj(con, stm, rs, pstm);
 					}
 				}
-			} else if (object.codigo.equals("BC_MODIFICACION_AUTORIZACION")){
+			} else if (object.codigo.equals("sdae-modificacióndictamen-becas")){
 				//OBTENIENDO
 				try {
 					closeCon = validarConexion();
@@ -3193,10 +3204,13 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 		try {
 			List<CatNotificacionesFirma> rows = new ArrayList<CatNotificacionesFirma>();
 			closeCon = validarConexion();
+			errorLog += " | catNotificaciones.persistenceId = " + catNotificaciones.persistenceId;
 			
-			if(catNotificaciones.persistenceId>0) {
+			if(catNotificaciones.persistenceId != null) {
+				errorLog += " | UPDATE ";
 				pstm = con.prepareStatement(Statements.UPDATE_CAT_NOTIFICACIONES);
-			}else {
+			} else {
+				errorLog += " | INSERT ";
 				pstm = con.prepareStatement(Statements.INSERT_CAT_NOTIFICACIONES);
 			}
 			
@@ -3210,19 +3224,19 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			pstm.setString(8, catNotificaciones.descripcion);
 			pstm.setString(9, catNotificaciones.docGuiaEstudio);
 			pstm.setString(10, catNotificaciones.enlaceBanner);
-			pstm.setString( 11,catNotificaciones.enlaceContacto);
-			pstm.setString( 12,catNotificaciones.enlaceFacebook);
-			pstm.setString( 13,catNotificaciones.enlaceFooter);
-			pstm.setString( 14,catNotificaciones.enlaceInstagram);
-			pstm.setString( 15,catNotificaciones.enlaceTwitter);
-			pstm.setString( 16,catNotificaciones.nombreImagenFooter);
-			pstm.setString( 17,catNotificaciones.textoFooter);
-			pstm.setString( 18,catNotificaciones.tipoCorreo);
-			pstm.setString( 19,catNotificaciones.titulo);
-			pstm.setString( 20,catNotificaciones.urlImgFooter);
-			pstm.setString( 21,catNotificaciones.urlImgHeader);
-			pstm.setString( 22,catNotificaciones.codigo);
-			pstm.setString( 23,catNotificaciones.caseId);
+			pstm.setString(11, catNotificaciones.enlaceContacto);
+			pstm.setString(12, catNotificaciones.enlaceFacebook);
+			pstm.setString(13, catNotificaciones.enlaceFooter);
+			pstm.setString(14, catNotificaciones.enlaceInstagram);
+			pstm.setString(15, catNotificaciones.enlaceTwitter);
+			pstm.setString(16, catNotificaciones.nombreImagenFooter);
+			pstm.setString(17, catNotificaciones.textoFooter);
+			pstm.setString(18, catNotificaciones.tipoCorreo);
+			pstm.setString(19, catNotificaciones.titulo);
+			pstm.setString(20, catNotificaciones.urlImgFooter);
+			pstm.setString(21, catNotificaciones.urlImgHeader);
+			pstm.setString(22, catNotificaciones.codigo);
+			pstm.setString(23, catNotificaciones.caseId);
 			
 			pstm.execute();
 			
@@ -3231,6 +3245,91 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			resultado.setError_info(errorLog);
 			resultado.setData(rows);
 		} catch (Exception e) {
+			errorLog += " | " + e.getMessage();
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	public Result updateCatNotificacionesSDAE(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			List<?> rows = new ArrayList<?>();
+			closeCon = validarConexion();
+			
+			if(object.persistenceId != null) {
+				pstm = con.prepareStatement(Statements.UPDATE_CAT_NOTIFICACIONES_SDAE);
+				pstm.setString(1, object.anguloImagenFooter);
+				pstm.setString(2, object.anguloImagenHeader);
+				pstm.setString(3, object.asunto);
+				pstm.setString(4, object.comentarioLeon);
+				pstm.setString(5, object.contenido);
+				pstm.setString(6, object.contenidoCorreo);
+				pstm.setString(7, object.contenidoLeonel);
+				pstm.setString(8, object.descripcion);
+				pstm.setString(9, object.docGuiaEstudio);
+				pstm.setString(10, object.enlaceBanner);
+				pstm.setString(11, object.enlaceContacto);
+				pstm.setString(12, object.enlaceFacebook);
+				pstm.setString(13, object.enlaceFooter);
+				pstm.setString(14, object.enlaceInstagram);
+				pstm.setString(15, object.enlaceTwitter);
+				pstm.setString(16, object.nombreImagenFooter);
+				pstm.setString(17, object.textoFooter);
+				pstm.setString(18, object.tipoCorreo);
+				pstm.setString(19, object.titulo);
+				pstm.setString(20, object.urlImgFooter);
+				pstm.setString(21, object.urlImgHeader);
+				pstm.setString(22, object.persistenceId);
+				
+			} else {
+				pstm = con.prepareStatement(Statements.INSERT_CAT_NOTIFICACIONES_SDAE);
+				
+				pstm.setString(1, object.anguloImagenFooter);
+				pstm.setString(2, object.anguloImagenHeader);
+				pstm.setString(3, object.asunto);
+				pstm.setString(4, object.comentarioLeon);
+				pstm.setString(5, object.contenido);
+				pstm.setString(6, object.contenidoCorreo);
+				pstm.setString(7, object.contenidoLeonel);
+				pstm.setString(8, object.descripcion);
+				pstm.setString(9, object.docGuiaEstudio);
+				pstm.setString(10, object.enlaceBanner);
+				pstm.setString(11, object.enlaceContacto);
+				pstm.setString(12, object.enlaceFacebook);
+				pstm.setString(13, object.enlaceFooter);
+				pstm.setString(14, object.enlaceInstagram);
+				pstm.setString(15, object.enlaceTwitter);
+				pstm.setString(16, object.nombreImagenFooter);
+				pstm.setString(17, object.textoFooter);
+				pstm.setString(18, object.tipoCorreo);
+				pstm.setString(19, object.titulo);
+				pstm.setString(20, object.urlImgFooter);
+				pstm.setString(21, object.urlImgHeader);
+				pstm.setString(22, object.codigo);
+				pstm.setString(23, object.caseId);
+			}
+			
+			pstm.execute();
+			
+			resultado.setSuccess(true);
+			rows.add(object);
+			resultado.setError_info(errorLog);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			errorLog += " | " + e.getMessage();
 			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());

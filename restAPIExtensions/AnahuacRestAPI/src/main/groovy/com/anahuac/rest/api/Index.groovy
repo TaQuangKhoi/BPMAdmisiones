@@ -1811,6 +1811,14 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 				break;
+				case "updateCatNotificacionesSDAE":
+					result = new NotificacionDAO().updateCatNotificacionesSDAE(jsonData)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
 				case "reagendarExamen":
 					result = tDAO.reagendarExamen(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -1819,7 +1827,7 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
-					case "updateCatNotificaciones":
+				case "updateCatNotificaciones":
 					def jsonSlurper = new JsonSlurper();
 					def object = jsonSlurper.parseText(jsonData);
 					

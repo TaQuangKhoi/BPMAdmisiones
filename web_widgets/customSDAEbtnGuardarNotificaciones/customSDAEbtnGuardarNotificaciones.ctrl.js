@@ -7,12 +7,17 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
     $scope.lstContenidoRespaldo = [];
 
     $scope.generateObjContrato = function() {
-        console.log($scope.properties.informacionEnviar)
         debugger;
+        console.log($scope.properties.informacionEnviar)
         var dataToSend = {...$scope.properties.selectedData };
-        doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
-            debugger;
-            $window.location.assign("/portal/resource/app/administrativo/SDAEcartas/content/?app=administrativo");
+        doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificacionesSDAE&p=0&c=10", null, dataToSend, function(response) {
+            $window.location.reload();
+            swal("Ok", "Guardado", "success").then(function(){
+                // $scope.properties.selectedIndex = 0 ;
+                debugger;
+                $window.location.reload();
+            });
+            // $window.location.assign("/portal/resource/app/administrativo/SDAEcartas/content/?app=administrativo");
         });
         // if (angular.isDefined($scope.properties.taskId)) {
         //     $scope.asignarTarea();
@@ -30,6 +35,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
     }
 
     $scope.sendData = function() {
+        debugger;
         if ($scope.loading == false) {
             $("#loading").modal("show");
             $scope.loading = true;
@@ -58,7 +64,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                 } else {
                     if (angular.isDefined($scope.properties.selectedData)) {
                         var dataToSend = {...$scope.properties.selectedData }
-                        doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
+                        doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificacionesSDAE&p=0&c=10", null, dataToSend, function(response) {
                             $window.location.assign("/portal/resource/app/administrativo/SDAECartas/content/?app=administrativo");
                         })
                     } else {
@@ -117,6 +123,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
             })
             .finally(function() {});
     }
+    
     $scope.validar = function() {
         var error = false;
         var texto = "";
@@ -154,7 +161,9 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
 
         return error;
     }
+    
     $scope.submitTask = function() {
+        debugger;
         if (!$scope.validar()) {
             if ($scope.properties.informacionEnviar == null || $scope.properties.informacionEnviar == {} || $scope.properties.informacionEnviar == undefined) {
                 $scope.getDataForSubmit();

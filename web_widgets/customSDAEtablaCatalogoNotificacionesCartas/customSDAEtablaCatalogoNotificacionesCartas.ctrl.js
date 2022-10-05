@@ -25,38 +25,6 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
         $scope.properties.selectedToModificate.persistenceId_string =  $scope.properties.selectedToModificate.persistenceId + "";
         $scope.properties.selectedIndex = index;
         localStorage.setItem("index", index);
-        /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-            $scope.properties.selectedIndex--;
-        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-            if ($scope.properties.selectedIndex === 0) {
-                console.log("validar 0");
-            } else if ($scope.properties.selectedIndex === 1) {
-                console.log("validar 1");
-            } else if ($scope.properties.selectedIndex === 2) {
-                console.log("validar 2");
-            } else if ($scope.properties.selectedIndex === 3) {
-                console.log("validar 3");
-            } else if ($scope.properties.selectedIndex === 4) {
-                console.log("validar 4");
-            }
-            $scope.properties.selectedIndex++;
-        }
-        closeModal();
-        openModal("modalInputs");
-        $scope.properties.selectedToModificate = [{ "persistenceId_string": "", "tipoCorreo": "", "descripcion": "", "codigo": "", "isEliminado": false, "tipoDocumento": "", "nombreImagenHeader": "", "anguloImagenHeader": "", "nombreImagenFooter": "", "anguloImagenFooter": "" }];
-        $scope.properties.selectedToModificate[0].tipoCorreo = $scope.properties.contenido[index].tipoCorreo;
-        $scope.properties.selectedToModificate[0].descripcion = $scope.properties.contenido[index].descripcion;
-        $scope.properties.selectedToModificate[0].tipoDocumento = $scope.properties.contenido[index].tipoDocumento;
-        $scope.properties.selectedToModificate[0].isEliminado = $scope.properties.contenido[index].isEliminado;
-        $scope.properties.selectedToModificate[0].codigo = $scope.properties.contenido[index].codigo;
-        $scope.properties.selectedToModificate[0].nombreImagenHeader = $scope.properties.contenido[index].nombreImagenHeader;
-        $scope.properties.selectedToModificate[0].anguloImagenHeader = $scope.properties.contenido[index].anguloImagenHeader;
-        $scope.properties.selectedToModificate[0].nombreImagenFooter = $scope.properties.contenido[index].nombreImagenFooter;
-        $scope.properties.selectedToModificate[0].anguloImagenFooter = $scope.properties.contenido[index].anguloImagenFooter;
-        $scope.properties.isModificacion = true;
-        $scope.properties.index = index;
-        $scope.properties.mostrarPantallaEditar = true
-        console.log($scope.properties.selectedToModificate);*/
     }
 
 
@@ -190,7 +158,7 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
         blockUI.start()
         var req = {
             method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
+            url: "/bonita/API/extension/AnahuacRest?url=generateHtmlSDAE&p=0&c=10",
             data: angular.copy({
                 "campus": $scope.properties.campusSelected,
                 "correo": "braul5497@gmail.com",
