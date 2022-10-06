@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.33" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.36">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.37">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -941,6 +941,30 @@
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_u16fQEWuEe2G0fdwYrXoGQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_u16fQUWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" content="solicitanteReferenciasPersonales" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_u16fQkWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_u16fQ0WuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonalesInput" content="def avalReferenciasPersonalesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;solicitanteReferenciasPersonalesInput.each{&#xD;&#xA;&#x9;//Add AvalReferenciasPersonales instance&#xD;&#xA;&#x9;avalReferenciasPersonalesList.add({ currentAvalReferenciasPersonalesInput ->&#xD;&#xA;&#x9;&#x9;def avalReferenciasPersonalesVar = solicitanteReferenciasPersonales.find { it.persistenceId.toString() == currentAvalReferenciasPersonalesInput.persistenceId_string} ?: new com.anahuac.SDAE.model.AvalReferenciasPersonales()&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.nombre = currentAvalReferenciasPersonalesInput.nombre&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.telefono = currentAvalReferenciasPersonalesInput.telefono&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.correoPersonal = currentAvalReferenciasPersonalesInput.correoPersonal&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.parentesco = currentAvalReferenciasPersonalesInput.parentesco&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.caseId = currentAvalReferenciasPersonalesInput.caseId?.trim() ? currentAvalReferenciasPersonalesInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;return avalReferenciasPersonalesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return avalReferenciasPersonalesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_u16fREWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonalesInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_u16fRUWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_u16fRkWuEe2G0fdwYrXoGQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_xD9EKEWuEe2G0fdwYrXoGQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_xD9EKUWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" content="avalReferenciasPersonales" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_xD9EKkWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_xD9EK0WuEe2G0fdwYrXoGQ" name="avalReferenciasPersonalesInput" content="def avalReferenciasPersonalesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;avalReferenciasPersonalesInput.each{&#xD;&#xA;&#x9;//Add AvalReferenciasPersonales instance&#xD;&#xA;&#x9;avalReferenciasPersonalesList.add({ currentAvalReferenciasPersonalesInput ->&#xD;&#xA;&#x9;&#x9;def avalReferenciasPersonalesVar = avalReferenciasPersonales.find { it.persistenceId.toString() == currentAvalReferenciasPersonalesInput.persistenceId_string} ?: new com.anahuac.SDAE.model.AvalReferenciasPersonales()&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.nombre = currentAvalReferenciasPersonalesInput.nombre&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.telefono = currentAvalReferenciasPersonalesInput.telefono&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.correoPersonal = currentAvalReferenciasPersonalesInput.correoPersonal&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.parentesco = currentAvalReferenciasPersonalesInput.parentesco&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.caseId = currentAvalReferenciasPersonalesInput.caseId?.trim() ? currentAvalReferenciasPersonalesInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;return avalReferenciasPersonalesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return avalReferenciasPersonalesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_xD9ELEWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonalesInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_xD9ELUWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_xD9ELkWuEe2G0fdwYrXoGQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_-7voE2c7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_-7voFGc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_-7voFWc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1047,11 +1071,24 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_yAwfY_imEeygy_PuZ-rKUw" name="caseId" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_yAwfZPimEeygy_PuZ-rKUw" name="catManejoDocumentos_id" createMode="false"/>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_yAzisPimEeygy_PuZ-rKUw" expression="documentosAvalModelInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for DocumentosAval.caseId" name="type_long_documentosAvalModelInput_caseId">
-              <inputNames>documentosAvalModelInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_yAzisfimEeygy_PuZ-rKUw" expression="documentosAvalModelInput?.catManejoDocumentos_id.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for DocumentosAval.catManejoDocumentos_id" name="type_long_documentosAvalModelInput_catManejoDocumentos_id">
-              <inputNames>documentosAvalModelInput</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_u154MEWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonalesInput" type="COMPLEX" multiple="true" dataReference="solicitanteReferenciasPersonales" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_u154MUWuEe2G0fdwYrXoGQ" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_u154MkWuEe2G0fdwYrXoGQ" name="nombre" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_u154M0WuEe2G0fdwYrXoGQ" name="telefono" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_u154NEWuEe2G0fdwYrXoGQ" name="correoPersonal" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_u154NUWuEe2G0fdwYrXoGQ" name="parentesco" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_u154NkWuEe2G0fdwYrXoGQ" name="caseId" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_xD9EIEWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonalesInput" type="COMPLEX" multiple="true" dataReference="avalReferenciasPersonales" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_xD9EIUWuEe2G0fdwYrXoGQ" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_xD9EIkWuEe2G0fdwYrXoGQ" name="nombre" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_xD9EI0WuEe2G0fdwYrXoGQ" name="telefono" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_xD9EJEWuEe2G0fdwYrXoGQ" name="correoPersonal" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_xD9EJUWuEe2G0fdwYrXoGQ" name="parentesco" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_xD9EJkWuEe2G0fdwYrXoGQ" name="caseId" createMode="false"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_xD9EJ0WuEe2G0fdwYrXoGQ" expression="avalReferenciasPersonalesInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AvalReferenciasPersonales.caseId" name="type_long_avalReferenciasPersonalesInput_caseId">
+              <inputNames>avalReferenciasPersonalesInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_A_dzUGc8EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
@@ -2022,6 +2059,30 @@
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_rzyE0y_SEe21_pgUV1OWkA" type="ASSIGNMENT"/>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_0WcvqEWuEe2G0fdwYrXoGQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0WcvqUWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" content="solicitanteReferenciasPersonales" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0WcvqkWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0Wcvq0WuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonalesInput" content="def avalReferenciasPersonalesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;solicitanteReferenciasPersonalesInput.each{&#xD;&#xA;&#x9;//Add AvalReferenciasPersonales instance&#xD;&#xA;&#x9;avalReferenciasPersonalesList.add({ currentAvalReferenciasPersonalesInput ->&#xD;&#xA;&#x9;&#x9;def avalReferenciasPersonalesVar = solicitanteReferenciasPersonales.find { it.persistenceId.toString() == currentAvalReferenciasPersonalesInput.persistenceId_string} ?: new com.anahuac.SDAE.model.AvalReferenciasPersonales()&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.nombre = currentAvalReferenciasPersonalesInput.nombre&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.telefono = currentAvalReferenciasPersonalesInput.telefono&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.correoPersonal = currentAvalReferenciasPersonalesInput.correoPersonal&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.parentesco = currentAvalReferenciasPersonalesInput.parentesco&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.caseId = currentAvalReferenciasPersonalesInput.caseId?.trim() ? currentAvalReferenciasPersonalesInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;return avalReferenciasPersonalesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return avalReferenciasPersonalesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_0WcvrEWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonalesInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0WcvrUWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0WcvrkWuEe2G0fdwYrXoGQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_1co7qEWuEe2G0fdwYrXoGQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_1co7qUWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" content="avalReferenciasPersonales" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_1co7qkWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_1co7q0WuEe2G0fdwYrXoGQ" name="avalReferenciasPersonalesInput" content="def avalReferenciasPersonalesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;avalReferenciasPersonalesInput.each{&#xD;&#xA;&#x9;//Add AvalReferenciasPersonales instance&#xD;&#xA;&#x9;avalReferenciasPersonalesList.add({ currentAvalReferenciasPersonalesInput ->&#xD;&#xA;&#x9;&#x9;def avalReferenciasPersonalesVar = avalReferenciasPersonales.find { it.persistenceId.toString() == currentAvalReferenciasPersonalesInput.persistenceId_string} ?: new com.anahuac.SDAE.model.AvalReferenciasPersonales()&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.nombre = currentAvalReferenciasPersonalesInput.nombre&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.telefono = currentAvalReferenciasPersonalesInput.telefono&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.correoPersonal = currentAvalReferenciasPersonalesInput.correoPersonal&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.parentesco = currentAvalReferenciasPersonalesInput.parentesco&#xD;&#xA;&#x9;&#x9;avalReferenciasPersonalesVar.caseId = currentAvalReferenciasPersonalesInput.caseId?.trim() ? currentAvalReferenciasPersonalesInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;return avalReferenciasPersonalesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return avalReferenciasPersonalesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_1co7rEWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonalesInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_1co7rUWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_1co7rkWuEe2G0fdwYrXoGQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_lkR5k_DwEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_lkR5lPDwEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_lkR5lfDwEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2137,11 +2198,24 @@
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_fdkWES_SEe21_pgUV1OWkA"/>
               </inputs>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_XyA9G_JwEeyNEtaiT82rCQ" expression="!avalInfoInmuebleModelInput?.caseid || avalInfoInmuebleModelInput?.caseid.isLong()" errorMessage="A Long value is expected for AvalInfoInmueble.caseid" name="type_long_avalInfoInmuebleModelInput_caseid">
-              <inputNames>avalInfoInmuebleModelInput</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_XyA9HPJwEeyNEtaiT82rCQ" expression="!avalInfoInmuebleModelInput?.caseidSolicitud || avalInfoInmuebleModelInput?.caseidSolicitud.isLong()" errorMessage="A Long value is expected for AvalInfoInmueble.caseidSolicitud" name="type_long_avalInfoInmuebleModelInput_caseidSolicitud">
-              <inputNames>avalInfoInmuebleModelInput</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_0WcvoEWuEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonalesInput" type="COMPLEX" multiple="true" dataReference="solicitanteReferenciasPersonales" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_0WcvoUWuEe2G0fdwYrXoGQ" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0WcvokWuEe2G0fdwYrXoGQ" name="nombre" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0Wcvo0WuEe2G0fdwYrXoGQ" name="telefono" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0WcvpEWuEe2G0fdwYrXoGQ" name="correoPersonal" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0WcvpUWuEe2G0fdwYrXoGQ" name="parentesco" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_0WcvpkWuEe2G0fdwYrXoGQ" name="caseId" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_1co7oEWuEe2G0fdwYrXoGQ" name="avalReferenciasPersonalesInput" type="COMPLEX" multiple="true" dataReference="avalReferenciasPersonales" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_1co7oUWuEe2G0fdwYrXoGQ" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_1co7okWuEe2G0fdwYrXoGQ" name="nombre" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_1co7o0WuEe2G0fdwYrXoGQ" name="telefono" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_1co7pEWuEe2G0fdwYrXoGQ" name="correoPersonal" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_1co7pUWuEe2G0fdwYrXoGQ" name="parentesco" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_1co7pkWuEe2G0fdwYrXoGQ" name="caseId" createMode="false"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_1co7p0WuEe2G0fdwYrXoGQ" expression="avalReferenciasPersonalesInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AvalReferenciasPersonales.caseId" name="type_long_avalReferenciasPersonalesInput_caseId">
+              <inputNames>avalReferenciasPersonalesInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_F9ZV-_DxEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
@@ -3022,6 +3096,12 @@
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_HHxnUPilEeygy_PuZ-rKUw" name="documentosAvalModel" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.DocumentosAval">
         <defaultValue xmi:type="expression:Expression" xmi:id="_HHxnUfilEeygy_PuZ-rKUw" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_M-uH4EWZEe2G0fdwYrXoGQ" name="solicitanteReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_M-uH4UWZEe2G0fdwYrXoGQ" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_PDW5IEWZEe2G0fdwYrXoGQ" name="avalReferenciasPersonales" multiple="true" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalReferenciasPersonales">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_PDW5IUWZEe2G0fdwYrXoGQ" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_PpGyxGc7EeyAHufroJpG_Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_PpGyxWc7EeyAHufroJpG_Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
