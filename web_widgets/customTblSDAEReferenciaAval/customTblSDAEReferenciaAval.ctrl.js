@@ -43,7 +43,6 @@ function PbTableCtrl($scope) {
     // forceKeyPressUppercaseSaldo
 
 	$scope.forceKeyPressUppercaseSaldo = function (e, value) {
-		debugger;
         var charInput = e.keyCode;
         var content = e.key;
         var limite = 9;

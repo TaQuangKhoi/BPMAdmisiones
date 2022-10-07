@@ -51,7 +51,6 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
 
     $scope.resetCP = function(_changeInside){
         if(_changeInside){
-            debugger;
             if($scope.properties.headerDatos.length > 1){
                 $scope.properties.headerDatos.forEach(datos =>{
                     $scope.properties.formOutput[datos] = ""
