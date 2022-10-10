@@ -26,7 +26,7 @@ function($scope, $http) {
             });
     }
     $scope.previsualizar = function() {
-        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10", null, $scope.properties.datosPrevisualizar, function(datos) {
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtmlSDAE&p=0&c=10", null, $scope.properties.datosPrevisualizar, function(datos) {
             console.log(document.getElementById($scope.properties.id).innerHTML);
             var respuesta = datos.data[0].replace($scope.properties.replace, document.getElementById($scope.properties.id).innerHTML);
             Swal.fire({
