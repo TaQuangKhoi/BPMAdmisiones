@@ -1588,7 +1588,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 					
 				}
-			}else if (object.codigo.equals("reagendar")) {
+			} else if (object.codigo.equals("reagendar")) {
 				try {
 					closeCon = validarConexion();
 					pstm = con.prepareStatement(Statements.GET_ASPIRANTE_ASISTENCIA)
@@ -1616,6 +1616,25 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					new DBConnect().closeObj(con, stm, rs, pstm);
 				}
 					
+				}
+			} else if (object.codigo.equals("sdae-solicitudmodifcación-validación")){
+				errorlog += " | ENTRO A EL IF DEL TIPO DE CORREO "
+				//OBTENIENDO
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+					pstm.setString(1, object.correo);
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						errorlog += " | SE ENCONTRO EL CORREO EN TIPODEAPOYO "
+						plantilla = plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("cambiosSolicitudPreAutorizacion"));
+					}
+				} catch (Exception e) {
+					errorlog += "| FALLO AL BUSCAR LA SOLICITUD DE APOYO " + e.getMessage()
+				} finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
 				}
 			} else if(object.codigo.equals("carta-aceptar") || object.codigo.equals("carta-rechazo") || object.codigo.equals("carta-pdu")|| object.codigo.equals("carta-informacion") || object.codigo.equals("carta-propedeutico")) {
 				try {
@@ -2052,7 +2071,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				try {
 					closeCon = validarConexion();
 					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
-					pstm.setString(1, object.correoAspirante);
+					pstm.setString(1, object.correo);
 					rs = pstm.executeQuery();
 					if(rs.next()) {
 						plantilla = plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("cambiosSolicitudAutorizacionText"));
@@ -2064,7 +2083,41 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						new DBConnect().closeObj(con, stm, rs, pstm);
 					}
 				}
-			}
+			} else if (object.codigo.equals("sdae-rechazopreautorización-becas")){
+				//OBTENIENDO
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+					pstm.setString(1, object.correo);
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						plantilla = plantilla.replace("[RECHAZO-COMENTARIOS]", rs.getString("motivoRechazoPreAutorizacion"));
+					}
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				} finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
+				}
+			} else if (object.codigo.equals("sdae-rechazodictamen-becas")){
+				//OBTENIENDO
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+					pstm.setString(1, object.correo);
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						plantilla = plantilla.replace("[RECHAZO-COMENTARIOS]", rs.getString("motivoRechazoAutorizacionText"));
+					}
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				} finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
+				}
+			} 
 			
 			try {
 				Result hffc = new Result()

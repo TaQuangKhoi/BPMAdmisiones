@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1664827269759,
+  "lastUpdate" : 1665441921571,
   "rows" : [
     [
       {
@@ -565,8 +565,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "navVar !== \"main\""
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -646,8 +646,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "navVar !== \"main\""
                 },
                 "allowHTML" : {
                   "type" : "constant",
@@ -708,6 +708,10 @@
                 "porcentajeFinanciamiento" : {
                   "type" : "expression",
                   "value" : "returnCatValue.catPorcentajeFinanciamiento.descripcion"
+                },
+                "isArtisticaOrDeportiva" : {
+                  "type" : "constant",
+                  "value" : false
                 }
               },
               "reference" : "e6a2e377-66f1-4435-8878-67bf51e351dc",
@@ -783,7 +787,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -871,7 +875,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -943,9 +947,11 @@
               "reference" : "58a691f2-77e0-46f3-8a3b-5f7a40fd0cd5",
               "hasValidationError" : false,
               "id" : "pbButton"
-            },
+            }
+          ],
+          [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -958,79 +964,813 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "navVar !== \"main\""
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Autorizar solicitud"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "success"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Open modal"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "constant"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : "modalAprobar"
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
                 }
               },
-              "reference" : "99639635-b3bd-48cd-b709-a655a399bad9",
+              "reference" : "c735fb25-e19f-49e4-8574-a9fed103fc64",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Archivar solicitud"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "danger"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "navigationVar" : {
+                        "type" : "variable",
+                        "value" : "navVar"
+                      },
+                      "newValue" : {
+                        "type" : "constant",
+                        "value" : "rechazar"
+                      }
+                    },
+                    "reference" : "7e01d437-40db-471c-91c8-3359206efb84",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnNavigationByVariable"
+                  }
+                ]
+              ]
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "navVar !== \"main\""
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "731600fb-403b-49c4-85d1-6d3571276998",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Solicitar modificaciones"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "warning"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "navigationVar" : {
+                        "type" : "variable",
+                        "value" : "navVar"
+                      },
+                      "newValue" : {
+                        "type" : "constant",
+                        "value" : "modificar"
+                      }
+                    },
+                    "reference" : "3d532184-c67c-4a38-86ad-50d1fae942b8",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnNavigationByVariable"
+                  }
+                ]
+              ]
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "navVar !== \"main\""
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "c7810e69-8260-4a8d-abdf-64ec1ec8bb10",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Autorizar solicitud"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Open modal"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "constant"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : "modalAprobar"
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      }
+                    },
+                    "reference" : "99639635-b3bd-48cd-b709-a655a399bad9",
+                    "hasValidationError" : false,
+                    "id" : "pbButton"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "navVar !== \"rechazar\""
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "bdc23026-d4e9-4b17-9903-902d9dfa597b",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Archivar solicitud <hr>"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "858e3ebd-6866-4c0f-821c-495941c78220",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Regresar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "navigationVar" : {
+                        "type" : "variable",
+                        "value" : "navVar"
+                      },
+                      "newValue" : {
+                        "type" : "constant",
+                        "value" : "main"
+                      }
+                    },
+                    "reference" : "1363bf8c-0ef7-4102-8b1e-bb068b6b461b",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnNavigationByVariable"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "valor2" : {
+                        "type" : "variable",
+                        "value" : "formInputAprobar.autorizacionInput.motivoRechazoAutorizacion"
+                      },
+                      "id" : {
+                        "type" : "constant",
+                        "value" : "autRec1"
+                      },
+                      "ocultarPrevisualizar" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "datosPrevisualizar" : {
+                        "type" : "variable",
+                        "value" : "previewRechazar"
+                      },
+                      "replace" : {
+                        "type" : "constant",
+                        "value" : "[RECHAZO-COMENTARIOS]"
+                      }
+                    },
+                    "reference" : "2a4b9306-48b8-46f4-ad3d-1295d75d783f",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEtextEditorAJS"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Archivar solicitud"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "danger"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputFinalRechazar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "isAutorizada" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "isModificar" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "caseid" : {
+                        "type" : "constant"
+                      },
+                      "objetoBitacora" : {
+                        "type" : "expression",
+                        "value" : "bitacoraRechazar"
+                      },
+                      "urlBitacora" : {
+                        "type" : "constant",
+                        "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                      }
+                    },
+                    "reference" : "bb8406a2-53a7-4f6d-9218-5d14a5fb4b2b",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEButtonCloseWindowAutorizacion"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "navVar !== \"modificar\""
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "cabbd198-1bad-4820-9ffa-0d52647866f9",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Solicitar modificaciones <hr>"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "99284b2a-bc6d-45fd-b715-5fddeadb5a3d",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Regresar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "navigationVar" : {
+                        "type" : "variable",
+                        "value" : "navVar"
+                      },
+                      "newValue" : {
+                        "type" : "constant",
+                        "value" : "main"
+                      }
+                    },
+                    "reference" : "6fca782a-3139-4755-a12a-daf64d0ac703",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnNavigationByVariable"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "valor2" : {
+                        "type" : "variable",
+                        "value" : "formInputAprobar.autorizacionInput.motivoRechazoAutorizacionText"
+                      },
+                      "id" : {
+                        "type" : "constant",
+                        "value" : "autMod1"
+                      },
+                      "ocultarPrevisualizar" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "datosPrevisualizar" : {
+                        "type" : "variable",
+                        "value" : "previewModificar"
+                      },
+                      "replace" : {
+                        "type" : "constant",
+                        "value" : "[MOTIVO-MODIFICACION]"
+                      }
+                    },
+                    "reference" : "3b3d2d23-d9d6-4c1f-b912-672058edfafa",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEtextEditorAJS"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Solicitar modificaciones"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "warning"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputFinalRechazar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "isAutorizada" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "isModificar" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "caseid" : {
+                        "type" : "constant"
+                      },
+                      "objetoBitacora" : {
+                        "type" : "expression",
+                        "value" : "bitacoraModificar"
+                      },
+                      "urlBitacora" : {
+                        "type" : "constant",
+                        "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                      }
+                    },
+                    "reference" : "5e5a0e05-b3a1-4733-9f6d-961e8c07fda2",
+                    "hasValidationError" : false,
+                    "id" : "customSDAEButtonCloseWindowAutorizacion"
+                  }
+                ]
+              ]
             }
           ],
           [
@@ -1484,106 +2224,6 @@
                       "reference" : "ed221fa7-d5a5-46ed-9063-eba408f00a89",
                       "hasValidationError" : false,
                       "id" : "customSDAEButtonCloseWindow"
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
-                        "xs" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "removeItem" : {
-                          "type" : "variable"
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "primary"
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Submit"
-                        },
-                        "dataToSend" : {
-                          "type" : "expression",
-                          "value" : "formOutput"
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : "formOutput._submitError"
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant"
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation",
-                          "value" : "/bonita"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Submit task"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "valueToAdd" : {
-                          "type" : "expression"
-                        },
-                        "disabled" : {
-                          "type" : "expression",
-                          "value" : "$form.$invalid"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "center"
-                        },
-                        "dimension" : {
-                          "type" : "constant",
-                          "value" : 12
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        }
-                      },
-                      "reference" : "1c5ae619-acf4-487a-b29b-655f54551ce6",
-                      "hasValidationError" : false,
-                      "id" : "pbButton",
-                      "description" : ""
                     }
                   ]
                 ]
@@ -7947,6 +8587,39 @@
         "  \t\"usuarios\": $data.userData.user_name,\r",
         "  \t\"caseid\": parseInt($data.caseId),\r",
         "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "navVar" : {
+      "type" : "constant",
+      "value" : [
+        "main"
+      ],
+      "exposed" : false
+    },
+    "previewRechazar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "  \"campus\": $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita,\r",
+        "  \"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \"codigo\": \"sdae-rechazodictamen-becas\",\r",
+        "  \"isEnviar\": false,\r",
+        "  \"correoAspirante\": $data.objSolicitudDeAdmision[0].correoElectronico\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "previewModificar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "  \"campus\": $data.objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita,\r",
+        "  \"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \"codigo\": \"sdae-modificacióndictamen-becas\",\r",
+        "  \"isEnviar\": false,\r",
+        "  \"correoAspirante\": $data.objSolicitudDeAdmision[0].correoElectronico\r",
         "}"
       ],
       "exposed" : false
