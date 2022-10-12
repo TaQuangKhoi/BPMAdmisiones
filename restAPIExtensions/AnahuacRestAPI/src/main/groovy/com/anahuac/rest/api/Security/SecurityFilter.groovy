@@ -17,7 +17,19 @@ class SecurityFilter {
 			}
 		}
 		return valid;
-	} 
+	}
+	
+	public Boolean bonitaRolFilterExtricto(RestAPIContext context,String roleName) {
+		Boolean valid = false;
+		List<UserMembership> uMemberships=context.apiClient.identityAPI.getUserMemberships(context.apiSession.userId, 0, 100, UserMembershipCriterion.ROLE_NAME_ASC);
+		uMemberships.each{
+			it ->
+			if(it.roleName.toLowerCase().equals(roleName.toLowerCase()) ) {
+				valid=true
+			}
+		}
+		return valid;
+	}
 	
 	public Boolean allowedUrl(RestAPIContext context, String url) {
 		
@@ -1203,16 +1215,24 @@ class SecurityFilter {
 		    }
 		    break;
 		  case "simpleSelect":
-		    allow = bonitaRolFilter(context, "ADMISIONES");
+		    allow = bonitaRolFilterExtricto(context, "TI SERUA");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilterExtricto(context, "TI SERUA");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "simpleSelectBonita":
-		    allow = bonitaRolFilter(context, "ADMISIONES");
+		    allow = bonitaRolFilterExtricto(context, "SERUA");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilterExtricto(context, "SERUA");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertBachillerato":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

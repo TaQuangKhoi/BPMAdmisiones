@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaListado",
   "name" : "PaseListaListado",
-  "lastUpdate" : 1655142716437,
+  "lastUpdate" : 1659995930877,
   "rows" : [
     [
       {
@@ -663,11 +663,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "53d02c35-52aa-4251-a8b5-77ec349b1fa6",
+                          "reference" : "2f747388-cee5-4bfa-b994-37f11f943466",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ]
                     ]
@@ -4225,9 +4229,9 @@
         "            \"estatusSolicitud\": \"Solicitud en progreso\",\r",
         "            \"tarea\": \"Llenar solicitud\",\r",
         "            \"lstFiltro\": [{\r",
-        "                \"columna\": \"CAMPUS\",\r",
+        "                \"columna\": \"CAMPUS DESCRIPCION\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.grupobonita\r",
+        "                \"valor\": $data.strUsuario.campus\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4327,6 +4331,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Reporte Pase Lista '${$data.datosPrueba[0].nombre}`"
       ],
       "exposed" : false
     }

@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaReporte",
   "name" : "PaseListaReporte",
-  "lastUpdate" : 1639508585088,
+  "lastUpdate" : 1660005591310,
   "rows" : [
     [
       {
@@ -663,11 +663,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "44d7a137-1e56-44fc-b5bb-33eff661776c",
+                          "reference" : "22d6e4a9-2423-459a-a276-89b0250a6478",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ],
                       [
@@ -4320,9 +4324,9 @@
         "            \"estatusSolicitud\": \"Solicitud en progreso\",\r",
         "            \"tarea\": \"Llenar solicitud\",\r",
         "            \"lstFiltro\": [{\r",
-        "                \"columna\": \"CAMPUS\",\r",
+        "                \"columna\": \"CAMPUS DESCRIPCION\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.grupobonita\r",
+        "                \"valor\": $data.strUsuario.campus\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4422,6 +4426,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Reporte Historio pase de lista '${$data.datosPrueba[0].nombre}'`;"
       ],
       "exposed" : false
     }

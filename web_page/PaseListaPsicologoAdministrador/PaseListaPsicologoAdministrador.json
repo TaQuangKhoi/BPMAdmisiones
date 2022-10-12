@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaPsicologoAdministrador",
   "name" : "PaseListaPsicologoAdministrador",
-  "lastUpdate" : 1639508501817,
+  "lastUpdate" : 1660005675081,
   "rows" : [
     [
       {
@@ -748,11 +748,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "dfac493e-bc08-4411-ad72-8f8ea6d5b628",
+                          "reference" : "0a843733-50ea-40cd-a59a-979fbccae828",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ],
                       [
@@ -4463,9 +4467,9 @@
         "            \"estatusSolicitud\": \"Solicitud en progreso\",\r",
         "            \"tarea\": \"Llenar solicitud\",\r",
         "            \"lstFiltro\": [{\r",
-        "                \"columna\": \"CAMPUS\",\r",
+        "                \"columna\": \"CAMPUS DESCRIPCION\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.grupobonita\r",
+        "                \"valor\": $data.strUsuario.campus\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4565,6 +4569,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Reporte psicologo administrador pase de lista '${$data.datosPrueba[0].nombre}'`;"
       ],
       "exposed" : false
     }
