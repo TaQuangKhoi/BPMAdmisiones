@@ -81,9 +81,20 @@ class SecurityFilter {
 				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 				break;
-				case "getMenuAdministrativo":allow=bonitaRolFilter(context,"ADMISIONES")
+				case "getMenuAdministrativo":
+				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Area Artistica")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Area Deportiva")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Finanzas")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Comite de Finanzas")
 				if(allow){break;}
 				break;
 				case "getUniversidadSmartCampus":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -405,11 +416,20 @@ class SecurityFilter {
 				case "getSesions":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
-				case "getPropedeuticosNoFecha":allow=bonitaRolFilter(context,"ADMISIONES")
+				case "getPropedeuticosNoFecha":
+				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"SERUA")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"Becas")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Area Artistica")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Area Deportiva")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Finanzas")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Comite de Finanzas")
 				if(allow){break;}
 				break;
 				case "getActiveProcess":allow=bonitaRolFilter(context,"ADMISIONES")
@@ -490,6 +510,10 @@ class SecurityFilter {
 		Boolean allow = false;
 	
 		switch (url) {
+			case "getExcelBachilleratos":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+			break;
 			case "getUsuariosTransferencia":
 				allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
@@ -1173,12 +1197,20 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "EXTERIOR");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "recuperarPasswordAdministrativo":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
 		    }
+			allow = bonitaRolFilter(context, "EXTERIOR");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "sendEmail":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

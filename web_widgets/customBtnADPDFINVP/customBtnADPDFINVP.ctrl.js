@@ -13,10 +13,8 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         
         getTexto(doc);
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
         var canvas = document.getElementById("chartjs1")
         var imgData = canvas.toDataURL('image/png'); 
         doc.addImage(imgData,'PNG',2,5,200,145,'chart1')
@@ -25,63 +23,12 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         var imgData2 = canvas2.toDataURL('image/png'); 
         doc.addImage(imgData2,'PNG',2,150,200,145,'chart2')
         
+        doc.setTextColor(255,89,0);
         doc.setFontSize(14);
         doc.text('Gráfica escalas básicas', 80, 10);
         doc.text('Gráfica escala de contenido', 80, 153)
 
         doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName);
-       
-       /* 
-        doc = new jspdf.jsPDF('l', 'mm', 'a4');
-        width = doc.internal.pageSize.getWidth();
-        height = doc.internal.pageSize.getHeight();
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
-        getTexto(doc);
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
-        canvas = document.getElementById("chartjs1")
-        imgData = canvas.toDataURL('image/png'); 
-        doc.addImage(imgData,'PNG',15,15,280,150,'chart1')
-        doc.setFontSize(20);
-        doc.text('Gráfica escalas básicas', 120, 13);
-        
-        doc.addPage();
-        doc.addImage("widgets/customBtnADPDFINVP/assets/img/FondoAguaRUA-04.png", 'PNG', 0, 0, width, height);
-        canvas2 = document.getElementById("chartjs2")
-        imgData2 = canvas2.toDataURL('image/png'); 
-        doc.addImage(imgData2,'PNG',15,15,280,150,'chart2')
-        doc.text('Gráfica escala de contenido', 120, 13)
-        
-        doc.save($scope.properties.idBanner+"_"+$scope.properties.fileName + "V2.pdf");*/
-        
-        /*
-        var element = document.querySelector($scope.properties.elementSelector);
-        
-        var opt = {
-            margin: [5,5,1,5],
-            filename: $scope.properties.idBanner+"_"+$scope.properties.fileName + ".pdf",
-            image: { type: 'jpeg',quality: 0.98},
-            html2canvas: { dpi: 192, letterRendering: true, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-            pagebreak: { mode: [ 'legacy'], before:[".break-before"]},
-            // pagebreak: { avoid: '.avoid' }
-        };
-
-        var promise;
-        primise = getPDF(element, opt);
-        setTimeout(function(){ 
-            $scope.properties.idsDivGrafica.forEach(data => {
-                //document.getElementById(data.id).style.height = "40vh";
-                document.getElementById(data.id).removeAttribute("style")
-                //document.getElementById(data.id).classList.add('chart-container')
-            })
-        }, 1000);
-        
-        promise.then(function(resultado) {
-            alert("Fin de la promesa");
-            blockUI.stop();
-        }, function(error) {
-            $scope.mensaje="Se ha producido un error al obtener el dato:"+error;
-        });*/
     }
     
     // html2pdf(element, opt); 
@@ -106,14 +53,17 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         let fechaActual = ($filter('date')(Date.parse(date), "dd/MMM/yyyy")).toString();
         
         doc.setFontSize(fontText);
+        doc.setTextColor(255,89,0);
         doc.text(margenSegundaFila, (height / 2) - 140, 'Fecha:');
-        doc.text(fechaActual, 155, (height / 2) - 140);
-        
         doc.text(margenSegundaFila, (height / 2) - 135, 'Usuario:');
-        doc.text($scope.properties.userName, 155, (height / 2) - 135);
+        
+        doc.setTextColor(0,0,0);
+        doc.text(fechaActual, 110, (height / 2) - 140);
+        doc.text($scope.properties.userName, 110, (height / 2) - 135);
         
         //doc.setFontSize(fontText);
-        doc.setFont(fontparam, 'bold')
+        doc.setFont(fontparam, 'bold');
+        doc.setTextColor(255,89,0);
         doc.text(margenPrimeraFila, (height / 2) - 93, 'ID:');
         doc.text(margenPrimeraFila, (height / 2) - 88, 'Sexo:');
         doc.text(margenPrimeraFila, (height / 2) - 83, 'Nacionalidad:');
@@ -122,18 +72,19 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         
         doc.text(margenSegundaFila, (height / 2) - 93, 'Nombre:');
         doc.text(margenSegundaFila, (height / 2) - 88, 'Fecha de nacimiento:');
-        doc.text(margenSegundaFila, (height / 2) - 83, 'R. Permanente:');
+        doc.text(margenSegundaFila, (height / 2) - 83, 'Ciudad de procedencia:');
         doc.text(margenSegundaFila, (height / 2) - 78, 'Escuela Procedencia:');
         doc.text(margenSegundaFila, (height / 2) - 73, 'Carrera:');
         
         doc.setFont(fontparam, 'normal');
+        doc.setTextColor(0,0,0)
         doc.text(respuestasPrimeraFila, (height / 2) - 93, $scope.properties.datosUsuario.id_siu);
         doc.text(respuestasPrimeraFila, (height / 2) - 88, $scope.properties.datosUsuario.sexo);
         doc.text(respuestasPrimeraFila, (height / 2) - 83, $scope.properties.datosUsuario.nacionalidad);
         doc.text(respuestasPrimeraFila, (height / 2) - 78, $scope.properties.datosUsuario.promediogeneral);
         doc.text(respuestasPrimeraFila, (height / 2) - 73, $scope.properties.datosUsuario.fecharegistro);
         
-        doc.text(respuestasSegundaFila, (height / 2) - 93, `${$scope.properties.datosUsuario.nombres} ${$scope.properties.datosUsuario.apellidop} ${$scope.properties.datosUsuario.apellidom}`);
+        doc.text(respuestasSegundaFila, (height / 2) - 93, `${$scope.properties.datosUsuario.nombres}\xa0${$scope.properties.datosUsuario.apellidop}\xa0${$scope.properties.datosUsuario.apellidom}`);
         doc.text(respuestasSegundaFila, (height / 2) - 88, $scope.properties.datosUsuario.fechanacimiento);
         doc.text(respuestasSegundaFila, (height / 2) - 83, $scope.properties.datosUsuario.pais);
         doc.text(respuestasSegundaFila, (height / 2) - 78, $scope.properties.datosUsuario.preparatoria);
@@ -142,11 +93,14 @@ function PbButtonCtrl($scope, modalService, blockUI, $q,$filter) {
         aplicarFactor();
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'bold')
+        doc.setTextColor(255,89,0);
         doc.text(margenPrimeraFila, (height / 2) - 50, "Escalas de Validez" );
         doc.text(margenPrimeraFila, (height / 2) - 20, "Escalas Básicas" );
         doc.text(margenPrimeraFila, (height / 2) + 10, "Escalas de contenido" );
         
         doc.setFont(fontparam, 'normal');
+        doc.setTextColor(0,0,0);
+        
         let registro = [0,0,0];
         let tipo = 0;
         $scope.respuestaProcesadas.forEach(element =>{

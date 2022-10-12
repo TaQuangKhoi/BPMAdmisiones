@@ -191,7 +191,7 @@ class AvanzeProcesoDAO {
 		try {
 			closeCon = validarConexion();
 			
-			pstm = con.prepareStatement("select  concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre) as nombre,DS.idbanner, sda.correoelectronico as usuario,cc.descripcion as vpd,cc2.descripcion as campus, DS.caseid, DS.cbcoincide from solicituddeadmision as sda inner join Detallesolicitud as DS ON DS.caseid::integer = sda.caseid inner join catcampus as cc on cc.persistenceid = sda.catcampusestudio_pid inner join catcampus as cc2 on cc2.persistenceid = sda.catcampus_pid where DS.idbanner = ?  ORDER BY sda.caseid DESC");
+			pstm = con.prepareStatement("select  concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre) as nombre,DS.idbanner, sda.correoelectronico as usuario,cc.descripcion as vpd,cc2.descripcion as campus, DS.caseid, DS.cbcoincide from solicituddeadmision as sda inner join Detallesolicitud as DS ON DS.caseid::integer = sda.caseid inner join catcampus as cc on cc.persistenceid = sda.catcampusestudio_pid inner join catcampus as cc2 on cc2.persistenceid = sda.catcampus_pid where DS.idbanner = ? ORDER BY sda.caseid DES");
 			pstm.setString(1, idbanner);
 			rs = pstm.executeQuery()
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();

@@ -3880,16 +3880,7 @@ class ListadoDAO {
             if (object.campus != null) {
                 where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
             }
-            //            if(object.estatusSolicitud !=null) {
-            //                if(object.estatusSolicitud.equals("Solicitud en proceso")) {
-            //                    where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en proceso')"
-            //                } else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
-            //                    where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
-            //                } else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
-            //                    where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
-            //                }
-            //            }
-
+			
             //Cambio aplicado para que fusione los tres estatus en un solo reporte
             if (object.estatusSolicitud != null) {
                 where += " AND (sda.ESTATUSSOLICITUD='Solicitud en proceso' OR sda.ESTATUSSOLICITUD='Solicitud a modificar'  OR sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta' OR sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta' OR sda.ESTATUSSOLICITUD='Periodo vencido' OR (sda.ESTATUSSOLICITUD = 'Solicitud vencida') OR (sda.ESTATUSSOLICITUD = 'Periodo vencido') OR (sda.ESTATUSSOLICITUD = 'Solicitud caduca') OR (sda.ESTATUSSOLICITUD  like '%Solicitud vencida en:%')) ";
@@ -3920,7 +3911,7 @@ class ListadoDAO {
 
             errorlog += "object.lstFiltro" + object.lstFiltro
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-            //closeCon = validarConexion();
+			
             String consulta = Statements.GET_SOLICITUDES_EN_PROCESO
             for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
                 errorlog += ", columna " + filtro.get("columna")
@@ -3970,14 +3961,10 @@ class ListadoDAO {
                         }
                         where += "( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
                         where = where.replace("[valor]", filtro.get("valor"))
+						
                         where += " OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
                         where = where.replace("[valor]", filtro.get("valor"))
-                        /*where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
-                        where = where.replace("[valor]", filtro.get("valor"))
-                            
-                        where +=" OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        */
+						
                         where += " OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
@@ -4005,14 +3992,14 @@ class ListadoDAO {
                         } else {
                             where += " WHERE "
                         }
-                        where += " LOWER(fechaultimamodificacion) ";
+                        where += " ( LOWER(fechaultimamodificacion) ";
                         if (filtro.get("operador").equals("Igual a")) {
                             where += "=LOWER('[valor]')"
                         } else {
                             where += "LIKE LOWER('%[valor]%')"
                         }
                         where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-                        where += "LIKE LOWER('%[valor]%')";
+                        where += "LIKE LOWER('%[valor]%') )";
 
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
@@ -7119,12 +7106,7 @@ class ListadoDAO {
                 cal.add(Calendar.HOUR_OF_DAY, -7);
                 Date date = cal.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-
-                /*Date date = new Date();
-                TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
-                formatter.setTimeZone(timeZone);
-                String sDate = formatter.format(date);*/
-
+				
                 String sDate = formatter.format(date);
                 Cell cellFechaData = titleRow.createCell(5);
                 cellFechaData.setCellValue(sDate);
@@ -7996,6 +7978,142 @@ class ListadoDAO {
 
         return resultado;
     }
+	
+	public Result getExcelBachilleratos(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			Result dataResult = new Result();
+			int rowCount = 0;
+			List<Object> lstParams;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("ReporteBachillerato");
+			XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+			style.setAlignment(HorizontalAlignment.CENTER)
+			//color
+			IndexedColorMap colorMap = workbook.getStylesSource().getIndexedColors();
+			XSSFColor  color = new XSSFColor(new java.awt.Color(191,220,249),colorMap);
+			errorLog = "0";
+			
+			dataResult = getBachilleratos(0, 20, jsonData, context);
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+
+			} else {
+				errorLog += dataResult.getError_info();
+				throw new Exception("No encontro datos ");
+			}
+			
+			Row titleRow = sheet.createRow(++rowCount);
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("LISTADO DE BACHILLERATOS");
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+
+			Calendar cal = Calendar.getInstance();
+			//cal.add(Calendar.HOUR_OF_DAY, -7);
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+
+			Row blank = sheet.createRow(++rowCount);
+
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuario);
+
+			Row espacio = sheet.createRow(++rowCount);
+			def titulos = ["ID BANNER","CLAVE","DESCRIPCION","CLAVE DEL PAIS","PAIS","CLAVE DEL ESTADO","ESTADO","CIUDAD","MUNICIPIO","PERTENECE A LA RED","ACTIVO","CODIGO POSTAL","CALLE 1","CALLE 2","CALLE 3","TIPO","FECHA DE CREACION","FECHA DE IMPORTACIÓN"];			
+			
+			errorLog += "1";
+			Row headersRow = sheet.createRow(++rowCount);
+			++rowCount;
+			List<Cell> header = new ArrayList<Cell>();
+			for(int i = 0; i < titulos.size(); ++i) {
+				header.add(headersRow.createCell(i))
+				header[i].setCellValue(titulos.get(i))
+				header[i].setCellStyle(style)
+			}
+			errorLog += "2";
+			
+			CellStyle bodyStyle = workbook.createCellStyle();
+			bodyStyle.setWrapText(true);
+			bodyStyle.setAlignment(HorizontalAlignment.CENTER);
+			errorLog += "3";
+			def info = ["id","clave","descripcion","nationCode","pais","stateCode","estado","ciudad","municipio","perteneceRed","isEnabled","postalCode","streetLine1","streetLine2","streetLine3","typeInd","fechaCreacion","fechaImportacion"];
+			
+			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Date fechaCreacion = new Date();
+			DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			
+			List<Cell> body;
+			for (int i = 0; i < lstParams.size(); ++i){
+				Row row = sheet.createRow(rowCount);
+				++rowCount;
+				body = new ArrayList<Cell>()
+				for(int j=0;  j < info.size(); ++j) {
+					
+					body.add(row.createCell(j))
+					if(lstParams[i][info?.get(j)].toString() == "true" || lstParams[i][info?.get(j)].toString() == "false") {
+						body[j].setCellValue( isNullOrBlanck(lstParams[i][info?.get(j)].toString() == "true"?"Si":"No") )
+					} else if(info?.get(j) == "fechaCreacion" || info?.get(j) == "fechaImportacion" ) {
+						fechaCreacion = dfSalida.parse(isNullOrBlanck(lstParams[i][info?.get(j)].toString()))
+						body[j].setCellValue( dformat.format(fechaCreacion) )
+					} else {
+						body[j].setCellValue( isNullOrBlanck(lstParams[i][info?.get(j)].toString()) )
+					}
+					body[j].setCellStyle(bodyStyle);
+					
+				}
+			}
+			
+			errorLog += "8";
+			for (int i = 0; i <= 25; ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			
+			FileOutputStream outputStream = new FileOutputStream("ReporteBachillerato.xls");
+			workbook.write(outputStream);
+			outputStream.close();
+			
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(encodeFileToBase64Binary("ReporteBachillerato.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			
+			File file = new File("ReporteBachillerato.xls");
+			if (file.exists()){
+				if(file.delete()) {
+					errorLog+="Sea eliminado Registros"
+				}
+			 }
+			 resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			e.printStackTrace();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
 
     public Result getMaterias(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
@@ -8172,7 +8290,7 @@ class ListadoDAO {
         return resultado;
     }
 
-   public Result getExcelPaseLista(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+	public Result getExcelPaseLista(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
         String errorLog = "";
         try {
@@ -8327,15 +8445,7 @@ class ListadoDAO {
 
         return resultado;
     }
-	
-	private String isNullOrBlanck(String text) {
-		if(text == null || text.equals(null) || text.equals("null") || text.equals("") || text.length() == 0) {
-			return "N/A"
-		}
-		
-		return text;
-	}
-	
+
     public Result getPdfPaseLista(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
         try {

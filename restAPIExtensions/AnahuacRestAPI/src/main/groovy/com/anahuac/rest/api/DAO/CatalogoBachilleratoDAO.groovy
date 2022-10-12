@@ -182,103 +182,109 @@ class CatalogoBachilleratoDAO {
 						
 						switch(filtro.get("columna")) {
 							case "PERSISTENCEID":
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(bitacora.PERSISTENCEID) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.PERSISTENCEID) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
 							break;
+							
 							case "COMENTARIO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.COMENTARIO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.COMENTARIO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+								  where+="=LOWER('[valor]')"
+								}else {
+								  where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "FECHACREACION":
 							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.FECHACREACION) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								  where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.FECHACREACION) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "MODULO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.MODULO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.MODULO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "USUARIO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.USUARIO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.USUARIO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "USUARIOCOMENTARIO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.USUARIOCOMENTARIO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.USUARIOCOMENTARIO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							 case "CAMPUS":
-								 if(where.contains("WHERE")) {
-										   where+= " AND "
-									  }else {
-										   where+= " WHERE "
-									  }
-									  where +=" LOWER(campus.grupobonita) ";
-									  if(filtro.get("operador").equals("Igual a")) {
-										   where+="=LOWER('[valor]')"
-									  }else {
-										   where+="LIKE LOWER('%[valor]%')"
-									  }
-									  where = where.replace("[valor]", filtro.get("valor"))
-									  break;
+							 	if(where.contains("WHERE")) {
+									 where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(campus.grupobonita) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro?.get("valor"))
+							break;
 							case "CAMPUS DESCRIPCION":
 								if(where.contains("WHERE")) {
 									where+= " AND "
@@ -293,8 +299,11 @@ class CatalogoBachilleratoDAO {
 								}
 								where = where.replace("[valor]", filtro?.get("valor"))
 						   break;
+							
+								
 						}
 					}
+					
 					switch(object.orderby) {
 						case "COMENTARIO":
 						orderby+="bitacora.COMENTARIO";
@@ -341,20 +350,19 @@ class CatalogoBachilleratoDAO {
 	
 					rs = pstm.executeQuery()
 					rows = new ArrayList<Map<String, Object>>();
-					ResultSetMetaData metaData = rs.getMetaData();
-					int columnCount = metaData.getColumnCount();
-					while(rs.next()) {
-						Map<String, Object> columns = new LinkedHashMap<String, Object>();
-						for (int i = 1; i <= columnCount; i++) {	
-							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-						}
-						rows.add(columns);
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					}
 					resultado.setSuccess(true)
 					resultado.setData(rows)
-					resultado.setError_info(errorLog)
+					
 				} catch (Exception e) {
-					resultado.setError_info(errorLog)
+					
 					resultado.setSuccess(false);
 					resultado.setError(e.getMessage());
 			}finally {
@@ -364,6 +372,9 @@ class CatalogoBachilleratoDAO {
 			}
 			return resultado
 		}
+		
+		
+		
 	public Result getDescuentosCiudadBachillerato(Integer parameterP, Integer parameterC, String campus, String bachillerato, String ciudad, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;

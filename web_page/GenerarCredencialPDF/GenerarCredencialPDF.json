@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "GenerarCredencialPDF",
   "name" : "GenerarCredencialPDF",
-  "lastUpdate" : 1650302292053,
+  "lastUpdate" : 1658518878748,
   "rows" : [
     [
       {
@@ -928,6 +928,46 @@
         "hasValidationError" : false,
         "id" : "customWdgPeriodoVencido"
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "solicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "isCorrectTask"
+          },
+          "taskId" : {
+            "type" : "variable",
+            "value" : "taskId"
+          },
+          "isCorrectTask" : {
+            "type" : "variable",
+            "value" : "isCorrectTask"
+          },
+          "userId" : {
+            "type" : "variable",
+            "value" : "userId"
+          }
+        },
+        "reference" : "c530e1df-f45d-4792-b8f2-a2e6b15782c2",
+        "hasValidationError" : false,
+        "id" : "customWdgAvanzarTareaCredencail"
+      }
     ]
   ],
   "assets" : [
@@ -1835,6 +1875,7 @@
         "let value = \"\";\r",
         "if($data.currentTask !== undefined){\r",
         "    if($data.currentTask.length > 0){\r",
+        "        debugger\r",
         "        value = $data.currentTask[0].name;    \r",
         "    }\r",
         "}\r",
