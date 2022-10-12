@@ -10,6 +10,8 @@ import org.bonitasoft.engine.identity.UserMembershipCriterion
 
 import com.anahuac.bitacora.CatBitacoraComentarios
 import com.anahuac.catalogos.CatBachilleratos
+import com.anahuac.catalogos.CatCampus
+import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.StatementsBachillerato
 import com.anahuac.rest.api.Entity.Result
@@ -130,7 +132,7 @@ class CatalogoBachilleratoDAO {
 	public Result getCatBitacoraComentario(String jsonData, RestAPIContext context) {
 			Result resultado = new Result();
 			Boolean closeCon = false;
-			String where ="", orderby="ORDER BY ", errorLog = ""
+			String where ="", orderby="ORDER BY ", errorLog = "entro"
 			try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
@@ -148,72 +150,21 @@ class CatalogoBachilleratoDAO {
 					Map<String, String> objGrupoCampus = new HashMap<String, String>();
 					
 					closeCon = validarConexion();
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Cancún");
-					objGrupoCampus.put("valor","CAMPUS-CANCUN");
-					lstGrupoCampus.add(objGrupoCampus);
+				
+					def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+					List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
 					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Mayab");
-					objGrupoCampus.put("valor","CAMPUS-MAYAB");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac México Norte");
-					objGrupoCampus.put("valor","CAMPUS-MNORTE");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac México Sur");
-					objGrupoCampus.put("valor","CAMPUS-MSUR");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Oaxaca");
-					objGrupoCampus.put("valor","CAMPUS-OAXACA");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Puebla");
-					objGrupoCampus.put("valor","CAMPUS-PUEBLA");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Querétaro");
-					objGrupoCampus.put("valor","CAMPUS-QUERETARO");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Xalapa");
-					objGrupoCampus.put("valor","CAMPUS-XALAPA");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Querétaro");
-					objGrupoCampus.put("valor","CAMPUS-QUERETARO");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Juan Pablo II");
-					objGrupoCampus.put("valor","CAMPUS-JP2");
-					lstGrupoCampus.add(objGrupoCampus);
-					
-					objGrupoCampus = new HashMap<String, String>();
-					objGrupoCampus.put("descripcion","Anáhuac Cordoba");
-					objGrupoCampus.put("valor","CAMPUS-CORDOBA");
-					lstGrupoCampus.add(objGrupoCampus);
-							
 					userLogged = context.getApiSession().getUserId();
-					
-					List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-					for(UserMembership objUserMembership : lstUserMembership) {
-						for(Map<String, String> rowGrupo : lstGrupoCampus) {
-							if(objUserMembership.getGroupName().equals(rowGrupo.get("valor"))) {
-								lstGrupo.add(rowGrupo.get("valor"));
+					List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+					for (UserMembership objUserMembership: lstUserMembership) {
+						for (CatCampus rowGrupo: lstCatCampus) {
+							if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+								lstGrupo.add(rowGrupo.getGrupoBonita());
 								break;
 							}
 						}
 					}
+					
 					where+=" WHERE bitacora.ISELIMINADO = false";
 					where+=" AND ("
 					for(Integer i=0; i<lstGrupo.size(); i++) {
@@ -226,109 +177,133 @@ class CatalogoBachilleratoDAO {
 							where+=" OR "
 						}
 					}
-					for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+					
+					for(Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 						
 						switch(filtro.get("columna")) {
 							case "PERSISTENCEID":
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(bitacora.PERSISTENCEID) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.PERSISTENCEID) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
 							break;
+							
 							case "COMENTARIO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.COMENTARIO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.COMENTARIO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+								  where+="=LOWER('[valor]')"
+								}else {
+								  where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "FECHACREACION":
 							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.FECHACREACION) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								  where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.FECHACREACION) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "MODULO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.MODULO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.MODULO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "USUARIO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.USUARIO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.USUARIO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							case "USUARIOCOMENTARIO":
-							if(where.contains("WHERE")) {
-									  where+= " AND "
-								 }else {
-									  where+= " WHERE "
-								 }
-								 where +=" LOWER(bitacora.USUARIOCOMENTARIO) ";
-								 if(filtro.get("operador").equals("Igual a")) {
-									  where+="=LOWER('[valor]')"
-								 }else {
-									  where+="LIKE LOWER('%[valor]%')"
-								 }
-								 where = where.replace("[valor]", filtro.get("valor"))
-								 break;
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(bitacora.USUARIOCOMENTARIO) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
 							 case "CAMPUS":
-								 if(where.contains("WHERE")) {
-										   where+= " AND "
-									  }else {
-										   where+= " WHERE "
-									  }
-									  where +=" LOWER(campus.grupobonita) ";
-									  if(filtro.get("operador").equals("Igual a")) {
-										   where+="=LOWER('[valor]')"
-									  }else {
-										   where+="LIKE LOWER('%[valor]%')"
-									  }
-									  where = where.replace("[valor]", filtro.get("valor"))
-									  break;
+							 	if(where.contains("WHERE")) {
+									 where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(campus.grupobonita) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro?.get("valor"))
+							break;
+							case "CAMPUS DESCRIPCION":
+								if(where.contains("WHERE")) {
+									where+= " AND "
+								}else {
+									where+= " WHERE "
+								}
+								where +=" LOWER(campus.descripcion) ";
+								if(filtro.get("operador").equals("Igual a")) {
+									where+="=LOWER('[valor]')"
+								}else {
+									where+="LIKE LOWER('%[valor]%')"
+								}
+								where = where.replace("[valor]", filtro?.get("valor"))
+						   break;
+							
+								
 						}
 					}
+					
 					switch(object.orderby) {
 						case "COMENTARIO":
 						orderby+="bitacora.COMENTARIO";
@@ -371,33 +346,26 @@ class CatalogoBachilleratoDAO {
 					pstm.setInt(1, object.limit)
 					pstm.setInt(2, object.offset)
 					
-					errorLog+= "fecha=="
+					errorLog+= consulta
 	
 					rs = pstm.executeQuery()
 					rows = new ArrayList<Map<String, Object>>();
-				ResultSetMetaData metaData = rs.getMetaData();
-				int columnCount = metaData.getColumnCount();
-				while(rs.next()) {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-	
-					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					ResultSetMetaData metaData = rs.getMetaData();
+					int columnCount = metaData.getColumnCount();
+					while(rs.next()) {
+						Map<String, Object> columns = new LinkedHashMap<String, Object>();
+						for (int i = 1; i <= columnCount; i++) {
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						}
+						rows.add(columns);
 					}
-	
-					rows.add(columns);
-				}
-				resultado.setSuccess(true)
-				
-				resultado.setData(rows)
-					
 					resultado.setSuccess(true)
-					resultado.setError_info(errorLog)
 					resultado.setData(rows)
-					
-				} catch (Exception e) {
 					resultado.setError_info(errorLog)
-					resultado.setSuccess(false);
-					resultado.setError(e.getMessage());
+			} catch (Exception e) {
+				resultado.setError_info(errorLog)
+				resultado.setSuccess(false);
+				resultado.setError(e.getMessage());
 			}finally {
 				if(closeCon) {
 					new DBConnect().closeObj(con, stm, rs, pstm)
@@ -405,6 +373,9 @@ class CatalogoBachilleratoDAO {
 			}
 			return resultado
 		}
+		
+		
+		
 	public Result getDescuentosCiudadBachillerato(Integer parameterP, Integer parameterC, String campus, String bachillerato, String ciudad, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;

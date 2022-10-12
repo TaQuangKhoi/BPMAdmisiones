@@ -54,15 +54,19 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
         if (e.target.value.length === limite) {
             year = parseInt(e.target.value);
             if (isNaN(year)) {
-                swal("", "por favor captura un año correcto", "warning")
+                swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
                 e.target.value = "";
             } else {
                 if (year < $scope.properties.min) {
-                    swal("", "por favor captura un año correcto", "warning")
+                    swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
                     e.target.value = "";
                 } else {
                     if (year > $scope.properties.max) {
-                        swal("", "por favor captura un año correcto", "warning")
+                        if($scope.properties.nombreCampo == "Año inicio"){
+                            swal(`¡${$scope.properties.nombreCampo}!`, "El año de inicio no puede ser mayor al año actual.", "warning")
+                        }else {
+                            swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
+                        }
                         e.target.value = "";
                     }
                 }
@@ -76,15 +80,19 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                 if (e.target.value.length === limite) {
                     year = parseInt(e.target.value);
                     if (isNaN(year)) {
-                        swal("", "por favor captura un año correcto", "warning")
+                        swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
                         e.target.value = "";
                     } else {
                         if (year < $scope.properties.min) {
-                            swal("", "por favor captura un año correcto", "warning")
+                            swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
                             e.target.value = "";
                         } else {
                             if (year > $scope.properties.max) {
-                                swal("", "por favor captura un año correcto", "warning")
+                                if($scope.properties.nombreCampo == "Año inicio"){
+                                    swal(`¡${$scope.properties.nombreCampo}!`, "El año de inicio no puede ser mayor al año actual.", "warning")
+                                }else {
+                                    swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
+                                }
                                 e.target.value = "";
                             }
                         }
@@ -107,7 +115,11 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     }
     $scope.validYear=function(){
         if($scope.properties.max<$scope.properties.value || $scope.properties.min>$scope.properties.value){
-           swal("", "por favor captura un año correcto", "warning");
+            if($scope.properties.nombreCampo == "Año inicio"){
+                swal(`¡${$scope.properties.nombreCampo}!`, "El año de inicio no puede ser mayor al año actual.", "warning")
+            }else {
+                swal(`¡${$scope.properties.nombreCampo}!`, "por favor captura un año correcto", "warning")
+            }
            $scope.properties.value="";
         }
     }

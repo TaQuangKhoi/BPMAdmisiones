@@ -15,7 +15,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().from(element).set(opt).save();
-            Swal.fire("¡Descarga!", "La descarga comenzara en breve, no cierres ni actualices la página.", "success");
+            Swal.fire("¡Descarga!", "La descarga comenzará en breve, no cierres ni actualices la página.", "success");
             //blockUI.stop()
             if ($scope.properties.isCorrectTask) {
                 // document.getElementById('btnDescargar').disabled= 'disabled'; 
@@ -36,13 +36,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.asignarTarea = function() {
         var req = {
             method: "PUT",
-            url: "/bonita/API/bpm/humanTask/" + $scope.properties.taskId,
+            url: "/bonita/API/extension/RegistroPut?url=changeTaskId&taskId=" + $scope.properties.taskId,
             data: angular.copy({ "assigned_id": "" })
         };
 
         return $http(req)
             .success(function(data, status) {
-                redireccionarTarea();
+                $scope.submitTask();
             })
             .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

@@ -60,8 +60,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 console.log(data)
                 $scope.properties.tabla = "tabla";
                 $scope.properties.value = [];
-                swal('¡Carga de resultados exitosa!', "", "success")
-                doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
+                //swal('¡Carga de resultados exitosa!', "", "success")
+                //doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
             })
             .error(function(data, status) {
                 swal("¡Carga incorrecta de resultados!", "", "error")
@@ -124,6 +124,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.enviar = false;
             } else {
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
+                datos[indice].username = $scope.properties.username;
                 $scope.final = [...$scope.final, datos[indice]]
             }
         })

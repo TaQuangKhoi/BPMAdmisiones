@@ -191,7 +191,43 @@ class AvanzeProcesoDAO {
 		try {
 			closeCon = validarConexion();
 			
-			pstm = con.prepareStatement("select  concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre) as nombre,DS.idbanner, sda.correoelectronico as usuario,cc.descripcion as vpd,cc2.descripcion as campus, DS.caseid, DS.cbcoincide from solicituddeadmision as sda inner join Detallesolicitud as DS ON DS.caseid::integer = sda.caseid inner join catcampus as cc on cc.persistenceid = sda.catcampusestudio_pid inner join catcampus as cc2 on cc2.persistenceid = sda.catcampus_pid where DS.idbanner = ?");
+			pstm = con.prepareStatement("select  concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre) as nombre,DS.idbanner, sda.correoelectronico as usuario,cc.descripcion as vpd,cc2.descripcion as campus, DS.caseid, DS.cbcoincide from solicituddeadmision as sda inner join Detallesolicitud as DS ON DS.caseid::integer = sda.caseid inner join catcampus as cc on cc.persistenceid = sda.catcampusestudio_pid inner join catcampus as cc2 on cc2.persistenceid = sda.catcampus_pid where DS.idbanner = ? ORDER BY sda.caseid DES");
+			pstm.setString(1, idbanner);
+			rs = pstm.executeQuery()
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				rows.add(columns);
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+	
+		return resultado
+	}
+	
+	public Result getInfoByIdBanner2(String idbanner) {
+		Result resultado = new Result()
+		Boolean closeCon = false;
+		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("select  concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre) as nombre,DS.idbanner, sda.correoelectronico as usuario,cc.descripcion as vpd,cc2.descripcion as campus, DS.caseid, DS.cbcoincide from solicituddeadmision as sda inner join Detallesolicitud as DS ON DS.caseid::integer = sda.caseid inner join catcampus as cc on cc.persistenceid = sda.catcampusestudio_pid inner join catcampus as cc2 on cc2.persistenceid = sda.catcampus_pid where DS.idbanner = ? AND sda.correoelectronico NOT LIKE '%(rechazado)%'");
 			pstm.setString(1, idbanner);
 			rs = pstm.executeQuery()
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
@@ -499,7 +535,7 @@ class AvanzeProcesoDAO {
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setError_info(errorLog)
+			
 		}catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(errorLog)

@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "PaseListaDeLaSesion",
   "name" : "PaseListaDeLaSesion",
-  "lastUpdate" : 1632847974599,
+  "lastUpdate" : 1657039151933,
   "rows" : [
     [
       {
@@ -747,11 +748,15 @@
                             "fileExtension" : {
                               "type" : "constant",
                               "value" : "xls"
+                            },
+                            "nombre" : {
+                              "type" : "expression",
+                              "value" : "nombreReporte"
                             }
                           },
-                          "reference" : "fb67a892-ef51-4f33-a343-cca8cea2773c",
+                          "reference" : "df2b4fc1-a64e-4417-acd9-71b872be5a3e",
                           "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
+                          "id" : "customCustomBtnDownloadExcelName"
                         }
                       ],
                       [
@@ -4227,6 +4232,13 @@
       "external" : false
     },
     {
+      "id" : "f8627298-a3b9-4e65-819f-b2000207a668",
+      "name" : "noimageavailable.png",
+      "type" : "img",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "658bec88-240e-408d-9731-fcbe6fc79d88",
       "name" : "jquery.min (1).js",
       "type" : "js",
@@ -4238,13 +4250,6 @@
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
       "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "f8627298-a3b9-4e65-819f-b2000207a668",
-      "name" : "noimageavailable.png",
-      "type" : "img",
-      "order" : 1,
       "external" : false
     }
   ],
@@ -4459,12 +4464,10 @@
       "type" : "expression",
       "value" : [
         "return  {\r",
-        "            \"estatusSolicitud\": \"Solicitud en progreso\",\r",
-        "            \"tarea\": \"Llenar solicitud\",\r",
         "            \"lstFiltro\": [{\r",
-        "                \"columna\": \"CAMPUS\",\r",
+        "                \"columna\": \"CAMPUS DESCRIPCION\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.grupobonita\r",
+        "                \"valor\": $data.strUsuario.campus\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4476,8 +4479,6 @@
         "                \"operador\": \"Igual a\",\r",
         "                \"valor\": $data.strUsuario.correoelectronico\r",
         "            }],\r",
-        "            \"type\": \"solicitudes_progreso\",\r",
-        "            \"usuario\": 0,\r",
         "            \"orderby\": \"\",\r",
         "            \"orientation\": \"DESC\",\r",
         "            \"limit\": 999,\r",
@@ -4564,6 +4565,13 @@
       "type" : "expression",
       "value" : [
         "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
+      ],
+      "exposed" : false
+    },
+    "nombreReporte" : {
+      "type" : "expression",
+      "value" : [
+        "return `Lista de Pase Lista '${$data.datosPrueba[0].nombre}'`;"
       ],
       "exposed" : false
     }

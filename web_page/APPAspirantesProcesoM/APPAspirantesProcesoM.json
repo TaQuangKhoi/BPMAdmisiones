@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "APPAspirantesProcesoM",
   "name" : "APPAspirantesProcesoM",
-  "lastUpdate" : 1639008647912,
+  "lastUpdate" : 1655415542002,
   "rows" : [
     [
       {
@@ -353,7 +354,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "dataToSend"
+                        "value" : "dataToFile"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -390,11 +391,15 @@
                       "fileExtension" : {
                         "type" : "constant",
                         "value" : "xls"
+                      },
+                      "nombre" : {
+                        "type" : "constant",
+                        "value" : "Aspirantes en proceso"
                       }
                     },
-                    "reference" : "713ed7a3-f2fc-4301-ab27-82e223d8a673",
+                    "reference" : "959bde46-4789-4997-87b4-f0aac939c134",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnDownloadExcel"
+                    "id" : "customCustomBtnDownloadExcelName"
                   }
                 ]
               ]
@@ -1649,6 +1654,13 @@
   ],
   "assets" : [
     {
+      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "95bcc71b-e315-44d6-8b26-de6493a4ef7d",
       "name" : "sweetalert.min.js",
       "type" : "js",
@@ -1670,6 +1682,13 @@
       "external" : false
     },
     {
+      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "d0ac635b-20b5-4d32-927b-da10f383b08f",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -1684,24 +1703,10 @@
       "external" : false
     },
     {
-      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
       "id" : "2e8b914a-16ca-423d-a4a6-670b46859b92",
       "name" : "encabezados.css",
       "type" : "css",
       "order" : 5,
-      "external" : false
-    },
-    {
-      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 1,
       "external" : false
     }
   ],
@@ -1831,6 +1836,25 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltros, \r",
+        "    \"type\": \"aspirantes_proceso\",\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"estatusSolicitud\": \"Aspirantes en proceso\",\r",
+        "    \"aspirantes\":\"regular\",\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "}"
       ],
       "exposed" : false
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
-  <process:MainProcess xmi:id="_sH4hoJfQEeuCUYj0S8sKtQ" name="SubidaExcelUAQ" author="SOA Software Factory" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED0005740020537562696461457863656C554151372E31312E312D303031372E31312E327370">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+  <process:MainProcess xmi:id="_sH4hoJfQEeuCUYj0S8sKtQ" name="SubidaExcelUAQ" author="SOA Software Factory" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004" configId="ACED0005740020537562696461457863656C554151372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_sH5IsJfQEeuCUYj0S8sKtQ" name="SubidaExcelUAQ">
       <elements xmi:type="process:Lane" xmi:id="_sH5IsZfQEeuCUYj0S8sKtQ" name="Employee lane">
         <elements xmi:type="process:StartTimerEvent" xmi:id="_z3c_8JfREeuCUYj0S8sKtQ" name="ExecutarExcelUAQ" outgoing="_Mx-j0JfSEeuCUYj0S8sKtQ">
@@ -13,8 +13,8 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_Mxro4pfSEeuCUYj0S8sKtQ" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_Mxro4ZfSEeuCUYj0S8sKtQ" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_Mxro45fSEeuCUYj0S8sKtQ" name="" content="" returnTypeFixed="true"/>
-          <connectors xmi:type="process:Connector" xmi:id="_Ixc_wJf1EeuLg7BXJVHuNQ" name="getCookie" definitionId="rest-post" event="ON_ENTER" ignoreErrors="true" definitionVersion="1.1.0">
-            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_Ixc_wZf1EeuLg7BXJVHuNQ" definitionId="rest-post" version="1.1.0" modelVersion="7.11.1-001">
+          <connectors xmi:type="process:Connector" xmi:id="_Ixc_wJf1EeuLg7BXJVHuNQ" name="getCookie" definitionId="rest-post" event="ON_ENTER" ignoreErrors="true" definitionVersion="1.3.0">
+            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_Ixc_wZf1EeuLg7BXJVHuNQ" definitionId="rest-post" version="1.3.0" modelVersion="7.11.1-001">
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc_wpf1EeuLg7BXJVHuNQ" key="url">
                 <expression xmi:type="expression:Expression" xmi:id="_Ixc_w5f1EeuLg7BXJVHuNQ" name="url()" content="String resultado = urlLogin;&#xD;&#xA;&#xD;&#xA;resultado = resultado.replace(&quot;[USUARIO]&quot;, usuario);&#xD;&#xA;resultado = resultado.replace(&quot;[PASSWORD]&quot;, password);&#xD;&#xA;&#xD;&#xA;return resultado;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
                   <referencedElements xmi:type="parameter:Parameter" xmi:id="_Ixc_xJf1EeuLg7BXJVHuNQ" name="password" typeClassname="java.lang.String"/>
@@ -23,7 +23,7 @@
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc_x5f1EeuLg7BXJVHuNQ" key="contentType">
-                <expression xmi:type="expression:Expression" xmi:id="_Ixc_yJf1EeuLg7BXJVHuNQ" name="application/xml" content="application/xml" returnTypeFixed="true"/>
+                <expression xmi:type="expression:Expression" xmi:id="_Ixc_yJf1EeuLg7BXJVHuNQ" name="application/x-www-form-urlencoded" content="application/x-www-form-urlencoded" returnTypeFixed="true"/>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc_yZf1EeuLg7BXJVHuNQ" key="charset">
                 <expression xmi:type="expression:Expression" xmi:id="_Ixc_ypf1EeuLg7BXJVHuNQ" name="UTF-8" content="UTF-8" returnTypeFixed="true"/>
@@ -45,9 +45,6 @@
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc_1Zf1EeuLg7BXJVHuNQ" key="TLS">
                 <expression xmi:type="expression:Expression" xmi:id="_Ixc_1pf1EeuLg7BXJVHuNQ" name="true" content="true" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-              </parameters>
-              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc_15f1EeuLg7BXJVHuNQ" key="trust_self_signed_certificate">
-                <expression xmi:type="expression:Expression" xmi:id="_Ixc_2Jf1EeuLg7BXJVHuNQ" name="false" content="false" returnType="java.lang.Boolean" returnTypeFixed="true"/>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc_2Zf1EeuLg7BXJVHuNQ" key="hostname_verifier">
                 <expression xmi:type="expression:Expression" xmi:id="_Ixc_2pf1EeuLg7BXJVHuNQ" name="Strict" content="Strict" returnTypeFixed="true"/>
@@ -106,6 +103,9 @@
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Ixc__Zf1EeuLg7BXJVHuNQ" key="connection_timeout_ms">
                 <expression xmi:type="expression:Expression" xmi:id="_Ixc__pf1EeuLg7BXJVHuNQ" name="60000" content="60000" returnType="java.lang.Integer" returnTypeFixed="true"/>
               </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_ByzjEF3sEeyaR_5HgIOA9w" key="trust_strategy">
+                <expression xmi:type="expression:Expression" xmi:id="_ByzjEV3sEeyaR_5HgIOA9w" name="DEFAULT" content="DEFAULT" returnTypeFixed="true"/>
+              </parameters>
             </configuration>
             <outputs xmi:type="expression:Operation" xmi:id="_Ixc__5f1EeuLg7BXJVHuNQ">
               <leftOperand xmi:type="expression:Expression" xmi:id="_IxdAAJf1EeuLg7BXJVHuNQ" name="cookie" content="cookie" type="TYPE_VARIABLE">
@@ -126,8 +126,8 @@
               <operator xmi:type="expression:Operator" xmi:id="_crKi55f6EeuLg7BXJVHuNQ" type="ASSIGNMENT"/>
             </outputs>
           </connectors>
-          <connectors xmi:type="process:Connector" xmi:id="_M5dPYJfTEeuCUYj0S8sKtQ" name="CreacionYSubidaExcelRegistro" definitionId="rest-get" event="ON_ENTER" definitionVersion="1.1.0">
-            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_M5dPYZfTEeuCUYj0S8sKtQ" definitionId="rest-get" version="1.1.0" modelVersion="7.11.1-001">
+          <connectors xmi:type="process:Connector" xmi:id="_M5dPYJfTEeuCUYj0S8sKtQ" name="CreacionYSubidaExcelRegistro" definitionId="rest-get" event="ON_ENTER" definitionVersion="1.2.0">
+            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_M5dPYZfTEeuCUYj0S8sKtQ" definitionId="rest-get" version="1.2.0" modelVersion="7.11.1-001">
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_M5dPYpfTEeuCUYj0S8sKtQ" key="url">
                 <expression xmi:type="expression:Expression" xmi:id="_M5dPY5fTEeuCUYj0S8sKtQ" name="urlExtencion" content="urlExtencion" interpreter="GROOVY" type="TYPE_PARAMETER" returnTypeFixed="true">
                   <referencedElements xmi:type="parameter:Parameter" xmi:id="_4JXPIJfTEeuCUYj0S8sKtQ" name="urlExtencion" typeClassname="java.lang.String" description=""/>
@@ -160,9 +160,6 @@
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_M5dPbZfTEeuCUYj0S8sKtQ" key="TLS">
                 <expression xmi:type="expression:Expression" xmi:id="_M5dPbpfTEeuCUYj0S8sKtQ" name="true" content="true" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-              </parameters>
-              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_M5dPb5fTEeuCUYj0S8sKtQ" key="trust_self_signed_certificate">
-                <expression xmi:type="expression:Expression" xmi:id="_M5dPcJfTEeuCUYj0S8sKtQ" name="false" content="false" returnType="java.lang.Boolean" returnTypeFixed="true"/>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_M5dPcZfTEeuCUYj0S8sKtQ" key="hostname_verifier">
                 <expression xmi:type="expression:Expression" xmi:id="_M5dPcpfTEeuCUYj0S8sKtQ" name="Strict" content="Strict" returnTypeFixed="true"/>
@@ -221,6 +218,9 @@
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_M5dPlZfTEeuCUYj0S8sKtQ" key="connection_timeout_ms">
                 <expression xmi:type="expression:Expression" xmi:id="_M5dPlpfTEeuCUYj0S8sKtQ" name="60000" content="60000" returnType="java.lang.Integer" returnTypeFixed="true"/>
               </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_COZS4F3sEeyaR_5HgIOA9w" key="trust_strategy">
+                <expression xmi:type="expression:Expression" xmi:id="_COZS4V3sEeyaR_5HgIOA9w" name="DEFAULT" content="DEFAULT" returnTypeFixed="true"/>
+              </parameters>
             </configuration>
             <outputs xmi:type="expression:Operation" xmi:id="_M5dPl5fTEeuCUYj0S8sKtQ">
               <leftOperand xmi:type="expression:Expression" xmi:id="_M5dPmJfTEeuCUYj0S8sKtQ"/>
@@ -258,8 +258,8 @@
               <operator xmi:type="expression:Operator" xmi:id="_M5dPr5fTEeuCUYj0S8sKtQ" type="ASSIGNMENT"/>
             </outputs>
           </connectors>
-          <connectors xmi:type="process:Connector" xmi:id="_aX4NQJfcEeuCUYj0S8sKtQ" name="CreacionYSubidaExcelHermanos" definitionId="rest-get" event="ON_ENTER" definitionVersion="1.1.0">
-            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_aX4NQZfcEeuCUYj0S8sKtQ" definitionId="rest-get" version="1.1.0" modelVersion="7.11.1-001">
+          <connectors xmi:type="process:Connector" xmi:id="_aX4NQJfcEeuCUYj0S8sKtQ" name="CreacionYSubidaExcelHermanos" definitionId="rest-get" event="ON_ENTER" definitionVersion="1.2.0">
+            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_aX4NQZfcEeuCUYj0S8sKtQ" definitionId="rest-get" version="1.2.0" modelVersion="7.11.1-001">
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_aX4NQpfcEeuCUYj0S8sKtQ" key="url">
                 <expression xmi:type="expression:Expression" xmi:id="_aX4NQ5fcEeuCUYj0S8sKtQ" name="urlExtencion2" content="urlExtencion2" type="TYPE_PARAMETER" returnTypeFixed="true">
                   <referencedElements xmi:type="parameter:Parameter" xmi:id="_aX4NRJfcEeuCUYj0S8sKtQ" name="urlExtencion2" typeClassname="java.lang.String"/>
@@ -292,9 +292,6 @@
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_aX4NTZfcEeuCUYj0S8sKtQ" key="TLS">
                 <expression xmi:type="expression:Expression" xmi:id="_aX4NTpfcEeuCUYj0S8sKtQ" name="true" content="true" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-              </parameters>
-              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_aX4NT5fcEeuCUYj0S8sKtQ" key="trust_self_signed_certificate">
-                <expression xmi:type="expression:Expression" xmi:id="_aX4NUJfcEeuCUYj0S8sKtQ" name="false" content="false" returnType="java.lang.Boolean" returnTypeFixed="true"/>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_aX4NUZfcEeuCUYj0S8sKtQ" key="hostname_verifier">
                 <expression xmi:type="expression:Expression" xmi:id="_aX4NUpfcEeuCUYj0S8sKtQ" returnTypeFixed="true"/>
@@ -352,6 +349,9 @@
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_aX4NdZfcEeuCUYj0S8sKtQ" key="connection_timeout_ms">
                 <expression xmi:type="expression:Expression" xmi:id="_aX4NdpfcEeuCUYj0S8sKtQ" name="60000" content="60000" returnType="java.lang.Integer" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_Cn8bUF3sEeyaR_5HgIOA9w" key="trust_strategy">
+                <expression xmi:type="expression:Expression" xmi:id="_Cn8bUV3sEeyaR_5HgIOA9w" name="DEFAULT" content="DEFAULT" returnTypeFixed="true"/>
               </parameters>
             </configuration>
             <outputs xmi:type="expression:Operation" xmi:id="_aX4Nd5fcEeuCUYj0S8sKtQ">
@@ -416,28 +416,22 @@
       </overviewFormMapping>
       <connections xmi:type="process:SequenceFlow" xmi:id="_Mx-j0JfSEeuCUYj0S8sKtQ" target="_Mxro4JfSEeuCUYj0S8sKtQ" source="_z3c_8JfREeuCUYj0S8sKtQ">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_Mx-j0ZfSEeuCUYj0S8sKtQ"/>
-        <condition xmi:type="expression:Expression" xmi:id="_Mx-j0pfSEeuCUYj0S8sKtQ" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_Mx-j0pfSEeuCUYj0S8sKtQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_zN7P4JfTEeuCUYj0S8sKtQ" target="_z6ASwJfTEeuCUYj0S8sKtQ" source="_Mxro4JfSEeuCUYj0S8sKtQ">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_zN7P4ZfTEeuCUYj0S8sKtQ"/>
-        <condition xmi:type="expression:Expression" xmi:id="_zN7P4pfTEeuCUYj0S8sKtQ" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_zN7P4pfTEeuCUYj0S8sKtQ" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_SjhEoJfSEeuCUYj0S8sKtQ" name="Production" version="7.11.1-001" username="acuna.karol@correo.com" password="bpm">
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_bohVoJlkEeujDfC_l24fnQ" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_brPSdJlkEeujDfC_l24fnQ" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_SjhEoJfSEeuCUYj0S8sKtQ" name="Production" version="7.12.0-004" username="acuna.karol@correo.com" password="bpm">
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_57X1UF4CEeyz2PypF2CsKw" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_58Dx0V4CEeyz2PypF2CsKw" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.2.0" implementationId="rest-get-impl" implementationVersion="1.2.0"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SjqOkJfSEeuCUYj0S8sKtQ" id="ACTOR_FILTER"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SjqOkZfSEeuCUYj0S8sKtQ" id="CONNECTOR">
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_bqzNkJlkEeujDfC_l24fnQ" id="rest-post-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_brPScJlkEeujDfC_l24fnQ" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_brPScZlkEeujDfC_l24fnQ" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_brPScplkEeujDfC_l24fnQ" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_brPSc5lkEeujDfC_l24fnQ" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_58CjsF4CEeyz2PypF2CsKw" id="rest-post-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_58Dx0F4CEeyz2PypF2CsKw" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_br5ZwJlkEeujDfC_l24fnQ" id="rest-get-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_bsblQJlkEeujDfC_l24fnQ" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_bsgdwJlkEeujDfC_l24fnQ" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_bshr4JlkEeujDfC_l24fnQ" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_bshr4ZlkEeujDfC_l24fnQ" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_58tSEF4CEeyz2PypF2CsKw" id="rest-get-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_58vuUF4CEeyz2PypF2CsKw" key="rest-get-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SjqOkpfSEeuCUYj0S8sKtQ" id="GROOVY_SCRIPT"/>
@@ -450,22 +444,16 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_bssrA5lkEeujDfC_l24fnQ" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_bssrBJlkEeujDfC_l24fnQ" name="password" value="bpm" typeClassname="java.lang.String"/>
       </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_hFPdIJfcEeuCUYj0S8sKtQ" name="integration" version="7.11.1-001" username="acuna.karol@correo.com" password="bpm">
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_hFPdIZfcEeuCUYj0S8sKtQ" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_OZY4oJf1EeuLg7BXJVHuNQ" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_hFPdIJfcEeuCUYj0S8sKtQ" name="integration" version="7.12.0-004" username="Administrador" password="bpm">
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_58wVYF4CEeyz2PypF2CsKw" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_59Z1oV4CEeyz2PypF2CsKw" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.2.0" implementationId="rest-get-impl" implementationVersion="1.2.0"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_hFPdIpfcEeuCUYj0S8sKtQ" id="ACTOR_FILTER"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_hFPdI5fcEeuCUYj0S8sKtQ" id="CONNECTOR">
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_hFPdJJfcEeuCUYj0S8sKtQ" id="rest-get-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_hFPdJZfcEeuCUYj0S8sKtQ" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_hFPdJpfcEeuCUYj0S8sKtQ" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_hFPdJ5fcEeuCUYj0S8sKtQ" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_hFPdKJfcEeuCUYj0S8sKtQ" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_59YngF4CEeyz2PypF2CsKw" id="rest-post-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_59Z1oF4CEeyz2PypF2CsKw" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_Oafr4Jf1EeuLg7BXJVHuNQ" id="rest-post-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_OatHQJf1EeuLg7BXJVHuNQ" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_OatHQZf1EeuLg7BXJVHuNQ" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_Oa24QJf1EeuLg7BXJVHuNQ" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_Oa24QZf1EeuLg7BXJVHuNQ" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_5-D88F4CEeyz2PypF2CsKw" id="rest-get-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_5-GZMF4CEeyz2PypF2CsKw" key="rest-get-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_hFPdKZfcEeuCUYj0S8sKtQ" id="GROOVY_SCRIPT"/>
@@ -478,22 +466,16 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_OdNosZf1EeuLg7BXJVHuNQ" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_OdNospf1EeuLg7BXJVHuNQ" name="password" value="bpm" typeClassname="java.lang.String"/>
       </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_UaO1oBGXEeyrqpd9hT1llg" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_UaO1oRGXEeyrqpd9hT1llg" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_UaO1ohGXEeyrqpd9hT1llg" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_UaO1oBGXEeyrqpd9hT1llg" name="Qualification" version="7.12.0-004" username="Administrador" password="bpm">
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_5-HnUF4CEeyz2PypF2CsKw" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_5-wggV4CEeyz2PypF2CsKw" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.2.0" implementationId="rest-get-impl" implementationVersion="1.2.0"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_UaO1oxGXEeyrqpd9hT1llg" id="ACTOR_FILTER"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_UaO1pBGXEeyrqpd9hT1llg" id="CONNECTOR">
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_UaO1pRGXEeyrqpd9hT1llg" id="rest-post-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1phGXEeyrqpd9hT1llg" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1pxGXEeyrqpd9hT1llg" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1qBGXEeyrqpd9hT1llg" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1qRGXEeyrqpd9hT1llg" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_5-vSYF4CEeyz2PypF2CsKw" id="rest-post-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_5-wggF4CEeyz2PypF2CsKw" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_UaO1qhGXEeyrqpd9hT1llg" id="rest-get-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1qxGXEeyrqpd9hT1llg" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1rBGXEeyrqpd9hT1llg" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1rRGXEeyrqpd9hT1llg" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_UaO1rhGXEeyrqpd9hT1llg" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_5_eSMF4CEeyz2PypF2CsKw" id="rest-get-impl-1.2.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_5_gucF4CEeyz2PypF2CsKw" key="rest-get-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_UaO1rxGXEeyrqpd9hT1llg" id="GROOVY_SCRIPT"/>
@@ -545,23 +527,23 @@
   </process:MainProcess>
   <notation:Diagram xmi:id="_sH5I5JfQEeuCUYj0S8sKtQ" type="Process" element="_sH4hoJfQEeuCUYj0S8sKtQ" name="MyDiagram" measurementUnit="Pixel">
     <children xmi:type="notation:Node" xmi:id="_sH5I5ZfQEeuCUYj0S8sKtQ" type="2007" element="_sH5IsJfQEeuCUYj0S8sKtQ">
-      <children xmi:type="notation:DecorationNode" xmi:id="_sH5vwJfQEeuCUYj0S8sKtQ" type="5008"/>
-      <children xmi:type="notation:DecorationNode" xmi:id="_sH5vwZfQEeuCUYj0S8sKtQ" type="7001">
+      <children xmi:type="notation:DecorationNode" xmi:id="_sH5vwJfQEeuCUYj0S8sKtQ" type="5008" element="_sH5IsJfQEeuCUYj0S8sKtQ"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_sH5vwZfQEeuCUYj0S8sKtQ" type="7001" element="_sH5IsJfQEeuCUYj0S8sKtQ">
         <children xmi:type="notation:Node" xmi:id="_sH5vwpfQEeuCUYj0S8sKtQ" type="3007" element="_sH5IsZfQEeuCUYj0S8sKtQ">
-          <children xmi:type="notation:DecorationNode" xmi:id="_sH5vw5fQEeuCUYj0S8sKtQ" type="5007"/>
-          <children xmi:type="notation:DecorationNode" xmi:id="_sH5vxJfQEeuCUYj0S8sKtQ" type="7002">
+          <children xmi:type="notation:DecorationNode" xmi:id="_sH5vw5fQEeuCUYj0S8sKtQ" type="5007" element="_sH5IsZfQEeuCUYj0S8sKtQ"/>
+          <children xmi:type="notation:DecorationNode" xmi:id="_sH5vxJfQEeuCUYj0S8sKtQ" type="7002" element="_sH5IsZfQEeuCUYj0S8sKtQ">
             <children xmi:type="notation:Shape" xmi:id="_z3c_9JfREeuCUYj0S8sKtQ" type="3016" element="_z3c_8JfREeuCUYj0S8sKtQ" fontName="Segoe UI">
-              <children xmi:type="notation:DecorationNode" xmi:id="_z3c_9pfREeuCUYj0S8sKtQ" type="5031">
+              <children xmi:type="notation:DecorationNode" xmi:id="_z3c_9pfREeuCUYj0S8sKtQ" type="5031" element="_z3c_8JfREeuCUYj0S8sKtQ">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_z3c_95fREeuCUYj0S8sKtQ" y="5"/>
               </children>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z3c_9ZfREeuCUYj0S8sKtQ" x="86" y="118"/>
             </children>
             <children xmi:type="notation:Shape" xmi:id="_Mxro6ZfSEeuCUYj0S8sKtQ" type="3027" element="_Mxro4JfSEeuCUYj0S8sKtQ" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
-              <children xmi:type="notation:DecorationNode" xmi:id="_Mxro65fSEeuCUYj0S8sKtQ" type="5017"/>
+              <children xmi:type="notation:DecorationNode" xmi:id="_Mxro65fSEeuCUYj0S8sKtQ" type="5017" element="_Mxro4JfSEeuCUYj0S8sKtQ"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Mxro6pfSEeuCUYj0S8sKtQ" x="202" y="101" width="120" height="60"/>
             </children>
             <children xmi:type="notation:Shape" xmi:id="_z6ASxJfTEeuCUYj0S8sKtQ" type="3062" element="_z6ASwJfTEeuCUYj0S8sKtQ" fontName="Segoe UI">
-              <children xmi:type="notation:DecorationNode" xmi:id="_z6ASxpfTEeuCUYj0S8sKtQ" type="5090">
+              <children xmi:type="notation:DecorationNode" xmi:id="_z6ASxpfTEeuCUYj0S8sKtQ" type="5090" element="_z6ASwJfTEeuCUYj0S8sKtQ">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_z6ASx5fTEeuCUYj0S8sKtQ" y="5"/>
               </children>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z6ASxZfTEeuCUYj0S8sKtQ" x="443" y="111" width="30" height="30"/>
@@ -582,14 +564,14 @@
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_sH5v1pfQEeuCUYj0S8sKtQ"/>
     <edges xmi:type="notation:Connector" xmi:id="_Mx-j05fSEeuCUYj0S8sKtQ" type="4001" element="_Mx-j0JfSEeuCUYj0S8sKtQ" source="_z3c_9JfREeuCUYj0S8sKtQ" target="_Mxro6ZfSEeuCUYj0S8sKtQ" roundedBendpointsRadius="10" routing="Rectilinear">
-      <children xmi:type="notation:DecorationNode" xmi:id="_Mx-j1pfSEeuCUYj0S8sKtQ" type="6001">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Mx-j1pfSEeuCUYj0S8sKtQ" type="6001" element="_Mx-j0JfSEeuCUYj0S8sKtQ">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Mx-j15fSEeuCUYj0S8sKtQ" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_Mx-j1JfSEeuCUYj0S8sKtQ" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Mx-j1ZfSEeuCUYj0S8sKtQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_zN7P45fTEeuCUYj0S8sKtQ" type="4001" element="_zN7P4JfTEeuCUYj0S8sKtQ" source="_Mxro6ZfSEeuCUYj0S8sKtQ" target="_z6ASxJfTEeuCUYj0S8sKtQ" roundedBendpointsRadius="10" routing="Rectilinear">
-      <children xmi:type="notation:DecorationNode" xmi:id="_zN7P5pfTEeuCUYj0S8sKtQ" type="6001">
+      <children xmi:type="notation:DecorationNode" xmi:id="_zN7P5pfTEeuCUYj0S8sKtQ" type="6001" element="_zN7P4JfTEeuCUYj0S8sKtQ">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_zN7P55fTEeuCUYj0S8sKtQ" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_zN7P5JfTEeuCUYj0S8sKtQ" fontName="Segoe UI"/>

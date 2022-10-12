@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1638833511551,
+  "lastUpdate" : 1663803718929,
   "rows" : [
     [
       {
@@ -211,8 +212,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "getPsicometricoFinalizado[0].finalizado != 't'"
                       },
                       "label" : {
                         "type" : "interpolation",
@@ -489,6 +490,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Información general"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "55197010-49d5-4721-9886-a0c9985d4e79",
@@ -899,7 +904,7 @@
                                             "Parentesco",
                                             "Nombre",
                                             "Vivo",
-                                            "empleador"
+                                            "Empleador"
                                           ]
                                         },
                                         "content" : {
@@ -912,7 +917,7 @@
                                             "catParentezco.descripcion",
                                             "nombre+(nombre!=null?' ':'')+apellidos",
                                             "vive.descripcion",
-                                            "empresaTrabaja"
+                                            "(!desconozcoDatosPadres ? (catTrabaja.descripcion === \"Sí\" ? empresaTrabaja: \"No trabaja\" ) : empresaTrabaja)"
                                           ]
                                         },
                                         "selectedRow" : {
@@ -1133,6 +1138,10 @@
                                         "fechaINVP" : {
                                           "type" : "expression",
                                           "value" : "getFechaInvp"
+                                        },
+                                        "resultadoInvp" : {
+                                          "type" : "expression",
+                                          "value" : "resultadoINVP.data.length"
                                         }
                                       },
                                       "reference" : "0a3daaf1-12de-4605-bf28-32b6784a6c98",
@@ -1260,6 +1269,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Motivos de ingreso"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "38a29b48-f6ae-4ec2-9a0a-2f72839f9f9e",
@@ -1343,7 +1356,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 3000
+                              "value" : 500
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -1445,7 +1458,7 @@
                   "propertyValues" : {
                     "cssClasses" : {
                       "type" : "constant",
-                      "value" : ""
+                      "value" : "rasgoObservado"
                     },
                     "hidden" : {
                       "type" : "constant",
@@ -1457,7 +1470,11 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Rasgos observados"
+                      "value" : "{{tituloRasgosObservados}}"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "142f2d07-e8e4-4a5f-9af7-d8f1476996bc",
@@ -1618,6 +1635,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Comentarios"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d31386be-86e9-40c7-b4d2-ca935addd77b",
@@ -1874,15 +1895,7 @@
                             "toolbarsGrp1" : {
                               "type" : "constant",
                               "value" : [
-                                "h1",
-                                "h2",
-                                "h3",
-                                "h4",
-                                "h5",
-                                "h6",
-                                "p",
-                                "ul",
-                                "ol"
+                                "p"
                               ]
                             },
                             "toolbarsGrp2" : {
@@ -1891,21 +1904,12 @@
                                 "bold",
                                 "italics",
                                 "underline",
-                                "strikeThrough",
-                                "pre",
-                                "quote"
+                                "strikeThrough"
                               ]
                             },
                             "toolbarsGrp3" : {
                               "type" : "constant",
-                              "value" : [
-                                "justifyLeft",
-                                "justifyCenter",
-                                "justifyRight",
-                                "justifyFull",
-                                "indent",
-                                "outdent"
-                              ]
+                              "value" : [ ]
                             },
                             "toolbarsGrp4" : {
                               "type" : "constant",
@@ -1918,9 +1922,9 @@
                               ]
                             }
                           },
-                          "reference" : "fe828435-1b8f-48a9-a987-d97845dbab11",
+                          "reference" : "7f1749f5-125b-4274-b4d2-5a380b9b7df8",
                           "hasValidationError" : false,
-                          "id" : "customCustomRichtextPSicom"
+                          "id" : "customCustomRichtextPSicom2"
                         }
                       ],
                       [
@@ -2163,7 +2167,11 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Capacidad de adaptación"
+                      "value" : "{{tituloCapacidadAdaptacion}}"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "b8a027a2-eafb-4dd9-9c29-7492544c5a2e",
@@ -2326,15 +2334,7 @@
                                         "toolbarsGrp1" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "h1",
-                                            "h2",
-                                            "h3",
-                                            "h4",
-                                            "h5",
-                                            "h6",
-                                            "p",
-                                            "ul",
-                                            "ol"
+                                            "p"
                                           ]
                                         },
                                         "toolbarsGrp2" : {
@@ -2343,21 +2343,12 @@
                                             "bold",
                                             "italics",
                                             "underline",
-                                            "strikeThrough",
-                                            "pre",
-                                            "quote"
+                                            "strikeThrough"
                                           ]
                                         },
                                         "toolbarsGrp3" : {
                                           "type" : "constant",
-                                          "value" : [
-                                            "justifyLeft",
-                                            "justifyCenter",
-                                            "justifyRight",
-                                            "justifyFull",
-                                            "indent",
-                                            "outdent"
-                                          ]
+                                          "value" : [ ]
                                         },
                                         "toolbarsGrp4" : {
                                           "type" : "constant",
@@ -2370,9 +2361,9 @@
                                           ]
                                         }
                                       },
-                                      "reference" : "b18f0a74-03d1-4a63-a807-f436e883c297",
+                                      "reference" : "e751bd17-9567-4a04-9b09-ae26f21f1f26",
                                       "hasValidationError" : false,
-                                      "id" : "customCustomRichtextPSicom"
+                                      "id" : "customCustomRichtextPSicom2"
                                     }
                                   ],
                                   [
@@ -2621,15 +2612,7 @@
                                         "toolbarsGrp1" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "h1",
-                                            "h2",
-                                            "h3",
-                                            "h4",
-                                            "h5",
-                                            "h6",
-                                            "p",
-                                            "ul",
-                                            "ol"
+                                            "p"
                                           ]
                                         },
                                         "toolbarsGrp2" : {
@@ -2638,21 +2621,12 @@
                                             "bold",
                                             "italics",
                                             "underline",
-                                            "strikeThrough",
-                                            "pre",
-                                            "quote"
+                                            "strikeThrough"
                                           ]
                                         },
                                         "toolbarsGrp3" : {
                                           "type" : "constant",
-                                          "value" : [
-                                            "justifyLeft",
-                                            "justifyCenter",
-                                            "justifyRight",
-                                            "justifyFull",
-                                            "indent",
-                                            "outdent"
-                                          ]
+                                          "value" : [ ]
                                         },
                                         "toolbarsGrp4" : {
                                           "type" : "constant",
@@ -2665,9 +2639,9 @@
                                           ]
                                         }
                                       },
-                                      "reference" : "dfcee524-96fa-49bc-bdc2-a8bff248fe6b",
+                                      "reference" : "6cda1fae-9e59-471c-ae90-725b40deb1fa",
                                       "hasValidationError" : false,
-                                      "id" : "customCustomRichtextPSicom"
+                                      "id" : "customCustomRichtextPSicom2"
                                     }
                                   ],
                                   [
@@ -2917,15 +2891,7 @@
                                         "toolbarsGrp1" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "h1",
-                                            "h2",
-                                            "h3",
-                                            "h4",
-                                            "h5",
-                                            "h6",
-                                            "p",
-                                            "ul",
-                                            "ol"
+                                            "p"
                                           ]
                                         },
                                         "toolbarsGrp2" : {
@@ -2934,21 +2900,12 @@
                                             "bold",
                                             "italics",
                                             "underline",
-                                            "strikeThrough",
-                                            "pre",
-                                            "quote"
+                                            "strikeThrough"
                                           ]
                                         },
                                         "toolbarsGrp3" : {
                                           "type" : "constant",
-                                          "value" : [
-                                            "justifyLeft",
-                                            "justifyCenter",
-                                            "justifyRight",
-                                            "justifyFull",
-                                            "indent",
-                                            "outdent"
-                                          ]
+                                          "value" : [ ]
                                         },
                                         "toolbarsGrp4" : {
                                           "type" : "constant",
@@ -2961,9 +2918,9 @@
                                           ]
                                         }
                                       },
-                                      "reference" : "db004f30-cd82-4c06-99cd-89d2e6ad83bc",
+                                      "reference" : "8a6cf02a-a650-4677-9a38-7fd5e2e4471b",
                                       "hasValidationError" : false,
-                                      "id" : "customCustomRichtextPSicom"
+                                      "id" : "customCustomRichtextPSicom2"
                                     }
                                   ],
                                   [
@@ -3213,15 +3170,7 @@
                                         "toolbarsGrp1" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "h1",
-                                            "h2",
-                                            "h3",
-                                            "h4",
-                                            "h5",
-                                            "h6",
-                                            "p",
-                                            "ul",
-                                            "ol"
+                                            "p"
                                           ]
                                         },
                                         "toolbarsGrp2" : {
@@ -3230,21 +3179,12 @@
                                             "bold",
                                             "italics",
                                             "underline",
-                                            "strikeThrough",
-                                            "pre",
-                                            "quote"
+                                            "strikeThrough"
                                           ]
                                         },
                                         "toolbarsGrp3" : {
                                           "type" : "constant",
-                                          "value" : [
-                                            "justifyLeft",
-                                            "justifyCenter",
-                                            "justifyRight",
-                                            "justifyFull",
-                                            "indent",
-                                            "outdent"
-                                          ]
+                                          "value" : [ ]
                                         },
                                         "toolbarsGrp4" : {
                                           "type" : "constant",
@@ -3257,9 +3197,9 @@
                                           ]
                                         }
                                       },
-                                      "reference" : "15866562-12d2-4f86-9346-ad1a67cf2b59",
+                                      "reference" : "c4e5765d-2dac-44fc-a01f-187114546bbe",
                                       "hasValidationError" : false,
-                                      "id" : "customCustomRichtextPSicom"
+                                      "id" : "customCustomRichtextPSicom2"
                                     }
                                   ],
                                   [
@@ -3509,15 +3449,7 @@
                                         "toolbarsGrp1" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "h1",
-                                            "h2",
-                                            "h3",
-                                            "h4",
-                                            "h5",
-                                            "h6",
-                                            "p",
-                                            "ul",
-                                            "ol"
+                                            "p"
                                           ]
                                         },
                                         "toolbarsGrp2" : {
@@ -3526,21 +3458,12 @@
                                             "bold",
                                             "italics",
                                             "underline",
-                                            "strikeThrough",
-                                            "pre",
-                                            "quote"
+                                            "strikeThrough"
                                           ]
                                         },
                                         "toolbarsGrp3" : {
                                           "type" : "constant",
-                                          "value" : [
-                                            "justifyLeft",
-                                            "justifyCenter",
-                                            "justifyRight",
-                                            "justifyFull",
-                                            "indent",
-                                            "outdent"
-                                          ]
+                                          "value" : [ ]
                                         },
                                         "toolbarsGrp4" : {
                                           "type" : "constant",
@@ -3553,9 +3476,9 @@
                                           ]
                                         }
                                       },
-                                      "reference" : "9d049c93-3ffc-4225-8c4d-bd9173831320",
+                                      "reference" : "9da6c357-66ce-4d47-903b-40acc873ad79",
                                       "hasValidationError" : false,
-                                      "id" : "customCustomRichtextPSicom"
+                                      "id" : "customCustomRichtextPSicom2"
                                     }
                                   ],
                                   [
@@ -3805,15 +3728,7 @@
                                         "toolbarsGrp1" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "h1",
-                                            "h2",
-                                            "h3",
-                                            "h4",
-                                            "h5",
-                                            "h6",
-                                            "p",
-                                            "ul",
-                                            "ol"
+                                            "p"
                                           ]
                                         },
                                         "toolbarsGrp2" : {
@@ -3822,21 +3737,12 @@
                                             "bold",
                                             "italics",
                                             "underline",
-                                            "strikeThrough",
-                                            "pre",
-                                            "quote"
+                                            "strikeThrough"
                                           ]
                                         },
                                         "toolbarsGrp3" : {
                                           "type" : "constant",
-                                          "value" : [
-                                            "justifyLeft",
-                                            "justifyCenter",
-                                            "justifyRight",
-                                            "justifyFull",
-                                            "indent",
-                                            "outdent"
-                                          ]
+                                          "value" : [ ]
                                         },
                                         "toolbarsGrp4" : {
                                           "type" : "constant",
@@ -3849,9 +3755,9 @@
                                           ]
                                         }
                                       },
-                                      "reference" : "c39083a9-5e31-4f12-bea9-c04be1f9ffa3",
+                                      "reference" : "c58cb4a5-aac8-4192-9c82-6aa3d948b2a3",
                                       "hasValidationError" : false,
-                                      "id" : "customCustomRichtextPSicom"
+                                      "id" : "customCustomRichtextPSicom2"
                                     }
                                   ],
                                   [
@@ -3995,6 +3901,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Salud"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "d239eaef-6fd9-49eb-a89a-363a06ed06e4",
@@ -4103,15 +4013,7 @@
                             "toolbarsGrp1" : {
                               "type" : "constant",
                               "value" : [
-                                "h1",
-                                "h2",
-                                "h3",
-                                "h4",
-                                "h5",
-                                "h6",
-                                "p",
-                                "ul",
-                                "ol"
+                                "p"
                               ]
                             },
                             "toolbarsGrp2" : {
@@ -4120,29 +4022,16 @@
                                 "bold",
                                 "italics",
                                 "underline",
-                                "strikeThrough",
-                                "pre",
-                                "quote"
+                                "strikeThrough"
                               ]
                             },
                             "toolbarsGrp3" : {
                               "type" : "constant",
-                              "value" : [
-                                "justifyLeft",
-                                "justifyCenter",
-                                "justifyRight",
-                                "justifyFull",
-                                "indent",
-                                "outdent"
-                              ]
+                              "value" : [ ]
                             },
                             "toolbarsGrp4" : {
                               "type" : "constant",
                               "value" : [
-                                "html",
-                                "insertImage",
-                                "insertLink",
-                                "insertVideo",
                                 "wordcount",
                                 "charcount",
                                 "undo",
@@ -4151,9 +4040,9 @@
                               ]
                             }
                           },
-                          "reference" : "19ddd627-5fe7-4009-aa7d-771e1e62e068",
+                          "reference" : "94a6d920-6aef-42bf-8bc6-43b7d622eb96",
                           "hasValidationError" : false,
-                          "id" : "customCustomRichtextPSicom"
+                          "id" : "customCustomRichtextPSicom2"
                         }
                       ],
                       [
@@ -4383,6 +4272,73 @@
                                           "type" : "constant",
                                           "value" : false
                                         },
+                                        "disabled" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation",
+                                          "value" : "Selecciona..."
+                                        },
+                                        "availableValues" : {
+                                          "type" : "expression",
+                                          "value" : "catProblemasSaludAtencion_query"
+                                        },
+                                        "displayedKey" : {
+                                          "type" : "constant",
+                                          "value" : "descripcion"
+                                        },
+                                        "returnedKey" : {
+                                          "type" : "constant"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.catProblemasSaludAtencion"
+                                        }
+                                      },
+                                      "reference" : "20b3174e-e225-49be-ab49-e9f639c1bdc0",
+                                      "hasValidationError" : false,
+                                      "id" : "pbSelect"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "autodescripcionV2.catProblemasSaludAtencion.descripcion=='No'"
+                                        },
                                         "readOnly" : {
                                           "type" : "constant",
                                           "value" : true
@@ -4405,7 +4361,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                          "value" : "Describe brevemente que tipo de atención médica necesita"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -4800,6 +4756,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Resultados INVP"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "2dcbc423-8fa7-45fc-bb3f-95130bb8f3d5",
@@ -4906,7 +4866,7 @@
                                   },
                                   "targetUrl" : {
                                     "type" : "expression",
-                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid"
+                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid+\"&caseId=\"+caseId"
                                   },
                                   "pageToken" : {
                                     "type" : "constant"
@@ -5004,15 +4964,7 @@
                                   "toolbarsGrp1" : {
                                     "type" : "constant",
                                     "value" : [
-                                      "h1",
-                                      "h2",
-                                      "h3",
-                                      "h4",
-                                      "h5",
-                                      "h6",
-                                      "p",
-                                      "ul",
-                                      "ol"
+                                      "p"
                                     ]
                                   },
                                   "toolbarsGrp2" : {
@@ -5021,21 +4973,12 @@
                                       "bold",
                                       "italics",
                                       "underline",
-                                      "strikeThrough",
-                                      "pre",
-                                      "quote"
+                                      "strikeThrough"
                                     ]
                                   },
                                   "toolbarsGrp3" : {
                                     "type" : "constant",
-                                    "value" : [
-                                      "justifyLeft",
-                                      "justifyCenter",
-                                      "justifyRight",
-                                      "justifyFull",
-                                      "indent",
-                                      "outdent"
-                                    ]
+                                    "value" : [ ]
                                   },
                                   "toolbarsGrp4" : {
                                     "type" : "constant",
@@ -5048,9 +4991,9 @@
                                     ]
                                   }
                                 },
-                                "reference" : "0dd2ebfa-8b7b-4e41-b89f-f1cf521e42a5",
+                                "reference" : "6dc7aeb9-5e72-4c5f-9573-4e2354fefec7",
                                 "hasValidationError" : false,
-                                "id" : "customCustomRichtextPSicom"
+                                "id" : "customCustomRichtextPSicom2"
                               },
                               {
                                 "type" : "component",
@@ -5108,15 +5051,7 @@
                                   "toolbarsGrp1" : {
                                     "type" : "constant",
                                     "value" : [
-                                      "h1",
-                                      "h2",
-                                      "h3",
-                                      "h4",
-                                      "h5",
-                                      "h6",
-                                      "p",
-                                      "ul",
-                                      "ol"
+                                      "p"
                                     ]
                                   },
                                   "toolbarsGrp2" : {
@@ -5125,21 +5060,12 @@
                                       "bold",
                                       "italics",
                                       "underline",
-                                      "strikeThrough",
-                                      "pre",
-                                      "quote"
+                                      "strikeThrough"
                                     ]
                                   },
                                   "toolbarsGrp3" : {
                                     "type" : "constant",
-                                    "value" : [
-                                      "justifyLeft",
-                                      "justifyCenter",
-                                      "justifyRight",
-                                      "justifyFull",
-                                      "indent",
-                                      "outdent"
-                                    ]
+                                    "value" : [ ]
                                   },
                                   "toolbarsGrp4" : {
                                     "type" : "constant",
@@ -5152,9 +5078,9 @@
                                     ]
                                   }
                                 },
-                                "reference" : "d5c1c79f-8e12-4876-8b10-993a807e43ba",
+                                "reference" : "f3dfd2cc-371b-42f0-be92-22f51f6b4f75",
                                 "hasValidationError" : false,
-                                "id" : "customCustomRichtextPSicom"
+                                "id" : "customCustomRichtextPSicom2"
                               }
                             ],
                             [
@@ -5285,6 +5211,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Otras opciones y cursos"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "315dd08c-73c0-49d2-a380-fa5181719a98",
@@ -5615,7 +5545,7 @@
                             },
                             "selectedValues" : {
                               "type" : "variable",
-                              "value" : "dataToSend2.testPsicomInput.custosRecomendados"
+                              "value" : "testPsicom.testPsicomInput.custosRecomendados"
                             }
                           },
                           "reference" : "78570692-be6d-4641-adeb-ac00f8b0a0df",
@@ -5713,6 +5643,10 @@
                       "urlParametro2" : {
                         "type" : "expression",
                         "value" : "intentos"
+                      },
+                      "isFinalizado" : {
+                        "type" : "expression",
+                        "value" : "testPsicom.finalizado"
                       }
                     },
                     "reference" : "d079f9e4-6fa3-4a9b-9329-840614ed8525",
@@ -7393,6 +7327,13 @@
   ],
   "assets" : [
     {
+      "id" : "d7937e22-b8df-4bf7-8795-1ce704260563",
+      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "6f41dc56-107a-47d8-9adf-bedf8ceff2fb",
       "name" : "sweetalert.min.js",
       "type" : "js",
@@ -7425,13 +7366,6 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "d7937e22-b8df-4bf7-8795-1ce704260563",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
-      "type" : "css",
-      "order" : 1,
       "external" : false
     }
   ],
@@ -7531,7 +7465,7 @@
     "testPsicomRasgos" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
+        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{(intentos==null || intentos==\\\"null\\\")?0:intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
       ],
       "exposed" : false
     },
@@ -8567,6 +8501,13 @@
         "    hayDatos.push(false);",
         "}",
         "",
+        "",
+        "if( $data.getCalificacionesExamenes.data[0] !=null && $data.getCalificacionesExamenes.data[0].paan.toString().trim().length>0 && $data.getCalificacionesExamenes.data[0].paav.toString().trim().length>0 && $data.getCalificacionesExamenes.data[0].para.toString().trim().length>0){",
+        "    hayDatos.push(true);",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
         "let count = 0;",
         "for(let i = 0; i<hayDatos.length; i++){",
         "    if(hayDatos[i] === true){",
@@ -8587,8 +8528,9 @@
     "getFechaInvp" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&intento={{intentos}}"
+        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&caseid={{caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "finalizado" : {
@@ -8619,6 +8561,93 @@
       "type" : "urlparameter",
       "value" : [
         "intento"
+      ],
+      "exposed" : false
+    },
+    "catProblemasSaludAtencion_query" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatProblemasSaludAtencion [com.anahuac.catalogos.CatProblemasSaludAtencion]\",\"businessObjectName\":\"CatProblemasSaludAtencion\",\"query\":{\"name\":\"getCatProblemasSaludAtencion\",\"displayName\":\"getCatProblemasSaludAtencion\"},\"id\":\"com.anahuac.catalogos.CatProblemasSaludAtencion\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "validarRasgosObservados" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;\r",
+        "\r",
+        "if($data.rasgos){\r",
+        "    for(let rasgo of $data.rasgos){\r",
+        "        if(!rasgo.calificacion){\r",
+        "            output = false;\r",
+        "        }\r",
+        "    }\r",
+        "} else {\r",
+        "    output = false;\r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "validarCapacidadAdaptacion" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;\r",
+        "\r",
+        "if(!$data.testPsicom.ajusteMedioFamiliar){\r",
+        "\toutput = false;\r",
+        "} else if(!$data.testPsicom.califAjusteMedioFamiliar){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteEscolarPrevio){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteEscolarPrevio){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteMedioSocial){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteMedioSocial){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteEfectivo){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteAfectivo){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteReligioso){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteReligioso){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.ajusteExistencial){\r",
+        "    output = false;\r",
+        "} else if(!$data.testPsicom.califAjusteExistencial){\r",
+        "    output = false;\r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "tituloRasgosObservados" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"Rasgos observados \";",
+        "",
+        "if(!$data.validarRasgosObservados){",
+        "    output += '<span class=\"alert-icon glyphicon glyphicon-exclamation-sign\"></span>';",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "tituloCapacidadAdaptacion" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"Capacidad de adaptación \";",
+        "",
+        "if(!$data.validarCapacidadAdaptacion){",
+        "    output += '<span class=\"alert-icon glyphicon glyphicon-exclamation-sign\"></span>';",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

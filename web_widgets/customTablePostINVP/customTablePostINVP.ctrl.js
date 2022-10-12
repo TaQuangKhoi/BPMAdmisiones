@@ -359,7 +359,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,$location) {
   }
   $scope.procesada=getUrlParam("procesada");
   $scope.redirectComentario = function(row){
-        var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.idbanner+"&idsesion="+getUrlParam("idsesion")
+        var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.idbanner+"&idsesion="+getUrlParam("idsesion")+"&caseId="+row.caseid
         window.location.href= url;
     }
     

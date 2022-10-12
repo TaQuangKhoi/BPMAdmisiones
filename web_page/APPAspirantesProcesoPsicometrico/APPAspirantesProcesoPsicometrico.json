@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "APPAspirantesProcesoPsicometrico",
   "name" : "APPAspirantesProcesoPsicometrico",
-  "lastUpdate" : 1639163937082,
+  "lastUpdate" : 1658353080333,
   "rows" : [
     [
       {
@@ -240,7 +241,11 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Aspirantes sin psicométrico"
+                      "value" : "sin psicométrico"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "2ec1338f-7869-4f23-8e41-5ba23acfe9b8",
@@ -299,7 +304,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -608,7 +613,11 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Aspirantes con psicométrico"
+                      "value" : "Psicométrico en proceso y concluido"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "14f8196b-3a36-42ea-85f2-2e3648811b87",
@@ -624,102 +633,6 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Excel"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "right"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "primary"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "POST"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation",
-                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesConPsicometrico&p=0&c=100"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "expression",
-                              "value" : "dataToSend2"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            },
-                            "fileExtension" : {
-                              "type" : "constant",
-                              "value" : "xls"
-                            }
-                          },
-                          "reference" : "9907d83b-c8fc-42b7-9e3c-99e5d0380fc9",
-                          "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
-                        }
-                      ],
                       [
                         {
                           "type" : "component",
@@ -821,11 +734,115 @@
                             "lstCampus" : {
                               "type" : "variable",
                               "value" : "lstCatCampus"
+                            },
+                            "urlPost2" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesConPsicometricoRechazados&p=0&c=100"
+                            },
+                            "urlPost1" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesConPsicometrico&p=0&c=100"
                             }
                           },
-                          "reference" : "328d7a34-47a1-4eaf-ad1d-217224c03723",
+                          "reference" : "9481df38-85d5-475b-939d-ab96150504a0",
                           "hasValidationError" : false,
-                          "id" : "customTablePostProcesoModificacion2FiltradoPsicometrico"
+                          "id" : "customTablePostProcesoPsicometricoSwitch"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Excel"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "POST"
+                            },
+                            "assign" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "url" : {
+                              "type" : "interpolation",
+                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesConPsicometrico&p=0&c=100"
+                            },
+                            "responseStatusCode" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "dataToSend" : {
+                              "type" : "expression",
+                              "value" : "dataToSend2"
+                            },
+                            "dataFromSuccess" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "closeOnSuccess" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "dataFromError" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "targetUrlOnSuccess" : {
+                              "type" : "interpolation"
+                            },
+                            "collectionToModify" : {
+                              "type" : "variable"
+                            },
+                            "modalId" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "collectionPosition" : {
+                              "type" : "constant",
+                              "value" : "Last"
+                            },
+                            "valueToAdd" : {
+                              "type" : "constant"
+                            },
+                            "removeItem" : {
+                              "type" : "variable"
+                            },
+                            "fileExtension" : {
+                              "type" : "constant",
+                              "value" : "xls"
+                            }
+                          },
+                          "reference" : "9907d83b-c8fc-42b7-9e3c-99e5d0380fc9",
+                          "hasValidationError" : false,
+                          "id" : "customCustomBtnDownloadExcel"
                         }
                       ]
                     ]
@@ -1787,6 +1804,13 @@
   ],
   "assets" : [
     {
+      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "95bcc71b-e315-44d6-8b26-de6493a4ef7d",
       "name" : "sweetalert.min.js",
       "type" : "js",
@@ -1808,6 +1832,13 @@
       "external" : false
     },
     {
+      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "d0ac635b-20b5-4d32-927b-da10f383b08f",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -1822,24 +1853,10 @@
       "external" : false
     },
     {
-      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
       "id" : "2e8b914a-16ca-423d-a4a6-670b46859b92",
       "name" : "encabezados.css",
       "type" : "css",
       "order" : 5,
-      "external" : false
-    },
-    {
-      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 1,
       "external" : false
     }
   ],

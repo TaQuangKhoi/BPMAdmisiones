@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "APPReactivarUsuarios",
   "name" : "APPReactivarUsuarios",
-  "lastUpdate" : 1639088437615,
+  "lastUpdate" : 1649206228534,
   "rows" : [
     [
       {
@@ -590,8 +591,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -684,7 +685,7 @@
           ],
           [
             {
-              "type" : "tabsContainer",
+              "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -699,6 +700,122 @@
                 "hidden" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "content" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                }
+              },
+              "reference" : "a45ca4bb-2ee0-4b9b-8278-c32030bcc69f",
+              "hasValidationError" : false,
+              "id" : "customListFiltrosTransferencia"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=getUsuariosRechazadosComite&p=0&c=100"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCatCampus"
+                },
+                "modalid" : {
+                  "type" : "constant",
+                  "value" : "modalDatosAspirante"
+                },
+                "jsonOriginal" : {
+                  "type" : "variable",
+                  "value" : "jsonOriginal"
+                },
+                "datosAspirante" : {
+                  "type" : "variable",
+                  "value" : "valoresSolicitante"
+                }
+              },
+              "reference" : "2b26162f-1bee-4d51-9292-5f45d1a9dbce",
+              "hasValidationError" : false,
+              "id" : "customTablePostReactivarUsuarios"
+            }
+          ],
+          [
+            {
+              "type" : "tabsContainer",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
                 },
                 "vertical" : {
                   "type" : "constant",
@@ -737,6 +854,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Reactivar Aspirantes"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "2d789f01-5f7e-4fb6-a422-d0f760cd8875",
@@ -752,122 +873,7 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "content" : {
-                              "type" : "variable",
-                              "value" : "lstFiltros"
-                            }
-                          },
-                          "reference" : "a45ca4bb-2ee0-4b9b-8278-c32030bcc69f",
-                          "hasValidationError" : false,
-                          "id" : "customListFiltrosTransferencia"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "headers" : {
-                              "type" : "constant",
-                              "value" : [
-                                "Id",
-                                "Name",
-                                "Description",
-                                "Date"
-                              ]
-                            },
-                            "columnsKey" : {
-                              "type" : "constant"
-                            },
-                            "selectedRow" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "striped" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "condensed" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "bordered" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "urlPost" : {
-                              "type" : "constant",
-                              "value" : "/bonita/API/extension/AnahuacRest?url=getUsuariosRechazadosComite&p=0&c=100"
-                            },
-                            "dataToSend" : {
-                              "type" : "variable",
-                              "value" : "dataToSend"
-                            },
-                            "lstContenido" : {
-                              "type" : "variable",
-                              "value" : "lstContenido"
-                            },
-                            "userId" : {
-                              "type" : "variable",
-                              "value" : "userData.user_id"
-                            },
-                            "lstCampus" : {
-                              "type" : "variable",
-                              "value" : "lstCatCampus"
-                            },
-                            "modalid" : {
-                              "type" : "constant",
-                              "value" : "modalDatosAspirante"
-                            },
-                            "jsonOriginal" : {
-                              "type" : "variable",
-                              "value" : "jsonOriginal"
-                            },
-                            "datosAspirante" : {
-                              "type" : "variable",
-                              "value" : "valoresSolicitante"
-                            }
-                          },
-                          "reference" : "2b26162f-1bee-4d51-9292-5f45d1a9dbce",
-                          "hasValidationError" : false,
-                          "id" : "customTablePostReactivarUsuarios"
-                        }
-                      ]
+                      [ ]
                     ]
                   }
                 },
@@ -895,6 +901,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Archivo Aspirantes Rechazados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "9ecd8ae7-3ed3-4652-94f4-c1cd7f894238",
@@ -1018,6 +1028,10 @@
                             "datosAspirante" : {
                               "type" : "variable",
                               "value" : ""
+                            },
+                            "data" : {
+                              "type" : "variable",
+                              "value" : "userData"
                             }
                           },
                           "reference" : "9d846d2e-57bc-465d-969c-3cfe4c7603fb",
@@ -3832,17 +3846,10 @@
   ],
   "assets" : [
     {
-      "id" : "1b9c3ddc-11da-47cf-8232-5e8735f71977",
-      "name" : "LogoUniversidadAnahuac.png",
-      "type" : "img",
-      "order" : 7,
-      "external" : false
-    },
-    {
-      "id" : "ff57b464-966c-4ec4-b63b-e8e7a8f84612",
-      "name" : "encabezados.css",
-      "type" : "css",
-      "order" : 5,
+      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
       "external" : false
     },
     {
@@ -3867,6 +3874,13 @@
       "external" : false
     },
     {
+      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "d0ac635b-20b5-4d32-927b-da10f383b08f",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -3881,17 +3895,17 @@
       "external" : false
     },
     {
-      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
+      "id" : "1b9c3ddc-11da-47cf-8232-5e8735f71977",
+      "name" : "LogoUniversidadAnahuac.png",
+      "type" : "img",
+      "order" : 7,
       "external" : false
     },
     {
-      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 1,
+      "id" : "ff57b464-966c-4ec4-b63b-e8e7a8f84612",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 5,
       "external" : false
     }
   ],

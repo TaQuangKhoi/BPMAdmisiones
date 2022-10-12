@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1638397154247,
+  "lastUpdate" : 1645490255317,
   "rows" : [
     [
       {
@@ -11240,7 +11241,8 @@
                 "userId" : "users.user_id",
                 "Bachilleratopersistenceid" : "Bachilleratopersistenceid",
                 "formInput" : "",
-                "urlDireccion" : "urlDireccion"
+                "urlDireccion" : "urlDireccion",
+                "isVencido" : "isPeriodoVencido.isVencido"
               }
             }
           ]
@@ -18188,8 +18190,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18218,8 +18220,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18248,8 +18250,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -18296,6 +18298,68 @@
         "reference" : "144ef76d-965f-4771-9d52-940f695ac141",
         "hasValidationError" : false,
         "id" : "customMismodomiciliotutor"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 3,
+          "lg" : 3
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catPeriodo.data"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlInfo" : {
+            "type" : "expression",
+            "value" : "DatoUrlGetInfo"
+          },
+          "urlPost" : {
+            "type" : "constant",
+            "value" : "postUpdatePeriodoVencido"
+          },
+          "caseId" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.caseId"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "isPeriodoVencido.isVencido"
+          }
+        },
+        "reference" : "ccd41851-0756-4521-a47e-3d590a173395",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfoModalRestrictivo"
       }
     ]
   ],
@@ -18308,27 +18372,6 @@
       "external" : false
     },
     {
-      "id" : "8301ac82-9531-4dd2-b30d-74936aa59e14",
-      "name" : "anahuac_custom_styles (1).css",
-      "type" : "css",
-      "order" : 13,
-      "external" : false
-    },
-    {
-      "id" : "48196ac9-fa77-4cc2-84df-9c48e3199fa3",
-      "name" : "LogoAnahuacMexicoNorte.png",
-      "type" : "img",
-      "order" : 29,
-      "external" : false
-    },
-    {
-      "id" : "a3d8d3b9-972b-4d28-a2ac-8f51a1d62e59",
-      "name" : "noimageavailable.png",
-      "type" : "img",
-      "order" : 37,
-      "external" : false
-    },
-    {
       "id" : "3c60e731-cd72-424f-9f84-eed2fd342d1a",
       "name" : "pdf.png",
       "type" : "img",
@@ -18336,52 +18379,10 @@
       "external" : false
     },
     {
-      "id" : "bfa3722d-2e41-4f2b-9bd8-f4fd3f4cd773",
-      "name" : "capitalizacion.js",
-      "type" : "js",
-      "order" : 39,
-      "external" : false
-    },
-    {
-      "id" : "3ae1cfac-c18e-4bd8-87db-2de24f89bb6c",
-      "name" : "LogoAnahuacMerida.png",
-      "type" : "img",
-      "order" : 28,
-      "external" : false
-    },
-    {
-      "id" : "17ab7a83-60c2-42c1-b881-0260a16e05dd",
-      "name" : "LogoAnahuacPuebla.png",
-      "type" : "img",
-      "order" : 32,
-      "external" : false
-    },
-    {
-      "id" : "8c9160ed-c0b1-49f0-aecd-a3a1540b5499",
-      "name" : "LogoAnahuacMexicoSur.png",
-      "type" : "img",
-      "order" : 30,
-      "external" : false
-    },
-    {
-      "id" : "ff25d46d-e683-4494-b732-d1ee60dfdf04",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 1,
-      "external" : false
-    },
-    {
-      "id" : "9cbc773c-b7f3-4ab6-ae67-b7b443ee57d5",
-      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
-      "type" : "img",
-      "order" : 34,
-      "external" : false
-    },
-    {
-      "id" : "b99bba4a-9766-460c-af1d-52699042b990",
-      "name" : "noimageavailabledoc.png",
-      "type" : "img",
-      "order" : 38,
+      "id" : "8301ac82-9531-4dd2-b30d-74936aa59e14",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 13,
       "external" : false
     },
     {
@@ -18392,6 +18393,48 @@
       "external" : false
     },
     {
+      "id" : "8621b08f-5f1e-410f-8a5e-4e9a3c9906d4",
+      "name" : "LogoInstitutoJuanPabloII.png",
+      "type" : "img",
+      "order" : 36,
+      "external" : false
+    },
+    {
+      "id" : "8c9160ed-c0b1-49f0-aecd-a3a1540b5499",
+      "name" : "LogoAnahuacMexicoSur.png",
+      "type" : "img",
+      "order" : 30,
+      "external" : false
+    },
+    {
+      "id" : "48196ac9-fa77-4cc2-84df-9c48e3199fa3",
+      "name" : "LogoAnahuacMexicoNorte.png",
+      "type" : "img",
+      "order" : 29,
+      "external" : false
+    },
+    {
+      "id" : "bfa3722d-2e41-4f2b-9bd8-f4fd3f4cd773",
+      "name" : "capitalizacion.js",
+      "type" : "js",
+      "order" : 39,
+      "external" : false
+    },
+    {
+      "id" : "a3d8d3b9-972b-4d28-a2ac-8f51a1d62e59",
+      "name" : "noimageavailable.png",
+      "type" : "img",
+      "order" : 37,
+      "external" : false
+    },
+    {
+      "id" : "3ae1cfac-c18e-4bd8-87db-2de24f89bb6c",
+      "name" : "LogoAnahuacMerida.png",
+      "type" : "img",
+      "order" : 28,
+      "external" : false
+    },
+    {
       "id" : "c50cf302-0a0a-4162-b9c4-1dfb877ac1d3",
       "name" : "LogoAnahuacQueretaro.png",
       "type" : "img",
@@ -18399,17 +18442,17 @@
       "external" : false
     },
     {
-      "id" : "93476d6f-c14a-4495-917e-2692fec27c01",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
+      "id" : "ff25d46d-e683-4494-b732-d1ee60dfdf04",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 1,
       "external" : false
     },
     {
-      "id" : "8621b08f-5f1e-410f-8a5e-4e9a3c9906d4",
-      "name" : "LogoInstitutoJuanPabloII.png",
+      "id" : "17ab7a83-60c2-42c1-b881-0260a16e05dd",
+      "name" : "LogoAnahuacPuebla.png",
       "type" : "img",
-      "order" : 36,
+      "order" : 32,
       "external" : false
     },
     {
@@ -18434,10 +18477,31 @@
       "external" : false
     },
     {
+      "id" : "9cbc773c-b7f3-4ab6-ae67-b7b443ee57d5",
+      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
+      "type" : "img",
+      "order" : 34,
+      "external" : false
+    },
+    {
       "id" : "22a81598-46ae-4f9e-979a-eb1dfecacaec",
       "name" : "LogoAnahuacOaxaca.png",
       "type" : "img",
       "order" : 31,
+      "external" : false
+    },
+    {
+      "id" : "93476d6f-c14a-4495-917e-2692fec27c01",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "b99bba4a-9766-460c-af1d-52699042b990",
+      "name" : "noimageavailabledoc.png",
+      "type" : "img",
+      "order" : 38,
       "external" : false
     }
   ],
@@ -22460,7 +22524,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
@@ -22503,8 +22567,9 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
+        "../API/extension/RegistroRest?url=process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "processUrl" : {
@@ -22920,8 +22985,9 @@
     "getCaseIdCatCiudad" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "getCatCiudadBycaseId" : {
@@ -22934,15 +23000,17 @@
     "objCaseInformationEstados" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatEstados&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "objCaseInformationPaises" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/extension/RegistroRest?url=case&c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "isDataRegistro" : {
@@ -23323,7 +23391,7 @@
     "urlCurrentTask" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bpm/humanTask?p=0&c=10&f=caseId=\"+$data.getCatRegistro[0].caseId+\"&fstate=ready\""
+        "return \"../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=\"+$data.getCatRegistro[0].caseId+\"&fstate=ready\""
       ],
       "exposed" : false
     },
@@ -23457,8 +23525,13 @@
     "processData" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&f=state=ready&d=processId"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{getCatRegistro[0].caseId}}&f=state=ready&name=processId"
       ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "ocultarCamposNuevos" : {
@@ -23754,6 +23827,22 @@
         "        $data.jsonModificarTutor.calle = capitalizeText($data.jsonModificarTutor.calle);\r",
         "    }\r",
         "}\r"
+      ],
+      "exposed" : false
+    },
+    "DatoUrlGetInfo" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.catSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
+        "}"
       ],
       "exposed" : false
     }

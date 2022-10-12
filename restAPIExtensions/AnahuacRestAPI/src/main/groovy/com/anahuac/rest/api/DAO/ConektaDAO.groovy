@@ -938,14 +938,14 @@ class ConektaDAO {
 				rows.add(row);
 			}
 			resultado.setSuccess(true);
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -969,7 +969,7 @@ class ConektaDAO {
 			closeCon = validarConexion();
 			
 //			where = " WHERE usuarioAspirante = '" + email + "' AND caseId = " + caseId.toString();
-			where = " WHERE usuarioAspirante = '" + email + " ";
+			where = " WHERE usuarioAspirante = '" + email + "' ";
 			String consulta = Statements.GET_BITACORA_PAGO;
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[ORDERBY]", "");
@@ -994,14 +994,14 @@ class ConektaDAO {
 				rows.add(row);
 			}
 			resultado.setSuccess(true);
-			resultado.setError_info(errorlog);
+			
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

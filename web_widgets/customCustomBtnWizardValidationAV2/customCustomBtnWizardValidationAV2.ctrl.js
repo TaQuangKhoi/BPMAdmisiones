@@ -19,8 +19,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var id;
         id = $scope.properties.taskId;
         if (id) {
-            doRequest('POST', '../API/bpm/userTask/' + id + '/execution').then(function() {
-                localStorageService.delete($window.location.href);
+            doRequest('PUT', '../API/extension/RegistroPut?url=changeTaskId&taskId=' + id).then(function() {
+                doRequest('POST', '../API/bpm/userTask/' + id + '/execution').then(function() {
+                    localStorageService.delete($window.location.href);
+                });
             });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
@@ -40,11 +42,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                getCurrentTask();
-                console.log("Task done")
+                if (!req.url.includes("changeTaskId")) {
+                    getCurrentTask();
+                    console.log("Task done");  
+                }
+                
             })
             .error(function(data, status) {
-                blockUI.stop();
+                $scope.properties.selectedIndex--
+                    blockUI.stop();
                 console.log("task failed")
             });
     }
@@ -53,7 +59,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let contador = 0;
         let limite = 99
 
-        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready";
+        let url = "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=" + $scope.properties.caseId + "&fstate=ready";
 
         var req = {
             method: "GET",

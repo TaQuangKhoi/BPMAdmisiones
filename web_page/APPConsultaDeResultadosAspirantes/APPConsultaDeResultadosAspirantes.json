@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "APPConsultaDeResultadosAspirantes",
   "name" : "APPConsultaDeResultadosAspirantes",
-  "lastUpdate" : 1636401502215,
+  "lastUpdate" : 1655484777099,
   "rows" : [
     [
       {
@@ -846,6 +847,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Aceptados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "6358c28c-a791-4b79-8755-06c1860f75da",
@@ -977,11 +982,15 @@
                                   "fileExtension" : {
                                     "type" : "constant",
                                     "value" : "xls"
+                                  },
+                                  "nombre" : {
+                                    "type" : "constant",
+                                    "value" : "Resultados de admisión - Aceptados"
                                   }
                                 },
-                                "reference" : "54f1086b-fc4a-4ca0-908c-1100dcda37a9",
+                                "reference" : "d264f797-34c3-4d72-a018-d117b266d783",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnDownloadExcel"
+                                "id" : "customCustomBtnDownloadExcelName"
                               }
                             ]
                           ]
@@ -1178,6 +1187,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Sin resultado"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "838037c1-0e37-44df-89bb-9f3edfbfd3dc",
@@ -1272,7 +1285,7 @@
                                   },
                                   "dataToSend" : {
                                     "type" : "expression",
-                                    "value" : "dataToSendSinResultados"
+                                    "value" : "dataToFileSinResultados"
                                   },
                                   "dataFromSuccess" : {
                                     "type" : "variable",
@@ -1309,11 +1322,15 @@
                                   "fileExtension" : {
                                     "type" : "constant",
                                     "value" : "xls"
+                                  },
+                                  "nombre" : {
+                                    "type" : "constant",
+                                    "value" : "Resultados de admisión - Sin resultado"
                                   }
                                 },
-                                "reference" : "f100922c-fd63-432d-ad1b-a76c7fa01262",
+                                "reference" : "aafa2aea-f095-415e-a8f8-d0360d81c787",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnDownloadExcel"
+                                "id" : "customCustomBtnDownloadExcelName"
                               }
                             ]
                           ]
@@ -1493,6 +1510,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Rechazados"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "5a8e2e55-6d97-44c8-ab04-26bdf474e712",
@@ -1587,7 +1608,7 @@
                                   },
                                   "dataToSend" : {
                                     "type" : "expression",
-                                    "value" : "dataToSend"
+                                    "value" : "dataToFile"
                                   },
                                   "dataFromSuccess" : {
                                     "type" : "variable",
@@ -1624,11 +1645,15 @@
                                   "fileExtension" : {
                                     "type" : "constant",
                                     "value" : "xls"
+                                  },
+                                  "nombre" : {
+                                    "type" : "constant",
+                                    "value" : "Resultados de admisión - Rechazados"
                                   }
                                 },
-                                "reference" : "c2776d25-ca14-4251-a4e0-438c23228f5c",
+                                "reference" : "ed4299b4-a6a2-4de5-8b7b-5e8d54f6d9bb",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnDownloadExcel"
+                                "id" : "customCustomBtnDownloadExcelName"
                               }
                             ]
                           ]
@@ -1816,6 +1841,10 @@
                     "title" : {
                       "type" : "interpolation",
                       "value" : "Aceptados Manual"
+                    },
+                    "active" : {
+                      "type" : "variable",
+                      "value" : ""
                     }
                   },
                   "reference" : "950e7d32-7a16-47d2-906f-cb6c593b8c8d",
@@ -2904,6 +2933,13 @@
       "external" : false
     },
     {
+      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "39cb7871-2fce-4d20-b657-552ca8bf6351",
       "name" : "style.css",
       "type" : "css",
@@ -2918,6 +2954,13 @@
       "external" : false
     },
     {
+      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "d0ac635b-20b5-4d32-927b-da10f383b08f",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -2929,20 +2972,6 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 1,
       "external" : false
     }
   ],
@@ -3287,6 +3316,56 @@
       "type" : "json",
       "value" : [
         "{}"
+      ],
+      "exposed" : false
+    },
+    "dataToFileAceptados" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"Aceptado\"\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "dataToFileSinResultados" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"Sin resultado\"\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"Rechazada\"\r",
+        "};"
       ],
       "exposed" : false
     }

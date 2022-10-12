@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "INVP",
   "name" : "INVP",
-  "lastUpdate" : 1634078836385,
+  "lastUpdate" : 1660247299345,
   "rows" : [
     [
       {
@@ -599,6 +600,10 @@
               "title" : {
                 "type" : "interpolation",
                 "value" : "Sesiones"
+              },
+              "active" : {
+                "type" : "variable",
+                "value" : ""
               }
             },
             "reference" : "e79a5941-bd32-4806-994c-500cbd4d4703",
@@ -753,6 +758,10 @@
               "title" : {
                 "type" : "interpolation",
                 "value" : "Resultados individuales"
+              },
+              "active" : {
+                "type" : "variable",
+                "value" : ""
               }
             },
             "reference" : "f40afd72-5ae5-4004-9e4c-ac6e3c478ecf",
@@ -919,7 +928,8 @@
                         "value" : [
                           "ID Banner",
                           "Nombre aspirante",
-                          "Sesión id",
+                          "Id de la prueba",
+                          "Id de la sesión",
                           "Sesión",
                           "Fecha prueba",
                           "Fecha registro",
@@ -1679,6 +1689,13 @@
       "external" : false
     },
     {
+      "id" : "da8248c2-08af-421c-9ed4-5aa73c2f0386",
+      "name" : "jquery.min (1).js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
       "id" : "b39d5730-8b0f-4006-8f67-b01ca8a4ba39",
       "name" : "style.css",
       "type" : "css",
@@ -1690,13 +1707,6 @@
       "name" : "encabezados.css",
       "type" : "css",
       "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "da8248c2-08af-421c-9ed4-5aa73c2f0386",
-      "name" : "jquery.min (1).js",
-      "type" : "js",
-      "order" : 2,
       "external" : false
     },
     {
@@ -1923,7 +1933,8 @@
         "[",
         "    {\"name\":\"Id banner\",\"type\":\"input\"},",
         "    {\"name\":\"Nombre aspirante\",\"type\":\"input\"},",
-        "    {\"name\":\"Sesión id\",\"type\":\"input\"},",
+        "    {\"name\":\"ID DE LA PRUEBA\",\"type\":\"input\"},",
+        "    {\"name\":\"ID DE LA SESIÓN\",\"type\":\"input\"},",
         "    {\"name\":\"Sesión\",\"type\":\"input\"},",
         "    {\"name\":\"Fecha prueba\",\"type\":\"input\"},",
         "    {\"name\":\"Fecha registro\",\"type\":\"input\"}",
@@ -1934,7 +1945,7 @@
     "columnlist" : {
       "type" : "json",
       "value" : [
-        "[\"idbanner\", \"nombre\", \"sesion_id\", \"sesion\", \"fecha_prueba\", \"fecha_registro | date:'yyyy-MM-dd HH:mm:ss'\"]"
+        "[\"idbanner\", \"nombre\", \"id_prueba\",\"sesion_id\", \"sesion\", \"fecha_prueba\", \"fecha_registro | date:'yyyy-MM-dd HH:mm:ss'\"]"
       ],
       "exposed" : false
     },

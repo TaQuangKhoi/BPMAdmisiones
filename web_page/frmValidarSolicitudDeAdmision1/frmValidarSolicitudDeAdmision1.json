@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1638388046095,
+  "lastUpdate" : 1643219370950,
   "rows" : [
     [
       {
@@ -512,6 +513,66 @@
             ]
           ]
         }
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "objSolicitudDeAdmision"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          },
+          "urlGet" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlParametro" : {
+            "type" : "variable",
+            "value" : "urlParametroGet"
+          },
+          "textMensaje" : {
+            "type" : "constant",
+            "value" : "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso"
+          },
+          "resultadoGet" : {
+            "type" : "constant",
+            "value" : "array"
+          },
+          "datoNombre" : {
+            "type" : "constant",
+            "value" : "isVencido"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "objGetWithModal.isVencido"
+          }
+        },
+        "reference" : "86751674-ae05-4334-8b5c-e779779ac15a",
+        "hasValidationError" : false,
+        "id" : "customGetWithModal"
       }
     ],
     [
@@ -5941,7 +6002,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "El tutor hace referencia a la(s) personas encargadas de pagar tus estudios.<br>\nSi contratas el servicio de educación garantizada se tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio, en caso de ser requerido. Puedes agregar más de un tutor.  NOTA: El primer tutor de la lista será considerado como el tutor principal."
+                                    "value" : "El tutor hace referencia a la(s) personas encargadas de pagar tus estudios.<br>\nEl servicio de educación garantizada tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio. En caso de ser requerido puedes agregar mas de un tutor. NOTA: El primer tutor de la lista será considerado como el tutor principal."
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -24335,7 +24396,7 @@
                   "headers" : {
                     "type" : "constant",
                     "value" : [
-                      "Solicitud",
+                      "Id Banner",
                       "Nombre",
                       "Licenciatura",
                       "Periodo",
@@ -24343,8 +24404,8 @@
                       "VPD",
                       "Estatus",
                       "Fecha Nacimiento",
+                      "Sexo",
                       "Curp",
-                      "Id Banner",
                       "Acciones"
                     ]
                   },
@@ -24355,7 +24416,7 @@
                   "columnsKey" : {
                     "type" : "constant",
                     "value" : [
-                      "caseid",
+                      "idbanner==null?\"Sin Id Banner\":idbanner",
                       "primernombre + \" \" + segundonombre + \" \" + apellidopaterno + \" \" + apellidomaterno",
                       "licenciatura",
                       "periodo",
@@ -24364,7 +24425,7 @@
                       "estatussolicitud",
                       "fechanacimiento | date:'dd-MM-yyyy'",
                       "curp",
-                      "idbanner",
+                      "sexo",
                       "null"
                     ]
                   },
@@ -26042,24 +26103,24 @@
   ],
   "assets" : [
     {
-      "id" : "93476d6f-c14a-4495-917e-2692fec27c01",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "7ed6f80c-8e1e-4003-a559-d0979c31c20d",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 6,
-      "external" : false
-    },
-    {
       "id" : "a08e5f6a-dec4-4892-8366-98053526af74",
       "name" : "logo.png",
       "type" : "img",
       "order" : 7,
+      "external" : false
+    },
+    {
+      "id" : "8c60d339-c497-4716-9141-eadce4d40287",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "93476d6f-c14a-4495-917e-2692fec27c01",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
       "external" : false
     },
     {
@@ -26070,17 +26131,17 @@
       "external" : true
     },
     {
+      "id" : "7ed6f80c-8e1e-4003-a559-d0979c31c20d",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 6,
+      "external" : false
+    },
+    {
       "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "8c60d339-c497-4716-9141-eadce4d40287",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 4,
       "external" : false
     }
   ],
@@ -26388,6 +26449,7 @@
         "/*if($data.objGetDescuentosCiudadBachillerato == null){\r",
         "    $data.objGetDescuentosCiudadBachillerato = [];\r",
         "}*/\r",
+        "//objGetWithModal.isVencido\r",
         "$data.formOutput.detalleSolicitudInput.isCurpValidado = $data.isCurpValidado;\r",
         "if ($data.descuentoManual) {\r",
         "    console.log(1)\r",
@@ -27697,7 +27759,7 @@
     "lstDocumentoDescuento" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/caseDocument?p=0&c=9999&f=caseId={{caseId}}"
+        "../API/extension/RegistroRest?url=caseDocument&caseid={{caseId}}"
       ],
       "exposed" : false
     },
@@ -28792,16 +28854,20 @@
     "parametros" : {
       "type" : "expression",
       "value" : [
+        "//\"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
+        "//\"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
+        "//\"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "//\"nombre\": $data.NombreAspirante,\r",
         "return {\r",
-        "    \"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
-        "    \"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
         "    \"curp\": $data.curp,\r",
-        "    \"nombre\": $data.NombreAspirante,\r",
+        "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre.replaceAll(\"'\",\"\\'\"),\r",
+        "    \"segundoNombre\": ($data.objSolicitudDeAdmision.segundoNombre != null?$data.objSolicitudDeAdmision.segundoNombre.replaceAll(\"'\",\"\\'\"):$data.objSolicitudDeAdmision.segundoNombre),\r",
+        "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno.replaceAll(\"'\",\"\\'\"),\r",
+        "    \"apellidoMaterno\": ($data.objSolicitudDeAdmision.apellidoMaterno != null ?$data.objSolicitudDeAdmision.apellidoMaterno.replaceAll(\"'\",\"\\'\"):$data.objSolicitudDeAdmision.apellidoMaterno),\r",
         "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
-        "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre,\r",
-        "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
-        "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
-        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno\r",
+        "    \"sexo\": $data.objSolicitudDeAdmision.catSexo.persistenceId,\r",
+        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "    \"idbanner\":($data.formOutput.detalleSolicitudInput.idBanner == null ?\"\":$data.formOutput.detalleSolicitudInput.idBanner)\r",
         "}"
       ],
       "exposed" : false
@@ -28819,6 +28885,22 @@
         "    }",
         "}else{",
         "    return true;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "urlParametroGet" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.objSolicitudDeAdmision.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "objGetWithModal" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isVencido\":false",
         "}"
       ],
       "exposed" : false

@@ -1,0 +1,31 @@
+<div ng-class="col-lg-12">
+    <div class="form-group">
+        <div class="col-xs-10">
+            <input
+                type="{{properties.type}}"
+                class="form-control"
+                placeholder="{{ properties.placeholder | uiTranslate }}"
+                ng-model="properties.value"
+                ng-model-options="{ allowInvalid: true }"
+                name="{{ctrl.name}}"
+                ng-required="properties.required"
+                ng-minlength="properties.minLength"
+                ng-maxlength="properties.maxLength"
+                min="{{properties.min}}"
+                max="{{properties.max}}"
+                step="{{properties.step}}"
+                ng-readonly="properties.readOnly">
+            <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-primary" ng-click="cargarVideo()">Cargar</button>
+    </div>
+</div>
+<div class="col-xs-12">
+    <br>
+</div>
+<div class="col-lg-12 video-responsive">
+     <br>
+    <iframe ng-src="{{currentProjectUrl}}" frameborder="0" allowfullscreen></iframe>
+</div>

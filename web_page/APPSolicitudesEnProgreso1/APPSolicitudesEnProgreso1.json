@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "APPSolicitudesEnProgreso1",
   "name" : "APPSolicitudesEnProgreso",
-  "lastUpdate" : 1638810308773,
+  "lastUpdate" : 1655408491634,
   "rows" : [
     [
       {
@@ -323,7 +324,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "dataToSend"
+                        "value" : "dataToFile"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -360,11 +361,15 @@
                       "fileExtension" : {
                         "type" : "constant",
                         "value" : "xls"
+                      },
+                      "nombre" : {
+                        "type" : "constant",
+                        "value" : "Solicitudes en proceso"
                       }
                     },
-                    "reference" : "c7aa92a3-83ed-463f-b048-3d77fc4ef361",
+                    "reference" : "1902b9e2-8426-40c2-a22e-a68c425f7d0a",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnDownloadExcel"
+                    "id" : "customCustomBtnDownloadExcelName"
                   }
                 ]
               ]
@@ -1600,13 +1605,6 @@
       "external" : false
     },
     {
-      "id" : "25b6be4f-928a-44d5-84d8-03eff82ca34d",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "39cb7871-2fce-4d20-b657-552ca8bf6351",
       "name" : "style.css",
       "type" : "css",
@@ -1632,6 +1630,20 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "3e00db3a-0482-4df5-b29e-f314469420f9",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 6,
+      "external" : false
+    },
+    {
+      "id" : "25b6be4f-928a-44d5-84d8-03eff82ca34d",
+      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "type" : "css",
+      "order" : 4,
       "external" : false
     }
   ],
@@ -1763,6 +1775,24 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Solicitud en progreso\",\r",
+        "    \"tarea\":\"Llenar solicitud\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"solicitudes_progreso\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};"
       ],
       "exposed" : false
     }

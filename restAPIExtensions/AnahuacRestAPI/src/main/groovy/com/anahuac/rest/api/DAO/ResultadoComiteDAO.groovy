@@ -267,11 +267,11 @@ class ResultadoComiteDAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -325,11 +325,11 @@ class ResultadoComiteDAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -370,11 +370,11 @@ class ResultadoComiteDAO {
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -415,11 +415,11 @@ class ResultadoComiteDAO {
 				errorLog+="termino la consulta";
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -456,11 +456,11 @@ class ResultadoComiteDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -500,11 +500,11 @@ class ResultadoComiteDAO {
 			}
 			resultado.setSuccess(true);
 			resultado.setData(info);
-			resultado.setError_info(errorlog);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -538,7 +538,7 @@ class ResultadoComiteDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorlog);
+			
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -926,7 +926,7 @@ class ResultadoComiteDAO {
 				
 				consulta=consulta.replace("[WHERE]", where);
 				errorlog=consulta+" 5";
-				pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, periodo.clave AS claveIngreso ,CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid,  da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura,SESIONES.nombre", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,periodo.clave,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, SESIONES.nombre",""))
+				pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro'THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, periodo.clave AS claveIngreso , CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro'THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, da.idbanner, campus.grupoBonita, TA.descripcion AS tipoadmision , R.descripcion AS residensia, TAL.descripcion AS tipoDeAlumno, catcampus.descripcion AS transferencia, campusEstudio.clave AS claveCampus, gestionescolar.clave  AS claveLicenciatura, SESIONES.nombre", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,periodo.clave,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, SESIONES.nombre",""))
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -973,11 +973,11 @@ class ResultadoComiteDAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1431,11 +1431,11 @@ class ResultadoComiteDAO {
 				errorlog=consulta+" 9";
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
+				
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
-			resultado.setError_info(errorlog)
+			
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {

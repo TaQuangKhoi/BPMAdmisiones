@@ -17,6 +17,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if($scope.final.length > 0){
                     isKp($scope.properties.value)
                     $scope.final[0].fechaExamen = formatDate($scope.properties.value.fechaExamen)
+                    $scope.final[0].username = $scope.properties.username;
                     doRequest("POST",$scope.properties.urlPost,$scope.final)
                 }
                 
@@ -133,10 +134,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           };
           return $http(req)
               .success(function (data, status) {
-                      swal('¡Se han guardado los datos correctamente!',"","success")
+                      //swal('¡Se han guardado los datos correctamente!',"","success")
                       $scope.properties.tabla = "tabla";
                       $scope.properties.update = "";
-                      doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
+                      //doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
               })
               .error(function (data, status) {
                 let fecha = `${datos[key].slice(3,5)}/${datos[key].slice(0,2)}/${datos[key].slice(6,10)}`;
@@ -194,6 +195,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
             else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
+                if(datos.update != false){
+                    datos.caseId = info.caseId;    
+                }
                 $scope.final = [ ...$scope.final,datos]
             }
         })

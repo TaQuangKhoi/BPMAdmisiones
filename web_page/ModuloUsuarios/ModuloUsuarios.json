@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "ModuloUsuarios",
   "name" : "ModuloUsuarios",
-  "lastUpdate" : 1630623868472,
+  "lastUpdate" : 1645725836114,
   "rows" : [
     [
       {
@@ -408,7 +409,16 @@
       "value" : [
         "var resultado = [];\r",
         "\r",
-        "resultado.push({\"descripcion\":\"Todos los campus\",\"group_id\":null})\r",
+        "let campus = \"\";\r",
+        "for(var x in $data.lstCampusUsuario){\r",
+        "    for(var index in $data.lstCatCampus){\r",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
+        "            campus+=`${campus.length > 0?',':''}${$data.lstCampusUsuario[x].group_id}`\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "resultado.push({\"descripcion\":\"Todos los campus\",\"group_id\":`(${campus})`})\r",
         "for(var x in $data.lstCampusUsuario){\r",
         "    for(var index in $data.lstCatCampus){\r",
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",

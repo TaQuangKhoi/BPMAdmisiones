@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "CatBachilleratosAcciones",
   "name" : "CatBachilleratosAcciones",
-  "lastUpdate" : 1630623729676,
+  "lastUpdate" : 1659033118263,
   "rows" : [
     [
       {
@@ -337,7 +338,7 @@
                       },
                       "url" : {
                         "type" : "interpolation",
-                        "value" : "../API/extension/AnahuacRest?url=getExcelFileCatalogo&p=0&c=10"
+                        "value" : "../API/extension/AnahuacRest?url=getExcelBachilleratos&p=0&c=10"
                       },
                       "responseStatusCode" : {
                         "type" : "variable",
@@ -382,11 +383,15 @@
                       "fileExtension" : {
                         "type" : "constant",
                         "value" : "xls"
+                      },
+                      "nombre" : {
+                        "type" : "constant",
+                        "value" : "Listado de bachilleratos"
                       }
                     },
-                    "reference" : "3517a7cf-fab5-40db-9198-1df35a7db04a",
+                    "reference" : "3b76f30a-7f35-4607-a55c-6889fce74ca3",
                     "hasValidationError" : false,
-                    "id" : "customCustomBtnDownloadExcel"
+                    "id" : "customCustomBtnDownloadExcelName"
                   },
                   {
                     "type" : "container",
@@ -1049,37 +1054,6 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "2787390b-c484-400e-9d32-4342c06f9286",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [ ]
-                    ]
-                  }
-                ],
-                [
-                  {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "repeatedCollection" : {
-                        "type" : "variable",
-                        "value" : ""
-                      }
-                    },
                     "reference" : "7a2cb8c9-b2f8-4d50-9a1d-b0dfff0ad630",
                     "hasValidationError" : false,
                     "id" : "pbContainer",
@@ -1168,14 +1142,17 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "ID Banner",
                     "Clave",
                     "Descripción",
+                    "Clave del país",
                     "País",
+                    "Clave del estado",
                     "Estado",
                     "Ciudad",
-                    "Usuario de creación",
-                    "Fecha de creación",
+                    "Municipio",
+                    "Código  postal",
+                    "Calle línea 1",
+                    "Calle línea 3",
                     "Fecha de importación",
                     "Pertenece a la Red",
                     "Activo"
@@ -1188,14 +1165,17 @@
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
-                    "id",
                     "clave",
                     "descripcion",
+                    "nationCode",
                     "pais",
+                    "stateCode",
                     "estado",
                     "ciudad",
-                    "usuarioBanner",
-                    "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'",
+                    "municipio",
+                    "postalCode",
+                    "streetLine1",
+                    "streetLine3",
                     "fechaImportacion| date:'dd-MM-yyyy HH:mm:ss'",
                     "perteneceRed",
                     "isEnabled"
@@ -3851,6 +3831,20 @@
   ],
   "assets" : [
     {
+      "id" : "1738cee2-8b6d-4186-aeb4-73891b126626",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "dd83ff30-5b82-494e-b1dd-4cd37905a9d4",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 4,
+      "external" : false
+    },
+    {
       "id" : "7620aa97-6dd8-444c-ab63-34e88c07b630",
       "name" : "bootstrap.min.js",
       "type" : "js",
@@ -3865,20 +3859,6 @@
       "external" : false
     },
     {
-      "id" : "50b1dfe2-61b4-4b6e-b8e5-d204736e4696",
-      "name" : "anahuac_custom_styles (1).css",
-      "type" : "css",
-      "order" : 1,
-      "external" : false
-    },
-    {
-      "id" : "dd83ff30-5b82-494e-b1dd-4cd37905a9d4",
-      "name" : "encabezados.css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "55612f36-ca53-4f3e-bb31-bc2e9153a082",
       "name" : "style.css",
       "type" : "css",
@@ -3886,10 +3866,10 @@
       "external" : false
     },
     {
-      "id" : "1738cee2-8b6d-4186-aeb4-73891b126626",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
+      "id" : "50b1dfe2-61b4-4b6e-b8e5-d204736e4696",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     }
   ],

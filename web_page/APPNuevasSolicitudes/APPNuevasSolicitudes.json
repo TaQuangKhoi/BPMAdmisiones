@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "APPNuevasSolicitudes",
   "name" : "APPNuevasSolicitudes",
-  "lastUpdate" : 1626281385516,
+  "lastUpdate" : 1655414646485,
   "rows" : [
     [
       {
@@ -512,7 +513,7 @@
                 },
                 "dataToSend" : {
                   "type" : "expression",
-                  "value" : "dataToSend"
+                  "value" : "dataToFile"
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
@@ -549,11 +550,15 @@
                 "fileExtension" : {
                   "type" : "constant",
                   "value" : "xls"
+                },
+                "nombre" : {
+                  "type" : "constant",
+                  "value" : "Nuevas solicitudes"
                 }
               },
-              "reference" : "6cae6b9e-3786-4f61-8310-d22342544136",
+              "reference" : "64ad36b8-9080-401c-89af-71711ce4c763",
               "hasValidationError" : false,
-              "id" : "customCustomBtnDownloadExcel"
+              "id" : "customCustomBtnDownloadExcelName"
             }
           ],
           [
@@ -1595,13 +1600,6 @@
       "external" : false
     },
     {
-      "id" : "25b6be4f-928a-44d5-84d8-03eff82ca34d",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "39cb7871-2fce-4d20-b657-552ca8bf6351",
       "name" : "style.css",
       "type" : "css",
@@ -1627,6 +1625,20 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "3e884da0-b573-403a-98c1-b4eff71d3bcc",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 6,
+      "external" : false
+    },
+    {
+      "id" : "25b6be4f-928a-44d5-84d8-03eff82ca34d",
+      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "type" : "css",
+      "order" : 4,
       "external" : false
     },
     {
@@ -1765,6 +1777,24 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToFile" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Nuevas solicitudes\",\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"nuevas_solicitudes\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};"
       ],
       "exposed" : false
     }

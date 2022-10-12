@@ -74,10 +74,164 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-        var page = "verSolicitudAdmisionADV2";
-        doRequest2("GET", "/API/bpm/archivedHumanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=aborted&d=processId", null, null, function(dataAborted) {
-            if (dataAborted.length > 0) {
-                doRequest2("POST", "/bonita/API/extension/AnahuacRest?url=recoveryData&p=0&c=100", null, { "caseId": parseInt(rowData.caseid), "processDefinitionId": dataAborted[0].processId.id }, function(recoveryData) {
+        if ($scope.isPeriodoVencido(rowData.periodofin)) {
+            swal("¡Periodo vencido!", "El periodo del aspirante ha vencido, se debe actualizar para poder continuar con el proceso", "warning").then((value) => {
+
+                var page = "verSolicitudAdmisionADV2";
+                doRequest2("GET", "/API/bpm/archivedHumanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=aborted&d=processId", null, null, function(dataAborted) {
+                    if (dataAborted.length > 0) {
+                        doRequest2("POST", "/bonita/API/extension/AnahuacRest?url=recoveryData&p=0&c=100", null, { "caseId": parseInt(rowData.caseid), "processDefinitionId": dataAborted[0].processId.id }, function(recoveryData) {
+                            var req = {
+                                method: "GET",
+                                url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                            };
+
+                            return $http(req)
+                                .success(function(data, status) {
+
+                                    blockUI.start();
+                                    var req2 = {
+                                        method: "GET",
+                                        url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                                    };
+
+                                    $http(req2)
+                                        .success(function(data2, status) {
+
+                                            ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
+
+                                            var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                            if (data2.length > 0) {
+                                                if (parseFloat(data2[0].processId.version) < 1.51) {
+                                                    page = "verSolicitudAdmision";
+                                                }
+                                                url = url.replace("[PAGE]", page);
+                                                url = url.replace("[TASKID]", data2[0].id);
+                                            } else {
+                                                url = url.replace("[TASKID]", "");
+                                            }
+                                            url = url.replace("[CASEID]", rowData.caseid);
+                                            //window.top.location.href = url;
+                                            window.open(url, '_blank');
+                                            $scope.$apply();
+                                        })
+                                        .error(function(data, status) {
+                                            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                                        })
+                                        .finally(function() {
+                                            blockUI.stop();
+                                        });
+                                })
+                                .error(function(data, status) {
+                                    console.error(data);
+                                })
+                                .finally(function() {});
+
+                        })
+                    } else {
+                        var req = {
+                            method: "GET",
+                            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                        };
+
+                        return $http(req)
+                            .success(function(data, status) {
+
+                                blockUI.start();
+                                var req2 = {
+                                    method: "GET",
+                                    url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                                };
+
+                                $http(req2)
+                                    .success(function(data2, status) {
+
+                                        ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
+
+                                        var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                        if (data2.length > 0) {
+                                            if (parseFloat(data2[0].processId.version) < 1.51) {
+                                                page = "verSolicitudAdmision";
+                                            }
+                                            url = url.replace("[PAGE]", page);
+                                            url = url.replace("[TASKID]", data2[0].id);
+                                        } else {
+                                            url = url.replace("[TASKID]", "");
+                                        }
+                                        url = url.replace("[CASEID]", rowData.caseid);
+                                        //window.top.location.href = url;
+                                        window.open(url, '_blank');
+                                    })
+                                    .error(function(data, status) {
+                                        notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                                    })
+                                    .finally(function() {
+
+                                        blockUI.stop();
+                                    });
+                            })
+                            .error(function(data, status) {
+                                console.error(data);
+                            })
+                            .finally(function() {});
+                    }
+
+                })
+
+
+            });
+        } else {
+            var page = "verSolicitudAdmisionADV2";
+            doRequest2("GET", "/API/bpm/archivedHumanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=aborted&d=processId", null, null, function(dataAborted) {
+                if (dataAborted.length > 0) {
+                    doRequest2("POST", "/bonita/API/extension/AnahuacRest?url=recoveryData&p=0&c=100", null, { "caseId": parseInt(rowData.caseid), "processDefinitionId": dataAborted[0].processId.id }, function(recoveryData) {
+                        var req = {
+                            method: "GET",
+                            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                        };
+
+                        return $http(req)
+                            .success(function(data, status) {
+
+                                blockUI.start();
+                                var req2 = {
+                                    method: "GET",
+                                    url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                                };
+
+                                $http(req2)
+                                    .success(function(data2, status) {
+
+                                        ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
+
+                                        var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                        if (data2.length > 0) {
+                                            if (parseFloat(data2[0].processId.version) < 1.51) {
+                                                page = "verSolicitudAdmision";
+                                            }
+                                            url = url.replace("[PAGE]", page);
+                                            url = url.replace("[TASKID]", data2[0].id);
+                                        } else {
+                                            url = url.replace("[TASKID]", "");
+                                        }
+                                        url = url.replace("[CASEID]", rowData.caseid);
+                                        //window.top.location.href = url;
+                                        window.open(url, '_blank');
+                                    })
+                                    .error(function(data, status) {
+                                        notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                                    })
+                                    .finally(function() {
+                                        blockUI.stop();
+                                    });
+                            })
+                            .error(function(data, status) {
+                                console.error(data);
+                            })
+                            .finally(function() {});
+
+                    })
+                } else {
                     var req = {
                         method: "GET",
                         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -95,7 +249,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                             $http(req2)
                                 .success(function(data2, status) {
 
-                                    ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                                    ///API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=30197&f=state=ready&d=processId
 
                                     var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                                     if (data2.length > 0) {
@@ -115,6 +269,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                                     notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
                                 })
                                 .finally(function() {
+
                                     blockUI.stop();
                                 });
                         })
@@ -122,58 +277,11 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                             console.error(data);
                         })
                         .finally(function() {});
+                }
 
-                })
-            } else {
-                var req = {
-                    method: "GET",
-                    url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-                };
+            })
 
-                return $http(req)
-                    .success(function(data, status) {
-
-                        blockUI.start();
-                        var req2 = {
-                            method: "GET",
-                            url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
-                        };
-
-                        $http(req2)
-                            .success(function(data2, status) {
-
-                                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
-
-                                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
-                                if (data2.length > 0) {
-                                    if (parseFloat(data2[0].processId.version) < 1.51) {
-                                        page = "verSolicitudAdmision";
-                                    }
-                                    url = url.replace("[PAGE]", page);
-                                    url = url.replace("[TASKID]", data2[0].id);
-                                } else {
-                                    url = url.replace("[TASKID]", "");
-                                }
-                                url = url.replace("[CASEID]", rowData.caseid);
-                                //window.top.location.href = url;
-                                window.open(url, '_blank');
-                            })
-                            .error(function(data, status) {
-                                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                            })
-                            .finally(function() {
-
-                                blockUI.stop();
-                            });
-                    })
-                    .error(function(data, status) {
-                        console.error(data);
-                    })
-                    .finally(function() {});
-            }
-
-        })
-
+        }
     }
     $scope.isenvelope = false;
     $scope.selectedrow = {};
@@ -570,5 +678,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .finally(function() {
                 vm.busy = false;
             });
+    }
+    $scope.isPeriodoVencido = function(periodofin) {
+        var fecha = new Date(periodofin.slice(0, 10))
+        return fecha < new Date();
     }
 }

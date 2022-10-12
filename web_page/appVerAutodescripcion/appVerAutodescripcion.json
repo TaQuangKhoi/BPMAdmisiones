@@ -1,8 +1,9 @@
 {
-  "designerVersion" : "1.11.52",
+  "modelVersion" : "2.2",
+  "previousArtifactVersion" : "1.11.52",
   "id" : "appVerAutodescripcion",
   "name" : "appVerAutodescripcion",
-  "lastUpdate" : 1632520175735,
+  "lastUpdate" : 1645814357782,
   "rows" : [
     [
       {
@@ -806,15 +807,16 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseList[0].caseId}}&fstate=ready"
       ],
       "exposed" : false
     },
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "../API/extension/RegistroRest?url=context&caseid={{caseList[0].caseId}}"
       ],
+      "advancedOptions" : { },
       "exposed" : false
     },
     "taskId" : {
