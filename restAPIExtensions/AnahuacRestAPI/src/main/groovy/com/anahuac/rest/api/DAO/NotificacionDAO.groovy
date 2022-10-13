@@ -1977,8 +1977,8 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 					
 				}
-			} else if(object.codigo.equals("sdae.propuestasolobeca-becas")) {
-				errorlog += "| PLANTILLA :: sdae.propuestasolobeca-becas  ";
+			} else if(object.codigo.equals("sdae-propuestasolobeca-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas") ) {
+				errorlog += " | PLANTILLA :: " + object.codigo;
 				Integer costoCredito = 0;
 				Integer creditosemestre = 0;
 				Integer parcialidad = 0;
@@ -1998,7 +1998,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					pstm.setString(1, object.correo);
 					rs = pstm.executeQuery();
 					if(rs.next()) {
-						errorlog += "| BC_SOLICITUD_BECASYFINAN_AUTORIZADA SOLICITUD ENCONTRADA ";
+						errorlog += "| " + object.codigo + " SOLICITUD ENCONTRADA ";
 						creditosemestre = rs.getInt("creditosemestre");
 						parcialidad = rs.getInt("parcialidad");
 						porcentajebecaautorizacion = rs.getInt("porcentajebecaautorizacion");
@@ -3345,7 +3345,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				pstm.setString(19, object.titulo);
 				pstm.setString(20, object.urlImgFooter);
 				pstm.setString(21, object.urlImgHeader);
-				pstm.setString(22, object.persistenceId);
+				pstm.setLong(22, Long.valueOf(object.persistenceId));
 				
 			} else {
 				pstm = con.prepareStatement(Statements.INSERT_CAT_NOTIFICACIONES_SDAE);
