@@ -1046,8 +1046,8 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_Iuhw7Uv2Ee26E_i82B7MEg" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Iuhw7kv2Ee26E_i82B7MEg" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_Iuhw70v2Ee26E_i82B7MEg" name="avalInfoNotarialInput.caseId" content="avalInfoNotarialInput?.caseId?.trim() ? avalInfoNotarialInput.caseId.toLong() : null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_Iuhw8Ev2Ee26E_i82B7MEg" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Iuhw70v2Ee26E_i82B7MEg" name="avalInfoNotarialInput.caseId" content="caseidSolicitudApoyo" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:Data" xmi:id="_596zgEwGEe26E_i82B7MEg" name="caseidSolicitudApoyo" dataType="_PpGy32c7EeyAHufroJpG_Q"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_Iuhw8Uv2Ee26E_i82B7MEg" type="JAVA_METHOD" expression="setCaseId">
               <inputTypes>java.lang.Long</inputTypes>
@@ -1057,8 +1057,8 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_Iuhw80v2Ee26E_i82B7MEg" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Iuhw9Ev2Ee26E_i82B7MEg" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_Iuhw9Uv2Ee26E_i82B7MEg" name="avalInfoNotarialInput.caseidSolicitud" content="avalInfoNotarialInput?.caseidSolicitud" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_Iuhw9kv2Ee26E_i82B7MEg" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Iuhw9Uv2Ee26E_i82B7MEg" name="avalInfoNotarialInput.caseidSolicitud" content="caseIdAdmision" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:Data" xmi:id="_9m66gEwGEe26E_i82B7MEg" name="caseIdAdmision" dataType="_PpGy32c7EeyAHufroJpG_Q"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_Iuhw90v2Ee26E_i82B7MEg" type="JAVA_METHOD" expression="setCaseidSolicitud">
               <inputTypes>java.lang.String</inputTypes>
@@ -1194,8 +1194,6 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_Iuf7pUv2Ee26E_i82B7MEg" name="volumen" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_Iuf7pkv2Ee26E_i82B7MEg" name="libro" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_Iuf7p0v2Ee26E_i82B7MEg" name="lugarDeEscrituracion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Iuf7qEv2Ee26E_i82B7MEg" name="caseId" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Iuf7qUv2Ee26E_i82B7MEg" name="caseidSolicitud" createMode="false"/>
             </inputs>
             <constraints xmi:type="process:ContractConstraint" xmi:id="_IuhJwEv2Ee26E_i82B7MEg" expression="!avalInfoNotarialInput?.caseId || avalInfoNotarialInput?.caseId.isLong()" errorMessage="A Long value is expected for AvalInfoNotarial.caseId" name="type_long_avalInfoNotarialInput_caseId">
               <inputNames>avalInfoNotarialInput</inputNames>
