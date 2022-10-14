@@ -1512,9 +1512,6 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						Result rfirma = getFirma("{\"estatusSolicitud\":\"Solicitud en progreso\",\"tarea\":\"Llenar solicitud\",\"lstFiltro\":[{\"columna\":\"PERSISTENCEID\",\"operador\":\"Igual a\",\"valor\":\""+catHffc.getCatnotificacionesfirma_pid().toString()+"\"}],\"type\":\"solicitudes_progreso\",\"usuario\":0,\"orderby\":\"NOMBRECOMPLETO\",\"orientation\":\"ASC\",\"limit\":20,\"offset\":0}")
 						
 						plantilla=plantilla.replace("(CONTACTO DE CAMPUS DESTINO)", rfirma.data.get(0).nombreCompleto + " " +rfirma.data.get(0).apellido);
-						plantilla = plantilla.replace("[PORCENTAJE-BECA]", rs.getString("porcentajebeca_sol"));
-						plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO]", rs.getString("porcentajecredito_sol"));
-						plantilla = plantilla.replace("[TIPO-BECA]", rs.getString("porcentajecredito_sol"));
 					} catch (Exception e) {
 						plantilla=plantilla.replace("[firma]", "")
 					}
