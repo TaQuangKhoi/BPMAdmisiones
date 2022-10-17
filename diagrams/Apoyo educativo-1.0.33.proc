@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.33" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.39">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.40">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -302,61 +302,6 @@
               </parameters>
             </configuration>
           </connectors>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6QonKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6Q4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6RInKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6RYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.numeroEscritura" content="avalInfoPropiedadModelInput?.numeroEscritura" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6RonKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6R4nKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setNumeroEscritura">
-              <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6SInKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6SYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6SonKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6S4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.volumen" content="avalInfoPropiedadModelInput?.volumen" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6TInKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6TYnKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setVolumen">
-              <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6TonKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6T4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6UInKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6UYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.seccion" content="avalInfoPropiedadModelInput?.seccion" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6UonKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6U4nKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setSeccion">
-              <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6VInKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6VYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6VonKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6V4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.lugarEscrituracion" content="avalInfoPropiedadModelInput?.lugarEscrituracion" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6WInKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6WYnKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setLugarEscrituracion">
-              <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6WonKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6W4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6XInKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6XYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.folio" content="avalInfoPropiedadModelInput?.folio" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6XonKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6X4nKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setFolio">
-              <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
           <operations xmi:type="expression:Operation" xmi:id="_dNH6YInKEeyveuxYpeB7zg">
             <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6YYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6YonKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
@@ -366,28 +311,6 @@
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_dNH6ZYnKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setLibro">
               <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6ZonKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6Z4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6aInKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6aYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.partida" content="avalInfoPropiedadModelInput?.partida" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6aonKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6a4nKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setPartida">
-              <inputTypes>java.lang.String</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="_dNH6bInKEeyveuxYpeB7zg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_dNH6bYnKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_dNH6bonKEeyveuxYpeB7zg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_dNH6b4nKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput.fechaRegistro" content="avalInfoPropiedadModelInput?.fechaRegistro" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.time.LocalDateTime">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_dNH6cInKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_dNH6cYnKEeyveuxYpeB7zg" type="JAVA_METHOD" expression="setFechaRegistro">
-              <inputTypes>java.time.LocalDateTime</inputTypes>
             </operator>
           </operations>
           <operations xmi:type="expression:Operation" xmi:id="_dNH6conKEeyveuxYpeB7zg">
@@ -1064,6 +987,17 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_7Y_48E5MEe2I1eCOG6nKvg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_7Y_48U5MEe2I1eCOG6nKvg" name="avalInfoPropiedadModel" content="avalInfoPropiedadModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPropiedad">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8XYz0E5MEe2I1eCOG6nKvg" name="avalInfoPropiedadModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPropiedad"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_7Y_48k5MEe2I1eCOG6nKvg" name="avalInfoPropiedadModelInput.tomo" content="avalInfoPropiedadModelInput?.tomo" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_AEtaIE5NEe2I1eCOG6nKvg" name="avalInfoPropiedadModelInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_7Y_4805MEe2I1eCOG6nKvg" type="JAVA_METHOD" expression="setTomo">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_-7voE2c7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_-7voFGc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_-7voFWc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1083,16 +1017,12 @@
           </filters>
           <contract xmi:type="process:Contract" xmi:id="_A_dMSWc8EeyAHufroJpG_Q">
             <inputs xmi:type="process:ContractInput" xmi:id="_dNGsIInKEeyveuxYpeB7zg" name="avalInfoPropiedadModelInput" type="COMPLEX" dataReference="avalInfoPropiedadModel" createMode="false">
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsIYnKEeyveuxYpeB7zg" name="numeroEscritura" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsIonKEeyveuxYpeB7zg" name="volumen" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsI4nKEeyveuxYpeB7zg" name="seccion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsJInKEeyveuxYpeB7zg" name="lugarEscrituracion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsJYnKEeyveuxYpeB7zg" name="folio" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_dNGsJonKEeyveuxYpeB7zg" name="libro" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsJ4nKEeyveuxYpeB7zg" name="partida" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_dNGsKInKEeyveuxYpeB7zg" name="fechaRegistro" type="LOCALDATETIME" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_dNGsKYnKEeyveuxYpeB7zg" name="caseid" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_dNGsKonKEeyveuxYpeB7zg" name="caseidSolicitud" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_YB3MQE5MEe2I1eCOG6nKvg" name="tomo">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_YB3zUE5MEe2I1eCOG6nKvg"/>
+              </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_exhFMInKEeyveuxYpeB7zg" name="avalReferenciasBancariasModelInput" type="COMPLEX" multiple="true" dataReference="avalReferenciasBancariasModel" createMode="false">
               <inputs xmi:type="process:ContractInput" xmi:id="_exhFMYnKEeyveuxYpeB7zg" name="persistenceId_string" createMode="false"/>
