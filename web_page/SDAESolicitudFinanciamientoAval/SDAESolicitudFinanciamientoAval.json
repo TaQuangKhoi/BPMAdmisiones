@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1666113823073,
+  "lastUpdate" : 1666132296272,
   "rows" : [
     [
       {
@@ -5923,7 +5923,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -5998,7 +5998,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6073,7 +6073,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6170,7 +6170,7 @@
                               },
                               "dateFormat" : {
                                 "type" : "constant",
-                                "value" : "MM/dd/yyyy"
+                                "value" : "dd/MM/yyyy"
                               },
                               "placeholder" : {
                                 "type" : "interpolation",
@@ -6216,7 +6216,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6291,7 +6291,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6347,7 +6347,7 @@
                               "xs" : 12,
                               "sm" : 12,
                               "md" : 8,
-                              "lg" : 12
+                              "lg" : 8
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -6368,7 +6368,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6415,58 +6415,6 @@
                             "reference" : "331063d0-051b-4687-8c82-43f9323e3019",
                             "hasValidationError" : false,
                             "id" : "customSDAEInputLimit"
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Default label"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "allowHTML" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "text" : {
-                                "type" : "interpolation",
-                                "value" : "<pre>{{ validateInfoNotarial }} <br>\n{{ errorMessageInfoNotarial }}\n</pre>\n<pre>{{ avalInfoNotarial | json }}</pre>"
-                              },
-                              "alignment" : {
-                                "type" : "constant",
-                                "value" : "left"
-                              }
-                            },
-                            "reference" : "a6fdfeea-afa4-4637-884a-b8710e980968",
-                            "hasValidationError" : false,
-                            "id" : "pbText"
                           }
                         ]
                       ]
@@ -6563,7 +6511,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 250
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6706,7 +6654,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 1
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -6781,7 +6729,7 @@
                               },
                               "maxLength" : {
                                 "type" : "constant",
-                                "value" : 250
+                                "value" : 50
                               },
                               "readOnly" : {
                                 "type" : "constant",
@@ -11140,7 +11088,8 @@
         "\t\t\tpartida: $data.avalInfoPropiedadModel.partida !== undefined ? $data.avalInfoPropiedadModel.partida : null,\r",
         "\t\t\tfechaRegistro: $data.avalInfoPropiedadModel.fechaRegistro !== undefined ? $data.avalInfoPropiedadModel.fechaRegistro : null,\r",
         "\t\t\tcaseid: $data.avalInfoPropiedadModel.caseid !== undefined ? $data.avalInfoPropiedadModel.caseid : null,\r",
-        "\t\t\tcaseidSolicitud: $data.avalInfoPropiedadModel.caseidSolicitud !== undefined ? $data.avalInfoPropiedadModel.caseidSolicitud : null\r",
+        "\t\t\tcaseidSolicitud: $data.avalInfoPropiedadModel.caseidSolicitud !== undefined ? $data.avalInfoPropiedadModel.caseidSolicitud : null,\r",
+        "\t\t\ttomo: $data.avalInfoPropiedadModel.tomo !== undefined ? $data.avalInfoPropiedadModel.tomo : null\r",
         "\t\t},\r",
         "\t\t//map avalReferenciasBancariasModel variable to expected task contract input\r",
         "\t\tavalReferenciasBancariasModelInput: $data.avalReferenciasBancariasModel.map( it => ({\r",
@@ -11173,7 +11122,8 @@
         "\t\t},\r",
         "\t\tdocumentosAvalModelInput: $data.lstDocumentosAval,\r",
         "\t\tsolicitanteReferenciasPersonalesInput : $data.solicitanteReferenciasPersonalesInput,\r",
-        "\t\tavalReferenciasPersonalesInput : $data.avalReferenciasPersonalesInput\r",
+        "\t\tavalReferenciasPersonalesInput : $data.avalReferenciasPersonalesInput,\r",
+        "\t\tavalInfoNotarialInput: $data.avalInfoNotarial\r",
         "\t}\r",
         "}"
       ],
@@ -11613,12 +11563,12 @@
         "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
         "} else if(!$data.avalInfoPropiedadModel.fechaRegistro){\r",
         "    output = false;\r",
-        "\t$data.errorMessageInfoLaboral = \"Campo 'Fecha de registro' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoLaboral = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "\t$data.errorMessageInfoPropiedad = \"Campo 'Fecha de registro' no debe ir vacío\";\r",
+        "\t$data.errorMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
         "} else if(!$data.avalInfoPropiedadModel.tomo){\r",
         "    output = false;\r",
-        "\t$data.errorMessageInfoLaboral = \"Campo 'Tomo' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoLaboral = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "\t$data.errorMessageInfoPropiedad = \"Campo 'Tomo' no debe ir vacío\";\r",
+        "\t$data.errorMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
         "} else if(!$data.avalInfoPropiedadModel.libro){\r",
         "    output = false;\r",
         "\t$data.errorMessageInfoPropiedad = \"Campo 'Libro' no debe ir vacío\";\r",

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAvalModificar",
   "name" : "SDAESolicitudFinanciamientoAvalModificar",
-  "lastUpdate" : 1665172983843,
+  "lastUpdate" : 1666132343494,
   "rows" : [
     [
       {
@@ -5538,48 +5538,7 @@
                   ],
                   [
                     {
-                      "type" : "component",
-                      "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
-                        "xs" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "level" : {
-                          "type" : "constant",
-                          "value" : "Level 4"
-                        },
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : "color-orange"
-                        },
-                        "text" : {
-                          "type" : "interpolation",
-                          "value" : "<hr> DATOS DE INSCRIPCIÓN EN EL REGISTRO PÚBLICO DE LA PROPIEDAD"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "center"
-                        },
-                        "dimension" : {
-                          "type" : "constant",
-                          "value" : 12
-                        }
-                      },
-                      "reference" : "fa24f0c1-a6c1-43cc-b816-57a5ac2dd0a1",
-                      "hasValidationError" : false,
-                      "id" : "pbTitle",
-                      "description" : ""
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -5593,64 +5552,644 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : true
-                        },
-                        "disabled" : {
-                          "type" : "constant",
                           "value" : false
                         },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "validateInfoPropiedad"
-                        },
-                        "value" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
-                          "value" : "validateInfoPropiedad"
+                          "value" : ""
                         }
                       },
-                      "reference" : "9764cbee-c473-4068-b1af-ce65c1f260cf",
+                      "reference" : "b3686af6-c372-44de-a806-c48959949a40",
                       "hasValidationError" : false,
-                      "id" : "pbCheckbox"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "color-orange"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "<hr> DATOS NOTARIALES"
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 4"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              }
+                            },
+                            "reference" : "a5320883-3ed8-4a4c-b2cf-bb0036c35674",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 50
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Notario(a): <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.notario"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "fe6a9934-b1c6-4a60-a48b-2cd225fbd9a0",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 50
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "No. notaría: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.numeroNotaria"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "0ac1eeca-e831-4fc3-afc0-53fa35256857",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 50
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "No. escritura: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.numeroEscritura"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "1bc0cb67-92dd-4d80-9e04-4eb254dd9320",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Fecha: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.fecha"
+                              },
+                              "dateFormat" : {
+                                "type" : "constant",
+                                "value" : "dd/MM/yyyy"
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation",
+                                "value" : "Enter a date (mm/dd/yyyy)"
+                              },
+                              "showToday" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "todayLabel" : {
+                                "type" : "interpolation",
+                                "value" : "Today"
+                              }
+                            },
+                            "reference" : "5702d2ba-508c-47f6-bbc6-30b78607282c",
+                            "hasValidationError" : false,
+                            "id" : "pbDatePicker"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 50
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Volumen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.volumen"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "f6914b9f-3038-489e-a9c9-fac4284629f5",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 4,
+                              "lg" : 4
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 50
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Libro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.libro"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "c340e901-b15f-4909-aa3a-d13567cc60d7",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 8,
+                              "lg" : 8
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 50
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Lugar de escrituración: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoNotarial.lugarDeEscrituracion"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "fac4379c-785c-48a8-85da-c30d632e3a2e",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          }
+                        ]
+                      ]
                     }
                   ],
                   [
                     {
                       "type" : "container",
                       "dimension" : {
-                        "md" : 12,
-                        "sm" : 12,
                         "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
                         "lg" : 12
                       },
                       "propertyValues" : {
-                        "repeatedCollection" : {
-                          "type" : "variable",
+                        "cssClasses" : {
+                          "type" : "constant",
                           "value" : ""
                         },
                         "hidden" : {
                           "type" : "constant",
                           "value" : false
                         },
-                        "cssClasses" : {
-                          "type" : "constant",
+                        "repeatedCollection" : {
+                          "type" : "variable",
                           "value" : ""
-                        },
-                        "dimension" : {
-                          "type" : "constant",
-                          "value" : 12
                         }
                       },
-                      "reference" : "08c311b7-e06b-4c93-9745-1b87d76fd677",
+                      "reference" : "23803b74-0a27-47d3-aacb-0d5039feab9e",
                       "hasValidationError" : false,
                       "id" : "pbContainer",
                       "rows" : [
                         [
                           {
-                            "type" : "container",
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "color-orange"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "<hr> DATOS DE INSCRIPCIÓN EN EL REGISTRO PÚBLICO DE LA PROPIEDAD"
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 4"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              }
+                            },
+                            "reference" : "cad4fb80-a6c5-4844-9d0f-7412bbd5eb9c",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 12,
@@ -5666,433 +6205,432 @@
                                 "type" : "constant",
                                 "value" : false
                               },
-                              "repeatedCollection" : {
-                                "type" : "variable",
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
                                 "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Folio o folio real: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPropiedadModel.folio"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
                               }
                             },
-                            "reference" : "052387bc-5e4a-4272-8643-834d1d2f1c90",
+                            "reference" : "e1fdc120-64be-43bd-a367-ba3dd8905715",
                             "hasValidationError" : false,
-                            "id" : "pbContainer",
-                            "rows" : [
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "md" : 12,
-                                    "sm" : 12,
-                                    "xs" : 12,
-                                    "lg" : 12
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "No. de escritura: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.numeroEscritura"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    }
-                                  },
-                                  "reference" : "c9efed4e-afa0-47bf-94fa-af5cd595cfdb",
-                                  "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
-                                }
-                              ],
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "md" : 6,
-                                    "sm" : 12,
-                                    "xs" : 12,
-                                    "lg" : 6
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Volumen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.volumen"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    }
-                                  },
-                                  "reference" : "32e5298b-3d52-4c97-847b-39b59f24b41d",
-                                  "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
-                                },
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "md" : 6,
-                                    "sm" : 12,
-                                    "xs" : 12,
-                                    "lg" : 6
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Sección: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.seccion"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    }
-                                  },
-                                  "reference" : "6e8ac114-ac96-4d50-8fb8-bcdb5db9a085",
-                                  "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
-                                }
-                              ],
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "md" : 12,
-                                    "sm" : 12,
-                                    "xs" : 12,
-                                    "lg" : 12
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Lugar de escrituración: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.lugarEscrituracion"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    }
-                                  },
-                                  "reference" : "be11cf15-1629-461d-9636-6201a2fecdb8",
-                                  "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
-                                }
-                              ]
-                            ]
+                            "id" : "customSDAEInputLimit"
                           },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Fecha de registro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPropiedadModel.fechaRegistro"
+                              },
+                              "dateFormat" : {
+                                "type" : "constant",
+                                "value" : "dd/MM/yyyy"
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation",
+                                "value" : "Enter a date (mm/dd/yyyy)"
+                              },
+                              "showToday" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "todayLabel" : {
+                                "type" : "interpolation",
+                                "value" : "Today"
+                              }
+                            },
+                            "reference" : "59196e84-d097-47c6-b1fb-cee2e97b6106",
+                            "hasValidationError" : false,
+                            "id" : "pbDatePicker"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Tomo: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPropiedadModel.tomo"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "9c07295d-7737-4ecc-a48f-3de2d4fbf169",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 6,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : 1
+                              },
+                              "readOnly" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Libro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "avalInfoPropiedadModel.libro"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "a861971b-406f-4064-91b6-e1e0ac770391",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEInputLimit"
+                          }
+                        ]
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "cb336ab5-1da0-4eab-90ea-69a94cde9f83",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 12,
+                              "sm" : 12,
+                              "xs" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 4"
+                              },
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "color-orange"
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "<hr> DATOS DE INSCRIPCIÓN EN EL REGISTRO PÚBLICO DE LA PROPIEDAD"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
+                              }
+                            },
+                            "reference" : "fa24f0c1-a6c1-43cc-b816-57a5ac2dd0a1",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle",
+                            "description" : ""
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "validateInfoPropiedad"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "validateInfoPropiedad"
+                              }
+                            },
+                            "reference" : "9764cbee-c473-4068-b1af-ce65c1f260cf",
+                            "hasValidationError" : false,
+                            "id" : "pbCheckbox"
+                          }
+                        ],
+                        [
                           {
                             "type" : "container",
                             "dimension" : {
-                              "xs" : 12,
+                              "md" : 12,
                               "sm" : 12,
-                              "md" : 6,
-                              "lg" : 6
+                              "xs" : 12,
+                              "lg" : 12
                             },
                             "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
+                              "repeatedCollection" : {
+                                "type" : "variable",
                                 "value" : ""
                               },
                               "hidden" : {
                                 "type" : "constant",
                                 "value" : false
                               },
-                              "repeatedCollection" : {
-                                "type" : "variable",
+                              "cssClasses" : {
+                                "type" : "constant",
                                 "value" : ""
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
                               }
                             },
-                            "reference" : "93ce679c-05bc-4702-b4d8-911df06b3949",
+                            "reference" : "08c311b7-e06b-4c93-9745-1b87d76fd677",
                             "hasValidationError" : false,
                             "id" : "pbContainer",
                             "rows" : [
                               [
                                 {
-                                  "type" : "component",
+                                  "type" : "container",
                                   "dimension" : {
-                                    "md" : 12,
-                                    "sm" : 12,
                                     "xs" : 12,
-                                    "lg" : 12
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Folio o folio real: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.folio"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    }
-                                  },
-                                  "reference" : "f5f8caad-11bc-4a0f-877f-ba0609164b09",
-                                  "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
-                                }
-                              ],
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
+                                    "sm" : 12,
                                     "md" : 6,
-                                    "sm" : 12,
-                                    "xs" : 12,
                                     "lg" : 6
                                   },
                                   "propertyValues" : {
@@ -6104,70 +6642,329 @@
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Libro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
+                                    "repeatedCollection" : {
                                       "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.libro"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
+                                      "value" : ""
                                     }
                                   },
-                                  "reference" : "8dd694f3-ee9b-4857-b32a-f77f0577f94e",
+                                  "reference" : "052387bc-5e4a-4272-8643-834d1d2f1c90",
                                   "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
+                                  "id" : "pbContainer",
+                                  "rows" : [
+                                    [
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 12,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 12
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "No. de escritura: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.numeroEscritura"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "c9efed4e-afa0-47bf-94fa-af5cd595cfdb",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      }
+                                    ],
+                                    [
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 6,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 6
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Volumen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.volumen"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "32e5298b-3d52-4c97-847b-39b59f24b41d",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      },
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 6,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 6
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Sección: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.seccion"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "6e8ac114-ac96-4d50-8fb8-bcdb5db9a085",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      }
+                                    ],
+                                    [
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 12,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 12
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Lugar de escrituración: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.lugarEscrituracion"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "be11cf15-1629-461d-9636-6201a2fecdb8",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      }
+                                    ]
+                                  ]
                                 },
                                 {
-                                  "type" : "component",
+                                  "type" : "container",
                                   "dimension" : {
-                                    "md" : 6,
-                                    "sm" : 12,
                                     "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 6,
                                     "lg" : 6
                                   },
                                   "propertyValues" : {
@@ -6179,131 +6976,313 @@
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "minLength" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "maxLength" : {
-                                      "type" : "constant",
-                                      "value" : 250
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Partida: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation"
-                                    },
-                                    "value" : {
+                                    "repeatedCollection" : {
                                       "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.partida"
-                                    },
-                                    "type" : {
-                                      "type" : "constant",
-                                      "value" : "text"
-                                    },
-                                    "min" : {
-                                      "type" : "constant"
-                                    },
-                                    "max" : {
-                                      "type" : "constant"
-                                    },
-                                    "step" : {
-                                      "type" : "constant",
-                                      "value" : 1
+                                      "value" : ""
                                     }
                                   },
-                                  "reference" : "1ea6a955-f2e9-4baa-ab76-370dec8a9d8c",
+                                  "reference" : "93ce679c-05bc-4702-b4d8-911df06b3949",
                                   "hasValidationError" : false,
-                                  "id" : "customSDAEInputLimit"
-                                }
-                              ],
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "md" : 12,
-                                    "sm" : 12,
-                                    "xs" : 12,
-                                    "lg" : 12
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Fecha de registro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 1
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "avalInfoPropiedadModel.fechaRegistro"
-                                    },
-                                    "dateFormat" : {
-                                      "type" : "constant",
-                                      "value" : "dd/MM/yyyy"
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation",
-                                      "value" : "Selecciona  una fecha"
-                                    },
-                                    "showToday" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "todayLabel" : {
-                                      "type" : "interpolation",
-                                      "value" : "Today"
-                                    }
-                                  },
-                                  "reference" : "ab10d06e-baae-4023-a9fa-f47cffc962b1",
-                                  "hasValidationError" : false,
-                                  "id" : "pbDatePicker"
+                                  "id" : "pbContainer",
+                                  "rows" : [
+                                    [
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 12,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 12
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Folio o folio real: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.folio"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "f5f8caad-11bc-4a0f-877f-ba0609164b09",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      }
+                                    ],
+                                    [
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 6,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 6
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Libro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.libro"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "8dd694f3-ee9b-4857-b32a-f77f0577f94e",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      },
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 6,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 6
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "minLength" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "maxLength" : {
+                                            "type" : "constant",
+                                            "value" : 250
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Partida: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation"
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.partida"
+                                          },
+                                          "type" : {
+                                            "type" : "constant",
+                                            "value" : "text"
+                                          },
+                                          "min" : {
+                                            "type" : "constant"
+                                          },
+                                          "max" : {
+                                            "type" : "constant"
+                                          },
+                                          "step" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          }
+                                        },
+                                        "reference" : "1ea6a955-f2e9-4baa-ab76-370dec8a9d8c",
+                                        "hasValidationError" : false,
+                                        "id" : "customSDAEInputLimit"
+                                      }
+                                    ],
+                                    [
+                                      {
+                                        "type" : "component",
+                                        "dimension" : {
+                                          "md" : 12,
+                                          "sm" : 12,
+                                          "xs" : 12,
+                                          "lg" : 12
+                                        },
+                                        "propertyValues" : {
+                                          "cssClasses" : {
+                                            "type" : "constant",
+                                            "value" : ""
+                                          },
+                                          "hidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "readOnly" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "required" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "labelHidden" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "label" : {
+                                            "type" : "interpolation",
+                                            "value" : "Fecha de registro: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                          },
+                                          "labelPosition" : {
+                                            "type" : "constant",
+                                            "value" : "top"
+                                          },
+                                          "labelWidth" : {
+                                            "type" : "constant",
+                                            "value" : 1
+                                          },
+                                          "value" : {
+                                            "type" : "variable",
+                                            "value" : "avalInfoPropiedadModel.fechaRegistro"
+                                          },
+                                          "dateFormat" : {
+                                            "type" : "constant",
+                                            "value" : "dd/MM/yyyy"
+                                          },
+                                          "placeholder" : {
+                                            "type" : "interpolation",
+                                            "value" : "Selecciona  una fecha"
+                                          },
+                                          "showToday" : {
+                                            "type" : "constant",
+                                            "value" : false
+                                          },
+                                          "todayLabel" : {
+                                            "type" : "interpolation",
+                                            "value" : "Today"
+                                          }
+                                        },
+                                        "reference" : "ab10d06e-baae-4023-a9fa-f47cffc962b1",
+                                        "hasValidationError" : false,
+                                        "id" : "pbDatePicker"
+                                      }
+                                    ]
+                                  ]
                                 }
                               ]
                             ]
@@ -10032,30 +11011,34 @@
       "type" : "expression",
       "value" : [
         "let  output = true;",
-        "debugger;",
+        "",
         "if (!$data.validarSolicitanteReferenciasPersonales){",
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMessageSolReferenciasPersonales);",
         "    $data.titleMessage = angular.copy($data.titleMessageSolReferenciasPersonales);",
-        "} else ",
-        "if(!$data.validateInfoPersonal){",
+        "} else if(!$data.validateInfoPersonal){",
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMEssageInfoPersonal);",
         "    $data.titleMessage = angular.copy($data.titleMEssageInfoPersonal);",
-        "} ",
-        "else if (!$data.validarAvalReferenciasPersonales){",
+        "} else if (!$data.validarAvalReferenciasPersonales){",
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMessageAvalReferenciasPersonales);",
         "    $data.titleMessage = angular.copy($data.titleMessageAvalReferenciasPersonales);",
-        "}",
-        "",
-        "else if (!$data.validateInfoLaboral){",
+        "} else if (!$data.validateInfoLaboral){",
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMessageInfoLaboral);",
         "    $data.titleMessage = angular.copy($data.titleMessageInfoLaboral);",
-        "} else if (!$data.validateInfoInmueble){",
+        "} ",
+        "",
+        "else if (!$data.validateInfoNotarial){",
         "    output = false;",
-        "    $data.errorMessage = angular.copy($data.validateInfoInmueble);",
+        "    $data.errorMessage = angular.copy($data.errorMessageInfoNotarial);",
+        "    $data.titleMessage = angular.copy($data.titleMessageInfoNotarial);",
+        "} ",
+        "",
+        "else if (!$data.validateInfoInmueble){",
+        "    output = false;",
+        "    $data.errorMessage = angular.copy($data.errorMessageInfoInmueble);",
         "    $data.titleMessage = angular.copy($data.titleMessageInfoInmueble);",
         "} else if (!$data.validateInfoPropiedad){",
         "    output = false;",
@@ -10069,13 +11052,12 @@
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMessageReferenciasCredito);",
         "    $data.titleMessage = angular.copy($data.titleMessageReferenciasCredito);",
-        "} ",
-        "",
-        "else if(!$data.validateDocumentos){",
+        "} else if(!$data.validateDocumentos){",
         "    output = false;",
         "    $data.errorMessage = angular.copy($data.errorMessageDocumentos);",
         "    $data.titleMessage = angular.copy($data.titleMessageDocumentos);",
         "} ",
+        "",
         "",
         "return output;",
         "",
@@ -10105,10 +11087,27 @@
         "//     output = false;",
         "//     $data.errorMessage = angular.copy($data.errorMessageReferenciasCredito);",
         "//     $data.titleMessage = angular.copy($data.titleMessageReferenciasCredito);",
-        "// }  else if(!$data.validateDocumentos){",
+        "// } ",
+        "",
+        "// else if(!$data.validateDocumentos){",
+        "//     output = false;",
         "//     $data.errorMessage = angular.copy($data.errorMessageDocumentos);",
         "//     $data.titleMessage = angular.copy($data.titleMessageDocumentos);",
         "// } ",
+        "",
+        "// // else if (!$data.aceptoVariables.confirmoDatos){",
+        "// //     output = false;",
+        "// //     $data.errorMessage = \"Para continuar, debes aceptar el campo 'Confirmo que los datos aquí presentes son verídicos y poseo toda la documentación necesaria para respaldarlos.'\";",
+        "// //     $data.titleMessage = \"Valida y envía tu información\";",
+        "// // } else if (!$data.aceptoVariables.confirmoAutor){",
+        "// //     output = false;",
+        "// //     $data.errorMessage = \"Para continuar, debes aceptar el campo 'Confirmo que soy el autor de los datos contenidos en este formulario y estoy consciente que si algún dato es falso podría afectar mi proceso de solicitud de apoyo educativo de manera negativa y definitiva.'\";",
+        "// //     $data.titleMessage = \"Valida y envía tu información\";",
+        "// // } else if (!$data.aceptoVariables.aceptoAvisoPrivacidad){",
+        "// //     output = false;",
+        "// //     $data.errorMessage = \"Para continuar, debes aceptar el aviso de privacidad\";",
+        "// //     $data.titleMessage = \"Valida y envía tu información\";",
+        "// // } ",
         "",
         "// return output;"
       ],
@@ -10255,41 +11254,68 @@
         "    output = false;\r",
         "\t$data.errorMessageInfoPropiedad = \"Debes llenar todos los campos requeridos en el formulario\";\r",
         "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} else if(!$data.avalInfoPropiedadModel.numeroEscritura){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoPropiedad = \"Campo 'No. de escritura' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} else if(!$data.avalInfoPropiedadModel.volumen){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoPropiedad = \"Campo 'Volumen' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} else if(!$data.avalInfoPropiedadModel.seccion){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoPropiedad = \"Campo 'Sección' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} else if(!$data.avalInfoPropiedadModel.lugarEscrituracion){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoPropiedad = \"Campo 'Lugar de escrituración' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
         "} else if(!$data.avalInfoPropiedadModel.folio){\r",
         "    output = false;\r",
         "\t$data.errorMessageInfoPropiedad = \"Campo 'Folio o folio real' no debe ir vacío\";\r",
         "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "} else if(!$data.avalInfoPropiedadModel.fechaRegistro){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoPropiedad = \"Campo 'Fecha de registro' no debe ir vacío\";\r",
+        "\t$data.errorMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "} else if(!$data.avalInfoPropiedadModel.tomo){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoPropiedad = \"Campo 'Tomo' no debe ir vacío\";\r",
+        "\t$data.errorMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
         "} else if(!$data.avalInfoPropiedadModel.libro){\r",
         "    output = false;\r",
         "\t$data.errorMessageInfoPropiedad = \"Campo 'Libro' no debe ir vacío\";\r",
         "\t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} else if(!$data.avalInfoPropiedadModel.partida){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoLaboral = \"Campo 'Partida' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoLaboral = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} else if(!$data.avalInfoPropiedadModel.fechaRegistro){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoLaboral = \"Campo 'Fecha de registro' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoLaboral = \"Datos de inscripción en el registro público de la propiedad\";\r",
-        "} \r",
+        "}\r",
         "\r",
-        "return output;"
+        "return output;\r",
+        "\r",
+        "\r",
+        "// let output = true;\r",
+        "\r",
+        "// if(!$data.avalInfoPropiedadModel){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Debes llenar todos los campos requeridos en el formulario\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.numeroEscritura){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Campo 'No. de escritura' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.volumen){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Campo 'Volumen' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.seccion){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Campo 'Sección' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.lugarEscrituracion){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Campo 'Lugar de escrituración' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.folio){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Campo 'Folio o folio real' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.libro){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoPropiedad = \"Campo 'Libro' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoPropiedad = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.partida){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoLaboral = \"Campo 'Partida' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoLaboral = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } else if(!$data.avalInfoPropiedadModel.fechaRegistro){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMessageInfoLaboral = \"Campo 'Fecha de registro' no debe ir vacío\";\r",
+        "// \t$data.titleMessageInfoLaboral = \"Datos de inscripción en el registro público de la propiedad\";\r",
+        "// } \r",
+        "\r",
+        "// return output;"
       ],
       "exposed" : false
     },
@@ -13853,6 +14879,57 @@
       "exposed" : false
     },
     "titleMessageSolReferenciasPersonales" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "validateInfoNotarial" : {
+      "type" : "expression",
+      "value" : [
+        "let output = true;\r",
+        "\r",
+        "if(!$data.avalInfoNotarial){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"Debes llenar todos los campos requeridos en el formulario\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.notario){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'Notario(a)' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.numeroNotaria){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'No. notaría' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.numeroEscritura){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'No. escritura' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.fecha){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'Fecha' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.volumen){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'Volumen' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.libro){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'Libro' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} else if(!$data.avalInfoNotarial.lugarDeEscrituracion){\r",
+        "    output = false;\r",
+        "\t$data.errorMessageInfoNotarial = \"El campo 'Lugar de escrituración' no debe ir vacío.\";\r",
+        "\t$data.titleMessageInfoNotarial = \"Datos notariales\";\r",
+        "} \r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "errorMessageInfoNotarial" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "titleMessageInfoNotarial" : {
       "type" : "constant",
       "exposed" : false
     }
