@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.33" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.42">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.43">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -2105,6 +2105,83 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzEE88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzEU88Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzEk88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzE088Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.notario" content="avalInfoNotarialInput?.notario" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzFE88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzFU88Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setNotario">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzFk88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzF088Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzGE88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzGU88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.numeroNotaria" content="avalInfoNotarialInput?.numeroNotaria" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzGk88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzG088Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setNumeroNotaria">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzHE88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzHU88Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzHk88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzH088Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.numeroEscritura" content="avalInfoNotarialInput?.numeroEscritura" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzIE88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzIU88Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setNumeroEscritura">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzIk88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzI088Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzJE88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzJU88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.fecha" content="avalInfoNotarialInput?.fecha" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.time.LocalDateTime">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzJk88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzJ088Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setFecha">
+              <inputTypes>java.time.LocalDateTime</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzKE88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzKU88Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzKk88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzK088Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.volumen" content="avalInfoNotarialInput?.volumen" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzLE88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzLU88Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setVolumen">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzLk88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzL088Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzME88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzMU88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.libro" content="avalInfoNotarialInput?.libro" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzMk88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzM088Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setLibro">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_c7tzNE88Ee2S6NnLtg3hFA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c7tzNU88Ee2S6NnLtg3hFA" name="avalInfoNotarial" content="avalInfoNotarial" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoNotarial">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c7tzNk88Ee2S6NnLtg3hFA" name="avalInfoNotarial" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoNotarial"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c7tzN088Ee2S6NnLtg3hFA" name="avalInfoNotarialInput.lugarDeEscrituracion" content="avalInfoNotarialInput?.lugarDeEscrituracion" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzOE88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c7tzOU88Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setLugarDeEscrituracion">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_lkR5k_DwEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_lkR5lPDwEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_lkR5lfDwEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2234,9 +2311,15 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_1co7pUWuEe2G0fdwYrXoGQ" name="parentesco" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_1co7pkWuEe2G0fdwYrXoGQ" name="caseId" createMode="false"/>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_1co7p0WuEe2G0fdwYrXoGQ" expression="avalReferenciasPersonalesInput?.caseId.flatten().findAll().every{ it.isLong() }" errorMessage="A Long value is expected for AvalReferenciasPersonales.caseId" name="type_long_avalReferenciasPersonalesInput_caseId">
-              <inputNames>avalReferenciasPersonalesInput</inputNames>
-            </constraints>
+            <inputs xmi:type="process:ContractInput" xmi:id="_c7tMAE88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" dataReference="avalInfoNotarial" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMAU88Ee2S6NnLtg3hFA" name="notario" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMAk88Ee2S6NnLtg3hFA" name="numeroNotaria" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMA088Ee2S6NnLtg3hFA" name="numeroEscritura" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMBE88Ee2S6NnLtg3hFA" name="fecha" type="LOCALDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMBU88Ee2S6NnLtg3hFA" name="volumen" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMBk88Ee2S6NnLtg3hFA" name="libro" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c7tMB088Ee2S6NnLtg3hFA" name="lugarDeEscrituracion" createMode="false"/>
+            </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_F9ZV-_DxEey_v_KPWHHjrg" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
