@@ -41,13 +41,15 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
   
     $scope.verSolicitud = function(_rowData, _action) {
         if(_action === "rechazar"){
-            showModal($scope.properties.idModalRechazar);
+            $scope.properties.navVar = _action;
+            // showModal($scope.properties.idModalRechazar);
         } else if(_action === "aceptar") {
-            showModal($scope.properties.idModalAceptar);
+            $scope.properties.navVar = _action;
+            // showModal($scope.properties.idModalAceptar);
+        } else if(_action === "modificar") {
+            $scope.properties.navVar = _action;
+            // showModal($scope.properties.idModalAceptar);
         } else {
-            // let taskId = data[0].id;
-            // var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=null&caseId=" + _rowData.caseid;
-            // window.open(url, '_blank');
             var req = {
                 method: "GET",
                 url: `/API/bpm/task?p=0&c=10&f=caseId%3d${_rowData.caseid}&f=isFailed%3dfalse`
@@ -65,24 +67,22 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             .error(function(data, status) {
                 console.error(data);
             })
-            .finally(function() {});
+            .finally(function() {
+                
+            });
         }
         
   
-        return $http(req).success(function(data, status) {
-            _rowData.taskId = data[0].id;
-            _rowData.taskName = data[0].name;
-            _rowData.processId = data[0].processId;
-            $scope.preProcesoAsignarTarea(_rowData)
-            
-            //let taskId = data[0].id;
-            //var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
-            //window.open(url, '_blank');
-        })
-        .error(function(data, status) {
-            console.error(data);
-        })
-        .finally(function() {});
+        // return $http(req).success(function(data, status) {
+        //     _rowData.taskId = data[0].id;
+        //     _rowData.taskName = data[0].name;
+        //     _rowData.processId = data[0].processId;
+        //     $scope.preProcesoAsignarTarea(_rowData)
+        // })
+        // .error(function(data, status) {
+        //     console.error(data);
+        // })
+        // .finally(function() {});
   
       /*
       }else{
