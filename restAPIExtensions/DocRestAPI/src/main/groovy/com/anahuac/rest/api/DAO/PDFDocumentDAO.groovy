@@ -108,7 +108,7 @@ class PDFDocumentDAO {
 						columns.put("universidadPadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					} else {
 						columns.put("nombrePadre", isNullOrBlanck(it?.nombre.toString()));
-						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString())+"  ${ isNullOrBlanck(it?.vive.toString()).equals('Sí')? (it?.jubilado.toString().equals('t')?'(jubilado)':'' ) :''} ");
+						columns.put("ocupacionPadre", isNullOrBlanck(it?.puesto.toString())+"  ${ (isNullOrBlanck(it?.vive.toString()).equals('Sí') || !isNullOrBlanck(it?.puesto.toString()).equals('N/A') )? (it?.jubilado.toString().equals('t')?'(jubilado)':'' ) :''} ");
 						columns.put("empresaPadre", isNullOrBlanck(it?.empresatrabaja.toString()));
 						columns.put("universidadPadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					}
@@ -128,7 +128,7 @@ class PDFDocumentDAO {
 						columns.put("universidadMadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					} else {
 						columns.put("nombreMadre", isNullOrBlanck(it?.nombre.toString()));
-						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString())+ " ${ isNullOrBlanck(it?.vive.toString()).equals('Sí')? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
+						columns.put("ocupacionMadre", isNullOrBlanck(it?.puesto.toString())+ " ${ (isNullOrBlanck(it?.vive.toString()).equals('Sí') || !isNullOrBlanck(it?.puesto.toString()).equals('N/A') ) ? (it?.jubilado.toString()=='t'?'(jubilado)':'' ) :''} ");
 						columns.put("empresaMadre", isNullOrBlanck(it?.empresatrabaja.toString()));
 						columns.put("universidadMadre", isNullOrBlanck(it?.categresoanahuac_pid.toString())== "N/A"?"No":"Si" );
 					}
