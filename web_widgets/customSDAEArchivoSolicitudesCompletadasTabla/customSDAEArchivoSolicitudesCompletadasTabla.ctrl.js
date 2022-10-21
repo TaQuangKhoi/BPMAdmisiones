@@ -40,68 +40,34 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
     }
   
     $scope.verSolicitud = function(_rowData, _action) {
-        if(_action === "rechazar"){
-            $scope.properties.navVar = _action;
-            // showModal($scope.properties.idModalRechazar);
-        } else if(_action === "aceptar") {
-            $scope.properties.navVar = _action;
-            // showModal($scope.properties.idModalAceptar);
-        } else if(_action === "modificar") {
-            $scope.properties.navVar = _action;
-            // showModal($scope.properties.idModalAceptar);
-        } else {
-            var req = {
-                method: "GET",
-                url: `/API/bpm/task?p=0&c=10&f=caseId%3d${_rowData.caseid}&f=isFailed%3dfalse`
-            };
-            
-            return $http(req).success(function(data, status) {
-                _rowData.taskId = data[0].id;
-                _rowData.taskName = data[0].name;
-                _rowData.processId = data[0].processId;
-                
-                let taskId = data[0].id;
-                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + _rowData.caseid;
-                window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {
-                
-            });
-        }
-        
-  
-        // return $http(req).success(function(data, status) {
-        //     _rowData.taskId = data[0].id;
-        //     _rowData.taskName = data[0].name;
-        //     _rowData.processId = data[0].processId;
-        //     $scope.preProcesoAsignarTarea(_rowData)
-        // })
-        // .error(function(data, status) {
-        //     console.error(data);
-        // })
-        // .finally(function() {});
-  
-      /*
-      }else{
+        $scope.properties.selectedRow = _rowData;
+        debugger;
         var req = {
             method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${_rowData.caseid}&f=isFailed%3dfalse`
         };
-  
+        
         return $http(req).success(function(data, status) {
+            debugger;
+            _rowData.taskId = data[0].id;
+            _rowData.taskName = data[0].name;
+            _rowData.processId = data[0].processId;
+            
+            if(_action === "rechazar" || _action === "aceptar" || _action === "modificar"){
+                $scope.properties.navVar = _action;
+                // showModal($scope.properties.idModalRechazar);
+            } else {
                 let taskId = data[0].id;
-                var url = "/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=" + rowData.caseid + "&displayConfirmation=false";
-                //window.location.href = url;
-                window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-          }*/
+                var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + _rowData.caseid;
+                window.open(url, '_blank'); 
+            }
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
+        .finally(function() {
+            
+        });
     }
 
     function showModal(_idModal){
