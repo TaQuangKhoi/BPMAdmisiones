@@ -5,6 +5,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
 
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
@@ -271,7 +272,15 @@ class BitacoraSDAEDAO {
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					if(metaData.getColumnLabel(i).toLowerCase().toLowerCase().equals("fecha")) {
+						String ff = rs.getString(i).split("\\.")[0];
+//						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
+//						Date fecha = formatter.parse(ff);
+//						String sDate = formatter.format(fecha);
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), ff);
+					} else {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
 				}
 				
 				rows.add(columns);

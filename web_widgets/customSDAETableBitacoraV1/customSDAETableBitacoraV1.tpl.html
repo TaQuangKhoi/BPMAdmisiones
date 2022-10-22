@@ -8,11 +8,11 @@
                 </th> -->
                 <th>ID BPM</th>
                 <th>Id banner</th>
-                <th>Correo</th>
+                <th>Correo aspirante</th>
                 <th>Estatus</th>
                 <!--<th>Comentario</th>-->
-                <th>Beca</th>
-                <th>Financiamiento</th>
+                <th>%Beca</th>
+                <th>%Financiamiento</th>
                 <th>Usuario</th>
                 <th>Fecha</th>
                 <th>Comentarios</th>
@@ -28,7 +28,8 @@
                 <td>{{ row.beca === "N/A" ? row.beca : row.beca + "%" }}</td>
                 <td>{{ row.financiamiento === "N/A" ? row.financiamiento : row.financiamiento + "%" }}</td>
                 <td>{{ row.usuarios }}</td>
-                <td>{{ row.fecha | date:'mm:ss' }}</td>
+                <td>{{ row.fecha | date:'dd/MM/yyyy mm:ss' }}</td>
+                <!--<td>{{ row.fecha }}</td>-->
                 <td>
                     <button ng-if="row.comentario" type="button" class="btn btn-default" ng-click="ctrl.selectRow(row)">
                         <span class="glyphicon glyphicon-eye-open"></span>
