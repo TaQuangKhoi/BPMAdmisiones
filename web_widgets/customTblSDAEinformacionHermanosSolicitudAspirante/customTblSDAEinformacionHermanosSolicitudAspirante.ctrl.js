@@ -41,4 +41,36 @@ function PbTableCtrl($scope) {
             $scope.properties.content[_index].ingresoMensual = 0;
         }
     }
+    
+    $scope.forceKeyPressUppercase = function (e, _type, _maxlength, _max) {
+        var charInput = e.keyCode;
+        var content = e.key;
+        var limite = _maxlength === 1 ? 50 : _maxlength;
+        let valid = true;
+        
+        if(_type === "number"){
+            if((e.keyCode > 47 && e.keyCode < 59)){
+                valid = true;
+            } else{
+                valid = false;
+            }
+        } else {
+            valid = true;
+        }
+        
+        if(_type === "number"){
+            let fullNumber = parseInt(e.target.value + content);
+            if ((e.target.value.length) >= limite || !valid || (fullNumber > _max)) {
+                e.preventDefault();  
+            } 
+        } else {
+            if ((e.target.value.length) >= limite || !valid) {
+                let start = e.target.selectionStart;
+                let end = e.target.selectionEnd;
+                e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
+                e.target.setSelectionRange(start + 1, start + 1);
+                e.preventDefault();  
+            } 
+        }
+    }
 }

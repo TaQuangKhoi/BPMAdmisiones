@@ -25,6 +25,7 @@ function($scope, $http) {
                 vm.busy = false;
             });
     }
+    
     $scope.previsualizar = function() {
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtmlSDAE&p=0&c=10", null, $scope.properties.datosPrevisualizar, function(datos) {
             console.log(document.getElementById($scope.properties.id).innerHTML);
@@ -49,6 +50,7 @@ function($scope, $http) {
 
         });
     }
+    
     var hidden = document.getElementsByClassName("oculto");
     hidden[0].classList.add("hidden")
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1664211730561,
+  "lastUpdate" : 1666809625738,
   "rows" : [
     [
       {
@@ -824,7 +824,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -856,6 +856,58 @@
                       }
                     },
                     "reference" : "c5546063-29de-486a-8ea1-d61b6c392fca",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Estimado(a): <label class=\"color-orange\">{{nombreCompleto}}</label> La Universidad Anáhuac ofrece apoyos educativos, los cuales consisten en la exención de pago total o parcial, de las cuotas de pago inicial y colegiaturas para aquellos interesados en estudiar un programa en la Universidad Anáhuac. Los apoyos pueden ser becas y/o financiamiento educativo de acuerdo con lo que ofrezca el campus de tu interés.\nTodo trámite de beca inicia cuando el interesado así lo solicite en el periodo que le corresponde, su situación socioeconómica lo amerite y la universidad cuente con los recursos financieros disponibles para otorgar este apoyo.<br>\n<br>\nLos apoyos educativos se otorgan bajo diversas modalidades en razón del talento académico, deportivo, artístico-cultural y/o por la condición socioeconómica de quien los requiera. Los apoyos educativos no son transferibles.\nAntes de comenzar tu solicitud te recomendamos:<br>\n<br>\n<ol>\n    <li>Realizar tu proceso de admisión para poder registrarte en la plataforma de solicitud de apoyo educativo.</li>\n    <br>\n    <li>Tener a la mano tu kárdex oficial de SEP con promedio acumulado actualizado.</li>\n    <br>\n    <li>Comprobantes de ingresos de tus tutores o quien sea responsable económicamente por los pagos universitarios.</li>\n    <br>\n</ol>\n<br>\n<br>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "d3a58c64-c452-42d9-88e4-92806bfe7ccc",
                     "hasValidationError" : false,
                     "id" : "pbText"
                   }
@@ -4173,10 +4225,10 @@
                       ],
                       [
                         {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
-                            "sm" : 6,
+                            "sm" : 12,
                             "md" : 6,
                             "lg" : 6
                           },
@@ -4189,66 +4241,148 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : 1
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 7
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Costo mensual de tu colegiatura: ({{returnCatValue.catTipoMoneda.clave}}) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "{{returnCatValue.catTipoMoneda.clave}}"
-                            },
-                            "value" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
-                              "value" : "formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "number"
-                            },
-                            "min" : {
-                              "type" : "constant",
-                              "value" : 0
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 1000000
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
+                              "value" : ""
                             }
                           },
-                          "reference" : "c72fe02e-932b-4c14-93db-5a37dba26d78",
+                          "reference" : "e6ed4601-1b7a-4f4a-8482-5380c077f965",
                           "hasValidationError" : false,
-                          "id" : "customSDAEInputMoneda"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 6,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "minLength" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  },
+                                  "maxLength" : {
+                                    "type" : "constant",
+                                    "value" : 7
+                                  },
+                                  "readOnly" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Costo mensual de tu colegiatura: ({{returnCatValue.catTipoMoneda.clave}})  <br>Si la escuela es pública, llenar con un 0 Cero. <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation",
+                                    "value" : "{{returnCatValue.catTipoMoneda.clave}}"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "formOutputTest.solicitudApoyoEducativoInput.costoMensualColegiatura"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "number"
+                                  },
+                                  "min" : {
+                                    "type" : "constant",
+                                    "value" : 0
+                                  },
+                                  "max" : {
+                                    "type" : "constant",
+                                    "value" : 1000000
+                                  },
+                                  "step" : {
+                                    "type" : "constant",
+                                    "value" : 1
+                                  }
+                                },
+                                "reference" : "c72fe02e-932b-4c14-93db-5a37dba26d78",
+                                "hasValidationError" : false,
+                                "id" : "customSDAEInputMoneda"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : ""
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "bbe23e25-f0a9-4278-a0c3-b9c7fd771875",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ]
+                          ]
                         }
                       ],
                       [
@@ -11908,6 +12042,78 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : "color-orange"
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<hr>DOMICILIO"
+                            },
+                            "level" : {
+                              "type" : "constant",
+                              "value" : "Level 4"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "center"
+                            }
+                          },
+                          "reference" : "2f2dd76f-3434-4ad2-ad91-7370af7a0e87",
+                          "hasValidationError" : false,
+                          "id" : "pbTitle"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : "color-orange"
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<b>Si tu domicilio es dentro de la república mexicana debes comenzar capturando el código postal y posteriormente da clic en el botón “Buscar código postal”, para el auto llenado de tu dirección.</b>"
+                            },
+                            "level" : {
+                              "type" : "constant",
+                              "value" : "Level 5"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "center"
+                            }
+                          },
+                          "reference" : "65dc9cf3-5617-41a5-a982-337a3e242ace",
+                          "hasValidationError" : false,
+                          "id" : "pbTitle"
+                        }
+                      ],
                       [
                         {
                           "type" : "container",
@@ -24163,7 +24369,7 @@
       "value" : [
         "return {\r",
         "\t\"beca\": \"N/A\",\r",
-        "  \t\"comentario\": \"Registro de solicitud\",\r",
+        "  \t\"comentario\": \"\",\r",
         "  \t\"correo\": $data.userDataEmail.userName,\r",
         "  \t\"estatus\": \"Solicitud iniciada\",\r",
         "  \t\"financiamiento\": \"N/A\",\r",
@@ -24180,9 +24386,9 @@
       "value" : [
         "return {\r",
         "\t\"beca\": $data.returnCatValue.catPorcentajeBeca ? $data.returnCatValue.catPorcentajeBeca.descripcion : \"N/A\",\r",
-        "  \t\"comentario\": \"N/A\",\r",
+        "  \t\"comentario\": \"\",\r",
         "  \t\"correo\": $data.userDataEmail.userName,\r",
-        "  \t\"estatus\": \"Esperando Pre-Autorización\",\r",
+        "  \t\"estatus\": \"Solicitud de apoyo educativo enviada\",\r",
         "  \t\"financiamiento\": $data.returnCatValue.catPorcentajeFinanciamiento ? $data.returnCatValue.catPorcentajeFinanciamiento.descripcion: \"N/A\",\r",
         "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
         "  \t\"usuarios\": $data.userDataEmail.userName,\r",

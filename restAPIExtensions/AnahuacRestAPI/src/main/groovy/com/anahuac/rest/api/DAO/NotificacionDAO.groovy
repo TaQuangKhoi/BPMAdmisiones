@@ -1292,11 +1292,11 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				pstm = con.prepareStatement(Statements.GET_DETALLESOLICITUD)
 				pstm.setString(1, object.correo)
 				rs = pstm.executeQuery();
-				
+				errorlog += "| DETALLE DE SOLICITUD "
 				if (rs.next()) {
-					plantilla=plantilla.replace("[IDBANNER]",rs.getString("IdBanner")==null?"":rs.getString("IdBanner"));
+					plantilla = plantilla.replace("[IDBANNER]", rs.getString("IdBanner") == null ? "" : rs.getString("IdBanner"));
 					if(object.isEnviar) {
-						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",rs.getString("ObservacionesRechazo")==null?"[RECHAZO-COMENTARIOS]":(object.isEnviar)?rs.getString("ObservacionesRechazo"):"[RECHAZO-COMENTARIOS]")
+						plantilla = plantilla.replace("[RECHAZO-COMENTARIOS]", rs.getString("ObservacionesRechazo") == null ? "[RECHAZO-COMENTARIOS]" : (object.isEnviar) ? rs.getString("ObservacionesRechazo") : "[RECHAZO-COMENTARIOS]")
 						errorlog += "| Variable15.3"
 						plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",rs.getString("ObservacionesListaRoja")==null?"[LISTAROJA-COMENTARIOS]":(object.isEnviar)?rs.getString("ObservacionesListaRoja"):"[LISTAROJA-COMENTARIOS]")
 						errorlog += "| Variable15.3"

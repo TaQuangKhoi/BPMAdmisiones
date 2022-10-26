@@ -27,13 +27,13 @@
                     <input style="width: 16rem;" class="form-control" ng-model="row.apellidos" type="text" ng-disabled="!properties.editar">
                 </td>
                 <td>
-                    <input style="width: 7rem;" class="form-control" ng-model="row.edad" type="number" ng-disabled="!properties.editar">
+                    <input style="width: 7rem;" class="form-control" ng-model="row.edad" type="number" ng-disabled="!properties.editar" ng-keypress="forceKeyPressUppercase($event, 'number', 2, 99)">
                 </td>
                 <td>
                     <input ng-model="row.isEstudia" type="checkbox" ng-change="disableEscolar(row, $index)" ng-disabled="!properties.editar">
                 </td>
                 <td>
-                    <input style="width: 16rem;" class="form-control" ng-model="row.institucion" type="text" ng-disabled="!row.isEstudia  || !properties.editar">
+                    <input style="width: 16rem;" class="form-control" ng-model="row.institucion" type="text" ng-disabled="!row.isEstudia  || !properties.editar" ng-keypress="forceKeyPressUppercase($event, 'text', 30, null)">
                 </td>
                 <td style="display: inline-flex; position: relative;">
                     <label class="moneda-display2">$</label><input style="width: 16rem;" class="form-control moneda-display2-input" ng-model="row.colegiaturaMensual" ng-disabled="!row.isEstudia || !properties.editar" type="number" pattern="[0-9]*" data-politespace data-grouplength="3" data-delimiter="," data-reverse >
@@ -42,7 +42,7 @@
                     <input ng-model="row.isTieneBeca" type="checkbox" ng-disabled="!row.isEstudia || !properties.editar" ng-change="disableBeca(row, $index)">
                 </td>
                 <td>
-                    <input style="width: 5rem;" class="form-control" ng-model="row.porcentajeBecaAsignado" type="number" ng-disabled="!row.isTieneBeca || !properties.editar">
+                    <input style="width: 5rem;" class="form-control" ng-model="row.porcentajeBecaAsignado" type="number" max="100" ng-disabled="!row.isTieneBeca || !properties.editar" ng-keypress="forceKeyPressUppercase($event, 'number', 2, 100)">
                 </td>
                 <td>
                     <input ng-model="row.isTrabaja" type="checkbox" ng-change="disableTrabaja(row, $index)" ng-disabled="!properties.editar">
@@ -51,7 +51,7 @@
                     <input style="width: 16rem;" class="form-control" ng-model="row.empresa" type="text" ng-disabled="!row.isTrabaja || !properties.editar">
                 </td>
                 <td style="display: inline-flex;  position: relative;">
-                    <label class="moneda-display2">$</label><input style="width: 16rem;" class="form-control moneda-display2-input" ng-model="row.ingresoMensual"  ng-disabled="!row.isTrabaja || !properties.editar" type="number" pattern="[0-9]*" data-politespace data-grouplength="3" data-delimiter="," data-reverse>
+                    <label class="moneda-display2">$</label><input style="width: 16rem;" class="form-control moneda-display2-input" ng-model="row.ingresoMensual"  ng-disabled="!row.isTrabaja || !properties.editar" type="number" pattern="[0-9]*" data-politespace data-grouplength="3" data-delimiter="," data-reverse ng-keypress="forceKeyPressUppercase($event, 'number', 7, 100000000)">
                 </td>
                 <td ng-if="properties.editar">
                     <button class="btn btn-link" ng-click="removeItem(row)">
