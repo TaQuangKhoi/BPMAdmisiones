@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1666825744346,
+  "lastUpdate" : 1666828730484,
   "rows" : [
     [
       {
@@ -24394,6 +24394,47 @@
         "  \t\"usuarios\": $data.userDataEmail.userName,\r",
         "  \t\"caseid\": parseInt($data.caseId),\r",
         "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "modalShown" : {
+      "type" : "constant",
+      "value" : [
+        "false"
+      ],
+      "exposed" : false
+    },
+    "showModalPrimeraVez" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.modalShown === \"false\" && $data.formOutputTest && $data.objSolicitudDeAdmision){",
+        "    if($data.selectedIndex > 0){",
+        "        $data.modalShown = true;",
+        "    } else if($data.modalShown === \"false\" && !$data.formOutputTest.solicitudApoyoEducativoInput.caseId){",
+        "        let message  = \"Estimado (a):  \" + getName() + \", la solicitud de apoyo educativo contiene información previamente capturada en tu proceso de admisión, te solicitamos ingreses la información faltante en cada una de las secciones.\"",
+        "        + \"Nota: Todos los campos marcados con un * son obligatorios.\";",
+        "        swal(\"\", message, \"warning\");",
+        "        $data.modalShown = true;",
+        "    }",
+        "}",
+        "",
+        "function getName(){",
+        "    let name  = \"\";",
+        "    ",
+        "    name += $data.objSolicitudDeAdmision[0].primerNombre;",
+        "    ",
+        "    if($data.objSolicitudDeAdmision[0].segundoNombre !== \"\"){",
+        "        name += \" \" + $data.objSolicitudDeAdmision[0].segundoNombre;",
+        "    } ",
+        "    ",
+        "    name += \" \" + $data.objSolicitudDeAdmision[0].apellidoPaterno;",
+        "    ",
+        "    if($data.objSolicitudDeAdmision[0].apellidoMaterno !== \"\"){",
+        "        name += \" \" + $data.objSolicitudDeAdmision[0].apellidoMaterno;",
+        "    }",
+        "    ",
+        "    return name;",
         "}"
       ],
       "exposed" : false
