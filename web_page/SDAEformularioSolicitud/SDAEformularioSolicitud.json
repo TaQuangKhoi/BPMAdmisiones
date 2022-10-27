@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1666828730484,
+  "lastUpdate" : 1666831899170,
   "rows" : [
     [
       {
@@ -24408,10 +24408,10 @@
     "showModalPrimeraVez" : {
       "type" : "expression",
       "value" : [
-        "if($data.modalShown === \"false\" && $data.formOutputTest && $data.objSolicitudDeAdmision){",
+        "if($data.modalShown === \"false\" && $data.taskId && $data.formOutputTest && $data.objSolicitudDeAdmision){",
         "    if($data.selectedIndex > 0){",
         "        $data.modalShown = true;",
-        "    } else if($data.modalShown === \"false\" && !$data.formOutputTest.solicitudApoyoEducativoInput.caseId){",
+        "    } else if($data.modalShown === \"false\" && $data.formOutputTest.solicitudApoyoEducativoInput.pageIndex === 0){",
         "        let message  = \"Estimado (a):  \" + getName() + \", la solicitud de apoyo educativo contiene información previamente capturada en tu proceso de admisión, te solicitamos ingreses la información faltante en cada una de las secciones.\"",
         "        + \"Nota: Todos los campos marcados con un * son obligatorios.\";",
         "        swal(\"\", message, \"warning\");",
