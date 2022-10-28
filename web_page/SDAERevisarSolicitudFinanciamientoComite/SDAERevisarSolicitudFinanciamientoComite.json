@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamientoComite",
   "name" : "SDAERevisarSolicitudFinanciamientoComite",
-  "lastUpdate" : 1666823330302,
+  "lastUpdate" : 1666997786196,
   "rows" : [
     [
       {
@@ -8898,7 +8898,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formInputArchivar"
+                          "value" : "returnFormInputArchivar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -8939,6 +8939,12 @@
                         "caseId" : {
                           "type" : "variable",
                           "value" : "caseIdURL"
+                        },
+                        "urlBitacora" : {
+                          "type" : "constant"
+                        },
+                        "objetoBitacora" : {
+                          "type" : "constant"
                         }
                       },
                       "reference" : "68d566a3-e576-4dd6-9203-34b2198a0f4f",
@@ -10134,6 +10140,12 @@
                               "caseId" : {
                                 "type" : "variable",
                                 "value" : "caseIdURL"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "constant"
                               }
                             },
                             "reference" : "c8800cb3-be4b-4f8a-a69a-65b2b83b30bc",
@@ -10192,7 +10204,7 @@
                               },
                               "dataToSend" : {
                                 "type" : "expression",
-                                "value" : "formInputEnviarComite"
+                                "value" : "returnFormInputEnviarComite"
                               },
                               "dataFromSuccess" : {
                                 "type" : "variable",
@@ -11784,7 +11796,8 @@
         "    \"solicitudFinanciamientoModelInput\":{",
         "        \"observacionesComite\": \"\",",
         "        \"porcComite\": null",
-        "    }",
+        "    },",
+        "    \"correoUsuario\":\"\"",
         "}"
       ],
       "exposed" : false
@@ -11797,7 +11810,8 @@
         "    \"solicitudFinanciamientoModelInput\":{",
         "        \"observacionesComite\": \"\",",
         "        \"porcComite\": null",
-        "    } ",
+        "    },",
+        "    \"correoUsuario\":\"\"",
         "}"
       ],
       "exposed" : false
@@ -11963,6 +11977,28 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.PreAutorizacion]\",\"businessObjectName\":\"PreAutorizacion\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.PreAutorizacion\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "returnFormInputEnviarComite" : {
+      "type" : "expression",
+      "value" : [
+        "let output = $data.formInputEnviarComite;",
+        "",
+        "output.correoUsuario = $data.userData.user_name;",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "returnFormInputArchivar" : {
+      "type" : "expression",
+      "value" : [
+        "let output = $data.formInputArchivar;\r",
+        "\r",
+        "output.correoUsuario = $data.userData.user_name;\r",
+        "\r",
+        "return output;"
       ],
       "exposed" : false
     }
