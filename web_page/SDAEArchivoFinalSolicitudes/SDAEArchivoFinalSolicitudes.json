@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEArchivoFinalSolicitudes",
   "name" : "SDAEArchivoFinalSolicitudes",
-  "lastUpdate" : 1666198197751,
+  "lastUpdate" : 1666993609204,
   "rows" : [
     [
       {
@@ -120,7 +120,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Descargar excel"
+                        "value" : "Excel"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -132,21 +132,23 @@
                       },
                       "action" : {
                         "type" : "constant",
-                        "value" : "Submit task"
+                        "value" : "POST"
                       },
                       "assign" : {
                         "type" : "constant",
                         "value" : false
                       },
                       "url" : {
-                        "type" : "interpolation"
+                        "type" : "interpolation",
+                        "value" : "../API/extension/AnahuacBecasRest?url=getExcelFile&p=0&c=10"
                       },
                       "responseStatusCode" : {
                         "type" : "variable",
                         "value" : ""
                       },
                       "dataToSend" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "dataToSend"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -179,11 +181,19 @@
                       },
                       "removeItem" : {
                         "type" : "variable"
+                      },
+                      "fileExtension" : {
+                        "type" : "constant",
+                        "value" : "xls"
+                      },
+                      "nombre" : {
+                        "type" : "constant",
+                        "value" : "Report solicitudes completadas"
                       }
                     },
-                    "reference" : "f8920e44-8d31-49c6-88e5-7a27ccf90077",
+                    "reference" : "6bda33c7-1b1e-48f8-ab22-6f2909409142",
                     "hasValidationError" : false,
-                    "id" : "pbButton"
+                    "id" : "customSDAEBtnDownloadExcelName"
                   }
                 ],
                 [
@@ -377,7 +387,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"estatusSolicitud\":\"'Propuesta aceptada por aspirante', 'Propuesta financiamiento aceptada por aspirante', 'Solicitud de Financiamiento en Proceso', 'Solicitud de financiamiento autorizada'\",\r",
+        "    \"estatusSolicitud\":\"'Solicitud finalizada'\",\r",
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"nuevas_solicitudes\",\r",
