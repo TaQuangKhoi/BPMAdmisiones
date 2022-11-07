@@ -1,16 +1,27 @@
 function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
     this.isArray = Array.isArray;
-  
+    $scope.task = {};
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
   
     this.selectRow = function(row) {
-        if (this.isClickable()) {
-            $scope.properties.selectedRow = row;
-        }
+        $scope.properties.selectedRow = row;
+        getTaskInfo(row.caseid);
     };
+    
+    function getTaskInfo(_caseId){
+        let url = "../API/bpm/humanTask?c=100&p=0&f=parentCaseId=" + _caseId;
+        $http.get(url).success(function(data){
+            debugger;
+            $scope.task = data[0];
+            $scope.properties.taskId = data[0].id;
+        }).error(function(err){
+            debugger;
+            console.log(err);
+        });
+    }
   
     this.isSelected = function(row) {
         return angular.equals(row, $scope.properties.selectedRow);
@@ -26,22 +37,22 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         };
   
         return $http(req).success(function(data, status) {
-                $scope.properties.lstContenido = data.data;
-                $scope.value = data.totalRegistros;
-                $scope.loadPaginado();
-                console.log(data.data)
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-                blockUI.stop();
-            });
+            $scope.properties.lstContenido = data.data;
+            $scope.value = data.totalRegistros;
+            $scope.loadPaginado();
+            console.log(data.data)
+        })
+        .error(function(data, status) {
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {
+            blockUI.stop();
+        });
     }
   
     $scope.verSolicitud = function(_rowData, _action) {
         $scope.properties.selectedRow = _rowData;
-        debugger;
+        
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${_rowData.caseid}&f=isFailed%3dfalse`
@@ -55,6 +66,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             
             if(_action === "rechazar" || _action === "aceptar" || _action === "modificar"){
                 $scope.properties.navVar = _action;
+                getTaskInfo(_rowData,caseId);
                 // showModal($scope.properties.idModalRechazar);
             } else {
                 let taskId = data[0].id;

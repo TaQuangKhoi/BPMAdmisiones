@@ -68,7 +68,18 @@ class Index implements RestApiController {
 					}else {
 						return buildResponse(responseBuilder, (result.error.contains("400"))?HttpServletResponse.SC_BAD_REQUEST:(result.error.contains("404"))?HttpServletResponse.SC_NOT_FOUND:HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
 					}
-				}
+				} else if(url.equals("pdfDatosAval") || url == "pdfDatosAval") {
+					String email = request.getParameter "email"
+					result = new PDFDocumentDAO().pdfDatosAval(email);
+//					result = new PDFDocumentDAO().getInfoAval(email);
+					
+					if(result.success) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+					}
+				} 
+				
 				
 			}
 		}catch(Exception ex) {

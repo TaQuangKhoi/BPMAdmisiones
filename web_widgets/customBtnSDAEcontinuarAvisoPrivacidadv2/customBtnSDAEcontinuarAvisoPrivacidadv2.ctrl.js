@@ -16,7 +16,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     this.action = function action() {
         let url = "../API/extension/AnahuacBecasRestGET?url=getPRomedioMinimoByCampus&p=0&c=0&idCampus=" + $scope.properties.idCampus;
         $http.get(url).success((result)=>{
-            debugger;
             let promedioMinimo = parseFloat(result.data[0].promedioMinimo);
             let promedioGeneral = parseFloat($scope.properties.promedioGeneral);
             if(promedioMinimo > promedioGeneral){
@@ -110,7 +109,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
-                debugger;
                 caseid = data.caseId;
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
@@ -140,13 +138,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let url = $scope.properties.urlBitacora;
         let dataToSend = angular.copy($scope.properties.objetoBitacora);
         dataToSend.caseid = caseid;
-
+        debugger;
         $http.post(url, dataToSend).success(function(){
-            debugger;
+            
         }).error(function(){
-            debugger;
+            
         }).finally(function(){
-            window.location.reload();
+            debugger;
+            window.location.replace($scope.properties.urlSolicitud);
         });
     }
 

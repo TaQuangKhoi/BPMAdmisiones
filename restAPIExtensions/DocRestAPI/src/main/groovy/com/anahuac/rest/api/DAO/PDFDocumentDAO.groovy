@@ -14,8 +14,13 @@ import net.sf.jasperreports.engine.JasperExportManager
 import net.sf.jasperreports.engine.JasperFillManager
 import net.sf.jasperreports.engine.JasperPrint
 import net.sf.jasperreports.engine.JasperReport
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
+
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.identity.User
+
+import com.anahuac.SDAE.model.AvalReferencia
+import com.anahuac.SDAE.model.AvalReferenciaDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
@@ -809,7 +814,239 @@ class PDFDocumentDAO {
 		return resultado
 	}
 	
+	public Result pdfDatosAval(String email) {
+		Result resultado = new Result();
+		InputStream targetStream;
+		Boolean streamOpen = false;
+		String errorLog = "";
+		
+		try {
+			errorLog += "Entr al metodo ";
+			def jsonSlurper = new JsonSlurper();
+			Result dataResult = new Result();
+			List<List < Object >> lstParams;
+			Result infoAval = getInfoAval(email);
+			List<?> info = infoAval.getData();
+			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+			errorLog += " | Ontuvo info del aval ";
+			errorLog += " | " + infoAval.getError_info();
+			
+			if(info.size() < 1) {
+				throw new Exception("400 Bad Request Usuario no encontrado");
+			} else {
+				columns = (Map < String, Object >) info.get(0);
+			}
+			
+			String comentarios = "";
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+			
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+			
+			String plantilla = prop.getProperty("jasperDatosAvalB64");
+			inputStream.close();
+			byte [] file = Base64.getDecoder().decode(plantilla);
+			targetStream = new ByteArrayInputStream(file);
+			streamOpen = true;
+			JasperReport jasperReport = JasperCompileManager.compileReport(targetStream);
+			JRDataSource dataSource = new JREmptyDataSource();
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, columns, dataSource);
+			byte[] encode = Base64.getEncoder().encode(JasperExportManager.exportReportToPdf(jasperPrint));
+			String result = new String(encode);
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(result)
+			lstResultado.add(errorLog)
+						
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			resultado.setError_info(errorLog);
+			
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			errorLog += e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		}finally {
+			if(streamOpen) {
+				targetStream.close();
+			}
+		}
+		
+		return resultado;
+	}
 	
+	public Result getInfoAval(String email) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			rows = new ArrayList < Map < String, Object >> ();
+			String SSA = "";
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			pstm = con.prepareStatement(Statements.GET_DATOS_AVAL);
+			pstm.setString(1, email);
+			rs = pstm.executeQuery();
+			
+			//Agregando datos del aval 
+			while (rs.next()) {
+				
+				errorLog += " | Datos del aval encontrados " ;
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				Map < String, Object > referenciaPersonalSol = new LinkedHashMap < String, Object > ();
+				List<Map < String, Object >> referenciasPersonalesSol = new ArrayList<Map < String, Object > >();
+				referenciaPersonalSol.put("nombre", "Referencia 1");
+				referenciaPersonalSol.put("parentesco", "Tío");
+				referenciaPersonalSol.put("telefono", "876876876");
+				referenciaPersonalSol.put("email", "mi@tio.com");
+				referenciasPersonalesSol.add(referenciaPersonalSol);
+				referenciaPersonalSol = new  LinkedHashMap < String, Object >();
+				referenciaPersonalSol.put("nombre", "Referencia 2");
+				referenciaPersonalSol.put("parentesco", "Tío");
+				referenciaPersonalSol.put("telefono", "78651684651");
+				referenciaPersonalSol.put("email", "mi_otro@tio.com");
+				referenciasPersonalesSol.add(referenciaPersonalSol);
+				
+				Map < String, Object > referenciaBancaria = new LinkedHashMap < String, Object > ();
+				List<Map < String, Object >> referenciasBancariasV = new ArrayList<Map < String, Object > >();
+				referenciaBancaria.put("banco", "Banorte");
+				referenciaBancaria.put("tipoCuenta", "Ahorros");
+				referenciaBancaria.put("numeroCuenta", "1");
+				referenciaBancaria.put("saldoPromedio", "343554");
+				referenciasBancariasV.add(referenciaBancaria);
+				referenciaBancaria = new  LinkedHashMap < String, Object >();
+				referenciaBancaria.put("banco", "Banorte");
+				referenciaBancaria.put("tipoCuenta", "Ahorros");
+				referenciaBancaria.put("numeroCuenta", "1");
+				referenciaBancaria.put("saldoPromedio", "343554");
+				referenciasBancariasV.add(referenciaBancaria);
+
+				JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(referenciasPersonalesSol);
+				JRBeanCollectionDataSource referenciasPErsonalesAval = new JRBeanCollectionDataSource(referenciasPersonalesSol);
+				JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(referenciasBancariasV);
+				JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(referenciasBancariasV);
+				
+				String urlFoto = rs.getString("fotosol");
+				errorLog += " |" + urlFoto + SSA;
+				columns.put("referenciasPersonalesSolicitante", referenciasPersonalesSolicitante);
+				columns.put("referenciasPersonalesAval", referenciasPErsonalesAval);
+				columns.put("referenciasBancarias", referenciasBancarias);
+				columns.put("referenciasCredito", referenciasCredito);
+				
+				columns.put("urlFoto",  urlFoto + SSA);
+				columns.put("nombre", rs.getString("primernombre") + " " + rs.getString("segundonombre"));
+				columns.put("idBanner", rs.getString("idbanner"));
+				columns.put("carrera", rs.getString("carrera"));
+				columns.put("periodo", "");
+				columns.put("apellidoPaterno", rs.getString("apellidopaterno"));
+				columns.put("apellidoManerno", rs.getString("apellidomaterno"));
+				columns.put("porcFinSolicitado", rs.getString("porcentajefinanciamientosolicitado"));
+				columns.put("porcFinPrea", rs.getString("porcentajefinanciamientopreautorizado"));
+				columns.put("nombresAval", rs.getString("avalnombres"));
+				columns.put("apellidoPaternoAval", rs.getString("avalapellido_p"));
+				columns.put("apellidoMaternoAval", rs.getString("avalapellido_m"));
+				columns.put("curpAval", rs.getString("avalcurp"));
+				columns.put("rfcAval", rs.getString("rfc"));
+				columns.put("parentescoAval", "");
+				columns.put("telefonoAval", rs.getString("avaltelefono"));
+				columns.put("emailPersonalAval", rs.getString("avalemail"));
+				columns.put("ingresoMensual", rs.getString("ingresomensual"));
+				columns.put("provenienteDe", rs.getString("provenientede"));
+				columns.put("otroIngreso", rs.getString("otroingreso"));
+				columns.put("ingresoMensualTotal", rs.getString("ingresomensualtotal"));
+				columns.put("egresoMensualTotal", rs.getString("egresomensualtotal"));
+				columns.put("saldoMensual", rs.getString("saldomensual"));
+				columns.put("paisDomicilioAval", rs.getString("avaldomiciliopais"));
+				columns.put("cpDomicilioAval", rs.getString("avaldomiciliocp"));
+				columns.put("estadoDomicilioAval", rs.getString("avaldomicilioestado"));
+				columns.put("ciudadDomicilioAval", rs.getString("avaldomiciliociudad"));
+				columns.put("coloniaDomicilioAval", rs.getString("avaldomiciliocolonia"));
+				columns.put("calleNumeroDomicilioAval", rs.getString("avaldomiciliocalleynumero"));
+				columns.put("empresaTrabajaAval", rs.getString("avaltrabajoempresa"));
+				columns.put("empresaAval", rs.getString("avaltrabajopuesto"));
+				columns.put("empresaTelefonoAval", rs.getString("avaltrabajotelefono"));
+				columns.put("empresaTelefonoExtAval", rs.getString("avaltrabajotelefonoext"));
+				columns.put("empresaFechaIngresoAval", buildDate(rs.getString("avaltrabajofechaingreso")));
+				columns.put("empresaEmailAval", rs.getString("avaltrabajoemail"));
+				columns.put("paisDomicilioEmpresa", rs.getString("avaltrabajopais"));
+				columns.put("cpDomicilioEmpresa", rs.getString("avaltrabajocp"));
+				columns.put("estadoDomicilioEmpresa", rs.getString("avaltrabajoestado"));
+				columns.put("ciudadDomicilioEmpresa", rs.getString("avaltrabajociudad"));
+                columns.put("coloniaDomicilioEmpresa", rs.getString("avaltrabajocolonia"));
+				columns.put("calleNumeroDomicilioEmpresa", rs.getString("avaltrabajocalleynumero"));
+				columns.put("paisDomicilioInmueble", rs.getString("inmueblepais"));
+				columns.put("cpDomicilioInmueble", rs.getString("inmueblecp"));
+				columns.put("estadoDomicilioInmueble", rs.getString("inmuebleestado"));
+				columns.put("ciudadDomicilioInmueble", rs.getString("inmuebleciudad"));
+				columns.put("coloniaDomicilioInmueble", rs.getString("inmueblecolonia"));
+				columns.put("noInteriorDomicilioInmueble", rs.getString("inmueblenointerior"));
+				columns.put("calleDomicilioInmueble", rs.getString("inmueblecalle"));
+				columns.put("noExteriorDomicilioInmueble", rs.getString("inmueblenoexterior"));
+				columns.put("notario", rs.getString("notario"));
+				columns.put("noNotaria", rs.getString("numeronotaria"));
+				columns.put("noEscritura", rs.getString("numeroescritura"));
+				columns.put("fechaNotaria", buildDate(rs.getString("fechanotario")));
+				columns.put("volumen", rs.getString("volumennotario"));
+				columns.put("libro", rs.getString("libronotario"));
+				columns.put("lugarDeEscrituracion", rs.getString("lugardeescrituracionnotario"));
+				columns.put("folio", rs.getString("foliopropiedad"));
+				columns.put("libroRegistro", rs.getString("libropropiedad"));
+				columns.put("tomoPropiedad", rs.getString("tomopropiedad"));
+				columns.put("fechaRegistro", buildDate(rs.getString("fechapropiedad")));
+				
+				//Domicilio solicitante 
+				columns.put("nuevoIngreso", false);
+				columns.put("avanzado", true);
+				columns.put("calleNumeroSol", rs.getString("callesol") + " #" + rs.getString("numerosol"));
+				columns.put("coloniaSol", rs.getString("coloniasol"));
+				columns.put("cpSol", rs.getString("cpsol"));
+				columns.put("ciudadSol", rs.getString("ciudadsol"));
+				columns.put("estadoSol", rs.getString("estadosol"));
+				columns.put("paisSol", rs.getString("paissol"));
+				columns.put("telefonoSol", rs.getString("telefonosol"));
+				columns.put("celularSol", rs.getString("celularsol"));
+				columns.put("emailSol", rs.getString("correosol"));
+				
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+		}catch (Exception e) {
+			errorLog += e.getMessage();
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
-	
+	private String buildDate(String input) {
+		String output = "";
+		String datein = input.split("T")[0];
+		String[] dateparts = datein.split("-");
+		output = dateparts[2] + "/" + dateparts[1] + "/" + dateparts[0];
+		
+		return output;
+	}
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEArchivoSolicitudesCompletadas",
   "name" : "SDAEArchivoSolicitudesCompletadas",
-  "lastUpdate" : 1666399937613,
+  "lastUpdate" : 1667515806324,
   "rows" : [
     [
       {
@@ -317,6 +317,10 @@
                       "navVar" : {
                         "type" : "variable",
                         "value" : "navVar"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
                       }
                     },
                     "reference" : "7fc30ff9-5953-44dc-9741-8bd58d8b47ef",
@@ -411,38 +415,38 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
+                "labelHidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Cancelar"
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br>\n<br>\n¿Deseas <b>aprobar</b> la solicitud \n<br>\n<br>"
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "left"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "navigationVar" : {
-                  "type" : "variable",
-                  "value" : "navVar"
-                },
-                "newValue" : {
-                  "type" : "constant",
-                  "value" : "main"
+                  "value" : "center"
                 }
               },
-              "reference" : "052e88f0-7f79-481c-8358-28adc6985f7d",
+              "reference" : "234b632b-359e-40c2-9b7c-eda8984384f4",
               "hasValidationError" : false,
-              "id" : "customCustomBtnNavigationByVariable"
+              "id" : "pbText"
             }
           ],
           [
@@ -485,14 +489,14 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<br>\n<br>\n¿Deseas <b>aprobar</b> la solicitud \n<br>\n<br>\n<br>\n<br>\n<br>"
+                  "value" : "{{taskId}}"
                 },
                 "alignment" : {
                   "type" : "constant",
                   "value" : "left"
                 }
               },
-              "reference" : "234b632b-359e-40c2-9b7c-eda8984384f4",
+              "reference" : "89e86d07-511f-48e9-b8fa-8baca89c523f",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -560,58 +564,20 @@
                       },
                       "action" : {
                         "type" : "constant",
-                        "value" : "Close modal"
+                        "value" : "Submit task"
                       },
-                      "assign" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "url" : {
-                        "type" : "interpolation"
-                      },
-                      "responseStatusCode" : {
+                      "navigationVar" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "navVar"
                       },
-                      "dataToSend" : {
-                        "type" : "constant"
-                      },
-                      "dataFromSuccess" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "closeOnSuccess" : {
+                      "newValue" : {
                         "type" : "constant",
-                        "value" : false
-                      },
-                      "dataFromError" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
-                      },
-                      "collectionToModify" : {
-                        "type" : "variable"
-                      },
-                      "modalId" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "collectionPosition" : {
-                        "type" : "constant",
-                        "value" : "Last"
-                      },
-                      "valueToAdd" : {
-                        "type" : "constant"
-                      },
-                      "removeItem" : {
-                        "type" : "variable"
+                        "value" : "main"
                       }
                     },
-                    "reference" : "38424f14-5fc5-45de-8493-7633de74cbb1",
+                    "reference" : "052e88f0-7f79-481c-8358-28adc6985f7d",
                     "hasValidationError" : false,
-                    "id" : "pbButton"
+                    "id" : "customCustomBtnNavigationByVariable"
                   },
                   {
                     "type" : "component",
@@ -662,7 +628,8 @@
                         "value" : ""
                       },
                       "dataToSend" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "contratoAceptar"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -697,71 +664,24 @@
                         "type" : "variable"
                       },
                       "objetoBitacora" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "objetoBitacora"
                       },
                       "urlBitacora" : {
                         "type" : "constant",
                         "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                      },
+                      "taskId" : {
+                        "type" : "expression",
+                        "value" : "taskId"
                       }
                     },
-                    "reference" : "2b1114b3-a80d-4e5c-b8d2-24b5daf2c0a6",
+                    "reference" : "6ecb6831-58eb-4897-aa96-f138fd9b59ec",
                     "hasValidationError" : false,
-                    "id" : "customSDAEFinalizarTareaBit"
+                    "id" : "customSDAEFinalizarTareaBitTask"
                   }
                 ]
               ]
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<pre>{{ selectedItem.taskId | json }}</pre>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "f645d194-bc66-454f-a223-d4cf8a4cc8c6",
-              "hasValidationError" : false,
-              "id" : "pbText"
             }
           ]
         ]
@@ -1570,58 +1490,6 @@
           ]
         ]
       }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "<pre>{{ objetoBitacora| json }}</pre>"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "left"
-          }
-        },
-        "reference" : "17800309-75c6-46b0-b7d4-88b2851a9ab6",
-        "hasValidationError" : false,
-        "id" : "pbText"
-      }
     ]
   ],
   "assets" : [
@@ -1795,6 +1663,23 @@
         "    return output;\r",
         "}"
       ],
+      "exposed" : false
+    },
+    "contratoAceptar" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"solicitudApoyoEducativoInput\":{",
+        "        \"aprobadaFinal\":true,",
+        "        \"comentariosFinal\":\"\"",
+        "    },",
+        "    \"isModificarInput\":false",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
