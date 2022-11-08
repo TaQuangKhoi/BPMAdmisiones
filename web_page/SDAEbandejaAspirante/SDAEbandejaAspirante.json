@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1667863043643,
+  "lastUpdate" : 1667866209150,
   "rows" : [
     [
       {
@@ -69,17 +69,46 @@
         "rows" : [
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "sm" : 2,
+                "md" : 2,
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
                   "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "1c208cd7-124e-4238-bdfb-c823b6789ba0",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 8,
+                "md" : 8,
+                "lg" : 8
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "text-justify bigger-text"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -107,7 +136,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Estimado(a): <label class=\"color-orange\">{{nombreCompleto}}</label> La Universidad Anáhuac ofrece apoyos educativos, los cuales consisten en la exención de pago total o parcial, de las cuotas de pago inicial y colegiaturas para aquellos interesados en estudiar un programa en la Universidad Anáhuac. Los apoyos pueden ser becas y/o financiamiento educativo de acuerdo con lo que ofrezca el campus de tu interés.\nTodo trámite de beca inicia cuando el interesado así lo solicite en el periodo que le corresponde, su situación socioeconómica lo amerite y la universidad cuente con los recursos financieros disponibles para otorgar este apoyo.<br>\n<br>\nLos apoyos educativos se otorgan bajo diversas modalidades en razón del talento académico, deportivo, artístico-cultural y/o por la condición socioeconómica de quien los requiera. Los apoyos educativos no son transferibles.\nAntes de comenzar tu solicitud te recomendamos:<br>\n<br>\n<ol>\n    <li>Realizar tu proceso de admisión para poder registrarte en la plataforma de solicitud de apoyo educativo.</li>\n    <br>\n    <li>Tener a la mano tu kárdex oficial de SEP con promedio acumulado actualizado.</li>\n    <br>\n    <li>Comprobantes de ingresos de tus tutores o quien sea responsable económicamente por los pagos universitarios.</li>\n    <br>\n</ol>\n<br>\n<br>"
+                  "value" : "<br><br>Estimado(a): <label class=\"color-orange\">{{nombreCompleto}}</label> La Universidad Anáhuac ofrece apoyos educativos, los cuales consisten en la exención de pago total o parcial, de las cuotas de pago inicial y colegiaturas para aquellos interesados en estudiar un programa en la Universidad Anáhuac. Los apoyos pueden ser becas y/o financiamiento educativo de acuerdo con lo que ofrezca el campus de tu interés.\nTodo trámite de beca inicia cuando el interesado así lo solicite en el periodo que le corresponde, su situación socioeconómica lo amerite y la universidad cuente con los recursos financieros disponibles para otorgar este apoyo.<br>\n<br>\n<b>Los apoyos educativos se otorgan bajo diversas modalidades en razón del talento académico, deportivo, artístico-cultural y/o por la condición socioeconómica de quien los requiera. Los apoyos educativos no son transferibles.\nAntes de comenzar tu solicitud te recomendamos:</b><br>\n<br>\n<ol>\n    <li>Realizar tu proceso de admisión para poder registrarte en la plataforma de solicitud de apoyo educativo.</li>\n    <br>\n    <li>Tener a la mano tu kárdex oficial de SEP con promedio acumulado actualizado.</li>\n    <br>\n    <li>Comprobantes de ingresos de tus tutores o quien sea responsable económicamente por los pagos universitarios.</li>\n    <br>\n</ol>\n<br>\n<br>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -210,7 +239,7 @@
                   "value" : "left"
                 }
               },
-              "reference" : "96756b42-fc9b-4ef8-a199-eb98a9a85606",
+              "reference" : "42c3bab6-6492-482a-9196-9374b8c272cf",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -734,7 +763,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Estimado(a) {{ objSolicitudDeAdmision[0].primerNombre + (objSolicitudDeAdmision[0].segundoNombre ? \" \" + objSolicitudDeAdmision[0].segundoNombre : \"\" ) +  \" \" +objSolicitudDeAdmision[0].apellidoPaterno + (objSolicitudDeAdmision[0].apellidoMaterno ? \" \" + objSolicitudDeAdmision[0].apellidoMaterno : \"\" ) }}"
+                          "value" : "Estimado(a): {{ objSolicitudDeAdmision[0].primerNombre + (objSolicitudDeAdmision[0].segundoNombre ? \" \" + objSolicitudDeAdmision[0].segundoNombre : \"\" ) +  \" \" +objSolicitudDeAdmision[0].apellidoPaterno + (objSolicitudDeAdmision[0].apellidoMaterno ? \" \" + objSolicitudDeAdmision[0].apellidoMaterno : \"\" ) }}"
                         },
                         "level" : {
                           "type" : "constant",
@@ -1346,58 +1375,6 @@
                             "reference" : "a2119520-16a4-4844-ac52-e7aeee5e3717",
                             "hasValidationError" : false,
                             "id" : "customBtnSDAEcontinuarAvisoPrivacidadv2"
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "Default label"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "allowHTML" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "text" : {
-                                "type" : "interpolation",
-                                "value" : "<pre>{{ bitacoraInicioProceso | json }}</pre>"
-                              },
-                              "alignment" : {
-                                "type" : "constant",
-                                "value" : "left"
-                              }
-                            },
-                            "reference" : "aa83cf92-8916-4b29-a8f1-87e6de730ad7",
-                            "hasValidationError" : false,
-                            "id" : "pbText"
                           }
                         ]
                       ]
