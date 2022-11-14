@@ -453,6 +453,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
   
     }
+    
     $scope.sizing = function() {
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
@@ -487,6 +488,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 console.error(data);
             });
     }
+    
     $scope.isPeriodoVencido = function(periodofin) {
         var fecha = new Date(periodofin.slice(0, 10))
         return fecha < new Date();
@@ -551,13 +553,36 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
 
         return $http(req)
-            .success(function (data, status) {
+        .success(function (data, status) {
 
-                $scope.envelopeCancel();
-            })
-            .error(function (data, status) {
-                console.error(data)
-            })
-            .finally(function () { });
+            $scope.envelopeCancel();
+        })
+        .error(function (data, status) {
+            console.error(data)
+        })
+        .finally(function () { });
     }
+    
+    function downloadFile(_document) {
+        debugger;
+        const linkSource = "data:application/pdf; base64,"+ _document;
+        const downloadLink = document.createElement("a");
+    
+        let fileName = "Información del aval.pdf";
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+    
+    
+    $scope.downloadFile = function(_email){
+        let url = "../API/extension/DocAPI?pdf=pdfDatosAval&p=0&c=1&email=" + _email;
+        $http.post(url, {}).success(function(success){
+            downloadFile(success.data[0]); 
+        }).error(function(err){
+           debugger 
+        });
+    }
+    
   }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamiento",
   "name" : "SDAERevisarSolicitudFinanciamiento",
-  "lastUpdate" : 1666823180540,
+  "lastUpdate" : 1668125401185,
   "rows" : [
     [
       {
@@ -9194,7 +9194,7 @@
                       "id" : "pbButton"
                     },
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -9210,85 +9210,238 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Archivar solicitud"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "right"
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "primary"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Submit task"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : true
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
                           "value" : ""
-                        },
-                        "dataToSend" : {
-                          "type" : "expression",
-                          "value" : "formInputArchivar"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "constant"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
-                        },
-                        "estatusSolicitud" : {
-                          "type" : "variable",
-                          "value" : "estatusSolicitudArchivada"
-                        },
-                        "caseId" : {
-                          "type" : "variable",
-                          "value" : "caseIdURL"
                         }
                       },
-                      "reference" : "629565bc-6e29-4eca-9609-ace05c7d97a9",
+                      "reference" : "c9de1bac-566a-40b2-ad38-6fec048d5af7",
                       "hasValidationError" : false,
-                      "id" : "customSDAEButtonCambiarEstatusSolicitud"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Archivar solicitud"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputArchivar"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "estatusSolicitud" : {
+                                "type" : "variable",
+                                "value" : "estatusSolicitudArchivada"
+                              },
+                              "caseId" : {
+                                "type" : "variable",
+                                "value" : "caseIdURL"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraRechazar"
+                              }
+                            },
+                            "reference" : "629565bc-6e29-4eca-9609-ace05c7d97a9",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCambiarEstatusSolicitud"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Archivar solicitud"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Submit task"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInputArchivar"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "estatusSolicitud" : {
+                                "type" : "variable",
+                                "value" : "estatusSolicitudArchivada"
+                              },
+                              "caseId" : {
+                                "type" : "variable",
+                                "value" : "caseIdURL"
+                              },
+                              "isValid" : {
+                                "type" : "expression",
+                                "value" : "formInputArchivar.solicitudFinanciamientoModelInput.observacionesFinanzas"
+                              },
+                              "errorMessage" : {
+                                "type" : "constant",
+                                "value" : "No se puede archivar la solicitud sin especificar el motivo"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "expression",
+                                "value" : "bitacoraRechazar"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant",
+                                "value" : "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10"
+                              }
+                            },
+                            "reference" : "aa334e10-e21f-4a9f-a088-572f3c0ad62b",
+                            "hasValidationError" : false,
+                            "id" : "customSDAEButtonCambiarEstatusSolicitudValidacion"
+                          }
+                        ]
+                      ]
                     }
                   ],
                   [
@@ -12497,6 +12650,23 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.PreAutorizacion]\",\"businessObjectName\":\"PreAutorizacion\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.PreAutorizacion\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "bitacoraRechazar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"beca\": \"N/A\",\r",
+        "  \t\"comentario\": $data.formInputModificar.solicitudFinanciamientoModelInput.observacionesFinanzas,\r",
+        "  \t\"correo\": $data.objSolicitudDeAdmision[0].correoElectronico,\r",
+        "  \t\"estatus\": \"Financiamiento rechaza solicitud\",\r",
+        "  \t\"financiamiento\":  \"N/A\",\r",
+        "  \t\"idbanner\": $data.getDatosSolicitante[0].idAlumno,\r",
+        "  \t\"usuarios\": $data.userData.user_name,\r",
+        "  \t\"caseid\": parseInt($data.caseIdURL),\r",
+        "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
       ],
       "exposed" : false
     }

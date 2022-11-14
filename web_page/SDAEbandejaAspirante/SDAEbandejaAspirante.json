@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1667869605866,
+  "lastUpdate" : 1668045783373,
   "rows" : [
     [
       {
@@ -56,7 +56,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "activeCases.length > 0"
+            "value" : "activeCases.length > 0 || archivedCases.length > 0"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -240,6 +240,169 @@
                 }
               },
               "reference" : "f9cc9a17-18bb-415c-aa14-db5dc79072ef",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre></pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "f7f22a12-e340-4eae-9ae1-7049120920ca",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "archivedCases.length === 0 && activeCases.length > 0"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "2f0f4f72-5698-462c-a074-31c5ae173996",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "ae5841f1-ac41-4ed4-af76-0e90491bb711",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<b>¡Buen día!</b><br>\n<b class=\"color-orange\">{{ nombreCompleto }}</b><br>\nHas concluido con el proceso de apoyo educativo en la licenciatura de <b class=\"color-orange\">{{objSolicitudDeAdmision[0].catGestionEscolar.nombre}}</b> para el periodo <b class=\"color-orange\">{{objSolicitudDeAdmision[0].catPeriodo.descripcion}}</b>.\n<br>\nSi tienes alguna duda, contáctanos.\n<br><br>\n¡Estaremos pendientes!"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "e260bd1b-944c-4bc4-870b-2990484e2356",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -3078,6 +3241,14 @@
       "value" : [
         "return \"/portal/resource/app/aspiranteSDAE/nueva_solicitud_SDAE/content/?tipoMoneda=\" + $data.tipoMoneda"
       ],
+      "exposed" : false
+    },
+    "archivedCases" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/archivedCase?c=1&p=0&f=started_by={{userData.user_id}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

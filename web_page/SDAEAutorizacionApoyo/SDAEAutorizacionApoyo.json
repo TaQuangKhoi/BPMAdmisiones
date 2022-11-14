@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1665441921571,
+  "lastUpdate" : 1668039064774,
   "rows" : [
     [
       {
@@ -1380,7 +1380,7 @@
                       },
                       "replace" : {
                         "type" : "constant",
-                        "value" : "[RECHAZO-COMENTARIOS]"
+                        "value" : "[RECHAZO-COMENTARIOS-DICTAMEN]"
                       }
                     },
                     "reference" : "2a4b9306-48b8-46f4-ad3d-1295d75d783f",
@@ -1636,7 +1636,7 @@
                       },
                       "valor2" : {
                         "type" : "variable",
-                        "value" : "formInputAprobar.autorizacionInput.motivoRechazoAutorizacionText"
+                        "value" : "formInputModificar.cambiosSolicitudAutorizacionText.motivoRechazoAutorizacionText"
                       },
                       "id" : {
                         "type" : "constant",
@@ -1711,7 +1711,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "formOutputFinalRechazar"
+                        "value" : "formOutputFinalModificar"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -8620,6 +8620,46 @@
         "  \"codigo\": \"sdae-modificacióndictamen-becas\",\r",
         "  \"isEnviar\": false,\r",
         "  \"correoAspirante\": $data.objSolicitudDeAdmision[0].correoElectronico\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formInputModificar" : {
+      "type" : "json",
+      "value" : [
+        "{ ",
+        "    \"varAutorizadaInput\": true,",
+        "\t\"autorizacionInput\": {",
+        "\t\t\"isAutorizada\": false,",
+        "\t\t\"motivoRechazoAutorizacion\":\"\",",
+        "\t\t\"promedioMinimoBeca\":\"\",",
+        "\t\t\"cambiosSolicitudAutorizacion\":\"\",",
+        "\t\t\"porcentajeCreditoAutorizacion\":\"\",",
+        "\t\t\"porcentajeBecaAutorizacion\":\"\",",
+        "\t\t\"promedioMinimoAutorizacion\":\"\",",
+        "\t\t\"descuentoAnticipadoAutorizacion\":0,",
+        "\t\t\"fechaPagoInscripcionAutorizacion\": null,",
+        "\t\t\"isPagoRealizadoAutorizacion\":false,",
+        "\t\t\"motivoRechazoAutorizacionText\":\"\",",
+        "\t\t\"cambiosSolicitudAutorizacionText\":\"\"",
+        "\t},",
+        "\t\"isModificacionAutorizcionInput\":true",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutputFinalModificar" : {
+      "type" : "expression",
+      "value" : [
+        "let autorizacionInput = $data.formInputModificar.autorizacionInput;\r",
+        "autorizacionInput.porcentajeCreditoAutorizacion = parseInt(autorizacionInput.porcentajeCreditoAutorizacion ? autorizacionInput.porcentajeCreditoAutorizacion : 0);\r",
+        "autorizacionInput.porcentajeBecaAutorizacion = parseInt(autorizacionInput.porcentajeBecaAutorizacion ? autorizacionInput.porcentajeBecaAutorizacion : 0);\r",
+        "autorizacionInput.caseid = parseInt($data.caseId);\r",
+        "\r",
+        "return {\r",
+        "\t\"varAutorizadaInput\": $data.formInputModificar.varAutorizadaInput,\r",
+        "\t\"isModificacionAutorizcionInput\": $data.formInputModificar.isModificacionAutorizcionInput,\r",
+        "\t\"autorizacionInput\":autorizacionInput\r",
         "}"
       ],
       "exposed" : false
