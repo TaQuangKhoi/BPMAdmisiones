@@ -113,9 +113,34 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                 if(width >= 1024 && height >= 768){
                     reader.readAsBinaryString(f);
                 }  else {
-                    swal("No se pudo cargar la imagen","La imagen es muy pequeña, esta debe ser por  1024 x 768 pixeles. ","error")
+                    // swal("No se pudo cargar la imagen","La imagen es muy pequeña, esta debe ser por  1024 x 768 pixeles. ","error")
+                    let swalObject = {
+                        title: "",
+                        icon:"warning",
+                        text: "Estás intentando subir una foto que no cumple con las recomendaciones. ¿Deseas continuar?",
+                        buttons: {
+                            no: {
+                                text: "No",
+                                value: false,
+                                className:'btn-info'
+                            },
+                            si: {
+                                text: "Sí",
+                                value: true,
+                                className:'btn-primary'
+                            }
+                        }
+                    };
+
+                    swal(swalObject).then((value) => {
+                        debugger;
+                        if(value){
+                            reader.readAsBinaryString(f);
+                        }
+                    });
                 }
             }
+
             image.src = e.target.result;
         }
         reader2.readAsDataURL(f);
