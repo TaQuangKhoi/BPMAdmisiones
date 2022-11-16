@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1668550331242,
+  "lastUpdate" : 1668625888319,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Solicitud de apoyo educativo.<hr>"
+            "value" : "Solicitud de apoyo educativo<hr>"
           },
           "level" : {
             "type" : "constant",
@@ -270,7 +270,7 @@
             "value" : ""
           }
         },
-        "reference" : "13035c14-bf10-4e40-814b-d1a239082376",
+        "reference" : "625750bf-1685-4f25-b6c7-f90bc600fc58",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -385,6 +385,37 @@
               "hasValidationError" : false,
               "id" : "pbText"
             }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "b94d4b33-8c02-4127-b146-58ce8cb074e0",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            }
           ]
         ]
       }
@@ -460,8 +491,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "buildContent[0].estado === \"En espera de resultado\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -621,6 +652,58 @@
                   }
                 ]
               ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "buildContent[0].estado !== \"En espera de resultado\""
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<b>¡Buen día!</b><br><br>\n<b class=\"color-orange\">{{ nombreCompleto }}</b><br><br>\n<b class=\"color-orange\">{{ objSolicitudDeAdmision[0].catGestionEscolar.nombre }}</b><br><br>\n<b class=\"color-orange\">{{ objSolicitudDeAdmision[0].catPeriodo.descripcion }}</b><br><br>\nPara continuar con la evaluación de tu solicitud de apoyo educativo, estamos a la espera del resultado de tu proceso de admisión.\n<br>\nEn cuanto lo tengamos, te enviaremos un correo a <b class=\"color-orange\">{{ objSolicitudDeAdmision[0].correoElectronico}}</b> con los siguientes pasos.\n<br><br>\n¡Quedamos pendientes!"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "2ce5be9f-3a30-4302-84b9-a175ff78b414",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -3288,6 +3371,19 @@
         "../API/bpm/archivedCase?c=1&p=0&f=started_by={{userData.user_id}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "mostrarPantallaEspera" : {
+      "type" : "expression",
+      "value" : [
+        "let output = false;",
+        "",
+        "if($data.buildContent.estado === \"\"){",
+        "    output = true;",
+        "}",
+        "",
+        "return output;"
+      ],
       "exposed" : false
     }
   },

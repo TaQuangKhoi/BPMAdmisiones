@@ -128,7 +128,18 @@ function ($scope, $http) {
                 $scope.properties.bienesRaices = [];
             }
         }).error((err) => {
+            let bienRaiz = {
+                "persistenceId_string": "",
+                "caseId": $scope.properties.caseId,
+                "catTipoInversionesPosee": "",
+                "descripcion": "",
+                "direccionBanco": "",
+                "valor": null,
+                "catTipoInversionesPosee_id": null
+            };
+            
             $scope.properties.bienesRaices = [];
+            $scope.properties.bienesRaices.push(bienRaiz);
             console.log("bienesRaices vacío");
         });
     }

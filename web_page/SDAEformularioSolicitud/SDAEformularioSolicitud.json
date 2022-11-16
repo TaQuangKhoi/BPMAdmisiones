@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1668549960074,
+  "lastUpdate" : 1668556875247,
   "rows" : [
     [
       {
@@ -7239,7 +7239,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : true
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -10123,7 +10123,7 @@
                                 "Colegiatura mensual",
                                 "¿Trabaja?",
                                 "Empresa",
-                                "Ingreso mensual"
+                                "Ingreso mensual neto"
                               ]
                             },
                             "content" : {
@@ -10179,7 +10179,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : true
+                              "value" : false
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -11346,7 +11346,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<br><a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">Términos y condiciones</a>"
+                              "value" : "<br>Si tienes alguna duda acerca de los tipos de apoyo educativo <a class=\"color-orange\" href=\"{{getConfiguracionCampus.data[0].urlReglamento}}\" target=\"blank\">da click aquí</a>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -13334,7 +13334,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : true
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -23903,7 +23903,7 @@
         "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
         "} \r",
         "\r",
-        "else if(!$data.formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni){\r",
+        "else if(!$data.formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni && $data.formOutputTest.solicitudApoyoEducativoInput.cantMensualPagarUni != 0){\r",
         "    output = false;\r",
         "    $data.errorPaso3 = \"El campo '¿Qué cantidad mensual puedes pagar por la universidad?' no debe ir vacío.\";\r",
         "    $data.tituloErrorPaso3 = \"Motivo de solicitud de beca\";\r",
