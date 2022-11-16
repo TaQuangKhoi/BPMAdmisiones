@@ -1016,6 +1016,113 @@ class ReportesDAO {
 	}
 	
 	
+	public Result generarReportePerfilAspirante(String jsonData) {
+		Result resultado = new Result();
+		
+		String errorLog = "", where = "";
+		Boolean closeCon = false;
+		try {
+			Result dataResult = new Result();
+			int rowCount = 0;
+			List < Object > lstParams;
+			//String type = object.type;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("Registros");
+			XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+			style.setAlignment(HorizontalAlignment.CENTER)
+				//color
+			IndexedColorMap colorMap = workbook.getStylesSource().getIndexedColors();
+			XSSFColor color = new XSSFColor(new java.awt.Color(191, 220, 249), colorMap);
+
+			style.setFillForegroundColor(color)
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			String condicion=""
+			for (int i=0;i< object.multicampus.split(",").size();i++) {
+				condicion+="'"+object.multicampus.split(",")[i]+"'"+((i==object.multicampus.split(",").size()-1)?"":",")
+			}
+			
+			where += " WHERE  ( autodescripcion.persistenceid IS NOT NULL OR autodescripcionv2.persistenceid IS NOT NULL  ) and campus.clave in (" + condicion +") "
+			where += (object.periodo == null || object.periodo.equals("")) ? "" : " AND sda.catperiodo_pid in (" + object.periodo + ")"
+			where += (object.carrera == null || object.carrera.equals("")) ? "" : " AND sda.catgestionescolar_pid in (" + object.carrera + ")"
+			where += (object.preparatoria == null || object.preparatoria.equals("")) ? "" : " AND sda.catbachilleratos_pid in (" + object.preparatoria + ")"
+			where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ")"
+			where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
+			
+			closeCon = validarConexion();
+			String consulta = "select sda.persistenceid,sda.primernombre, sda.segundonombre, sda.apellidopaterno as apaterno,sda.apellidomaterno as amaterno, sda.correoelectronico, sda.fechaNacimiento, sda.curp,sda.telefonoCelular,sda.actaNacimiento, sda.codigoPostal, sda.calle, sda.calle2, sda.ciudad, sda.numExterior, sda.numInterior,sda.colonia,sda.telefono,sda.promedioGeneral, sda.caseid, sda.paisBachillerato,sda.estadoBachillerato, sda.ciudadBachillerato, sda.bachillerato, sda.estatusSolicitud, sda.delegacionMunicipio, sda.estadoExtranjero, sda.resultadoPAA, sda.tienePAA, sda.tieneDescuento, sda.admisionAnahuac, sda.necesitoAyuda, CASE WHEN (sda.countrechazos is null  ) then '1' else sda.countrechazos+1 END as intentos,campus.descripcion as campus,periodo.clave as periodo, cda.idbanner as idbanner, gestionescolar.nombre AS carrera, preparatoria.descripcion    preparatoriadeprocedencia, religion.descripcion as religion, sexo.descripcion as sexo, tipoadmision.descripcion as tipodeadmision, campusingreso.descripcion as campusingreso, tipoalumno.descripcion as tipodeestudiante, autov2.admiraspersonalidadmadre, autov2.admiraspersonalidadpadre, autov2.asprctosnogustanreligion, autov2.caracteristicasexitocarrera, autov2.caseid, autov2.comodescribesrelacionhermanos, autov2.comodescribestufamilia, autov2.comoestaconformadafamilia, autov2.comoresolvisteproblema, autov2.comotedescribentusamigos, autov2.conquienplaticasproblemas, autov2.cualexamenextrapresentaste, autov2.defectosobservasmadre, autov2.defectosobservaspadre, autov2.detallespersonalidad, autov2.empresatrabajas, autov2.empresatrabajaste, autov2.expectativascarrera, autov2.familiarmejorrelacion, autov2.fuentesinfluyerondesicion, autov2.hasrecibidoalgunaterapia, autov2.materiascalifaltas, autov2.materiascalifbajas, autov2.materiasnotegustan, autov2.materiastegustan, autov2.mayorproblemaenfrentado, autov2.metascortoplazo, autov2.metaslargoplazo, autov2.metasmedianoplazo, autov2.motivoaspectosnogustanreligion, autov2.motivoelegistecarrera, autov2.motivoexamenextraordinario, autov2.motivopadresnoacuerdo, autov2.motivoreprobaste, autov2.organizacionhassidojefe, autov2.organizacionparticipas, autov2.organizacionesperteneces, autov2.pageindex, autov2.periodoreprobaste, autov2.persistenceversion, autov2.personasinfluyerondesicion, autov2.principalesdefectos, autov2.principalesvirtudes, autov2.problemassaludatencioncontinua, autov2.profesionalcomoteves, autov2.quecambiariasdeti, autov2.quecambiariasdetufamilia, autov2.quedeportepracticas, autov2.quehacesentutiempolibre, autov2.quelecturaprefieres, autov2.tipodiscapacidad, cats.descripcion as trabajas, cucb.descripcion ultimoCurso, cadr.descripcion as desagradaReligion, ceeee.descripcion as EstudiadoExtranjero, ceac.descripcion as ExperienciaAyuda, cee.descripcion as ExamenExtraordinario, csr.descripcion as hasReprobado, cat.descripcion as ActualmenteTrabajas, cuai.descripcion as otraUniversidad, cjgs.descripcion as JefeOrgSocial, cov.descripcion as orientacionVocacional, cpeda.descripcion as PadresAcuerdo, cpgs2.descripcion as participasGrupoSocial, cps.descripcion as personaSaludable, cpd.descripcion as practicasDeporte, cpr.descripcion as practicasReligion, cpsa.descripcion as problemaSalud, ct.descripcion as recibioTerapia, ctgl.descripcion as teGustaLeer, cd.descripcion as viveEstadoDiscapacidad, crp.descripcion as ResolvisteProblema, paisExtranjero.descripcion as paisExtranjero, cpgs.descripcion as pertenecesOrganizacion, cct.descripcion as tiempoExtranjero   from solicitudDeAdmision as sda INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=sda.caseid INNER JOIN catcampus as campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid INNER JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid INNER JOIN catreligion religion ON religion.persistenceid=sda.catreligion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid INNER JOIN catcampus as campusingreso ON campusingreso.persistenceid=catcampusestudio_pid INNER JOIN cattipoalumno as tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid LEFT JOIN autodescripcionv2 as autov2 ON autov2.caseid = sda.caseid LEFT JOIN catCuantoTiempo as cct ON cct.persistenceid = autov2.tiempoestudiasteextranjero_pid LEFT JOIN catParticipasGrupoSocial as cpgs ON cpgs.persistenceid = autov2.pertenecesorganizacion_pid  LEFT JOIN CatPais as paisExtranjero ON paisExtranjero.persistenceid = autov2.paisestudiasteextranjero_pid LEFT JOIN catResolvisteProblema AS crp ON crp.persistenceid = autov2.catyaresolvisteelproblema_pid LEFT JOIN catDiscapacidad as cd ON cd.persistenceid = autov2.catvivesestadodiscapacidad_pid LEFT JOIN catTeGustaLeer as ctgl ON ctgl.persistenceid = autov2.cattegustaleer_pid LEFT JOIN catTerapia as ct ON ct.persistenceid = autov2.catrecibidoterapia_pid LEFT JOIN catProblemasSaludAtencion as cpsa ON cpsa.persistenceid = autov2.catproblemassaludatencion_pid LEFT JOIN catPracticaReligion AS cpr ON cpr.persistenceid = autov2.catpracticasreligion_pid LEFT JOIN catPracticaDeporte as cpd ON cpd.persistenceid = autov2.catpracticasdeporte_pid LEFT JOIN catPersonaSaludable as cps ON cps.persistenceid = autov2.catpersonasaludable_pid LEFT JOIN catParticipasGrupoSocial as cpgs2 ON cpgs2.persistenceid = autov2.catparticipasgruposocial_pid LEFT JOIN catPadresEstanDeAcuerdo as cpeda ON cpeda.persistenceid = autov2.catpadresdeacuerdo_pid LEFT JOIN CatOrientacionVocacional as cov ON cov.persistenceid = autov2.catorientacionvocacional_pid LEFT JOIN catJefeGrupoSocial as cjgs ON cjgs.persistenceid = autov2.catjefeorganizacionsocial_pid LEFT JOIN catUniversidadAIngresar as cuai ON cuai.persistenceid = autov2.catinscritootrauniversidad_pid LEFT JOIN CatActualmenteTrabajas as cat ON cat.persistenceid = autov2.cathastenidotrabajo_pid LEFT JOIN catsemestreReprobado as csr ON csr.persistenceid = autov2.cathasreprobado_pid LEFT JOIN catExamenExtraordinario as cee ON cee.persistenceid = autov2.cathaspresentadoexamenextr_pid LEFT JOIN catExperienciaAyudaCarrera as ceac ON ceac.persistenceid = autov2.catexperienciaayudacarrera_pid LEFT JOIN CatEstudiasteEnElExtranjero as ceeee ON ceeee.persistenceid = autov2.catestudiadoextranjero_pid LEFT JOIN cataspectodesagradoreligion as cadr ON cadr.persistenceid = autov2.cataspectodesagradareligio_pid LEFT JOIN catUltimoCursoBachiller as cucb ON cucb.persistenceid = autov2.catareabachillerato_pid LEFT JOIN catactualmentetrabajas as cats ON cats.persistenceid = autov2.catactualnentetrabajas_pid " + where
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			pstm = con.prepareStatement(consulta)
+			rs = pstm.executeQuery()
+			
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			
+			dataResult.setData(rows)
+			dataResult.setSuccess(true)
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+				errorLog += "|Parametros:" + lstParams.toString() + "|"
+			} else {
+				throw new Exception("No encontro datos");
+			}
+			def titulos = ["idbanner","NOMBRE","SEGUNDO NOMBRE","APELL PATERNO","APELL MATERNO","CAMPUS","ESTADO","MUNICIPIO","PAIS","CORREO","CONTRASEÑA","SEXO","FECHA NACI","NACIONALIDAD","RELIGION","CURP/PASAPORTE","CELULAR","AVATAR","KARDEX","ESTCICIL","CCALLE","NUMEXT","NUMINT","COLONIA","CP","TEL-OTRO","PAA","UNIVERSIDAD","LICENCIATURA","PERIODO INGRESO","OTRA UNIVERSIDAD","PREPA","PREPA PAIS","PREPA ESTADO","PREPA CIUDAD","PREPA PROMEDIO","TUTOR TITULO","TUTOR NOMBRE","TUTOR APELLIDO","TUTOR EGRESADO","TUTOR UNI EGRESADO","TUTOR ESCOLARIDAD","TUTOR PARENTESCO","TRABAJO TUTOR","TUTOR EMPRESA","TUTOR GIRO EMPRESA","TUTOR PUESTO","TUTOR CALLE","TUTOR NUM EXT","TUTOR NUM INT","TUTOR COLONIA","TUTOR CP","TUTOR MUNICIPIO","TUTOR PAIS","TUTOR ESTADO","TUTOR CELULAR","PADRE TITULO","PADRE NOMBRE","PADRE APELLIDOS","PADRE VIVO","PADRE EGRESADO","PADRE UNI EGRESO","PADRE ESCOLARIDAD","PADRE TUTOR","PADRE CORREO","PADRE TRABAJA","PADRE EMPRESA","PADRE GIRO EMPRESA","PADRE","PADRE CALLE","PADRE NUM EXT","PADRE NUM INT","PADRE COLONIA","PADRE CP","PADRE MUNICIPIO","PADRE PAIS","PADRE ESTADO","PADRE CEL","MADRE TITULO","MADRE NOMBRE","MADRE APELLIDO","MADRE VIVE","MADRE EGRESADA","MADRE UNI EGRESADA","MADRE CORREO","MADRE ESCOL","MADRE CALLE","MADRE NUM EXT","MADRE NUM INT","MADRE COLONIA","MADRE CP","MADRE MUNICIPIO","MADRE PAIS","MADRE ESTADO","MADRE CEL","EMERGENCIA","EMERGENCIA NOMBRE","EMERGENCIA TELEFONO","EMERGENCIA CELULAR","CON QUIEN VIVES","ESTADO PADRES","DISCAPACIDAD","ATENCION MEDICA","PERSONA SALUDABLE","ALGUN DEPORTE","AYUDA SOCIAL","TIEMPO LIBRE","GUSTA LEER","TIPO LECTURA","JEFE ASOCIACION","CUAL ASOCIACION","ASOCIACION DEP","ASOCIACION SOC","ASOCIACION REL","ASOCIACION POL","ASOCIACION EST","FAMILIAR ANAHUAC","ATENCION ESPIRITUAL","CONOCE REGNUM","TIENE RELIGION","VALOR RELIGION","PRACTICAS RELIGION","NO GUSTAR RELIGION"]
+			Row headersRow = sheet.createRow(rowCount);
+			++rowCount;
+			List<Cell> header = new ArrayList<Cell>();
+			for(int i = 0; i < titulos.size(); ++i) {
+				header.add(headersRow.createCell(i))
+				header[i].setCellValue(titulos.get(i))
+				header[i].setCellStyle(style)
+			}
+			
+			CellStyle bodyStyle = workbook.createCellStyle();
+			bodyStyle.setWrapText(true);
+			bodyStyle.setAlignment(HorizontalAlignment.CENTER);
+			
+			def solicitud = ["idbanner","nombre","apaterno","amaterno","correoelectronico","fechanacimiento","curp","actanacimiento","codigopostal","calle","calle2","ciudad","numexterior","numinterior","colonia","telefono","promediogeneral","caseid","paisbachillerato","estadobachillerato","ciudadbachillerato","bachillerato","estatussolicitud","delegacionmunicipio","estadoextranjero","resultadopaa","tienepaa","tienedescuento","admisionanahuac","necesitoayuda","intentos","campus","periodo","idbanner","carrera","preparatoriadeprocedencia","religion","sexo","tipodeadmision","campusingreso","tipodeestudiante"];
+			def auto = ["admiraspersonalidadmadre", "admiraspersonalidadpadre", "asprctosnogustanreligion", "caracteristicasexitocarrera", "caseid", "comodescribesrelacionhermanos", "comodescribestufamilia", "comoestaconformadafamilia", "comoresolvisteproblema", "comotedescribentusamigos", "conquienplaticasproblemas", "cualexamenextrapresentaste", "defectosobservasmadre", "defectosobservaspadre", "detallespersonalidad", "empresatrabajas", "empresatrabajaste", "expectativascarrera", "familiarmejorrelacion", "fuentesinfluyerondesicion", "hasrecibidoalgunaterapia", "materiascalifaltas", "materiascalifbajas", "materiasnotegustan", "materiastegustan", "mayorproblemaenfrentado", "metascortoplazo", "metaslargoplazo", "metasmedianoplazo", "motivoaspectosnogustanreligion", "motivoelegistecarrera", "motivoexamenextraordinario", "motivopadresnoacuerdo", "motivoreprobaste", "organizacionhassidojefe", "organizacionparticipas", "organizacionesperteneces", "pageindex", "periodoreprobaste", "persistenceversion", "personasinfluyerondesicion", "principalesdefectos", "principalesvirtudes", "problemassaludatencioncontinua", "profesionalcomoteves", "quecambiariasdeti", "quecambiariasdetufamilia", "quedeportepracticas", "quehacesentutiempolibre", "quelecturaprefieres", "tipodiscapacidad", "trabajas", "ultimocurso" , "desagradareligion", "estudiadoextranjero", "experienciaayuda", "examenextraordinario", "hasreprobado", "actualmentetrabajas", "otrauniversidad", "jefeorgsocial", "orientacionvocacional", "padresacuerdo", "participasgruposocial", "personasaludable", "practicasdeporte", "practicasreligion", "problemasalud", "recibioterapia", "tegustaleer", "viveestadodiscapacidad", "resolvisteproblema", "paisextranjero", "pertenecesorganizacion", "tiempoextranjero"];
+			def info = solicitud + auto;
+			List<Cell> body;
+			for (int i = 0; i < lstParams.size(); ++i){
+				Row row = sheet.createRow(rowCount);
+				++rowCount;
+				body = new ArrayList<Cell>()
+				for(int j=0;  j < info.size(); ++j) {
+					body.add(row.createCell(j))
+					body[j].setCellValue(lstParams[i][info.get(j)])
+					body[j].setCellStyle(bodyStyle);
+					
+				}
+				
+			}
+			
+		}
+		catch(ex) {
+			
+		}
+		
+		
+		
+		
+		
+		return resultado;
+	}
+	
 	
 
 }
