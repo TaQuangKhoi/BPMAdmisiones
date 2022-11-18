@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAEAppPagoEstudioSocEco",
   "name" : "SDAEAppPagoEstudioSocEco",
-  "lastUpdate" : 1664579878678,
+  "lastUpdate" : 1668800158441,
   "rows" : [
     [
       {
@@ -351,8 +351,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "configuracionesPago.deshabilitarPagoEstudioSocioEconomico"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -1280,8 +1280,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!configuracionesPago.deshabilitarPagoEstudioSocioEconomico"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -1332,7 +1332,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Ya has realizado el pago de tu examen de admisión, da click en el botón <b>Aceptar</b> para continuar con tu proceso de admisión."
+                        "value" : "Pago deshabilitado, da click en el botón <b>Aceptar</b> para continuar con tu proceso de admisión."
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1395,7 +1395,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "consturirContratoPagoCubierto"
+                        "value" : "construirContratoPagoDeshabilitado"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -1447,9 +1447,9 @@
                         "value" : "objectSolicitud"
                       }
                     },
-                    "reference" : "c24c4546-9a1e-447f-a60d-5dd628e426d8",
+                    "reference" : "9d0074cc-ff1e-4251-93f0-fd1c56db705d",
                     "hasValidationError" : false,
-                    "id" : "customCustomButtonExecuteTask2"
+                    "id" : "customSDAEButtonExecuteTask2"
                   }
                 ]
               ]
@@ -6666,7 +6666,7 @@
         "let contrato = {",
         "    \"conIsPagoValidado\" : true, ",
         "    \"isPagoTarjeta\" : true ,",
-        "    \"detalleSolicitudInput\" : {",
+        "    \"solicitudApoyoEducativoInput\" : {",
         "        \"ordenPago\" : \"\"",
         "    },",
         "    \"isPagoCondonado\": false,",
@@ -6679,7 +6679,7 @@
         "            let estatus = $data.getBitacoraPagosByEmail.data[i].estatus;",
         "            if(estatus === \"Pago aceptado\"){",
         "                $data.pagoCubierto = true;",
-        "                contrato.detalleSolicitudInput.ordenPago = $data.getBitacoraPagosByEmail.data[i].noTransaccion;",
+        "                contrato.solicitudApoyoEducativoInput.ordenPago = $data.getBitacoraPagosByEmail.data[i].noTransaccion;",
         "            }",
         "        }",
         "        ",
@@ -6973,6 +6973,20 @@
         "  \t\"usuarios\": $data.session.user_name,\r",
         "  \t\"caseid\": parseInt($data.caseid),\r",
         "  \t\"tipoapoyo\": $data.returnCatValue.catTipoApoyo ? $data.returnCatValue.catTipoApoyo.descripcion: \"N/A\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "construirContratoPagoDeshabilitado" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"solicitudApoyoEducativoInput\":{",
+        "\t\t\"ordenPagoConekta\":\"\"",
+        "\t},",
+        "\t\"isPagoValidadoInput\": true,",
+        "\t\"isPagoConTarjetainput\": true,",
+        "\t\"isPagoRegresarInput\": false",
         "}"
       ],
       "exposed" : false

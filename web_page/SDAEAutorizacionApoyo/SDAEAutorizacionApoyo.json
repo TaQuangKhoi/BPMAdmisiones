@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1668039064774,
+  "lastUpdate" : 1668810626790,
   "rows" : [
     [
       {
@@ -3216,7 +3216,7 @@
                         },
                         "dataToSend" : {
                           "type" : "expression",
-                          "value" : "formOutputFinalRechazar"
+                          "value" : "formOutputFinalModificar"
                         },
                         "dataFromSuccess" : {
                           "type" : "variable",
@@ -4382,8 +4382,8 @@
                                       "value" : ""
                                     },
                                     "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "!getCampusSDAE.data[0].tieneFinanciamiento"
                                     },
                                     "repeatedCollection" : {
                                       "type" : "variable",
@@ -5581,8 +5581,8 @@
                                       "value" : ""
                                     },
                                     "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "!getCampusSDAE.data[0].tieneFinanciamiento"
                                     },
                                     "repeatedCollection" : {
                                       "type" : "variable",
@@ -6579,8 +6579,8 @@
                                       "value" : ""
                                     },
                                     "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "!getCampusSDAE.data[0].tieneFinanciamiento"
                                     },
                                     "repeatedCollection" : {
                                       "type" : "variable",
@@ -7333,6 +7333,12 @@
                               "caseid" : {
                                 "type" : "expression",
                                 "value" : "caseId"
+                              },
+                              "objetoBitacora" : {
+                                "type" : "constant"
+                              },
+                              "urlBitacora" : {
+                                "type" : "constant"
                               }
                             },
                             "reference" : "a438e4b6-320d-40bc-95e1-e1d27a267dc6",
@@ -8658,10 +8664,18 @@
         "\r",
         "return {\r",
         "\t\"varAutorizadaInput\": $data.formInputModificar.varAutorizadaInput,\r",
-        "\t\"isModificacionAutorizcionInput\": $data.formInputModificar.isModificacionAutorizcionInput,\r",
+        "\t\"isModificacionAutorizcionInput\": true,\r",
         "\t\"autorizacionInput\":autorizacionInput\r",
         "}"
       ],
+      "exposed" : false
+    },
+    "getCampusSDAE" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

@@ -5,6 +5,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.avanzarPreAutorizacion = false;
     $scope.avanzarFinanciamiento = false;
     $scope.avanzarArchivar = false;
+    $scope.motivoRechazo = "";
     $scope.bitacora = [];
 
     this.isArray = Array.isArray;
@@ -138,26 +139,35 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             } else {
                 var contrato = {};
                 var estatus = "";
-
+                debugger;
                 if ($scope.avanzarSolicitud) { //DICTAMEN
                     contrato = {
                         "varRegresarRevisionInput": false,
                         "varAdmitidoInput": true,
-                        "varFinanaciamientoInput": false
+                        "varFinanaciamientoInput": false,
+                        "preAutorizacionInput":{
+                            "motivoRechazoPreAutorizacion":""
+                        }
                     };
                     estatus = "En espera de pago";
                 } else if ($scope.avanzarArchivar) { //ARCHIVAR
                     contrato = {
-                        "varRegresarRevisionInput": false,
+                        "varRegresarRevisionInput": true,
                         "varAdmitidoInput": false,
-                        "varFinanaciamientoInput": false
+                        "varFinanaciamientoInput": false,
+                        "preAutorizacionInput":{
+                            "motivoRechazoPreAutorizacion": $scope.mensaje
+                        }
                     };
                     estatus = "Solicitud Rechazada";
                 } else if ($scope.avanzarFinanciamiento) { //SUB PROCESO FINANCIAMIENTO
                     contrato = {
                         "varRegresarRevisionInput": false,
                         "varAdmitidoInput": false,
-                        "varFinanaciamientoInput": true
+                        "varFinanaciamientoInput": true,
+                        "preAutorizacionInput":{
+                            "motivoRechazoPreAutorizacion":""
+                        }
                     };
                     estatus = "En espera de pago";
                 } else { // REACTIVAR SOLICITUD

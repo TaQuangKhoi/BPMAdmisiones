@@ -31,26 +31,25 @@ function($scope, $http) {
             console.log(document.getElementById($scope.properties.id).innerHTML);
             var respuesta = datos.data[0].replace($scope.properties.replace, document.getElementById($scope.properties.id).innerHTML);
             Swal.fire({
+                html: respuesta,
+                showCloseButton: false,
+                width: 800,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonColor: "#333",
+                confirmButtonText: 'Cerrar'
+            })
+            /*$("#modal" + $scope.properties.id).show();
+            setTimeout(function() {
+                var element = document.getElementById("div" + $scope.properties.id);
 
-                    html: respuesta,
-                    showCloseButton: false,
-                    width: 800,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonColor: "#333",
-                    confirmButtonText: 'Cerrar'
-                })
-                /*$("#modal" + $scope.properties.id).show();
-                setTimeout(function() {
-                    var element = document.getElementById("div" + $scope.properties.id);
+                element.innerHTML = respuesta
 
-                    element.innerHTML = respuesta
-
-                }, 100);*/
+            }, 100);*/
 
         });
     }
     
     var hidden = document.getElementsByClassName("oculto");
-    hidden[0].classList.add("hidden")
+    hidden[0].classList.add("hidden");
 }

@@ -1,9 +1,9 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
     'use strict';
-
+  
     var vm = this;
-
+  
     this.action = function action() {
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
@@ -24,15 +24,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             doRequest($scope.properties.action, $scope.properties.url);
         }
     };
-
+  
     function openModal(modalId) {
         modalService.open(modalId);
     }
-
+  
     function closeModal(shouldClose) {
-        if (shouldClose) { modalService.close(); }
+      if(shouldClose)
+        modalService.close();
     }
-
+  
     function removeFromCollection() {
         if ($scope.properties.collectionToModify) {
             if (!Array.isArray($scope.properties.collectionToModify)) {
@@ -46,14 +47,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else if ($scope.properties.collectionPosition === 'Item') {
                 index = $scope.properties.collectionToModify.indexOf($scope.properties.removeItem);
             }
-
+    
             // Only remove element for valid index
             if (index !== -1) {
                 $scope.properties.collectionToModify.splice(index, 1);
             }
         }
     }
-
+  
     function addToCollection() {
         if (!$scope.properties.collectionToModify) {
             $scope.properties.collectionToModify = [];
@@ -62,86 +63,61 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             throw 'Collection property for widget button should be an array, but was ' + $scope.properties.collectionToModify;
         }
         var item = angular.copy($scope.properties.valueToAdd);
-
+    
         if ($scope.properties.collectionPosition === 'First') {
             $scope.properties.collectionToModify.unshift(item);
         } else {
             $scope.properties.collectionToModify.push(item);
         }
     }
-
+  
     function startProcess() {
         var id = getUrlParam('id');
         if (id) {
-            var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function () {
-                localStorageService.delete($window.location.href);
+            var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
+            localStorageService.delete($window.location.href);
             });
-
+    
         } else {
             $log.log('Impossible to retrieve the process definition id value from the URL');
         }
     }
-
+  
     /**
      * Execute a get/post request to an URL
      * It also bind custom data from success|error to a data
      * @return {void}
      */
     function doRequest(method, url, params) {
-        debugger;
         vm.busy = true;
-        let dataToSend = angular.copy($scope.properties.dataToSend);
-        dataToSend.varAutorizadaInput = $scope.properties.isAutorizada;
-        // dataToSend.isModificacionAutorizcionInput = $scope.properties.isModificar;
-        dataToSend.autorizacionInput.porcentajeCreditoAutorizacion = (dataToSend.autorizacionInput.porcentajeCreditoAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeCreditoAutorizacion) : null);
-        dataToSend.autorizacionInput.porcentajeBecaAutorizacion = (dataToSend.autorizacionInput.porcentajeBecaAutorizacion ? parseInt(dataToSend.autorizacionInput.porcentajeBecaAutorizacion) : null);
-        dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion = (dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion ? parseInt(dataToSend.autorizacionInput.descuentoAnticipadoAutorizacion) : null);
-        dataToSend.autorizacionInput.caseid = parseInt($scope.properties.caseid);
         var req = {
             method: method,
             url: url,
-            data: angular.copy(dataToSend),
-            params: params
+            data: angular.copy($scope.properties.dataToSend),
+            // params: params
         };
-
-        return $http(req)
-            .success(function (data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-
-                // $window.close();
-                insertBitacora();
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    //redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
-            })
-            .error(function (data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                vm.busy = false;
-            });
-    }
-
-    function insertBitacora() {
-        let url = $scope.properties.urlBitacora;
-        let dataToSend = angular.copy($scope.properties.objetoBitacora);
-
-        $http.post(url, dataToSend).success(function () {
-            debugger;
-        }).error(function () {
-            debugger;
-        }).finally(function () {
-            $window.close();
+  
+        return $http(req).success(function(data, status) {
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                redirectIfNeeded();
+            }
+            closeModal($scope.properties.closeOnSuccess);
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
+        })
+        .finally(function() {
+            vm.busy = false;
         });
     }
-
+  
     function redirectIfNeeded() {
         var iframeId = $window.frameElement ? $window.frameElement.id : null;
         //Redirect only if we are not in the portal or a living app
@@ -149,14 +125,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $window.location.assign($scope.properties.targetUrlOnSuccess);
         }
     }
-
+  
     function notifyParentFrame(additionalProperties) {
         if ($window.parent !== $window.self) {
             var dataToSend = angular.extend({}, $scope.properties, additionalProperties);
             $window.parent.postMessage(JSON.stringify(dataToSend), '*');
         }
     }
-
+  
     function getUserParam() {
         var userId = getUrlParam('user');
         if (userId) {
@@ -164,7 +140,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return {};
     }
-
+  
     /**
      * Extract the param value from a URL query
      * e.g. if param = "id", it extracts the id value in the following cases:
@@ -180,20 +156,93 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return '';
     }
-
+  
     function submitTask() {
-        debugger;
-        var id;
-        id = getUrlParam('id');
-        if (id) {
-            var params = getUserParam();
-            params.assign = $scope.properties.assign;
-            doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function () {
-                localStorageService.delete($window.location.href);
-            });
-        } else {
-            $log.log('Impossible to retrieve the task id value from the URL');
-        }
+        // var id;
+        // // id = getUrlParam('id');
+        // id = $scope.properties.taskId;
+        // if (id) {
+        //     var params = getUserParam();
+        //     params.assign = $scope.properties.assign;
+        //     doRequest('POST', '../API/bpm/userTask/' + id + '/execution', params).then(function() {
+        //         localStorageService.delete($window.location.href);
+        //     });
+        // } else {
+        //     $log.log('Impossible to retrieve the task id value from the URL');
+        // }
+        // $scope.assignTask();
+        $scope.unassignTask();    
     }
 
+
+    $scope.unassignTask = function () {
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": ""
+            }
+        };
+
+        return $http(req).success(function(data, status) {
+            $scope.assignTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
+        });
+    }
+
+    $scope.assignTask = function () {
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": $scope.properties.userId
+            }
+        };
+
+        return $http(req).success(function(data, status) {
+            $scope.executeTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
+        });
+    }
+    
+    $scope.showModal = function(){
+        $("#loading").modal("show");
+    };
+    
+    $scope.hideModal = function(){
+        $("#loading").modal("hide");
+    };
+
+    $scope.executeTask = function(){
+         $scope.showModal();
+        let ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
+        let url = ipBonita + "/API/bpm/userTask/" + $scope.properties.taskId + "/execution";
+        
+        let dataToSend = angular.copy($scope.properties.dataToSend);
+        $http.post(url, dataToSend).success(function(data){
+            setTimeout(function(){
+                window.location.reload();
+            }, 3000); 
+        }).error(function(error){
+            $scope.hideModal();
+            swal("Error", "falló la ejecución de la tarea.", "error");
+            console.log("Fallo la tarea" + JSON.stringify(error));
+        })
+    }
 }

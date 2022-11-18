@@ -1406,18 +1406,27 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						promedioReplace = nuevoPromedio;
 					}
 					
+					plantilla = plantilla.replace("[TIPO-BECA]", tipoapoyo != null ? tipoapoyo : "N/A");
+					plantilla = plantilla.replace("[NUEVO-PROMEDIO]", promedioReplace);
+					
 					if (object.codigo.equals("sdae-solicitudmodifcación-validación")){
-						plantilla = plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("cambiossolicitudpreautorizacion"));
+						plantilla=plantilla.replace("[COMENTARIOS-CAMBIO-PREAUTORIZACION]", rs.getString("cambiossolicitudpreautorizacion")==null?"[COMENTARIOS-CAMBIO-PREAUTORIZACION]": (object.isEnviar)?rs.getString("cambiossolicitudpreautorizacion"):"[COMENTARIOS-CAMBIO-PREAUTORIZACION]")
 						porcentajebeca_sol = rs.getString("porcentajebeca_sol");
 						porcentajecredito_sol = rs.getString("porcentajecredito_sol");
 					} else if (object.codigo.equals("sdae-rechazodictamen-becas")){
-					    plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-DICTAMEN]", rs.getString("motivorechazoautorizaciontext"));
+						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS-DICTAMEN]", rs.getString("cambiossolicitudpreautorizacion")==null?"[COMENTARIOS-CAMBIO-PREAUTORIZACION]": (object.isEnviar)?rs.getString("cambiossolicitudpreautorizacion"):"[RECHAZO-COMENTARIOS-DICTAMEN]")
 					} else if (object.codigo.equals("sdae-rechazopreautorización-becas")){
-					    plantilla = plantilla.replace("[RECHAZO-COMENTARIOS]", rs.getString("motivorechazopreautorizacion"));
+//						if(object.isPreview == true) {
+//							plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-PREAUTORIZACION]", rs.getString("motivorechazopreautorizacion"));
+//						}
+						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS-PREAUTORIZACION]", rs.getString("motivorechazopreautorizacion")==null?"[RECHAZO-COMENTARIOS-PREAUTORIZACION]": (object.isEnviar)?rs.getString("motivorechazopreautorizacion"):"[RECHAZO-COMENTARIOS-PREAUTORIZACION]")
 						porcentajebeca_sol = rs.getString("porcentajebeca_sol");
 						porcentajecredito_sol = rs.getString("porcentajecredito_sol");
 					} else if (object.codigo.equals("sdae-modificacióndictamen-becas")){
-						plantilla = plantilla.replace("[MOTIVO-MODIFICACION]", rs.getString("cambiossolicitudautorizaciontext")); 
+//						if(object.isPreview == true) {
+//							plantilla = plantilla.replace("[MOTIVO-MODIFICACION]", rs.getString("cambiossolicitudautorizaciontext"));
+//						}
+						plantilla=plantilla.replace("[[MOTIVO-MODIFICACION]", rs.getString("cambiossolicitudautorizaciontext")==null?"[[MOTIVO-MODIFICACION]": (object.isEnviar)?rs.getString("cambiossolicitudautorizaciontext"):"[[MOTIVO-MODIFICACION]")
 					} else if (object.codigo.equals("sdae-preautorizaciónpago-becas")){
 						plantilla = plantilla.replace("[COSTO-ESTUDIO-SOCIOECONOMICO]", ("\$" + rs.getString("pagoestudiosocioeco") + ".00 MXN")); 
 					} else if (object.codigo.equals("sdae-evaluación-deportiva")){
@@ -1437,13 +1446,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					} else if (object.codigo.equals("sdae-solicitudrechaza-finanzas")){
 					    plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-FINANZAS]", rs.getString("observaciones_finanzas_fina"));
 					} 
-//					motivo_rechazo_fina
-					
-					
+
 					plantilla = plantilla.replace("[PORCENTAJE-BECA]", porcentajebeca_sol != null ? porcentajebeca_sol : "N/A");
 					plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO]", porcentajecredito_sol != null ? porcentajecredito_sol : "N/A");
-					plantilla = plantilla.replace("[TIPO-BECA]", tipoapoyo != null ? tipoapoyo : "N/A");
-					plantilla = plantilla.replace("[NUEVO-PROMEDIO]", promedioReplace);
 					plantilla = plantilla.replace("[PROMEDIO-MINIMO]", rs.getString("promediominimoautorizacion"));
 					plantilla = plantilla.replace("[FECHALIMITE-PAGO]", rs.getString("fechapagoinscripcionautorizacion"));
 					plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-OTORGADO]", rs.getString("porcentajefinanciamientootorgado"));
