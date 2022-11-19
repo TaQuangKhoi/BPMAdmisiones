@@ -1479,7 +1479,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				//OBTENIENDO
 				try {
 					closeCon = validarConexion();
-					pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+					pstm = con.prepareStatement(Statements.GET_SOLICITD_APOYO_BY_CORREOELECTRONICO_PROPUESTA);
 //					pstm.setString(1, object.correo);
 					if(!object.correoAspirante.equals("") && object.correoAspirante != null)  {
 						pstm.setString(1, object.correoAspirante);
@@ -1500,6 +1500,28 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						inscripcionseptiembre = rs.getInt("inscripcionseptiembre");
 						inscripcionagosto = rs.getInt("inscripcionagosto");
 						inscripcionenero = rs.getInt("inscripcionenero");
+						
+						Integer descuento = rs.getInt("descuentoanticipado");
+						Integer porcentajeBeca_sol  = rs.getInt("porcentajebeca_sol");
+						Integer porcentajeFina_sol  = rs.getInt("porcentajecredito_sol");
+						
+						String procedencia = rs.getString("ciudadbachillerato") == null ? rs.getString("ciudadbachillerato_otro") : rs.getString("ciudadbachillerato");
+						plantilla = plantilla.replace("[PROCEDENCIA]", procedencia);
+						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", rs.getString("porcentajebeca_sol"));
+						if(object.codigo.equals("sdae-propuesta-financiamiento-becas")) {
+							plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-DICTAMEN]",  rs.getString("porcentajecredito_sol"));
+							Integer suma = rs.getInt("porcentajebeca_sol") + rs.getInt("porcentajecredito_sol");
+							plantilla = plantilla.replace("[SUMA-B-F]", suma.toString());
+						}
+						
+						plantilla = plantilla.replace("[PROMEDIO-MINIMO]", rs.getString("promediominimoautorizacion"));
+						plantilla = plantilla.replace("[TIPO-BECA]", rs.getString("tipoapoyo"));
+						
+						
+						String[] fechaParcial = rs.getString("fechapagoinscripcionautorizacion").split("-");
+						plantilla = plantilla.replace("[FECHALIMITE-INSCRIPCION]", fechaParcial[2] + "/" + fechaParcial[1] + "/" + fechaParcial[0]);
+						plantilla = plantilla.replace("[DESCUENTO-INSCRIPCION]", rs.getString("descuentoanticipado"));
+						
 						Long sdaecatgestionescolar_pid = rs.getLong("sdaecatgestionescolar_pid");
 						//OBTENCION De LOS CREDITOS
 						closeCon = validarConexion();
@@ -1510,13 +1532,14 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						
 						if(rs.next()) {
 							costoCredito = rs.getInt("CREDITOAGOSTO");
-							errorlog += "| BC_SOLICITUD_BECASYFINAN_AUTORIZADA  DATOS DEL PERIODO ENCONTRADOS  ";
+							Integer creditosSemestre = rs.getInt("creditosemestre");
 							Integer montoInscripcion = inscripcionagosto;
 							Integer montoBeca = (inscripcionagosto - (inscripcionagosto * (porcentajebecaautorizacion * 0.01)));
 							Integer montoBecaFinanciamiento = (inscripcionagosto - (inscripcionagosto * ((porcentajebecaautorizacion * 0.01) + (porcentajecreditoautorizacion * 0.01))));
 							Integer montoFinanciamiento = (inscripcionagosto - (inscripcionagosto * (porcentajecreditoautorizacion * 0.01)));
 							Integer montoCreditos = costoCredito;
-							Integer montoColegiaturaNormal = montoCreditos * 48; //48 para el ejemplo en pantalla
+							Integer parcialidades = rs.getInt("parcialidad");
+							Integer montoColegiaturaNormal = montoCreditos * creditosSemestre; //48 para el ejemplo en pantalla
 							Integer montoColegiaturaBeca = montoColegiaturaNormal - (montoCreditos * ((porcentajebecaautorizacion * 0.01)));
 							Integer montoColegiaturaBecaFinanciamiento = (montoColegiaturaNormal - (montoColegiaturaNormal * ((porcentajebecaautorizacion * 0.01) + (porcentajecreditoautorizacion * 0.01))));
 							Integer montoColegiaturaFinanciamiento = montoColegiaturaNormal - (montoCreditos * ((porcentajebecaautorizacion * 0.01)));
@@ -1526,6 +1549,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 							Integer totalFinanciado = montoFinanciamiento + montoColegiaturaFinanciamiento;
 							Integer interesSemestre = totalFinanciado * 0.035;
 							
+							
+							plantilla = plantilla.replace("[CREDITOS]", creditosSemestre.toString());
+							plantilla = plantilla.replace("[PARCIAL]", rs.getString("parcialidad"));
 							plantilla = plantilla.replace("[PERIODO]", descripcionPeriodo);
 							plantilla = plantilla.replace("[MONTO-INSCRIPCION]", formatCurrency(montoInscripcion.toString()));
 							plantilla = plantilla.replace("[MONTO-BECA]", formatCurrency(montoBeca.toString()));
@@ -1545,6 +1571,34 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 							plantilla = plantilla.replace("[TOTAL-FINANCIADO]", formatCurrency(totalFinanciado.toString()));
 							plantilla = plantilla.replace("[INTERES-SEMESTRE]", formatCurrency(interesSemestre.toString()));
 							
+							Integer montoDescuentoFina = 0;
+							Integer montoDescuentoBeca = 0;
+							Integer montoDescuento = 0;
+							
+							Integer inscripcionDescuento = 0;
+							if(descuento > 0) {
+								montoDescuento = montoInscripcion - (montoInscripcion * (100 / descuento));
+							}
+							inscripcionDescuento  = inscripcionDescuento - montoDescuento;
+							errorlog += "| inscripcionDescuento" + inscripcionDescuento.toString();
+							Integer inscripcionDescuentoBeca = 0;
+							if(porcentajeBeca_sol > 0) {
+								montoDescuentoBeca = montoInscripcion - (montoInscripcion * (100 / porcentajeBeca_sol));
+							}
+							inscripcionDescuentoBeca = montoInscripcion - montoDescuento - montoDescuentoBeca;
+							errorlog += "| inscripcionDescuentoBeca" + inscripcionDescuentoBeca.toString();
+							
+							Integer inscripcionDescuentoFina = 0 ;
+							if(porcentajeFina_sol > 0) {
+								montoDescuentoFina = montoInscripcion - (montoInscripcion * (100 / porcentajeFina_sol));
+							}
+							
+							inscripcionDescuentoFina = montoInscripcion - montoDescuento - montoDescuentoBeca - montoDescuentoFina;
+							errorlog += "| inscripcionDescuentoFina" + inscripcionDescuentoFina.toString();
+							
+							plantilla = plantilla.replace("[INCRIPCION-DESCUENTO]", formatCurrency(inscripcionDescuento.toString()));
+							plantilla = plantilla.replace("[INSCRIPCION-DESCUENTO-PORCENTAJEBECA]", formatCurrency(inscripcionDescuentoBeca.toString()));
+							plantilla = plantilla.replace("[INSCRIPCION-DESCUENTO-PORCENTAJEBECA-PORCENTAJEFINANCIAMIENTO]", formatCurrency(inscripcionDescuentoFina.toString()));
 						}
 					}
 				} catch (Exception e) {
