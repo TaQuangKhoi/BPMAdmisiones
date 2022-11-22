@@ -106,7 +106,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromError = undefined;
             notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
 
-            actualizarEstatus();
+            // actualizarEstatus();
+            insertBitacora();
             /*if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                 redirectIfNeeded();
             }*/

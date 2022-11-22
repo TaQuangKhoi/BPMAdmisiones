@@ -1384,7 +1384,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			try {
 				errorlog += " | OBTENIENDO APOYO DATOS ";
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(Statements.GET_SOLICITUD_APOYO_BY_CORREOELECTRONICO);
+				pstm = con.prepareStatement(Statements.GET_SOLICITD_APOYO_BY_CORREOELECTRONICO);
 				if(!object.correoAspirante.equals("") && object.correoAspirante != null)  {
 					pstm.setString(1, object.correoAspirante);
 				} else {
@@ -1414,30 +1414,42 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						porcentajebeca_sol = rs.getString("porcentajebeca_sol");
 						porcentajecredito_sol = rs.getString("porcentajecredito_sol");
 					} else if (object.codigo.equals("sdae-rechazodictamen-becas")){
-						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS-DICTAMEN]", rs.getString("cambiossolicitudpreautorizacion")==null?"[COMENTARIOS-CAMBIO-PREAUTORIZACION]": (object.isEnviar)?rs.getString("cambiossolicitudpreautorizacion"):"[RECHAZO-COMENTARIOS-DICTAMEN]")
+						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS-DICTAMEN]", rs.getString("motivoRechazoAutorizacionText")==null?"[COMENTARIOS-CAMBIO-PREAUTORIZACION]": (object.isEnviar)?rs.getString("motivoRechazoAutorizacionText"):"[RECHAZO-COMENTARIOS-DICTAMEN]")
 					} else if (object.codigo.equals("sdae-rechazopreautorización-becas")){
-//						if(object.isPreview == true) {
-//							plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-PREAUTORIZACION]", rs.getString("motivorechazopreautorizacion"));
-//						}
-						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS-PREAUTORIZACION]", rs.getString("motivorechazopreautorizacion")==null?"[RECHAZO-COMENTARIOS-PREAUTORIZACION]": (object.isEnviar)?rs.getString("motivorechazopreautorizacion"):"[RECHAZO-COMENTARIOS-PREAUTORIZACION]")
+						String comentarios = rs.getString("motivorechazopreautorizacion");
+//						rs.getString("motivorechazopreautorizacion") == null ? "[RECHAZO-COMENTARIOS-PREAUTORIZACION]" : (object.isEnviar) ? rs.getString("motivorechazopreautorizacion") : "[RECHAZO-COMENTARIOS-PREAUTORIZACION]"
+						comentarios = comentarios == null || comentarios.equals("") ? "[RECHAZO-COMENTARIOS-PREAUTORIZACION]" : (object.isEnviar) ? comentarios : "[RECHAZO-COMENTARIOS-PREAUTORIZACION]";
+						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS-PREAUTORIZACION]", comentarios);
 						porcentajebeca_sol = rs.getString("porcentajebeca_sol");
 						porcentajecredito_sol = rs.getString("porcentajecredito_sol");
 					} else if (object.codigo.equals("sdae-modificacióndictamen-becas")){
-//						if(object.isPreview == true) {
-//							plantilla = plantilla.replace("[MOTIVO-MODIFICACION]", rs.getString("cambiossolicitudautorizaciontext"));
-//						}
-						plantilla=plantilla.replace("[[MOTIVO-MODIFICACION]", rs.getString("cambiossolicitudautorizaciontext")==null?"[[MOTIVO-MODIFICACION]": (object.isEnviar)?rs.getString("cambiossolicitudautorizaciontext"):"[[MOTIVO-MODIFICACION]")
+						plantilla=plantilla.replace("[MOTIVO-MODIFICACION]", rs.getString("cambiossolicitudautorizaciontext")==null?"[MOTIVO-MODIFICACION]": (object.isEnviar)?rs.getString("cambiossolicitudautorizaciontext"):"[MOTIVO-MODIFICACION]")
 					} else if (object.codigo.equals("sdae-preautorizaciónpago-becas")){
 						plantilla = plantilla.replace("[COSTO-ESTUDIO-SOCIOECONOMICO]", ("\$" + rs.getString("pagoestudiosocioeco") + ".00 MXN")); 
 					} else if (object.codigo.equals("sdae-evaluación-deportiva")){
 						String motivoAprobada = rs.getString("motivoaprobadadeportiva");
-						String sugerida = rs.getString("porrecareadeportiva")
-						plantilla = plantilla.replace("[COMENTARIOS-DEPORTIVA]", motivoAprobada == null ? "" : motivoAprobada); 
+						String motivoRechazo = rs.getString("motivorechazodeportiva");
+						String sugerida = rs.getString("porrecareadeportiva");
+						String comentarios = "";
+						if(motivoAprobada != null && !motivoAprobada.equals("")) {
+							comentarios = motivoAprobada;
+						} else if (motivoRechazo != null && !motivoRechazo.equals("")) {
+							comentarios = motivoRechazo;
+						}
+						plantilla = plantilla.replace("[COMENTARIOS-DEPORTIVA]", comentarios); 
 						plantilla = plantilla.replace("[DEPORTIVA-SUGERIDA]", sugerida == null ? "" : sugerida);
 					} else if (object.codigo.equals("sdae-evaluación-artistica")){
 						String motivoAprobada = rs.getString("motivoaprobadaartistica");
-						String sugerida = rs.getString("procrecareaartistica")
-						plantilla = plantilla.replace("[COMENTARIOS-ARTISTICA]", motivoAprobada == null ? "" : motivoAprobada);
+						String motivoRechazo = rs.getString("motivorechazoartistica");
+						String sugerida = rs.getString("procrecareaartistica");
+						String comentarios = "";
+						errorlog += " | motivoRechazo " + motivoRechazo +" | EXISTe" + (motivoRechazo != null && !motivoRechazo.equals(""));
+						if(motivoAprobada != null && !motivoAprobada.equals("")) {
+							comentarios = motivoAprobada;
+						} else if (motivoRechazo != null && !motivoRechazo.equals("")) {
+							comentarios = motivoRechazo;
+						}
+						plantilla = plantilla.replace("[COMENTARIOS-ARTISTICA]", comentarios);
 						plantilla = plantilla.replace("[ARTISTICA-SUGERIDA]", sugerida == null ? "" : sugerida);
 					} else if (object.codigo.equals("sdae-respondepropuestanegativa-finanzas-propuesta")){
 					    plantilla = plantilla.replace("[MOTIVOSDERECHAZO-FINANCIAMIENTO]", "");
@@ -1500,23 +1512,26 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						inscripcionseptiembre = rs.getInt("inscripcionseptiembre");
 						inscripcionagosto = rs.getInt("inscripcionagosto");
 						inscripcionenero = rs.getInt("inscripcionenero");
-						
 						Integer descuento = rs.getInt("descuentoanticipado");
 						Integer porcentajeBeca_sol  = rs.getInt("porcentajebeca_sol");
 						Integer porcentajeFina_sol  = rs.getInt("porcentajecredito_sol");
 						
-						String procedencia = rs.getString("ciudadbachillerato") == null ? rs.getString("ciudadbachillerato_otro") : rs.getString("ciudadbachillerato");
-						plantilla = plantilla.replace("[PROCEDENCIA]", procedencia);
-						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", rs.getString("porcentajebeca_sol"));
-						if(object.codigo.equals("sdae-propuesta-financiamiento-becas")) {
-							plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-DICTAMEN]",  rs.getString("porcentajecredito_sol"));
-							Integer suma = rs.getInt("porcentajebeca_sol") + rs.getInt("porcentajecredito_sol");
-							plantilla = plantilla.replace("[SUMA-B-F]", suma.toString());
-						}
-						
 						plantilla = plantilla.replace("[PROMEDIO-MINIMO]", rs.getString("promediominimoautorizacion"));
 						plantilla = plantilla.replace("[TIPO-BECA]", rs.getString("tipoapoyo"));
-						
+						String procedencia = rs.getString("ciudadbachillerato") == null ? rs.getString("ciudadbachillerato_otro") : rs.getString("ciudadbachillerato");
+						plantilla = plantilla.replace("[PROCEDENCIA]", procedencia);
+						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajeBeca_sol.toString());
+						if(object.codigo.equals("sdae-propuesta-financiamiento-becas")) {
+							errorlog += " | intento de suma  " + porcentajeBeca_sol.toString() + "+" + porcentajeFina_sol.toString();
+							try {
+								plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-DICTAMEN]",  porcentajeFina_sol.toString());
+								Integer suma = (porcentajeBeca_sol == null ? 0 : porcentajeBeca_sol) + (porcentajeFina_sol == null ? 0 : porcentajeFina_sol);
+								plantilla = plantilla.replace("[SUMA-B-F]", suma.toString());
+							} catch(Exception e) {
+								plantilla = plantilla.replace("[SUMA-B-F]", "");
+							}
+						}
+						errorlog += " | suma hecha  ";
 						
 						String[] fechaParcial = rs.getString("fechapagoinscripcionautorizacion").split("-");
 						plantilla = plantilla.replace("[FECHALIMITE-INSCRIPCION]", fechaParcial[2] + "/" + fechaParcial[1] + "/" + fechaParcial[0]);
@@ -1532,13 +1547,16 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						
 						if(rs.next()) {
 							costoCredito = rs.getInt("CREDITOAGOSTO");
+							errorlog += " | CREDITOAGOSTO ";
 							Integer creditosSemestre = rs.getInt("creditosemestre");
+							errorlog += " | creditosemestre ";
 							Integer montoInscripcion = inscripcionagosto;
 							Integer montoBeca = (inscripcionagosto - (inscripcionagosto * (porcentajebecaautorizacion * 0.01)));
 							Integer montoBecaFinanciamiento = (inscripcionagosto - (inscripcionagosto * ((porcentajebecaautorizacion * 0.01) + (porcentajecreditoautorizacion * 0.01))));
 							Integer montoFinanciamiento = (inscripcionagosto - (inscripcionagosto * (porcentajecreditoautorizacion * 0.01)));
 							Integer montoCreditos = costoCredito;
 							Integer parcialidades = rs.getInt("parcialidad");
+							errorlog += " | parcialidad ";
 							Integer montoColegiaturaNormal = montoCreditos * creditosSemestre; //48 para el ejemplo en pantalla
 							Integer montoColegiaturaBeca = montoColegiaturaNormal - (montoCreditos * ((porcentajebecaautorizacion * 0.01)));
 							Integer montoColegiaturaBecaFinanciamiento = (montoColegiaturaNormal - (montoColegiaturaNormal * ((porcentajebecaautorizacion * 0.01) + (porcentajecreditoautorizacion * 0.01))));
@@ -1549,27 +1567,46 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 							Integer totalFinanciado = montoFinanciamiento + montoColegiaturaFinanciamiento;
 							Integer interesSemestre = totalFinanciado * 0.035;
 							
-							
 							plantilla = plantilla.replace("[CREDITOS]", creditosSemestre.toString());
+							errorlog += " | CREDITOS ";
 							plantilla = plantilla.replace("[PARCIAL]", rs.getString("parcialidad"));
+							errorlog += " | PARCIAL ";
 							plantilla = plantilla.replace("[PERIODO]", descripcionPeriodo);
+							errorlog += " | PERIODO ";
 							plantilla = plantilla.replace("[MONTO-INSCRIPCION]", formatCurrency(montoInscripcion.toString()));
+							errorlog += " | MONTO-INSCRIPCION ";
 							plantilla = plantilla.replace("[MONTO-BECA]", formatCurrency(montoBeca.toString()));
+							errorlog += " | MONTO-BECA ";
 							plantilla = plantilla.replace("[MONTO-BECA-FINANCIAMIENTO]", formatCurrency(montoBecaFinanciamiento.toString()));
+							errorlog += " | MONTO-BECA-FINANCIAMIENTO ";
 							plantilla = plantilla.replace("[MONTO-FINANCIAMIENTO]", formatCurrency(montoFinanciamiento.toString()));
+							errorlog += " | MONTO-FINANCIAMIENTO ";
 							plantilla = plantilla.replace("[MONTO-CREDITOS]", formatCurrency(montoCreditos.toString()));
+							errorlog += " | MONTO-CREDITOS ";
 							plantilla = plantilla.replace("[MONTO-COLEGIATURA-NORMAL]", formatCurrency(montoColegiaturaNormal.toString()));
+							errorlog += " | MONTO-COLEGIATURA-NORMAL ";
 							plantilla = plantilla.replace("[MONTO-COLEGIATURA-BECA]", formatCurrency(montoColegiaturaBeca.toString()));
+							errorlog += " | MONTO-COLEGIATURA-BECA ";
 							plantilla = plantilla.replace("[MONTO-COLEGIATURA-BECA-FINANCIAMIENTO]", formatCurrency(montoColegiaturaBecaFinanciamiento.toString()));
+							errorlog += " | MONTO-COLEGIATURA-BECA-FINANCIAMIENTO ";
 							plantilla = plantilla.replace("[MONTO-COLEGIATURA-FINANCIAMIENTO]", formatCurrency(montoColegiaturaFinanciamiento.toString()));
+							errorlog += " | MONTO-COLEGIATURA-FINANCIAMIENTO ";
 							plantilla = plantilla.replace("[MONTO-PAGOS-NORMAL]", formatCurrency((montoPagototalNormal / 4).toString()));
+							errorlog += " | MONTO-PAGOS-NORMAL ";
 							plantilla = plantilla.replace("[MONTO-PAGOS-BECA]", formatCurrency((montoPagototalNormal / 4).toString()));
+							errorlog += " | MONTO-PAGOS-BECA ";
 							plantilla = plantilla.replace("[MONTO-PAGOS-BECA-FINANCIAMIENTO]", formatCurrency((mongoPagoTotalBeca / 4).toString()));
+							errorlog += " | MONTO-PAGOS-BECA-FINANCIAMIENTO ";
 							plantilla = plantilla.replace("[MONTO-PAGOTOTAL-NORMAL]", formatCurrency(montoPagototalNormal.toString()));
+							errorlog += " | MONTO-PAGOTOTAL-NORMAL ";
 							plantilla = plantilla.replace("[MONTO-PAGOTOTAL-BECA]", formatCurrency(mongoPagoTotalBeca.toString()));
+							errorlog += " | MONTO-PAGOTOTAL-BECA ";
 							plantilla = plantilla.replace("[MONTO-PAGOTOTAL-BECA-FINANCIAMIENTO]", formatCurrency(mongoPagoTotalBecaFinanciamiento.toString()));
+							errorlog += " | MONTO-PAGOTOTAL-BECA-FINANCIAMIENTO ";
 							plantilla = plantilla.replace("[TOTAL-FINANCIADO]", formatCurrency(totalFinanciado.toString()));
+							errorlog += " | TOTAL-FINANCIADO ";
 							plantilla = plantilla.replace("[INTERES-SEMESTRE]", formatCurrency(interesSemestre.toString()));
+							errorlog += " | INTERES-SEMESTRE ";
 							
 							Integer montoDescuentoFina = 0;
 							Integer montoDescuentoBeca = 0;
