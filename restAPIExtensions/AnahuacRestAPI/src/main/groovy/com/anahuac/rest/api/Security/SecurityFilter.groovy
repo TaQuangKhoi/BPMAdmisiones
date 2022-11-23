@@ -1783,6 +1783,12 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		case "generarReportePerfilAspirante":
+			allow = bonitaRolFilter(context, "ADMISIONES");
+			if (allow) {
+			  break;
+			}
+			break;
 		  case "getSesionesINVP":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
