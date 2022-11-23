@@ -6,6 +6,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.avanzarFinanciamiento = false;
     $scope.avanzarArchivar = false;
     $scope.motivoRechazo = "";
+    $scope.deshabilitarPago = false;
     $scope.bitacora = [];
 
     this.isArray = Array.isArray;
@@ -24,7 +25,20 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.bitacora["idbanner"] = row["idbanner"];
             $scope.bitacora["caseid"] = row["caseid"];
         });
+        getConfigPago(row["idcampus"]);
+        
+        
     };
+    
+    function getConfigPago(_idCampus){
+        $http.get("/API/extension/AnahuacBecasRestGET?url=getConfiguracionPagoEstudioSocEcoAspirante&p=0&c=0&idCampus=" + _idCampus).success(function(success){
+             debugger;
+             $scope.deshabilitarPago = success[0].deshabilitarPagoEstudioSocioEconomico;
+        }).error(function(err){
+             $scope.deshabilitarPago = false;
+        })
+    }
+    
 
     this.isSelected = function (row) {
         return angular.equals(row, $scope.properties.selectedRow);
@@ -147,7 +161,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         "varFinanaciamientoInput": false,
                         "preAutorizacionInput":{
                             "motivoRechazoPreAutorizacion":""
-                        }
+                        },
+                        "isPagoDeshabilitadoInput": $scope.deshabilitarPago
                     };
                     estatus = "En espera de pago";
                 } else if ($scope.avanzarArchivar) { //ARCHIVAR
@@ -157,7 +172,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         "varFinanaciamientoInput": false,
                         "preAutorizacionInput":{
                             "motivoRechazoPreAutorizacion": $scope.mensaje
-                        }
+                        },
+                        "isPagoDeshabilitadoInput":false
                     };
                     estatus = "Solicitud Rechazada";
                 } else if ($scope.avanzarFinanciamiento) { //SUB PROCESO FINANCIAMIENTO
@@ -167,7 +183,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         "varFinanaciamientoInput": true,
                         "preAutorizacionInput":{
                             "motivoRechazoPreAutorizacion":""
-                        }
+                        },
+                        "isPagoDeshabilitadoInput": $scope.deshabilitarPago
                     };
                     estatus = "En espera de pago";
                 } else { // REACTIVAR SOLICITUD
