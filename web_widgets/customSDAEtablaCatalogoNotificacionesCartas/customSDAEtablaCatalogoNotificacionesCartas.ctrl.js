@@ -21,8 +21,10 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
 
 
     $scope.modificarData = function (row, index) {
+        debugger;
         $scope.properties.selectedToModificate = row;
-        $scope.properties.selectedToModificate.persistenceId_string =  $scope.properties.selectedToModificate.persistenceId + "";
+        $scope.properties.selectedDataPID = row.persistenceId ? row.persistenceId + "" : "";
+        $scope.properties.selectedToModificate.persistenceId_string =  row.persistenceId ? row.persistenceId + "" : "";
         $scope.properties.selectedIndex = index;
         localStorage.setItem("index", index);
     }

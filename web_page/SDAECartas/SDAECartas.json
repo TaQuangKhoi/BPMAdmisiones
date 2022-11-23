@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "SDAECartas",
   "name" : "SDAECartas",
-  "lastUpdate" : 1666201336351,
+  "lastUpdate" : 1669142900731,
   "rows" : [
     [
       {
@@ -741,6 +741,10 @@
                       "campusSelected" : {
                         "type" : "variable",
                         "value" : "campusSelected"
+                      },
+                      "selectedDataPID" : {
+                        "type" : "variable",
+                        "value" : "selectedDataPID"
                       }
                     },
                     "reference" : "e552b36d-2fe6-405f-a5c2-b8eb928b0ad7",
@@ -10654,9 +10658,17 @@
     "claveReadOnly" : {
       "type" : "expression",
       "value" : [
-        "return false;",
-        "// return $data.selectedData.persistenceId_string!=\"\""
+        "// return ",
+        "//     ($data.selectedData.persistenceId_string !== \"\") || ",
+        "//     ($data.selectedData.persistenceId_string !== \"undefined\") || ",
+        "//     ($data.selectedData.persistenceId_string !== null);",
+        "",
+        "return $data.selectedDataPID  !== \"\";"
       ],
+      "exposed" : false
+    },
+    "selectedDataPID" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
