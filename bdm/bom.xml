@@ -3223,6 +3223,57 @@
             </queries>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.invp.CatPreguntas">
+            <fields>
+                <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="pregunta" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="question" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="getPreguntasByOrden" content="SELECT c &#13;&#10;FROM CatPreguntas c &#13;&#10;WHERE c.orden = :orden &#13;&#10;AND c.isEliminado = false&#13;&#10;ORDER BY c.orden ASC" returnType="com.anahuac.invp.CatPreguntas">
+                    <queryParameters>
+                        <queryParameter name="orden" className="java.lang.Integer"/>
+                    </queryParameters>
+                </query>
+                <query name="getCatPreguntas" content="SELECT c &#13;&#10;FROM CatPreguntas c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;ORDER BY c.orden ASC" returnType="com.anahuac.invp.CatPreguntas">
+                    <queryParameters/>
+                </query>
+                <query name="getCatPreguntasByCaso" content="SELECT c &#13;&#10;FROM CatPreguntas c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;ORDER BY c.caseId ASC" returnType="com.anahuac.invp.CatPreguntas">
+                    <queryParameters/>
+                </query>
+                <query name="countForFindEliminado" content="SELECT COUNT(c) &#13;&#10;FROM CatPreguntas c&#13;&#10;WHERE c.isEliminado = false" returnType="java.lang.Long">
+                    <queryParameters/>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.invp.RespuestasExamen">
+            <fields>
+                <field type="LONG" length="255" name="idUsuario" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="respuesta" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="pregunta" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.invp.bitacora.CatBitacoraINVP">
+            <fields>
+                <field type="STRING" length="255" name="evento" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaRegistro" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuario" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.model.AspirantesPruebas">
             <fields>
                 <field type="STRING" length="255" name="username" nullable="true" collection="false"/>
