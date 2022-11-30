@@ -1298,7 +1298,11 @@ class SecurityFilter {
 		    allow = bonitaRolFilter(context, "ADMISIONES");
 		    if (allow) {
 		      break;
-		    }
+		    } 
+			allow = bonitaRolFilter(context, "TI SERUA");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "simpleSelectBonita":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

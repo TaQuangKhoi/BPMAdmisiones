@@ -1459,8 +1459,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					    plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-FINANZAS]", rs.getString("observaciones_finanzas_fina"));
 					} else if (object.codigo.equals("sdae-propuestarechazada-becas")) {
 						plantilla = plantilla.replace("[MOTIVOSDERECHAZO-APOYO]", rs.getString("motivorechazoaspirante"));
-					} else if (object.codigo.equals("sdae-propuestarechazada-becas")) {
+					} else if (object.codigo.equals("sdae-solicitudrechaza-comitéfinanzas")) {
 						plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-FINDICTA]", rs.getString("observaciones_comite_fina"));
+						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajecredito_sol);
 					}
 
 					plantilla = plantilla.replace("[PORCENTAJE-BECA]", porcentajebeca_sol != null ? porcentajebeca_sol : "N/A");
