@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAvalModificar",
   "name" : "SDAESolicitudFinanciamientoAvalModificar",
-  "lastUpdate" : 1666823272308,
+  "lastUpdate" : 1669760797154,
   "rows" : [
     [
       {
@@ -872,72 +872,6 @@
                                       "type" : "constant",
                                       "value" : false
                                     },
-                                    "disabled" : {
-                                      "type" : "constant",
-                                      "value" : true
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "% de financiamiento solicitado:"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 4
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation",
-                                      "value" : "Select an option"
-                                    },
-                                    "availableValues" : {
-                                      "type" : "expression",
-                                      "value" : "lstCatPorcentajeFinanciamiento.data"
-                                    },
-                                    "displayedKey" : {
-                                      "type" : "constant",
-                                      "value" : "descripcion"
-                                    },
-                                    "returnedKey" : {
-                                      "type" : "constant",
-                                      "value" : "persistenceId"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "solicitudDeApoyo[0].catPorcentajeFinanciamiento_id"
-                                    }
-                                  },
-                                  "reference" : "cf65d123-0ec1-4653-8342-e6174b1b96eb",
-                                  "hasValidationError" : false,
-                                  "id" : "pbSelect"
-                                },
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "xs" : 12,
-                                    "sm" : 12,
-                                    "md" : 6,
-                                    "lg" : 6
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
                                     "required" : {
                                       "type" : "constant",
                                       "value" : false
@@ -993,6 +927,81 @@
                                     }
                                   },
                                   "reference" : "dc604ace-0f11-4fdd-9479-76ba31d6101c",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "% de financiamiento autorizado:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "autorizacion[0].porcentajeCreditoAutorizacion? autorizacion[0].porcentajeCreditoAutorizacion: \"N/A\""
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "740cba55-ecb0-4b72-9c8b-a1238c3718ba",
                                   "hasValidationError" : false,
                                   "id" : "pbInput"
                                 }
@@ -5571,7 +5580,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Número interior: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                "value" : "Número interior:"
                               },
                               "labelPosition" : {
                                 "type" : "constant",
@@ -8176,7 +8185,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "repeatedCollection" : {
                           "type" : "variable",
@@ -11034,7 +11043,7 @@
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Proveniente de' no debe ir vacío\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
-        "} else if(!$data.avalInfoPersonalModel.otroIngreso){\r",
+        "} else if(!$data.avalInfoPersonalModel.otroIngreso && $data.avalInfoPersonalModel.otroIngreso != 0){\r",
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Otro ingreso ($)' no debe ir vacío\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
@@ -11046,11 +11055,13 @@
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'Egreso mensual total' no debe ir vacío\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
-        "} else if(!$data.avalInfoPersonalModel.saldoMensual){\r",
-        "    output = false;\r",
-        "\t$data.errorMEssageInfoPersonal = \"Campo 'Saldo mensual' no debe ir vacío\";\r",
-        "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
-        "} else if(!$data.avalInfoPersonalModel.pais){\r",
+        "} \r",
+        "// else if(!$data.avalInfoPersonalModel.saldoMensual){\r",
+        "//     output = false;\r",
+        "// \t$data.errorMEssageInfoPersonal = \"Campo 'Saldo mensual' no debe ir vacío\";\r",
+        "// \t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
+        "// } \r",
+        "else if(!$data.avalInfoPersonalModel.pais){\r",
         "    output = false;\r",
         "\t$data.errorMEssageInfoPersonal = \"Campo 'País' no debe ir vacío\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Domicilio del aval\";\r",
@@ -11441,11 +11452,7 @@
         "    output = false;\r",
         "\t$data.errorMessageInfoInmueble = \"Campo 'Número exterior' no debe ir vacío\";\r",
         "\t$data.titleMessageInfoInmueble = \"Datos del inmueble que avala el crédito\";\r",
-        "} else if(!$data.avalInfoInmuebleModel.noInterior){\r",
-        "    output = false;\r",
-        "\t$data.errorMessageInfoInmueble = \"Campo 'Número interior' no debe ir vacío\";\r",
-        "\t$data.titleMessageInfoInmueble = \"Datos del inmueble que avala el crédito\";\r",
-        "} \r",
+        "}\r",
         "\r",
         "return output;"
       ],
@@ -15022,6 +15029,13 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.PreAutorizacion]\",\"businessObjectName\":\"PreAutorizacion\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.PreAutorizacion\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "autorizacion" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.AutorizacionApoyo]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.AutorizacionApoyo\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{solicitudDeApoyo[0].caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }
