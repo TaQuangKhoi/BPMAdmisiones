@@ -571,4 +571,5 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function () { });
     }
+    
 }

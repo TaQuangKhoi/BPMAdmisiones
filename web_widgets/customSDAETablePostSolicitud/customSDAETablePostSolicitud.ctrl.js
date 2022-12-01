@@ -494,4 +494,5 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
   
     $scope.getCatCampus();
+    
   }

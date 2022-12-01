@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_PpGysGc7EeyAHufroJpG_Q" name="Apoyo educativo" version="1.0.33" author="jesus" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.58">
+    <elements xmi:type="process:Pool" xmi:id="_PpGysWc7EeyAHufroJpG_Q" name="Financiamiento educativo" version="1.0.61">
       <elements xmi:type="process:Lane" xmi:id="_PpGysmc7EeyAHufroJpG_Q" name="Aspirante" actor="_KaQV8GdAEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_PpGys2c7EeyAHufroJpG_Q" name="entrada de proceso" outgoing="_gxpA8Gc7EeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PpGytGc7EeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -1294,6 +1294,17 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_v9GWgHGwEe2tz_AbVoltJg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_v9GWgXGwEe2tz_AbVoltJg" name="avalInfoPersonalModel" content="avalInfoPersonalModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPersonal">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_whUd4HGwEe2tz_AbVoltJg" name="avalInfoPersonalModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPersonal"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_v9GWgnGwEe2tz_AbVoltJg" name="newScript()" content="avalInfoPersonalModelInput?.otroIngresoEspecificar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_0OYlgHGwEe2tz_AbVoltJg" name="avalInfoPersonalModelInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_v9GWg3GwEe2tz_AbVoltJg" type="JAVA_METHOD" expression="setOtroIngresoEspecificar">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_-7voE2c7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_-7voFGc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_-7voFWc7EeyAHufroJpG_Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1382,6 +1393,9 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_H0WjECPfEe2xHuC1-e1VIw" name="urlDocumentoFirmado">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_H0WjESPfEe2xHuC1-e1VIw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_su0coHGwEe2tz_AbVoltJg" name="otroIngresoEspecificar">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_su0coXGwEe2tz_AbVoltJg"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_KV620IniEeyveuxYpeB7zg" name="avalInfoInmuebleModelInput" type="COMPLEX" dataReference="avalInfoInmuebleModel" createMode="false">
@@ -1700,6 +1714,17 @@
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_TvMh4HGmEe2tz_AbVoltJg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_TvMh4XGmEe2tz_AbVoltJg" name="varCompletado" content="varCompletado" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_UxfsYHGmEe2tz_AbVoltJg" name="varCompletado" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_TvMh4nGmEe2tz_AbVoltJg" name="newScript()" content="varAceptarFinanciamientoInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_Xe678HGmEe2tz_AbVoltJg" name="varAceptarFinanciamientoInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_Xe678XGmEe2tz_AbVoltJg"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_TvMh43GmEe2tz_AbVoltJg" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_ijhzs-txEeyCI9xn0Y5LMA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_ijhztOtxEeyCI9xn0Y5LMA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ijhztetxEeyCI9xn0Y5LMA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1971,6 +1996,13 @@
             <operator xmi:type="expression:Operator" xmi:id="_0RcCovNCEeyyzrLa0x-Ttw" type="JAVA_METHOD" expression="setFinalizada">
               <inputTypes>java.lang.Boolean</inputTypes>
             </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_Oek80HGmEe2tz_AbVoltJg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_Oek80XGmEe2tz_AbVoltJg" name="varCompletado" content="varCompletado" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_Py2BEHGmEe2tz_AbVoltJg" name="varCompletado" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Oek80nGmEe2tz_AbVoltJg" name="newScript()" content="true" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean"/>
+            <operator xmi:type="expression:Operator" xmi:id="_Oek803GmEe2tz_AbVoltJg" type="ASSIGNMENT"/>
           </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_7-KbA-txEeyCI9xn0Y5LMA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_7-KbBOtxEeyCI9xn0Y5LMA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2675,6 +2707,17 @@
               <referencedElements xmi:type="process:ContractInput" xmi:id="_c7tzOE88Ee2S6NnLtg3hFA" name="avalInfoNotarialInput" type="COMPLEX" createMode="false"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_c7tzOU88Ee2S6NnLtg3hFA" type="JAVA_METHOD" expression="setLugarDeEscrituracion">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_4cT-gHGwEe2tz_AbVoltJg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_4cT-gXGwEe2tz_AbVoltJg" name="avalInfoPersonalModel" content="avalInfoPersonalModel" type="TYPE_VARIABLE" returnType="com.anahuac.SDAE.model.AvalInfoPersonal">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_5HkiAHGwEe2tz_AbVoltJg" name="avalInfoPersonalModel" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AvalInfoPersonal"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_4cT-gnGwEe2tz_AbVoltJg" name="newScript()" content="avalInfoPersonalModelInput?.otroIngresoEspecificar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_7NGEEHGwEe2tz_AbVoltJg" name="avalInfoPersonalModelInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_4cT-g3GwEe2tz_AbVoltJg" type="JAVA_METHOD" expression="setOtroIngresoEspecificar">
               <inputTypes>java.lang.String</inputTypes>
             </operator>
           </operations>
@@ -4712,7 +4755,7 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_7-OscOtxEeyCI9xn0Y5LMA" target="_7-Il0OtxEeyCI9xn0Y5LMA" source="_yndxYOtxEeyCI9xn0Y5LMA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_7-OscetxEeyCI9xn0Y5LMA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_7-OscutxEeyCI9xn0Y5LMA" name="varAceptarFinanciamiento" content="varAceptarFinanciamiento" type="TYPE_VARIABLE" returnType="java.lang.Boolean" returnTypeFixed="true">
+        <condition xmi:type="expression:Expression" xmi:id="_7-OscutxEeyCI9xn0Y5LMA" name="varAceptarFinanciamiento" content="varAceptarFinanciamiento" returnType="java.lang.Boolean" returnTypeFixed="true">
           <referencedElements xmi:type="process:Data" xmi:id="_Ovxf4OtyEeyCI9xn0Y5LMA" name="varAceptarFinanciamiento" dataType="_PpGy3Gc7EeyAHufroJpG_Q"/>
         </condition>
       </connections>
@@ -4760,7 +4803,7 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_7etjEGCaEe299-XpXonVVw"/>
         <condition xmi:type="expression:Expression" xmi:id="_7euKIGCaEe299-XpXonVVw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_AIvYYHDlEe2tz_AbVoltJg" target="_0P76wGc9EeyAHufroJpG_Q" source="_3WanIHDkEe2tz_AbVoltJg" isDefault="true">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_AIvYYHDlEe2tz_AbVoltJg" name="Beca y financiamiento" target="_0P76wGc9EeyAHufroJpG_Q" source="_3WanIHDkEe2tz_AbVoltJg" isDefault="true">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_AIv_cHDlEe2tz_AbVoltJg"/>
         <condition xmi:type="expression:Expression" xmi:id="_AIv_cXDlEe2tz_AbVoltJg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
@@ -4964,7 +5007,7 @@
         <value xmi:type="expression:Expression" xmi:id="_PpGy22c7EeyAHufroJpG_Q" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
-    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.70">
+    <elements xmi:type="process:Pool" xmi:id="_41ELcGdAEeyAHufroJpG_Q" name="Solicitud de apoyo educativo" version="1.0.72">
       <elements xmi:type="process:Lane" xmi:id="_EmGwkGdBEeyAHufroJpG_Q" name="Aspirante" actor="_Frl3UGdUEeyAHufroJpG_Q">
         <elements xmi:type="process:StartEvent" xmi:id="_HtHk0GdBEeyAHufroJpG_Q" name="Solicitud de beca aspirante" outgoing="_KMB3QGdBEeyAHufroJpG_Q">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HtHk0mdBEeyAHufroJpG_Q" name="" content="" returnTypeFixed="true"/>
@@ -9148,9 +9191,9 @@
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_A5fO9b9nEeygG9_kY1ideA" key="body">
-                <expression xmi:type="expression:Expression" xmi:id="_A5fO9r9nEeygG9_kY1ideA" name="body()" content="import com.anahuac.model.SolicitudDeAdmision&#xD;&#xA;&#xD;&#xA;String payload = &quot;{\&quot;campus\&quot;: \&quot;[CAMPUS]\&quot;, \&quot;correo\&quot;:\&quot;[CORREO]\&quot;, \&quot;codigo\&quot;: \&quot;[CODIGO]\&quot;, \&quot;isEnviar\&quot;:true }&quot;;&#xD;&#xA;&#xD;&#xA;ArrayList&lt;SolicitudDeAdmision> lstSol = new ArrayList&lt;SolicitudDeAdmision>();&#xD;&#xA;lstSol = solicitudDeAdmisionDAO.findByCaseId(solicitudApoyoEducativo.caseIdAdmisiones, 0, 1);&#xD;&#xA;&#xD;&#xA;payload = payload.replace(&quot;[CAMPUS]&quot;, lstSol.get(0).getCatCampus().getGrupoBonita());&#xD;&#xA;payload = payload.replace(&quot;[CORREO]&quot;, lstSol.get(0).getCorreoElectronico());&#xD;&#xA;payload = payload.replace(&quot;[CODIGO]&quot;, &quot;BC_OPCION_FINANCIAMIENTO&quot;);&#xD;&#xA;&#xD;&#xA;return payload;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
-                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Gm52EMBWEeyFOKDMykIDZQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
-                  <referencedElements xmi:type="expression:Expression" xmi:id="_Gm52EcBWEeyFOKDMykIDZQ" name="solicitudDeAdmisionDAO" content="solicitudDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.SolicitudDeAdmisionDAO" returnTypeFixed="true"/>
+                <expression xmi:type="expression:Expression" xmi:id="_A5fO9r9nEeygG9_kY1ideA" name="body()" content="import com.anahuac.model.SolicitudDeAdmision&#xD;&#xA;&#xD;&#xA;String payload = &quot;{\&quot;campus\&quot;: \&quot;[CAMPUS]\&quot;, \&quot;correo\&quot;:\&quot;[CORREO]\&quot;, \&quot;codigo\&quot;: \&quot;[CODIGO]\&quot;, \&quot;isEnviar\&quot;:true }&quot;;&#xD;&#xA;&#xD;&#xA;ArrayList&lt;SolicitudDeAdmision> lstSol = new ArrayList&lt;SolicitudDeAdmision>();&#xD;&#xA;lstSol = solicitudDeAdmisionDAO.findByCaseId(solicitudApoyoEducativo.caseIdAdmisiones, 0, 1);&#xD;&#xA;&#xD;&#xA;payload = payload.replace(&quot;[CAMPUS]&quot;, lstSol.get(0).getCatCampusEstudio().getGrupoBonita());&#xD;&#xA;payload = payload.replace(&quot;[CORREO]&quot;, lstSol.get(0).getCorreoElectronico());&#xD;&#xA;payload = payload.replace(&quot;[CODIGO]&quot;, &quot;sdae-pago-socioeconomico&quot;);&#xD;&#xA;&#xD;&#xA;return payload;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_9kKe0HEQEe2tz_AbVoltJg" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+                  <referencedElements xmi:type="expression:Expression" xmi:id="_9kKe0XEQEe2tz_AbVoltJg" name="solicitudDeAdmisionDAO" content="solicitudDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.SolicitudDeAdmisionDAO" returnTypeFixed="true"/>
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_A5fO979nEeygG9_kY1ideA" key="do_not_follow_redirect">
@@ -9694,10 +9737,10 @@
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_AHBVeOdOEeyQDoMagHs4Hw" key="body">
-                <expression xmi:type="expression:Expression" xmi:id="_AHBVeedOEeyQDoMagHs4Hw" name="body()" content="import com.anahuac.model.SolicitudDeAdmision&#xD;&#xA;&#xD;&#xA;String payload = &quot;{\&quot;campus\&quot;: \&quot;[CAMPUS]\&quot;, \&quot;correo\&quot;:\&quot;[CORREO]\&quot;, \&quot;codigo\&quot;: \&quot;[CODIGO]\&quot;, \&quot;isEnviar\&quot;:true }&quot;;&#xD;&#xA;&#xD;&#xA;ArrayList&lt;SolicitudDeAdmision> lstSol = new ArrayList&lt;SolicitudDeAdmision>();&#xD;&#xA;lstSol = solicitudDeAdmisionDAO.findByCaseId(solicitudApoyoEducativo.caseIdAdmisiones, 0, 1);&#xD;&#xA;&#xD;&#xA;payload = payload.replace(&quot;[CAMPUS]&quot;, lstSol.get(0).getCatCampus().getGrupoBonita());&#xD;&#xA;payload = payload.replace(&quot;[CORREO]&quot;, lstSol.get(0).getCorreoElectronico());&#xD;&#xA;//payload = payload.replace(&quot;[CODIGO]&quot;, &quot;BC_SOLICITUD_BECASYFINAN_AUTORIZADA&quot;);&#xD;&#xA;&#xD;&#xA;if(autorizacion.porcentajeCreditoAutorizacion == null || autorizacion.porcentajeCreditoAutorizacion == 0){&#xD;&#xA;&#x9;payload = payload.replace(&quot;[CODIGO]&quot;, &quot;sdae-propuestasolobeca-becas&quot;);&#xD;&#xA;} else {&#xD;&#xA;&#x9;payload = payload.replace(&quot;[CODIGO]&quot;, &quot;sdae-propuesta-financiamiento-becas&quot;);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;/*if(lstSol[0].getCatGestionEscolar().isMedicina() == true){&#xD;&#xA;&#x9;plantilla = &quot;sdae-propuestasolobeca-becas-medicina&quot;;&#xD;&#xA;} else {&#xD;&#xA;&#x9;plantilla = &quot;sdae-respondepropuestasoloapoyo-becas&quot;&#xD;&#xA;}*/&#xD;&#xA;&#xD;&#xA;return payload;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
-                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_oJtdsGxVEe2VQ4CrkpncwQ" name="autorizacion" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AutorizacionApoyo"/>
-                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_oJtdsWxVEe2VQ4CrkpncwQ" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
-                  <referencedElements xmi:type="expression:Expression" xmi:id="_oJtdsmxVEe2VQ4CrkpncwQ" name="solicitudDeAdmisionDAO" content="solicitudDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.SolicitudDeAdmisionDAO" returnTypeFixed="true"/>
+                <expression xmi:type="expression:Expression" xmi:id="_AHBVeedOEeyQDoMagHs4Hw" name="body()" content="import com.anahuac.model.SolicitudDeAdmision&#xD;&#xA;&#xD;&#xA;String payload = &quot;{\&quot;campus\&quot;: \&quot;[CAMPUS]\&quot;, \&quot;correo\&quot;:\&quot;[CORREO]\&quot;, \&quot;codigo\&quot;: \&quot;[CODIGO]\&quot;, \&quot;isEnviar\&quot;:true }&quot;;&#xD;&#xA;&#xD;&#xA;ArrayList&lt;SolicitudDeAdmision> lstSol = new ArrayList&lt;SolicitudDeAdmision>();&#xD;&#xA;lstSol = solicitudDeAdmisionDAO.findByCaseId(solicitudApoyoEducativo.caseIdAdmisiones, 0, 1);&#xD;&#xA;&#xD;&#xA;payload = payload.replace(&quot;[CAMPUS]&quot;, lstSol.get(0).getCatCampus().getGrupoBonita());&#xD;&#xA;payload = payload.replace(&quot;[CORREO]&quot;, lstSol.get(0).getCorreoElectronico());&#xD;&#xA;Boolean isMedicina = lstSol[0].getCatGestionEscolar().isIsMedicina();&#xD;&#xA;String plantilla = &quot;&quot;;&#xD;&#xA;&#xD;&#xA;if(autorizacion.porcentajeCreditoAutorizacion == null || autorizacion.porcentajeCreditoAutorizacion == 0){&#xD;&#xA;&#x9;plantilla = isMedicina == true ? &quot;sdae-propuestasolobeca-becas-medicina&quot; : &quot;sdae-propuestasolobeca-becas&quot;;&#xD;&#xA;&#x9;payload = payload.replace(&quot;[CODIGO]&quot;, plantilla);&#xD;&#xA;} else {&#xD;&#xA;&#x9;plantilla = isMedicina == true ? &quot;sdae-propuesta-financiamiento-becas-medicina&quot; : &quot;sdae-propuesta-financiamiento-becas&quot;;&#xD;&#xA;&#x9;payload = payload.replace(&quot;[CODIGO]&quot;, plantilla);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return payload;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_E2I1YHHGEe2tz_AbVoltJg" name="autorizacion" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.AutorizacionApoyo"/>
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_E2I1YXHGEe2tz_AbVoltJg" name="solicitudApoyoEducativo" dataType="_PpGy5Gc7EeyAHufroJpG_Q" className="com.anahuac.SDAE.model.SolicitudApoyoEducativo"/>
+                  <referencedElements xmi:type="expression:Expression" xmi:id="_E2I1YnHGEe2tz_AbVoltJg" name="solicitudDeAdmisionDAO" content="solicitudDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.SolicitudDeAdmisionDAO" returnTypeFixed="true"/>
                 </expression>
               </parameters>
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_AHBVfOdOEeyQDoMagHs4Hw" key="do_not_follow_redirect">
@@ -12918,7 +12961,7 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_Q4RnkVAGEe2ogJFhknhXhg" content="" returnType="java.lang.Boolean"/>
       </data>
       <data xmi:type="process:Data" xmi:id="_MLaYYGE0Ee2awp4MkjHEww" name="despliegeConfirmacion" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_MLaYYWE0Ee2awp4MkjHEww" content="" returnType="java.lang.Boolean"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_MLaYYWE0Ee2awp4MkjHEww" name="init_despliegeConfirmacion()" content="false" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean"/>
       </data>
       <data xmi:type="process:Data" xmi:id="_KfRCQGqNEe2VQ4CrkpncwQ" name="pagoDeshabilitado" dataType="_PpGy3Gc7EeyAHufroJpG_Q">
         <defaultValue xmi:type="expression:Expression" xmi:id="_KfRCQWqNEe2VQ4CrkpncwQ" content="" returnType="java.lang.Boolean"/>
@@ -14715,7 +14758,7 @@
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_0P--E2c9EeyAHufroJpG_Q" type="4001" element="_0P--EGc9EeyAHufroJpG_Q" source="_7TKbAGc_EeyAHufroJpG_Q" target="_3XI_4HDkEe2tz_AbVoltJg" roundedBendpointsRadius="10" routing="Rectilinear" lineColor="32768">
       <children xmi:type="notation:DecorationNode" xmi:id="_0P_lIGc9EeyAHufroJpG_Q" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_0P_lIWc9EeyAHufroJpG_Q" x="-39" y="45"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0P_lIWc9EeyAHufroJpG_Q" x="-17" y="12"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_0P--FGc9EeyAHufroJpG_Q" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0P--FWc9EeyAHufroJpG_Q" points="[21, 1, -437, -2]$[388, 1, -70, -2]"/>
@@ -15700,10 +15743,10 @@
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_BvukUHDlEe2tz_AbVoltJg" type="4001" element="_BvodsHDlEe2tz_AbVoltJg" source="_3XI_4HDkEe2tz_AbVoltJg" target="_0kGLWHD2Ee2tz_AbVoltJg" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_BvukU3DlEe2tz_AbVoltJg" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_BvukVHDlEe2tz_AbVoltJg" y="-10"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_BvukVHDlEe2tz_AbVoltJg" x="2" y="-15"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_BvukUXDlEe2tz_AbVoltJg" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BvukUnDlEe2tz_AbVoltJg" points="[-2, -10, -123, -4]$[118, -10, -3, -4]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BvukUnDlEe2tz_AbVoltJg" points="[0, -9, -147, -4]$[144, -9, -3, -4]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BvxAkHDlEe2tz_AbVoltJg" id="(1.0,0.6976744186046512)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BvxAkXDlEe2tz_AbVoltJg" id="(0.025,0.6666666666666666)"/>
     </edges>

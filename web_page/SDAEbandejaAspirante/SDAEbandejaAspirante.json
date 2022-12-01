@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1668625888319,
+  "lastUpdate" : 1669853186895,
   "rows" : [
     [
       {
@@ -492,7 +492,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "buildContent[0].estado === \"En espera de resultado\""
+                  "value" : "buildContent[0].estado === \"En espera de resultado\" || buildContent[0].estado === \"Solicitud Rechazada\" || buildContent[0].estado === \"Propuesta rechazada por aspirante\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -670,7 +670,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "buildContent[0].estado !== \"En espera de resultado\""
+                  "value" : "buildContent[0].estado !== \"En espera de resultado\" && buildContent[0].estado !== \"Solicitud Rechazada\" && buildContent[0].estado !== \"Propuesta rechazada por aspirante\""
                 },
                 "labelHidden" : {
                   "type" : "constant",

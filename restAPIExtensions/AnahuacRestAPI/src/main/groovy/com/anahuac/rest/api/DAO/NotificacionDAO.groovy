@@ -1459,6 +1459,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					    plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-FINANZAS]", rs.getString("observaciones_finanzas_fina"));
 					} else if (object.codigo.equals("sdae-propuestarechazada-becas")) {
 						plantilla = plantilla.replace("[MOTIVOSDERECHAZO-APOYO]", rs.getString("motivorechazoaspirante"));
+						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajebeca_sol != null ? porcentajebeca_sol : "N/A");
 					} else if (object.codigo.equals("sdae-solicitudrechaza-comitéfinanzas")) {
 						plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-FINDICTA]", rs.getString("observaciones_comite_fina"));
 						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajecredito_sol);
@@ -1468,11 +1469,12 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO]", porcentajecredito_sol != null ? porcentajecredito_sol : "N/A");
 					plantilla = plantilla.replace("[PROMEDIO-MINIMO]", rs.getString("promediominimoautorizacion"));
 					plantilla = plantilla.replace("[FECHALIMITE-PAGO]", rs.getString("fechapagoinscripcionautorizacion"));
+					errorlog += " | ANTES DEL PORCENTAJE D EFINA  "
 					plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-OTORGADO]", rs.getString("porcentajefinanciamientootorgado"));
 					
 				}
 			} catch (Exception e) {
-				errorlog += " | FALLO AL BUSCAR LA SOLICITUD DE APOYO " + e.getMessage()
+				errorlog += " | CARTA BECAS " + e.getMessage()
 			} finally {
 				if(closeCon) {
 					new DBConnect().closeObj(con, stm, rs, pstm);
@@ -1524,7 +1526,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						
 						plantilla = plantilla.replace("[PROMEDIO-MINIMO]", rs.getString("promediominimoautorizacion"));
 						plantilla = plantilla.replace("[TIPO-BECA]", rs.getString("tipoapoyo"));
+						errorlog += "| TODO BIEN HASTA EL TIPO DE BECA ";
 						String procedencia = rs.getString("ciudadbachillerato") == null ? rs.getString("ciudadbachillerato_otro") : rs.getString("ciudadbachillerato");
+						errorlog += "| SE SACO LA CIUDAD DE PROCEDENCIA (" + procedencia + ") ";
 						plantilla = plantilla.replace("[PROCEDENCIA]", procedencia);
 						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajeBeca_sol.toString());
 						if(object.codigo.equals("sdae-propuesta-financiamiento-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas-medicina")) {
@@ -1628,7 +1632,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						}
 					}
 				} catch (Exception e) {
-					errorlog += "| TRANSFERENCIA " + e.getMessage()
+					errorlog += "| PROPUESTA-FINA " + e.getMessage()
 				} finally {
 					if(closeCon) {
 						new DBConnect().closeObj(con, stm, rs, pstm);

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamientoComite",
   "name" : "SDAERevisarSolicitudFinanciamientoComite",
-  "lastUpdate" : 1669769007838,
+  "lastUpdate" : 1669920177016,
   "rows" : [
     [
       {
@@ -1137,7 +1137,7 @@
                         ],
                         [
                           {
-                            "type" : "component",
+                            "type" : "container",
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 12,
@@ -1153,66 +1153,96 @@
                                 "type" : "constant",
                                 "value" : false
                               },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "% de financiamiento preautorizado:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
+                              "repeatedCollection" : {
                                 "type" : "variable",
-                                "value" : "preAutorizacion[0].porcentajeCreditoPreAutorizacion ? preAutorizacion[0].porcentajeCreditoPreAutorizacion : \"N/A\""
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
+                                "value" : ""
                               }
                             },
-                            "reference" : "6193fde5-e13c-4def-9a46-f2b7a2dff8e6",
+                            "reference" : "9123e1a8-8ebd-4fd8-867b-331eac9e0074",
                             "hasValidationError" : false,
-                            "id" : "pbInput"
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "expression",
+                                      "value" : "!autorizacion[0].porcentajeBecaAutorizacion"
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "% de beca autorizado:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "autorizacion[0].porcentajeBecaAutorizacion? autorizacion[0].porcentajeBecaAutorizacion: \"N/A\""
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "6193fde5-e13c-4def-9a46-f2b7a2dff8e6",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ]
+                            ]
                           },
                           {
-                            "type" : "component",
+                            "type" : "container",
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 12,
@@ -1228,63 +1258,93 @@
                                 "type" : "constant",
                                 "value" : false
                               },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "% de financiamiento autorizado:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
+                              "repeatedCollection" : {
                                 "type" : "variable",
-                                "value" : "autorizacion[0].porcentajeCreditoAutorizacion? autorizacion[0].porcentajeCreditoAutorizacion: \"N/A\""
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
+                                "value" : ""
                               }
                             },
-                            "reference" : "e4ed8a0e-5010-4c87-8c23-09935c01baa5",
+                            "reference" : "2b2bed15-b088-4008-8284-b76b61b0a9df",
                             "hasValidationError" : false,
-                            "id" : "pbInput"
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : true
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "% de financiamiento autorizado:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "autorizacion[0].porcentajeCreditoAutorizacion? autorizacion[0].porcentajeCreditoAutorizacion: \"N/A\""
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "e4ed8a0e-5010-4c87-8c23-09935c01baa5",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ]
+                            ]
                           }
                         ],
                         [
@@ -9173,7 +9233,7 @@
                         },
                         "isValid" : {
                           "type" : "expression",
-                          "value" : "formInputEnviarComite.solicitudFinanciamientoModelInput.observacionesComite"
+                          "value" : "formInputArchivar.solicitudFinanciamientoModelInput.observacionesComite"
                         },
                         "errorMessage" : {
                           "type" : "constant",
