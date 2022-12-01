@@ -19,8 +19,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.identity.User
 
-import com.anahuac.SDAE.model.AvalReferencia
-import com.anahuac.SDAE.model.AvalReferenciaDAO
+
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
