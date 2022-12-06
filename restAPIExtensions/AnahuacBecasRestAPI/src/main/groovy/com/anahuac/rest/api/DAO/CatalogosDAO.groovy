@@ -1789,6 +1789,7 @@ class CatalogosDAO {
 			pstm.setInt(2, Integer.parseInt(object.creditosemestre.toString()));
 			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
 			pstm.setLong(4, Long.parseLong(object.catgestionescolar_pid.toString()));
+			pstm.setBoolean(5, Boolean.parseBoolean(object.manejaprontopago.toString()));
 			pstm.executeUpdate();
 			errorLog += "Ejecuto el update || ";
 			con.commit();
@@ -1831,7 +1832,8 @@ class CatalogosDAO {
 			pstm.setString(1, object.parcialidad);
 			pstm.setInt(2, Integer.parseInt(object.creditosemestre.toString()));
 			pstm.setBoolean(3, Boolean.parseBoolean(object.manejaapoyo.toString()));
-			pstm.setLong(4, Long.parseLong(object.persistenceid.toString()));
+			pstm.setBoolean(4, Boolean.parseBoolean(object.manejaprontopago.toString()));
+			pstm.setLong(5, Long.parseLong(object.persistenceid.toString()));
 			pstm.executeUpdate();
 			
 			con.commit();

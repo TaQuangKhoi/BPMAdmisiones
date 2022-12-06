@@ -324,6 +324,20 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "getSDAEGestionEscolarByCarrera":
+					String pid = request.getParameter "id"
+					Long id = 0L;
+					if(!pid.equals(null) && !pid.equals("") && !pid.equals("null")) {
+						id = Long.valueOf(pid)
+					}
+					result = new CatalogosDAO().getSDAEGestionEscolarByCarrera(id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "getCreditoGE":
 					String pid = request.getParameter "sdaeGE"
 					String fecha = request.getParameter "fecha"
