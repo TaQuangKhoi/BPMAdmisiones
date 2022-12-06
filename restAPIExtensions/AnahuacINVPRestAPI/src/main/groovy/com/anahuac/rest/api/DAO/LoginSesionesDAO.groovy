@@ -16,7 +16,7 @@ import com.anahuac.rest.api.Entity.Result
 import groovy.json.JsonSlurper
 
 class LoginSesionesDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CatalogosDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginSesionesDAO.class);
 	Connection con;
 	Statement stm;
 	ResultSet rs;
@@ -30,6 +30,7 @@ class LoginSesionesDAO {
 		}
 		return retorno
 	}
+	
 	public Boolean validarConexionBonita() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {
@@ -38,7 +39,7 @@ class LoginSesionesDAO {
 		}
 		return retorno;
 	}
-	
+
 	public Result getCatPreguntas(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
