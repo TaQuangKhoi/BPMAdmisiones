@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1669854839762,
+  "lastUpdate" : 1670365246995,
   "rows" : [
     [
       {
@@ -4739,7 +4739,7 @@
                                     },
                                     "readOnly" : {
                                       "type" : "expression",
-                                      "value" : "!getConfiguracionCampus.data[0].descuentoProntoPago"
+                                      "value" : "!getGestionEscolarSDAE[0].manejaprontopago"
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -5630,11 +5630,15 @@
                                           "value" : {
                                             "type" : "variable",
                                             "value" : "showFinanciamiento"
+                                          },
+                                          "procentajeFinanciamiento" : {
+                                            "type" : "variable",
+                                            "value" : "formInputAprobar.autorizacionInput.porcentajeCreditoAutorizacion"
                                           }
                                         },
-                                        "reference" : "2700fce0-3443-40d2-9ad3-3781cf3bc6f5",
+                                        "reference" : "dc0062c6-a7e0-4f33-b71e-95d758cdb8c8",
                                         "hasValidationError" : false,
-                                        "id" : "pbCheckbox"
+                                        "id" : "customSDAECheckboxCleanFina"
                                       }
                                     ],
                                     [
@@ -5661,11 +5665,11 @@
                                           },
                                           "minLength" : {
                                             "type" : "constant",
-                                            "value" : ""
+                                            "value" : 1
                                           },
                                           "maxLength" : {
                                             "type" : "constant",
-                                            "value" : 1
+                                            "value" : 3
                                           },
                                           "readOnly" : {
                                             "type" : "constant",
@@ -5930,15 +5934,15 @@
                                     },
                                     "minLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 0
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "expression",
-                                      "value" : "!getConfiguracionCampus.data[0].descuentoProntoPago"
+                                      "value" : "!getGestionEscolarSDAE[0].manejaprontopago"
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -6628,11 +6632,15 @@
                                           "value" : {
                                             "type" : "variable",
                                             "value" : "showFinanciamiento"
+                                          },
+                                          "procentajeFinanciamiento" : {
+                                            "type" : "variable",
+                                            "value" : "formInputAprobar.autorizacionInput.porcentajeCreditoAutorizacion"
                                           }
                                         },
-                                        "reference" : "f11b599f-d70b-48ba-9195-1e57313558cb",
+                                        "reference" : "b20ff02c-9881-435b-94b1-3a3b9ed55538",
                                         "hasValidationError" : false,
-                                        "id" : "pbCheckbox"
+                                        "id" : "customSDAECheckboxCleanFina"
                                       }
                                     ],
                                     [
@@ -6659,11 +6667,11 @@
                                           },
                                           "minLength" : {
                                             "type" : "constant",
-                                            "value" : ""
+                                            "value" : 1
                                           },
                                           "maxLength" : {
                                             "type" : "constant",
-                                            "value" : 1
+                                            "value" : 3
                                           },
                                           "readOnly" : {
                                             "type" : "constant",
@@ -6928,15 +6936,15 @@
                                     },
                                     "minLength" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : 0
                                     },
                                     "maxLength" : {
                                       "type" : "constant",
-                                      "value" : 1
+                                      "value" : 3
                                     },
                                     "readOnly" : {
                                       "type" : "expression",
-                                      "value" : "!getConfiguracionCampus.data[0].descuentoProntoPago"
+                                      "value" : "!getGestionEscolarSDAE[0].manejaprontopago"
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -8320,7 +8328,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getB64FileByUrlAzure&p=0&c=100&urlAzure={{objSolicitudDeAdmision[0].urlConstancia}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "fotoB64" : {
@@ -8678,6 +8690,14 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getGestionEscolarSDAE" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getSDAEGestionEscolar&p=0&c=100&id={{objSolicitudDeAdmision[0].catGestionEscolar.persistenceId}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

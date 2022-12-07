@@ -67,6 +67,7 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
                     $scope.properties.value[numero-1] = data[0];
                     if($scope.properties.value[numero-1].manejaapoyo != null){
                         $scope.properties.value[numero-1].manejaapoyo = ($scope.properties.value[numero-1].manejaapoyo == 't'?true:false)
+                        $scope.properties.value[numero-1].manejaprontopago = ($scope.properties.value[numero-1].manejaprontopago == 't'?true:false)
                     }
                 }
                 doRequest("AnahuacBecasRestGET?url=getExisteSDAECreditoGE",$scope.properties.urlParameter[numero].replace('[SDAEGE]',$scope.properties.value[1].persistenceid), 3);
