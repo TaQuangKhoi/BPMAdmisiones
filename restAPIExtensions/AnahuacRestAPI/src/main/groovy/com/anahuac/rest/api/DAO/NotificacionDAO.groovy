@@ -1481,8 +1481,8 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 			}
 			
-			if(object.codigo.equals("sdae-propuestasolobeca-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas")  || object.codigo.equals("sdae-propuestasolobeca-becas-medicina") || object.codigo.equals("sdae-propuesta-financiamiento-becas-medicina") ) {
-				errorlog += " | PLANTILLA :: " + object.codigo;
+			if(object.codigo.equals("sdae-propuestasolobeca-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas") || object.codigo.equals("sdae-propuestasolobeca-becas-medicina") || object.codigo.equals("sdae-propuesta-financiamiento-becas-medicina") || object.codigo.equals("sdae-propuestasolobeca-becas-prontopago") || object.codigo.equals("sdae-propuesta-financiamiento-becas-prontopago") ) {
+				
 				Integer costoCredito = 0;
 				Integer creditosemestre = 0;
 				Integer parcialidad = 0;
