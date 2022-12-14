@@ -1,14 +1,25 @@
 function ($scope, $http) {
 
     var loaded = false;
-    $scope.formInput = {
-    	"solicitudApoyoEducativoInput":{
-    		"ordenPagoConekta":""
-    	},
-    	"isPagoValidadoInput": true,
-    	"isPagoConTarjetainput": true,
-    	"isPagoRegresarInput": false
-    };
+    // $scope.formInput = {
+    // 	"solicitudApoyoEducativoInput":{
+    // 		"ordenPagoConekta":""
+    // 	},
+    // 	"isPagoValidadoInput": true,
+    // 	"isPagoConTarjetainput": true,
+    // 	"isPagoRegresarInput": false
+    // };
+    
+    $scope.formInput = { 
+        "conIsPagoValidado" : false, 
+        "isPagoTarjeta" : true ,
+        "detalleSolicitudInput" : {
+            "ordenPago":""
+        },
+        "isPagoCondonado": false,
+        "isDescuento100":false
+        
+    }
     
     $scope.setCardObject = function (_token) {
         $scope.properties.tokenObject["card"] = _token;
@@ -39,12 +50,34 @@ function ($scope, $http) {
             }
         });
     }
+    
+    function getConektaPublicKeyV2(){
+        var req = {
+            method: "GET",
+            url: "../API/extension/AnahuacRestGet?url=getConektaPublicKeyV2&p=0&c=10&campus_id=" + $scope.properties.objSolicitudAdmision.catCampus.persistenceId,
+        };
+
+        return $http(req).success(function (data, status) {
+            // $scope.properties.tokenObject = data[0];
+            debugger;
+            $scope.properties.publicKey = data[0];
+            getConektaTokenbObject();
+        }).error(function (data, status) {
+            // $scope.properties.dataFromError = data;
+            swal("Error", "No se ha podido generar el token temporal, intente de nuevo mas tarde.", "error");
+        }).finally(function () {
+            if ($scope.properties.tokenObject) {
+                setIframe();
+            }
+        });
+    }
 
     $scope.$watch("properties.objSolicitudAdmision", () => {
         if ($scope.properties.objSolicitudAdmision) {
             if (!loaded) {
                 loaded = true;
-                getConektaTokenbObject();
+                getConektaPublicKeyV2();
+                // getConektaTokenbObject();
             }
         }
     });
@@ -85,8 +118,7 @@ function ($scope, $http) {
                 }
             },
             onCreateTokenSucceeded: function (_token) {
-                debugger;
-                var scope = angular.element($("custom-conekta-iframe")).scope();
+                var scope = angular.element($("custom-conekta-iframe-admisiones")).scope();
                 scope.showModal();
                 scope.$apply(function(){
                     scope.buildCardObject();
@@ -100,6 +132,7 @@ function ($scope, $http) {
     }
 
     $scope.buildCardObject = function(){
+        debugger;
         $scope.properties.objectCard = {
             "name": $scope.properties.objSolicitudAdmision.primerNombre + " "+ $scope.properties.objSolicitudAdmision.apellidoPaterno,
             "email": $scope.properties.objSolicitudAdmision.correoElectronico,
@@ -108,8 +141,8 @@ function ($scope, $http) {
             "unit_price": $scope.properties.configuracionesPago.monto * 100,//Conekta acepta le pago en centavos
             "idToken": $scope.properties.tokenObject.id,
             "caseId" : $scope.properties.objSolicitudAdmision.caseId + "",
-            "last4": "4444",
-            "nombrePago": "jose garcia",
+            "last4": "",
+            "nombrePago": "",
             "campus": $scope.properties.objSolicitudAdmision.catCampus.descripcion,
             "concepto": $scope.properties.configuracionesPago.descripcion + " - ID: " + $scope.properties.idBanner 
         }
@@ -121,12 +154,59 @@ function ($scope, $http) {
         };
 
         return $http(req).success(function (data, status) {
-            $scope.formInput.solicitudApoyoEducativoInput.ordenPagoConekta = data.data[0].id;
-            $scope.properties.solicitudApoyoEducativo.ordenPagoConekta = data.data[0].id;
-            executeTask();
+            $scope.formInput.detalleSolicitudInput.ordenPago = data.data[0].id;
+            unassignTask();
         }).error(function (error, status) {
             $scope.hideModal();
             swal("Error",error.data.message_to_purchaser, "error");
+        });
+    }
+    
+    function unassignTask() {
+        $scope.showModal();
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": ""
+            }
+        };
+
+        return $http(req).success(function(data, status) {
+            assignTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
+        });
+    }
+    
+    function assignTask() {
+        $scope.showModal();
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": $scope.properties.userId
+            }
+        };
+
+        return $http(req).success(function(data, status) {
+            executeTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
         });
     }
     
@@ -134,29 +214,20 @@ function ($scope, $http) {
         let url = "../API/bpm/userTask/" + $scope.properties.taskId + "/execution";
         
         $http.post(url, $scope.formInput).success(function(data){
-            $scope.hideModal();
-            swal("Pago realizado con éxito.", "", "success")
-            .then(() => {
-                // window.location.reload();
-                insertBitacora();
-            });
+            $scope.properties.loadedOrder = true;
+            setTimeout(function(){
+                swal("Pago realizado con éxito.", "", "success").then(() => {
+                    $scope.hideModal();
+                    window.location.reload();
+                });   
+                
+                setTimeout(function(){
+                    window.location.reload();
+                },  5000); 
+            },  2000); 
         }).error(function(error){
             $scope.hideModal();
             swal("Error", "Algo salió mal con el proceso de pago. Revisa que los datos de la tarjeta estén correctos.", "error");
-        });
-    }
-    
-    function insertBitacora(){
-        let url = "../API/extension/AnahuacBecasRest?url=insertBitacoraSDAE&p=0&c=10";
-        
-        $http.post(url, $scope.formInput).success(function(data){
-            
-        }).error(function(error){
-            $scope.hideModal();
-            // swal("Error", "Algo salió mal con el proceso de pago. Revisa que los datos de la tarjeta estén correctos.", "error");
-        }).finally(function(){
-            $scope.hideModal();
-            window.location.reload();
         });
     }
 }
