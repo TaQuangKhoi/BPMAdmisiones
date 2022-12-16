@@ -291,7 +291,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function validarNuevaClave(_value) {
-        let data = angular.copy($scope.properties.dataFromSuccess);
+        let data = angular.copy($scope.properties.dataToSend);
         let isValid = true;
 
         for (let i = 0; i < data.length; i++) {
@@ -305,7 +305,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
         function validarNuevaClaveQuestion(_value) {
-        let data = angular.copy($scope.properties.dataFromSuccess);
+        let data = angular.copy($scope.properties.dataToSend);
         let isValid = true;
 
         for (let i = 0; i < data.length; i++) {

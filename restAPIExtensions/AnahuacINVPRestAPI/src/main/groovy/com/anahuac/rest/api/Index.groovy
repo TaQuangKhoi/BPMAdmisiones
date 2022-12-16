@@ -13,6 +13,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DAO.CatalogosDAO
+import com.anahuac.rest.api.DAO.LoginSesionesDAO
+import com.anahuac.rest.api.DAO.RespuestasExamenDAO
+import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
@@ -43,6 +46,10 @@ class Index implements RestApiController {
 		//VARIABLES===========================================================
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
+		//VARIABLES DAO=======================================================
+		UsuariosDAO uDAO = new UsuariosDAO();
+		RespuestasExamenDAO rexa = new RespuestasExamenDAO();
+		//MAPEO DE SERVICIOS==================================================
 		String jsonData = "{}"
 		try {
 			jsonData = request.reader.readLines().join("\n")
@@ -76,6 +83,80 @@ class Index implements RestApiController {
 					result.setError(ou.getMessage())
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				case "getSesionLogin":
+					result = new LoginSesionesDAO().getSesionLogin(jsonData)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				case "getRespuestasExamen":
+				result = new RespuestasExamenDAO().getCatRespuestasExamen(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+			break;
+			case "insertRespuesta":
+			try{
+				result =  rexa.insertRespuesta(jsonData, context);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
+			case "getCatRespuestasExamenbyUsuariocaso":
+			try{
+				result =  rexa.getCatRespuestasExamenbyUsuariocaso(jsonData);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
+			case "getCaseIdbyuserid":
+			try{
+				result =  rexa.getCaseIdbyuserid(jsonData);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;case "updateRespuesta":
+			try{
+				result =  rexa.updateRespuesta(jsonData, context);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
 				default:
 				result = notFound(url);
 				if (result.isSuccess()) {

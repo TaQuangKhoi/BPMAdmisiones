@@ -40,7 +40,7 @@ class LoginSesionesDAO {
 		return retorno;
 	}
 
-	public Result getCatPreguntas(String jsonData) {
+	public Result getSesionLogin(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorlog = "";

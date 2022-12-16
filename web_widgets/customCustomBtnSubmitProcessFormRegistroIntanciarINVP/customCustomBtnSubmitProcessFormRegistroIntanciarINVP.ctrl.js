@@ -5,6 +5,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
+        debugger;
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
             closeModal($scope.properties.closeOnSuccess);
@@ -31,7 +32,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 "apellido": $scope.properties.strRegistro.ApellidoPaterno + " " + $scope.properties.strRegistro.ApellidoMaterno,
                 "password": $scope.properties.strRegistro.Password,
                 "campus": $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampus.grupoBonita,
-                "numeroContacto":$scope.properties.strRegistro.numeroContacto
+                "numeroContacto":$scope.properties.strRegistro.numeroContacto,
+                "idioma": $scope.properties.strRegistro.idioma.clave
             }
 
             if (!$scope.properties.strRegistro.Validado || $scope.properties.strRegistro.error) {
@@ -40,7 +42,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
                 var req = {
                     method: "GET",
-                    url: "../API/extension/AnahuacINVPRestAPIGet?url=getDatosUsername&p=0&c=10&username=" + $scope.properties.strRegistro.CorreoElectronico
+                    url: "../API/extension/AnahuacINVPRestGet?url=getDatosUsername&p=0&c=10&username=" + $scope.properties.strRegistro.CorreoElectronico
                 };
                 return $http(req).success(function(data, status) {
                         $scope.properties.getUserBonita = data.data;
@@ -49,7 +51,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("Error", "Este correo electrónico ya está registrado.", "error");
                                 blockUI.stop();
                             } else {
-                                startProcess();
+                                //startProcess();
+                                $scope.registrarBonita();
                             }
                         }
                     }).error(function(data, status) {
@@ -163,6 +166,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     console.log("Modificación de información en registrar bonita");
                     $scope.properties.navigationVar = "formSuccess";
                     blockUI.stop();
+                    redirectIfNeeded();
                 } else {
                     swal("Error", JSON.stringify(data.error), "error");
                     blockUI.stop();

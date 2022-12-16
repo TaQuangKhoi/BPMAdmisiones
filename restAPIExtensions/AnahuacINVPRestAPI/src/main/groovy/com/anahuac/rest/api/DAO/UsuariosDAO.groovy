@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.IdiomaExamen
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
@@ -104,6 +105,7 @@ class UsuariosDAO {
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
+			error_log = error_log + " | "+username + password + " ";
 			/*-------------------------------------------------------------*/
 
 			def jsonSlurper = new JsonSlurper();
@@ -120,7 +122,7 @@ class UsuariosDAO {
 			error_log = error_log + " | "+apiClient.login(username, password);
 			error_log = error_log + " | apiClient.login(username, password)";
 			
-			closeCon = validarConexion();
+			closeCon = validarConexionBonita();
 			
 				try {
 					con.setAutoCommit(false);
@@ -133,7 +135,7 @@ class UsuariosDAO {
 					
 					success = true;
 					if(resultReq > 0) {
-						error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
+						error_log = resultReq + " Exito! query update_idioma_registro_by_username_1 " + object.idioma + object.nombreusuario
 						//error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
 					} else {
 						error_log = resultReq + " Error! query update_idioma_registro_by_username_1"
@@ -210,4 +212,44 @@ class UsuariosDAO {
 		return resultado;
 	}
 	
+	public Result getIdiomaUsuario(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		IdiomaExamen idioma = new IdiomaExamen();
+		List<IdiomaExamen> lstIdioma = new ArrayList<IdiomaExamen>();
+		
+		try {
+		
+				
+				closeCon = validarConexionBonita();
+				pstm = con.prepareStatement(Statements.GET_IDIOMA_USUARIO)
+				pstm.setString(1, username)
+				
+				rs = pstm.executeQuery()
+				lstIdioma = new ArrayList<IdiomaExamen>();
+				while(rs.next()) {
+					idioma = new IdiomaExamen();
+					idioma.setPersistenceId(rs.getLong("persistenceId"));
+					idioma.setPersistenceVersion(rs.getString("persistenceVersion"));
+					idioma.setIdioma(rs.getString("idioma"));
+					idioma.setUsuario(rs.getString("usuario"));
+					
+					lstIdioma.add(idioma);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(lstIdioma)
+				
+			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }

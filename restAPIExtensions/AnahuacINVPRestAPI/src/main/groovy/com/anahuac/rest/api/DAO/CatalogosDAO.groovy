@@ -285,4 +285,52 @@ public Result getCatPreguntas(String jsonData) {
 		}
 		return resultado
 	}
+	
+	public Result getCatPreguntasExamen() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "WHERE ISELIMINADO=false"
+		String errorlog = "";
+		try {
+			CatPreguntasCustomFiltro row = new CatPreguntasCustomFiltro()
+			List < CatPreguntasCustomFiltro > rows = new ArrayList < CatPreguntasCustomFiltro > ();
+			closeCon = validarConexion();
+
+			errorlog += "consulta:";
+			pstm = con.prepareStatement(Statements.GET_CAT_PREGUNTAS_EXAMEN.replace("[WHERE]", where));
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				row = new CatPreguntasCustomFiltro()
+				row.setPregunta(rs.getString("pregunta"));
+				row.setCaseId(rs.getString("CASEID"));
+				row.setOrden(rs.getLong("orden"));
+				row.setQuestion(rs.getString("question"));
+				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setUsuarioCreacion(rs.getString("usuarioCreacion"));
+				try {
+					row.setFechaCreacion(rs.getString("fechacreacion"))
+				} catch (Exception e) {
+					LOGGER.error "[ERROR] " + e.getMessage();
+					errorlog += e.getMessage()
+				}
+				row.setPersistenceId(rs.getLong("persistenceId"))
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"))
+				rows.add(row)
+			}
+			resultado.setSuccess(true)
+
+			resultado.setData(rows)
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }
