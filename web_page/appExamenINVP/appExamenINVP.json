@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appExamenINVP",
   "name" : "appExamenINVP",
-  "lastUpdate" : 1671210451676,
+  "lastUpdate" : 1671212640508,
   "rows" : [
     [
       {
@@ -123,7 +123,8 @@
                         "value" : ""
                       },
                       "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
+                        "type" : "interpolation",
+                        "value" : "/bonita"
                       },
                       "collectionToModify" : {
                         "type" : "variable"
@@ -141,11 +142,19 @@
                       },
                       "removeItem" : {
                         "type" : "variable"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
                       }
                     },
-                    "reference" : "f96efa55-8da1-4127-9e11-a9c744f2dcee",
+                    "reference" : "a38718e3-52f5-49a3-a8c8-bd98762872bf",
                     "hasValidationError" : false,
-                    "id" : "pbButton"
+                    "id" : "customBtnTerminarExamenINVP"
                   }
                 ],
                 [
@@ -427,7 +436,8 @@
                         "value" : ""
                       },
                       "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
+                        "type" : "interpolation",
+                        "value" : "/bonita"
                       },
                       "collectionToModify" : {
                         "type" : "variable"
@@ -445,11 +455,19 @@
                       },
                       "removeItem" : {
                         "type" : "variable"
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : "taskId"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
                       }
                     },
-                    "reference" : "7c8802d1-c719-4e96-94fe-d21e945482cd",
+                    "reference" : "42346e11-8d0e-4999-9d0a-a02e9fb006ef",
                     "hasValidationError" : false,
-                    "id" : "pbButton"
+                    "id" : "customBtnTerminarExamenINVP"
                   }
                 ],
                 [
@@ -662,7 +680,7 @@
           },
           "reload" : {
             "type" : "variable",
-            "value" : "usuarios.user_id"
+            "value" : "userData.user_id"
           },
           "campusSeleccionado" : {
             "type" : "variable",
@@ -696,7 +714,7 @@
           },
           "reload" : {
             "type" : "variable",
-            "value" : "usuarios.user_id"
+            "value" : "userData.user_id"
           },
           "campusSeleccionado" : {
             "type" : "variable",
@@ -942,14 +960,6 @@
       ],
       "exposed" : false
     },
-    "usuarios" : {
-      "type" : "url",
-      "value" : [
-        "../API/system/session/unusedid"
-      ],
-      "advancedOptions" : { },
-      "exposed" : false
-    },
     "caseId" : {
       "type" : "constant",
       "exposed" : false
@@ -984,6 +994,32 @@
         "    \"valor\":\"False\",",
         "    \"clave\":false",
         "}]"
+      ],
+      "exposed" : false
+    },
+    "currentTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid={{caseId}}&fstate=ready"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.currentTask[0].id;"
+      ],
+      "exposed" : false
+    },
+    "urlCurrentTask" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/extension/RegistroRest?url=humanTask&p=0&c=10&caseid=\"+$data.caseId+\"&f=state=ready&f=nameExamen%20INVP\""
       ],
       "exposed" : false
     }
