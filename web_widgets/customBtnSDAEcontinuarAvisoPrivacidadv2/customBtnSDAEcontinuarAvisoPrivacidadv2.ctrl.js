@@ -3,21 +3,55 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     'use strict';
 
     var vm = this;
+    var validStatus = [
+        "Autodescripción concluida",
+        "Ya se imprimió su credencial",
+        "Elección de pruebas calendarizado",
+        "Resultado final del comité",
+        "Carga y consulta de resultados"
+    ];
+
+    var caseid = 0;
 
     this.action = function action() {
-        if ($scope.properties.aceptoAvisoPrivacidad == true) {
-            startProcess();
-            //var url= "/portal/resource/app/sdae/solicitudApoyoEducativo/content/"
-            //window.location.replace(url); 
-        } else {
-            swal("¡Aviso!", "Para continuar debe aceptar el aviso de privacidad.", "warning");
-        }
+        let url = "../API/extension/AnahuacBecasRestGET?url=getPRomedioMinimoByCampus&p=0&c=0&idCampus=" + $scope.properties.idCampus;
+        $http.get(url).success((result)=>{
+            let promedioMinimo = parseFloat(result.data[0].promedioMinimo);
+            let promedioGeneral = parseFloat($scope.properties.promedioGeneral);
+            if(promedioMinimo > promedioGeneral){
+                swal("Atención", "No puedes solicitar apoyo educativo por que tu promedio es inferior al promedio mínimo marcado por el Campus.", "warning");
+            } else if ($scope.properties.aceptado === false){
+                swal("Atención", "No puedes solicitar un apoyo educativo por que tu soicitud de admisión fué rechazada", "warning");
+            } else if (!validarEstatus($scope.properties.estatusSolicitud)){
+                swal("Atención", "Aun no se cuenta con la información suficiente para iniciar tu solicitud de apoyo educativo, es necesario que concluyas el llenado de la autodescripción en tu proceso de admisión.", "warning");
+            } else {
+                if ($scope.properties.aceptoAvisoPrivacidad === true) {
+                    startProcess();
+                } else {
+                    swal("¡Aviso!", "Para continuar debe aceptar el aviso de privacidad.", "warning");
+                }
+            }
+        }).error(()=>{
+            
+        });
     };
+
+    function validarEstatus(_input){
+        let output = false;
+        
+        for(let estatus of validStatus){
+            if(_input === estatus){
+                output = true;
+                break;
+            }
+        }
+
+        return output;
+    }
 
     function startProcess() {
         //var id = getUrlParam('id');
         if ($scope.properties.idProceso) {
-            debugger;
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.idProceso + '/instantiation', getUserParam()).then(function () {
                 localStorageService.delete($window.location.href);
             });
@@ -75,6 +109,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
+                caseid = data.caseId;
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -91,9 +126,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function () {
+                debugger;
                 vm.busy = false;
-                window.location.reload();
+                insertBitacora();
+                // window.location.reload();
             });
+    }
+
+    function insertBitacora(){
+        debugger;
+        let url = $scope.properties.urlBitacora;
+        let dataToSend = angular.copy($scope.properties.objetoBitacora);
+        dataToSend.caseid = caseid;
+        debugger;
+        $http.post(url, dataToSend).success(function(){
+            
+        }).error(function(){
+            
+        }).finally(function(){
+            debugger;
+            window.location.replace($scope.properties.urlSolicitud);
+        });
     }
 
     function redirectIfNeeded() {
@@ -110,6 +163,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $window.parent.postMessage(JSON.stringify(dataToSend), '*');
         }
     }
-
-
 }

@@ -121,6 +121,9 @@
             <applicationPage customPage="custompage_SDAERevisarSolicitudFinanciamiento" token="RevisarSolicitudFinanciamiento"/>
             <applicationPage customPage="custompage_CatEstadosExtranjerosAcciones" token="CatEstadosUSA"/>
             <applicationPage customPage="custompage_SDAEBitacora" token="SDAEBitacora"/>
+            <applicationPage customPage="custompage_SDAEReactivarSolicitudFinanciamiento" token="SDAEReactivarSolicitudFinanciamiento"/>
+            <applicationPage customPage="custompage_SDAERevisarSolicitudFinanciamientoComite" token="SDAERevisarSolicitudFinanciamientoComite"/>
+            <applicationPage customPage="custompage_SDAECartasv2" token="NotificacionesCartas"/>
             <applicationPage customPage="custompage_DashBoard" token="dashboard"/>
             <applicationPage customPage="custompage_CatCampusAcciones" token="CatCampusAcciones"/>
             <applicationPage customPage="custompage_CatPeriodoAcciones" token="catPeriodoAcciones"/>
@@ -191,6 +194,7 @@
             <applicationPage customPage="custompage_Reportes" token="Reportes"/>
             <applicationPage customPage="custompage_SDAECatGestionEscolarAcciones" token="SDAEGestionEscolar"/>
             <applicationPage customPage="custompage_SDAECatCampusAcciones" token="SDAECampus"/>
+            <applicationPage customPage="custompage_SDAECartas" token="SDAECartas"/>
             <applicationPage customPage="custompage_SDAECatPagos" token="pagoEstudioSocioEconomico"/>
             <applicationPage customPage="custompage_SDAECatTipoInversionesPoseeAcciones" token="CatTipoInversionesPosee"/>
             <applicationPage customPage="custompage_SDAECatTipoMonedaAcciones" token="CatTipoMoneda"/>
@@ -207,18 +211,16 @@
             <applicationPage customPage="custompage_SDAEBandejaAreaArtistica" token="bandejaAreaArtistica"/>
             <applicationPage customPage="custompage_SDAEBandejaAreaDeportiva" token="bandejaAreaDeportiva"/>
             <applicationPage customPage="custompage_SDAEBandejaSolicitudes" token="bandejaPreAutorizacion"/>
+            <applicationPage customPage="custompage_SDAEBandejaSolicitudesEnEsperaPago" token="EsperaDePago"/>
+            <applicationPage customPage="custompage_SDAEBandejaSolicitudesArchivadas" token="bandejaArchivadas"/>
             <applicationPage customPage="custompage_SDAEBandejaBecas" token="bandejaBecas"/>
             <applicationPage customPage="custompage_SDAEArchivoSolicitudesCompletadas" token="archivoSolicitudesCompletadas"/>
-            <applicationPage customPage="custompage_SDAEBandejaSolicitudesArchivadas" token="bandejaArchivadas"/>
+            <applicationPage customPage="custompage_SDAEArchivoFinalSolicitudes" token="bandejaFinalizadas"/>
+            <applicationPage customPage="custompage_SDAEBandejaSolicitudesFinancPRoceso" token="solicitudes_financiamiento_progreso"/>
             <applicationPage customPage="custompage_SDAEBandejaFinanzas" token="bandejaFinanzas"/>
             <applicationPage customPage="custompage_SDAEBandejaComiteFinanzas" token="bandejaComiteFinanzas"/>
             <applicationPage customPage="custompage_SDAEBandejaFinanzasArchivadas" token="bandejaArchivadasFinanciamiento"/>
-            <applicationPage customPage="custompage_SDAEReactivarSolicitudFinanciamiento" token="SDAEReactivarSolicitudFinanciamiento"/>
-            <applicationPage customPage="custompage_SDAEBandejaSolicitudesFinancPRoceso" token="solicitudes_financiamiento_progreso"/>
-            <applicationPage customPage="custompage_SDAERevisarSolicitudFinanciamientoComite" token="SDAERevisarSolicitudFinanciamientoComite"/>
-            <applicationPage customPage="custompage_SDAECartas" token="SDAECartas"/>
-            <applicationPage customPage="custompage_SDAECartasv2" token="NotificacionesCartas"/>
-            <applicationPage customPage="custompage_SDAEBandejaSolicitudesEnEsperaPago" token="EsperaDePago"/>
+            <applicationPage customPage="custompage_CatBitacoraCorreos" token="SDAEbitacoraCorreos"/>
         </applicationPages>
         <applicationMenus>
             <applicationMenu applicationPage="dashboard">
@@ -478,29 +480,9 @@
             <applicationMenu>
                 <displayName>Configuraciones Generales SDAE</displayName>
                 <applicationMenus>
-                    <applicationMenu applicationPage="SDAEGestionEscolar">
-                        <displayName>Gestion Escolar SDAE</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="SDAECampus">
-                        <displayName>Campus SDAE</displayName>
-                    </applicationMenu>
                     <applicationMenu applicationPage="CatTipoApoyo">
                         <displayName>Tipo apoyo</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="home">
-                        <displayName>Documentos y textos</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="SDAECartas">
-                        <displayName>Cartas y notificaciones SDAE</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="pagoEstudioSocioEconomico">
-                        <displayName>Pago de estudio socio-económico</displayName>
-                    </applicationMenu>
-                </applicationMenus>
-            </applicationMenu>
-            <applicationMenu>
-                <displayName>Catálogos de Registro SDAE</displayName>
-                <applicationMenus>
                     <applicationMenu applicationPage="CatTipoInversionesPosee">
                         <displayName>Tipo de inversiones</displayName>
                     </applicationMenu>
@@ -537,13 +519,30 @@
                 </applicationMenus>
             </applicationMenu>
             <applicationMenu>
+                <displayName>Configuración Campus SDAE</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="SDAECampus">
+                        <displayName>Campus SDAE</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="SDAEGestionEscolar">
+                        <displayName>Gestion Escolar SDAE</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="pagoEstudioSocioEconomico">
+                        <displayName>Pago de estudio socio-económico</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="SDAECartas">
+                        <displayName>Cartas y notificaciones SDAE</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu>
                 <displayName>SDAE</displayName>
                 <applicationMenus>
+                    <applicationMenu applicationPage="SDAEBandejaMaestra">
+                        <displayName>Solicitudes vista general</displayName>
+                    </applicationMenu>
                     <applicationMenu applicationPage="SDAEBandejaEnProgreso">
                         <displayName>Solicitudes iniciadas</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="SDAEBandejaMaestra">
-                        <displayName>Seguimiento de solicitudes procesadas</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="bandejaAreaArtistica">
                         <displayName>Solicitudes en área artística</displayName>
@@ -557,8 +556,17 @@
                     <applicationMenu applicationPage="EsperaDePago">
                         <displayName>Solicitudes en espera de pago</displayName>
                     </applicationMenu>
+                    <applicationMenu applicationPage="archivoSolicitudesCompletadas">
+                        <displayName>Solicitudes en cierre (becas)</displayName>
+                    </applicationMenu>
                     <applicationMenu applicationPage="bandejaArchivadas">
                         <displayName>Solicitudes archivadas (becas)</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bandejaFinalizadas">
+                        <displayName>Solicitudes finalizadas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="SDAEbitacoraCorreos">
+                        <displayName>Gestión de correos</displayName>
                     </applicationMenu>
                 </applicationMenus>
             </applicationMenu>
@@ -579,6 +587,9 @@
             <applicationMenu>
                 <displayName>SDAE Financiamiento</displayName>
                 <applicationMenus>
+                    <applicationMenu applicationPage="SDAEBandejaMaestra">
+                        <displayName>Solicitudes vista general</displayName>
+                    </applicationMenu>
                     <applicationMenu applicationPage="solicitudes_financiamiento_progreso">
                         <displayName>Solicitudes iniciadas (aval)</displayName>
                     </applicationMenu>
@@ -597,10 +608,13 @@
                     <applicationMenu applicationPage="bandejaArchivadasFinanciamiento">
                         <displayName>Solicitudes archivadas (financiamiento)</displayName>
                     </applicationMenu>
+                    <applicationMenu applicationPage="bandejaFinalizadas">
+                        <displayName>Solicitudes finalizadas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="SDAEbitacoraCorreos">
+                        <displayName>Gestión de correos</displayName>
+                    </applicationMenu>
                 </applicationMenus>
-            </applicationMenu>
-            <applicationMenu applicationPage="bitacoraCorreos">
-                <displayName>Gestión de notificaciones</displayName>
             </applicationMenu>
         </applicationMenus>
     </application>

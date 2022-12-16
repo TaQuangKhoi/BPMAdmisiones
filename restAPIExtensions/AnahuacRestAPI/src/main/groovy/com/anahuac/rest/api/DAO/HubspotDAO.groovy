@@ -1524,13 +1524,16 @@ class HubspotDAO {
 		String jsonData = "";
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99";
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
-		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
-
+		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo ;
+// + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "")
 		StringBuilder resultado = new StringBuilder();
 		
 		URL url = new URL(urlParaVisitar);
 		HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 		conexion.setRequestMethod("GET");
+		conexion.setRequestProperty("content-type", "application/json");
+		conexion.setRequestProperty("Accept-Encoding", "UTF-8");
+		conexion.setRequestProperty("Authorization", "Bearer "+ apikeyHubspot.replace("-.-.-.", ""));
 		BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 		String linea;
 		while ((linea = rd.readLine()) != null) {
@@ -1567,13 +1570,16 @@ class HubspotDAO {
 
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
-		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
-
+		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo ;
+//		+ "?hapikey=" + apikeyHubspot.replace("-.-.-.", "")
 		StringBuilder resultado = new StringBuilder();
 		
 		URL url = new URL(urlParaVisitar);
 		HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 		conexion.setRequestMethod("GET");
+		conexion.setRequestProperty("content-type", "application/json");
+		conexion.setRequestProperty("Accept-Encoding", "UTF-8");
+		conexion.setRequestProperty("Authorization", "Bearer "+apikeyHubspot.replace("-.-.-.", ""));
 		BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 		String linea;
 		while ((linea = rd.readLine()) != null) {
@@ -1859,7 +1865,7 @@ class HubspotDAO {
 	public Result createOrUpdateHubspot(String email, String apikeyHubspot, Map<String, String> objHubSpotData) {
 		Result resultado = new Result();
 		//String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
-		String targetURL = "https://api.hubapi.com/contacts/v1/contact/createOrUpdate/email/[EMAIL]/?hapikey="+apikeyHubspot;
+		String targetURL = "https://api.hubapi.com/contacts/v1/contact/createOrUpdate/email/[EMAIL]/"
 		String jsonInputString = "{\"properties\":[{\"property\":\"firstname\",\"value\":\"java\"},{\"property\":\"nombre\",\"value\":\"Arturo\"},{\"property\":\"lastname\",\"value\":\"Zamorano\"},{\"property\":\"nombre_completo\",\"value\":\"Arturo Zamorano\"},{\"property\":\"correo_electrnico\",\"value\":\"jasz189@hotmail.com\"},{\"property\":\"date_of_birth\",\"value\":\"2020-11-30T23:51:03.309Z\"},{\"property\":\"fecha_de_nacimiento\",\"value\":\"654307200000\"},{\"property\":\"twitterhandle\",\"value\":\"arturoZCZ\"},{\"property\":\"gender\",\"value\":\"Masculino\"},{\"property\":\"country\",\"value\":\"México\"},{\"property\":\"state\",\"value\":\"Sonora\"},{\"property\":\"ciudad\",\"value\":\"Navojoa\"},{\"property\":\"city\",\"value\":\"Navojoa\"},{\"property\":\"address\",\"value\":\"Callejon 3\"},{\"property\":\"celular\",\"value\":\"6421344161\"},{\"property\":\"phone\",\"value\":\"6421344161\"},{\"property\":\"zip\",\"value\":\"85890\"},{\"property\":\"promedio\",\"value\":\"9.5\"},{\"property\":\"promedio_de_preparatoria\",\"value\":\"9.5\"},{\"property\":\"relationship_status\",\"value\":\"Casado\"},{\"property\":\"nombre_de_tutor\",\"value\":\"Arturo\"},{\"property\":\"apellido_tutor\",\"value\":\"Zamorano\"},{\"property\":\"celular_de_tutor\",\"value\":\"6421344161\"},{\"property\":\"correo_tutor\",\"value\":\"arturo.zamorano@gmail.com\"},{\"property\":\"telefono_tutor\",\"value\":\"6421344161\"},{\"property\":\"nombre_del_padre\",\"value\":\"Arturo\"},{\"property\":\"apellido_paterno\",\"value\":\"Zamorano\"},{\"property\":\"celular_del_padre\",\"value\":\"6421344161\"},{\"property\":\"correo_del_padre\",\"value\":\"arturo.zamorano@gmail.com\"},{\"property\":\"telefono_del_padre\",\"value\":\"6421344161\"},{\"property\":\"nombre_de_la_madre\",\"value\":\"Guadalupe\"},{\"property\":\"apellido_materno\",\"value\":\"Sainz\"},{\"property\":\"celular_de_la_madre\",\"value\":\"6421344161\"},{\"property\":\"correo_de_la_madre\",\"value\":\"eva.sainz@gmail.com\"},{\"property\":\"telefono_de_la_madre\",\"value\":\"6421344161\"},{\"property\":\"ua_vpd\",\"value\":\"UAM\"},{\"property\":\"campus_destino\",\"value\":\"AMAY\"},{\"property\":\"tipo_de_alumno_bpm\",\"value\":\"N\"}]}";
 		String strError = "";
 		
@@ -1893,6 +1899,7 @@ class HubspotDAO {
 			StringEntity params = new StringEntity(jsonProperties.toString(), "UTF-8");
 			request.setHeader("content-type", "application/json");
 			request.setHeader("Accept-Encoding", "UTF-8");
+			request.setHeader("Authorization", "Bearer "+apikeyHubspot);
 			request.setEntity(params);
 			
 			CloseableHttpResponse response = httpClient.execute(request);
@@ -2023,12 +2030,16 @@ class HubspotDAO {
 	  String jsonData = "";
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99";
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
-	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
+	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo ;
 	  StringBuilder resultado = new StringBuilder();
+	  // + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "")
 	  try {
 		  URL url = new URL(urlParaVisitar);
 		  HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 		  conexion.setRequestMethod("GET");
+		  conexion.setRequestProperty("content-type", "application/json");
+		  conexion.setRequestProperty("Accept-Encoding", "UTF-8");
+		  conexion.setRequestProperty("Authorization", "Bearer "+apikeyHubspot.replace("-.-.-.", ""));
 		  BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 		  String linea;
 		  while ((linea = rd.readLine()) != null) {
@@ -2072,13 +2083,16 @@ class HubspotDAO {
 
 //		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
 //		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
-	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
+	  String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo ;
 	  StringBuilder resultado = new StringBuilder();
-	  
+	  // + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "")
 	  try {
 		  URL url = new URL(urlParaVisitar);
 		  HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 		  conexion.setRequestMethod("GET");
+		  conexion.setRequestProperty("content-type", "application/json");
+		  conexion.setRequestProperty("Accept-Encoding", "UTF-8");
+		  conexion.setRequestProperty("Authorization", "Bearer "+apikeyHubspot.replace("-.-.-.", ""));
 		  BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 		  String linea;
 		  while ((linea = rd.readLine()) != null) {
@@ -2130,7 +2144,7 @@ class HubspotDAO {
 	  List<String> lstNoHubspot = new ArrayList<String>();
 	  
 	  String jsonData = "";
-	  String urlParaVisitar = "https://api.hubapi.com/contacts/v1/contact/email/[EMAIL]/profile?hapikey=[APIKEY]";
+	  String urlParaVisitar = "https://api.hubapi.com/contacts/v1/contact/email/[EMAIL]/profile";
 	  StringBuilder strResultado = new StringBuilder();
 	  String linea = "";
 	  String errorlog = "";
@@ -2177,9 +2191,13 @@ class HubspotDAO {
 		  errorlog = errorlog + " | list load";
 		  
 		  //READ JSON
-		  URL url = new URL(urlParaVisitar.replace("[EMAIL]", nombreUsuario).replace("[APIKEY]", apikeyHubspot));
+		  URL url = new URL(urlParaVisitar.replace("[EMAIL]", nombreUsuario));
+		  //.replace("[APIKEY]", apikeyHubspot)
 		  HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 		  conexion.setRequestMethod("GET");
+		  conexion.setRequestProperty("content-type", "application/json");
+		  conexion.setRequestProperty("Accept-Encoding", "UTF-8");
+		  conexion.setRequestProperty("Authorization", "Bearer "+apikeyHubspot);
 		  BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 		  
 		  while ((linea = rd.readLine()) != null) {
