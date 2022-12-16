@@ -730,20 +730,23 @@ class ListadoDAO {
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 			errorlog = consulta + " 7";
 
-			pstm = con.prepareStatement(consulta);
-			pstm.setInt(1, object.limit);
-			pstm.setInt(2, object.offset);
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
 			
-			rs = pstm.executeQuery();
+			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			errorlog = consulta + " 8";
-			BannerRequestDAO bannerRequestDAO = new BannerRequestDAO();
 			while (rs.next()) {
+				BannerRequestDAO bannerRequestDAO = new BannerRequestDAO();
 				Result getBannerObject = bannerRequestDAO.getBannerInfo(rs.getString("idcampus"), rs.getString("idBanner"));
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-				columns.put("bannerInfo", getBannerObject);
+				
+				if(getBannerObject.isSuccess()) {
+					columns.put("bannerInfo", getBannerObject.getData().get(0));
+				}
 				
 				for (int i = 1; i <= columnCount; i++) {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));

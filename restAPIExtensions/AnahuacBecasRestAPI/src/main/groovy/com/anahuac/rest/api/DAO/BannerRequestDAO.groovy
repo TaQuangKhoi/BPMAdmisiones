@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair
 import org.apache.http.util.EntityUtils
 
 import com.anahuac.rest.api.DB.BannerWSInfo
+import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
 import com.google.gson.JsonArray;
@@ -33,11 +34,11 @@ class BannerRequestDAO {
 	
 	public Result getBannerInfo(String idCampus, String idbanner) {
 		Result result = new Result();
-		
+		Boolean closeCon = false;
 		try {
-			
+			closeCon = validarConexion();
 			pstm = con.prepareStatement(Statements.GET_BANNER_API_INFO);
-			pstm.setString(1, idCampus);
+			pstm.setLong(1, Long.valueOf(idCampus));
 			
 			rs = pstm.executeQuery();
 			
@@ -78,23 +79,43 @@ class BannerRequestDAO {
 				JsonObject resutadoBanner = new JsonParser().parse(jsonArray.get(0).getAsJsonObject().toString()).getAsJsonObject();
 				
 				BannerWSInfo bannerInfo = new BannerWSInfo();
-				bannerInfo.setAdmitido_a_medicina(jsonArray.get(0).getAsJsonObject().get("admitido_a_medicina").toString());
-				bannerInfo.setCarga_de_materias(jsonArray.get(0).getAsJsonObject().get("carga_de_materias").toString());
-				bannerInfo.setPago_de_inscripcion(jsonArray.get(0).getAsJsonObject().get("pago_de_inscripcion").toString());
-				bannerInfo.setPago_de_propedeutico(jsonArray.get(0).getAsJsonObject().get("pago_de_propedeutico").toString());
+				bannerInfo.setAdmitido_a_medicina(jsonArray.get(0).getAsJsonObject().get("admitido_a_medicina").toString().replaceAll("\"", ""));
+				bannerInfo.setCarga_de_materias(jsonArray.get(0).getAsJsonObject().get("carga_de_materias").toString().replaceAll("\"", ""));
+				bannerInfo.setPago_de_inscripcion(jsonArray.get(0).getAsJsonObject().get("pago_de_inscripcion").toString().replaceAll("\"", ""));
+				bannerInfo.setPago_de_propedeutico(jsonArray.get(0).getAsJsonObject().get("pago_de_propedeutico").toString().replaceAll("\"", ""));
 				List<BannerWSInfo> lstResult = new ArrayList<BannerWSInfo>();
 				lstResult.add(bannerInfo);
 				
 				result.setData(lstResult);
+				result.setSuccess(true);
 			} else {
 				throw new Exception("No se ha podido encontrar la configuración del campus ");
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+			result.setData(new ArrayList<?>());
+		} catch(Exception e){
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+			result.setData(new ArrayList<?>());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		
 		return result;
+	}
+	
+	public Boolean validarConexion() {
+		Boolean retorno = false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnection();
+			retorno = true
+		}
+		return retorno
 	}
 
 }
