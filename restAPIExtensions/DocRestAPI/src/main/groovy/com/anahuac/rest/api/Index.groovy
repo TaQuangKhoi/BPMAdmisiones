@@ -71,16 +71,31 @@ class Index implements RestApiController {
 				} else if(url.equals("pdfDatosAval") || url == "pdfDatosAval") {
 					String email = request.getParameter "email"
 					result = new PDFDocumentDAO().pdfDatosAval(email);
-//					result = new PDFDocumentDAO().getInfoAval(email);
 					
 					if(result.success) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
 					}
-				} 
-				
-				
+				} else if(url.equals("getSolicitudApoyo") || url == "getSolicitudApoyo") {
+					String email = request.getParameter "email"
+					String caseid = request.getParameter "caseid"
+					result = new PDFDocumentDAO().getSolicitudApoyo(email, caseid, context);
+					if(result.success) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+					}
+				} else if(url.equals("pdfSolicitudApoyo") || url == "pdfSolicitudApoyo") {
+					String email = request.getParameter "email"
+					String caseid = request.getParameter "caseid"
+					result = new PDFDocumentDAO().pdfSolicitudApoyo(email, caseid, context);
+					if(result.success) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+					}
+				}
 			}
 		}catch(Exception ex) {
 			jsonData = null
