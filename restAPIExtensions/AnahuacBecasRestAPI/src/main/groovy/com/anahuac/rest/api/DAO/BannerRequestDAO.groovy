@@ -83,6 +83,7 @@ class BannerRequestDAO {
 				bannerInfo.setCarga_de_materias(jsonArray.get(0).getAsJsonObject().get("carga_de_materias").toString().replaceAll("\"", ""));
 				bannerInfo.setPago_de_inscripcion(jsonArray.get(0).getAsJsonObject().get("pago_de_inscripcion").toString().replaceAll("\"", ""));
 				bannerInfo.setPago_de_propedeutico(jsonArray.get(0).getAsJsonObject().get("pago_de_propedeutico").toString().replaceAll("\"", ""));
+				bannerInfo.setPrograma_periodo_campus(jsonArray.get(0).getAsJsonObject().get("programa_periodo_campus").toString().replaceAll("\"", "")) 
 				List<BannerWSInfo> lstResult = new ArrayList<BannerWSInfo>();
 				lstResult.add(bannerInfo);
 				

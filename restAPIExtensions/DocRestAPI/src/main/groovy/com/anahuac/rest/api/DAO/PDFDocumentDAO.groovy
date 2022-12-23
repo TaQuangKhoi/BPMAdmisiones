@@ -1386,6 +1386,23 @@ class PDFDocumentDAO {
 			JRBeanCollectionDataSource autos = new JRBeanCollectionDataSource(lstAutos);
 			columns.put("autos", autos);
 			
+			pstm = con.prepareStatement(Statements.GET_IMAGENES_BY_CASEID);
+			pstm.setLong(1, Long.valueOf(caseId));
+			rs = pstm.executeQuery();
+			
+			Map < String, Object > imagen = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> lstImagenes = new ArrayList<Map < String, Object > >();
+			Boolean linea1 = true;
+			while (rs.next()) {
+				imagen = new LinkedHashMap < String, Object > ();
+				imagen.put("urlimagen", rs.getString("urlimagen") + SSA);
+				imagen.put("descripcion", rs.getString("descripcion"));
+				
+				lstImagenes.add(imagen);
+			}
+			JRBeanCollectionDataSource imagenes = new JRBeanCollectionDataSource(lstImagenes);
+			columns.put("imagenes", imagenes);
+			
 			resultado.setSuccess(true);
 			rows.add(columns);
 			resultado.setData(rows);

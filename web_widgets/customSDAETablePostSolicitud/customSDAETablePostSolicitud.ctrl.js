@@ -495,4 +495,25 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
     $scope.getCatCampus();
     
-  }
+    function downloadFile(_document) {
+        const linkSource = "data:application/pdf; base64,"+ _document;
+        const downloadLink = document.createElement("a");
+    
+        let fileName = "solicitud_de_apoyo_educativo.pdf";
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+    
+    
+    $scope.downloadFile = function(_email, _caseId){
+        let url = "../API/extension/DocAPI?pdf=pdfSolicitudApoyo&p=0&c=1&email=" + _email + "&caseid=" + _caseId;
+        $http.post(url, {}).success(function(success){
+            downloadFile(success.data[0]); 
+        }).error(function(err){
+           swal("Error", "No se ha podido generar el archivo, intentelo de nuevo mas tarde.", "error");
+        });
+    }
+    
+}

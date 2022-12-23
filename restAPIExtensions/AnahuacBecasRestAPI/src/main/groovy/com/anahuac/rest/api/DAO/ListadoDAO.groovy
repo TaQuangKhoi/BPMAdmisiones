@@ -35,6 +35,7 @@ import com.anahuac.model.DetalleSolicitudDAO
 import com.anahuac.model.ProcesoCasoDAO
 import com.anahuac.model.SolicitudDeAdmision
 import com.anahuac.model.SolicitudDeAdmisionDAO
+import com.anahuac.rest.api.DB.BannerWSInfo
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.catalogos.CatBachilleratosDAO
@@ -720,7 +721,6 @@ class ListadoDAO {
 			consultaCount = consultaCount.replace("[WHERE]", where);
 
 			pstm = con.prepareStatement(consultaCount)
-			//errorlog = consultaCount + " 6";
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -743,9 +743,24 @@ class ListadoDAO {
 				BannerRequestDAO bannerRequestDAO = new BannerRequestDAO();
 				Result getBannerObject = bannerRequestDAO.getBannerInfo(rs.getString("idcampus"), rs.getString("idBanner"));
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-				
 				if(getBannerObject.isSuccess()) {
 					columns.put("bannerInfo", getBannerObject.getData().get(0));
+					BannerWSInfo bannerInfo = (BannerWSInfo) getBannerObject.getData().get(0);
+					String infoEscolar = bannerInfo.getPrograma_periodo_campus();
+					String[] infoEscolarArray;
+					Map < String, Object > infoEscolarBanner = new LinkedHashMap < String, Object > ();
+					if(infoEscolar !=null ) {
+						infoEscolarArray = infoEscolar.split("/");
+						infoEscolarBanner.put("licenciatura", infoEscolarArray[0]);
+						infoEscolarBanner.put("periodo", infoEscolarArray[1]);
+						infoEscolarBanner.put("campus", infoEscolarArray[2]);
+						columns.put("infoEscolarBanner", infoEscolarBanner);
+					} else {
+						infoEscolarBanner.put("licenciatura", "");
+						infoEscolarBanner.put("periodo", "");
+						infoEscolarBanner.put("campus", "");
+						columns.put("infoEscolarBanner", infoEscolarBanner);
+					}
 				}
 				
 				for (int i = 1; i <= columnCount; i++) {
@@ -770,11 +785,6 @@ class ListadoDAO {
 								encoded = "../API/formsDocumentImage?document=" + doc.getId();
 								columns.put("fotografiabpm", encoded);
 							}
-
-							/*for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document="+doc.getId();
-								columns.put("fotografiab64", encoded);
-							} */
 						} catch (Exception e) {
 							LOGGER.error "[ERROR] " + e.getMessage();
 							columns.put("fotografiabpm", "");

@@ -30,6 +30,7 @@
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('PASOPROPEDEUTICO')">Paso propedéutico<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PASOPROPEDEUTICO'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('INSCRITO')">Inscrito o realizó pago<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='INSCRITO'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('TOMADEMATERIAS')">Toma de materias<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='TOMADEMATERIAS'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('PROGRAMA')">Programa <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROGRAMA'"></i> </span> / <span style="cursor:pointer" ng-click="setOrderBy('INGRESO')">Período de ingreso <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='INGRESO'"></i> </span> / <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus ingreso <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CAMPUS'"></i> </span> </th>
                 <th> Acciones</th>     
             </tr>
         </thead>
@@ -47,6 +48,7 @@
                 <td><input ng-model="dynamicInput['solicitud']" class="form-control" ng-enter="filterKeyPress('# EXPEDIENTE',dynamicInput['solicitud'])"></td>
                 <td><input ng-model="dynamicInput['solicitud']" class="form-control" ng-enter="filterKeyPress('# EXPEDIENTE',dynamicInput['solicitud'])"></td>
                 <td><input ng-model="dynamicInput['solicitud']" class="form-control" ng-enter="filterKeyPress('# EXPEDIENTE',dynamicInput['solicitud'])"></td>
+                <td></td>
                 <td></td>
             </tr>
             <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
@@ -105,6 +107,11 @@
                     <b>
                         {{!row.bannerInfo.carga_de_materias ? "N/A" : row.bannerInfo.carga_de_materias }}
                     </b>
+                </td>
+                 <td>
+                    <b>{{!row.infoEscolarBanner.licenciatura ? "N/A" : row.infoEscolarBanner.licenciatura }}</b><br>
+                    <b>{{!row.infoEscolarBanner.periodo ? "N/A" : row.infoEscolarBanner.periodo }}</b><br>
+                    <b>{{!row.infoEscolarBanner.campus ? "N/A" : row.infoEscolarBanner.campus }}</b>
                 </td>
                 <td class="text-center">
                     <!-- <button class="btn btn-default" ng-click="verSolicitud(row)">
