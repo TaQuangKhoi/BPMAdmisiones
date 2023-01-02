@@ -1072,7 +1072,7 @@ class PDFDocumentDAO {
 				Integer.valueOf(dateparts[0])
 			),  
 			LocalDate.of(
-				now.getYear(), 
+				now.getYear() + 1900, 
 				now.getMonth() + 1, 
 				now.getDate()
 			)
@@ -1179,6 +1179,7 @@ class PDFDocumentDAO {
 				nombre +=  " " + rs.getString("apellidopaterno");
 				nombre += rs.getString("apellidomaterno") ? " " + rs.getString("apellidomaterno") : "";
 				String fechaNac = buildDate(rs.getString("fechanacimiento"));
+				errorLog += " | fechaNac: " + fechaNac;
 				columns.put("urlFoto",  urlFoto + SSA);
 				columns.put("promedioPreparatoria", rs.getString("promediogeneral"));
 				columns.put("nombreAsp", nombre);
@@ -1198,7 +1199,7 @@ class PDFDocumentDAO {
 				columns.put("numExtAsp", rs.getString("idbanner"));
 				columns.put("cpAsp", rs.getString("cp"));
 				columns.put("paisAsp", rs.getString("pais"));
-				columns.put("telefono", rs.getString("idbanner"));
+				columns.put("telefonoAsp", rs.getString("telefono"));
 				columns.put("trabajasAsp", rs.getString("trabajas"));
 				columns.put("coloniaAsp", rs.getString("colonia"));
 				columns.put("ciudadAsp", rs.getString("ciudad"));
@@ -1284,42 +1285,40 @@ class PDFDocumentDAO {
 			while (rs.next()) {
 				columns.put("terrenoM2Casa", rs.getString("terrenom2casa"));
 				columns.put("casaDondeVives", rs.getString("casadondevives"));
-				columns.put("valorAproxCasa", rs.getString("valoraproxcasa"));
+				columns.put("valorAproxCasa", formatCurrency(rs.getString("valoraproxcasa")));
 				columns.put("construccionM2Casa", rs.getString("contruccionm2casa"));
-				columns.put("ingresoPadre", rs.getString("ingresopadre"));
-				columns.put("ingresoMadre", rs.getString("ingresomadre"));
-				columns.put("ingresoHermano", rs.getString("ingresohermano"));
-				columns.put("ingresoTio", rs.getString("ingresotio"));
-				columns.put("ingresoAbuelo", rs.getString("ingresoabuelo"));
-				columns.put("ingresoAspirante", rs.getString("ingresoaspirante"));
-				columns.put("ingresoOtro", rs.getString("ingresootro"));
-				columns.put("egresoRenta", rs.getString("egresorenta"));
-				columns.put("egresoServicios", rs.getString("egresoservicios"));
-				columns.put("egresoEducacion", rs.getString("egresoeducacion"));
-				columns.put("egresoGastosMedicos", rs.getString("egresogastosmedicos"));
-				columns.put("egresoAlimentacion", rs.getString("egresoalimentacion"));
-				columns.put("egresoVestido", rs.getString("egresovestido"));
-				columns.put("egresoSeguros", rs.getString("egresoseguro"));
-				columns.put("egresoDiversion", rs.getString("egresodiversion"));
-				columns.put("egresoAhorro", rs.getString("egresoahorro"));
-				columns.put("egresoCreditos", rs.getString("egresocreditos"));
-				columns.put("egresoOtro", rs.getString("egresootros"));
-				columns.put("totalIngresos", rs.getString("ingresototal"));
-				columns.put("totalEgresos", rs.getString("egresototal"));
+				columns.put("ingresoPadre", formatCurrency(rs.getString("ingresopadre")));
+				columns.put("ingresoMadre", formatCurrency(rs.getString("ingresomadre")));
+				columns.put("ingresoHermano", formatCurrency(rs.getString("ingresohermano")));
+				columns.put("ingresoTio", formatCurrency(rs.getString("ingresotio")));
+				columns.put("ingresoAbuelo", formatCurrency(rs.getString("ingresoabuelo")));
+				columns.put("ingresoAspirante", formatCurrency(rs.getString("ingresoaspirante")));
+				columns.put("ingresoOtro", formatCurrency(rs.getString("ingresootro")));
+				columns.put("egresoRenta", formatCurrency(rs.getString("egresorenta")));
+				columns.put("egresoServicios", formatCurrency(rs.getString("egresoservicios")));
+				columns.put("egresoEducacion", formatCurrency(rs.getString("egresoeducacion")));
+				columns.put("egresoGastosMedicos", formatCurrency(rs.getString("egresogastosmedicos")));
+				columns.put("egresoAlimentacion", formatCurrency(rs.getString("egresoalimentacion")));
+				columns.put("egresoVestido", formatCurrency(rs.getString("egresovestido")));
+				columns.put("egresoSeguros", formatCurrency(rs.getString("egresoseguro")));
+				columns.put("egresoDiversion", formatCurrency(rs.getString("egresodiversion")));
+				columns.put("egresoAhorro", formatCurrency(rs.getString("egresoahorro")));
+				columns.put("egresoCreditos", formatCurrency(rs.getString("egresocreditos")));
+				columns.put("egresoOtro", formatCurrency(rs.getString("egresootros")));
+				columns.put("totalIngresos", formatCurrency(rs.getString("ingresototal")));
+				columns.put("totalEgresos", formatCurrency(rs.getString("egresototal")));
 				columns.put("sexoTutor", rs.getString("sexoTutor"));
 				columns.put("provieneIngresosTutor", rs.getString("provieneningresos"));
 				columns.put("telefonoCelTutor", rs.getString("telefonocelulartutor"));
 				columns.put("telefonoOficinaTutor", rs.getString("telefonoOficinaTutor"));
-				columns.put("ingresoMensualTutor", rs.getString("ingresomensualnetotutor"));
+				columns.put("ingresoMensualTutor", formatCurrency(rs.getString("ingresomensualnetotutor")));
 				columns.put("telefonoOficinaPadre", desconozcoPadre ? "" : rs.getString("telefonooficinapadre"));
 				columns.put("telefonoCelularPadre", desconozcoPadre ? "" : rs.getString("telefonocasapadre"));
-				columns.put("ingresoMensualPadre", desconozcoPadre ? "" : rs.getString("ingresopadre"));
-//				columns.put("telefonoOficinaMadre", desconozcoMadre ? "" : rs.getString("telefonooficinamadre"));
-//				columns.put("telefonoCelularMadre", desconozcoMadre ? "" : rs.getString("telefonocasamadre"));
+				columns.put("ingresoMensualPadre", desconozcoPadre ? "" : formatCurrency(rs.getString("ingresopadre")));
 				columns.put("telefonoOficinaMadre", "");
 				columns.put("telefonoCelularMadre", "");
 				
-				columns.put("ingresoMensualMadre", desconozcoMadre ? "" : rs.getString("ingresomadre"));
+				columns.put("ingresoMensualMadre", desconozcoMadre ? "" : formatCurrency(rs.getString("ingresomadre")));
 				columns.put("colegiaturaAsp", rs.getString("colegiatura"));
 				columns.put("porcentajeBeca", rs.getString("porcentajebecaautorizacion") ? rs.getString("porcentajebecaautorizacion") : "");
 				columns.put("porcentajeFinan", rs.getString("porcentajecreditoautorizacion") ? rs.getString("porcentajecreditoautorizacion") : "");
@@ -1331,17 +1330,19 @@ class PDFDocumentDAO {
 			
 			Map < String, Object > bienRaiz = new LinkedHashMap < String, Object > ();
 			List<Map < String, Object >> lstBienesRaices = new ArrayList<Map < String, Object > >();
-			
+			Boolean mostrarBienesRaices = false;
 			while (rs.next()) {
+				mostrarBienesRaices = true;
 				bienRaiz = new LinkedHashMap < String, Object > ();
 				bienRaiz.put("descripcion", rs.getString("descripcion"));
 				bienRaiz.put("direccionbanco", rs.getString("direccionbanco"));
-				bienRaiz.put("valor", rs.getString("valor"));
+				bienRaiz.put("valor", formatCurrency(rs.getString("valor")));
 				bienRaiz.put("tipo", rs.getString("tipo"));
 				lstBienesRaices.add(bienRaiz);
 			}
 			JRBeanCollectionDataSource bienesRaices = new JRBeanCollectionDataSource(lstBienesRaices);
 			columns.put("bienesRaices", bienesRaices);
+			columns.put("mostrarBienesRaices", mostrarBienesRaices);
 			
 			pstm = con.prepareStatement(Statements.GET_HERMANOS_BY_CASEID);
 			pstm.setLong(1, Long.valueOf(caseId));
@@ -1349,8 +1350,9 @@ class PDFDocumentDAO {
 			
 			Map < String, Object > hermano = new LinkedHashMap < String, Object > ();
 			List<Map < String, Object >> lstHermanos = new ArrayList<Map < String, Object > >();
-			
+			Boolean mostrarHermanos = false;
 			while (rs.next()) {
+				mostrarHermanos = true;
 				hermano = new LinkedHashMap < String, Object > ();
 				hermano.put("nombres", rs.getString("nombres"));
 				hermano.put("apellidos", rs.getString("apellidos"));
@@ -1362,11 +1364,12 @@ class PDFDocumentDAO {
 				hermano.put("porcentajebecaasignado", rs.getString("porcentajebecaasignado"));
 				hermano.put("istrabaja", rs.getBoolean("istrabaja") ? "Sí": "No");
 				hermano.put("empresa", rs.getString("empresa"));
-				hermano.put("ingresomensual", rs.getString("ingresomensual"));
+				hermano.put("ingresomensual", formatCurrency(rs.getString("ingresomensual")));
 				lstHermanos.add(hermano);
 			}
 			JRBeanCollectionDataSource hermanos = new JRBeanCollectionDataSource(lstHermanos);
 			columns.put("hermanos", hermanos);
+			columns.put("mostrarHermanos", mostrarHermanos);
 			
 			pstm = con.prepareStatement(Statements.GET_AUTOS_BY_CASEID);
 			pstm.setLong(1, Long.valueOf(caseId));
@@ -1374,8 +1377,9 @@ class PDFDocumentDAO {
 			
 			Map < String, Object > auto = new LinkedHashMap < String, Object > ();
 			List<Map < String, Object >> lstAutos = new ArrayList<Map < String, Object > >();
-			
+			Boolean mostrarAutos = false;
 			while (rs.next()) {
+				mostrarAutos = true;
 				auto = new LinkedHashMap < String, Object > ();
 				auto.put("marca", rs.getString("marca"));
 				auto.put("modelo", rs.getString("modelo"));
@@ -1385,6 +1389,7 @@ class PDFDocumentDAO {
 			}
 			JRBeanCollectionDataSource autos = new JRBeanCollectionDataSource(lstAutos);
 			columns.put("autos", autos);
+			columns.put("mostrarAutos", mostrarAutos);
 			
 			pstm = con.prepareStatement(Statements.GET_IMAGENES_BY_CASEID);
 			pstm.setLong(1, Long.valueOf(caseId));
@@ -1392,16 +1397,35 @@ class PDFDocumentDAO {
 			
 			Map < String, Object > imagen = new LinkedHashMap < String, Object > ();
 			List<Map < String, Object >> lstImagenes = new ArrayList<Map < String, Object > >();
-			Boolean linea1 = true;
+			Boolean mostrarImagenes = false;
 			while (rs.next()) {
+				mostrarImagenes = true;
+				//Primera entrada al while es para la primera imagen (se muestran en doscolumnas)
 				imagen = new LinkedHashMap < String, Object > ();
 				imagen.put("urlimagen", rs.getString("urlimagen") + SSA);
 				imagen.put("descripcion", rs.getString("descripcion"));
+				//If es para la segunda columna (El objeto contiene las dos imagenes y los dos titulos)
+				if(rs.next()) {
+					imagen.put("urlimagen2", rs.getString("urlimagen") + SSA);
+					imagen.put("descripcion2", rs.getString("descripcion"));
+				}
 				
 				lstImagenes.add(imagen);
 			}
 			JRBeanCollectionDataSource imagenes = new JRBeanCollectionDataSource(lstImagenes);
 			columns.put("imagenes", imagenes);
+			columns.put("mostrarImagenes", mostrarImagenes);
+			
+			
+			//Puntuaciones
+			columns.put("v", "");
+			columns.put("n", "");
+			columns.put("rj", "");
+			columns.put("total", "");
+			
+			columns.put("fecha", "02/02/2023");//Dato faltante
+			columns.put("autoriza", "");//Dato faltante
+			columns.put("comentarioComite", "");//Dato que sale de la tabla autorizacion
 			
 			resultado.setSuccess(true);
 			rows.add(columns);
@@ -1418,5 +1442,13 @@ class PDFDocumentDAO {
 			}
 		}
 		return resultado
+	}
+	
+	private String formatCurrency(String input) {
+		if(input.equals("")) {
+			return "";
+		} else {
+			return "\$ " + input + ".00";
+		}
 	}
 }
