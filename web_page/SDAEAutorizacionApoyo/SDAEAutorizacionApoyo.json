@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1670365246995,
+  "lastUpdate" : 1672705839594,
   "rows" : [
     [
       {
@@ -1227,6 +1227,58 @@
                   }
                 ]
               ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<pre>{{ loggedUserName }}</pre>\n<pre>{{ formOutputFinal | json }}</pre> \n<pre>{{ formOutputFinalModificar | json }}</pre>\n<pre>{{ formOutputFinalRechazar | json }}</pre>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "5990f265-c630-4f7c-bc8f-c4042d175fe9",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -8529,6 +8581,7 @@
         "autorizacionInput.porcentajeCreditoAutorizacion = parseInt(autorizacionInput.porcentajeCreditoAutorizacion ? autorizacionInput.porcentajeCreditoAutorizacion : 0);\r",
         "autorizacionInput.porcentajeBecaAutorizacion = parseInt(autorizacionInput.porcentajeBecaAutorizacion ? autorizacionInput.porcentajeBecaAutorizacion : 0);\r",
         "autorizacionInput.caseid = parseInt($data.caseId);\r",
+        "autorizacionInput.usuarioAutoriza =  $data.loggedUserName;\r",
         "\r",
         "return {\r",
         "\t\"varAutorizadaInput\": $data.formInputAprobar.varAutorizadaInput,\r",
@@ -8545,6 +8598,7 @@
         "// autorizacionInput.porcentajeCreditoAutorizacion = parseInt(autorizacionInput.porcentajeCreditoAutorizacion ? autorizacionInput.porcentajeCreditoAutorizacion : 0);\r",
         "// autorizacionInput.porcentajeBecaAutorizacion = parseInt(autorizacionInput.porcentajeBecaAutorizacion ? autorizacionInput.porcentajeBecaAutorizacion : 0);\r",
         "autorizacionInput.caseid = parseInt($data.caseId);\r",
+        "autorizacionInput.usuarioAutoriza =  $data.loggedUserName;\r",
         "\r",
         "return {\r",
         "\t\"varAutorizadaInput\": false,\r",
@@ -8677,6 +8731,7 @@
         "autorizacionInput.porcentajeCreditoAutorizacion = parseInt(autorizacionInput.porcentajeCreditoAutorizacion ? autorizacionInput.porcentajeCreditoAutorizacion : 0);\r",
         "autorizacionInput.porcentajeBecaAutorizacion = parseInt(autorizacionInput.porcentajeBecaAutorizacion ? autorizacionInput.porcentajeBecaAutorizacion : 0);\r",
         "autorizacionInput.caseid = parseInt($data.caseId);\r",
+        "autorizacionInput.usuarioAutoriza =  $data.loggedUserName;\r",
         "\r",
         "return {\r",
         "\t\"varAutorizadaInput\": $data.formInputModificar.varAutorizadaInput,\r",
@@ -8698,6 +8753,27 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getSDAEGestionEscolar&p=0&c=100&id={{objSolicitudDeAdmision[0].catGestionEscolar.persistenceId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "loggedUserName" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "",
+        "if($data.user){",
+        "   output = $data.user.firstname + $data.user.lastname; ",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "user" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/user/{{userData.user_id}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

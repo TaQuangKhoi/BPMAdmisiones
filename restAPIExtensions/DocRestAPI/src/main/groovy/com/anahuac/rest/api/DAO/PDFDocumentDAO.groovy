@@ -1315,13 +1315,16 @@ class PDFDocumentDAO {
 				columns.put("telefonoOficinaPadre", desconozcoPadre ? "" : rs.getString("telefonooficinapadre"));
 				columns.put("telefonoCelularPadre", desconozcoPadre ? "" : rs.getString("telefonocasapadre"));
 				columns.put("ingresoMensualPadre", desconozcoPadre ? "" : formatCurrency(rs.getString("ingresopadre")));
-				columns.put("telefonoOficinaMadre", "");
-				columns.put("telefonoCelularMadre", "");
-				
+				columns.put("telefonoOficinaMadre", desconozcoMadre ? "" : rs.getString("telefonooficinamadre"));
+				columns.put("telefonoCelularMadre", desconozcoPadre ? "" : rs.getString("telefonocasamadre"));
 				columns.put("ingresoMensualMadre", desconozcoMadre ? "" : formatCurrency(rs.getString("ingresomadre")));
 				columns.put("colegiaturaAsp", rs.getString("colegiatura"));
 				columns.put("porcentajeBeca", rs.getString("porcentajebecaautorizacion") ? rs.getString("porcentajebecaautorizacion") : "");
 				columns.put("porcentajeFinan", rs.getString("porcentajecreditoautorizacion") ? rs.getString("porcentajecreditoautorizacion") : "");
+				String fechaAutoriza = buildDate(rs.getString("fechaautorizacion"));
+				columns.put("fecha", fechaAutoriza);
+				columns.put("autoriza", rs.getString("usuarioautoriza"));
+				columns.put("comentarioComite", rs.getString("cambiosSolicitudAutorizacionText"));
 			}
 			
 			pstm = con.prepareStatement(Statements.GET_BIENES_RAICES_BY_CASEID);
@@ -1422,10 +1425,6 @@ class PDFDocumentDAO {
 			columns.put("n", "");
 			columns.put("rj", "");
 			columns.put("total", "");
-			
-			columns.put("fecha", "02/02/2023");//Dato faltante
-			columns.put("autoriza", "");//Dato faltante
-			columns.put("comentarioComite", "");//Dato que sale de la tabla autorizacion
 			
 			resultado.setSuccess(true);
 			rows.add(columns);
