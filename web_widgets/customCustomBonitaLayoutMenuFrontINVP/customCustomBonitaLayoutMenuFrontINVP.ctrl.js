@@ -89,7 +89,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     }
 
     ctrl.validateUrl = function(appToken) {
-        debugger;
         let outputToken = appToken;
 
         if (appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Llenar solicitud") {
@@ -145,7 +144,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     };
 
     ctrl.redirectToPage = function(token) {
-        debugger;
         var previousToken = ctrl.pageToken;
         var previousPath = window.location.pathname;
         if (token == "autodescripcion") {
@@ -216,7 +214,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     });
 
     function parseCurrentURL() {
-        debugger;
         var pathArray = $window.location.pathname.split('/');
         ctrl.applicationToken = pathArray[pathArray.length - 3];
         ctrl.pageToken = pathArray[pathArray.length - 2];
@@ -236,7 +233,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     }
 
     function setTargetedUrl() {
-        debugger;
         // angular hack to force the variable bound to refresh
         // so we change it's value to undefined and then delay to the correct value
         $scope.properties.targetUrl = undefined;
@@ -256,7 +252,6 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     }
 
     function setApplication() {
-        debugger;
         var application = $scope.properties.application;
         ctrl.applicationToken = application.token;
         if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {

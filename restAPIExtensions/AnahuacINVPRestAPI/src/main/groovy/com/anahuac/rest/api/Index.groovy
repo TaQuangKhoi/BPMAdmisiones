@@ -1,11 +1,13 @@
 package com.anahuac.rest.api;
 
 import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 import org.apache.http.HttpHeaders
+import org.bonitasoft.engine.bpm.process.ProcessInstance
 import org.bonitasoft.web.extension.ResourceProvider
 import org.bonitasoft.web.extension.rest.RestApiResponse
 import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
@@ -49,6 +51,7 @@ class Index implements RestApiController {
 		//VARIABLES DAO=======================================================
 		UsuariosDAO uDAO = new UsuariosDAO();
 		RespuestasExamenDAO rexa = new RespuestasExamenDAO();
+		LoginSesionesDAO lses = new LoginSesionesDAO();
 		//MAPEO DE SERVICIOS==================================================
 		String jsonData = "{}"
 		try {
@@ -143,9 +146,61 @@ class Index implements RestApiController {
 				result.setError(ou.getMessage())
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 			}
-			break;case "updateRespuesta":
+			break;
+			case "updateRespuesta":
 			try{
 				result =  rexa.updateRespuesta(jsonData, context);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
+			case "instantiation":
+			String errorlog = " "
+			try {
+				errorlog = "[1] "
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				//assert object instanceof Map
+				Map<String, Serializable> contract = new HashMap<String, Serializable>();
+
+				contract.put("idUsuarioInput",Long.valueOf(object.idUsuarioInput))
+				errorlog+="[5] "
+				Long processId = context.getApiClient().getProcessAPI().getLatestProcessDefinitionId("Examen INVP");
+				errorlog+="[6] " + contract.toMapString()
+				ProcessInstance processInstance = context.getApiClient().getProcessAPI().startProcessWithInputs(processId, contract);
+				errorlog+="[7] "
+				Long caseId = processInstance.getRootProcessInstanceId();
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK,"{\"caseId\": "+caseId+"}")
+				}catch(Exception ex) {
+					result.setSuccess(false)
+					result.setError(ex.getMessage())
+					result.setError_info(errorlog)
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+			break;
+			case "updateSesion":
+			try{
+				result =  lses.updateUsuarioSesion(jsonData);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			case "getSesionActiva":
+			try{
+				result =  lses.getSesionActiva(jsonData);
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 				}else {

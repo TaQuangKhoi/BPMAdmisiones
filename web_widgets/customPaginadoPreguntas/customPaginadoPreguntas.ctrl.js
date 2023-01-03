@@ -8,6 +8,7 @@ function($scope, $http) {
     $scope.contestado = false;
     $scope.contestadoanterior = false;
     $scope.objcontestada = {};
+    $scope.isseleccion = false;
     $scope.$watch('properties.value', function() {
         if ($scope.properties.value != undefined) {
             $scope.loadPaginado();
@@ -25,6 +26,10 @@ function($scope, $http) {
             $scope.finalP = $scope.valorTotal;
         }
         for (var i = $scope.iniciarP; i <= $scope.finalP; i++) {
+
+            $scope.properties.lstContestadas.sort(function(a, b) {
+              return a - b;
+            });
 
             for (var x = 0; x <= $scope.properties.lstContestadas.length; x++) {
                 if ($scope.properties.lstContestadas[x] === i) {
@@ -66,54 +71,55 @@ function($scope, $http) {
             $scope.lstPaginado.push(obj);
             $scope.contestadoanterior = false;
         }
-        
-        if($scope.properties.respuestaExamen !== null && $scope.properties.respuestaExamen !== undefined){
-             let contestadas = {
-                 "pregunta":$scope.properties.objRespuesta.pregunta,
-                 "respuesta": $scope.properties.objRespuesta.respuesta
-             }
-             
-             let entro = false;
-             let cambiorespuesta = false;
-             for(var i=0;i<$scope.properties.objPreguntasContestadas.length;i++){
-                if(contestadas.pregunta === $scope.properties.objPreguntasContestadas[i].pregunta){
-                    if($scope.properties.objPreguntasContestadas[i].respuesta != contestadas.respuesta){
+
+        if ($scope.properties.respuestaExamen !== null && $scope.properties.respuestaExamen !== undefined) {
+            let contestadas = {
+                "pregunta": $scope.properties.objRespuesta.pregunta,
+                "respuesta": $scope.properties.objRespuesta.respuesta
+            }
+
+            let entro = false;
+            let cambiorespuesta = false;
+            for (var i = 0; i < $scope.properties.objPreguntasContestadas.length; i++) {
+                if (contestadas.pregunta === $scope.properties.objPreguntasContestadas[i].pregunta) {
+                    if ($scope.properties.objPreguntasContestadas[i].respuesta != contestadas.respuesta) {
                         cambiorespuesta = true;
                         $scope.properties.objPreguntasContestadas[i].respuesta = contestadas.respuesta
                     }
-                   
-                   entro = true
-                   break;
+
+                    entro = true
+                    break;
                 }
             }
-            
-            if(!entro){
-                 $scope.properties.objPreguntasContestadas.push(contestadas);
+
+            if (!entro) {
+                $scope.properties.objPreguntasContestadas.push(contestadas);
             }
-            
-            if(entro && cambiorespuesta){
+            console.log("guardar pregunta")
+            if (entro && cambiorespuesta) {
                 $scope.updateRespuesta();
-            }else if(!entro){
+            } else if (!entro) {
                 $scope.insertRespuesta();
             }
+            $scope.isseleccion = false;
             // $scope.properties.objPreguntasContestadas.push(contestadas);
             // $scope.insertRespuesta();
         }
 
         let havevalor = false;
 
-        for(var i=0;i<$scope.properties.objPreguntasContestadas.length;i++){
-            if($scope.properties.valorSeleccionado === $scope.properties.objPreguntasContestadas[i].pregunta){
+        for (var i = 0; i < $scope.properties.objPreguntasContestadas.length; i++) {
+            if ($scope.properties.valorSeleccionado === $scope.properties.objPreguntasContestadas[i].pregunta) {
                 $scope.properties.respuesta = $scope.properties.objPreguntasContestadas[i].respuesta;
                 havevalor = true;
                 break;
             }
         }
-        
-        if(!havevalor){
+
+        if (!havevalor) {
             $scope.properties.respuestaExamen = null;
         }
-        
+
     }
 
     $scope.siguiente = function() {
@@ -149,15 +155,16 @@ function($scope, $http) {
     }
 
     $scope.seleccionarPagina = function(valorSeleccionado) {
+        debugger;
+        $scope.isseleccion = true;
         $scope.objcontestada = angular.copy($scope.properties.objRespuesta);
         if ($scope.properties.respuestaExamen !== null && $scope.properties.respuestaExamen !== undefined) {
-            debugger;
             $scope.contestado = true;
-            if($scope.properties.lstContestadas.length != 0){
-                if(!($scope.properties.lstContestadas.indexOf($scope.properties.valorSeleccionado) >= 0)){
+            if ($scope.properties.lstContestadas.length != 0) {
+                if (!($scope.properties.lstContestadas.indexOf($scope.properties.valorSeleccionado) >= 0)) {
                     $scope.properties.lstContestadas.push($scope.properties.valorSeleccionado);
                 }
-            }else{
+            } else {
                 $scope.properties.lstContestadas.push($scope.properties.valorSeleccionado);
             }
         } else {
@@ -175,58 +182,93 @@ function($scope, $http) {
 
         $scope.loadPaginado();
     }
-    
-    $scope.insertRespuesta = function () {
-    //vm.busy = true;
 
-    debugger;
-    var req = {
-      method: "POST",
-      url: "../API/extension/AnahuacINVPRestAPI?url=insertRespuesta&p=0&c=10",
-      data: $scope.objcontestada
-    };
+    $scope.insertRespuesta = function() {
+        //vm.busy = true;
 
-    return $http(req)
-      .success(function(data, status) {
-        $scope.properties.dataFromSuccess = true;
-        $scope.properties.responseStatusCode = status;
-        $scope.properties.dataFromError = undefined;
-      })
-      .error(function(data, status) {
-        $scope.properties.dataFromError = data;
-        $scope.properties.responseStatusCode = status;
-        $scope.properties.dataFromSuccess = undefined;
-       // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
-      })
-      .finally(function() {
-        //vm.busy = false;
-      });
-  }
-  
-   $scope.updateRespuesta = function () {
-    //vm.busy = true;
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=insertRespuesta&p=0&c=10",
+            data: $scope.objcontestada
+        };
 
-    debugger;
-    var req = {
-      method: "POST",
-      url: "../API/extension/AnahuacINVPRestAPI?url=updateRespuesta&p=0&c=10",
-      data: $scope.objcontestada
-    };
+        return $http(req)
+            .success(function(data, status) {
+                $scope.properties.dataFromSuccess = true;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+            })
+            .error(function(data, status) {
+                 Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                    html:'Hay un problema de conexión favor de intentar nuevamente.', showCloseButton: false
+                });
+                /*$scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;*/
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
+            })
+            .finally(function() {
+                //vm.busy = false;
+            });
+    }
 
-    return $http(req)
-      .success(function(data, status) {
-        $scope.properties.dataFromSuccess = true;
-        $scope.properties.responseStatusCode = status;
-        $scope.properties.dataFromError = undefined;
-      })
-      .error(function(data, status) {
-        $scope.properties.dataFromError = data;
-        $scope.properties.responseStatusCode = status;
-        $scope.properties.dataFromSuccess = undefined;
-        //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
-      })
-      .finally(function() {
-        //vm.busy = false;
-      });
-  }
+    $scope.updateRespuesta = function() {
+        //vm.busy = true;
+
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=updateRespuesta&p=0&c=10",
+            data: $scope.objcontestada
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.properties.dataFromSuccess = true;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+            })
+            .error(function(data, status) {
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                    html:'Hay un problema de conexión favor de intentar nuevamente.', showCloseButton: false
+                });
+                /*$scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;*/
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
+            })
+            .finally(function() {
+                //vm.busy = false;
+            });
+    }
+
+    $scope.$watch("properties.reload", function() {
+        if ($scope.properties.reload !== undefined) {
+            $scope.loadPaginado();
+        }
+    });
+
+  /*  $scope.$watch("properties.respuesta", function() {
+        debugger;
+        if ($scope.properties.respuesta !== undefined && $scope.properties.respuesta !== null) {
+            if (!$scope.isseleccion) {
+                $scope.objcontestada = angular.copy($scope.properties.objRespuesta);
+               // $scope.properties.valorSeleccionado = $scope.properties.valorSeleccionado + 1;
+
+                for (var i in $scope.lstPaginado) {
+                    if ($scope.lstPaginado[i].numero == $scope.properties.valorSeleccionado) {
+                        $scope.properties.inicio = ($scope.lstPaginado[i].numero - 1);
+                        $scope.properties.fin = $scope.lstPaginado[i].fin;
+                        $scope.valorSeleccionado = $scope.lstPaginado[i].numero +1;
+                    }
+                }
+                $scope.loadPaginado();
+            }
+        }
+    });*/
 }

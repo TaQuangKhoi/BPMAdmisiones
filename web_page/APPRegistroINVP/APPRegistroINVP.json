@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "APPRegistroINVP",
   "name" : "APPRegistroINVP",
-  "lastUpdate" : 1671211342946,
+  "lastUpdate" : 1672703687355,
   "rows" : [
     [
       {
@@ -493,6 +493,58 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<pre>{{formInput}} | json</pre>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "d91f6fd0-6dc5-4a56-bff3-99972f2fa01d",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
                             "md" : 4,
                             "lg" : 4
                           },
@@ -775,7 +827,7 @@
                 },
                 "targetUrl" : {
                   "type" : "constant",
-                  "value" : "/bonita/apps/login/admisiones/"
+                  "value" : "/bonita/apps/aspiranteinvp/presentar/"
                 },
                 "pageToken" : {
                   "type" : "constant"
@@ -4738,6 +4790,7 @@
     "validar" : {
       "type" : "expression",
       "value" : [
+        "debugger;\r",
         "var validado = true;\r",
         "// $data.strRegistro.error = false;\r",
         "// const re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\r",
@@ -4842,7 +4895,12 @@
         "        $data.campoError = \"Correo electrónico\";\r",
         "        $data.erroMessage = \"El correo electronico no esta correcto\";\r",
         "    }\r",
-        "}else {\r",
+        "} else if($data.strRegistro.idioma == null){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Idioma\";\r",
+        "    $data.erroMessage = \"El campo Idioma no debe estar vacío.\";\r",
+        "} else {\r",
         "    validado = true;\r",
         "    $data.strRegistro.Validado = validado;\r",
         "    $data.strRegistro.error = false;\r",
@@ -4951,6 +5009,24 @@
         "\r",
         "if($data.strRegistro.ApellidoMaterno != null && $data.strRegistro.ApellidoMaterno.trim().length>0){\r",
         "    $data.strRegistro.ApellidoMaterno = capitalizeName($data.strRegistro.ApellidoMaterno);\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "setCampusEstudio" : {
+      "type" : "expression",
+      "value" : [
+        "$data.formInput.catCampus.persistenceId_string = $data.formInput.catCampusEstudio.persistenceId_string;"
+      ],
+      "exposed" : false
+    },
+    "setlugarexamen" : {
+      "type" : "expression",
+      "value" : [
+        "for(var x=0; x<$data.CatLugarExamen.length; x++){",
+        "    if($data.CatLugarExamen[x].descripcion === \"En el mismo campus en donde realizaré mi licenciatura\"){",
+        "        $data.formInput.catSolicitudDeAdmisionInput.catLugarExamen = $data.CatLugarExamen[x];",
+        "    }",
         "}"
       ],
       "exposed" : false

@@ -122,8 +122,8 @@ class RespuestasExamenDAO {
 				pstm = con.prepareStatement(Statements.INSERT_RESPUESTA_EXAMEN, Statement.RETURN_GENERATED_KEYS)
 				pstm.setLong(1, object.pregunta);
 				pstm.setBoolean(2, object.respuesta);
-				pstm.setLong(3,object.caseid);
-				pstm.setLong(4,object.idusuario);
+				pstm.setLong(3,Long.valueOf(object.caseid));
+				pstm.setLong(4,Long.valueOf(object.idusuario));
 				
 				pstm.executeUpdate();
 				

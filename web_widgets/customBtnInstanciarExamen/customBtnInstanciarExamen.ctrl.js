@@ -73,9 +73,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        debugger;
+        var prom = doRequest('POST', '../API/extension/AnahuacINVPRestAPI?url=instantiation&p=0&c=10', getUserParam()).then(function() {
+                //$scope.properties.inicioexamen = true;
+
+                //localStorageService.delete($window.location.href);
+            });
+        //../API/extension/AnahuacINVPRestAPI?url=insertRespuesta&p=0&c=10
         //var id = getUrlParam('id');
-        var id = $scope.properties.ProcessId;
+        /*var id = $scope.properties.ProcessId;
         if (id) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.ProcessId + '/instantiation', getUserParam()).then(function() {
                 debugger;
@@ -86,7 +91,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         } else {
             $log.log('Impossible to retrieve the process definition id value from the URL');
-        }
+        }*/
     }
 
     /**
@@ -95,6 +100,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
+        debugger;
         vm.busy = true;
         var req = {
             method: method,
@@ -108,8 +114,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
-                //data.caseId
                 insertCase(data.caseId);
+                //$window.location.assign($scope.properties.targetUrlOnSuccess);
+               /* if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                     redirectIfNeeded();
+                }*/
+                //$window.location.assign($scope.properties.targetUrlOnSuccess);
+                //redirectIfNeeded();
+                //data.caseId
+                //insertCase(data.caseId);
                /* notifyParentFrame({
                     message: 'success',
                     status: status,
@@ -118,7 +131,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     responseStatusCode: status
                 });
                 if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    // redirectIfNeeded();
+                     redirectIfNeeded();
                 }
                 closeModal($scope.properties.closeOnSuccess);*/
             })
@@ -196,18 +209,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function insertCase(caseid) {
+        debugger;
         vm.busy = true;
 
         var data = {
-            "pregunta": null,
-            "caseid": caseid,
-            "respuesta": null,
-            "idUsuario": $scope.properties.userData.user_id
+            "pregunta": 0,
+            "caseid": Number(caseid),
+            "respuesta": false,
+            "idusuario": $scope.properties.userData.user_id
         }
 
         var req = {
-            method: POST,
-            url: url,
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=insertRespuesta&p=0&c=10",
             data: data
         };
 
@@ -216,14 +230,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromSuccess = true;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                //notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
-                //if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                // redirectIfNeeded();
-                //}
-                //closeModal($scope.properties.closeOnSuccess);
+                window.top.location.href = $scope.properties.targetUrlOnSuccess;
             })
             .error(function(data, status) {
                 $scope.properties.dataFromError = data;

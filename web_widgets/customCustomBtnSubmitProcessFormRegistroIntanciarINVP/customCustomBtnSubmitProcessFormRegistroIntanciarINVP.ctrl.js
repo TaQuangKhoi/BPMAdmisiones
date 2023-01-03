@@ -5,7 +5,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        debugger;
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
             closeModal($scope.properties.closeOnSuccess);
@@ -26,20 +25,29 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataToSend.catRegistroInput.isEliminado = false;
             $scope.properties.dataToSend.catRegistroInput.ayuda = $scope.properties.strRegistro.Ayuda;
 
-            $scope.strBonita = {
-                "nombreusuario": $scope.properties.strRegistro.CorreoElectronico,
-                "nombre": $scope.properties.strRegistro.PrimerNombre + " " + $scope.properties.strRegistro.SegundoNombre,
-                "apellido": $scope.properties.strRegistro.ApellidoPaterno + " " + $scope.properties.strRegistro.ApellidoMaterno,
-                "password": $scope.properties.strRegistro.Password,
-                "campus": $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampus.grupoBonita,
-                "numeroContacto":$scope.properties.strRegistro.numeroContacto,
-                "idioma": $scope.properties.strRegistro.idioma.clave
-            }
+            $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampus = $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampusEstudio;
 
             if (!$scope.properties.strRegistro.Validado || $scope.properties.strRegistro.error) {
                 swal("¡" + $scope.properties.campoError + "!", $scope.properties.erroMessage, "warning");
                 blockUI.stop();
             } else {
+                $scope.strBonita = {
+                    "nombreusuario": $scope.properties.strRegistro.CorreoElectronico,
+                    "nombre": $scope.properties.strRegistro.PrimerNombre + " " + $scope.properties.strRegistro.SegundoNombre,
+                    "apellido": $scope.properties.strRegistro.ApellidoPaterno + " " + $scope.properties.strRegistro.ApellidoMaterno,
+                    "password": $scope.properties.strRegistro.Password,
+                    "campus": $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampus.grupoBonita,
+                    "numeroContacto":$scope.properties.strRegistro.numeroContacto,
+                    "idioma": $scope.properties.strRegistro.idioma.clave
+                }
+                
+                
+                if($scope.properties.dataToSend.catSolicitudDeAdmisionInput.catPropedeutico !== null){
+                    if($scope.properties.dataToSend.catSolicitudDeAdmisionInput.catPropedeutico.persistenceId_string === ""){
+                        $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catPropedeutico = null;
+                    }
+                }
+                
                 var req = {
                     method: "GET",
                     url: "../API/extension/AnahuacINVPRestGet?url=getDatosUsername&p=0&c=10&username=" + $scope.properties.strRegistro.CorreoElectronico
@@ -51,8 +59,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("Error", "Este correo electrónico ya está registrado.", "error");
                                 blockUI.stop();
                             } else {
-                                //startProcess();
-                                $scope.registrarBonita();
+                                startProcess();
+                                //$scope.registrarBonita();
                             }
                         }
                     }).error(function(data, status) {
@@ -164,9 +172,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else {*/
                 if (data.success) {
                     console.log("Modificación de información en registrar bonita");
-                    $scope.properties.navigationVar = "formSuccess";
+                    //login();
+                    $scope.updateSesionActiva();
+                    /*$scope.properties.navigationVar = "formSuccess";
                     blockUI.stop();
-                    redirectIfNeeded();
+                    redirectIfNeeded();*/
                 } else {
                     swal("Error", JSON.stringify(data.error), "error");
                     blockUI.stop();
@@ -302,5 +312,64 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
+    }
+    
+    function login() {
+
+        vm.busy = true;
+
+    
+        let data = "redirect=false&username=" + $scope.properties.strRegistro.CorreoElectronico + "&password=" + $scope.properties.strRegistro.Password;
+
+        // let url2 = "/bonita/loginservice?&redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
+      
+        let url2 = "/bonita/loginservice";
+
+        var req = {
+            method: 'POST',
+            url: url2,
+            data: data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        };
+      
+        return $http(req).success(function(data, status) {
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            $scope.properties.navigationVar = "formSuccess";
+            blockUI.stop();
+            redirectIfNeeded();
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
+        .finally(function() {
+            $scope.hideLoading();
+            vm.busy = false;
+        });
+    }
+
+    $scope.updateSesionActiva = function() {
+
+        let data = {
+            "username": $scope.properties.strRegistro.CorreoElectronico,
+            "havesesion": true
+        }
+
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacINVPRestAPI?url=updateSesion&p=0&c=10",
+            data: data
+        };
+
+        return $http(req).success(function(data, status) {
+                //$scope.properties.navigationVar = "formSuccess";
+                login();
+            })
+            .error(function(data, status) {
+                login();
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {});
     }
 }

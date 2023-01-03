@@ -13,11 +13,13 @@
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_PSuYSWRNEe25vplGuJ9kyw" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_PSuYSmRNEe25vplGuJ9kyw" name="" content="" returnTypeFixed="true"/>
           <operations xmi:type="expression:Operation" xmi:id="_bam_IHZsEe23W5vlPH-1Ww">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_bam_IXZsEe23W5vlPH-1Ww" name="isTerminado" content="isTerminado" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
-              <referencedElements xmi:type="process:Data" xmi:id="_byO08HZsEe23W5vlPH-1Ww" name="isTerminado" dataType="_PSuYbGRNEe25vplGuJ9kyw"/>
+            <leftOperand xmi:type="expression:Expression" xmi:id="_bam_IXZsEe23W5vlPH-1Ww" name="isTerminadoExamen" content="isTerminadoExamen" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_byO08HZsEe23W5vlPH-1Ww" name="isTerminadoExamen" dataType="_PSuYbGRNEe25vplGuJ9kyw"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_bam_InZsEe23W5vlPH-1Ww" name="newScript()" content="isTerminado" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
-              <referencedElements xmi:type="process:Data" xmi:id="_dYOiYHZsEe23W5vlPH-1Ww" name="isTerminado" dataType="_PSuYbGRNEe25vplGuJ9kyw"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_bam_InZsEe23W5vlPH-1Ww" name="newScript()" content="return isTerminado" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_JgYoQIC_Ee22aeOoS9jjqQ" name="isTerminado" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_JgYoQYC_Ee22aeOoS9jjqQ"/>
+              </referencedElements>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_bam_I3ZsEe23W5vlPH-1Ww" type="ASSIGNMENT"/>
           </operations>
@@ -26,8 +28,8 @@
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_PSuYTWRNEe25vplGuJ9kyw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_PSuYTmRNEe25vplGuJ9kyw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_PSuYT2RNEe25vplGuJ9kyw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <formMapping xmi:type="process:FormMapping" xmi:id="_PSuYUGRNEe25vplGuJ9kyw">
-            <targetForm xmi:type="expression:Expression" xmi:id="_Hyq5wHZtEe23W5vlPH-1Ww" name="newForm10" content="1db4c52d-58d1-4dfe-b5d5-7ae519911a0c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+          <formMapping xmi:type="process:FormMapping" xmi:id="_PSuYUGRNEe25vplGuJ9kyw" type="NONE">
+            <targetForm xmi:type="expression:Expression" xmi:id="_3RjzEICMEe2zhu1R19fm8w" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <filters xmi:type="process:ActorFilter" xmi:id="_YkR-EHcjEe2qwoQvXXiD9w" name="Iniciador" definitionId="bonita-actorfilter-initiator" definitionVersion="1.0">
             <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_YkR-EXcjEe2qwoQvXXiD9w" definitionId="bonita-actorfilter-initiator" version="1.0">
@@ -54,7 +56,7 @@
           <stepSummary xmi:type="expression:Expression" xmi:id="_qmLiY2RNEe25vplGuJ9kyw" name="" content="" returnTypeFixed="true"/>
         </elements>
       </elements>
-      <data xmi:type="process:Data" xmi:id="_hl-GIGRNEe25vplGuJ9kyw" name="isTerminado" dataType="_PSuYbGRNEe25vplGuJ9kyw">
+      <data xmi:type="process:Data" xmi:id="_hl-GIGRNEe25vplGuJ9kyw" name="isTerminadoExamen" dataType="_PSuYbGRNEe25vplGuJ9kyw">
         <defaultValue xmi:type="expression:Expression" xmi:id="_hl-GIWRNEe25vplGuJ9kyw" content="" returnType="java.lang.Boolean"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_sHLVMHaPEe23W5vlPH-1Ww" name="respuesta" multiple="true" dataType="_PSuYdGRNEe25vplGuJ9kyw" className="com.anahuac.invp.RespuestasExamen">
@@ -101,8 +103,8 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_m8k-cGRNEe25vplGuJ9kyw" target="_qmLiYGRNEe25vplGuJ9kyw" source="_ihJ8AGRNEe25vplGuJ9kyw">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_m8k-cWRNEe25vplGuJ9kyw"/>
-        <condition xmi:type="expression:Expression" xmi:id="_m8k-cmRNEe25vplGuJ9kyw" name="newScript()" content="isTerminado" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
-          <referencedElements xmi:type="process:Data" xmi:id="_xKHJcGRNEe25vplGuJ9kyw" name="isTerminado" dataType="_PSuYbGRNEe25vplGuJ9kyw"/>
+        <condition xmi:type="expression:Expression" xmi:id="_m8k-cmRNEe25vplGuJ9kyw" name="newScript()" content="return isTerminadoExamen" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:Data" xmi:id="_acYnsIABEe2JxqJMmaFakA" name="isTerminadoExamen" dataType="_PSuYbGRNEe25vplGuJ9kyw"/>
         </condition>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_VAArMGRNEe25vplGuJ9kyw" name="Aspirante" initiator="true"/>
@@ -117,17 +119,8 @@
             <users xmi:type="actormapping:Users" xmi:id="_izvI1XZsEe23W5vlPH-1Ww"/>
           </actorMapping>
         </actorMappings>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_3lq-EHcZEe2qwoQvXXiD9w" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.2.0" implementationId="rest-get-impl" implementationVersion="1.2.0"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_zs_xcHcbEe2qwoQvXXiD9w" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.3.0" implementationId="rest-post-impl" implementationVersion="1.2.0"/>
         <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_ZhkswHcjEe2qwoQvXXiD9w" type="ACTOR_FILTER" definitionId="bonita-actorfilter-initiator" definitionVersion="1.0" implementationId="bonita-actorfilter-initiator-impl" implementationVersion="1.0.0"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_izt6sXZsEe23W5vlPH-1Ww" id="CONNECTOR">
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_3mA8UHcZEe2qwoQvXXiD9w" id="rest-get-impl-1.2.0">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_3mDYkHcZEe2qwoQvXXiD9w" key="rest-get-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
-          </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_zxczoHcbEe2qwoQvXXiD9w" id="rest-post-impl-1.2.0">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_zxeo0HcbEe2qwoQvXXiD9w" key="rest-post-impl -- 1.2.0" value="bonita-connector-rest-1.2.0.jar" type="CONNECTOR"/>
-          </children>
-        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_izt6sXZsEe23W5vlPH-1Ww" id="CONNECTOR"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_izt6snZsEe23W5vlPH-1Ww" id="GROOVY_SCRIPT"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_izt6s3ZsEe23W5vlPH-1Ww" id="ACTOR_FILTER">
           <children xmi:type="configuration:FragmentContainer" xmi:id="_ZiBYsHcjEe2qwoQvXXiD9w" id="bonita-actorfilter-initiator-impl-1.0.0">

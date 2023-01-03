@@ -14,7 +14,41 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action === 'Start process') {
       startProcess();
     } else if ($scope.properties.action === 'Submit task') {
-      submitTask();
+        debugger;
+        if($scope.properties.idioma === "ENG"){
+            swal({
+            title: "Are you sure you want to finish the exam?",
+            text: "Once finished you will not be able to continue.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+         })
+          .then((willDelete) => {
+            if (willDelete) {
+             submitTask();
+            } else {
+              
+            }
+          });
+        } else if($scope.properties.idioma === "ESP"){
+            swal({
+            title: "¿Estás seguro que deseas terminar el examen?",
+            text: "Una vez terminado no podrás continuar.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+         })
+          .then((willDelete) => {
+            if (willDelete) {
+             submitTask();
+            } else {
+              
+            }
+          });
+        }
+          
+        
+      //submitTask();
     } else if ($scope.properties.action === 'Open modal') {
       closeModal($scope.properties.closeOnSuccess);
       openModal($scope.properties.modalId);
@@ -160,6 +194,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   }
 
  function submitTask() {
+     debugger;
       var id;
       //id = getUrlParam('id');
       id = $scope.properties.taskId;

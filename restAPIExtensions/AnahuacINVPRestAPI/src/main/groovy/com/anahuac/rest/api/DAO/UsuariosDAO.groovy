@@ -41,6 +41,14 @@ class UsuariosDAO {
 		return retorno;
 	}
 
+	public Boolean validarConexion() {
+		Boolean retorno = false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnection();
+			retorno = true
+		}
+		return retorno
+	}
 	
 	public Result getDatosUsername(String username) {
 		Result resultado = new Result();
@@ -122,20 +130,26 @@ class UsuariosDAO {
 			error_log = error_log + " | "+apiClient.login(username, password);
 			error_log = error_log + " | apiClient.login(username, password)";
 			
-			closeCon = validarConexionBonita();
+			closeCon = validarConexion();
 			
 				try {
 					con.setAutoCommit(false);
 					pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
 					pstm.setString(1, object.idioma);
 					pstm.setString(2, object.nombreusuario);
+					pstm.setBoolean(3, false);
+					pstm.setBoolean(4, false);
 			
-					resultReq = pstm.executeUpdate();
-					con.commit();
+					//resultReq = pstm.executeUpdate();
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						resultReq = rs.getLong("persistenceid")
+					}
+					
 					
 					success = true;
 					if(resultReq > 0) {
-						error_log = resultReq + " Exito! query update_idioma_registro_by_username_1 " + object.idioma + object.nombreusuario
+						error_log = resultReq + " Exito! query update_idioma_registro_by_username_1 insertado " + resultReq + " | " + object.idioma + object.nombreusuario
 						//error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
 					} else {
 						error_log = resultReq + " Error! query update_idioma_registro_by_username_1"
@@ -143,7 +157,7 @@ class UsuariosDAO {
 					
 				} catch (Exception e) {
 					con.rollback();
-					if (success == false) {
+					/*if (success == false) {
 						try {
 							con.setAutoCommit(false);
 							pstm = con.prepareStatement(Statements.UPDATE_TABLE_CATREGISTRO);
@@ -171,7 +185,7 @@ class UsuariosDAO {
 							con.rollback();
 							error_log = "Error catch_1: " + e + " error query1: " + resultReq + " error query2: " + resultReqA;
 						}
-					}
+					}*/
 
 				}
 				
@@ -194,10 +208,16 @@ class UsuariosDAO {
 			def str = jsonSlurper.parseText('{"campus": "' + object.campus + '","correo":"' + object.nombreusuario + '", "codigo": "registrar","isEnviar":false}');
 			error_log = error_log + " | def str = jsonSlurper.parseText";
 			error_log = error_log + " | " + str;
-
+			con.commit();
 			resultado.setSuccess(true);
 			resultado.setError_info(error_log)
 		} catch (Exception e) {
+			try {
+				con.rollback();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setError_info(error_log)
 			resultado.setData(lstResultado);
@@ -215,14 +235,14 @@ class UsuariosDAO {
 	public Result getIdiomaUsuario(String username) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		
+		String error_log = ""; 
 		IdiomaExamen idioma = new IdiomaExamen();
 		List<IdiomaExamen> lstIdioma = new ArrayList<IdiomaExamen>();
 		
 		try {
 		
-				
-				closeCon = validarConexionBonita();
+			error_log = " USUARIO | " + username
+				closeCon = validarConexion();
 				pstm = con.prepareStatement(Statements.GET_IDIOMA_USUARIO)
 				pstm.setString(1, username)
 				
@@ -230,19 +250,26 @@ class UsuariosDAO {
 				lstIdioma = new ArrayList<IdiomaExamen>();
 				while(rs.next()) {
 					idioma = new IdiomaExamen();
+					error_log = " | EN EL WHILE " + rs.getString("idioma") + " | "
 					idioma.setPersistenceId(rs.getLong("persistenceId"));
+					error_log = " | EN EL WHILE " + rs.getString("persistenceId") + " | "
 					idioma.setPersistenceVersion(rs.getString("persistenceVersion"));
+					error_log = " | EN EL WHILE " + rs.getString("persistenceVersion") + " | "
 					idioma.setIdioma(rs.getString("idioma"));
-					idioma.setUsuario(rs.getString("usuario"));
+					error_log = " | EN EL WHILE " + rs.getString("idioma") + " | "
+					idioma.setUsuario(rs.getString("username"));
+					error_log = " | EN EL WHILE " + rs.getString("username") + " | "
 					
 					lstIdioma.add(idioma);
 				}
 				resultado.setSuccess(true)
 				
 				resultado.setData(lstIdioma)
+				resultado.setError_info(error_log);
 				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
+				resultado.setError_info(error_log)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {

@@ -1,7 +1,7 @@
 function ($scope, $http) {
     
     $scope.getCommentList = function(){
-        
+        debugger;
         let data = {
             "caseid":$scope.properties.commentList,
             "idusuario":Number($scope.properties.reload)
@@ -31,6 +31,13 @@ function ($scope, $http) {
                  $scope.properties.campusSeleccionado.push(data.data[i].pregunta);
                  console.log(respuesta)
                  $scope.properties.preguntasContestadas.push(valores);
+                 if(valores.pregunta === 1){
+                     $scope.properties.respuesta = valores.respuesta;
+                 }
+            }
+            
+            if($scope.properties.preguntasContestadas.length > 0){
+                $scope.properties.cargo = true;
             }
             //$scope.properties.campusSeleccionado = data.data[0].caseid;
             
