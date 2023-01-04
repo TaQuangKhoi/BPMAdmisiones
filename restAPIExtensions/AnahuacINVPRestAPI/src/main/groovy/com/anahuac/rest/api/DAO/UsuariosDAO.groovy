@@ -139,7 +139,7 @@ class UsuariosDAO {
 					pstm.setString(2, object.nombreusuario);
 					pstm.setBoolean(3, false);
 					pstm.setBoolean(4, false);
-			
+					pstm.setString(5, "Sesion Temporal");			
 					//resultReq = pstm.executeUpdate();
 					rs = pstm.executeQuery();
 					if(rs.next()) {
@@ -259,6 +259,7 @@ class UsuariosDAO {
 					error_log = " | EN EL WHILE " + rs.getString("idioma") + " | "
 					idioma.setUsuario(rs.getString("username"));
 					error_log = " | EN EL WHILE " + rs.getString("username") + " | "
+					idioma.setNombresesion(rs.getString("nombresesion"));
 					
 					lstIdioma.add(idioma);
 				}
