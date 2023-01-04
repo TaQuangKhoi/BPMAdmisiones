@@ -16,7 +16,7 @@ class Statements {
 	
 	public static final String SELECT_PROPERTIES_BONITA = "SELECT A.tenantid, A.id, A.process_id, A.name, A.value FROM proc_parameter AS A INNER JOIN process_definition AS B ON B.processid = A.process_id AND B.activationstate='ENABLED' WHERE A.name IN ('usuario','password') ORDER BY B.version DESC Limit 2";
 	
-	public static final String INSERT_RESPUESTA_EXAMEN = "INSERT INTO respuestainvp (persistenceid,pregunta, respuesta,caseid,idusuario) VALUES ( case when (SELECT max(persistenceId)+1 from RespuestaINVP ) is null then 1 else (SELECT max(persistenceId)+1 from RespuestaINVP) end,?,?,?,?) ";
+	public static final String INSERT_RESPUESTA_EXAMEN = "INSERT INTO respuestainvp (persistenceid,pregunta, respuesta,caseid,idusuario,username) VALUES ( case when (SELECT max(persistenceId)+1 from RespuestaINVP ) is null then 1 else (SELECT max(persistenceId)+1 from RespuestaINVP) end,?,?,?,?,?) ";
 	
 	public static final String GET_RESPUESTAS_BY_USUARIOCASO = "SELECT persistenceid, caseid, pregunta, respuesta, idusuario  FROM RESPUESTAINVP WHERE idusuario = ? AND caseid = ?;";
 	
@@ -28,9 +28,17 @@ class Statements {
 	
 	public static final String GET_CAT_CAMPUS_PID_BY_CORREO = "SELECT catcampus_pid FROM solicituddeadmision WHERE correoelectronico = ?";
 	
-	public static final String UPDATE_SESION_USUARIO = "UPDATE IdiomaINVPUsuario SET havesesion = ? WHERE username = ?";
+	public static final String UPDATE_SESION_USUARIO = "UPDATE idiomainvpusuario SET havesesion = ? WHERE username = ?";
 	
-	public static final String BLOQUEO_USUARIO = "UPDATE IdiomaINVPUsuario SET usuariobloqueado = ? WHERE username = ?";
+	public static final String BLOQUEO_USUARIO = "UPDATE idiomainvpusuario SET usuariobloqueado = ? WHERE username = ?";
 	
-	public static final String GET_SESION_USUARIO = "SELECT havesesion FROM IdiomaINVPUsuario WHERE username = ?";
+	public static final String GET_SESION_USUARIO = "SELECT havesesion FROM idiomainvpusuario WHERE username = ?";
+	
+	public static final String INSERT_TERMINADO_EXAMEN = "INSERT INTO invpexamenterminado (persistenceId, persistenceVersion, username, terminado) VALUES ( case when (SELECT max(persistenceId)+1 from invpexamenterminado ) is null then 1 else (SELECT max(persistenceId)+1 from invpexamenterminado) end, 0, ?, ?);";
+	
+	public static final String UPDATE_TERMINADO_EXAMEN = "UPDATE invpexamenterminado SET terminado = ? WHERE username = ?";
+	
+	public static final String GET_TERMINADO_EXAMEN = "SELECT terminado FROM invpexamenterminado WHERE username = ?";
+	
+	public static final String GET_COUNT_PREGUNTASCONTESTADAS_BY_USERNAME = "SELECT COUNT(*) AS totalpreguntas FROM respuestainvp WHERE username = ?;";
 }

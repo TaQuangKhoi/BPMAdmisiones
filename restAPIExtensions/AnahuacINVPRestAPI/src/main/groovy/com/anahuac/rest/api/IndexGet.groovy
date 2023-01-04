@@ -13,6 +13,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.anahuac.rest.api.DAO.CatalogosDAO
+import com.anahuac.rest.api.DAO.LoginSesionesDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
 
@@ -70,8 +71,27 @@ class IndexGet implements RestApiController {
 			}else {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 			}
-		break;
-
+			break;
+			case "getTotalPreguntasContestadas":
+			String username =request.getParameter "username"
+			result = new LoginSesionesDAO().getTotalPreguntasContestadas(username)
+			responseBuilder.withMediaType("application/json")
+			if (result.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
+			case "getTerminadoExamen":
+			String username =request.getParameter "username"
+			result = new LoginSesionesDAO().getTerminadoExamen(username)
+			responseBuilder.withMediaType("application/json")
+			if (result.isSuccess()) {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+			}else {
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
 			}
 		}catch (Exception e) {
 			e.printStackTrace()

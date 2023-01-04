@@ -227,6 +227,46 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
+                insertermiando();
+                /*$scope.properties.dataFromSuccess = true;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+                window.top.location.href = $scope.properties.targetUrlOnSuccess;*/
+            })
+            .error(function(data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({
+                    message: 'error',
+                    status: status,
+                    dataFromError: data,
+                    dataFromSuccess: undefined,
+                    responseStatusCode: status
+                });
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+
+     function insertterminado(caseid) {
+        debugger;
+        vm.busy = true;
+
+        var data = {
+            "terminado": false,
+            "idusuario": $scope.properties.userData.user_name
+        }
+
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=insertterminado&p=0&c=10",
+            data: data
+        };
+
+        return $http(req)
+            .success(function(data, status) {
                 $scope.properties.dataFromSuccess = true;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;

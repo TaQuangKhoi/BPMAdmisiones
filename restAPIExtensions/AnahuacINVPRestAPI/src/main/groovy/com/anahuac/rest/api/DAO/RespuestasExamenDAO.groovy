@@ -124,7 +124,7 @@ class RespuestasExamenDAO {
 				pstm.setBoolean(2, object.respuesta);
 				pstm.setLong(3,Long.valueOf(object.caseid));
 				pstm.setLong(4,Long.valueOf(object.idusuario));
-				
+				pstm.setString(5, object.username);				
 				pstm.executeUpdate();
 				
 				con.commit();

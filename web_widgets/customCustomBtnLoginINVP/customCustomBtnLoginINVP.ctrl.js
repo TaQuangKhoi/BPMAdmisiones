@@ -88,8 +88,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         // } 
         
         else {
-            checkSesionActiva();
-            checkSesion();
+            $scope.getTotalPreguntasContestadas();
+            //checkSesionActiva();
+            //checkSesion();
             //doRequest($scope.properties.action, $scope.properties.url);
         }
     }
@@ -125,7 +126,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromSuccess = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromError = undefined;
-            redirectIfNeeded();
+            if(!$scope.terminadoexamen && $scope.contestopreguntas){
+                window.top.location.href = '/bonita/apps/aspiranteinvp/examen/';
+            }else{
+                redirectIfNeeded();
+            }
         })
         .error(function(data, status) {
             console.error(data);
@@ -308,5 +313,64 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         });
     }
 
+
+    $scope.getTotalPreguntasContestadas = function() {
+        debugger;
+        var req = {
+            method: "GET",
+            url: "../API/extension/AnahuacINVPRestGet?url=getTotalPreguntasContestadas&p=0&c=10&username=" + $scope.properties.dataToSend.username
+        };
+        return $http(req).success(function(data, status) {
+            if(data.data[0].totalPreguntas === 0){
+              $scope.contestopreguntas = false;
+            }else{
+                $scope.contestopreguntas = true;
+            }
+                $scope.getTerminadoExamen();
+            }).error(function(data, status) {
+                console.log(data);
+            })
+            .finally(function() {
+                //blockUI.stop();
+            });
+            
+    }
+
+
+    $scope.getTerminadoExamen = function() {
+        debugger;
+        var req = {
+            method: "GET",
+            url: "../API/extension/AnahuacINVPRestGet?url=getTerminadoExamen&p=0&c=10&username=" + $scope.properties.dataToSend.username
+        };
+        return $http(req).success(function(data, status) {
+            if(data.data.length === 0){
+               $scope.terminadoexamen = false;
+            }else if(data.data[0].terminado === false){
+                $scope.terminadoexamen = false;
+            }else if(data.data[0].terminado === true){
+                $scope.terminadoexamen = true;
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                    html:'Has concluido con tu examen.', showCloseButton: false
+                });
+            }
+
+            if(!$scope.terminadoexamen && $scope.contestopreguntas){
+                doRequest($scope.properties.action, $scope.properties.url);
+            }else{
+                checkSesionActiva();
+            }
+
+            }).error(function(data, status) {
+                console.log(data);
+            })
+            .finally(function() {
+                //blockUI.stop();
+            });
+            
+    }
 
   }
