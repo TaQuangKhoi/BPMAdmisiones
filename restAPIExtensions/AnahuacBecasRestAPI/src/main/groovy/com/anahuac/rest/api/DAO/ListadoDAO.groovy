@@ -738,22 +738,37 @@ class ListadoDAO {
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
-			errorlog = consulta + " 8";
+			errorlog = "8";
+			
 			while (rs.next()) {
 				BannerRequestDAO bannerRequestDAO = new BannerRequestDAO();
 				Result getBannerObject = bannerRequestDAO.getBannerInfo(rs.getString("idcampus"), rs.getString("idBanner"));
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				errorlog += " | Resultado de banner";
 				if(getBannerObject.isSuccess()) {
+					errorlog += " | Banner encontrado ";
 					columns.put("bannerInfo", getBannerObject.getData().get(0));
 					BannerWSInfo bannerInfo = (BannerWSInfo) getBannerObject.getData().get(0);
+					errorlog += " | bannerInfo ";
 					String infoEscolar = bannerInfo.getPrograma_periodo_campus();
+					errorlog += " | infoEscolar ";
 					String[] infoEscolarArray;
 					Map < String, Object > infoEscolarBanner = new LinkedHashMap < String, Object > ();
-					if(infoEscolar !=null ) {
+					if(infoEscolar != null && !infoEscolar.equals("") && !infoEscolar.equals("null")) {
+						errorlog += " | infoEscolar.split ";
 						infoEscolarArray = infoEscolar.split("/");
-						infoEscolarBanner.put("licenciatura", infoEscolarArray[0]);
-						infoEscolarBanner.put("periodo", infoEscolarArray[1]);
-						infoEscolarBanner.put("campus", infoEscolarArray[2]);
+						if(infoEscolarArray.length > 0) {
+							infoEscolarBanner.put("licenciatura", infoEscolarArray[0]);
+							errorlog += " | infoEscolar " + infoEscolarArray[0];
+							infoEscolarBanner.put("periodo", infoEscolarArray[1]);
+							errorlog += " | infoEscolar " + infoEscolarArray[1];
+							infoEscolarBanner.put("campus", infoEscolarArray[2]);
+							errorlog += " | infoEscolar " + infoEscolarArray[2];
+						} else {
+							infoEscolarBanner.put("licenciatura", "");
+							infoEscolarBanner.put("periodo", "");
+							infoEscolarBanner.put("campus", "");
+						}
 						columns.put("infoEscolarBanner", infoEscolarBanner);
 					} else {
 						infoEscolarBanner.put("licenciatura", "");
@@ -761,9 +776,15 @@ class ListadoDAO {
 						infoEscolarBanner.put("campus", "");
 						columns.put("infoEscolarBanner", infoEscolarBanner);
 					}
+				} else {
+					errorlog += " | Banner no encontrado ";
+					errorlog += " | " + getBannerObject.error;
+					errorlog += " | " + getBannerObject.error_info;
 				}
 				
+				errorlog += " | Columnas iteradas ";
 				for (int i = 1; i <= columnCount; i++) {
+					errorlog += " | Columnas index  " +  String.valueOf(i);
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
@@ -803,7 +824,6 @@ class ListadoDAO {
 
 			resultado.setError_info(errorlog);
 			resultado.setData(rows)
-
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setError_info(errorlog)
