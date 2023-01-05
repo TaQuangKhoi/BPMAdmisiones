@@ -254,7 +254,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     function setApplication() {
         var application = $scope.properties.application;
         ctrl.applicationToken = application.token;
-        if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {
+        if(ctrl.applicationToken === "aspiranteinvp"){
+            ctrl.pageToken = $scope.properties.pageToken;
+        } else if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción") {
             ctrl.pageToken = ($scope.processVersion < 1.53) ? "autodescripcion" : "autodescripcionV2";
