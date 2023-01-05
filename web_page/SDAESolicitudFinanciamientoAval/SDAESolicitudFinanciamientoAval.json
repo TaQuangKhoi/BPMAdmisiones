@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAval",
   "name" : "SDAESolicitudFinanciamientoAval",
-  "lastUpdate" : 1670260603182,
+  "lastUpdate" : 1672944876739,
   "rows" : [
     [
       {
@@ -3294,7 +3294,7 @@
                                     },
                                     "valueToAdd" : {
                                       "type" : "expression",
-                                      "value" : "nuevaReferenciaPersonal"
+                                      "value" : "nuevaReferenciaPersonalAval"
                                     },
                                     "removeItem" : {
                                       "type" : "variable"
@@ -7787,7 +7787,7 @@
                         },
                         "valueToAdd" : {
                           "type" : "expression",
-                          "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"banco\" : \"\",\r\n  \"tipoCuenta\" : \"\",\r\n  \"numeroCuenta\" : \"\",\r\n  \"saldoPromedio\" : \"\"\r\n}"
+                          "value" : "{  \"persistenceId_string\" : \"\",  \"banco\" : \"\",  \"tipoCuenta\" : \"\",  \"numeroCuenta\" : \"\",  \"saldoPromedio\" : \"\", \"esBancaria\": true}"
                         },
                         "disabled" : {
                           "type" : "constant",
@@ -8091,7 +8091,7 @@
                         },
                         "valueToAdd" : {
                           "type" : "expression",
-                          "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"banco\" : \"\",\r\n  \"tipoCuenta\" : \"\",\r\n  \"numeroCuenta\" : \"\",\r\n  \"saldoPromedio\" : \"\"\r\n}"
+                          "value" : "{  \"persistenceId_string\" : \"\",  \"banco\" : \"\",  \"tipoCuenta\" : \"\",  \"numeroCuenta\" : \"\",  \"saldoPromedio\" : \"\", \"esBancaria\": false}"
                         },
                         "disabled" : {
                           "type" : "constant",
@@ -15273,7 +15273,8 @@
         "\t\"telefono\":\"\",\r",
         "\t\"correoPersonal\":\"\",\r",
         "\t\"parentesco\":\"\",\r",
-        "\t\"caseId\": $data.caseId\r",
+        "\t\"caseId\": $data.caseId,\r",
+        "\t\"esPersonal\": true\r",
         "}"
       ],
       "exposed" : false
@@ -15392,6 +15393,21 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"findByCaseId [com.anahuac.SDAE.model.AutorizacionApoyo]\",\"businessObjectName\":\"AutorizacionApoyo\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.SDAE.model.AutorizacionApoyo\",\"filters\":[{\"name\":\"caseId\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{task.rootContainerId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "nuevaReferenciaPersonalAval" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "\t\"persistenceId_string\":\"\",\r",
+        "\t\"nombre\":\"\",\r",
+        "\t\"telefono\":\"\",\r",
+        "\t\"correoPersonal\":\"\",\r",
+        "\t\"parentesco\":\"\",\r",
+        "\t\"caseId\": $data.caseId,\r",
+        "\t\"esPersonal\": false\r",
+        "}"
       ],
       "exposed" : false
     }
