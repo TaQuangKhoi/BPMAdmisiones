@@ -4,6 +4,8 @@ import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -44,6 +46,7 @@ class LoginSesionesDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorlog = "";
+		String horafinal = "";
 		try {
 			Long campus_pid = 0L;
 			def jsonSlurper = new JsonSlurper();
@@ -65,10 +68,10 @@ class LoginSesionesDAO {
 			pstm = con.prepareStatement(consulta);
 			pstm.setString(1, object.aplicacion);
 			pstm.setString(2, object.username);
-			pstm.setLong(3, campus_pid);
+			//pstm.setLong(3, campus_pid);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				row = new LoginSesion()
+				/*row = new LoginSesion()
 				row.setDescripcion(rs.getString("descripcion"))
 				row.setUsername(rs.getString("username"))
 				row.setEntrada(rs.getString("entrada"));
@@ -79,8 +82,46 @@ class LoginSesionesDAO {
 					errorlog += e.getMessage()
 				}
 				row.setPersistenceId(rs.getLong("persistenceId"))
+				rows.add(row)*/
+				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+				LocalTime hora = LocalTime.parse(rs.getString("entrada"));
+				errorlog = " | consulta_hora " + hora.format(formatter) + " | "
+				LocalTime horaModificada = hora.plusMinutes(6000);
+				
+				horafinal = horaModificada.format(formatter);
+			}
+			
+			errorlog = " | consulta_hora " + horafinal + " | "
+			consulta = Statements.GET_SESION_LOGIN_HORA;
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, object.aplicacion);
+			pstm.setString(2, object.username);
+			pstm.setString(3, horafinal);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				errorlog += " dentro de la consulta " + " | "
+				row = new LoginSesion()
+				row.setPersistenceId(rs.getLong("idsesion"));
+				row.setNombre_sesion(rs.getString("nombresesion"));
+				
+				//tipoexamen
+				row.setDescripcion(rs.getString("descripcion"))
+				row.setNombre_prueba(rs.getString("nombre_prueba"));
+				row.setId_prueba(rs.getLong("id_prueba"));
+				try {
+					row.setAplicacion(rs.getString("aplicacion"))
+				} catch (Exception e) {
+					LOGGER.error "[ERROR] " + e.getMessage();
+					errorlog += e.getMessage()
+				}
+				row.setEntrada(rs.getString("entrada"));
+				row.setSalida(rs.getString("salida"));
+				row.setUsername(rs.getString("username"));
 				rows.add(row)
 			}
+			
+			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
 			resultado.setError_info(errorlog);

@@ -51,7 +51,7 @@ function ($scope, modalService, $http) {
     $scope.$watch("properties.cerrarSesion", function(){
         
         if($scope.properties.pageToken === "examen"){
-            window.top.location.href = "/bonita/apps/login/admisiones/";    
+            window.top.location.href = "/bonita/apps/invplogin/login/";    
         }else if($scope.properties.cerrarSesion === true){
             $scope.properties.cerrarSesion = false;
             modalService.close();

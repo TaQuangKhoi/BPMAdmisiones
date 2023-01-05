@@ -227,7 +227,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                insertermiando();
+                insertterminado();
                 /*$scope.properties.dataFromSuccess = true;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;

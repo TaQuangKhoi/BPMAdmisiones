@@ -276,7 +276,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
       
         return $http(req).success(function(data, status) {
-            if(data.data[0].havesesion === true){
+            if(data.data.length === 0){
+                checkSesion();
+            }
+            else if(data.data[0].havesesion === true){
                  Swal.fire({
                     title: '<strong>Atención</strong>',
                     icon: 'error',
