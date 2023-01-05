@@ -70,7 +70,16 @@ class Index implements RestApiController {
 					}
 				} else if(url.equals("pdfDatosAval") || url == "pdfDatosAval") {
 					String email = request.getParameter "email"
-					result = new PDFDocumentDAO().pdfDatosAval(email);
+					result = new PDFDocumentDAO().pdfDatosAval(email, context);
+					
+					if(result.success) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new JsonBuilder(result).toString())
+					}
+				}  else if(url.equals("getInfoAval") || url == "getInfoAval") {
+					String email = request.getParameter "email"
+					result = new PDFDocumentDAO().getInfoAval(email, context);
 					
 					if(result.success) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

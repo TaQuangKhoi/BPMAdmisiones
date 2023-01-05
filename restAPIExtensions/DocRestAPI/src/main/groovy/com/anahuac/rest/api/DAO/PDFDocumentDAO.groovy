@@ -1,4 +1,6 @@
 package com.anahuac.rest.api.DAO
+import static org.bonitasoft.engine.bpm.process.ProcessInstanceCriterion.DEFAULT
+
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -20,8 +22,13 @@ import net.sf.jasperreports.engine.JasperReport
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 
 import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.bpm.process.ProcessInstanceCriterion
 import org.bonitasoft.engine.identity.User
 
+import com.anahuac.SDAE.model.SolicitudApoyoEducativo
+import com.anahuac.SDAE.model.SolicitudApoyoEducativoDAO
+import com.anahuac.SDAE.model.SolicitudFinanciamiento
+import com.anahuac.SDAE.model.SolicitudFinanciamientoDAO
 import com.anahuac.model.PadresTutor
 import com.anahuac.model.SolicitudDeAdmision
 import com.anahuac.model.SolicitudDeAdmisionDAO
@@ -818,7 +825,7 @@ class PDFDocumentDAO {
 		return resultado
 	}
 	
-	public Result pdfDatosAval(String email) {
+	public Result pdfDatosAval(String email, RestAPIContext context) {
 		Result resultado = new Result();
 		InputStream targetStream;
 		Boolean streamOpen = false;
@@ -829,7 +836,7 @@ class PDFDocumentDAO {
 			def jsonSlurper = new JsonSlurper();
 			Result dataResult = new Result();
 			List<List < Object >> lstParams;
-			Result infoAval = getInfoAval(email);
+			Result infoAval = getInfoAval(email, context);
 			List<?> info = infoAval.getData();
 			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 			errorLog += " | Ontuvo info del aval ";
@@ -886,10 +893,12 @@ class PDFDocumentDAO {
 		return resultado;
 	}
 	
-	public Result getInfoAval(String email) {
+	public Result getInfoAval(String email, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
+		Long caseidapoyo = 0L;
+		Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 		
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
@@ -909,56 +918,17 @@ class PDFDocumentDAO {
 			
 			//Agregando datos del aval 
 			while (rs.next()) {
-				
 				errorLog += " | Datos del aval encontrados " ;
-				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-				Map < String, Object > referenciaPersonalSol = new LinkedHashMap < String, Object > ();
-				List<Map < String, Object >> referenciasPersonalesSol = new ArrayList<Map < String, Object > >();
-				referenciaPersonalSol.put("nombre", "Referencia 1");
-				referenciaPersonalSol.put("parentesco", "Tío");
-				referenciaPersonalSol.put("telefono", "876876876");
-				referenciaPersonalSol.put("email", "mi@tio.com");
-				referenciasPersonalesSol.add(referenciaPersonalSol);
-				referenciaPersonalSol = new  LinkedHashMap < String, Object >();
-				referenciaPersonalSol.put("nombre", "Referencia 2");
-				referenciaPersonalSol.put("parentesco", "Tío");
-				referenciaPersonalSol.put("telefono", "78651684651");
-				referenciaPersonalSol.put("email", "mi_otro@tio.com");
-				referenciasPersonalesSol.add(referenciaPersonalSol);
-				
-				Map < String, Object > referenciaBancaria = new LinkedHashMap < String, Object > ();
-				List<Map < String, Object >> referenciasBancariasV = new ArrayList<Map < String, Object > >();
-				referenciaBancaria.put("banco", "Banorte");
-				referenciaBancaria.put("tipoCuenta", "Ahorros");
-				referenciaBancaria.put("numeroCuenta", "1");
-				referenciaBancaria.put("saldoPromedio", "343554");
-				referenciasBancariasV.add(referenciaBancaria);
-				referenciaBancaria = new  LinkedHashMap < String, Object >();
-				referenciaBancaria.put("banco", "Banorte");
-				referenciaBancaria.put("tipoCuenta", "Ahorros");
-				referenciaBancaria.put("numeroCuenta", "1");
-				referenciaBancaria.put("saldoPromedio", "343554");
-				referenciasBancariasV.add(referenciaBancaria);
-
-				JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(referenciasPersonalesSol);
-				JRBeanCollectionDataSource referenciasPErsonalesAval = new JRBeanCollectionDataSource(referenciasPersonalesSol);
-				JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(referenciasBancariasV);
-				JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(referenciasBancariasV);
-				
+				columns = new LinkedHashMap < String, Object > ();
 				String urlFoto = rs.getString("fotosol");
 				errorLog += " |" + urlFoto + SSA;
-				columns.put("referenciasPersonalesSolicitante", referenciasPersonalesSolicitante);
-				columns.put("referenciasPersonalesAval", referenciasPErsonalesAval);
-				columns.put("referenciasBancarias", referenciasBancarias);
-				columns.put("referenciasCredito", referenciasCredito);
-				
 				columns.put("urlFoto",  urlFoto + SSA);
 				columns.put("nombre", rs.getString("primernombre") + " " + rs.getString("segundonombre"));
 				columns.put("idBanner", rs.getString("idbanner"));
 				columns.put("carrera", rs.getString("carrera"));
-				columns.put("periodo", "");
+				columns.put("periodo", rs.getString("periodo"));
 				columns.put("apellidoPaterno", rs.getString("apellidopaterno"));
-				columns.put("apellidoManerno", rs.getString("apellidomaterno") != null ? rs.getString("apellidomaterno") : "");
+				columns.put("apellidoMaterno", rs.getString("apellidomaterno") != null ? rs.getString("apellidomaterno") : "");
 				columns.put("porcFinSolicitado", rs.getString("porcentajefinanciamientosolicitado"));
 				columns.put("porcFinPrea", rs.getString("porcentajefinanciamientopreautorizado"));
 				columns.put("nombresAval", rs.getString("avalnombres"));
@@ -982,7 +952,7 @@ class PDFDocumentDAO {
 				columns.put("coloniaDomicilioAval", rs.getString("avaldomiciliocolonia"));
 				columns.put("calleNumeroDomicilioAval", rs.getString("avaldomiciliocalleynumero"));
 				columns.put("empresaTrabajaAval", rs.getString("avaltrabajoempresa"));
-				columns.put("empresaAval", rs.getString("avaltrabajopuesto"));
+				columns.put("empresaPuestoAval", rs.getString("avaltrabajopuesto"));
 				columns.put("empresaTelefonoAval", rs.getString("avaltrabajotelefono"));
 				columns.put("empresaTelefonoExtAval", rs.getString("avaltrabajotelefonoext"));
 				columns.put("empresaFechaIngresoAval", buildDate(rs.getString("avaltrabajofechaingreso")));
@@ -999,7 +969,8 @@ class PDFDocumentDAO {
 				columns.put("ciudadDomicilioInmueble", rs.getString("inmuebleciudad"));
 				columns.put("coloniaDomicilioInmueble", rs.getString("inmueblecolonia"));
 				columns.put("noInteriorDomicilioInmueble", rs.getString("inmueblenointerior"));
-				columns.put("calleDomicilioInmueble", rs.getString("inmueblecalle"));
+				columns.put("calleDomicilioInmueble", rs.getString("inmueblecalle") );
+				columns.put("calleNumeroDomicilioInmueble", rs.getString("inmueblecalle") + " #" +  rs.getString("inmueblenoexterior"));
 				columns.put("noExteriorDomicilioInmueble", rs.getString("inmueblenoexterior"));
 				columns.put("notario", rs.getString("notario"));
 				columns.put("noNotaria", rs.getString("numeronotaria"));
@@ -1009,6 +980,7 @@ class PDFDocumentDAO {
 				columns.put("libro", rs.getString("libronotario"));
 				columns.put("lugarDeEscrituracion", rs.getString("lugardeescrituracionnotario"));
 				columns.put("folio", rs.getString("foliopropiedad"));
+				columns.put("tomo", rs.getString("tomopropiedad"));
 				columns.put("libroRegistro", rs.getString("libropropiedad"));
 				columns.put("tomoPropiedad", rs.getString("tomopropiedad"));
 				columns.put("fechaRegistro", buildDate(rs.getString("fechapropiedad")));
@@ -1026,8 +998,53 @@ class PDFDocumentDAO {
 				columns.put("celularSol", rs.getString("celularsol"));
 				columns.put("emailSol", rs.getString("correosol"));
 				
-				rows.add(columns);
+				caseidapoyo = rs.getLong("caseidapoyo");
+//				rows.add(columns);
 			}
+			
+			Map < String, Object > referenciaPersonalSol = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> referenciasPersonalesSol = new ArrayList<Map < String, Object > >();
+			referenciaPersonalSol.put("nombre", "Referencia 1");
+			referenciaPersonalSol.put("parentesco", "Tío");
+			referenciaPersonalSol.put("telefono", "876876876");
+			referenciaPersonalSol.put("email", "mi@tio.com");
+			referenciasPersonalesSol.add(referenciaPersonalSol);
+			referenciaPersonalSol = new  LinkedHashMap < String, Object >();
+			referenciaPersonalSol.put("nombre", "Referencia 2");
+			referenciaPersonalSol.put("parentesco", "Tío");
+			referenciaPersonalSol.put("telefono", "78651684651");
+			referenciaPersonalSol.put("email", "mi_otro@tio.com");
+			referenciasPersonalesSol.add(referenciaPersonalSol);
+
+			Map < String, Object > referenciaBancaria = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> referenciasBancariasV = new ArrayList<Map < String, Object > >();
+			referenciaBancaria.put("banco", "Banorte");
+			referenciaBancaria.put("tipoCuenta", "Ahorros");
+			referenciaBancaria.put("numeroCuenta", "1");
+			referenciaBancaria.put("saldoPromedio", "343554");
+			referenciasBancariasV.add(referenciaBancaria);
+			referenciaBancaria = new  LinkedHashMap < String, Object >();
+			referenciaBancaria.put("banco", "Banorte");
+			referenciaBancaria.put("tipoCuenta", "Ahorros");
+			referenciaBancaria.put("numeroCuenta", "1");
+			referenciaBancaria.put("saldoPromedio", "343554");
+			referenciasBancariasV.add(referenciaBancaria);
+
+			JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(referenciasPersonalesSol);
+			JRBeanCollectionDataSource referenciasPErsonalesAval = new JRBeanCollectionDataSource(referenciasPersonalesSol);
+			JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(referenciasBancariasV);
+			JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(referenciasBancariasV);
+
+			columns.put("referenciasPersonalesSolicitante", referenciasPersonalesSolicitante);
+			columns.put("referenciasPersonalesAval", referenciasPErsonalesAval);
+			columns.put("referenciasBancarias", referenciasBancarias);
+			columns.put("referenciasCredito", referenciasCredito);
+			
+//			context.getApiClient().getProcessAPI().getProcessInstance(caseidapoyo)
+//			List <Long> childrenCase = context.getApiClient().getProcessAPI().getChildrenInstanceIdsOfProcessInstance(caseidapoyo, 0, 1, DEFAULT);
+			
+//			columns.put("referenciasPRueba", context.getApiClient().getBusinessDataAPI().getProcessBusinessDataReference("avalReferenciasPersonales", caseidapoyo));
+			rows.add(columns);//Agregando columnas al final 
 			
 			resultado.setSuccess(true);
 			resultado.setData(rows);
