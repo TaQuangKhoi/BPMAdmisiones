@@ -32,6 +32,7 @@ import com.anahuac.rest.api.DAO.PsicometricoDAO
 import com.anahuac.rest.api.DAO.ReactivacionDAO
 import com.anahuac.rest.api.DAO.ReportesDAO
 import com.anahuac.rest.api.DAO.ResultadoComiteDAO
+import com.anahuac.rest.api.DAO.ServiciosBecasDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
@@ -66,7 +67,6 @@ class IndexGet implements RestApiController {
 		if(!security.allowedUrl(context,url)){
 			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
 		}
-		
 		
 		//MAPEO DE SERVICIOS==================================================
 		try{
@@ -1688,6 +1688,19 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data.get(0)).toString());
 					}else {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+					
+				break;
+				
+				case "getSolicitudApoyoByCaseId":
+					String caseid =request.getParameter "caseid"
+					Integer caseidInt = Integer.valueOf(caseid);
+					result = new ServiciosBecasDAO().getSolicitudApoyoByCaseId(caseidInt, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					
 				break;

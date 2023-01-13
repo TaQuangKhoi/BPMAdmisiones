@@ -20,6 +20,7 @@ import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Security.SecurityFilter
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.bonitasoft.web.extension.rest.RestApiController
@@ -45,6 +46,11 @@ class IndexGET implements RestApiController {
         if (url == null) {
             return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
         }
+		
+//		SecurityFilter security = new SecurityFilter();
+//		if(!security.allowedUrl(context,url)){
+//			return buildResponse(responseBuilder, HttpServletResponse.SC_FORBIDDEN,"""{"error" : "No tienes permisos"}""")
+//		}
 		
 		//VARIABLES===========================================================
 		Integer parameterP = Integer.valueOf(p);

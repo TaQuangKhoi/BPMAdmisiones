@@ -2001,6 +2001,13 @@ class SecurityFilter {
 		      break;
 		    }
 		    break;
+		  case "createOrUpdateBeca":
+			allow = bonitaRolFilter(context, "TI SERUA");
+			if (allow) {
+			  break;
+			}
+			break;
+			
 		}
 		return allow;
 	}
