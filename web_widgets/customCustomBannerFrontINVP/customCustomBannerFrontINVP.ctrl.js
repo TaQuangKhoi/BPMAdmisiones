@@ -26,8 +26,13 @@ function ($scope, modalService, $http) {
         };
   
         return $http(req).success(function(data){
-            let href = window.location.protocol + "//" + window.location.host + $scope.properties.urlToRedirect;
-            window.top.location = href;
+            if($scope.properties.pageToken === "termino"){
+                window.top.location.href = "/bonita/apps/login/admisiones/";
+            }else{
+                let href = window.location.protocol + "//" + window.location.host + $scope.properties.urlToRedirect;
+                window.top.location = href;
+            }
+
         }).error(function(error){
             
         });
@@ -50,12 +55,39 @@ function ($scope, modalService, $http) {
     
     $scope.$watch("properties.cerrarSesion", function(){
         
-        if($scope.properties.pageToken === "examen"){
-            window.top.location.href = "/bonita/apps/invplogin/login/";    
+        if($scope.properties.pageToken === "examen" || $scope.properties.pageToken === "presentar"){
+            //window.top.location.href = "/bonita/apps/invplogin/login/";    
+            window.top.location.href = "/bonita/apps/aspiranteinvp/termino/";
+        }else if($scope.properties.pageToken === "termino"){
+            $scope.properties.cerrarSesion = false;
+            modalService.close();
+            $scope.logout();
         }else if($scope.properties.cerrarSesion === true){
             $scope.properties.cerrarSesion = false;
             modalService.close();
             $scope.logout();
         }
     })
+    
+    $scope.msj = "";
+    $scope.quitar = false;
+    
+    $scope.$watch("properties.pageToken", function(){
+        $scope.properties.idioma = localStorage.getItem("idioma");
+        if($scope.properties.pageToken === "presentar"){
+            $scope.msj = "Terminar / Finish";
+            $scope.quitar = true;
+        }else if($scope.properties.pageToken === "examen"){
+            if($scope.properties.idioma === "ESP"){
+                $scope.msj = "Terminar";    
+            }else if($scope.properties.idioma === "ENG"){
+                $scope.msj = "Finish";  
+            }
+            $scope.quitar = false;
+        }else if($scope.properties.pageToken === "termino"){
+            $scope.msj = "Ir a Admisiones / Go to Admisions";
+            $scope.quitar = true;
+        }
+    })
+    
 }

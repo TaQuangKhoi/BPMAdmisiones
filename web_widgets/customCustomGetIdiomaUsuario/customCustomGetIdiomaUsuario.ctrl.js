@@ -8,13 +8,19 @@ function($scope, $http) {
         };
         return $http(req).success(function(data, status) {
             if(data.data.length === 0){
-                $scope.properties.commentList = data.data[0].nombresesion;
                 $scope.properties.campusSeleccionado = "ESP";
                 localStorage.setItem('idioma', "ESP");
-            }else{
                 $scope.properties.commentList = data.data[0].nombresesion;
+            }else{
                 $scope.properties.campusSeleccionado = data.data[0].idioma;
                 localStorage.setItem('idioma', data.data[0].idioma);
+                $scope.properties.commentList = data.data[0].nombresesion;
+            }
+            
+            if(data.data[0].idioma === null){
+                $scope.properties.campusSeleccionado = "ESP";
+                localStorage.setItem('idioma', "ESP");
+                $scope.properties.commentList = data.data[0].nombresesion;
             }
                 
             }).error(function(data, status) {

@@ -167,6 +167,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
+            debugger;
                 /*if($scope.properties.strRegistro.Ayuda === true){
                     $scope.necesitaAyuda();
                 } else {*/
@@ -236,7 +237,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
-
+                $scope.caseid = data.caseId;
                 if ($scope.properties.action === 'Start process') {
                     $scope.registrarBonita();
                 }
@@ -364,12 +365,54 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req).success(function(data, status) {
                 //$scope.properties.navigationVar = "formSuccess";
-                login();
+                insertCase();
             })
             .error(function(data, status) {
-                login();
+                insertCase();
                 // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
+    }
+
+    function insertCase() {
+        vm.busy = true;
+
+        var data = {
+            "pregunta": 0,
+            "caseid": Number($scope.caseid),
+            "respuesta": false,
+            "idusuario": 0,
+            "username":$scope.properties.strRegistro.CorreoElectronico
+        }
+
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=insertRespuestaid&p=0&c=10",
+            data: data
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                login();
+                /*$scope.properties.dataFromSuccess = true;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+                window.top.location.href = $scope.properties.targetUrlOnSuccess;*/
+            })
+            .error(function(data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({
+                    message: 'error',
+                    status: status,
+                    dataFromError: data,
+                    dataFromSuccess: undefined,
+                    responseStatusCode: status
+                });
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
     }
 }

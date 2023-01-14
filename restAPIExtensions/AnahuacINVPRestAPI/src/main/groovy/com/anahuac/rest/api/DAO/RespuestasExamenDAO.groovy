@@ -266,5 +266,63 @@ class RespuestasExamenDAO {
 		}
 		return resultado
 	}
+	
+	public Result insertRespuestaid( String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				Long iduser = getidusuariobyusername(object.username);
+				closeCon = validarConexion();
+				con.setAutoCommit(false);
+				pstm = con.prepareStatement(Statements.INSERT_RESPUESTA_EXAMEN, Statement.RETURN_GENERATED_KEYS)
+				pstm.setLong(1, object.pregunta);
+				pstm.setBoolean(2, object.respuesta);
+				pstm.setLong(3,Long.valueOf(object.caseid));
+				pstm.setLong(4,Long.valueOf(iduser));
+				pstm.setString(5, object.username);
+				pstm.executeUpdate();
+				
+				con.commit();
+				
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			String es = e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(es);
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Long getidusuariobyusername(String username) {
+	  Long iduser = 0;
+	  Boolean closeCon = false;
+	  try {
+
+	    closeCon = validarConexionBonita();
+	    pstm = con.prepareStatement(Statements.GET_ID_USER_BY_USERNAME)
+	    pstm.setString(1, username);
+	    rs = pstm.executeQuery();
+
+	    while (rs.next()) {
+			iduser = rs.getLong("id");
+	    }
+
+	  } catch (Exception e) {
+	    String es = e.getMessage();
+	  } finally {
+	    if (closeCon) {
+	      new DBConnect().closeObj(con, stm, rs, pstm)
+	    }
+	  }
+	  return iduser
+	}
 	//
 }

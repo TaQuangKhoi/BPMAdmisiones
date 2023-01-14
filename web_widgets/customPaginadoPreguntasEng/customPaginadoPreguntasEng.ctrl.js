@@ -205,7 +205,7 @@ function($scope, $http) {
                     title: '<strong>Attention</strong>',
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'There is a connection problem, please try again.', showCloseButton: false
+                    html:'The connection was lost, please try again.', showCloseButton: false
                 });
                 /*$scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
@@ -237,7 +237,7 @@ function($scope, $http) {
                     title: '<strong>Attention</strong>',
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'There is a connection problem, please try again.', showCloseButton: false
+                    html:'The connection was lost, please try again.', showCloseButton: false
                 });
                 /*$scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;

@@ -16,12 +16,34 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action === 'Submit task') {
         debugger;
         if($scope.properties.idioma === "ENG"){
-            swal({
+            Swal.fire({
+              title: 'Are you sure you want to finish the exam?',
+              text: "Once finished you will not be able to continue.",
+              icon: "warning",
+              showDenyButton: true,
+              confirmButtonText: 'Si',
+              denyButtonText: 'No',
+              customClass: {
+                actions: 'my-actions',
+                cancelButton: 'order-1 right-gap',
+                confirmButton: 'btn btn-primary',
+                denyButton: 'order-3',
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                submitTask();
+              } else if (result.isDenied) {
+                
+              }
+            })
+           /* Swal.fire({
             title: "Are you sure you want to finish the exam?",
             text: "Once finished you will not be able to continue.",
             icon: "warning",
             buttons: true,
             dangerMode: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
          })
           .then((willDelete) => {
             if (willDelete) {
@@ -29,14 +51,38 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
               
             }
-          });
+          });*/
         } else if($scope.properties.idioma === "ESP"){
-            swal({
+            Swal.fire({
+              title: '¿Estás seguro que deseas terminar el examen?',
+              text: "Una vez terminado no podrás continuar.",
+             icon: "warning",
+              showDenyButton: true,
+              confirmButtonText: 'Si',
+              denyButtonText: 'No',
+              customClass: {
+                actions: 'my-actions',
+                cancelButton: 'order-1 right-gap',
+                confirmButton: 'btn btn-primary',
+                denyButton: 'order-3',
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                submitTask();
+              } else if (result.isDenied) {
+                
+              }
+            })
+            
+            
+           /* Swal.fire({
             title: "¿Estás seguro que deseas terminar el examen?",
             text: "Una vez terminado no podrás continuar.",
             icon: "warning",
             buttons: true,
             dangerMode: true,
+            confirmButtonText: 'Si',
+            denyButtonText: 'No',
          })
           .then((willDelete) => {
             if (willDelete) {
@@ -44,7 +90,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
               
             }
-          });
+          });*/
         }
           
         

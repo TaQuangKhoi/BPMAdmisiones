@@ -219,17 +219,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     html:'El usuario o la contraseña estan incorrectos.', showCloseButton: false
                 });
             } else if(data.data.length === 0){
-                Swal.fire({
-                    title: '<strong>Atención</strong>',
-                    icon: 'error',
-                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'No existe una sesión activa para este usuario.', showCloseButton: false
-                });
+                getDatosSesion();
             }else{
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                doRequest($scope.properties.action, $scope.properties.url);
+
+                  let data = {
+                      "username": $scope.properties.dataToSend.username,
+                      "havesesion": true
+                  }
+
+                  var req = {
+                      method: "POST",
+                      url: "/bonita/API/extension/AnahuacINVPRestAPI?url=updateSesion&p=0&c=10",
+                      data: data
+                  };
+
+                  return $http(req).success(function(data, status) {
+                          $scope.properties.dataFromSuccess = data;
+                          $scope.properties.responseStatusCode = status;
+                          $scope.properties.dataFromError = undefined;
+                          doRequest($scope.properties.action, $scope.properties.url);
+                      })
+                      .error(function(data, status) {
+                          doRequest($scope.properties.action, $scope.properties.url);
+                          // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                      })
+                      .finally(function() {});  
             }
             
             
@@ -284,7 +298,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     title: '<strong>Atención</strong>',
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'Existe una sesión iniciada con este usuario <br> Cierra la sesión en tu disposivo activo e intenta nuevamente.', showCloseButton: false
+                    html:'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.', showCloseButton: false
                 });
             }else{
                checkSesion();
@@ -361,11 +375,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 });
             }
 
-            if(!$scope.terminadoexamen && $scope.contestopreguntas){
+            /*if(!$scope.terminadoexamen && $scope.contestopreguntas){
                 doRequest($scope.properties.action, $scope.properties.url);
             }else{
                 checkSesionActiva();
-            }
+            }*/
+
+            checkSesionActiva();
 
             }).error(function(data, status) {
                 console.log(data);
@@ -375,5 +391,51 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
             
     }
+
+     function getDatosSesion() {
+        debugger;
+        vm.busy = true;
+
+        let data = {
+            "username" : $scope.properties.dataToSend.username
+        }
+
+        var req = {
+            method: 'POST',
+            url: '../API/extension/AnahuacINVPRestAPI?url=getDatosSesionLogin&p=0&c=10',
+            data: data
+        };
+      
+        return $http(req).success(function(data, status) {
+            if(data.data.length > 0){
+                var pos = data.data.length - 1;
+                
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                    html:'No existe una sesión activa para este usuario, esta programado para el día ' + data.data[pos].aplicacion + ' a las ' + data.data[pos].entrada +', para más información contacte a su aplicador', showCloseButton: false
+                });
+            }else{
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                    html:'No existe una sesión registrada para este usuario', showCloseButton: false
+                });
+            }
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            
+        })
+        .finally(function() {
+            $scope.hideLoading();
+            vm.busy = false;
+        });
+    }
+
 
   }

@@ -6,9 +6,11 @@ class Statements {
 	
 	public static final String GET_CAT_PREGUNTAS_EXAMEN = "SELECT * FROM CATPREGUNTAS [WHERE]";
 	
-	public static final String GET_SESION_LOGIN = "SELECT DISTINCT ses.persistenceid as idsesion, ses.nombre as nombresesion, tipo.descripcion,p.nombre as nombre_prueba, p.aplicacion, p.entrada, p.salida, ap.username FROM aspirantespruebas AS ap INNER JOIN SESIONES AS ses ON ses.persistenceid = ap.sesiones_pid INNER JOIN pruebas AS p ON ses.persistenceid = p.sesion_pid INNER JOIN cattipoprueba AS tipo ON tipo.descripcion = 'Examen Psicométrico'AND tipo.persistenceid = p.cattipoprueba_pid WHERE p.aplicacion = TO_TIMESTAMP(?, 'YYYY-MM-DD') AND ap.username = ?";
+	public static final String GET_SESION_LOGIN = "SELECT DISTINCT ses.persistenceid as idsesion, ses.nombre as nombresesion, tipo.descripcion,p.nombre as nombre_prueba,p.persistenceid as id_prueba, p.aplicacion, p.entrada, p.salida, ap.username FROM aspirantespruebas AS ap INNER JOIN SESIONES AS ses ON ses.persistenceid = ap.sesiones_pid INNER JOIN pruebas AS p ON ses.persistenceid = p.sesion_pid INNER JOIN cattipoprueba AS tipo ON tipo.descripcion = 'Examen Psicométrico'AND tipo.persistenceid = p.cattipoprueba_pid WHERE p.aplicacion = TO_TIMESTAMP(?, 'YYYY-MM-DD') AND ap.username = ?";
 	
 	public static final String GET_SESION_LOGIN_HORA = "SELECT DISTINCT ses.persistenceid as idsesion, ses.nombre as nombresesion, tipo.descripcion,p.nombre as nombre_prueba,p.persistenceid as id_prueba, p.aplicacion, p.entrada, p.salida, ap.username FROM aspirantespruebas AS ap INNER JOIN SESIONES AS ses ON ses.persistenceid = ap.sesiones_pid INNER JOIN pruebas AS p ON ses.persistenceid = p.sesion_pid INNER JOIN cattipoprueba AS tipo ON tipo.descripcion = 'Examen Psicométrico' AND tipo.persistenceid = p.cattipoprueba_pid WHERE p.aplicacion = TO_TIMESTAMP(?, 'YYYY-MM-DD') AND ap.username = ? AND TO_TIMESTAMP(TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI'), 'HH24:MI') BETWEEN TO_TIMESTAMP(p.entrada, 'HH24:MI') AND TO_TIMESTAMP(?, 'HH24:MI')";
+	
+	public static final String GET_DATOS_SESION_LOGIN = "SELECT DISTINCT ses.persistenceid as idsesion, ses.nombre as nombresesion, tipo.descripcion,p.nombre as nombre_prueba,p.persistenceid as id_prueba, p.aplicacion, p.entrada, p.salida, ap.username FROM aspirantespruebas AS ap INNER JOIN SESIONES AS ses ON ses.persistenceid = ap.sesiones_pid INNER JOIN pruebas AS p ON ses.persistenceid = p.sesion_pid INNER JOIN cattipoprueba AS tipo ON tipo.descripcion = 'Examen Psicométrico' AND tipo.persistenceid = p.cattipoprueba_pid WHERE ap.username = ?";
 	
 	public static final String GET_USERS_BY_USERNAME = "SELECT tenantid, id, enabled, username, password, firstname, lastname, title, jobtitle, manageruserid, createdby, creationdate, lastupdate, iconid FROM user_ WHERE LOWER(username) LIKE LOWER(CONCAT('%',?,'%'))";
 	
@@ -43,4 +45,12 @@ class Statements {
 	public static final String GET_TERMINADO_EXAMEN = "SELECT terminado FROM invpexamenterminado WHERE username = ?";
 	
 	public static final String GET_COUNT_PREGUNTASCONTESTADAS_BY_USERNAME = "SELECT COUNT(*) AS totalpreguntas FROM respuestainvp WHERE username = ?;";
+	
+	public static final String INSERT_BLOQUEO_USUARIO = "INSERT INTO idiomainvpusuario (persistenceId , persistenceVersion, havesesion, username ) values (case when (SELECT max(persistenceId)+1 from idiomainvpusuario ) is null then 1 else (SELECT max(persistenceId)+1 from idiomainvpusuario) end,0,?,?) RETURNING persistenceid;";
+	
+	public static final String GET_ID_BANNER_BY_CORREO = "SELECT ds.idbanner, sda.telefono, sda.telefonocelular from solicituddeadmision sda INNER JOIN detallesolicitud ds on ds.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? ;";
+	
+	public static final String GET_ID_USER_BY_USERNAME = "SELECT id FROM public.user_ where username = ?";
+	
+	public static final String GET_CELULAR_BY_USERNAME = "SELECT telefonocelular from solicituddeadmision WHERE correoelectronico = ?";
 }

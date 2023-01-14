@@ -239,6 +239,33 @@ class Index implements RestApiController {
 				result.setError(ou.getMessage())
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 			}
+			case "getDatosSesionLogin":
+			try{
+				result =  lses.getDatosSesionLogin(jsonData);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
+			break;
+			case "insertRespuestaid":
+			try{
+				result =  rexa.insertRespuestaid(jsonData);
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				}catch(Exception ou){
+				result.setSuccess(false)
+				result.setError(ou.getMessage())
+				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+			}
 			break;
 				default:
 				result = notFound(url);
@@ -250,7 +277,7 @@ class Index implements RestApiController {
 				break;
 			}
 			
-		
+			
 	} catch (Exception e) {
 		result.setSuccess(false)
 		result.setError("500 INTERNAL SERVER ERROR")

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appExamenINVP",
   "name" : "appExamenINVP",
-  "lastUpdate" : 1672880921726,
+  "lastUpdate" : 1673658308111,
   "rows" : [
     [
       {
@@ -155,8 +155,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!(sesion === null || sesion === undefined || sesion === \"\")"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -184,12 +184,126 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!(sesion === null || sesion === undefined || sesion === \"\")"
                       },
                       "caseId" : {
                         "type" : "variable",
                         "value" : "caseId"
+                      },
+                      "nombre" : {
+                        "type" : "variable",
+                        "value" : "nombre"
+                      },
+                      "sesion" : {
+                        "type" : "variable",
+                        "value" : "sesiontemp"
+                      },
+                      "fecha" : {
+                        "type" : "variable",
+                        "value" : "fecha"
+                      },
+                      "idioma" : {
+                        "type" : "variable",
+                        "value" : "idioma"
+                      },
+                      "telefono" : {
+                        "type" : "variable",
+                        "value" : "\"N/A\""
+                      },
+                      "celular" : {
+                        "type" : "variable",
+                        "value" : "datosusuario.data[0].telefonocelular"
+                      },
+                      "correo" : {
+                        "type" : "variable",
+                        "value" : "userData.user_name"
+                      }
+                    },
+                    "reference" : "7ffa54c1-1801-4b4c-bc35-590d065a1692",
+                    "hasValidationError" : false,
+                    "id" : "customCustomINVPTexto"
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 1,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!(sesion === null || sesion === undefined || sesion === \"\")"
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "1957c3eb-6a8f-42cc-8236-f55795e5a0b2",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 1,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "664f7ed2-f250-40c1-a79f-d5d386b21ebc",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 10,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "(sesion === null || sesion === undefined || sesion === \"\")"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "getidbanner.data[0].idbanner"
                       },
                       "nombre" : {
                         "type" : "variable",
@@ -206,11 +320,23 @@
                       "idioma" : {
                         "type" : "variable",
                         "value" : "idioma"
+                      },
+                      "telefono" : {
+                        "type" : "variable",
+                        "value" : "getidbanner.data[0].telefono"
+                      },
+                      "celular" : {
+                        "type" : "variable",
+                        "value" : "getidbanner.data[0].telefonocelular"
+                      },
+                      "correo" : {
+                        "type" : "variable",
+                        "value" : "userData.user_name"
                       }
                     },
-                    "reference" : "7ffa54c1-1801-4b4c-bc35-590d065a1692",
+                    "reference" : "e5a7a539-76c6-4c40-898e-d902d1d3e086",
                     "hasValidationError" : false,
-                    "id" : "customCustomINVPTexto"
+                    "id" : "customCustomINVPTextoSesionDatos"
                   },
                   {
                     "type" : "container",
@@ -234,7 +360,7 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "1957c3eb-6a8f-42cc-8236-f55795e5a0b2",
+                    "reference" : "d0225d8f-4248-4817-83bc-af06e5ae8ee9",
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
@@ -352,7 +478,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -1141,8 +1267,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!(sesion === null || sesion === undefined || sesion === \"\")"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -1170,8 +1296,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!(sesion === null || sesion === undefined || sesion === \"\")"
                       },
                       "caseId" : {
                         "type" : "variable",
@@ -1183,7 +1309,7 @@
                       },
                       "sesion" : {
                         "type" : "variable",
-                        "value" : "sesion"
+                        "value" : "sesiontemp"
                       },
                       "fecha" : {
                         "type" : "variable",
@@ -1192,6 +1318,18 @@
                       "idioma" : {
                         "type" : "variable",
                         "value" : "idioma"
+                      },
+                      "telefono" : {
+                        "type" : "variable",
+                        "value" : "\"N/A\""
+                      },
+                      "celular" : {
+                        "type" : "variable",
+                        "value" : "datosusuario.data[0].telefonocelular"
+                      },
+                      "correo" : {
+                        "type" : "variable",
+                        "value" : "userData.user_name"
                       }
                     },
                     "reference" : "74180830-176f-459a-9660-2855d13c0e52",
@@ -1212,8 +1350,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!(sesion === null || sesion === undefined || sesion === \"\")"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -1221,6 +1359,120 @@
                       }
                     },
                     "reference" : "2837577d-d848-4fd3-918d-81372a7174df",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 1,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "(sesion === null || sesion === undefined || sesion === \"\")"
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "30685fb8-20d2-4cdd-bba4-b751665a8df7",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 10,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "(sesion === null || sesion === undefined || sesion === \"\")"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "getidbanner.data[0].idbanner"
+                      },
+                      "nombre" : {
+                        "type" : "variable",
+                        "value" : "nombre"
+                      },
+                      "sesion" : {
+                        "type" : "variable",
+                        "value" : "sesion"
+                      },
+                      "fecha" : {
+                        "type" : "variable",
+                        "value" : "fecha"
+                      },
+                      "idioma" : {
+                        "type" : "variable",
+                        "value" : "idioma"
+                      },
+                      "telefono" : {
+                        "type" : "variable",
+                        "value" : "getidbanner.data[0].telefono"
+                      },
+                      "celular" : {
+                        "type" : "variable",
+                        "value" : "getidbanner.data[0].telefonocelular"
+                      },
+                      "correo" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "150f52a9-58da-4924-9df5-d3971bdc04f6",
+                    "hasValidationError" : false,
+                    "id" : "customCustomINVPTextoSesionDatos"
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 1,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "(sesion === null || sesion === undefined || sesion === \"\")"
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "3af6b9c9-e42b-41e9-ada7-2fd9671ce4a5",
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
@@ -1338,7 +1590,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -1770,7 +2022,7 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 4,
+                      "md" : 1,
                       "lg" : 3
                     },
                     "propertyValues" : {
@@ -1799,7 +2051,7 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 4,
+                      "md" : 10,
                       "lg" : 6
                     },
                     "propertyValues" : {
@@ -1879,7 +2131,7 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 4,
+                      "md" : 1,
                       "lg" : 3
                     },
                     "propertyValues" : {
@@ -2038,8 +2290,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -2072,8 +2324,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -2118,8 +2370,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 3,
+          "lg" : 3
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -2132,7 +2384,7 @@
           },
           "commentList" : {
             "type" : "variable",
-            "value" : "sesion"
+            "value" : "sesiontemp"
           },
           "reload" : {
             "type" : "variable",
@@ -2146,6 +2398,40 @@
         "reference" : "5bcd920e-0a29-4d6e-9808-58acfa9db656",
         "hasValidationError" : false,
         "id" : "customCustomGetIdiomaUsuario"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 3,
+          "lg" : 3
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "commentList" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "reload" : {
+            "type" : "variable",
+            "value" : "userData.user_name"
+          },
+          "campusSeleccionado" : {
+            "type" : "variable",
+            "value" : "sesion"
+          }
+        },
+        "reference" : "48f32032-1963-4b42-8c3f-6306b5ea93b5",
+        "hasValidationError" : false,
+        "id" : "customCustomGetDatosSesion"
       }
     ]
   ],
@@ -2439,6 +2725,7 @@
         "\r",
         "if (dd < 10) dd = '0' + dd;\r",
         "if (mm < 10) mm = '0' + mm;\r",
+        "if (seg < 10) seg = '0' + seg;\r",
         "\r",
         "const formattedToday = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + min + ':' + seg;\r",
         "\r",
@@ -2452,7 +2739,11 @@
       "value" : [
         "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{userData.user_name}}&p=0&c=500"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "nombre" : {
@@ -2471,6 +2762,30 @@
     },
     "sesion" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "sesiontemp" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "getidbanner" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacINVPRestGet?url=getidbanner&p=0&c=10&username={{userData.user_name}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "datosusuario" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacINVPRestGet?url=getcelularusuariotemporal&p=0&c=10&username={{userData.user_name}}"
+      ],
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     }
   },

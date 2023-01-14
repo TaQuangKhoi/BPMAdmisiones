@@ -114,7 +114,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
-                insertCase(data.caseId);
+                //insertCase(data.caseId);
+                insertterminado();
                 //$window.location.assign($scope.properties.targetUrlOnSuccess);
                /* if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                      redirectIfNeeded();
@@ -209,7 +210,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function insertCase(caseid) {
-        debugger;
         vm.busy = true;
 
         var data = {
@@ -250,7 +250,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
 
-     function insertterminado(caseid) {
+     function insertterminado() {
         debugger;
         vm.busy = true;
 
