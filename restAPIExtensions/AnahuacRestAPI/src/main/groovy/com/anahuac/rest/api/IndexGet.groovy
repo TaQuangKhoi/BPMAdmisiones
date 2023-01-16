@@ -1704,6 +1704,18 @@ class IndexGet implements RestApiController {
 					}
 					
 				break;
+				case "getCatDescuentosByInfoAspirante":
+					String campus = request.getParameter "campus"
+					String idbachillerato = request.getParameter "idbachillerato"
+					result = new CatalogosDAO().getCatDescuentosByInfoAspirante(campus, idbachillerato, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					
+				break;
 				
 				case "getFileTest":
 				byte[] resultado = new FileDownload().getByteFromUrl("https://bpmintegra.blob.core.windows.net/privado/47044/Fot_47044.jpg?sv=2020-04-08&st=2021-05-04T19%3A38%3A43Z&se=2035-02-01T20%3A38%3A00Z&sr=c&sp=r&sig=ZCmK9hcMcFMZRk4PJyDd6BKPtNjRaho3MjCPGVoEnfo%3D&v=0.23659524683358757")

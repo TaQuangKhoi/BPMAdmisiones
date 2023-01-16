@@ -7351,6 +7351,66 @@ class CatalogosDAO {
 		return resultado
 	}
 	
+	public Result getCatDescuentosByInfoAspirante(String campus, String idbachillerato, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		
+		try {
+			String consulta = Statements.GET_CATDESCUENTOS_BY_CAMPUS_AND_BACHILLERATO;
+			CatDescuentosCustom row = new CatDescuentosCustom();
+			List < CatDescuentosCustom > rows = new ArrayList < CatDescuentosCustom > ();
+
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, campus);
+			pstm.setLong(2, Long.valueOf(idbachillerato));
+
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				row = new CatDescuentosCustom();
+				row.setTipo(rs.getString("TIPO"))
+				row.setDescuento(rs.getInt("descuento"));
+				row.setInicioVigencia(rs.getString("iniciovigencia"));
+				row.setFinVigencia(rs.getString("finvigencia"));
+				row.setCampana(rs.getString("campana"));
+				row.setCiudad(rs.getString("ciudad"));
+				try {
+					row.setCatBachilleratos(new CatBachilleratos())
+					row.getCatBachilleratos().setDescripcion(rs.getString("bachilleratos"))
+					row.getCatBachilleratos().setPersistenceId(rs.getLong("CATBACHILLERATOS_PID"))
+				} catch (Exception e) {
+					LOGGER.error "[ERROR] " + e.getMessage();
+					errorLog += e.getMessage()
+				}
+
+				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+				row.setUsuarioCreacion(rs.getString("usuariocreacion"))
+				row.setCampus(rs.getString("campus"))
+				row.setConvenioDescuento(rs.getString("convenioDescuento"))
+
+				rows.add(row)
+			}
+
+			resultado.setSuccess(true)
+			resultado.setError(errorLog)
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
     /***********************ARTURO ZAMORANO0 FIN**************************/
 }

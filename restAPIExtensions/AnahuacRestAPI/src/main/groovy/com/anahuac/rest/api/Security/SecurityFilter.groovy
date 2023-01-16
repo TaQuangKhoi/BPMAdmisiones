@@ -515,6 +515,10 @@ class SecurityFilter {
 				break;
 				case "getFileTest":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
+				case "getCatDescuentosByInfoAspirante":
+					allow=bonitaRolFilter(context,"ADMISIONES");if(allow){break;}
+					allow=bonitaRolFilter(context,"TI SERUA");if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR");if(allow){break;}
 				break;
 			}
 			return allow;
