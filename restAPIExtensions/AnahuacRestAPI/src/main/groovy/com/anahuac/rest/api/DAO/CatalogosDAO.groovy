@@ -7363,34 +7363,23 @@ class CatalogosDAO {
 
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(consulta);
-			pstm.setString(1, campus);
-			pstm.setLong(2, Long.valueOf(idbachillerato));
+			pstm.setLong(1, Long.valueOf(idbachillerato));
+			pstm.setString(2, campus);
 
 			rs = pstm.executeQuery();
 
 			while (rs.next()) {
 				row = new CatDescuentosCustom();
-				row.setTipo(rs.getString("TIPO"))
+				row.setCampus(campus);
 				row.setDescuento(rs.getInt("descuento"));
-				row.setInicioVigencia(rs.getString("iniciovigencia"));
-				row.setFinVigencia(rs.getString("finvigencia"));
-				row.setCampana(rs.getString("campana"));
-				row.setCiudad(rs.getString("ciudad"));
 				try {
 					row.setCatBachilleratos(new CatBachilleratos())
-					row.getCatBachilleratos().setDescripcion(rs.getString("bachilleratos"))
-					row.getCatBachilleratos().setPersistenceId(rs.getLong("CATBACHILLERATOS_PID"))
+					row.getCatBachilleratos().setDescripcion(rs.getString("bachillerato"))
+					row.getCatBachilleratos().setPersistenceId(Long.valueOf(idbachillerato))
 				} catch (Exception e) {
 					LOGGER.error "[ERROR] " + e.getMessage();
 					errorLog += e.getMessage()
 				}
-
-				row.setIsEliminado(rs.getBoolean("isEliminado"));
-				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-				row.setPersistenceVersion(rs.getLong("persistenceVersion"));
-				row.setUsuarioCreacion(rs.getString("usuariocreacion"))
-				row.setCampus(rs.getString("campus"))
-				row.setConvenioDescuento(rs.getString("convenioDescuento"))
 
 				rows.add(row)
 			}

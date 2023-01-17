@@ -255,6 +255,18 @@ class SecurityFilter {
 					if(allow){break;}
 					allow=bonitaRolFilter(context,"ASPIRANTE")
 				break;
+				case "getSDAEGestionEscolar":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"PreAutorizacion")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"Becas")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ASPIRANTE")
+				break;
+				
 				
 			}
 			return allow;
@@ -349,6 +361,8 @@ class SecurityFilter {
 				allow=bonitaRolFilter(context,"Area Artistica")
 				if(allow){break;}
 				allow=bonitaRolFilter(context,"Area Deportiva")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"Becas")
 				if(allow){break;}
 			break;
 			case "selectSolicitudesApoyo":

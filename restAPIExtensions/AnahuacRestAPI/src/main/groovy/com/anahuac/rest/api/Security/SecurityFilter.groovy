@@ -519,6 +519,7 @@ class SecurityFilter {
 					allow=bonitaRolFilter(context,"ADMISIONES");if(allow){break;}
 					allow=bonitaRolFilter(context,"TI SERUA");if(allow){break;}
 					allow=bonitaRolFilter(context,"ADMINISTRADOR");if(allow){break;}
+					allow=bonitaRolFilter(context,"ASPIRANTE");if(allow){break;}
 				break;
 			}
 			return allow;
@@ -1276,6 +1277,26 @@ class SecurityFilter {
 			  break;
 			}
 			allow = bonitaRolFilter(context, "ASPIRANTE");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "ADMINISTRADOR");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "BECAS");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "PreAutorizacion");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "Finanzas");
+			if (allow) {
+			  break;
+			}
+			allow = bonitaRolFilter(context, "Comité finanzas");
 			if (allow) {
 			  break;
 			}
