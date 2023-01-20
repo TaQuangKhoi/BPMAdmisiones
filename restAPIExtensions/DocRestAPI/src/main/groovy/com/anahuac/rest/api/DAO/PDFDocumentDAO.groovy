@@ -1064,10 +1064,11 @@ class PDFDocumentDAO {
 	
 	private String buildDate(String input) {
 		String output = "";
-		String datein = input.split("T")[0];
-		String[] dateparts = datein.split("-");
-		output = dateparts[2] + "/" + dateparts[1] + "/" + dateparts[0];
-		
+		if( input != null) {
+			String datein = input.split("T")[0];
+			String[] dateparts = datein.split("-");
+			output = dateparts[2] + "/" + dateparts[1] + "/" + dateparts[0];
+		}
 		return output;
 	}
 	
@@ -1113,11 +1114,15 @@ class PDFDocumentDAO {
 			errorLog += " | Ontuvo info del aval ";
 			errorLog += " | " + solicitud.getError_info();
 			
-			if(info.size() < 1) {
-				throw new Exception("400 Bad Request Usuario no encontrado");
-			} else {
-				columns = (Map < String, Object >) info.get(0);
-			}
+            if(info != null){
+                if(info.size() < 1) {
+                    throw new Exception("400 Bad Request Usuario no encontrado");
+                } else {
+                    columns = (Map < String, Object >) info.get(0);
+                }
+            } else {
+                throw new Exception("400 Bad Request Usuario no encontrado");
+            }
 			
 			String comentarios = "";
 			Properties prop = new Properties();
@@ -1435,7 +1440,6 @@ class PDFDocumentDAO {
 			JRBeanCollectionDataSource imagenes = new JRBeanCollectionDataSource(lstImagenes);
 			columns.put("imagenes", imagenes);
 			columns.put("mostrarImagenes", mostrarImagenes);
-			
 			
 			//Puntuaciones
 			columns.put("v", "");
