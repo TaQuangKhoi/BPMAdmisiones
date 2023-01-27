@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAESolicitudFinanciamientoAvalModificar",
   "name" : "SDAESolicitudFinanciamientoAvalModificar",
-  "lastUpdate" : 1674065704638,
+  "lastUpdate" : 1674753074144,
   "rows" : [
     [
       {
@@ -7612,7 +7612,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "A) Referencias bancarias (Cheques, inversión, ahorro)"
+                          "value" : "A) Referencias bancarias (Cheques, inversión, ahorro) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -7883,7 +7883,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "B) Referencias de crédito (Hipotecario, autos, casas, comerciales, etc.)"
+                          "value" : "B) Referencias de crédito (Hipotecario, autos, casas, comerciales, etc.) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                         },
                         "alignment" : {
                           "type" : "constant",
@@ -11018,7 +11018,8 @@
         "\t\t\tbanco: it.banco !== undefined ? it.banco : null,\r",
         "\t\t\ttipoCuenta: it.tipoCuenta !== undefined ? it.tipoCuenta : null,\r",
         "\t\t\tnumeroCuenta: it.numeroCuenta !== undefined ? it.numeroCuenta : null,\r",
-        "\t\t\tsaldoPromedio: it.saldoPromedio !== undefined ? it.saldoPromedio : null\r",
+        "\t\t\tsaldoPromedio: it.saldoPromedio !== undefined ? it.saldoPromedio : null,\r",
+        "\t\t\tesBancaria: true\r",
         "\t\t})),\r",
         "\t\t//map avalReferenciaCreditoModel variable to expected task contract input\r",
         "\t\tavalReferenciaCreditoModelInput: $data.avalReferenciaCreditoModel.map( it => ({\r",
@@ -11026,7 +11027,8 @@
         "\t\t\tbanco: it.banco !== undefined ? it.banco : null,\r",
         "\t\t\ttipoCuenta: it.tipoCuenta !== undefined ? it.tipoCuenta : null,\r",
         "\t\t\tnumeroCuenta: it.numeroCuenta !== undefined ? it.numeroCuenta : null,\r",
-        "\t\t\tsaldoPromedio: it.saldoPromedio !== undefined ? it.saldoPromedio : null\r",
+        "\t\t\tsaldoPromedio: it.saldoPromedio !== undefined ? it.saldoPromedio : null,\r",
+        "\t\t\tesBancaria: false\r",
         "\t\t})),\r",
         "\t\t//map avalInfoInmuebleModel variable to expected task contract input\r",
         "\t\tavalInfoInmuebleModelInput: {\r",
@@ -11183,7 +11185,7 @@
         "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
         "} else if(!$data.avalInfoPersonalModel.otroIngreso && $data.avalInfoPersonalModel.otroIngreso != 0){\r",
         "    output = false;\r",
-        "\t$data.errorMEssageInfoPersonal = \"Campo 'Otro ingreso ($)' no debe ir vacío\";\r",
+        "\t$data.errorMEssageInfoPersonal = \"Campo 'Otro ingreso ($)' no debe ir vacío. Si no tienes otros ingresos, colocar un cero (0)\";\r",
         "\t$data.titleMEssageInfoPersonal = \"Datos del aval\";\r",
         "} else if(!$data.avalInfoPersonalModel.ingresoMensualTotal){\r",
         "    output = false;\r",

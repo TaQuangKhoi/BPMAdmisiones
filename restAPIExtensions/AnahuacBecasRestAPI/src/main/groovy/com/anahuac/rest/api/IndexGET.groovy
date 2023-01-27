@@ -12,6 +12,7 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.rest.api.DAO.BannerRequestDAO
 import com.anahuac.rest.api.DAO.BitacoraDAO
 import com.anahuac.rest.api.DAO.BitacoraSDAEDAO
 import com.anahuac.rest.api.DAO.BonitaGetsDAO
@@ -270,6 +271,17 @@ class IndexGET implements RestApiController {
 				case"getDocumentosByCaseId":
 					String caseId = request.getParameter "caseId"
 					result = new CatalogosDAO().getDocumentosByCaseId(Long.valueOf(caseId));
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				case"getBannerInfo":
+					String idbanner = request.getParameter "idbanner"
+					String idcampus = request.getParameter "idcampus"
+					result = new BannerRequestDAO().getBannerInfo(idcampus, idbanner);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

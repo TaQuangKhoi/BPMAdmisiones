@@ -266,8 +266,48 @@ class SecurityFilter {
 					if(allow){break;}
 					allow=bonitaRolFilter(context,"ASPIRANTE")
 				break;
-				
-				
+				case "insertUpdateCatProvienenIngresos":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "getPromedioMinimoApoyoByCampus":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "switchTipoApoyoImagen":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "getExisteSDAEGestionEscolar":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "getSDAEGestionEscolarByCarrera":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "getInfoBitacora":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "getYear":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+				break;
+				case "getBannerInfo":
+					allow=bonitaRolFilter(context,"TI SERUA")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"ADMINISTRADOR")
+					if(allow){break;}
+					allow=bonitaRolFilter(context,"Becas")
+				break;
 			}
 			return allow;
 	}
@@ -379,7 +419,81 @@ class SecurityFilter {
 				allow=bonitaRolFilter(context,"Area Deportiva")
 				if(allow){break;}
 			break;
-			
+			case "getCatGenerico":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertUpdateCatTipoMoneda":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertUpdateCatGenerico":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "getCatManejoDocumento":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "getCatTienesHijos":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "deleteCatManejoDocumentos":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertImagenSocioEconomico":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "deleteImagenSocioEconomico":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertSDAEGestionEscolar":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "updateSDAEGestionEscolar":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertSDAECreditoGE":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "updateSDAECreditoGE":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertUpdateConfigCampus":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "insertUpdateConfigPagoEstudioSocEco":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
+			case "deleteCatTipoApoyo":
+				allow=bonitaRolFilter(context,"TI SERUA")
+				if(allow){break;}
+				allow=bonitaRolFilter(context,"ADMINISTRADOR")
+			break;
 		}
 		return allow;
 	}

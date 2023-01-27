@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEAutorizacionApoyo",
   "name" : "SDAEAutorizacionApoyo",
-  "lastUpdate" : 1674174914385,
+  "lastUpdate" : 1674843224363,
   "rows" : [
     [
       {
@@ -4671,7 +4671,7 @@
                                     },
                                     "disabled" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : true
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -4710,8 +4710,8 @@
                                       "value" : false
                                     },
                                     "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "formInputAprobar.autorizacionInput.isPagoRealizadoAutorizacion"
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -4791,7 +4791,7 @@
                                     },
                                     "readOnly" : {
                                       "type" : "expression",
-                                      "value" : "!getGestionEscolarSDAE[0].manejaprontopago"
+                                      "value" : "getGestionEscolarSDAE[0].manejaprontopago === \"f\""
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -5874,7 +5874,7 @@
                                     },
                                     "disabled" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : true
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -5913,8 +5913,8 @@
                                       "value" : false
                                     },
                                     "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "formInputAprobar.autorizacionInput.isPagoRealizadoAutorizacion"
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -5994,7 +5994,7 @@
                                     },
                                     "readOnly" : {
                                       "type" : "expression",
-                                      "value" : "!getGestionEscolarSDAE[0].manejaprontopago"
+                                      "value" : "getGestionEscolarSDAE[0].manejaprontopago === \"f\""
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -6876,7 +6876,7 @@
                                     },
                                     "disabled" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : true
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -6915,8 +6915,8 @@
                                       "value" : false
                                     },
                                     "readOnly" : {
-                                      "type" : "constant",
-                                      "value" : false
+                                      "type" : "expression",
+                                      "value" : "formInputAprobar.autorizacionInput.isPagoRealizadoAutorizacion"
                                     },
                                     "required" : {
                                       "type" : "constant",
@@ -6996,7 +6996,7 @@
                                     },
                                     "readOnly" : {
                                       "type" : "expression",
-                                      "value" : "!getGestionEscolarSDAE[0].manejaprontopago"
+                                      "value" : "getGestionEscolarSDAE[0].manejaprontopago === \"f\""
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
@@ -8532,7 +8532,7 @@
       "type" : "expression",
       "value" : [
         "let output = true;\r",
-        "\r",
+        "debugger;\r",
         "if(!$data.formInputAprobar.autorizacionInput.porcentajeBecaAutorizacion){\r",
         "    $data.errorMessage = \"No puedes autorizar el apoyo sin poner valor en el campo 'Porcentaje de beca autorizado'\";\r",
         "    output = false;\r",
@@ -8545,7 +8545,12 @@
         "} else if(!$data.formInputAprobar.autorizacionInput.promedioMinimoAutorizacion){\r",
         "    $data.errorMessage = \"El campo 'Promedio mínimo para conservar el apoyo' no debe ir vacío\";\r",
         "    output = false;\r",
-        "} else if(!$data.formInputAprobar.autorizacionInput.fechaPagoInscripcionAutorizacion){\r",
+        "}\r",
+        "// else if(!$data.formInputAprobar.autorizacionInput.fechaPagoInscripcionAutorizacion){\r",
+        "//     $data.errorMessage = \"El campo 'Fecha límite de inscripción' no debe ir vacío\";\r",
+        "//     output = false;\r",
+        "// }\r",
+        " else if(!$data.formInputAprobar.autorizacionInput.isPagoRealizadoAutorizacion && !$data.formInputAprobar.autorizacionInput.fechaPagoInscripcionAutorizacion){\r",
         "    $data.errorMessage = \"El campo 'Fecha límite de inscripción' no debe ir vacío\";\r",
         "    output = false;\r",
         "}\r",
@@ -8746,7 +8751,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getConfiguracionCampus&p=0&c=10&idCampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "getGestionEscolarSDAE" : {
@@ -8776,6 +8785,36 @@
         "../API/identity/user/{{userData.user_id}}"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "getBannerInfo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getBannerInfo&p=0&c=100&idcampus={{objSolicitudDeAdmision[0].catCampusEstudio.persistenceId}}&idbanner={{detalleSolicitud[0].idBanner}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "detalleSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&p=0&c=10&f=caseId={{objSolicitudDeAdmision[0].caseId}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "setInscripcionPagada" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.getBannerInfo){",
+        "    debugger;",
+        "    let value = $data.getBannerInfo.data[0].pago_de_inscripcion === \"SI\";",
+        "    $data.formInputAprobar.autorizacionInput.isPagoRealizadoAutorizacion = value;",
+        "    return value;    ",
+        "} else {",
+        "    return false;",
+        "}"
+      ],
       "exposed" : false
     }
   },
