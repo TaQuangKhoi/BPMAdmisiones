@@ -87,7 +87,7 @@ class LoginSesionesDAO {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 				LocalTime hora = LocalTime.parse(rs.getString("entrada"));
 				errorlog = " | consulta_hora " + hora.format(formatter) + " | "
-				LocalTime horaModificada = hora.plusMinutes(6000);
+				LocalTime horaModificada = hora.plusMinutes(600);
 				
 				horafinal = horaModificada.format(formatter);
 			}

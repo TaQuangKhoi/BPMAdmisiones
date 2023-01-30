@@ -209,6 +209,10 @@ class UsuariosDAO {
 			error_log = error_log + " | def str = jsonSlurper.parseText";
 			error_log = error_log + " | " + str;
 			con.commit();
+			Result resultado2 = new Result();
+			resultado2 = updateNumeroContacto(object.nombreusuario,object.numeroContacto);
+			error_log = error_log + resultado2.getError();
+			resultado.setData(lstResultado);
 			resultado.setSuccess(true);
 			resultado.setError_info(error_log)
 		} catch (Exception e) {
@@ -273,6 +277,38 @@ class UsuariosDAO {
 				resultado.setError_info(error_log)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updateNumeroContacto(String nombreUsuario, String numeroContacto) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement("UPDATE CATREGISTRO SET numeroContacto = ? WHERE nombreusuario = ?")
+				pstm.setString(1, numeroContacto)
+				pstm.setString(2, nombreUsuario)
+				pstm.executeUpdate();
+				
+				pstm = con.prepareStatement("UPDATE SolicitudDeAdmision SET telefonocelular = ? WHERE correoelectronico = ?")
+				pstm.setString(1, numeroContacto)
+				pstm.setString(2, nombreUsuario)
+				pstm.executeUpdate();
+				
+				con.commit();
+				resultado.setSuccess(true)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

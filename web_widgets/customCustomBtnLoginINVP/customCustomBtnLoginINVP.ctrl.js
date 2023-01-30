@@ -278,7 +278,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         debugger;
         $scope.showLoading();
         vm.busy = true;
-
+        let entro = false;
         let data = {
             "username" : $scope.properties.dataToSend.username
         }
@@ -290,10 +290,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
       
         return $http(req).success(function(data, status) {
-            if(data.data.length === 0){
+            if(data.data.length > 1){
+                for (var i = 0; data.data.length; i++) {
+                    if(data.data[i].havesesion === true){
+                        entro = true;
+                        Swal.fire({
+                            title: '<strong>Atención</strong>',
+                            icon: 'error',
+                            //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                            html:'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.', showCloseButton: false
+                        });
+                    }
+                }
+            }else if(data.data.length === 0){
                 checkSesion();
             }
             else if(data.data[0].havesesion === true){
+                entro = true;
                  Swal.fire({
                     title: '<strong>Atención</strong>',
                     icon: 'error',
@@ -302,6 +315,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 });
             }else{
                checkSesion();
+            }
+
+            if(!entro){
+                checkSesion();
             }
             //redirectIfNeeded();
         })
@@ -409,19 +426,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req).success(function(data, status) {
             if(data.data.length > 0){
                 var pos = data.data.length - 1;
+                var content = document.createElement('div');
+                let message  = "<p style='text-align: justify;'>No existe una sesión activa para este usuario, estas programado para el día " + data.data[pos].aplicacion + " a las " + data.data[pos].entrada +", para más información contacta a tu aplicador</p>";
+                content.innerHTML = message;
                 
                 Swal.fire({
                     title: '<strong>Atención</strong>',
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'No existe una sesión activa para este usuario, esta programado para el día ' + data.data[pos].aplicacion + ' a las ' + data.data[pos].entrada +', para más información contacte a su aplicador', showCloseButton: false
+                    html:"<p style='text-align: justify;'>No existe una sesión activa para este usuario, estas programado para el día " + data.data[pos].aplicacion + " a las " + data.data[pos].entrada +", para más información contacta a tu aplicador</p>", showCloseButton: false
                 });
             }else{
                 Swal.fire({
                     title: '<strong>Atención</strong>',
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'No existe una sesión registrada para este usuario', showCloseButton: false
+                    html:'Este usuario no tiene una sesión registrada.', showCloseButton: false
                 });
             }
         })

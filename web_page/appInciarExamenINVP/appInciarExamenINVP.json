@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appInciarExamenINVP",
   "name" : "appInciarExamenINVP",
-  "lastUpdate" : 1673658311718,
+  "lastUpdate" : 1674757752925,
   "rows" : [
     [
       {
@@ -569,8 +569,8 @@
                         "value" : "URL"
                       },
                       "targetUrl" : {
-                        "type" : "constant",
-                        "value" : ""
+                        "type" : "expression",
+                        "value" : "objSolicitudDeAdmision[0].catCampus.urlAvisoPrivacidad"
                       },
                       "pageToken" : {
                         "type" : "constant"
@@ -1264,8 +1264,8 @@
                         "value" : "URL"
                       },
                       "targetUrl" : {
-                        "type" : "constant",
-                        "value" : ""
+                        "type" : "expression",
+                        "value" : "objSolicitudDeAdmision[0].catCampus.urlAvisoPrivacidad"
                       },
                       "pageToken" : {
                         "type" : "constant"
@@ -1630,6 +1630,7 @@
         "if (dd < 10) dd = '0' + dd;\r",
         "if (mm < 10) mm = '0' + mm;\r",
         "if (seg < 10) seg = '0' + seg;\r",
+        "if (min < 10) min = '0' + min;\r",
         "\r",
         "const formattedToday = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + min + ':' + seg;\r",
         "\r",
@@ -1688,6 +1689,14 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacINVPRestGet?url=getcelularusuariotemporal&p=0&c=10&username={{userData.user_name}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "objSolicitudDeAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=999&f=correoElectronico={{userData.user_name}}"
       ],
       "advancedOptions" : { },
       "exposed" : false

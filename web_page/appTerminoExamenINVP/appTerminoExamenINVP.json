@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appTerminoExamenINVP",
   "name" : "appTerminoExamenINVP",
-  "lastUpdate" : 1672444701719,
+  "lastUpdate" : 1674755093633,
   "rows" : [
     [
       {
@@ -19,8 +19,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "getidbanner.data.length > 0"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -273,7 +273,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Para que tu examen sea válido debes realizar tu proceso de admisiones. \n<br>\nPara realizar tu proceso de admisiones da clic en el siguiente botón.\n<br>\nRecuerda que debes utilizar el usuario y contraseña que creaste antes de iniciar tu examen."
+                        "value" : "<p style='text-align: justify;'>Para que tu examen sea válido, debes continuar con tu proceso de admisiones dando clic en el botón.\n<br>\nRecuerda que para ingresar a tu cuenta debes utilizar el usuario y contraseña que creaste antes de iniciar tu examen.</p>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -754,7 +754,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "For your exam to be valid you must complete your admissions process. \n<br>\nTo carry out your admissions process, click on the following button. \n\n<br>\nRemember that you must use the username and password you created before starting your exam."
+                        "value" : "<p style='text-align: justify;'>For your test to be valid, you must continue with your admissions process by clicking on the button.\n<br>\nRemember that to enter your account you must use the username and password you created before starting your test.</p>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1011,8 +1011,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : true
+            "type" : "expression",
+            "value" : "getidbanner.data.length === 0"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -1070,7 +1070,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Tu examen ha concluido satisfactoriamente."
+                        "value" : "Tu examen ha concluido."
                       },
                       "level" : {
                         "type" : "constant",
@@ -1155,7 +1155,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "La sesión ha concluido correctamente, si tienes alguna duda contacta a tu aplicador.\n<br>\nYa puedes cerrar el navegador de manera segura."
+                        "value" : "<p style='text-align: justify;'>La sesión ha concluido correctamente, si tienes alguna duda contacta a tu aplicador.\n<br>\nYa puedes cerrar el navegador de manera segura.\n</p>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1246,7 +1246,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Your test has been successfully completed."
+                        "value" : "Your test has been completed."
                       },
                       "level" : {
                         "type" : "constant",
@@ -1331,7 +1331,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "The session has concluded correctly, if you have any questions contact your applicator.\n<br>\nYou can now safely close the browser."
+                        "value" : "<p style='text-align: justify;'>The session has concluded correctly, if you have any questions contact your applicator.\n<br>\nYou can now safely close the browser.</p>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1492,6 +1492,14 @@
     },
     "inicioexamen" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "getidbanner" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacINVPRestGet?url=getidbanner&p=0&c=10&username={{userData.user_name}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

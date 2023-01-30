@@ -157,7 +157,6 @@ function($scope, $http) {
     }
 
     $scope.seleccionarPagina = function(valorSeleccionado) {
-        debugger;
         $scope.isseleccion = true;
         $scope.objcontestada = angular.copy($scope.properties.objRespuesta);
         if ($scope.properties.respuestaExamen !== null && $scope.properties.respuestaExamen !== undefined) {
@@ -206,7 +205,28 @@ function($scope, $http) {
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
                     html:'The connection was lost, please try again.', showCloseButton: false
+                }).then((result) => {
+                    debugger;
+                    let posicion = 0;
+                    let pregunta = ($scope.objcontestada.pregunta);
+                    for (var i = 0; i < $scope.properties.objPreguntasContestadas.length; i++) {
+                        if (pregunta === $scope.properties.objPreguntasContestadas[i].pregunta) {
+                            posicion = i;
+                        }
+                    }
+
+                    $scope.properties.objPreguntasContestadas = $scope.properties.objPreguntasContestadas.slice(0, posicion-1);
+                    
+                    for (var i = 0; i < $scope.lstPaginado.length; i++) {
+                        if(pregunta === $scope.lstPaginado[i].numero){
+                            $scope.lstPaginado[i].contestado = false;
+                            break;
+                        }
+                    }
+                    $scope.loadPaginado();
+                    console.log($scope.properties.objPreguntasContestadas);
                 });
+            
                 /*$scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromSuccess = undefined;*/

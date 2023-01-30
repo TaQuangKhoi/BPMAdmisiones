@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appExamenINVP",
   "name" : "appExamenINVP",
-  "lastUpdate" : 1673658308111,
+  "lastUpdate" : 1674764830653,
   "rows" : [
     [
       {
@@ -1443,7 +1443,7 @@
                       },
                       "correo" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "userData.user_name"
                       }
                     },
                     "reference" : "150f52a9-58da-4924-9df5-d3971bdc04f6",
@@ -2726,6 +2726,7 @@
         "if (dd < 10) dd = '0' + dd;\r",
         "if (mm < 10) mm = '0' + mm;\r",
         "if (seg < 10) seg = '0' + seg;\r",
+        "if (min < 10) min = '0' + min;\r",
         "\r",
         "const formattedToday = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + min + ':' + seg;\r",
         "\r",
@@ -2773,7 +2774,11 @@
       "value" : [
         "../API/extension/AnahuacINVPRestGet?url=getidbanner&p=0&c=10&username={{userData.user_name}}"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "datosusuario" : {

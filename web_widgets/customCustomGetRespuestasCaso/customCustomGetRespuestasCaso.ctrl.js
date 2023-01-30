@@ -14,6 +14,10 @@ function ($scope, $http) {
         
         return $http(req).success(function(data, status) {
             $scope.properties.commentList = data.data[0].caseid;
+            var termino = localStorage.getItem("terminado");
+            if(termino === "true"){
+                window.top.location.href = "/bonita/apps/login/testinvp/";
+            }
         })
         .error(function(data, status) {
              swal("Error.", data.message, "error");
