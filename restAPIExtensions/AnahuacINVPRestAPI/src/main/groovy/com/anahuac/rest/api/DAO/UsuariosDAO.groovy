@@ -11,6 +11,7 @@ import org.bonitasoft.engine.identity.ContactDataCreator
 import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.identity.UserCreator
 import org.bonitasoft.engine.identity.UserMembership
+import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.identity.UserUpdater
 import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.slf4j.Logger
@@ -513,17 +514,17 @@ class UsuariosDAO {
 			
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
-			Long userLogged = context.getApiSession().getUserId();
-			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-
-			for (UserMembership objUserMembership: lstUserMembership) {
-				for (CatCampus rowGrupo: lstCatCampus) {
-					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-						lstGrupo.add(rowGrupo.getDescripcion());
-						break;
-					}
-				}
-			}
+//			Long userLogged = context.getApiSession().getUserId();
+//			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+//
+//			for (UserMembership objUserMembership: lstUserMembership) {
+//				for (CatCampus rowGrupo: lstCatCampus) {
+//					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+//						lstGrupo.add(rowGrupo.getDescripcion());
+//						break;
+//					}
+//				}
+//			}
 			
 			if (lstGrupo.size() > 0 && object.campus != null ) {
 				where += " AND (";
@@ -567,11 +568,11 @@ class UsuariosDAO {
 			}
 			
 			switch(object.orderby) {
-				case "id_sesion":
-					orderBy = " ORDER BY id_sesion " + object.orientation;
+				case "idBpm":
+					orderBy = " ORDER BY creg.caseid " + object.orientation;
 				break;
 				default:
-					orderBy = " ORDER BY prue.persistenceid " + object.orientation;
+					orderBy = " ORDER BY creg.caseid " + object.orientation;
 				break;
 			}
 			
@@ -581,7 +582,7 @@ class UsuariosDAO {
 			List <AspiranteSesionCustom> rows = new ArrayList <AspiranteSesionCustom>();
 			closeCon = validarConexion();
 			
-			String consultaCcount = Statements.GET_COUNT_SESONES_TODAS.replace("[WHERE]", where);
+			String consultaCcount = Statements.GET_ASPIRANTES_SESIONES_COUNT.replace("[WHERE]", where);
 			pstm = con.prepareStatement(consultaCcount);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
@@ -606,13 +607,15 @@ class UsuariosDAO {
 				}
 				row.setIdBpm(rs.getLong("idbpm"));
 				row.setNombre(nombre);
+				row.setUni(rs.getString("campus"));
 				row.setCorreoElectronico(rs.getString("correoelectronico"));
 				row.setTelefono(rs.getString("telefono"));
 				row.setCelular(rs.getString("telefonocelular"));
 				row.setPreguntas(rs.getInt("total_preguntas"));
 				row.setContestadas(rs.getInt("total_respuestas"));
-//				row.setInicio(rs.getString("correoelectronico"));
-//				row.setTermino(rs.getString("correoelectronico"));
+				row.setInicio(rs.getString("fechainicio"));
+				row.setTermino(rs.getString("fechafin"));
+				row.setIdBanner(rs.getString("idbanner"));
 //				row.setTiempo(rs.getString("correoelectronico"));
 //				row.setEstatus(rs.getString("correoelectronico"));
 				
