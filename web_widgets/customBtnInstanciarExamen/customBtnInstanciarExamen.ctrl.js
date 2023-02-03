@@ -256,7 +256,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         var data = {
             "terminado": false,
-            "idusuario": $scope.properties.userData.user_name
+            "username": $scope.properties.userData.user_name
         }
 
         var req = {

@@ -57,7 +57,7 @@ function ($scope, modalService, $http) {
         
         if($scope.properties.pageToken === "examen" || $scope.properties.pageToken === "presentar"){
             //window.top.location.href = "/bonita/apps/invplogin/login/";    
-            window.top.location.href = "/bonita/apps/aspiranteinvp/termino/";
+            updateterminado();
         }else if($scope.properties.pageToken === "termino"){
             $scope.properties.cerrarSesion = false;
             modalService.close();
@@ -90,4 +90,29 @@ function ($scope, modalService, $http) {
         }
     })
     
+ function updateterminado() {
+        debugger;
+
+        var data = {
+            "terminado": true,
+            "username": $scope.properties.userData.user_name
+        }
+
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=updateterminado&p=0&c=10",
+            data: data
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+               window.top.location.href = "/bonita/apps/aspiranteinvp/termino/";
+            })
+            .error(function(data, status) {
+               
+            })
+            .finally(function() {
+
+            });
+    }
 }
