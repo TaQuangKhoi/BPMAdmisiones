@@ -16,12 +16,21 @@ import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.catalogos.CatCampus
+import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.IdiomaExamen
 import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
+import com.anahuac.rest.api.Entity.custom.AppMenuRole
+import com.anahuac.rest.api.Entity.custom.AspiranteSesionCustom
+import com.anahuac.rest.api.Entity.custom.Menu
+import com.anahuac.rest.api.Entity.custom.MenuParent
+import com.anahuac.rest.api.Entity.custom.SesionesCustom
+import com.anahuac.rest.api.Entity.db.BusinessAppMenu
+import com.anahuac.rest.api.Entity.db.Role
 import com.anahuac.rest.api.Utilities.LoadParametros
 import groovy.json.JsonSlurper
 
@@ -315,5 +324,315 @@ class UsuariosDAO {
 			}
 		}
 		return resultado
+	}
+	
+	public Result getMenuAdministrativo(RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			MenuParent row = new MenuParent();
+			List<MenuParent> rows = new ArrayList<MenuParent>();
+			closeCon = validarConexionBonita();
+			pstm = con.prepareStatement(MenuParent.GET)
+			pstm.setLong(1, context.apiSession.userId)
+			rs = pstm.executeQuery()
+			rows = new ArrayList<MenuParent>();
+			
+			while(rs.next()) {
+				row = new MenuParent();
+				row.setId(rs.getLong("id"));
+				row.setIsparent(rs.getBoolean("isparent"));
+				row.setUrl(rs.getString("url"));
+				row.setToken(rs.getString("token"));
+				row.setMenu(rs.getString("menu"));
+				row.setDisplayname(rs.getString("Displayname"));
+				row.setParent(rs.getString("parent"));
+				row.setParentid(rs.getLong("parentid"));
+				row.setParenttoken(rs.getString("parenttoken"));
+				
+				if(rs.getBoolean("isparent")) {
+					row = new MenuParent()
+					row.setId(rs.getLong("id"))
+					row.setIsparent(rs.getBoolean("isparent"))
+					row.setUrl(rs.getString("url"))
+					row.setToken(rs.getString("token"))
+					row.setMenu(rs.getString("menu"))
+					row.setDisplayname(rs.getString("Displayname"))
+					row.setParent(rs.getString("parent"))
+					row.setParentid(rs.getLong("parentid"))
+					row.setParenttoken(rs.getString("parenttoken"))
+					row.setChild(new ArrayList<Menu>())
+					rows.add(row)
+				} else {
+					Menu menu = new Menu()
+					menu.setId(rs.getLong("id"))
+					menu.setIsparent(rs.getBoolean("isparent"))
+					menu.setUrl(rs.getString("url"))
+					menu.setToken(rs.getString("token"))
+					menu.setMenu(rs.getString("menu"))
+					menu.setDisplayname(rs.getString("Displayname"))
+					menu.setParent(rs.getString("parent"))
+					menu.setParentid(rs.getLong("parentid"))
+					menu.setParenttoken(rs.getString("parenttoken"))
+					if(rows.contains(row)) {
+						rows.get(rows.indexOf(row)).getChild().add(menu)
+					}
+				}
+			}
+			resultado.setSuccess(true)
+			
+			resultado.setData(rows)
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+		resultado.setSuccess(false);
+		if(e.getMessage().contains("\"app_menu_role\" does not exist")) {
+			try {
+				pstm = con.prepareStatement(AppMenuRole.CREATE)
+				pstm.execute()
+				resultado.setError("La tabla app_menu_role no existía, y ya fue creada, favor de ejecutar la consulta de nuevo.")
+			} catch (Exception e2) {
+				LOGGER.error "[ERROR] " + e2.getMessage();
+				resultado.setError("falló al crear tabla "+e2.getMessage());
+			}
+			
+		}else {
+			resultado.setError("No entró al crear tabla "+e.getMessage());
+		}
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getBusinessAppMenu() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			AppMenuRole row = new AppMenuRole()
+			Role role = new Role()
+			List<AppMenuRole> rows = new ArrayList<AppMenuRole>();
+			closeCon = validarConexionBonita();
+			pstm = con.prepareStatement(AppMenuRole.GET)
+			rs = pstm.executeQuery()
+			rows = new ArrayList<BusinessAppMenu>();
+			while(rs.next()) {
+				row = new AppMenuRole()
+				role = new Role()
+				row.setApplicationid(rs.getLong("applicationid"))
+				row.setApplicationpageid(rs.getLong("applicationpageid"))
+				row.setDisplayname(rs.getString("displayname"))
+				row.setId(rs.getLong("id"))
+				row.setIndex_(rs.getInt("index_"))
+				row.setTenantid(rs.getLong("tenantid"))
+				role.setId(rs.getLong("roleid"))
+				role.setName(rs.getString("rolename"))
+				role.setEliminado(false)
+				role.setNuevo(false)
+				row.setRoles(new ArrayList<Role>())
+				if(role.id>0) {
+					row.getRoles().add(role)
+				}
+				if(rows.contains(row)) {
+					if(!rows.get(rows.indexOf(row)).roles.contains(role)) {
+						
+						if(role.id>0) {
+							rows.get(rows.indexOf(row)).roles.add(role)
+						}
+					}
+				}else {
+					rows.add(row);
+				}
+				
+			}
+			resultado.setSuccess(true)
+			
+			resultado.setData(rows)
+			
+		} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(" "+e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updateBusinessAppMenu(AppMenuRole row) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			closeCon = validarConexionBonita();
+			for(Role rol : row.roles) {
+				if(rol.nuevo && !rol.eliminado) {
+					pstm = con.prepareStatement(AppMenuRole.INSERT)
+					pstm.setString(1, row.getDisplayname())
+					pstm.setLong(2, rol.getId())
+					pstm.execute();
+				}else if(!rol.nuevo && rol.eliminado) {
+					pstm = con.prepareStatement(AppMenuRole.DELETE)
+					pstm.setString(1, row.getDisplayname())
+					pstm.setLong(2, rol.getId())
+					pstm.execute();
+				}
+			}
+			
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getAspirantes(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = " WHERE ctpr.descripcion = 'Examen Psicométrico'  ";
+		String errorlog = "  ";
+		String orderBy = " ORDER BY ";
+		List < String > lstGrupo = new ArrayList < String > ();
+		String errorLog = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
+			Long userLogged = context.getApiSession().getUserId();
+			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+
+			for (UserMembership objUserMembership: lstUserMembership) {
+				for (CatCampus rowGrupo: lstCatCampus) {
+					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+			if (lstGrupo.size() > 0 && object.campus != null ) {
+				where += " AND (";
+				for (Integer i = 0; i < lstGrupo.size(); i++) {
+					String campusMiembro = lstGrupo.get(i);
+					where += " cca.descripcion = '" + campusMiembro + "'"
+					if (i == (lstGrupo.size() - 1)) {
+						where += ") "
+					} else {
+						where += " OR "
+					}
+				}
+			}
+			
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				switch (filtro.get("columna")) {
+
+					case "No. ":
+						errorlog += "id_sesion "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(id_sesion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Nombre":
+						errorlog += "ses.nombre"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(ses.nombre) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					default:
+						break;
+				}
+			}
+			
+			switch(object.orderby) {
+				case "id_sesion":
+					orderBy = " ORDER BY id_sesion " + object.orientation;
+				break;
+				default:
+					orderBy = " ORDER BY prue.persistenceid " + object.orientation;
+				break;
+			}
+			
+//			errorLog += where;
+			
+			AspiranteSesionCustom row = new AspiranteSesionCustom();
+			List <AspiranteSesionCustom> rows = new ArrayList <AspiranteSesionCustom>();
+			closeCon = validarConexion();
+			
+			String consultaCcount = Statements.GET_COUNT_SESONES_TODAS.replace("[WHERE]", where);
+			pstm = con.prepareStatement(consultaCcount);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("total_registros"));
+			}
+			
+			String consulta = Statements.GET_ASPIRANTES_SESIONES.replace("[WHERE]", where).replace("[ORDERBY]", orderBy)
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				row = new AspiranteSesionCustom();
+				String nombre = rs.getString("primernombre");
+				if(rs.getString("segundonombre").equals("") || rs.getString("segundonombre") == null) {
+					nombre += " " + rs.getString("segundonombre")
+				}
+				nombre += " " + rs.getString("apellidopaterno");
+				if(rs.getString("apellidomaterno").equals("") || rs.getString("apellidomaterno") == null) {
+					nombre += " " + rs.getString("apellidomaterno")
+				}
+				row.setIdBpm(rs.getLong("idbpm"));
+				row.setNombre(nombre);
+				row.setCorreoElectronico(rs.getString("correoelectronico"));
+				row.setTelefono(rs.getString("telefono"));
+				row.setCelular(rs.getString("telefonocelular"));
+				row.setPreguntas(rs.getInt("total_preguntas"));
+				row.setContestadas(rs.getInt("total_respuestas"));
+//				row.setInicio(rs.getString("correoelectronico"));
+//				row.setTermino(rs.getString("correoelectronico"));
+//				row.setTiempo(rs.getString("correoelectronico"));
+//				row.setEstatus(rs.getString("correoelectronico"));
+				
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
 	}
 }
