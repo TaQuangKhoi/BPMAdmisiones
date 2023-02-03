@@ -38,9 +38,9 @@ class Statements {
 	
 	public static final String GET_SESION_USUARIO = "SELECT havesesion FROM idiomainvpusuario WHERE username = ?";
 	
-	public static final String INSERT_TERMINADO_EXAMEN = "INSERT INTO invpexamenterminado (persistenceId, persistenceVersion, username, terminado) VALUES ( case when (SELECT max(persistenceId)+1 from invpexamenterminado ) is null then 1 else (SELECT max(persistenceId)+1 from invpexamenterminado) end, 0, ?, ?);";
+	public static final String INSERT_TERMINADO_EXAMEN = "INSERT INTO invpexamenterminado (persistenceId, persistenceVersion, username, terminado, fechainicio, fechafin) VALUES ( case when (SELECT max(persistenceId)+1 from invpexamenterminado ) is null then 1 else (SELECT max(persistenceId)+1 from invpexamenterminado) end, 0, ?, ?, NOW(), NULL);";
 	
-	public static final String UPDATE_TERMINADO_EXAMEN = "UPDATE invpexamenterminado SET terminado = ? WHERE username = ?";
+	public static final String UPDATE_TERMINADO_EXAMEN = "UPDATE invpexamenterminado SET terminado = ?, fechafin = NOW() WHERE username = ?";
 	
 	public static final String GET_TERMINADO_EXAMEN = "SELECT terminado FROM invpexamenterminado WHERE username = ?";
 	
