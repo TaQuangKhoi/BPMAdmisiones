@@ -19,6 +19,8 @@ import com.anahuac.rest.api.DAO.LoginSesionesDAO
 import com.anahuac.rest.api.DAO.RespuestasExamenDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Entity.custom.AppMenuRole
+import com.anahuac.rest.api.Entity.db.Role
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.bonitasoft.web.extension.rest.RestApiController
@@ -52,6 +54,7 @@ class Index implements RestApiController {
 		UsuariosDAO uDAO = new UsuariosDAO();
 		RespuestasExamenDAO rexa = new RespuestasExamenDAO();
 		LoginSesionesDAO lses = new LoginSesionesDAO();
+		CatalogosDAO cDAO = new CatalogosDAO();
 		//MAPEO DE SERVICIOS==================================================
 		String jsonData = "{}"
 		try {
@@ -253,6 +256,35 @@ class Index implements RestApiController {
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 			}
 			break;
+			case "updateBusinessAppMenu":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				assert object instanceof Map;
+				AppMenuRole row = new AppMenuRole()
+				row.setDisplayname(object.displayname)
+				row.setId(object.id)
+				row.setRoles(new ArrayList<Role>())
+				
+				for(def i=0; i<object.roles.size(); i++) {
+					Role rol = new Role();
+					try {
+						rol.setId(Long.parseLong(object.roles[i].id))
+					} catch (Exception e) {
+						rol.setId(object.roles[i].id)
+					}
+					
+					rol.setEliminado(object.roles[i].eliminado)
+					rol.setNuevo(object.roles[i].nuevo)
+					row.getRoles().add(rol)
+				}
+				result = new UsuariosDAO().updateBusinessAppMenu(row)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+			break;
 			case "insertRespuestaid":
 			try{
 				result =  rexa.insertRespuestaid(jsonData);
@@ -266,8 +298,37 @@ class Index implements RestApiController {
 				result.setError(ou.getMessage())
 				return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 			}
+			case "getSesiones":
+				try{
+					result =  cDAO.getSesiones(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
 			break;
-				default:
+			case "getAspirantes":
+				try{
+					result =  new UsuariosDAO().getAspirantes(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+			break;
+			default:
 				result = notFound(url);
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
