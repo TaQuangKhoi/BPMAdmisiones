@@ -1463,7 +1463,10 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					} else if (object.codigo.equals("sdae-solicitudrechaza-comitéfinanzas")) {
 						plantilla = plantilla.replace("[RECHAZO-COMENTARIOS-FINDICTA]", rs.getString("observaciones_comite_fina"));
 						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajecredito_sol);
-					}
+					}  else if (object.codigo.equals("sdae-respondepropuestanegativa-finanzas-propuesta")) {
+						plantilla = plantilla.replace("[MOTIVOSDERECHAZO-APOYO]", rs.getString("motivorechazoaspirante"));
+						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajebeca_sol != null ? porcentajebeca_sol : "N/A");
+					} 
 
 					plantilla = plantilla.replace("[PORCENTAJE-BECA]", porcentajebeca_sol != null ? porcentajebeca_sol : "N/A");
 					plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO]", porcentajecredito_sol != null ? porcentajecredito_sol : "N/A");
@@ -1481,7 +1484,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 			}
 			
-			if(object.codigo.equals("sdae-propuestasolobeca-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas") || object.codigo.equals("sdae-propuestasolobeca-becas-medicina") || object.codigo.equals("sdae-propuesta-financiamiento-becas-medicina") || object.codigo.equals("sdae-propuestasolobeca-becas-prontopago") || object.codigo.equals("sdae-propuesta-financiamiento-becas-prontopago") ) {
+			if(object.codigo.equals("sdae-propuestasolobeca-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas") || object.codigo.equals("sdae-propuestasolobeca-becas-medicina") || object.codigo.equals("sdae-propuesta-financiamiento-becas-medicina") || object.codigo.equals("sdae-propuestasolobeca-becas-prontopago") || object.codigo.equals("sdae-propuesta-financiamiento-becas-prontopago") || object.codigo.equals("sdae-propuesta-finanzas") ) {
 				
 				Integer costoCredito = 0;
 				Integer creditosemestre = 0;
@@ -1509,25 +1512,38 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					rs = pstm.executeQuery();
 					if(rs.next()) {
 						errorlog += "| " + object.codigo + " SOLICITUD ENCONTRADA ";
+						errorlog += " | 1 credito";
 						creditosemestre = rs.getInt("creditosemestre");
+						errorlog += " | 1 parcialidad";
 						parcialidad = rs.getInt("parcialidad");
+						errorlog += " | 1 porcentaje";
 						porcentajebecaautorizacion = rs.getInt("porcentajebecaautorizacion");
 						porcentajecreditoautorizacion = rs.getInt("porcentajecreditoautorizacion");
 						descuentoanticipadoautorizacion = rs.getInt("descuentoanticipadoautorizacion");
+						errorlog += " | 1 periodo";
 						descripcionPeriodo = rs.getString("descripcion_periodo");
 						inscripcionmayo = rs.getInt("inscripcionmayo");
 						inscripcionseptiembre = rs.getInt("inscripcionseptiembre");
 						inscripcionagosto = rs.getInt("inscripcionagosto");
 						inscripcionenero = rs.getInt("inscripcionenero");
+						errorlog += " | 1 descuentos";
 						Integer descuento = descuentoanticipadoautorizacion;
 						Integer porcentajeBeca_sol  = rs.getInt("porcentajebecaautorizacion");
 						Integer porcentajeFina_sol  = rs.getInt("porcentajecreditoautorizacion");
 						Integer porcentajeInteresFinanciamiento = rs.getInt("porcentajeinteresfinanciamiento");
-						plantilla = plantilla.replace("[PROMEDIO-MINIMO]", rs.getString("promediominimoautorizacion"));
+						Integer porcentajefinanciamientootorgado =  rs.getInt("porcentajefinanciamientootorgado");
+						errorlog += " | 1 promedios";
+						String promedio = "0";
+						if(rs.getString("promediominimoautorizacion")!= null) {
+							promedio = rs.getString("promediominimoautorizacion");
+						}
+						plantilla = plantilla.replace("[PROMEDIO-MINIMO]", promedio);
 						plantilla = plantilla.replace("[TIPO-BECA]", rs.getString("tipoapoyo"));
+						errorlog += " | 1 procedencia";
 						String procedencia = rs.getString("ciudadbachillerato") == null ? rs.getString("ciudadbachillerato_otro") : rs.getString("ciudadbachillerato");
 						plantilla = plantilla.replace("[PROCEDENCIA]", procedencia);
 						plantilla = plantilla.replace("[PORCENTAJE-BECA-DICTAMEN]", porcentajeBeca_sol.toString());
+						errorlog += " | PLANTILLA LLEGO"
 						if(object.codigo.equals("sdae-propuesta-financiamiento-becas") || object.codigo.equals("sdae-propuesta-financiamiento-becas-medicina") || object.codigo.equals("sdae-propuesta-financiamiento-becas-prontopago")) {
 							try {
 								plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-DICTAMEN]",  porcentajeFina_sol.toString());
@@ -1536,7 +1552,11 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 							} catch(Exception e) {
 								plantilla = plantilla.replace("[SUMA-B-F]", "");
 							}
+						} else if(object.codigo.equals("sdae-propuesta-finanzas")){
+							errorlog += " | [PORCENTAJE-FINANCIAMIENTO-DICTAMEN] " + porcentajefinanciamientootorgado.toString();
+							plantilla = plantilla.replace("[PORCENTAJE-FINANCIAMIENTO-DICTAMEN]",  porcentajefinanciamientootorgado.toString());
 						}
+						
 						errorlog += " | 1";
 						String[] fechaParcial = rs.getString("fechapagoinscripcionautorizacion").split("-");
 						errorlog += " | 2";

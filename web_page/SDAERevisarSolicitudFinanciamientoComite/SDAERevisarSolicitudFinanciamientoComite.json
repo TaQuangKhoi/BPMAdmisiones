@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAERevisarSolicitudFinanciamientoComite",
   "name" : "SDAERevisarSolicitudFinanciamientoComite",
-  "lastUpdate" : 1674760370435,
+  "lastUpdate" : 1675127672782,
   "rows" : [
     [
       {
@@ -12320,7 +12320,7 @@
     "getDocumentosByTipoApoyo" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id}}&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}"
+        "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{formOutputTest.solicitudApoyoEducativoInput.catTipoApoyo_id}}&campus={{objSolicitudDeAdmision[0].catCampusEstudio.grupoBonita}}-"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -12492,7 +12492,7 @@
         "output += objeto.primerNombre;",
         "objeto.segundoNombre ? output += objeto.segundoNombre + \" \" : output += \" \";",
         "output += objeto.apellidoPaterno;",
-        "objeto.apellidoMaterno ? output += objeto.apellidoMaterno + \" \" : output += \" \";",
+        "objeto.apellidoMaterno ? output += (\" \" + objeto.apellidoMaterno + \" \") : output += \" \";",
         "",
         "return output;"
       ],
@@ -12609,7 +12609,11 @@
       "value" : [
         "../API/extension/AnahuacBecasRestGET?url=getDocumentosByTipoApoyo&p=0&c=0&idTipoApoyo={{getFinanciamiento.persistenceId}}&campus={{objSolicitudDeAdmision[0].catCampus.grupoBonita}}&isAval=true"
       ],
-      "advancedOptions" : { },
+      "advancedOptions" : {
+        "headers" : "",
+        "statusCode" : "",
+        "failedResponseValue" : ""
+      },
       "exposed" : false
     },
     "documentosAvalModel" : {
