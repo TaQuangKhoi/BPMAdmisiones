@@ -541,15 +541,14 @@ class UsuariosDAO {
 			
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				switch (filtro.get("columna")) {
-
-					case "No. ":
-						errorlog += "id_sesion "
+					case "No.":
+						errorlog += "creg.caseid "
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
 							where += " WHERE "
 						}
-						where += " ( LOWER(id_sesion) like lower('%[valor]%') )";
+						where += " ( LOWER(creg.caseid::VARCHAR) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 					case "Nombre":
@@ -559,8 +558,121 @@ class UsuariosDAO {
 						} else {
 							where += " WHERE "
 						}
-						where += " ( LOWER(ses.nombre) like lower('%[valor]%') )";
+						where += " ( ( LOWER(creg.primernombre) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.segundonombre) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.apellidopaterno) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.apellidomaterno) like lower('%[valor]%') ) )";
 						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Id Banner":
+						errorlog += "dets.idbanner "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(dets.idbanner) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Uni.":
+						errorlog += "ccam.descripcion "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(ccam.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Teléfono":
+						errorlog += "sdad.telefono "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(sdad.telefono) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Celular":
+						errorlog += "sdad.telefonocelular "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(sdad.telefonocelular) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Correo":
+						errorlog += "creg.correoelectronico "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(creg.correoelectronico) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Preguntas":
+						errorlog += "total_preguntas "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(total_preguntas) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Contestadas":
+						errorlog += "total_respuestas "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(total_respuestas) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Inicio":
+						errorlog += "extr.fechainicio "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(extr.fechainicio) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Término":
+						errorlog += "extr.fechafin "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(extr.fechafin) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Tiempo":
+//						errorlog += "fechafin "
+//						if (where.contains("WHERE")) {
+//							where += " AND "
+//						} else {
+//							where += " WHERE "
+//						}
+//						where += " ( LOWER(fechafin) like lower('%[valor]%') )";
+//						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Estatus":
+//						errorlog += "fechafin "
+//						if (where.contains("WHERE")) {
+//							where += " AND "
+//						} else {
+//							where += " WHERE "
+//						}
+//						where += " ( LOWER(fechafin) like lower('%[valor]%') )";
+//						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 					default:
 						break;
@@ -570,6 +682,36 @@ class UsuariosDAO {
 			switch(object.orderby) {
 				case "idBpm":
 					orderBy = " ORDER BY creg.caseid " + object.orientation;
+				break;
+				case "idbanner":
+					orderBy = " ORDER BY dets.idbanner " + object.orientation;
+				break;
+				case "nombre":
+					orderBy = " ORDER BY creg.primernombre " + object.orientation;
+				break;
+				case "uni":
+					orderBy = " ORDER BY ccam.descripcion " + object.orientation;
+				break;
+				case "telefono":
+					orderBy = " ORDER BY sdad.telefono  " + object.orientation;
+				break;
+				case "celular":
+					orderBy = " ORDER BY creg.caseid " + object.orientation;
+				break;
+				case "correo":
+					orderBy = " ORDER BY creg.correoelectronico " + object.orientation;
+				break;
+				case "preguntas":
+					orderBy = " ORDER BY total_preguntas " + object.orientation;
+				break;
+				case "contestadas":
+					orderBy = " ORDER BY total_respuestas " + object.orientation;
+				break;
+				case "inicio":
+					orderBy = " ORDER BY extr.fechainicio " + object.orientation;
+				break;
+				case "termino":
+					orderBy = " ORDER BY extr.fechafin " + object.orientation;
 				break;
 				default:
 					orderBy = " ORDER BY creg.caseid " + object.orientation;
@@ -616,6 +758,7 @@ class UsuariosDAO {
 				row.setInicio(rs.getString("fechainicio"));
 				row.setTermino(rs.getString("fechafin"));
 				row.setIdBanner(rs.getString("idbanner"));
+				row.setEstatus(rs.getString("estatus"))
 //				row.setTiempo(rs.getString("correoelectronico"));
 //				row.setEstatus(rs.getString("correoelectronico"));
 				
