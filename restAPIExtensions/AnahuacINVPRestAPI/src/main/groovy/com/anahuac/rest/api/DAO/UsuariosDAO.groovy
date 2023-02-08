@@ -149,7 +149,8 @@ class UsuariosDAO {
 					pstm.setString(2, object.nombreusuario);
 					pstm.setBoolean(3, false);
 					pstm.setBoolean(4, false);
-					pstm.setString(5, "Sesion Temporal");			
+					pstm.setString(5, "Sesion Temporal");
+					pstm.setBoolean(6, true);
 					//resultReq = pstm.executeUpdate();
 					rs = pstm.executeQuery();
 					if(rs.next()) {
