@@ -541,6 +541,16 @@ class UsuariosDAO {
 			
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				switch (filtro.get("columna")) {
+					case "id_sesion":
+						errorlog += "prue.sesion_pid "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( prue.sesion_pid = [valor] )";
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
 					case "No.":
 						errorlog += "creg.caseid "
 						if (where.contains("WHERE")) {

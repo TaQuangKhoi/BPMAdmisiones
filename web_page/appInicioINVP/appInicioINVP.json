@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appInicioINVP",
   "name" : "appInicioINVP",
-  "lastUpdate" : 1675362748009,
+  "lastUpdate" : 1675814096338,
   "rows" : [
     [
       {
@@ -262,6 +262,10 @@
                 "abrirPagina" : {
                   "type" : "constant",
                   "value" : "paginatest"
+                },
+                "dataToSendAsp" : {
+                  "type" : "variable",
+                  "value" : "dataToSendAsp"
                 }
               },
               "reference" : "145ee388-ead2-447c-86f4-63820173b2a9",
@@ -270,131 +274,6 @@
             }
           ]
         ]
-      }
-    ],
-    [
-      {
-        "type" : "modalContainer",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "modalId" : {
-            "type" : "constant"
-          },
-          "size" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "animation" : {
-            "type" : "constant",
-            "value" : true
-          }
-        },
-        "reference" : "007284eb-a0df-424a-8707-d84559b7abb6",
-        "hasValidationError" : false,
-        "id" : "pbModalContainer",
-        "container" : {
-          "type" : "container",
-          "dimension" : {
-            "xs" : 12
-          },
-          "propertyValues" : { },
-          "reference" : "810d66e4-9374-490d-aca5-f41d92698f23",
-          "hasValidationError" : false,
-          "id" : "pbContainer",
-          "rows" : [
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "allowHTML" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "headers" : {
-                    "type" : "constant",
-                    "value" : [
-                      "Id",
-                      "Name",
-                      "Description",
-                      "Date"
-                    ]
-                  },
-                  "columnsKey" : {
-                    "type" : "constant"
-                  },
-                  "selectedRow" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "striped" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "condensed" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "bordered" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "urlPost" : {
-                    "type" : "constant"
-                  },
-                  "dataToSend" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "lstContenido" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "userId" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "campusSeleccionado" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "lstCampus" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "abrirPagina" : {
-                    "type" : "constant"
-                  }
-                },
-                "reference" : "ae001ec4-23ad-45f3-bc64-360e7e3bb6dd",
-                "hasValidationError" : false,
-                "id" : "customTablaAspirantesINVP"
-              }
-            ]
-          ]
-        }
       }
     ]
   ],
@@ -411,6 +290,13 @@
       "name" : "jquery.min (1).js",
       "type" : "js",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "cdc33bc1-d317-4cab-9cc4-0e4613d51e6b",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
       "external" : false
     },
     {
@@ -477,6 +363,28 @@
         "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=1000"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "dataToSendAsp" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\":$data.session.user_name,\r",
+        "    \"orderby\":\"ID_SESION\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};\r"
+      ],
+      "exposed" : false
+    },
+    "contentAsp" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
       "exposed" : false
     }
   },

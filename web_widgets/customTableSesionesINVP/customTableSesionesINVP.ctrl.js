@@ -39,107 +39,104 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             blockUI.stop();
         });
     }
-  
-    // $scope.verSolicitud = function(rowData) {
-    //       var req = {
-    //         method: "GET",
-    //         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //         debugger;
-    //         rowData.taskId = data[0].id;
-    //         rowData.taskName = data[0].name;
-    //         rowData.processId = data[0].processId;
-    //         $scope.preProcesoAsignarTarea(rowData)
-            
-    //         //let taskId = data[0].id;
-    //         //var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
-    //         //window.open(url, '_blank');
-    //     })
-    //     .error(function(data, status) {
-    //         console.error(data);
-    //     })
-    //     .finally(function() {});
-    // }
-  
-    // $scope.preAsignarTarea = function(rowData) {
-    //     var req = {
-    //         method: "GET",
-    //         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //             rowData.taskId = data[0].id;
-    //             rowData.taskName = data[0].name;
-    //             rowData.processId = data[0].processId;
-    //             //rowData.taskName=
-    //             $scope.preProcesoAsignarTarea(rowData);
-    //         })
-    //         .error(function(data, status) {
-    //             console.error(data);
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
+    
 
-    // $scope.preProcesoAsignarTarea = function(rowData) {
+    $scope.lstPaginadoAsp = [];
+    $scope.valorSeleccionadoAsp = 1;
+    $scope.iniciarPAsp = 1;
+    $scope.finalPAsp = 10;
+    $scope.valorTotalAsp = 10;
+
+    $scope.loadPaginadoAsp = function() {
+        $scope.valorTotalAsp = Math.ceil($scope.valueAsp / $scope.dataToSend.limit);
+        $scope.lstPaginadoAsp = []
+        if ($scope.valorSeleccionadoAsp <= 5) {
+            $scope.iniciarPAsp = 1;
+            $scope.finalPAsp = $scope.valorTotalAsp > 10 ? 10 : $scope.valorTotalAsp;
+        } else {
+            $scope.iniciarPAsp = $scope.valorSeleccionadoAsp - 5;
+            $scope.finalPAsp = $scope.valorTotalAsp > ($scope.valorSeleccionadoAsp + 4) ? ($scope.valorSeleccionadoAsp + 4) : $scope.valorTotalAsp;
+        }
+        for (var i = $scope.iniciarPAsp; i <= $scope.finalPAsp; i++) {
   
-    //     var req = {
-    //         method: "GET",
-    //         url: `/API/bpm/process/${rowData.processId}?d=deployedBy&n=openCases&n=failedCases`
-    //     };
+            var obj = {
+                "numero": i,
+                "inicio": ((i * 10) - 9),
+                "fin": (i * 10),
+                "seleccionado": (i == $scope.valorSeleccionadoAsp)
+            };
+            $scope.lstPaginadoAsp.push(obj);
+        }
+    }
   
-    //     return $http(req).success(function(data, status) {
-    //             rowData.processName = data.name;
-    //             rowData.processVersion = data.version;
-    //             $scope.asignarTarea(rowData);
-    //         })
-    //         .error(function(data, status) {
-    //             console.error(data);
-    //         })
-    //         .finally(function() {
+    $scope.siguienteAsp = function() {
+        var objSelected = {};
+        for (var i in $scope.lstPaginadoAsp) {
+            if ($scope.lstPaginadoAsp[i].seleccionado) {
+                objSelected = $scope.lstPaginadoAsp[i];
+                $scope.valorSeleccionadoAsp = $scope.lstPaginadoAsp[i].numero;
+            }
+        }
+        $scope.valorSeleccionadoAsp = $scope.valorSeleccionadoAsp + 1;
+        if ($scope.valorSeleccionadoAsp > Math.ceil($scope.valueAsp / $scope.dataToSend.limit)) {
+            $scope.valorSeleccionadoAsp = Math.ceil($scope.valueAsp / $scope.dataToSend.limit);
+        }
+        $scope.seleccionarPagina($scope.valorSeleccionadoAsp);
+    }
   
-    //         });
-    // }
+    $scope.anteriorAsp = function() {
+        var objSelected = {};
+        for (var i in $scope.lstPaginadoAsp) {
+            if ($scope.lstPaginadoAsp[i].seleccionado) {
+                objSelected = $scope.lstPaginadoAsp[i];
+                $scope.valorSeleccionadoAsp = $scope.lstPaginadoAsp[i].numero;
+            }
+        }
+        $scope.valorSeleccionadoAsp = $scope.valorSeleccionadoAsp - 1;
+        if ($scope.valorSeleccionadoAsp == 0) {
+            $scope.valorSeleccionadoAsp = 1;
+        }
+        $scope.seleccionarPagina($scope.valorSeleccionadoAsp);
+    }
   
-    // $scope.asignarTarea = function(rowData) {
-    //     var req = {
-    //         method: "PUT",
-    //         url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-    //         data: angular.copy({ "assigned_id": "" })
-    //     };
+    $scope.seleccionarPaginaAsp = function(valorSeleccionadoAsp) {
+        var objSelected = {};
+        for (var i in lstPaginadoAsp) {
+            if (lstPaginadoAsp[i].numero == valorSeleccionadoAsp) {
+                $scope.inicio = (lstPaginadoAsp[i].numero - 1);
+                $scope.fin = lstPaginadoAsp[i].fin;
+                $scope.valorSeleccionadoAsp = lstPaginadoAsp[i].numero;
+                $scope.dataToSend.offset = ((lstPaginadoAsp[i].numero - 1) * $scope.dataToSend.limit)
+            }
+        }
   
-    //     return $http(req).success(function(data, status) {
-    //             redireccionarTarea(rowData);
-    //         })
-    //         .error(function(data, status) {
-    //             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
-  
-    // function redireccionarTarea(rowData) {
-    //     var req = {
-    //         method: "PUT",
-    //         url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-    //         data: angular.copy({ "assigned_id": $scope.properties.userId })
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //             var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
-    //             window.open(url, '_blank');
-    //         })
-    //         .error(function(data, status) {
-    //             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
+        doRequest("POST", $scope.properties.urlPost);
+    }
+
+
+    function getAspirantesSesion(_idsesion){
+        let url = "../API/extension/AnahuacINVPRestAPI?url=getAspirantes&p=0&c=10";
+        $scope.dataToSend = angular.copy($scope.properties.dataToSendAsp);
+        $scope.dataToSend.lstFiltro = [{
+            "columna":"id_sesion",
+            "valor": _idsesion + ""
+        }];
+        
+        $http.post(url, $scope.dataToSend).success(function(_data){
+            $scope.aspirantes = _data.data;
+            $scope.valueAsp = _data.totalRegistros;
+            $scope.loadPaginadoAsp();
+            $("#modalAspirantesSesion").modal("show");
+        }).error(function(_err){
+            debugger;
+            swal("Error", _err.mensajeError, "error");
+        })
+    }
+    
+    $scope.verSesion = function(_sesion){
+        $scope.selectedSesion = angular.copy(_sesion);
+        getAspirantesSesion(_sesion.idSesion);
+    }
   
     $scope.isenvelope = false;
     $scope.selectedrow = {};
