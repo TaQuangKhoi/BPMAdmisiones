@@ -792,4 +792,110 @@ class UsuariosDAO {
 		
 		return resultado;
 	}
+	
+	public Result insertIidiomaUsuario(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = "";
+		Boolean success = false;
+		String error_log = "";
+		String success_log = "";
+		Long resultReq = 0;
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+					pstm.setString(1, object.idioma);
+					pstm.setString(2, object.nombreusuario);
+					pstm.setBoolean(3, false);
+					pstm.setBoolean(4, false);
+					pstm.setString(5, "");
+					pstm.setBoolean(6, false);
+					//resultReq = pstm.executeUpdate();
+					rs = pstm.executeQuery();
+					if(rs.next()) {
+						resultReq = rs.getLong("persistenceid")
+					}
+					
+					success = true;
+					if(resultReq > 0) {
+						error_log = resultReq + " Exito! query UPDATE_IDIOMA_REGISTRO_BY_USERNAME insertado " + resultReq + " | " + object.idioma + object.nombreusuario
+						//error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
+					} else {
+						error_log = resultReq + " Error! query UPDATE_IDIOMA_REGISTRO_BY_USERNAME"
+					}
+			/*rs = pstm.executeQuery();
+			if(rs.next()) {
+				resultReq = rs.getLong("persistenceid")
+			}
+			
+			success = true;
+			if(resultReq > 0) {
+				error_log = resultReq + " Exito! query INSERT_TERMINADO_EXAMEN"
+			} else {
+				error_log = resultReq + " Error! query INSERT_TERMINADO_EXAMEN"
+			}*/
+			con.commit();
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(errorlog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			errorlog = errorlog + " | " + e.getMessage();
+			resultado.setError_info(errorlog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updateidiomausuario(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = "";
+		Boolean success = false;
+		String error_log = "";
+		String success_log = "";
+		Long resultReq = 0;
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_USUARIO);
+			pstm.setString(1, object.idioma);
+			pstm.setString(2, object.nombreusuario);
+			pstm.executeUpdate();
+			con.commit();
+			
+			success = true;
+			if(resultReq > 0) {
+				error_log = resultReq + " Exito! query UPDATE_TERMINADO_EXAMEN"
+			} else {
+				error_log = resultReq + " Error! query UPDATE_TERMINADO_EXAMEN"
+			}
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(errorlog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			errorlog = errorlog + " | " + e.getMessage();
+			resultado.setError_info(errorlog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }
