@@ -313,9 +313,44 @@ class Index implements RestApiController {
 				}
 				
 			break;
+			case "getSesionesToday":
+				try{
+					result =  cDAO.getSesionesToday(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+			break;
+			
 			case "getAspirantes":
 				try{
 					result =  new UsuariosDAO().getAspirantes(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+			break;
+			case "bloquearAspirante":
+				try{
+					String username =request.getParameter "username"
+					String bloquear =request.getParameter "bloquear"
+					String terminar =request.getParameter "terminar"
+					
+					result =  new UsuariosDAO().bloquearAspirante(username, Boolean.valueOf(bloquear), Boolean.valueOf(terminar));
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
