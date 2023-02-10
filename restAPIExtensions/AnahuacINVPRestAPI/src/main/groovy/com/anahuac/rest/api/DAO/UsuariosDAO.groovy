@@ -5,6 +5,8 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
+
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.IdentityAPI
 import org.bonitasoft.engine.identity.ContactDataCreator
@@ -508,6 +510,7 @@ class UsuariosDAO {
 		String orderBy = " ORDER BY ";
 		List < String > lstGrupo = new ArrayList < String > ();
 		String errorLog = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
@@ -766,12 +769,13 @@ class UsuariosDAO {
 				row.setCelular(rs.getString("telefonocelular"));
 				row.setPreguntas(rs.getInt("total_preguntas"));
 				row.setContestadas(rs.getInt("total_respuestas"));
-				row.setInicio(rs.getString("fechainicio"));
+				Date date = new Date(rs.getTimestamp("fechainicio").getTime());
+				row.setInicio(formatter.format(date));
 				row.setTermino(rs.getString("fechafin"));
 				row.setIdBanner(rs.getString("idbanner"));
 				row.setEstatus(rs.getString("estatus"))
 				row.setIdioma(rs.getString("idioma"))
-				row.setBloqueado(rs.getString("usuariobloqueado"));
+				row.setBloqueado(rs.getBoolean("usuariobloqueado"));
 				row.setTerminado(rs.getBoolean("terminado"));
 //				row.setTiempo(rs.getString("correoelectronico"));
 //				row.setEstatus(rs.getString("correoelectronico"));

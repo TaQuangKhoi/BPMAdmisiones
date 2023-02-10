@@ -137,7 +137,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     
     $scope.verSesion = function(_sesion){
         $scope.selectedSesion = angular.copy(_sesion);
-        getAspirantesSesion(_sesion.idSesion);
+        getAspirantesSesion($scope.selectedSesion.idSesion);
     }
 
     $scope.setSelectedAspirante = function(_aspirante, _modal){
@@ -154,21 +154,31 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         $("#" + _idModal).modal("show");
     }
 
+    function ocultarModal(_idModal){
+        $("#" + _idModal).modal("hide");
+    }
+
     $scope.bloquearAspirante = function(){
-        let url = "../API/extension/AnahuacINVPRestAPI?url=bloquearAspirante&p=0&c=10&username=" +  $scope.selectedAspirante.correoElectronico + "&bloquear=true&terminar=false";
+        let url = "../API/extension/AnahuacINVPRestAPI?url=bloquearAspirante&p=0&c=10&username=" 
+        + $scope.selectedAspirante.correoElectronico + "&bloquear=" + !$scope.selectedAspirante.bloqueado + "&terminar=" + $scope.selectedAspirante.terminado;
 
         $http.post(url).success(function(_data){
+            ocultarModal("modalBloquear");
             swal("Ok", "Usuario bloqueado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
         }).error(function(_error){
 
         });
     }
   
     $scope.terminarAspirante = function(){
-        let url = "../API/extension/AnahuacINVPRestAPI?url=bloquearAspirante&p=0&c=10&username=" +  $scope.selectedAspirante.correoElectronico + "&bloquear=true&terminar=false";
+        let url = "../API/extension/AnahuacINVPRestAPI?url=bloquearAspirante&p=0&c=10&username=" 
+        +  $scope.selectedAspirante.correoElectronico + "&bloquear=" + $scope.selectedAspirante.bloqueado + "&terminar=" + !$scope.selectedAspirante.terminado;
 
         $http.post(url).success(function(_data){
+            ocultarModal("modalTerminar");
             swal("Ok", "Usuario terminado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
         }).error(function(_error){
 
         });

@@ -14,7 +14,7 @@ class AspiranteSesionCustom {
 	private String termino; 
 	private String tiempo;
 	private String estatus;
-	private String bloqueado;
+	private Boolean bloqueado;
 	private String idioma;
 	private Boolean terminado;
 	
@@ -102,10 +102,10 @@ class AspiranteSesionCustom {
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
 	}
-	public String getBloqueado() {
+	public Boolean getBloqueado() {
 		return bloqueado;
 	}
-	public void setBloqueado(String bloqueado) {
+	public void setBloqueado(Boolean bloqueado) {
 		this.bloqueado = bloqueado;
 	}
 	public String getIdioma() {
