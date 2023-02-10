@@ -771,7 +771,8 @@ class UsuariosDAO {
 				row.setIdBanner(rs.getString("idbanner"));
 				row.setEstatus(rs.getString("estatus"))
 				row.setIdioma(rs.getString("idioma"))
-				row.setIdioma(rs.getString("usuariobloqueado"));
+				row.setBloqueado(rs.getString("usuariobloqueado"));
+				row.setTerminado(rs.getBoolean("terminado"));
 //				row.setTiempo(rs.getString("correoelectronico"));
 //				row.setEstatus(rs.getString("correoelectronico"));
 				
