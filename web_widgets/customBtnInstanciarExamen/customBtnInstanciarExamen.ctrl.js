@@ -114,8 +114,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
-                //insertCase(data.caseId);
-                insertterminado();
+                insertCase(data.caseId);
+                //insertterminado();
                 //$window.location.assign($scope.properties.targetUrlOnSuccess);
                /* if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                      redirectIfNeeded();
@@ -211,7 +211,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function insertCase(caseid) {
         vm.busy = true;
-
+        debugger
         var data = {
             "pregunta": 0,
             "caseid": Number(caseid),
@@ -267,12 +267,43 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
+            debugger;
+                insertidiomausuario();
+            })
+            .error(function(data, status) {
+            debugger;
+               insertidiomausuario();
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+
+    function insertidiomausuario() {
+        debugger;
+        vm.busy = true;
+
+        var data = {
+            "idioma": "ESP",
+            "nombreusuario": $scope.properties.userData.user_name
+        }
+
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacINVPRestAPI?url=insertidiomausuario&p=0&c=10",
+            data: data
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+            debugger;
                 $scope.properties.dataFromSuccess = true;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
                 window.top.location.href = $scope.properties.targetUrlOnSuccess;
             })
             .error(function(data, status) {
+            debugger;
                 $scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromSuccess = undefined;

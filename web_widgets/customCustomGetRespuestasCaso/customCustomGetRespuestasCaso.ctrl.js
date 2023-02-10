@@ -1,7 +1,7 @@
 function ($scope, $http) {
     
     $scope.getCommentList = function(){
-        
+        debugger
         let data = {
             "idusuario":$scope.properties.reload
         }
@@ -13,6 +13,7 @@ function ($scope, $http) {
         };
         
         return $http(req).success(function(data, status) {
+            debugger
             $scope.properties.commentList = data.data[0].caseid;
             var termino = localStorage.getItem("terminado");
             if(termino === "true"){
