@@ -14,7 +14,16 @@ class AspiranteSesionCustom {
 	private String termino; 
 	private String tiempo;
 	private String estatus;
+	private String bloqueado;
+	private String idioma;
+	private Boolean terminado;
 	
+	public Boolean getTerminado() {
+		return terminado;
+	}
+	public void setTerminado(Boolean terminado) {
+		this.terminado = terminado;
+	}
 	public String getCorreoElectronico() {
 		return correoElectronico;
 	}
@@ -92,5 +101,17 @@ class AspiranteSesionCustom {
 	}
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	public String getBloqueado() {
+		return bloqueado;
+	}
+	public void setBloqueado(String bloqueado) {
+		this.bloqueado = bloqueado;
+	}
+	public String getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
 	}
 }

@@ -5,7 +5,13 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
 
+import org.apache.poi.ss.usermodel.Cell
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.xssf.usermodel.XSSFSheet
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.bonitasoft.engine.identity.UserMembership
 import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.web.extension.rest.RestAPIContext
@@ -575,6 +581,545 @@ public Result getCatPreguntas(String jsonData) {
 			}
 		}
 		
+		return resultado;
+	}
+	
+	public Result getSesionesToday(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "WHERE ctp.iseliminado <> true AND p.aplicacion = CURRENT_DATE ";
+		String errorlog = "";
+		String orderBy = "";
+		List < String > lstGrupo = new ArrayList < String > ();
+		String errorLog = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
+			Long userLogged = context.getApiSession().getUserId();
+			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+
+			for (UserMembership objUserMembership: lstUserMembership) {
+				for (CatCampus rowGrupo: lstCatCampus) {
+					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+			if (lstGrupo.size() > 0 && object.campus == null ) {
+				where += " AND (";
+				for (Integer i = 0; i < lstGrupo.size(); i++) {
+					String campusMiembro = lstGrupo.get(i);
+					where += " cca.descripcion = '" + campusMiembro + "'"
+					if (i == (lstGrupo.size() - 1)) {
+						where += ") "
+					} else {
+						where += " OR "
+					}
+				}
+			}
+			
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				switch (filtro.get("columna")) {
+
+					case "No. ":
+						errorlog += "id_sesion "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(id_sesion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Nombre":
+						errorlog += "ses.nombre"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(ses.nombre) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Uni.":
+						errorlog += "cca.descripcion"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(cca.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Sesión":
+						errorlog += " ses.nombre"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(ses.nombre) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Fecha":
+						errorlog += "ses.fecha_inicio"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( ses.fecha_inicio::VARCHAR like '%[valor]%' )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Hr. Inicio":
+						errorlog += "p.entrada"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(p.entrada) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Hr. Término":
+						errorlog += " p.salida"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(p.salida) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Estatus":
+//						errorlog += "cca.descripcion"
+//						if (where.contains("WHERE")) {
+//							where += " AND "
+//						} else {
+//							where += " WHERE "
+//						}
+//						where += " ( LOWER(cca.descripcion) like lower('%[valor]%') )";
+//						where = where.replace("[valor]", filtro.get("valor"))
+//						break;
+					case "Aspirantes":
+						errorlog += " p.registrados"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( p.registrados::VARCHAR like ('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					default:
+						break;
+				}
+			}
+			
+			switch(object.orderby) {
+				case "id_sesion":
+					orderBy = " ORDER BY id_sesion " + object.orientation;
+				break;
+				case "nombre":
+					orderBy = " ORDER BY ses.nombre " + object.orientation;
+				break;
+				case "uni":
+					orderBy = " ORDER BY cca.descripcion " + object.orientation;
+				break;
+				case "sesion":
+					orderBy = " ORDER BY ses.nombre " + object.orientation;
+				break;
+				case "fecha_prueba":
+					orderBy = " ORDER BY ses.fecha_inicio " + object.orientation;
+				break;
+				case "entrada_prueba":
+					orderBy = " ORDER BY p.entrada " + object.orientation;
+				break;
+				case "salida_prueba":
+					orderBy = " ORDER BY p.salida " + object.orientation;
+				break;
+				case "estatus":
+//					orderBy = " ORDER BY id_sesion " + object.orientation;
+				break;
+				case "registrados_prueba":
+					orderBy = " ORDER BY p.registrados " + object.orientation;
+				break;
+				default:
+					orderBy = " ORDER BY id_sesion " + object.orientation;
+				break;
+			}
+			
+			SesionesCustom row = new SesionesCustom();
+			List <SesionesCustom> rows = new ArrayList <SesionesCustom>();
+			closeCon = validarConexion();
+			
+			String consultaCcount = Statements.GET_COUNT_SESONES_TODAS.replace("[WHERE]", where);
+			pstm = con.prepareStatement(consultaCcount);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("total_registros"));
+			}
+			
+			String consulta = Statements.GET_SESONES_TODAS.replace("[WHERE]", where).replace("[ORDERBY]", orderBy)
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				row = new SesionesCustom();
+				row.setIdSesion(rs.getLong("id_sesion"));
+				row.setNombreSesion(rs.getString("nombre_sesion"));
+				row.setUni(rs.getString("campus"));
+				row.setSesion(rs.getString("descripcion_sesion"));
+				row.setFecha(rs.getString("fecha_prueba"));
+				row.setHoraInicio(rs.getString("entrada_prueba"));
+				row.setHoraTermino(rs.getString("salida_prueba"));
+				row.setEstatus("");
+				row.setAspirantes(rs.getString("registrados_prueba"));
+				
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result getExcelFileSesiones(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < Object > lstParams;
+		String errorlog = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			Result dataResult = new Result();
+			int rowCount = 0;
+
+			String type = object.type;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+
+			dataResult = getSesiones(jsonData, context);
+
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("No encontro datos");
+			}
+			Row titleRow = sheet.createRow(++rowCount);
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("SESIONES DE EXAMEN PSICOMÉTRICO");
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.HOUR_OF_DAY, -7);
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+			Row blank = sheet.createRow(++rowCount);
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuario);
+			Row espacio = sheet.createRow(++rowCount);
+			Row headersRow = sheet.createRow(++rowCount);
+			Cell header0 = headersRow.createCell(0);
+			header0.setCellValue("No.");
+			header0.setCellStyle(style);
+			Cell header1 = headersRow.createCell(1);
+			header1.setCellValue("Nombre");
+			header1.setCellStyle(style);
+			Cell header2 = headersRow.createCell(2);
+			header2.setCellValue("Uni.");
+			header2.setCellStyle(style);
+			Cell header3 = headersRow.createCell(3);
+			header3.setCellValue("Sesión");
+			header3.setCellStyle(style);
+			Cell header4 = headersRow.createCell(4);
+			header4.setCellValue("Fecha");
+			header4.setCellStyle(style);
+			Cell header5 = headersRow.createCell(5);
+			header5.setCellValue("Hr. Inicio");
+			header5.setCellStyle(style);
+			Cell header6 = headersRow.createCell(6);
+			header6.setCellValue("Hr. Término");
+			header6.setCellStyle(style);
+			Cell header7 = headersRow.createCell(7);
+			header7.setCellValue("Estatus");
+			header7.setCellStyle(style);
+			Cell header8 = headersRow.createCell(8);
+			header8.setCellValue("Aspirantes");
+			header8.setCellStyle(style);
+			Cell header9 = headersRow.createCell(9);
+			header9.setCellValue("Idioma");
+			header9.setCellStyle(style);
+			for (int i = 0; i < lstParams.size(); ++i) {
+				//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
+				Row row = sheet.createRow(++rowCount);
+				Cell cell0 = row.createCell(0);
+				cell0.setCellValue(lstParams[i].idbanner);
+
+				Cell cell1 = row.createCell(1);
+				cell1.setCellValue(
+					lstParams[i].apellidopaterno + " " +
+					lstParams[i].apellidomaterno + " " +
+					lstParams[i].primernombre + " " +
+					lstParams[i].segundonombre
+				);
+
+				Cell cell2 = row.createCell(2);
+				cell2.setCellValue(lstParams[i].correoelectronico);
+				Cell cell3 = row.createCell(3);
+				cell3.setCellValue(lstParams[i].curp);
+				Cell cell4 = row.createCell(4);
+				cell4.setCellValue(lstParams[i].licenciatura);
+				Cell cell5 = row.createCell(5);
+				cell5.setCellValue(lstParams[i].ingreso);
+				Cell cell6 = row.createCell(6);
+				cell6.setCellValue(lstParams[i].campus);
+				Cell cell7 = row.createCell(7);
+				cell7.setCellValue(lstParams[i].procedencia);
+				Cell cell8 = row.createCell(8);
+				cell8.setCellValue(lstParams[i].preparatoria);
+				Cell cell9 = row.createCell(9);
+				cell9.setCellValue(lstParams[i].promediogeneral);
+
+			}
+
+
+			for (int i = 0; i <= (20); ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("Report.xls");
+			workbook.write(outputStream);
+
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(encodeFileToBase64Binary("Report.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			e.printStackTrace();
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+	
+	private String encodeFileToBase64Binary(String fileName)
+	throws IOException {
+
+		File file = new File(fileName);
+		byte[] bytes = loadFile(file);
+		byte[] encoded = Base64.encoder.encode(bytes);
+		String encodedString = new String(encoded);
+
+		return encodedString;
+	}
+
+	private static byte[] loadFile(File file) throws IOException {
+		InputStream is = new FileInputStream(file);
+
+		long length = file.length();
+		if (length > Integer.MAX_VALUE) {
+			// File is too large
+		}
+		byte[] bytes = new byte[(int) length];
+
+		int offset = 0;
+		int numRead = 0;
+		while (offset < bytes.length &&
+			(numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+			offset += numRead;
+		}
+
+		if (offset < bytes.length) {
+			throw new IOException("Could not completely read file " + file.getName());
+		}
+
+		is.close();
+		return bytes;
+	}
+	
+	public Result getExcelFileAspirantes(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < Object > lstParams;
+		String errorlog = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			Result dataResult = new Result();
+			int rowCount = 0;
+
+			String type = object.type;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+
+			dataResult = new UsuariosDAO().getUsuariosRegistrados(parameterP, parameterC, jsonData, context);
+
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("No encontro datos");
+			}
+			Row titleRow = sheet.createRow(++rowCount);
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("SESIONES DE EXAMEN PSICOMÉTRICO");
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.HOUR_OF_DAY, -7);
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+			Row blank = sheet.createRow(++rowCount);
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuario);
+			Row espacio = sheet.createRow(++rowCount);
+			Row headersRow = sheet.createRow(++rowCount);
+			Cell header0 = headersRow.createCell(0);
+			header0.setCellValue("No.");
+			header0.setCellStyle(style);
+			Cell header1 = headersRow.createCell(1);
+			header1.setCellValue("Nombre");
+			header1.setCellStyle(style);
+			Cell header2 = headersRow.createCell(2);
+			header2.setCellValue("Uni.");
+			header2.setCellStyle(style);
+			Cell header3 = headersRow.createCell(3);
+			header3.setCellValue("Sesión");
+			header3.setCellStyle(style);
+			Cell header4 = headersRow.createCell(4);
+			header4.setCellValue("Fecha");
+			header4.setCellStyle(style);
+			Cell header5 = headersRow.createCell(5);
+			header5.setCellValue("Hr. Inicio");
+			header5.setCellStyle(style);
+			Cell header6 = headersRow.createCell(6);
+			header6.setCellValue("Hr. Término");
+			header6.setCellStyle(style);
+			Cell header7 = headersRow.createCell(7);
+			header7.setCellValue("Estatus");
+			header7.setCellStyle(style);
+			Cell header8 = headersRow.createCell(8);
+			header8.setCellValue("Aspirantes");
+			header8.setCellStyle(style);
+			Cell header9 = headersRow.createCell(9);
+			header9.setCellValue("Idioma");
+			header9.setCellStyle(style);
+			for (int i = 0; i < lstParams.size(); ++i) {
+				//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
+				Row row = sheet.createRow(++rowCount);
+				Cell cell0 = row.createCell(0);
+				cell0.setCellValue(lstParams[i].idbanner);
+
+				Cell cell1 = row.createCell(1);
+				cell1.setCellValue(
+					lstParams[i].apellidopaterno + " " +
+					lstParams[i].apellidomaterno + " " +
+					lstParams[i].primernombre + " " +
+					lstParams[i].segundonombre
+				);
+
+				Cell cell2 = row.createCell(2);
+				cell2.setCellValue(lstParams[i].correoelectronico);
+				Cell cell3 = row.createCell(3);
+				cell3.setCellValue(lstParams[i].curp);
+				Cell cell4 = row.createCell(4);
+				cell4.setCellValue(lstParams[i].licenciatura);
+				Cell cell5 = row.createCell(5);
+				cell5.setCellValue(lstParams[i].ingreso);
+				Cell cell6 = row.createCell(6);
+				cell6.setCellValue(lstParams[i].campus);
+				Cell cell7 = row.createCell(7);
+				cell7.setCellValue(lstParams[i].procedencia);
+				Cell cell8 = row.createCell(8);
+				cell8.setCellValue(lstParams[i].preparatoria);
+				Cell cell9 = row.createCell(9);
+				cell9.setCellValue(lstParams[i].promediogeneral);
+				Cell cell10 = row.createCell(10);
+				cell10.setCellValue(lstParams[i].estatussolicitud);
+				Cell cell11 = row.createCell(11);
+				cell11.setCellValue(lstParams[i].tipoalumno);
+				Cell cell12 = row.createCell(12);
+				cell12.setCellValue(lstParams[i].telefonocelular);
+				Cell cell13 = row.createCell(13);
+				cell13.setCellValue(lstParams[i].telefono);
+
+			}
+
+
+			for (int i = 0; i <= (20); ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("Report.xls");
+			workbook.write(outputStream);
+
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(encodeFileToBase64Binary("Report.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			e.printStackTrace();
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+
 		return resultado;
 	}
 	

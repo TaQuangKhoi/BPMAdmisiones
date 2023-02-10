@@ -770,6 +770,9 @@ class UsuariosDAO {
 				row.setTermino(rs.getString("fechafin"));
 				row.setIdBanner(rs.getString("idbanner"));
 				row.setEstatus(rs.getString("estatus"))
+				row.setIdioma(rs.getString("idioma"))
+				row.setBloqueado(rs.getString("usuariobloqueado"));
+				row.setTerminado(rs.getBoolean("terminado"));
 //				row.setTiempo(rs.getString("correoelectronico"));
 //				row.setEstatus(rs.getString("correoelectronico"));
 				
@@ -787,6 +790,38 @@ class UsuariosDAO {
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result bloquearAspirante(String username, Boolean bloquear, Boolean terminar) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement("UPDATE IdiomaINVPUsuario SET usuariobloqueado = ? WHERE username = ?")
+			pstm.setBoolean(1, bloquear);
+			pstm.setString(2, username);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("UPDATE INVPExamenTerminado SET terminado = ? WHERE username = ?");
+			pstm.setBoolean(1, terminar);
+			pstm.setString(2, username);
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
 		

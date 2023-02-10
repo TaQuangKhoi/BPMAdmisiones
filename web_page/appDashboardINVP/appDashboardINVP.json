@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appDashboardINVP",
   "name" : "appDashboardINVP",
-  "lastUpdate" : 1675362151229,
+  "lastUpdate" : 1675988947219,
   "rows" : [
     [
       {
@@ -43,7 +43,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -237,7 +237,7 @@
                 },
                 "urlPost" : {
                   "type" : "constant",
-                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getSesiones&p=0&c=10"
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getSesionesToday&p=0&c=10"
                 },
                 "dataToSend" : {
                   "type" : "variable",
@@ -262,11 +262,15 @@
                 "abrirPagina" : {
                   "type" : "constant",
                   "value" : "paginatest"
+                },
+                "dataToSendAsp" : {
+                  "type" : "variable",
+                  "value" : "dataToSendAsp"
                 }
               },
-              "reference" : "1064e049-c38a-4666-b12c-8f748d2cd0cc",
+              "reference" : "2e105f3f-98da-4f57-bdf7-69b54dc8112a",
               "hasValidationError" : false,
-              "id" : "customTableSesionesINVP"
+              "id" : "customTableSesionesINVPDashboard"
             }
           ]
         ]
@@ -274,6 +278,13 @@
     ]
   ],
   "assets" : [
+    {
+      "id" : "7a91b0f6-e4d0-42ae-99f6-240ac7427dae",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
     {
       "id" : "30983546-1435-4cce-9d9a-ba7547181cdb",
       "name" : "style.css",
@@ -352,6 +363,21 @@
         "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=1000"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "dataToSendAsp" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\":$data.session.user_name,\r",
+        "    \"orderby\":\"ID_SESION\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "};\r"
+      ],
       "exposed" : false
     }
   },
