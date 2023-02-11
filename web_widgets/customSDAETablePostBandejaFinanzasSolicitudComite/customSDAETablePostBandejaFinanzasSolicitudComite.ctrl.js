@@ -42,7 +42,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.verSolicitud = function(rowData) {
         var req = {
             method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse&f=name=Autorización%20de%20apoyo%20educativo`
         };
   
         return $http(req).success(function(data, status) {
