@@ -1640,6 +1640,9 @@ class SecurityFilter {
 		    if (allow) {
 		      break;
 		    }
+			allow=bonitaRolFilter(context,"ASPIRANTE")
+			if(allow){break;}
+			
 		    break;
 		  case "getPadreVencido":
 		    allow = bonitaRolFilter(context, "ADMISIONES");

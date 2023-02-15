@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "Reportes",
   "name" : "Reportes",
-  "lastUpdate" : 1639508765269,
+  "lastUpdate" : 1676327063466,
   "rows" : [
     [
       {
@@ -720,8 +720,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "constant",
-                    "value" : false
+                    "type" : "expression",
+                    "value" : "rptSelected == \"Informacion aspirante\""
                   },
                   "required" : {
                     "type" : "constant",
@@ -1145,6 +1145,83 @@
                     "value" : ""
                   },
                   "hidden" : {
+                    "type" : "expression",
+                    "value" : "rptSelected!=\"Informacion aspirante\""
+                  },
+                  "required" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "minLength" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "maxLength" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "readOnly" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Saltos (Ir de 500 en 500, primer archivo empezar en 0)"
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
+                  },
+                  "placeholder" : {
+                    "type" : "interpolation"
+                  },
+                  "value" : {
+                    "type" : "variable",
+                    "value" : "skip"
+                  },
+                  "type" : {
+                    "type" : "constant",
+                    "value" : "text"
+                  },
+                  "min" : {
+                    "type" : "constant"
+                  },
+                  "max" : {
+                    "type" : "constant"
+                  },
+                  "step" : {
+                    "type" : "constant",
+                    "value" : 1
+                  }
+                },
+                "reference" : "a5fbbb98-4379-49f4-ab88-94da86205ecc",
+                "hasValidationError" : false,
+                "id" : "pbInput"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
                     "type" : "constant",
                     "value" : true
                   },
@@ -1281,8 +1358,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "constant",
-                    "value" : false
+                    "type" : "expression",
+                    "value" : "rptSelected == \"Informacion aspirante\""
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -1605,6 +1682,92 @@
                 "rows" : [
                   [ ]
                 ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 2,
+                  "lg" : 2
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "expression",
+                    "value" : "rptSelected!=\"Informacion aspirante\""
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "cacb2a78-7a20-4ecf-901e-b7b98653e4a9",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [ ]
+                ]
+              },
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 3,
+                  "lg" : 3
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "expression",
+                    "value" : "rptSelected!=\"Informacion aspirante\""
+                  },
+                  "srcType" : {
+                    "type" : "constant",
+                    "value" : "Asset"
+                  },
+                  "url" : {
+                    "type" : "constant"
+                  },
+                  "assetName" : {
+                    "type" : "constant",
+                    "value" : "excel.svg"
+                  },
+                  "alt" : {
+                    "type" : "interpolation"
+                  },
+                  "fileExtension" : {
+                    "type" : "constant",
+                    "value" : "xls"
+                  },
+                  "dataToSend" : {
+                    "type" : "variable",
+                    "value" : "lstFiltro"
+                  },
+                  "reporte" : {
+                    "type" : "expression",
+                    "value" : "rptSelected"
+                  },
+                  "ruaname" : {
+                    "type" : "constant"
+                  },
+                  "lstSesiones" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "5a92ccae-c1dd-4fbb-89c5-202acdf6b4e5",
+                "hasValidationError" : false,
+                "id" : "customGenerarReporte"
               }
             ],
             [
@@ -1962,7 +2125,8 @@
         "    if($data.lstCampus.length==1){",
         "        $data.campus_selected=$data.lstCampus[0]",
         "        $data.campus2valor=$data.lstCampus[0].clave",
-        "    }"
+        "    }",
+        "    //,{\"reporte\":\"Resultado de examenes\"},{\"reporte\":\"Admitidos al propedéutico\"},{\"reporte\":\"Datos de los familiares\"},{\"reporte\":\"Relación de aspirantes\"}"
       ],
       "exposed" : false
     },
@@ -2070,8 +2234,7 @@
     "lstReportes" : {
       "type" : "json",
       "value" : [
-        "[{\"reporte\":\"Lexium\"},{\"reporte\":\"Resultado de examenes\"},{\"reporte\":\"Admitidos al propedéutico\"},{\"reporte\":\"Datos de los familiares\"}",
-        ",{\"reporte\":\"Relación de aspirantes\"}]"
+        "[{\"reporte\":\"Lexium\"},{\"reporte\":\"Informacion aspirante\"}]"
       ],
       "exposed" : false
     },
@@ -2143,7 +2306,9 @@
         "    \"sesion\":$data.sesion,",
         "    \"encabezado\":$data.encabezado,",
         "    \"idbanner\":$data.idbanner,",
-        "    \"multicampus\":$data.campus2valor",
+        "    \"multicampus\":$data.campus2valor,",
+        "    \"skip\":$data.skip,",
+        "    \"limit\":\"500\"",
         "}",
         "return json;"
       ],
@@ -2196,6 +2361,10 @@
         "$data.lstCarrera=($data.lstGestionEscolar.length>0)?$data.lstGestionEscolar:[]",
         "return $data.lstCarrera;"
       ],
+      "exposed" : false
+    },
+    "skip" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
