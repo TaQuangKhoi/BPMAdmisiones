@@ -1452,7 +1452,12 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						plantilla = plantilla.replace("[COMENTARIOS-ARTISTICA]", comentarios);
 						plantilla = plantilla.replace("[ARTISTICA-SUGERIDA]", sugerida == null ? "" : sugerida);
 					} else if (object.codigo.equals("sdae-respondepropuestanegativa-finanzas-propuesta")){
-					    plantilla = plantilla.replace("[MOTIVOSDERECHAZO-FINANCIAMIENTO]", "");
+//					    plantilla = plantilla.replace("[MOTIVOSDERECHAZO-FINANCIAMIENTO]", "");
+						String motivoRechazoFina = "";
+						if(rs.getString("motivo_rechazo_fina") !== null) {
+							motivoRechazoFina = rs.getString("motivo_rechazo_fina");
+						}
+						plantilla = plantilla.replace("[MOTIVOSDERECHAZO-APOYO]", motivoRechazoFina);
 					} else if (object.codigo.equals("sdae-solicitudmodifcación-validaciónfinanzas")){
 					    plantilla = plantilla.replace("[COMENTARIOS-CAMBIO-AVAL]", rs.getString("observaciones_finanzas_fina"));
 					} else if (object.codigo.equals("sdae-solicitudrechaza-finanzas")){
