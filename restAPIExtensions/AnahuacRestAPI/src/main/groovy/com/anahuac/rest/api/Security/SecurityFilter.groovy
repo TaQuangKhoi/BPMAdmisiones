@@ -1227,6 +1227,10 @@ class SecurityFilter {
 			if (allow) {
 			  break;
 			}
+			allow = bonitaRolFilterExtricto(context, "TI SERUA");
+			if (allow) {
+			  break;
+			}
 		    break;
 		  case "insertBachillerato":
 		    allow = bonitaRolFilter(context, "ADMISIONES");
