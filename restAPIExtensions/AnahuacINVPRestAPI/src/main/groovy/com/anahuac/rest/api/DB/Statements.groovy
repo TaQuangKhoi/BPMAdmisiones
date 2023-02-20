@@ -63,4 +63,6 @@ class Statements {
 	public static final String GET_ASPIRANTES_SESIONES_COUNT = "SELECT COUNT(creg.caseid) AS total_registros FROM CatRegistro  AS creg LEFT JOIN AspirantesPruebas AS aspr ON aspr.caseid = creg.caseid LEFT JOIN Pruebas AS prue ON prue.persistenceid = aspr.prueba_pid LEFT JOIN CatTipoPrueba AS ctpr ON ctpr.persistenceid = prue.cattipoprueba_pid LEFT JOIN SolicitudDeAdmision  AS sdad ON sdad.caseid = creg.caseid LEFT JOIN INVPExamenTerminado AS extr ON extr.username = creg.correoelectronico LEFT JOIN CatCampus AS ccam ON ccam.persistenceid = sdad.catcampusestudio_pid   LEFT JOIN DetalleSolicitud AS dets ON dets.caseid::BIGINT = sdad.caseid   [WHERE] ";
 	
 	public static final String UPDATE_IDIOMA_USUARIO = "UPDATE idiomainvpusuario SET idioma = ? WHERE username = ?";
+	
+	public static final String GET_IDIOMA_EXISTE_USUARIO = "SELECT COUNT(PERSISTENCEID) > 0 AS existe FROM IdiomaINVPUsuario WHERE USERNAME = ?";
 }

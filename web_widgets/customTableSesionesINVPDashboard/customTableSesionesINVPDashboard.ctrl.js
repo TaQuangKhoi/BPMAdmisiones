@@ -51,7 +51,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.loadPaginadoAsp = function() {
         $scope.valorTotalAsp = Math.ceil($scope.valueAsp / $scope.dataToSend.limit);
-        $scope.lstPaginadoAsp = []
+        $scope.lstPaginadoAsp = [];
         if ($scope.valorSeleccionadoAsp <= 5) {
             $scope.iniciarPAsp = 1;
             $scope.finalPAsp = $scope.valorTotalAsp > 10 ? 10 : $scope.valorTotalAsp;
@@ -59,6 +59,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.iniciarPAsp = $scope.valorSeleccionadoAsp - 5;
             $scope.finalPAsp = $scope.valorTotalAsp > ($scope.valorSeleccionadoAsp + 4) ? ($scope.valorSeleccionadoAsp + 4) : $scope.valorTotalAsp;
         }
+
         for (var i = $scope.iniciarPAsp; i <= $scope.finalPAsp; i++) {
   
             var obj = {
@@ -130,9 +131,30 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.loadPaginadoAsp();
             $("#modalAspirantesSesion").modal("show");
         }).error(function(_err){
-            debugger;
             swal("Error", _err.mensajeError, "error");
         })
+    }
+
+    $scope.cambiarIdioma = function(_aspirante, _modal){
+        $scope.selectedAspirante = angular.copy(_aspirante);
+        mostrarModal("modalIdioma");
+    }
+
+    $scope.insertUpdateIidiomaUsuario = function(){
+        let dataToSend = {
+            "nombreusuario": $scope.selectedAspirante.correoElectronico,
+            "idioma": $scope.selectedAspirante.idioma === "ESP" ? "ENG" : "ESP"
+        }
+
+        let url = "../API/extension/AnahuacINVPRestAPI?url=insertUpdateIidiomaUsuario&p=0&c=10";
+
+        $http.post(url, dataToSend).success(function(_data){
+            ocultarModal("modalIdioma");
+            swal("Ok", "Idioma actualizado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
+        });
     }
     
     $scope.verSesion = function(_sesion){
@@ -176,9 +198,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         +  $scope.selectedAspirante.correoElectronico + "&bloquear=" + $scope.selectedAspirante.bloqueado + "&terminar=" + !$scope.selectedAspirante.terminado;
 
         $http.post(url).success(function(_data){
-            ocultarModal("modalTerminar");
-            swal("Ok", "Usuario terminado", "success");
-            getAspirantesSesion($scope.selectedSesion.idSesion);
+            getUserInfo($scope.selectedAspirante.correoElectronico, $scope.selectedAspirante.caseId);
+            // ocultarModal("modalTerminar");
+            // swal("Ok", "Usuario terminado", "success");
+            // getAspirantesSesion($scope.selectedSesion.idSesion);
         }).error(function(_error){
 
         });
@@ -397,7 +420,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.campusByUser = function() {
         var resultado = [];
-        // var isSerua = true;
         resultado.push("Todos los campus")
         for (var x in $scope.lstMembership) {
             if ($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1) {
@@ -412,9 +434,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
         }
-        // if(isSerua){
-        //     resultado.push("Todos los campus")
-        // }
+
         $scope.lstCampusByUser = resultado;
     }
 
@@ -461,7 +481,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
         } else {
-  
             if ($scope.properties.dataToSend.lstFiltro.length > 0) {
                 var encontrado = false;
                 for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
@@ -521,4 +540,56 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
   
     $scope.getCatCampus();
-  }
+    
+    $scope.idDoFor = "";
+
+    function getUserInfo(_username, _caseId){
+        debugger;
+        let url = "../API/identity/user?c=10&p=0&f=userName=" + _username;
+        
+        $http.get(url).success(function(_data){
+            debugger;
+            $scope.idDoFor = _data[0].id;
+            
+            getTaskInfo(_caseId);
+        }).error(function(_error){
+            debugger;
+        });
+    }
+    
+    function getTaskInfo(_caseid){
+        
+        let url = "../API/bpm/task?c=10&p=0&f=name=Examen%20INVP&f=caseId=" + _caseid;
+        
+        $http.get(url).success(function(_data){
+            debugger;
+            if(_data[0].name === "Examen INVP"){
+                console.log("Examen INVP");
+            } else if (_data[0].name === "Finalizar examen"){
+                console.log("Finalizar examen");
+            }
+
+            executeTaskExamen(_data[0].id, $scope.idDoFor);
+        }).error(function(_error){
+            debugger;
+        });
+    }
+    
+    function executeTaskExamen(_taskId, _userId){
+        debugger;
+        let url = "../API/bpm/userTask/" + _taskId + "/execution?user=" + _userId;
+        
+        let dataToSend = {
+            "repetirExamenInput": true
+        }
+        
+        $http.post(url, dataToSend).success(function(_data){
+            debugger;
+            ocultarModal("modalTerminar");
+            swal("Ok", "Usuario terminado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+            debugger;
+        });
+    }
+}
