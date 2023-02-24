@@ -561,7 +561,7 @@ public Result getCatPreguntas(String jsonData) {
 				row.setFecha(rs.getString("fecha_prueba"));
 				row.setHoraInicio(rs.getString("entrada_prueba"));
 				row.setHoraTermino(rs.getString("salida_prueba"));
-				row.setEstatus("");
+				row.setEstatus(rs.getString("estatus"));
 				row.setAspirantes(rs.getString("registrados_prueba"));
 				
 				rows.add(row);
@@ -781,7 +781,7 @@ public Result getCatPreguntas(String jsonData) {
 				row.setFecha(rs.getString("fecha_prueba"));
 				row.setHoraInicio(rs.getString("entrada_prueba"));
 				row.setHoraTermino(rs.getString("salida_prueba"));
-				row.setEstatus("");
+				row.setEstatus(rs.getString("estatus"));
 				row.setAspirantes(rs.getString("registrados_prueba"));
 				
 				rows.add(row);

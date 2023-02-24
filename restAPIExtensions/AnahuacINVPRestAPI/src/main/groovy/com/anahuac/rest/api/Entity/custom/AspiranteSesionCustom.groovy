@@ -17,7 +17,22 @@ class AspiranteSesionCustom {
 	private Boolean bloqueado;
 	private String idioma;
 	private Boolean terminado;
+	private String caseidINVP;
+	private String estatusINVP;
 	
+	
+	public String getCaseidINVP() {
+		return caseidINVP;
+	}
+	public void setCaseidINVP(String caseidINVP) {
+		this.caseidINVP = caseidINVP;
+	}
+	public String getEstatusINVP() {
+		return estatusINVP;
+	}
+	public void setEstatusINVP(String estatusINVP) {
+		this.estatusINVP = estatusINVP;
+	}
 	public Boolean getTerminado() {
 		return terminado;
 	}

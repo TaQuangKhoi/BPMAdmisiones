@@ -22,6 +22,9 @@
                     <span style="cursor:pointer" ng-click="setOrderBy('idBpm')"> No. <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='idBpm'"></i></span> / 
                     <span style="cursor:pointer" ng-click="setOrderBy('idBanner')"> Id Banner <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='idBanner'"></i></span>
                 </th>
+                <!-- <th>
+                    
+                </th> -->
                 <th>
                     <span style="cursor:pointer" ng-click="setOrderBy('nombre')"> Nombre  <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='nombre'"></i></span>
                 </th>
@@ -33,6 +36,12 @@
                     <span style="cursor:pointer" ng-click="setOrderBy('celular')"> Celular <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='celular'"></i></span> / 
                     <span style="cursor:pointer" ng-click="setOrderBy('correo')"> Correo <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='correo'"></i></span>
                 </th>
+                <!-- <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('celular')"> Celular <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='celular'"></i></span>
+                </th>
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('correo')"> Correo <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='correo'"></i></span>
+                </th> -->
                 <th>
                     <span style="cursor:pointer" ng-click="setOrderBy('preguntas')"> Preguntas <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='preguntas'"></i></span>
                 </th>
@@ -44,27 +53,33 @@
                     <span style="cursor:pointer" ng-click="setOrderBy('termino')"> Término <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='termino'"></i></span> / 
                     <span style="cursor:pointer" ng-click="setOrderBy('tiempo')"> Tiempo <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='tiempo'"></i></span>
                 </th>
+                <!-- <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('termino')"> Término <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='termino'"></i></span>
+                </th> -->
+                <!-- <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('tiempo')"> Tiempo <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='tiempo'"></i></span>
+                </th> -->
                 <th>
                     <span style="cursor:pointer" ng-click="setOrderBy('estatus')"> Estatus <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='estatus'"></i></span>
                 </th>
-                <th>
-                    <span style="cursor:pointer" ng-click="setOrderBy('idioma')"> Idioma <i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='idioma'"></i></span>
-                </th>
-                
                 <th> Acciones</th>     
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><input ng-model="dynamicInput['idBpm']" class="form-control" ng-enter="filterKeyPress('No.', dynamicInput['idBpm'])"></td>
+                <!-- <td><input ng-model="dynamicInput['idBanner']" class="form-control" ng-enter="filterKeyPress('Id Banner', dynamicInput['idBanner'])"></td> -->
                 <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('Nombre', dynamicInput['nombre'])"></td>
                 <td><input ng-model="dynamicInput['uni']" class="form-control" ng-enter="filterKeyPress('Uni.', dynamicInput['uni'])"></td>
                 <td><input ng-model="dynamicInput['telefono']" class="form-control" ng-enter="filterKeyPress('Teléfono', dynamicInput['telefono'])"></td>
+                <!-- <td><input ng-model="dynamicInput['celular']" class="form-control" ng-enter="filterKeyPress('Celular', dynamicInput['celular'])"></td>
+                <td><input ng-model="dynamicInput['correoElectronico']" class="form-control" ng-enter="filterKeyPress('Correo', dynamicInput['correoElectronico'])"></td> -->
                 <td><input ng-model="dynamicInput['preguntas']" class="form-control" ng-enter="filterKeyPress('Preguntas', dynamicInput['preguntas'])"></td>
                 <td><input ng-model="dynamicInput['contestadas']" class="form-control" ng-enter="filterKeyPress('Contestadas', dynamicInput['contestadas'])"></td>
                 <td><input ng-model="dynamicInput['inicio']" class="form-control" ng-enter="filterKeyPress('Inicio', dynamicInput['inicio'])"></td>
+                <!-- <td><input ng-model="dynamicInput['termino']" class="form-control" ng-enter="filterKeyPress('Término', dynamicInput['termino'])"></td> -->
+                <!-- <td><input ng-model="dynamicInput['tiempo']" class="form-control" ng-enter="filterKeyPress('Tiempo', dynamicInput['tiempo'])"></td> -->
                 <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('Estatus', dynamicInput['estatus'])"></td>
-                <td><input ng-model="dynamicInput['idioma']" class="form-control" ng-enter="filterKeyPress('Idioma', dynamicInput['idioma'])"></td>
                 <td></td>
             </tr>
             <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
@@ -72,8 +87,12 @@
                     {{row.idBpm}} <br>
                     {{row.idBanner}}
                 </td>
+                <!-- <td>{{row.idBanner}}</td> -->
                 <td>{{row.nombre}}</td>
                 <td>{{row.uni}}</td>
+                <!-- <td>{{row.telefono}}</td>
+                <td>{{row.celular}}</td>
+                <td>{{row.correoElectronico}}</td> -->
                 <td>
                     {{row.telefono}}<br>
                     {{row.celular}}<br>
@@ -81,24 +100,22 @@
                 </td>
                 <td>{{row.preguntas}}</td>
                 <td>{{row.contestadas}}</td>
-                <td style="min-width: 101px;">
-                    {{row.inicio | date:'dd/MM/yyyy hh:mm'}}<br>
-                    {{row.termino | date:'dd/MM/yyyy hh:mm'}}<br>
+                <!-- <td>{{row.inicio}}</td>
+                <td>{{row.termino}}</td>
+                <td>{{row.tiempo}}</td> -->
+                <td>
+                    {{row.inicio}} <br>
+                    {{row.termino}}<br>
                     {{row.tiempo}}
                 </td>
                 <td>{{row.estatusINVP}}</td>
-                <td>
-                    <button type="button" ng-click="cambiarIdioma(row, 'idioma')" class="btn btn-warning">
-                        <label>{{row.idioma}}</label>
-                    </button>
-                </td>    
-                <td class="text-center ">
-                    <button ng-if="row.estatusINVP !== 'Prueba terminada por administrador' && row.estatusINVP !== 'Prueba terminada'" type="button" ng-click="setSelectedAspirante(row, 'terminar')" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-time"></span>
-                    </button>
-                    <button ng-if="row.estatusINVP === 'Prueba terminada por administrador'" type="button" ng-click="setSelectedAspirante(row, 'reactivar')" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-time"></span>
-                    </button>
+                <td class="text-center">
+                    <!--<button class="btn btn-default" ng-click="verSolicitud(row)">-->
+                    <!--    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>-->
+                    <!--</button>-->
+                    <!--<button class="btn btn-default" ng-click="editar(row)">-->
+                    <!--    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>-->
+                    <!--</button>-->
                 </td>
             </tr>
         </tbody>
@@ -120,118 +137,6 @@
                 <button type="button" class="btn btn-default" ng-click="siguiente()">Siguiente
                 </button>
             </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="modal" tabindex="-1" role="dialog" id="modalBloquear">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Bloquear/Desbloquear aspirante</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p ng-if="!selectedAspirante.bloqueado">¿Estás seguro(a) que deseas <b>Bloquear</b> al aspirante?.</p>
-            <p ng-if="selectedAspirante.bloqueado">¿Estás seguro(a) que deseas <b>Desbloquear</b> al aspirante?.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="bloquearAspirante()">Aceptar</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" tabindex="-1" role="dialog" id="modalTerminar">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Terminar sesión para aspirante</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>¿Estás seguro(a) que deseas <b>Terminar</b> la sesión del aspirante?.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="terminarAspirante()">Aceptar</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal" tabindex="-1" role="dialog" id="modalIdioma">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Cambiar idioma para el aspirante</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p ng-if="selectedAspirante.idioma === 'ENG'">¿Estás seguro(a) que deseas cambiar el idioma de aspirante a <b>ESPAÑOL</b>.</p>
-            <p ng-if="selectedAspirante.idioma === 'ESP'">¿Estás seguro(a) que deseas cambiar el idioma de aspirante a <b>INGLES</b>.</p>
-            <!--<pre>{{ selectedAspirante | json }}</pre>-->
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="insertUpdateIidiomaUsuario()">Aceptar</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" tabindex="-1" role="dialog" id="modalReactivar">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Reactivar sesión para aspirante</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>¿Estás seguro(a) que deseas <b>reactivar</b> la sesión del aspirante?.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="terminarAspirante()">Aceptar</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" tabindex="-1" role="dialog" id="modalIdiomaTodos">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Cambiar idioma todos</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <label>Selecciona el idioma </label>
-            <select class="form-control" ng-model="idiomaTodos">
-                <option value="">Selecciona...</option>
-                <option value="ESP">Español</option>
-                <option value="ENG">English</option>
-            </select>
-            <!--<pre>{{ selectedAspirante | json }}</pre>-->
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="insertUpdateIidiomaUsuario()">Aceptar</button>
-        </div>
         </div>
     </div>
 </div>

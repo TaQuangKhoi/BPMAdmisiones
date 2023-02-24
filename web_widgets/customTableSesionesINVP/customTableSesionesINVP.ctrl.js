@@ -1,7 +1,7 @@
 function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.isArray = Array.isArray;
-  
+    $scope.idiomaTodos = "";
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
@@ -474,4 +474,126 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
   
   
     $scope.getCatCampus();
-  }
+
+    $scope.setSelectedAspirante = function(_aspirante, _modal){
+        $scope.selectedAspirante = angular.copy(_aspirante);
+        if(_modal === "bloquear"){
+            mostrarModal("modalBloquear");
+        } else if(_modal === "reactivar"){
+            mostrarModal("modalReactivar");
+        } else {
+            mostrarModal("modalTerminar");
+        }
+
+    }
+
+    $scope.mostrarModalTodos = function(_idModal){
+        mostrarModal(_idModal)
+    }
+    
+    function mostrarModal(_idModal){
+        $("#" + _idModal).modal("show");
+    }
+
+    function ocultarModal(_idModal){
+        $("#" + _idModal).modal("hide");
+    }
+
+    $scope.terminarAspirante = function(){
+        let url = "../API/extension/AnahuacINVPRestAPI?url=bloquearAspirante&p=0&c=10&username=" 
+        +  $scope.selectedAspirante.correoElectronico + "&bloquear=" + $scope.selectedAspirante.bloqueado + "&terminar=" + !$scope.selectedAspirante.terminado;
+
+        $http.post(url).success(function(_data){
+            getUserInfo($scope.selectedAspirante.correoElectronico, $scope.selectedAspirante.caseidINVP);
+            // ocultarModal("modalTerminar");
+            // swal("Ok", "Usuario terminado", "success");
+            // getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
+        });
+    }
+
+    $scope.idDoFor = "";
+
+    function getUserInfo(_username, _caseId){
+        let url = "../API/identity/user?c=10&p=0&f=userName=" + _username;
+        
+        $http.get(url).success(function(_data){
+            $scope.idDoFor = _data[0].id;
+            
+            getTaskInfo(_caseId);
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+    
+    function getTaskInfo(_caseid){
+        // let url = "../API/bpm/task?c=10&p=0&f=name=Examen%20INVP&f=caseId=" + _caseid;
+        let url = "../API/bpm/task?c=10&p=0&f=caseId=" + _caseid;
+        
+        $http.get(url).success(function(_data){
+            if(_data[0].name === "Examen INVP"){
+                executeTaskExamen(_data[0].id, $scope.idDoFor);
+            } else if (_data[0].name === "Finalizar examen"){
+                executeTaskReactivar(_data[0].id);
+            }
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+    
+    function executeTaskExamen(_taskId, _userId){
+        let url = "../API/bpm/userTask/" + _taskId + "/execution?user=" + _userId;
+        
+        let dataToSend = {
+            "isTerminado": true,
+            "terminadoFInput": true,
+            "instanciaINVPInput": {
+                "mensajeTermino":""
+            }
+        }
+        
+        $http.post(url, dataToSend).success(function(_data){
+            ocultarModal("modalTerminar");
+            swal("Ok", "Usuario terminado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+
+    function executeTaskReactivar(_taskId){
+        let url = "../API/bpm/userTask/" + _taskId + "/execution?assign=true";
+        
+        let dataToSend = {
+            "repetirExamenInput": true
+        }
+        
+        $http.post(url, dataToSend).success(function(_data){
+            ocultarModal("modalReactivar");
+            swal("Ok", "El usuario ha sido reactivado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+    
+    // 
+    $scope.insertUpdateIidiomaUsuarioTodos = function(){
+        $scope.dataToSend = angular.copy($scope.properties.dataToSendAsp);
+        $scope.dataToSend.lstFiltro = [{
+            "columna":"id_sesion",
+            "valor": $scope.selectedSesion.idSesion + ""
+        }];
+
+        let url = "../API/extension/AnahuacINVPRestAPI?url=updateIdiomaTodos&p=0&c=10&idioma=" + $scope.idiomaTodos;
+
+        $http.post(url, $scope.dataToSend).success(function(_data){
+            ocultarModal("modalIdiomaTodos");
+            swal("Ok", "Idioma actualizado para todos los aspirantes", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
+        });
+    }
+}

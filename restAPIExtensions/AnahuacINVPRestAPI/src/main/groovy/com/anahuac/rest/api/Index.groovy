@@ -172,8 +172,11 @@ class Index implements RestApiController {
 				def object = jsonSlurper.parseText(jsonData);
 				//assert object instanceof Map
 				Map<String, Serializable> contract = new HashMap<String, Serializable>();
+				Map<String, Serializable> instanciaINVPInput = new HashMap<String, Serializable>();
 
 				contract.put("idUsuarioInput",Long.valueOf(object.idUsuarioInput))
+				instanciaINVPInput.put("username", object.instanciaINVPInput.username);
+				contract.put("instanciaINVPInput", instanciaINVPInput);
 				errorlog+="[5] "
 				Long processId = context.getApiClient().getProcessAPI().getLatestProcessDefinitionId("Examen INVP");
 				errorlog+="[6] " + contract.toMapString()
@@ -344,6 +347,40 @@ class Index implements RestApiController {
 				}
 				
 			break;
+			
+			case "getAspirantesTemporales":
+				try{
+					result =  new UsuariosDAO().getAspirantesTemporales(jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+			break;
+			case "updateIdiomaTodos":
+				try{
+					String idioma = request.getParameter "idioma"
+					result =  new UsuariosDAO().updateIdiomaTodos(idioma, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+			break;
+			
+			
 			case "bloquearAspirante":
 				try{
 					String username =request.getParameter "username"

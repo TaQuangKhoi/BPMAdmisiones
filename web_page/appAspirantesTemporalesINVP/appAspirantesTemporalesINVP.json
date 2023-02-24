@@ -1,8 +1,8 @@
 {
   "modelVersion" : "2.2",
-  "id" : "appDashboardINVP",
-  "name" : "appDashboardINVP",
-  "lastUpdate" : 1677263315362,
+  "id" : "appAspirantesTemporalesINVP",
+  "name" : "appAspirantesTemporalesINVP",
+  "lastUpdate" : 1677192449036,
   "rows" : [
     [
       {
@@ -27,7 +27,7 @@
             "value" : ""
           }
         },
-        "reference" : "02fc6558-a576-4b09-8a89-198ddec057f0",
+        "reference" : "17066355-ce57-435f-b70e-2d5fee5c8470",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -43,7 +43,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : "color-orange"
+                  "value" : ""
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -51,7 +51,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Panel del día<hr>"
+                  "value" : "Aspirantes temporales  <hr>"
                 },
                 "level" : {
                   "type" : "constant",
@@ -62,7 +62,7 @@
                   "value" : "center"
                 }
               },
-              "reference" : "218bd8f6-ab49-4b71-b339-dce3319fde3a",
+              "reference" : "78afc7ab-d513-45e6-ae12-f6c61b9453c3",
               "hasValidationError" : false,
               "id" : "pbTitle"
             }
@@ -152,7 +152,7 @@
                   "type" : "variable"
                 }
               },
-              "reference" : "0a2327b8-5ca5-49ca-a228-fbe3a60da351",
+              "reference" : "2f43f91f-0a48-4058-9bd9-216e605133bb",
               "hasValidationError" : false,
               "id" : "pbButton"
             }
@@ -180,7 +180,7 @@
                   "value" : "lstFiltros"
                 }
               },
-              "reference" : "8dea76d5-436d-46cf-b90c-98bdc1406ca9",
+              "reference" : "7fc042b4-40de-4f83-8fbc-08df8fe5a8d0",
               "hasValidationError" : false,
               "id" : "customListFiltrosBloqueoCampusINVP"
             }
@@ -237,7 +237,7 @@
                 },
                 "urlPost" : {
                   "type" : "constant",
-                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getSesionesToday&p=0&c=10"
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getAspirantesTemporales&p=0&c=10"
                 },
                 "dataToSend" : {
                   "type" : "variable",
@@ -262,41 +262,67 @@
                 "abrirPagina" : {
                   "type" : "constant",
                   "value" : "paginatest"
-                },
-                "dataToSendAsp" : {
-                  "type" : "variable",
-                  "value" : "dataToSendAsp"
                 }
               },
-              "reference" : "2e105f3f-98da-4f57-bdf7-69b54dc8112a",
+              "reference" : "abce58bd-53b4-49c7-a25a-a997114db083",
               "hasValidationError" : false,
-              "id" : "customTableSesionesINVPDashboard"
+              "id" : "customTablaAspirantesTemporalesINVP"
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "61d2f4fc-3f42-45df-8bf9-accedee6159b",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "4e08e4bc-d9c9-4167-915e-70dc14a30f88",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [ ]
+          ]
+        }
       }
     ]
   ],
   "assets" : [
     {
-      "id" : "7a91b0f6-e4d0-42ae-99f6-240ac7427dae",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
       "id" : "30983546-1435-4cce-9d9a-ba7547181cdb",
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "b8311c41-0c24-4175-acd9-e7b23c5410fd",
-      "name" : "sweetalert.min.js",
-      "type" : "js",
-      "order" : 4,
       "external" : false
     },
     {
@@ -311,13 +337,6 @@
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "14ba80c8-8dc9-415f-97b6-9a180ef30d98",
-      "name" : "multimodal.js",
-      "type" : "js",
-      "order" : 5,
       "external" : false
     },
     {
@@ -343,7 +362,7 @@
         "return {\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\":$data.session.user_name,\r",
-        "    \"orderby\":\"ID_SESION\",\r",
+        "    \"orderby\":\"id_bpm\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
@@ -378,25 +397,10 @@
       ],
       "advancedOptions" : { },
       "exposed" : false
-    },
-    "dataToSendAsp" : {
-      "type" : "expression",
-      "value" : [
-        "return {\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
-        "    \"usuario\":$data.session.user_name,\r",
-        "    \"orderby\":\"ID_SESION\",\r",
-        "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":20,\r",
-        "    \"offset\":0,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
-        "};\r"
-      ],
-      "exposed" : false
     }
   },
   "hasValidationError" : false,
-  "uuid" : "1efa01da-d19f-406c-85e8-92c168d01bb0",
+  "uuid" : "cdf8dcef-522d-4323-a144-949afdbed13d",
   "type" : "page",
   "description" : "Page generated with Bonita UI designer"
 }

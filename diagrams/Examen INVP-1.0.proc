@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_PSuYQGRNEe25vplGuJ9kyw" name="Examen INVP" author="micedo94" bonitaVersion="7.13.4" bonitaModelVersion="7.12.0-004">
-    <elements xmi:type="process:Pool" xmi:id="_PSuYQWRNEe25vplGuJ9kyw" name="Examen INVP" version="1.0.2">
+    <elements xmi:type="process:Pool" xmi:id="_PSuYQWRNEe25vplGuJ9kyw" name="Examen INVP" version="1.0.7">
       <elements xmi:type="process:Lane" xmi:id="_PSuYQmRNEe25vplGuJ9kyw" name="Aspirante" actor="_VAArMGRNEe25vplGuJ9kyw">
         <elements xmi:type="process:StartEvent" xmi:id="_PSuYQ2RNEe25vplGuJ9kyw" name="Inicio1" outgoing="_PSuYWGRNEe25vplGuJ9kyw">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_PSuYRGRNEe25vplGuJ9kyw" name="" content="" returnTypeFixed="true"/>
@@ -32,6 +32,41 @@
               <inputTypes>java.time.LocalDateTime</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_hbeLULI2Ee2aKOpVIln2Ig">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_hbeLUbI2Ee2aKOpVIln2Ig" name="instanciaINVP" content="instanciaINVP" type="TYPE_VARIABLE" returnType="com.anahuac.invp.InstanciaINVP">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_hbeLUrI2Ee2aKOpVIln2Ig" name="instanciaINVP" dataType="_PSuYdGRNEe25vplGuJ9kyw" className="com.anahuac.invp.InstanciaINVP"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_hbeLU7I2Ee2aKOpVIln2Ig" name="instanciaINVPInput.mensajeTermino" content="instanciaINVPInput?.mensajeTermino" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_hbeLVLI2Ee2aKOpVIln2Ig" name="instanciaINVPInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_hbeLVbI2Ee2aKOpVIln2Ig" type="JAVA_METHOD" expression="setMensajeTermino">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_aY7gMLI3Ee2aKOpVIln2Ig">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_aY7gMbI3Ee2aKOpVIln2Ig" name="terminadoF" content="terminadoF" type="TYPE_VARIABLE" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:Data" xmi:id="_a4IksLI3Ee2aKOpVIln2Ig" name="terminadoF" dataType="_PSuYbGRNEe25vplGuJ9kyw"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_aY7gMrI3Ee2aKOpVIln2Ig" name="newScript()" content="terminadoFInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_cQ-m8LI3Ee2aKOpVIln2Ig" name="terminadoFInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_cQ-m8bI3Ee2aKOpVIln2Ig"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_aY7gM7I3Ee2aKOpVIln2Ig" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_M-I_8LJAEe2aKOpVIln2Ig">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_M-I_8bJAEe2aKOpVIln2Ig" name="instanciaINVP" content="instanciaINVP" type="TYPE_VARIABLE" returnType="com.anahuac.invp.InstanciaINVP">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_NbnmILJAEe2aKOpVIln2Ig" name="instanciaINVP" dataType="_PSuYdGRNEe25vplGuJ9kyw" className="com.anahuac.invp.InstanciaINVP"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_M-I_8rJAEe2aKOpVIln2Ig" name="newScript()" content="if(terminadoFInput == true){&#xD;&#xA;&#x9;return &quot;Prueba terminada por administrador&quot;;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return &quot;Prueba terminada&quot;;&#xD;&#xA;}" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_X8tmULJAEe2aKOpVIln2Ig" name="terminadoFInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_X8tmUbJAEe2aKOpVIln2Ig"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_M-I_87JAEe2aKOpVIln2Ig" type="JAVA_METHOD" expression="setEstatus">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_PSuYS2RNEe25vplGuJ9kyw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_PSuYTGRNEe25vplGuJ9kyw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_PSuYTWRNEe25vplGuJ9kyw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -50,6 +85,12 @@
           <contract xmi:type="process:Contract" xmi:id="_PSuYUmRNEe25vplGuJ9kyw">
             <inputs xmi:type="process:ContractInput" xmi:id="_aALogHZsEe23W5vlPH-1Ww" name="isTerminado" type="BOOLEAN">
               <mapping xmi:type="process:ContractInputMapping" xmi:id="_aALogXZsEe23W5vlPH-1Ww"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_hbdkQLI2Ee2aKOpVIln2Ig" name="instanciaINVPInput" type="COMPLEX" dataReference="instanciaINVP" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_hbdkQbI2Ee2aKOpVIln2Ig" name="mensajeTermino" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_XSodoLI3Ee2aKOpVIln2Ig" name="terminadoFInput" type="BOOLEAN">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_XSodobI3Ee2aKOpVIln2Ig"/>
             </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_PSuYU2RNEe25vplGuJ9kyw" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
@@ -119,13 +160,26 @@
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_aB0H47IPEe2zC4b6cCk0Lw" type="ASSIGNMENT"/>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_0m3rYLJFEe2aKOpVIln2Ig">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0m3rYbJFEe2aKOpVIln2Ig" name="instanciaINVP" content="instanciaINVP" type="TYPE_VARIABLE" returnType="com.anahuac.invp.InstanciaINVP">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_09DWwLJFEe2aKOpVIln2Ig" name="instanciaINVP" dataType="_PSuYdGRNEe25vplGuJ9kyw" className="com.anahuac.invp.InstanciaINVP"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0m3rYrJFEe2aKOpVIln2Ig" name="newScript()" content="if(repetirExamenInput == true){&#xD;&#xA;&#x9;return &quot;Examen reactivado&quot;;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return &quot;Prueba finalizada&quot;;&#xD;&#xA;}" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_qMorsLJGEe2aKOpVIln2Ig" name="repetirExamenInput" type="BOOLEAN">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_qMorsbJGEe2aKOpVIln2Ig"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0m3rY7JFEe2aKOpVIln2Ig" type="JAVA_METHOD" expression="setEstatus">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_6WtdkrFJEe2nOrtpT7vKAQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_6Wtdk7FJEe2nOrtpT7vKAQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_6WtdlLFJEe2nOrtpT7vKAQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_6WtdlrFJEe2nOrtpT7vKAQ" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_6WtdlbFJEe2nOrtpT7vKAQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <BoundaryIntermediateEvents xmi:type="process:BoundaryTimerEvent" xmi:id="_HWyBoLFKEe2nOrtpT7vKAQ" name="Terminar" outgoing="_I18HQLFKEe2nOrtpT7vKAQ">
-            <condition xmi:type="expression:Expression" xmi:id="_4NWdALFMEe2nOrtpT7vKAQ" name="1 días: 00:00:00" content="86400000L" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long"/>
+            <condition xmi:type="expression:Expression" xmi:id="_4NWdALFMEe2nOrtpT7vKAQ" name="3 días: 00:00:00" content="259200000L" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long"/>
           </BoundaryIntermediateEvents>
           <formMapping xmi:type="process:FormMapping" xmi:id="_8GgnSbFJEe2nOrtpT7vKAQ" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_8GgnSrFJEe2nOrtpT7vKAQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -179,7 +233,12 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_nDHPgbFVEe2nOrtpT7vKAQ" name="init_regresarExamen()" content="false" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_IniUQLINEe2zC4b6cCk0Lw" name="instanciaINVP" dataType="_PSuYdGRNEe25vplGuJ9kyw" className="com.anahuac.invp.InstanciaINVP">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_IniUQbINEe2zC4b6cCk0Lw" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_wIaHYLIWEe2aKOpVIln2Ig" name="initInstanciaINVP()" content="def instanciaINVPVar = new com.anahuac.invp.InstanciaINVP()&#xD;&#xA;instanciaINVPVar.username = instanciaINVPInput?.username&#xD;&#xA;return instanciaINVPVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.invp.InstanciaINVP">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_wIaHYbIWEe2aKOpVIln2Ig" name="instanciaINVPInput" type="COMPLEX"/>
+        </defaultValue>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_MX65ALI2Ee2aKOpVIln2Ig" name="terminadoF" dataType="_PSuYbGRNEe25vplGuJ9kyw">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_MX65AbI2Ee2aKOpVIln2Ig" name="init_terminadoF()" content="false" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_PSuYVGRNEe25vplGuJ9kyw" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_VpfqYHaTEe23W5vlPH-1Ww" name="newForm13" content="b485cd96-9823-4845-8f88-10a767274c0b" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -267,6 +326,9 @@
         <inputs xmi:type="process:ContractInput" xmi:id="_7gbFMHaREe23W5vlPH-1Ww" name="idUsuarioInput" type="LONG">
           <mapping xmi:type="process:ContractInputMapping" xmi:id="_7gbFMXaREe23W5vlPH-1Ww"/>
         </inputs>
+        <inputs xmi:type="process:ContractInput" xmi:id="_wINTELIWEe2aKOpVIln2Ig" name="instanciaINVPInput" type="COMPLEX" dataReference="instanciaINVP">
+          <inputs xmi:type="process:ContractInput" xmi:id="_wIN6ILIWEe2aKOpVIln2Ig" name="username"/>
+        </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_PSuYXWRNEe25vplGuJ9kyw">
         <name xmi:type="expression:Expression" xmi:id="_PSuYXmRNEe25vplGuJ9kyw" content="" returnTypeFixed="true"/>
@@ -338,7 +400,7 @@
                 </children>
                 <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HWzPwbFKEe2nOrtpT7vKAQ" x="8" y="50"/>
               </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8GhOUbFJEe2nOrtpT7vKAQ" x="446" y="46" width="116" height="58"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8GhOUbFJEe2nOrtpT7vKAQ" x="444" y="53" width="116" height="58"/>
             </children>
             <children xmi:type="notation:Shape" xmi:id="_ihKjEGRNEe25vplGuJ9kyw" type="3008" element="_ihJ8AGRNEe25vplGuJ9kyw" fontName="Segoe UI">
               <children xmi:type="notation:DecorationNode" xmi:id="_ihKjEmRNEe25vplGuJ9kyw" type="5026">
@@ -350,7 +412,7 @@
               <children xmi:type="notation:DecorationNode" xmi:id="_qmMwgmRNEe25vplGuJ9kyw" type="5090">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_qmMwg2RNEe25vplGuJ9kyw" y="5"/>
               </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qmMwgWRNEe25vplGuJ9kyw" x="926" y="60"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qmMwgWRNEe25vplGuJ9kyw" x="806" y="67"/>
             </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="__jWsIbFKEe2nOrtpT7vKAQ"/>

@@ -100,7 +100,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
-        debugger;
         vm.busy = true;
         var req = {
             method: method,
@@ -110,47 +109,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req)
-            .success(function(data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                insertCase(data.caseId);
-                //insertterminado();
-                //$window.location.assign($scope.properties.targetUrlOnSuccess);
-               /* if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                     redirectIfNeeded();
-                }*/
-                //$window.location.assign($scope.properties.targetUrlOnSuccess);
-                //redirectIfNeeded();
-                //data.caseId
-                //insertCase(data.caseId);
-               /* notifyParentFrame({
-                    message: 'success',
-                    status: status,
-                    dataFromSuccess: data,
-                    dataFromError: undefined,
-                    responseStatusCode: status
-                });
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                     redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);*/
-            })
-            .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });
-            })
-            .finally(function() {
-                vm.busy = false;
+        .success(function(data, status) {
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            insertCase(data.caseId);
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({
+                message: 'error',
+                status: status,
+                dataFromError: data,
+                dataFromSuccess: undefined,
+                responseStatusCode: status
             });
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 
     function redirectIfNeeded() {
@@ -211,7 +190,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function insertCase(caseid) {
         vm.busy = true;
-        debugger
         var data = {
             "pregunta": 0,
             "caseid": Number(caseid),
@@ -226,32 +204,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req)
-            .success(function(data, status) {
-                insertterminado();
-                /*$scope.properties.dataFromSuccess = true;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                window.top.location.href = $scope.properties.targetUrlOnSuccess;*/
-            })
-            .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });
-            })
-            .finally(function() {
-                vm.busy = false;
+        .success(function(data, status) {
+            insertterminado();
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({
+                message: 'error',
+                status: status,
+                dataFromError: data,
+                dataFromSuccess: undefined,
+                responseStatusCode: status
             });
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 
      function insertterminado() {
-        debugger;
         vm.busy = true;
 
         var data = {
@@ -267,11 +240,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-            debugger;
                 insertidiomausuario();
             })
             .error(function(data, status) {
-            debugger;
                insertidiomausuario();
             })
             .finally(function() {
@@ -290,34 +261,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         var req = {
             method: "POST",
-            url: "../API/extension/AnahuacINVPRestAPI?url=insertidiomausuario&p=0&c=10",
+            url: "../API/extension/AnahuacINVPRestAPI?url=insertUpdateIidiomaUsuario&p=0&c=10",
             data: data
         };
 
         return $http(req)
-            .success(function(data, status) {
-            debugger;
-                $scope.properties.dataFromSuccess = true;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                window.top.location.href = $scope.properties.targetUrlOnSuccess;
-            })
-            .error(function(data, status) {
-            debugger;
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });
-            })
-            .finally(function() {
-                vm.busy = false;
+        .success(function(data, status) {
+            $scope.properties.dataFromSuccess = true;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            window.top.location.href = $scope.properties.targetUrlOnSuccess;
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({
+                message: 'error',
+                status: status,
+                dataFromError: data,
+                dataFromSuccess: undefined,
+                responseStatusCode: status
             });
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 
 }

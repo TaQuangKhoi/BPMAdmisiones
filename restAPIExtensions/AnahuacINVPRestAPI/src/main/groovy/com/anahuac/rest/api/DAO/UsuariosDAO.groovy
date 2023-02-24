@@ -773,14 +773,18 @@ class UsuariosDAO {
 					Date date = new Date(rs.getTimestamp("fechainicio").getTime());
 					row.setInicio(formatter.format(date));
 				}
-				row.setTermino(rs.getString("fechafin"));
+				if(rs.getTimestamp("fechafin") != null) {
+					Date date = new Date(rs.getTimestamp("fechafin").getTime());
+					row.setTermino(formatter.format(date));
+				}
+				
 				row.setIdBanner(rs.getString("idbanner"));
-				row.setEstatus(rs.getString("estatus"))
-				row.setIdioma(rs.getString("idioma"))
+//				row.setEstatus(rs.getString("estatus"))
+				row.setIdioma(rs.getString("idioma") != null ? rs.getString("idioma") : "ESP");
 				row.setBloqueado(rs.getBoolean("usuariobloqueado"));
 				row.setTerminado(rs.getBoolean("terminado"));
-//				row.setTiempo(rs.getString("correoelectronico"));
-//				row.setEstatus(rs.getString("correoelectronico"));
+				row.setCaseidINVP(rs.getString("caseidinvp"))
+				row.setEstatusINVP(rs.getString("estatusinvp"));
 				
 				rows.add(row);
 			}
@@ -962,16 +966,19 @@ class UsuariosDAO {
 			rs = pstm.executeQuery();
 			
 			if(rs.next()) {
+				errorlog += " | existe :  GET_IDIOMA_EXISTE_USUARIO " 
 				existe = rs.getBoolean("existe");
 			}
 			
 			if(existe) {
+				errorlog += " | UPDATE_IDIOMA_USUARIO "
 				pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_USUARIO);
 				pstm.setString(1, object.idioma);
 				pstm.setString(2, object.nombreusuario);
 				pstm.executeUpdate();
 				con.commit();
 			} else {
+				errorlog += " | UPDATE_IDIOMA_REGISTRO_BY_USERNAME "
 				pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
 				pstm.setString(1, object.idioma);
 				pstm.setString(2, object.nombreusuario);
@@ -989,24 +996,398 @@ class UsuariosDAO {
 			}
 			
 			success = true;
-			if(resultReq > 0) {
-				error_log = resultReq + " Exito! query UPDATE_IDIOMA_REGISTRO_BY_USERNAME insertado " + resultReq + " | " + object.idioma + object.nombreusuario
-				//error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
-			} else {
-				error_log = resultReq + " Error! query UPDATE_IDIOMA_REGISTRO_BY_USERNAME"
+			resultado.setSuccess(true)
+			resultado.setError_info(errorlog);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			errorlog = errorlog + " | " + e.getMessage();
+			resultado.setError_info(errorlog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
-			/*rs = pstm.executeQuery();
+		}
+		return resultado
+	}
+	
+	public Result getAspirantesTemporales(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = " WHERE  idio.isTemporal = true  ";
+		String errorlog = "  ";
+		String orderBy = " ORDER BY ";
+		List < String > lstGrupo = new ArrayList < String > ();
+		String errorLog = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
+			
+			if (lstGrupo.size() > 0 && object.campus != null ) {
+				where += " AND (";
+				for (Integer i = 0; i < lstGrupo.size(); i++) {
+					String campusMiembro = lstGrupo.get(i);
+					where += " cca.descripcion = '" + campusMiembro + "'"
+					if (i == (lstGrupo.size() - 1)) {
+						where += ") "
+					} else {
+						where += " OR "
+					}
+				}
+			}
+			
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				switch (filtro.get("columna")) {
+					case "id_sesion":
+						errorlog += "prue.sesion_pid "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( prue.sesion_pid = [valor] )";
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "No.":
+						errorlog += "creg.caseid "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(creg.caseid::VARCHAR) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Nombre":
+						errorlog += "ses.nombre"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( ( LOWER(creg.primernombre) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.segundonombre) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.apellidopaterno) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.apellidomaterno) like lower('%[valor]%') ) )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Id Banner":
+						errorlog += "dets.idbanner "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(dets.idbanner) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Uni.":
+						errorlog += "ccam.descripcion "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(ccam.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Teléfono":
+						errorlog += "sdad.telefono "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(sdad.telefono) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Celular":
+						errorlog += "sdad.telefonocelular "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(sdad.telefonocelular) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Correo":
+						errorlog += "creg.correoelectronico "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(creg.correoelectronico) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Preguntas":
+						errorlog += "total_preguntas "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(total_preguntas) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Contestadas":
+						errorlog += "total_respuestas "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(total_respuestas) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Inicio":
+						errorlog += "extr.fechainicio "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(extr.fechainicio) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Término":
+						errorlog += "extr.fechafin "
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(extr.fechafin) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Tiempo":
+//						errorlog += "fechafin "
+//						if (where.contains("WHERE")) {
+//							where += " AND "
+//						} else {
+//							where += " WHERE "
+//						}
+//						where += " ( LOWER(fechafin) like lower('%[valor]%') )";
+//						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Estatus":
+//						errorlog += "fechafin "
+//						if (where.contains("WHERE")) {
+//							where += " AND "
+//						} else {
+//							where += " WHERE "
+//						}
+//						where += " ( LOWER(fechafin) like lower('%[valor]%') )";
+//						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					default:
+						break;
+				}
+			}
+			
+			switch(object.orderby) {
+				case "idBpm":
+					orderBy = " ORDER BY creg.caseid " + object.orientation;
+				break;
+				case "idbanner":
+					orderBy = " ORDER BY dets.idbanner " + object.orientation;
+				break;
+				case "nombre":
+					orderBy = " ORDER BY creg.primernombre " + object.orientation;
+				break;
+				case "uni":
+					orderBy = " ORDER BY ccam.descripcion " + object.orientation;
+				break;
+				case "telefono":
+					orderBy = " ORDER BY sdad.telefono  " + object.orientation;
+				break;
+				case "celular":
+					orderBy = " ORDER BY creg.caseid " + object.orientation;
+				break;
+				case "correo":
+					orderBy = " ORDER BY creg.correoelectronico " + object.orientation;
+				break;
+				case "preguntas":
+					orderBy = " ORDER BY total_preguntas " + object.orientation;
+				break;
+				case "contestadas":
+					orderBy = " ORDER BY total_respuestas " + object.orientation;
+				break;
+				case "inicio":
+					orderBy = " ORDER BY extr.fechainicio " + object.orientation;
+				break;
+				case "termino":
+					orderBy = " ORDER BY extr.fechafin " + object.orientation;
+				break;
+				default:
+					orderBy = " ORDER BY creg.caseid " + object.orientation;
+				break;
+			}
+			
+//			errorLog += where;
+			
+			AspiranteSesionCustom row = new AspiranteSesionCustom();
+			List <AspiranteSesionCustom> rows = new ArrayList <AspiranteSesionCustom>();
+			closeCon = validarConexion();
+			
+			String consultaCcount = Statements.GET_ASPIRANTES_SESIONES_TEMP_COUNT.replace("[WHERE]", where);
+			pstm = con.prepareStatement(consultaCcount);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("total_registros"));
+			}
+			
+			String consulta = Statements.GET_ASPIRANTES_SESIONES_TEMP.replace("[WHERE]", where).replace("[ORDERBY]", orderBy)
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				row = new AspiranteSesionCustom();
+				String nombre = rs.getString("primernombre");
+				if(rs.getString("segundonombre").equals("") || rs.getString("segundonombre") == null) {
+					nombre += " " + rs.getString("segundonombre")
+				}
+				nombre += " " + rs.getString("apellidopaterno");
+				if(rs.getString("apellidomaterno").equals("") || rs.getString("apellidomaterno") == null) {
+					nombre += " " + rs.getString("apellidomaterno")
+				}
+				row.setIdBpm(rs.getLong("idbpm"));
+				row.setNombre(nombre);
+				row.setUni(rs.getString("campus"));
+				row.setCorreoElectronico(rs.getString("correoelectronico"));
+				row.setTelefono(rs.getString("telefono"));
+				row.setCelular(rs.getString("telefonocelular"));
+				row.setPreguntas(rs.getInt("total_preguntas"));
+				row.setContestadas(rs.getInt("total_respuestas"));
+				
+				if(rs.getTimestamp("fechainicio") != null) {
+					Date date = new Date(rs.getTimestamp("fechainicio").getTime());
+					row.setInicio(formatter.format(date));
+				}
+				if(rs.getTimestamp("fechafin") != null) {
+					Date date = new Date(rs.getTimestamp("fechafin").getTime());
+					row.setTermino(formatter.format(date));
+				}
+				
+				row.setIdBanner(rs.getString("idbanner"));
+				row.setIdioma(rs.getString("idioma") != null ? rs.getString("idioma") : "ESP");
+				row.setBloqueado(rs.getBoolean("usuariobloqueado"));
+				row.setTerminado(rs.getBoolean("terminado"));
+				row.setCaseidINVP(rs.getString("caseidinvp"))
+				row.setEstatusINVP(rs.getString("estatusinvp"));
+				
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result updateIdiomaTodos(String idioma, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog = "";
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			Result resultadoAspirantes = getAspirantes(jsonData, context);
+			
+			List<AspiranteSesionCustom> aspirantes = (List<AspiranteSesionCustom>) resultadoAspirantes.getData();
+			
+			for(AspiranteSesionCustom aspirante : aspirantes) {
+				insertUpdateIidiomaUsuarioTodos(idioma, aspirante.getCorreoElectronico());
+			}
+			
+//			insertUpdateIidiomaUsuarioTodos
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+//			if (closeCon) {
+//				new DBConnect().closeObj(con, stm, rs, pstm);
+//			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result insertUpdateIidiomaUsuarioTodos(String idioma, String nombreusuario) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = "";
+		Boolean success = false;
+		String error_log = "";
+		String success_log = "";
+		Long resultReq = 0;
+		Boolean existe = false;
+		
+		try {
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			pstm = con.prepareStatement(Statements.GET_IDIOMA_EXISTE_USUARIO);
+			pstm.setString(1, nombreusuario);
+			
+			rs = pstm.executeQuery();
+			
 			if(rs.next()) {
-				resultReq = rs.getLong("persistenceid")
+				errorlog += " | existe :  GET_IDIOMA_EXISTE_USUARIO "
+				existe = rs.getBoolean("existe");
+			}
+			
+			if(existe) {
+				errorlog += " | UPDATE_IDIOMA_USUARIO "
+				pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_USUARIO);
+				pstm.setString(1, idioma);
+				pstm.setString(2, nombreusuario);
+				pstm.executeUpdate();
+				con.commit();
+			} else {
+				errorlog += " | UPDATE_IDIOMA_REGISTRO_BY_USERNAME "
+				pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+				pstm.setString(1, idioma);
+				pstm.setString(2, nombreusuario);
+				pstm.setBoolean(3, false);
+				pstm.setBoolean(4, false);
+				pstm.setString(5, "");
+				pstm.setBoolean(6, false);
+				//resultReq = pstm.executeUpdate();
+				rs = pstm.executeQuery();
+				if(rs.next()) {
+					resultReq = rs.getLong("persistenceid")
+				}
+				
+				con.commit();
 			}
 			
 			success = true;
-			if(resultReq > 0) {
-				error_log = resultReq + " Exito! query INSERT_TERMINADO_EXAMEN"
-			} else {
-				error_log = resultReq + " Error! query INSERT_TERMINADO_EXAMEN"
-			}*/
-			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorlog);
 			
