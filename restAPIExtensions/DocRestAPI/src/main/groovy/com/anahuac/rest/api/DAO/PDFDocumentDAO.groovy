@@ -1174,7 +1174,7 @@ class PDFDocumentDAO {
 		Boolean closeCon = false;
 		String errorLog = "";
 		Long caseidSolicitud = 0L;
-		
+		String idbanner = "";
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			rows = new ArrayList < Map < String, Object >> ();
@@ -1214,11 +1214,12 @@ class PDFDocumentDAO {
 				columns.put("periodo", rs.getString("periodo"));
 				columns.put("edadAsp", getAge(fechaNac).toString());
 				columns.put("preparatoria", preparatoria);
-				columns.put("paisPreparatoria", "");//PENDING
-				columns.put("ciudadPreparatoria", "");//PENDING
-				columns.put("estadoPreparatoria", "");//PENDING
+				columns.put("paisPreparatoria", rs.getString("paisprepa"));//PENDING
+				columns.put("ciudadPreparatoria", rs.getString("estadoprepa"));//PENDING
+				columns.put("estadoPreparatoria", rs.getString("ciudadprepa"));//PENDING
 				columns.put("calleAsp", rs.getString("calle"));
 				columns.put("numExtAsp", rs.getString("idbanner"));
+				idbanner = rs.getString("idbanner");
 				columns.put("cpAsp", rs.getString("cp"));
 				columns.put("paisAsp", rs.getString("pais"));
 				columns.put("telefonoAsp", rs.getString("telefono"));
@@ -1340,7 +1341,7 @@ class PDFDocumentDAO {
 				columns.put("telefonoOficinaMadre", desconozcoMadre ? "" : rs.getString("telefonooficinamadre"));
 				columns.put("telefonoCelularMadre", desconozcoPadre ? "" : rs.getString("telefonocasamadre"));
 				columns.put("ingresoMensualMadre", desconozcoMadre ? "" : formatCurrency(rs.getString("ingresomadre")));
-				columns.put("colegiaturaAsp", rs.getString("colegiatura"));
+				columns.put("colegiaturaAsp", formatCurrency(rs.getString("colegiatura")));
 				columns.put("porcentajeBeca", rs.getString("porcentajebecaautorizacion") ? rs.getString("porcentajebecaautorizacion") : "");
 				columns.put("porcentajeFinan", rs.getString("porcentajecreditoautorizacion") ? rs.getString("porcentajecreditoautorizacion") : "");
 				String fechaAutoriza = buildDate(rs.getString("fechaautorizacion"));
@@ -1441,11 +1442,22 @@ class PDFDocumentDAO {
 			columns.put("imagenes", imagenes);
 			columns.put("mostrarImagenes", mostrarImagenes);
 			
+			pstm = con.prepareStatement(Statements.GET_PAA_BY_IDBANNER_SIN_PERSISTENCE);
+			pstm.setString(1, idbanner);
+			rs = pstm.executeQuery();
+			
 			//Puntuaciones
-			columns.put("v", "");
-			columns.put("n", "");
-			columns.put("rj", "");
-			columns.put("total", "");
+			if(rs.next()) {
+				columns.put("v", rs.getString("paav"));
+				columns.put("n", rs.getString("paan"));
+				columns.put("rj", rs.getString("para"));
+				columns.put("total", rs.getString("total"));
+			} else {
+				columns.put("v", "P/A");
+				columns.put("n", "P/A");
+				columns.put("rj", "P/A");
+				columns.put("total", "P/A");
+			}
 			
 			resultado.setSuccess(true);
 			rows.add(columns);
