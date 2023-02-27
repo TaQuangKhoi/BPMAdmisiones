@@ -1002,48 +1002,120 @@ class PDFDocumentDAO {
 //				rows.add(columns);
 			}
 			
-			Map < String, Object > referenciaPersonalSol = new LinkedHashMap < String, Object > ();
-			List<Map < String, Object >> referenciasPersonalesSol = new ArrayList<Map < String, Object > >();
-			referenciaPersonalSol.put("nombre", "Referencia 1");
-			referenciaPersonalSol.put("parentesco", "Tío");
-			referenciaPersonalSol.put("telefono", "876876876");
-			referenciaPersonalSol.put("email", "mi@tio.com");
-			referenciasPersonalesSol.add(referenciaPersonalSol);
-			referenciaPersonalSol = new  LinkedHashMap < String, Object >();
-			referenciaPersonalSol.put("nombre", "Referencia 2");
-			referenciaPersonalSol.put("parentesco", "Tío");
-			referenciaPersonalSol.put("telefono", "78651684651");
-			referenciaPersonalSol.put("email", "mi_otro@tio.com");
-			referenciasPersonalesSol.add(referenciaPersonalSol);
+//			Map < String, Object > referenciaPersonalSol = new LinkedHashMap < String, Object > ();
+//			List<Map < String, Object >> referenciasPersonalesSol = new ArrayList<Map < String, Object > >();
+//			referenciaPersonalSol.put("nombre", "Referencia 1");
+//			referenciaPersonalSol.put("parentesco", "Tío");
+//			referenciaPersonalSol.put("telefono", "876876876");
+//			referenciaPersonalSol.put("email", "mi@tio.com");
+//			referenciasPersonalesSol.add(referenciaPersonalSol);
+//			referenciaPersonalSol = new  LinkedHashMap < String, Object >();
+//			referenciaPersonalSol.put("nombre", "Referencia 2");
+//			referenciaPersonalSol.put("parentesco", "Tío");
+//			referenciaPersonalSol.put("telefono", "78651684651");
+//			referenciaPersonalSol.put("email", "mi_otro@tio.com");
+//			referenciasPersonalesSol.add(referenciaPersonalSol);
+//
+//			Map < String, Object > referenciaBancaria = new LinkedHashMap < String, Object > ();
+//			List<Map < String, Object >> referenciasBancariasV = new ArrayList<Map < String, Object > >();
+//			referenciaBancaria.put("banco", "Banorte");
+//			referenciaBancaria.put("tipoCuenta", "Ahorros");
+//			referenciaBancaria.put("numeroCuenta", "1");
+//			referenciaBancaria.put("saldoPromedio", "343554");
+//			referenciasBancariasV.add(referenciaBancaria);
+//			referenciaBancaria = new  LinkedHashMap < String, Object >();
+//			referenciaBancaria.put("banco", "Banorte");
+//			referenciaBancaria.put("tipoCuenta", "Ahorros");
+//			referenciaBancaria.put("numeroCuenta", "1");
+//			referenciaBancaria.put("saldoPromedio", "343554");
+//			referenciasBancariasV.add(referenciaBancaria);
 
-			Map < String, Object > referenciaBancaria = new LinkedHashMap < String, Object > ();
-			List<Map < String, Object >> referenciasBancariasV = new ArrayList<Map < String, Object > >();
-			referenciaBancaria.put("banco", "Banorte");
-			referenciaBancaria.put("tipoCuenta", "Ahorros");
-			referenciaBancaria.put("numeroCuenta", "1");
-			referenciaBancaria.put("saldoPromedio", "343554");
-			referenciasBancariasV.add(referenciaBancaria);
-			referenciaBancaria = new  LinkedHashMap < String, Object >();
-			referenciaBancaria.put("banco", "Banorte");
-			referenciaBancaria.put("tipoCuenta", "Ahorros");
-			referenciaBancaria.put("numeroCuenta", "1");
-			referenciaBancaria.put("saldoPromedio", "343554");
-			referenciasBancariasV.add(referenciaBancaria);
+//			JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(referenciasPersonalesSol);
+//			JRBeanCollectionDataSource referenciasPErsonalesAval = new JRBeanCollectionDataSource(referenciasPersonalesSol);
+//			JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(referenciasBancariasV);
+//			JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(referenciasBancariasV);
 
-			JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(referenciasPersonalesSol);
-			JRBeanCollectionDataSource referenciasPErsonalesAval = new JRBeanCollectionDataSource(referenciasPersonalesSol);
-			JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(referenciasBancariasV);
-			JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(referenciasBancariasV);
-
+//			columns.put("referenciasPersonalesSolicitante", referenciasPersonalesSolicitante);
+//			columns.put("referenciasPersonalesAval", referenciasPErsonalesAval);
+//			columns.put("referenciasBancarias", referenciasBancarias);
+//			columns.put("referenciasCredito", referenciasCredito);
+			
+			/*Referencias personales del solcitante*/
+			pstm = con.prepareStatement(Statements.GET_REFERENCIAS_PERSONALES);
+			pstm.setLong(1, caseidapoyo);
+			pstm.setBoolean(2, true);
+			rs = pstm.executeQuery();
+			
+			Map < String, Object > referenciaPersonalSolicitante = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> lstReferenciasPersonalesSolicitante = new ArrayList<Map < String, Object > >();
+			while (rs.next()) {
+				referenciaPersonalSolicitante = new LinkedHashMap < String, Object > ();
+				referenciaPersonalSolicitante.put("nombre", rs.getString("nombre"));
+				referenciaPersonalSolicitante.put("parentesco", rs.getString("parentesco"));
+				referenciaPersonalSolicitante.put("telefono", rs.getString("telefono"));
+				referenciaPersonalSolicitante.put("email", rs.getString("correopersonal"));
+				lstReferenciasPersonalesSolicitante.add(referenciaPersonalSolicitante);
+			}
+			JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(lstReferenciasPersonalesSolicitante);
 			columns.put("referenciasPersonalesSolicitante", referenciasPersonalesSolicitante);
-			columns.put("referenciasPersonalesAval", referenciasPErsonalesAval);
+			
+			/*Referencias personales del aval*/
+			pstm = con.prepareStatement(Statements.GET_REFERENCIAS_PERSONALES);
+			pstm.setLong(1, caseidapoyo);
+			pstm.setBoolean(2, false);
+			rs = pstm.executeQuery();
+			
+			Map < String, Object > referenciaPersonalAval = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> lstReferenciasPersonalesAval = new ArrayList<Map < String, Object > >();
+			while (rs.next()) {
+				referenciaPersonalAval = new LinkedHashMap < String, Object > ();
+				referenciaPersonalAval.put("nombre", rs.getString("nombre"));
+				referenciaPersonalAval.put("parentesco", rs.getString("parentesco"));
+				referenciaPersonalAval.put("telefono", rs.getString("telefono"));
+				referenciaPersonalAval.put("email", rs.getString("correopersonal"));
+				lstReferenciasPersonalesAval.add(referenciaPersonalAval);
+			}
+			JRBeanCollectionDataSource referenciasPersonalesAval = new JRBeanCollectionDataSource(lstReferenciasPersonalesAval);
+			columns.put("referenciasPersonalesAval", referenciasPersonalesAval);
+			
+			/*Referencias bancarias del aval*/
+			pstm = con.prepareStatement(Statements.GET_REFERENCIAS_BANCARIAS);
+			pstm.setLong(1, caseidapoyo);
+			pstm.setBoolean(2, true);
+			rs = pstm.executeQuery();
+			
+			Map < String, Object > referenciaBancariaAval = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> lstReferenciasBancariasAval = new ArrayList<Map < String, Object > >();
+			while (rs.next()) {
+				referenciaBancariaAval = new LinkedHashMap < String, Object > ();
+				referenciaBancariaAval.put("banco", rs.getString("banco"));
+				referenciaBancariaAval.put("tipoCuenta", rs.getString("tipocuenta"));
+				referenciaBancariaAval.put("numeroCuenta", rs.getString("numerocuenta"));
+				referenciaBancariaAval.put("saldoPromedio", rs.getString("saldopromedio"));
+				lstReferenciasBancariasAval.add(referenciaBancariaAval);
+			}
+			JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(lstReferenciasBancariasAval);
 			columns.put("referenciasBancarias", referenciasBancarias);
+			
+			/*Referencias bancarias del aval*/
+			pstm = con.prepareStatement(Statements.GET_REFERENCIAS_BANCARIAS);
+			pstm.setLong(1, caseidapoyo);
+			pstm.setBoolean(2, false);
+			rs = pstm.executeQuery();
+			
+			Map < String, Object > referenciaCreditoAval = new LinkedHashMap < String, Object > ();
+			List<Map < String, Object >> lstReferenciasCreditoAval = new ArrayList<Map < String, Object > >();
+			while (rs.next()) {
+				referenciaCreditoAval = new LinkedHashMap < String, Object > ();
+				referenciaCreditoAval.put("banco", rs.getString("banco"));
+				referenciaCreditoAval.put("tipoCuenta", rs.getString("tipocuenta"));
+				referenciaCreditoAval.put("numeroCuenta", rs.getString("numerocuenta"));
+				referenciaCreditoAval.put("saldoPromedio", rs.getString("saldopromedio"));
+				lstReferenciasCreditoAval.add(referenciaCreditoAval);
+			}
+			JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(lstReferenciasCreditoAval);
 			columns.put("referenciasCredito", referenciasCredito);
 			
-//			context.getApiClient().getProcessAPI().getProcessInstance(caseidapoyo)
-//			List <Long> childrenCase = context.getApiClient().getProcessAPI().getChildrenInstanceIdsOfProcessInstance(caseidapoyo, 0, 1, DEFAULT);
-			
-//			columns.put("referenciasPRueba", context.getApiClient().getBusinessDataAPI().getProcessBusinessDataReference("avalReferenciasPersonales", caseidapoyo));
 			rows.add(columns);//Agregando columnas al final 
 			
 			resultado.setSuccess(true);
