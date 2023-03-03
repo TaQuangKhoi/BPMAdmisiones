@@ -1112,10 +1112,6 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
-			
-			errorlog += "| username = "+ objProperties.getUsuario();
-			errorlog += "| password = "+ objProperties.getPassword();
-			errorlog += "| host =     "+objProperties.getUrlHost();
 			/*-------------------------------------------------------------*/
 
 			def jsonSlurper = new JsonSlurper();

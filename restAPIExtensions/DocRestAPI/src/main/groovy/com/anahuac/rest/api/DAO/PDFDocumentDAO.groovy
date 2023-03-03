@@ -929,7 +929,7 @@ class PDFDocumentDAO {
 				columns.put("periodo", rs.getString("periodo"));
 				columns.put("apellidoPaterno", rs.getString("apellidopaterno"));
 				columns.put("apellidoMaterno", rs.getString("apellidomaterno") != null ? rs.getString("apellidomaterno") : "");
-				columns.put("porcFinSolicitado", rs.getString("porcentajefinanciamientosolicitado"));
+				columns.put("porcFinSolicitado", rs.getString("porcentajefinanciamientosolicitado") + "%");
 				columns.put("porcFinPrea", rs.getString("porcentajefinanciamientopreautorizado"));
 				columns.put("nombresAval", rs.getString("avalnombres"));
 				columns.put("apellidoPaternoAval", rs.getString("avalapellido_p"));
@@ -984,10 +984,11 @@ class PDFDocumentDAO {
 				columns.put("libroRegistro", rs.getString("libropropiedad"));
 				columns.put("tomoPropiedad", rs.getString("tomopropiedad"));
 				columns.put("fechaRegistro", buildDate(rs.getString("fechapropiedad")));
+				columns.put("empresaExtensionAval", "N/A");
 				
 				//Domicilio solicitante 
-				columns.put("nuevoIngreso", false);
-				columns.put("avanzado", true);
+				columns.put("nuevoIngreso", true);
+				columns.put("avanzado", false);
 				columns.put("calleNumeroSol", rs.getString("callesol") + " #" + rs.getString("numerosol"));
 				columns.put("coloniaSol", rs.getString("coloniasol"));
 				columns.put("cpSol", rs.getString("cpsol"));
@@ -1001,44 +1002,6 @@ class PDFDocumentDAO {
 				caseidapoyo = rs.getLong("caseidapoyo");
 //				rows.add(columns);
 			}
-			
-//			Map < String, Object > referenciaPersonalSol = new LinkedHashMap < String, Object > ();
-//			List<Map < String, Object >> referenciasPersonalesSol = new ArrayList<Map < String, Object > >();
-//			referenciaPersonalSol.put("nombre", "Referencia 1");
-//			referenciaPersonalSol.put("parentesco", "Tío");
-//			referenciaPersonalSol.put("telefono", "876876876");
-//			referenciaPersonalSol.put("email", "mi@tio.com");
-//			referenciasPersonalesSol.add(referenciaPersonalSol);
-//			referenciaPersonalSol = new  LinkedHashMap < String, Object >();
-//			referenciaPersonalSol.put("nombre", "Referencia 2");
-//			referenciaPersonalSol.put("parentesco", "Tío");
-//			referenciaPersonalSol.put("telefono", "78651684651");
-//			referenciaPersonalSol.put("email", "mi_otro@tio.com");
-//			referenciasPersonalesSol.add(referenciaPersonalSol);
-//
-//			Map < String, Object > referenciaBancaria = new LinkedHashMap < String, Object > ();
-//			List<Map < String, Object >> referenciasBancariasV = new ArrayList<Map < String, Object > >();
-//			referenciaBancaria.put("banco", "Banorte");
-//			referenciaBancaria.put("tipoCuenta", "Ahorros");
-//			referenciaBancaria.put("numeroCuenta", "1");
-//			referenciaBancaria.put("saldoPromedio", "343554");
-//			referenciasBancariasV.add(referenciaBancaria);
-//			referenciaBancaria = new  LinkedHashMap < String, Object >();
-//			referenciaBancaria.put("banco", "Banorte");
-//			referenciaBancaria.put("tipoCuenta", "Ahorros");
-//			referenciaBancaria.put("numeroCuenta", "1");
-//			referenciaBancaria.put("saldoPromedio", "343554");
-//			referenciasBancariasV.add(referenciaBancaria);
-
-//			JRBeanCollectionDataSource referenciasPersonalesSolicitante = new JRBeanCollectionDataSource(referenciasPersonalesSol);
-//			JRBeanCollectionDataSource referenciasPErsonalesAval = new JRBeanCollectionDataSource(referenciasPersonalesSol);
-//			JRBeanCollectionDataSource referenciasBancarias = new JRBeanCollectionDataSource(referenciasBancariasV);
-//			JRBeanCollectionDataSource referenciasCredito = new JRBeanCollectionDataSource(referenciasBancariasV);
-
-//			columns.put("referenciasPersonalesSolicitante", referenciasPersonalesSolicitante);
-//			columns.put("referenciasPersonalesAval", referenciasPErsonalesAval);
-//			columns.put("referenciasBancarias", referenciasBancarias);
-//			columns.put("referenciasCredito", referenciasCredito);
 			
 			/*Referencias personales del solcitante*/
 			pstm = con.prepareStatement(Statements.GET_REFERENCIAS_PERSONALES);
@@ -1404,15 +1367,15 @@ class PDFDocumentDAO {
 				columns.put("totalEgresos", formatCurrency(rs.getString("egresototal")));
 				columns.put("sexoTutor", rs.getString("sexoTutor"));
 				columns.put("provieneIngresosTutor", rs.getString("provieneningresos"));
-				columns.put("telefonoCelTutor", rs.getString("telefonocelulartutor"));
-				columns.put("telefonoOficinaTutor", rs.getString("telefonoOficinaTutor"));
+				columns.put("telefonoCelTutor", rs.getString("telefonocelulartutor") != null && !rs.getString("telefonocelulartutor").equals("") ? rs.getString("telefonocelulartutor") : "N/A");
+				columns.put("telefonoOficinaTutor", rs.getString("telefonoOficinaTutor") != null && !rs.getString("telefonoOficinaTutor").equals("") ? rs.getString("telefonoOficinaTutor") : "N/A");
 				columns.put("ingresoMensualTutor", formatCurrency(rs.getString("ingresomensualnetotutor")));
-				columns.put("telefonoOficinaPadre", desconozcoPadre ? "" : rs.getString("telefonooficinapadre"));
-				columns.put("telefonoCelularPadre", desconozcoPadre ? "" : rs.getString("telefonocasapadre"));
-				columns.put("ingresoMensualPadre", desconozcoPadre ? "" : formatCurrency(rs.getString("ingresopadre")));
-				columns.put("telefonoOficinaMadre", desconozcoMadre ? "" : rs.getString("telefonooficinamadre"));
-				columns.put("telefonoCelularMadre", desconozcoPadre ? "" : rs.getString("telefonocasamadre"));
-				columns.put("ingresoMensualMadre", desconozcoMadre ? "" : formatCurrency(rs.getString("ingresomadre")));
+				columns.put("telefonoOficinaPadre", desconozcoPadre ? "Se desconoce" : rs.getString("telefonooficinapadre") != null ? rs.getString("telefonooficinapadre") : "N/A");
+				columns.put("telefonoCelularPadre", desconozcoPadre ? "Se desconoce" : rs.getString("telefonocasapadre"));
+				columns.put("ingresoMensualPadre", desconozcoPadre ? "Se desconoce" : formatCurrency(rs.getString("ingresopadre")));
+				columns.put("telefonoOficinaMadre", desconozcoMadre ? "Se desconoce" : rs.getString("telefonooficinamadre") != null ? rs.getString("telefonooficinamadre") : "N/A");
+				columns.put("telefonoCelularMadre", desconozcoMadre ? "Se desconoce" : rs.getString("telefonocasamadre") != null ? rs.getString("telefonocasamadre") : "N/A");
+				columns.put("ingresoMensualMadre", desconozcoMadre ? "Se desconoce" : formatCurrency(rs.getString("ingresomadre")));
 				columns.put("colegiaturaAsp", formatCurrency(rs.getString("colegiatura")));
 				columns.put("porcentajeBeca", rs.getString("porcentajebecaautorizacion") ? rs.getString("porcentajebecaautorizacion") : "");
 				columns.put("porcentajeFinan", rs.getString("porcentajecreditoautorizacion") ? rs.getString("porcentajecreditoautorizacion") : "");

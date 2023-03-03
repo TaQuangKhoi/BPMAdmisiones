@@ -14,6 +14,34 @@ function($scope, $http, blockUI) {
     $scope.isTiCampus = false;
     $scope.isTiSerua = false;
     $scope.isSerua = false;
+    
+    $scope.hasRole = function(){
+        let output = false;
+        
+        if($scope.isPreautorizacion){
+            output = true;
+        } else if($scope.isBecas){
+            output = true;
+        } else if($scope.isComiteBecas){
+            output = true;
+        } else if($scope.isAreaArtistica){
+            output = true;
+        } else if($scope.isAreDeportiva){
+            output = true;
+        } else if($scope.isFinanciamiento){
+            output = true;
+        } else if($scope.isComiteFinanzas){
+            output = true;
+        } else if($scope.isTiCampus){
+            output = true;
+        } else if($scope.isTiSerua){
+            output = true;
+        } else if($scope.isSerua){
+            output = true;
+        }
+        
+        return output;
+    }
 
 
     $scope.redirect = function (_param, filtro) {
