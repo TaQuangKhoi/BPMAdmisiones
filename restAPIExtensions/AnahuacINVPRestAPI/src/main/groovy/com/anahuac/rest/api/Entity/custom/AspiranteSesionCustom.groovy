@@ -19,8 +19,14 @@ class AspiranteSesionCustom {
 	private Boolean terminado;
 	private String caseidINVP;
 	private String estatusINVP;
+	private Boolean examenReiniciado;
 	
-	
+	public Boolean getExamenReiniciado() {
+		return examenReiniciado;
+	}
+	public void setExamenReiniciado(Boolean examenReiniciado) {
+		this.examenReiniciado = examenReiniciado;
+	}
 	public String getCaseidINVP() {
 		return caseidINVP;
 	}

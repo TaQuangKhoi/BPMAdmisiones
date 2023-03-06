@@ -785,7 +785,7 @@ class UsuariosDAO {
 				row.setTerminado(rs.getBoolean("terminado"));
 				row.setCaseidINVP(rs.getString("caseidinvp"))
 				row.setEstatusINVP(rs.getString("estatusinvp"));
-				
+				row.setExamenReiniciado(rs.getBoolean("examenReiniciado"));
 				rows.add(row);
 			}
 			
@@ -1285,6 +1285,7 @@ class UsuariosDAO {
 				row.setTerminado(rs.getBoolean("terminado"));
 				row.setCaseidINVP(rs.getString("caseidinvp"))
 				row.setEstatusINVP(rs.getString("estatusinvp"));
+				row.setExamenReiniciado(rs.getBoolean("examenReiniciado"));
 				
 				rows.add(row);
 			}
