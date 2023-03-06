@@ -214,7 +214,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         });
     }
 
-
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";
@@ -238,6 +237,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
         }
+        
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
@@ -251,13 +251,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-  
-                $scope.envelopeCancel();
-            })
-            .error(function(data, status) {
-                console.error(data)
-            })
-            .finally(function() {});
+            $scope.envelopeCancel();
+        })
+        .error(function(data, status) {
+            console.error(data)
+        })
+        .finally(function() {});
     }
 
     $scope.lstCampus = [];
@@ -265,7 +264,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $(function() {
         doRequest("POST", $scope.properties.urlPost);
     })
-  
   
     $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
         if (newValue !== undefined) {
@@ -412,14 +410,14 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             };
   
             return $http(req)
-                .success(function(data, status) {
-                    $scope.lstMembership = data;
-                    $scope.campusByUser();
-                })
-                .error(function(data, status) {
-                    console.error(data);
-                })
-                .finally(function() {});
+            .success(function(data, status) {
+                $scope.lstMembership = data;
+                $scope.campusByUser();
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
         }
     });
   
@@ -544,7 +542,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         var fecha = new Date(periodofin.slice(0, 10))
         return fecha < new Date();
     }
-  
   
     $scope.getCatCampus();
     

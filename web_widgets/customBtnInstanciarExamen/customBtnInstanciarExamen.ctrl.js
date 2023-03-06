@@ -239,23 +239,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req)
-            .success(function(data, status) {
-                insertidiomausuario();
-            })
-            .error(function(data, status) {
-               insertidiomausuario();
-            })
-            .finally(function() {
-                vm.busy = false;
-            });
+        .success(function(data, status) {
+            insertidiomausuario();
+        })
+        .error(function(data, status) {
+            insertidiomausuario();
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 
     function insertidiomausuario() {
-        debugger;
         vm.busy = true;
-
         var data = {
-            "idioma": "ESP",
+            "idioma": $scope.properties.idioma,
             "nombreusuario": $scope.properties.userData.user_name
         }
 

@@ -348,7 +348,7 @@ public Result getCatPreguntas(String jsonData) {
 	public Result getSesiones(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "WHERE ctp.iseliminado <> true ";
+		String where = "WHERE ctp.iseliminado <> true AND res.responsableid = [USUARIO] ";
 		String errorlog = "";
 		String orderBy = "";
 		List < String > lstGrupo = new ArrayList < String > ();
@@ -357,6 +357,7 @@ public Result getCatPreguntas(String jsonData) {
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
+			where = where.replace("[USUARIO]", object.user_id);
 			
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
@@ -587,7 +588,7 @@ public Result getCatPreguntas(String jsonData) {
 	public Result getSesionesToday(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "WHERE ctp.iseliminado <> true AND p.aplicacion = CURRENT_DATE ";
+		String where = "WHERE ctp.iseliminado <> true AND p.aplicacion = CURRENT_DATE AND res.responsableid = [USUARIO] ";
 		String errorlog = "";
 		String orderBy = "";
 		List < String > lstGrupo = new ArrayList < String > ();
@@ -596,7 +597,7 @@ public Result getCatPreguntas(String jsonData) {
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			
+			where = where.replace("[USUARIO]", object.user_id);
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
 			Long userLogged = context.getApiSession().getUserId();

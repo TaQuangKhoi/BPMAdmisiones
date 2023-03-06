@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appLoginBackINVP",
   "name" : "appLoginBackINVP",
-  "lastUpdate" : 1674513789304,
+  "lastUpdate" : 1677714950955,
   "rows" : [
     [
       {
@@ -181,7 +181,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Portal Administrativo"
+                        "value" : "Portal Administrativo INVP"
                       },
                       "level" : {
                         "type" : "constant",
@@ -430,7 +430,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -509,6 +509,74 @@
                           "reference" : "7ceea12a-84a2-4381-b681-46c0cb6f6d35",
                           "hasValidationError" : false,
                           "id" : "customCustomBtnLogin"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : "btn-login-function m-top m-bottom"
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Iniciar sesión"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "center"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "POST"
+                            },
+                            "url" : {
+                              "type" : "interpolation",
+                              "value" : "/bonita/loginservice"
+                            },
+                            "dataToSend" : {
+                              "type" : "expression",
+                              "value" : "credentials"
+                            },
+                            "dataFromSuccess" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "dataFromError" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "targetUrlOnSuccess" : {
+                              "type" : "interpolation",
+                              "value" : "/bonita/apps/invpback"
+                            },
+                            "reCAPTCHAkey" : {
+                              "type" : "variable",
+                              "value" : "reCAPTCHA_key"
+                            }
+                          },
+                          "reference" : "2ade9755-18ba-4927-8ef1-0cda1e9836c0",
+                          "hasValidationError" : false,
+                          "id" : "customCustomBtnLoginBackINVP"
                         }
                       ],
                       [

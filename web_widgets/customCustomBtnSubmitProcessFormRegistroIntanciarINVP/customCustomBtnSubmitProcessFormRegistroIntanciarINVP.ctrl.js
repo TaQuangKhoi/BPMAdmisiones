@@ -334,6 +334,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
       
         return $http(req).success(function(data, status) {
+            localStorage.setItem('terminado', "false");
             $scope.properties.dataFromSuccess = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromError = undefined;
