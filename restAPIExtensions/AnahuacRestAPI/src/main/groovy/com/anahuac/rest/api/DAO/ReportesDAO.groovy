@@ -776,6 +776,42 @@ class ReportesDAO {
         }
         return resultado
     }
+	
+	public Result getTodosPeriodos() {
+		Boolean closeCon = false
+		String consulta = "SELECT persistenceid, activo, clave, clave||' - '||descripcion descripcion, fechacreacion, fechafin, fechaimportacion, fechainicio, id, isanual, iscuatrimestral, iseliminado, isenabled, ispropedeutico, issemestral, nombrecampus, persistenceversion, usuariobanner FROM catperiodo where iseliminado!=true"
+		List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+		Result resultado = new Result();
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			resultado.setData(rows)
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			e.printStackTrace()
+			resultado.setError("500")
+			resultado.setError_info(e.getMessage())
+			resultado.setSuccess(false)
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	//SELECT cge.* from catgestionescolar cge inner join catcampus campus on campus.grupobonita=cge.campus where campus.clave in ([IN-CLAUSE])
 	public Result getCatGestionEscolarMultiple(String campus) {
 		Boolean closeCon = false
@@ -1098,6 +1134,9 @@ class ReportesDAO {
 				//SELECT  md.data_id as multi, data.data_id,data.name FROM ref_biz_data_inst data  LEFT JOIN multi_biz_data md on md.id=data.id where   data.name IN ('tutor','padre','madre') and proc_inst_id = ${columns.get("sdacaseid")} order by data.id
 			//}
 
+			if(ids.size() < 1) {
+				throw new Exception("No encontro datos");
+			}
             con.close();				
 			validarConexionBonita();				
 				List<String> idsi = new ArrayList<String>();
@@ -1125,6 +1164,7 @@ class ReportesDAO {
                 	
 				errorLog = "1";
 				ids.removeAll(idsi);	
+				if(ids.size()>=1) {
                     padresTutor = new ArrayList < Map < String, String >> ();
                     pstm = con.prepareStatement("SELECT  md.data_id as multi, data.data_id,data.name,orig_proc_inst_id FROM ARCH_ref_biz_data_inst data  LEFT JOIN ARCH_multi_biz_data md on md.id=data.id where   data.name IN ('tutor','padre','madre') and orig_proc_inst_id IN (${String.join(",",ids)}) order by data.id")
 				    rs = pstm.executeQuery()
@@ -1142,6 +1182,7 @@ class ReportesDAO {
 					    }
 				    }
 					errorLog = "2";
+				}
 				con.close();
 				validarConexion();
 				

@@ -971,11 +971,11 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			
 			e.printStackTrace()
 		}
-		
+		resultado.setError_info("");
 		return resultado;
 	}
 
-			private String DataUsuarioAdmision(String plantilla, RestAPIContext context, String correo, CatNotificaciones cn, String errorlog,Boolean isEnviar) {
+	private String DataUsuarioAdmision(String plantilla, RestAPIContext context, String correo, CatNotificaciones cn, String errorlog,Boolean isEnviar) {
 			//8 Seccion table atributos usuario
 		    errorlog += ", Variable8"
 			String tablaUsuario= ""

@@ -1417,6 +1417,14 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				case "getPeriodosReporte2":
+				result = new ReportesDAO().getTodosPeriodos()
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
 				case "getCatGestionEscolarMultiple":
 				String campus =request.getParameter "campus"
 				result = new ReportesDAO().getCatGestionEscolarMultiple(campus)

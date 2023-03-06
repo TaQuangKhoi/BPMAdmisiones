@@ -425,6 +425,9 @@ class SecurityFilter {
 				case "getPeriodosReporte":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
+				case "getPeriodosReporte2":allow=bonitaRolFilter(context,"ADMISIONES")
+				if(allow){break;}
+				break;
 				case "getCatGestionEscolarMultiple":allow=bonitaRolFilter(context,"ADMISIONES")
 				if(allow){break;}
 				break;
