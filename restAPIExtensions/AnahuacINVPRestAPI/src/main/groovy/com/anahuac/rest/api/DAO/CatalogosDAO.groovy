@@ -348,7 +348,8 @@ public Result getCatPreguntas(String jsonData) {
 	public Result getSesiones(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "WHERE ctp.iseliminado <> true AND res.responsableid = [USUARIO] ";
+//		String where = "WHERE ctp.iseliminado <> true AND res.responsableid = [USUARIO] ";
+		String where = "WHERE ctp.iseliminado <> true   ";
 		String errorlog = "";
 		String orderBy = "";
 		List < String > lstGrupo = new ArrayList < String > ();
