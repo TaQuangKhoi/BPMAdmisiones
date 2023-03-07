@@ -1021,7 +1021,7 @@ class ReportesDAO {
 	}
 	
 	
-	public Result generarReportePerfilAspirante(String jsonData) {
+public Result generarReportePerfilAspirante(String jsonData) {
 		Result resultado = new Result();
 		
 		String errorLog = "", where = "";
@@ -1099,6 +1099,9 @@ class ReportesDAO {
 				//SELECT  md.data_id as multi, data.data_id,data.name FROM ref_biz_data_inst data  LEFT JOIN multi_biz_data md on md.id=data.id where   data.name IN ('tutor','padre','madre') and proc_inst_id = ${columns.get("sdacaseid")} order by data.id
 			//}
 
+			if(ids.size() < 1) {
+				throw new Exception("No encontro datos");
+			}
             con.close();				
 			validarConexionBonita();				
 				List<String> idsi = new ArrayList<String>();
@@ -1126,6 +1129,7 @@ class ReportesDAO {
                 	
 				errorLog = "1";
 				ids.removeAll(idsi);	
+				if(ids.size()>=1) {
                     padresTutor = new ArrayList < Map < String, String >> ();
                     pstm = con.prepareStatement("SELECT  md.data_id as multi, data.data_id,data.name,orig_proc_inst_id FROM ARCH_ref_biz_data_inst data  LEFT JOIN ARCH_multi_biz_data md on md.id=data.id where   data.name IN ('tutor','padre','madre') and orig_proc_inst_id IN (${String.join(",",ids)}) order by data.id")
 				    rs = pstm.executeQuery()
@@ -1143,6 +1147,7 @@ class ReportesDAO {
 					    }
 				    }
 					errorLog = "2";
+				}
 				con.close();
 				validarConexion();
 				
@@ -1349,7 +1354,14 @@ class ReportesDAO {
 		return resultado;
 	}
 	
-	
+	public Boolean validarConexionBonita() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno=true
+		}
+		return retorno;
+	}
 	
 	
 	
