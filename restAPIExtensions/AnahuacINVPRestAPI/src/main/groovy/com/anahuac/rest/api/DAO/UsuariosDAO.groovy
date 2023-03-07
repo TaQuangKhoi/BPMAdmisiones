@@ -1405,4 +1405,56 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
+	
+	public Result bloquearAspiranteDef(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement("INSERT INTO AspirantesBloqueados (username, fechaBloqueo) VALUES (?, now())");
+			pstm.setString(1, username);
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result desbloquearAspiranteDef(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement("DELETE AspirantesBloqueados FROM WHERE username = ?");
+			pstm.setString(1, username);
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
 }
