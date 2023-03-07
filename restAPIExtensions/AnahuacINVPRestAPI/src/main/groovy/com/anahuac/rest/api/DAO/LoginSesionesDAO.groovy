@@ -225,11 +225,27 @@ class LoginSesionesDAO {
 			pstm = con.prepareStatement(Statements.GET_SESION_USUARIO);
 			pstm.setString(1, object.username);
 			rs = pstm.executeQuery();
-			while (rs.next()) {
+			
+			if (rs.next()) {
 				row = new HashMap<String,Object>();
-				row.put("havesesion", rs.getBoolean("havesesion")); 
+				Result checkBloqueado = new UsuariosDAO().checkBloqueado(object.username);
+				Boolean bloqueado = false;
+				
+				if(checkBloqueado.isSuccess()) {
+					bloqueado = (Boolean) checkBloqueado.getData().get(0);
+					
+					if(bloqueado) {
+						row.put("havesesion", true);
+					} else {
+						row.put("havesesion", false);
+					}
+				} else {
+					row.put("havesesion", false);
+				}
+				 
 				rows.add(row)
 			}
+			
 			resultado.setSuccess(true)
 			resultado.setData(rows)
 			resultado.setError_info(errorlog);

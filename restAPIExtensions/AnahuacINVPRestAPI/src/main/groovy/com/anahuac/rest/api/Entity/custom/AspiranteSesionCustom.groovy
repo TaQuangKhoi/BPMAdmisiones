@@ -20,7 +20,14 @@ class AspiranteSesionCustom {
 	private String caseidINVP;
 	private String estatusINVP;
 	private Boolean examenReiniciado;
+	private Boolean usuarioBloqueado;
 	
+	public Boolean getUsuarioBloqueado() {
+		return usuarioBloqueado;
+	}
+	public void setUsuarioBloqueado(Boolean usuarioBloqueado) {
+		this.usuarioBloqueado = usuarioBloqueado;
+	}
 	public Boolean getExamenReiniciado() {
 		return examenReiniciado;
 	}

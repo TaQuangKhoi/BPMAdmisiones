@@ -39,108 +39,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             blockUI.stop();
         });
     }
-  
-    // $scope.verSolicitud = function(rowData) {
-    //       var req = {
-    //         method: "GET",
-    //         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //         debugger;
-    //         rowData.taskId = data[0].id;
-    //         rowData.taskName = data[0].name;
-    //         rowData.processId = data[0].processId;
-    //         $scope.preProcesoAsignarTarea(rowData)
-            
-    //         //let taskId = data[0].id;
-    //         //var url = "/bonita/portal/resource/app/sdae/preAutorizacion/content/?app=sdae&id=" + taskId + "&caseId=" + rowData.caseid;
-    //         //window.open(url, '_blank');
-    //     })
-    //     .error(function(data, status) {
-    //         console.error(data);
-    //     })
-    //     .finally(function() {});
-    // }
-  
-    // $scope.preAsignarTarea = function(rowData) {
-    //     var req = {
-    //         method: "GET",
-    //         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //             rowData.taskId = data[0].id;
-    //             rowData.taskName = data[0].name;
-    //             rowData.processId = data[0].processId;
-    //             //rowData.taskName=
-    //             $scope.preProcesoAsignarTarea(rowData);
-    //         })
-    //         .error(function(data, status) {
-    //             console.error(data);
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
-
-    // $scope.preProcesoAsignarTarea = function(rowData) {
-  
-    //     var req = {
-    //         method: "GET",
-    //         url: `/API/bpm/process/${rowData.processId}?d=deployedBy&n=openCases&n=failedCases`
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //             rowData.processName = data.name;
-    //             rowData.processVersion = data.version;
-    //             $scope.asignarTarea(rowData);
-    //         })
-    //         .error(function(data, status) {
-    //             console.error(data);
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
-  
-    // $scope.asignarTarea = function(rowData) {
-    //     var req = {
-    //         method: "PUT",
-    //         url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-    //         data: angular.copy({ "assigned_id": "" })
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //             redireccionarTarea(rowData);
-    //         })
-    //         .error(function(data, status) {
-    //             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
-  
-    // function redireccionarTarea(rowData) {
-    //     var req = {
-    //         method: "PUT",
-    //         url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-    //         data: angular.copy({ "assigned_id": $scope.properties.userId })
-    //     };
-  
-    //     return $http(req).success(function(data, status) {
-    //             var url = "/bonita/portal/resource/app/sdae/"+$scope.properties.abrirPagina+"/content/?app=sdae&id=" + rowData.taskId + "&caseId=" + rowData.caseid;
-    //             window.open(url, '_blank');
-    //         })
-    //         .error(function(data, status) {
-    //             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-    //         })
-    //         .finally(function() {
-  
-    //         });
-    // }
-  
+    
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";
@@ -617,4 +516,24 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         });
     }
+    
+    $scope.bloquearAspiranteDef = function(){
+        let servicio = "bloquearAspiranteDef";
+
+        if($scope.selectedAspirante.usuarioBloqueado){
+            servicio = "desbloquearAspiranteDef"
+        }
+
+        let url = "../API/extension/AnahuacINVPRestGet?url=" + servicio + "&p=0&c=10&username=" + $scope.selectedAspirante.correoElectronico;
+
+        $http.get(url).success(function(_data){
+            let mensaje = "Usuario " + ($scope.selectedAspirante.usuarioBloqueado ? "desbloqueado" : "bloqueado");
+            ocultarModal("modalBloquear");
+            swal("Ok", mensaje, "success");
+            doRequest("POST", $scope.properties.urlPost);
+        }).error(function(_error){
+
+        });
+    }
+    
   }

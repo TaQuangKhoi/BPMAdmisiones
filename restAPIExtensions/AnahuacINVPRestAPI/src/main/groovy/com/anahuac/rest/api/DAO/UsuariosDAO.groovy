@@ -786,6 +786,8 @@ class UsuariosDAO {
 				row.setCaseidINVP(rs.getString("caseidinvp"))
 				row.setEstatusINVP(rs.getString("estatusinvp"));
 				row.setExamenReiniciado(rs.getBoolean("examenReiniciado"));
+				row.setUsuarioBloqueado(rs.getBoolean("usuariobloqueadob"));
+				
 				rows.add(row);
 			}
 			
@@ -1286,6 +1288,7 @@ class UsuariosDAO {
 				row.setCaseidINVP(rs.getString("caseidinvp"))
 				row.setEstatusINVP(rs.getString("estatusinvp"));
 				row.setExamenReiniciado(rs.getBoolean("examenReiniciado"));
+				row.setUsuarioBloqueado(rs.getBoolean("usuariobloqueadob"));
 				
 				rows.add(row);
 			}
@@ -1410,16 +1413,25 @@ class UsuariosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
+		List<Boolean> data = new ArrayList<Boolean>();
+		
 		try {
 			closeCon = validarConexion();
 			con.setAutoCommit(false);
-			pstm = con.prepareStatement("INSERT INTO AspirantesBloqueados (username, fechaBloqueo) VALUES (?, now())");
+			errorLog += " | Consulta ";
+			pstm = con.prepareStatement("INSERT INTO AspirantesBloqueados (persistenceId, persistenceVersion, username, fechaBloqueo) VALUES (case when (SELECT max(persistenceId) + 1 from AspirantesBloqueados ) is null then 1 else (SELECT max(persistenceId) + 1 from AspirantesBloqueados) end, 0, ?, now())");
 			pstm.setString(1, username);
+			errorLog += " | Parametros ";
 			pstm.executeUpdate();
-			
+			errorLog += " | Ejecutada ";
 			con.commit();
-			resultado.setSuccess(true)
+			
+			data.add(true);
+			resultado.setData(data);
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
 		} catch (Exception e) {
+			errorLog += " | Fallido | " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			con.rollback();
@@ -1436,14 +1448,18 @@ class UsuariosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
+		List<Boolean> data = new ArrayList<Boolean>();
+		
 		try {
 			closeCon = validarConexion();
 			con.setAutoCommit(false);
-			pstm = con.prepareStatement("DELETE AspirantesBloqueados FROM WHERE username = ?");
+			pstm = con.prepareStatement("DELETE FROM AspirantesBloqueados WHERE username = ?");
 			pstm.setString(1, username);
 			pstm.executeUpdate();
 			
 			con.commit();
+			data.add(true);
+			resultado.setData(data);
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -1456,5 +1472,82 @@ class UsuariosDAO {
 		}
 		
 		return resultado;
+	}
+	
+	public Result checkBloqueado(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Boolean usuariobloqueado = false;
+		List<Boolean> data = new ArrayList<Boolean>();
+		
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement("SELECT * FROM  AspirantesBloqueados WHERE username = ?");
+			pstm.setString(1, username);
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				usuariobloqueado = true;
+			} else {
+				usuariobloqueado = false;
+			}
+			
+			data.add(usuariobloqueado);
+			resultado.setData(data);
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result getUsuariosBloqueados(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			List<Map<String, Boolean>> rows = new ArrayList<Map<String, Object>>();
+			closeCon = validarConexionBonita();
+			
+			if(object.username != null && !object.username.equals("")) {
+				where = " WHERE username = '" + object.username + "' ";
+			}
+			
+			pstm = con.prepareStatement(Statements.GET_USUARIOS_BLOQUEADOS.replace("[WHERE]", where));
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+			rs = pstm.executeQuery();
+			
+			rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				rows.add(true);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado
 	}
 }

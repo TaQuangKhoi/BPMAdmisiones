@@ -226,6 +226,13 @@
                                             <button ng-if="row.estatusINVP === 'Prueba terminada por administrador'" type="button" ng-click="setSelectedAspirante(row, 'reactivar')" class="btn btn-warning">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </button>
+                                            
+                                            <button ng-if="row.usuarioBloqueado"  type="button" ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-danger">
+                                                <span class="glyphicon glyphicon-lock"></span>
+                                            </button>
+                                            <button ng-if="!row.usuarioBloqueado" type="button" ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-warning">
+                                                <span class="glyphicon glyphicon-lock"></span>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -271,12 +278,12 @@
             </button>
         </div>
         <div class="modal-body">
-            <p ng-if="!selectedAspirante.bloqueado">¿Estás seguro(a) que deseas <b>Bloquear</b> al aspirante?.</p>
-            <p ng-if="selectedAspirante.bloqueado">¿Estás seguro(a) que deseas <b>Desbloquear</b> al aspirante?.</p>
+            <p ng-if="!selectedAspirante.usuarioBloqueado">¿Estás seguro(a) que deseas <b>Bloquear</b> al aspirante?.</p>
+            <p ng-if="selectedAspirante.usuarioBloqueado">¿Estás seguro(a) que deseas <b>Desbloquear</b> al aspirante?.</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="bloquearAspirante()">Aceptar</button>
+            <button type="button" class="btn btn-primary" ng-click="bloquearAspiranteDef()">Aceptar</button>
         </div>
         </div>
     </div>

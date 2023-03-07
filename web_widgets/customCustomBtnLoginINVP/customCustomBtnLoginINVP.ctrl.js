@@ -51,19 +51,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
     
     this.action = function action() {
-        
         if($scope.errorLoginCount === 2){
             let captchaResponse = grecaptcha.getResponse();
             
             if(captchaResponse !== ""){
-                // doRequest($scope.properties.action, $scope.properties.url);
                 $scope.validateForm();
             } else {
                 Swal.fire("¡Atención!", "Captcha inválido.", "warning");
                 $scope.resetCaptcha();
             }
         } else {
-            // doRequest($scope.properties.action, $scope.properties.url);
             $scope.validateForm();
         }
     };
@@ -72,7 +69,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let username = $scope.properties.dataToSend.username;
         let password = $scope.properties.dataToSend.password;
   
-        // const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         const re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         
         if(username  === ""){
@@ -81,17 +77,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             Swal.fire("¡Atención!", "El formato de correo electrónico es inválido.", "warning");
         } else if (password === ""){
             Swal.fire("¡Atención!", "La Contraseña no debe ir vacía.", "warning");
-        } 
-        
-        // else if (password.length > 8){
-        //     Swal.fire("Error", "Tu contraseña es muy corta", "warning");
-        // } 
-        
-        else {
+        } else {
             $scope.getTotalPreguntasContestadas();
-            //checkSesionActiva();
-            //checkSesion();
-            //doRequest($scope.properties.action, $scope.properties.url);
         }
     }
   
@@ -103,16 +90,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function doRequest(method, url, params) {
         $scope.showLoading();
         vm.busy = true;
-      
-        // let data = {
-        //     "username" : $scope.properties.dataToSend.username,
-        //     "password" : $scope.properties.dataToSend.password
-        // }
-
         let data = "redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
-
-        // let url2 = "/bonita/loginservice?&redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
-      
         let url2 = "/bonita/loginservice";
 
         var req = {
@@ -126,11 +104,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromSuccess = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromError = undefined;
-            if(!$scope.terminadoexamen && $scope.contestopreguntas){
-                window.top.location.href = '/bonita/apps/aspiranteinvp/examen/';
-            }else{
-                redirectIfNeeded();
-            }
+
+            debugger;
+            checkBloqueado($scope.properties.dataToSend.username);
+            // Servicio para validar el usuario  bloqueado o bloqquearlo en el momento 
+            // if(!$scope.terminadoexamen && $scope.contestopreguntas){
+            //     window.top.location.href = '/bonita/apps/aspiranteinvp/examen/';
+            // }else{
+            //     redirectIfNeeded();
+            // }
         })
         .error(function(data, status) {
             console.error(data);
@@ -156,6 +138,58 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             vm.busy = false;
         });
     }
+
+    function checkBloqueado(_username){
+        let url = "../API/extension/AnahuacINVPRestGet?url=checkBloqueado&p=0&c=100&username=" + _username;
+        debugger;
+        $http.get(url).success(function(_success){
+            debugger;
+            if(!_success[0]){
+                bloquearAspiranteDef(_username);
+            } else {
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    html:'No existe una sesión activa.', showCloseButton: false
+                });
+            }
+        }).error(function(_error){
+            Swal.fire({
+                title: '<strong>Atención</strong>',
+                icon: 'error',
+                html: _error, showCloseButton: false
+            });
+        });
+    }
+    
+    function bloquearAspiranteDef(_username){
+        let url = "../API/extension/AnahuacINVPRestGet?url=bloquearAspiranteDef&p=0&c=100&username=" + _username;
+
+        $http.get(url).success(function(_success){
+            debugger;
+            if(_success[0]){
+                debugger;
+                // if(!$scope.terminadoexamen && $scope.contestopreguntas){
+                //     window.top.location.href = '/bonita/apps/aspiranteinvp/examen/';
+                // }else{
+                //     redirectIfNeeded();
+                // }
+            } else {
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+                    html:'Algo ha fallado .', showCloseButton: false
+                });
+            }
+        }).error(function(_error){
+            Swal.fire({
+                title: '<strong>Atención</strong>',
+                icon: 'error',
+                html: _error, showCloseButton: false
+            });
+        });
+    }
     
     function redirectIfNeeded() {
         let ipBonita = window.location.protocol + "//" + window.location.host;
@@ -171,21 +205,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             };
 
             return $http(req).success(function(data, status) {
-                    $scope.lstMembership = data;
-                })
-                .error(function(data, status) {
-                    console.error(data);
-                })
-                .finally(function() {});
-        }else{
-            
+                $scope.lstMembership = data;
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
         }
     });
     
     //$scope.filtroaspirante = {"tarea":"Validar Información","lstFiltro":[{"columna":"NOMBRE,EMAIL,CURP","operador":"Que contengan","valor":$scope.properties.dataToSend,"type":"aspirantes_proceso_fechas","orderby":"","orientation":"DESC","limit":20,"offset":0,"usuario":"Mario.Icedo@soaswfactory.com","estatusSolicitud":"Aspirantes en proceso","aspirantes":"regular"}
     
     function checkSesion() {
-        debugger;
         $scope.showLoading();
         vm.busy = true;
 
@@ -220,34 +251,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 });
             } else if(data.data.length === 0){
                 getDatosSesion();
-            }else{
+            } else {
 
-                  let data = {
-                      "username": $scope.properties.dataToSend.username,
-                      "havesesion": true
-                  }
+                let data = {
+                    "username": $scope.properties.dataToSend.username,
+                    "havesesion": true
+                }
 
-                  var req = {
-                      method: "POST",
-                      url: "/bonita/API/extension/AnahuacINVPRestAPI?url=updateSesion&p=0&c=10",
-                      data: data
-                  };
+                var req = {
+                    method: "POST",
+                    url: "/bonita/API/extension/AnahuacINVPRestAPI?url=updateSesion&p=0&c=10",
+                    data: data
+                };
 
-                  return $http(req).success(function(data, status) {
-                          $scope.properties.dataFromSuccess = data;
-                          $scope.properties.responseStatusCode = status;
-                          $scope.properties.dataFromError = undefined;
-                          doRequest($scope.properties.action, $scope.properties.url);
-                      })
-                      .error(function(data, status) {
-                          doRequest($scope.properties.action, $scope.properties.url);
-                          // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                      })
-                      .finally(function() {});  
+                return $http(req).success(function(data, status) {
+                    $scope.properties.dataFromSuccess = data;
+                    $scope.properties.responseStatusCode = status;
+                    $scope.properties.dataFromError = undefined;
+                    doRequest($scope.properties.action, $scope.properties.url);
+                })
+                .error(function(data, status) {
+                    doRequest($scope.properties.action, $scope.properties.url);
+                    // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                })
+                .finally(function() {});  
             }
             
-            
-            //redirectIfNeeded();
         })
         .error(function(data, status) {
             console.error(data);
@@ -275,7 +304,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
      function checkSesionActiva() {
-        debugger;
         $scope.showLoading();
         vm.busy = true;
         let entro = false;
@@ -302,10 +330,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         });
                     }
                 }
-            }else if(data.data.length === 0){
+            } else if(data.data.length === 0){
                 checkSesion();
-            }
-            else if(data.data[0].havesesion === true){
+            } else if(data.data[0].havesesion === true){
                 entro = true;
                  Swal.fire({
                     title: '<strong>Atención</strong>',
@@ -313,7 +340,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
                     html:'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.', showCloseButton: false
                 });
-            }else{
+            } else{
                checkSesion();
             }
 
@@ -392,12 +419,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 });
             }
 
-            /*if(!$scope.terminadoexamen && $scope.contestopreguntas){
-                doRequest($scope.properties.action, $scope.properties.url);
-            }else{
-                checkSesionActiva();
-            }*/
-
             checkSesionActiva();
 
             }).error(function(data, status) {
@@ -410,7 +431,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
      function getDatosSesion() {
-        debugger;
         vm.busy = true;
 
         let data = {
@@ -456,6 +476,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             vm.busy = false;
         });
     }
-
-
-  }
+}

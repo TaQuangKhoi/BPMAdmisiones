@@ -53,24 +53,24 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     url: "../API/extension/AnahuacINVPRestGet?url=getDatosUsername&p=0&c=10&username=" + $scope.properties.strRegistro.CorreoElectronico
                 };
                 return $http(req).success(function(data, status) {
-                        $scope.properties.getUserBonita = data.data;
-                        if ($scope.properties.getUserBonita !== undefined) {
-                            if ($scope.properties.getUserBonita.length > 0) {
-                                swal("Error", "Este correo electrónico ya está registrado.", "error");
-                                blockUI.stop();
-                            } else {
-                                startProcess();
-                                //$scope.registrarBonita();
-                            }
+                    $scope.properties.getUserBonita = data.data;
+                    if ($scope.properties.getUserBonita !== undefined) {
+                        if ($scope.properties.getUserBonita.length > 0) {
+                            swal("Error", "Este correo electrónico ya está registrado.", "error");
+                            blockUI.stop();
+                        } else {
+                            startProcess();
+                            //$scope.registrarBonita();
                         }
-                    }).error(function(data, status) {
-                        $scope.properties.dataFromError = data;
-                        $scope.properties.responseStatusCode = status;
-                        $scope.properties.dataFromSuccess = undefined;
-                    })
-                    .finally(function() {
-                        blockUI.stop();
-                    });
+                    }
+                }).error(function(data, status) {
+                    $scope.properties.dataFromError = data;
+                    $scope.properties.responseStatusCode = status;
+                    $scope.properties.dataFromSuccess = undefined;
+                })
+                .finally(function() {
+                    blockUI.stop();
+                });
             }
         } else if ($scope.properties.action === 'Submit task') {
             submitTask();
@@ -137,17 +137,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var prom = doRequest('POST', url, getUserParam()).then(function() {
             localStorageService.delete($window.location.href);
         });
-
-        /*INTEGRAACIÓN*/
-        //var prom = doRequest('POST', '../API/bpm/process/4768112034171842957/instantiation', getUserParam()).then(function() {
-        //localStorageService.delete($window.location.href);
-        // });
-
-        /*PRE PRODUCCIÓN*/
-        //var prom = doRequest('POST', '../API/bpm/process/8130793842527796733/instantiation', getUserParam()).then(function() {
-        //localStorageService.delete($window.location.href);
-        //});
-
     }
 
     $scope.showLoading = function() {
@@ -168,37 +157,37 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req).success(function(data, status) {
             debugger;
-                /*if($scope.properties.strRegistro.Ayuda === true){
-                    $scope.necesitaAyuda();
-                } else {*/
-                if (data.success) {
-                    console.log("Modificación de información en registrar bonita");
-                    //login();
-                    $scope.updateSesionActiva();
-                    /*$scope.properties.navigationVar = "formSuccess";
-                    blockUI.stop();
-                    redirectIfNeeded();*/
-                } else {
-                    swal("Error", JSON.stringify(data.error), "error");
-                    blockUI.stop();
-                }
-                //}
-            })
-            .error(function(data, status) {
-                if (data.error.includes("A user with name")) {
-                    swal("Error", "Este correo electrónico ya está registrado.", "error");
-                    blockUI.stop();
-                } else {
-                    swal("Error", "Ha ocurrido un error inesperado. Inténtalo de nuevo mas tarde.", "error");
-                    blockUI.stop();
-                }
-                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-                $scope.properties.disabled = false;
+            /*if($scope.properties.strRegistro.Ayuda === true){
+                $scope.necesitaAyuda();
+            } else {*/
+            if (data.success) {
+                console.log("Modificación de información en registrar bonita");
+                //login();
+                $scope.updateSesionActiva();
+                /*$scope.properties.navigationVar = "formSuccess";
                 blockUI.stop();
-                //$scope.hideLoading();
-            });
+                redirectIfNeeded();*/
+            } else {
+                swal("Error", JSON.stringify(data.error), "error");
+                blockUI.stop();
+            }
+            //}
+        })
+        .error(function(data, status) {
+            if (data.error.includes("A user with name")) {
+                swal("Error", "Este correo electrónico ya está registrado.", "error");
+                blockUI.stop();
+            } else {
+                swal("Error", "Ha ocurrido un error inesperado. Inténtalo de nuevo mas tarde.", "error");
+                blockUI.stop();
+            }
+            // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {
+            $scope.properties.disabled = false;
+            blockUI.stop();
+            //$scope.hideLoading();
+        });
     }
 
     $scope.necesitaAyuda = function() {
@@ -209,12 +198,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-                $scope.properties.navigationVar = "formSuccess";
-            })
-            .error(function(data, status) {
-                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {});
+            $scope.properties.navigationVar = "formSuccess";
+        })
+        .error(function(data, status) {
+            // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {});
     }
 
     /**
@@ -234,31 +223,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                $scope.caseid = data.caseId;
-                if ($scope.properties.action === 'Start process') {
-                    $scope.registrarBonita();
-                }
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            $scope.caseid = data.caseId;
+            if ($scope.properties.action === 'Start process') {
+                $scope.registrarBonita();
+            }
 
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
 
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
-            })
-            .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-                blockUI.stop();
-                //$scope.hideLoading();
-            });
+            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                redirectIfNeeded();
+            }
+            closeModal($scope.properties.closeOnSuccess);
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {
+            blockUI.stop();
+            //$scope.hideLoading();
+        });
     }
 
     function redirectIfNeeded() {
@@ -316,14 +305,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
     
     function login() {
-
         vm.busy = true;
-
     
         let data = "redirect=false&username=" + $scope.properties.strRegistro.CorreoElectronico + "&password=" + $scope.properties.strRegistro.Password;
-
-        // let url2 = "/bonita/loginservice?&redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
-      
         let url2 = "/bonita/loginservice";
 
         var req = {
@@ -340,7 +324,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromError = undefined;
             $scope.properties.navigationVar = "formSuccess";
             blockUI.stop();
-            redirectIfNeeded();
+            checkBloqueado();
+            // redirectIfNeeded();
         })
         .error(function(data, status) {
             console.error(data);
@@ -348,6 +333,52 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         .finally(function() {
             $scope.hideLoading();
             vm.busy = false;
+        });
+    }
+
+    function checkBloqueado(){
+        let url = "../API/extension/AnahuacINVPRestGet?url=checkBloqueado&p=0&c=100&username=" + angular.copy($scope.properties.strRegistro.CorreoElectronico);
+        
+        $http.get(url).success(function(_success){
+            debugger;
+            if(!_success[0]){
+                bloquearAspiranteDef();
+            } else {
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    html:'El usuario ya cuenta con una sesión activa.', showCloseButton: false
+                });
+            }
+        }).error(function(_error){
+            Swal.fire({
+                title: '<strong>Atención</strong>',
+                icon: 'error',
+                html: _error, showCloseButton: false
+            });
+        });
+    }
+    
+    function bloquearAspiranteDef(){
+        let url = "../API/extension/AnahuacINVPRestGet?url=bloquearAspiranteDef&p=0&c=100&username=" + angular.copy($scope.properties.strRegistro.CorreoElectronico);
+
+        $http.get(url).success(function(_success){
+            debugger;
+            if(_success[0]){
+                redirectIfNeeded();
+            } else {
+                Swal.fire({
+                    title: '<strong>Atención</strong>',
+                    icon: 'error',
+                    html:'Algo ha fallado .', showCloseButton: false
+                });
+            }
+        }).error(function(_error){
+            Swal.fire({
+                title: '<strong>Atención</strong>',
+                icon: 'error',
+                html: _error, showCloseButton: false
+            });
         });
     }
 
@@ -393,27 +424,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req)
-            .success(function(data, status) {
-                login();
-                /*$scope.properties.dataFromSuccess = true;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                window.top.location.href = $scope.properties.targetUrlOnSuccess;*/
-            })
-            .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });
-            })
-            .finally(function() {
-                vm.busy = false;
+        .success(function(data, status) {
+            login();
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({
+                message: 'error',
+                status: status,
+                dataFromError: data,
+                dataFromSuccess: undefined,
+                responseStatusCode: status
             });
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 }
