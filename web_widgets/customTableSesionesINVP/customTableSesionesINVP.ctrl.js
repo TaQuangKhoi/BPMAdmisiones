@@ -616,4 +616,43 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         });
     }
+
+    function showModalConfig(){
+        $("#modalConfiguraciones").modal("show");
+    }
+
+    $scope.getConfiguracionINVP = function (_row){
+        $scope.sesionConfiguracion = {
+            "idprueba": _row.idSesion,
+            "toleranciaminutos": 0
+        };
+
+        let url = "../API/extension/AnahuacINVPRestAPI?url=updateIdiomaTodos&p=0&c=10&idprueba" + _row.idSesion;
+        
+        $http.get(url, dataToSend).success(function(_data){
+            debugger;
+            $scope.sesionConfiguracion = _data[0].toleranciaminutos;
+            showModalConfig();
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+
+    $scope.insertUpdateConfiguracionSesion = function(){
+        debugger;
+        $scope.dataToSend ={
+            "idprueba": $scope.sesionConfiguracion.idSesion,
+            "toleranciaminutos": 0
+        };
+
+        let url = "../API/extension/AnahuacINVPRestAPI?url=insertUpdateConfiguracionSesion&p=0&c=10";
+
+        $http.post(url, $scope.dataToSend).success(function(_data){
+            ocultarModal("modalIdiomaTodos");
+            swal("Ok", "Idioma actualizado para todos los aspirantes", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
+        });
+    }
 }

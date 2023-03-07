@@ -131,6 +131,16 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 			break;
+			case "bloquearAspiranteDef":
+				String username = request.getParameter "username"
+				result = new UsuariosDAO().bloquearAspiranteDef(username)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+			break;
 			case "desbloquearAspiranteDef":
 				String username = request.getParameter "username"
 				result = new UsuariosDAO().desbloquearAspiranteDef(username)
@@ -151,7 +161,16 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 			break;
-			
+			case "getConfiguracionSesion":
+				String idprueba = request.getParameter "idprueba"
+				result = new CatalogosDAO().getConfiguracionSesion(Long.valueOf(idprueba));
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+			break;
 			case "getcelularusuariotemporal":
 			String username =request.getParameter "username"
 			result = new LoginSesionesDAO().getcelularusuariotemporal(username)

@@ -24,6 +24,7 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.custom.CatPreguntasCustomFiltro
+import com.anahuac.rest.api.Entity.custom.ConfiguracionesINVP
 import com.anahuac.rest.api.Entity.custom.SesionesCustom
 
 import groovy.json.JsonSlurper
@@ -43,6 +44,7 @@ class CatalogosDAO {
 		}
 		return retorno
 	}
+	
 	public Boolean validarConexionBonita() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {
@@ -51,6 +53,7 @@ class CatalogosDAO {
 		}
 		return retorno;
 	}
+	
 	public Result simpleSelect(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -1125,4 +1128,94 @@ public Result getCatPreguntas(String jsonData) {
 		return resultado;
 	}
 	
+	
+	public Result insertUpdateConfiguracionSesion(String jsonData) {
+		Result resultado = new Result();
+		String errorlog = "";
+		Boolean closeCon = false;
+		Boolean existe = false;
+		Boolean success = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			pstm = con.prepareStatement(Statements.GET_EXISTE_CONFIGURACION_INVP);
+			pstm.setLong(1, object.idprueba);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				existe = rs.getBoolean("existe");
+			}
+			
+			if(existe) {
+				pstm = con.prepareStatement(Statements.UPDATE_CONFIGURACION_INVP);
+			} else {
+				pstm = con.prepareStatement(Statements.INSERT_CONFIGURACION_INVP);
+			}
+			
+			pstm.setInt(1, object.toleranciaminutos);
+			pstm.setLong(2, object.idprueba);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				success = true;
+			}
+			
+			con.commit();
+			
+			resultado.setSuccess(success);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			errorlog = errorlog + " | " + e.getMessage();
+			resultado.setError_info(errorlog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result getConfiguracionSesion(Long idprueba) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			List<ConfiguracionesINVP> rows = new ArrayList<ConfiguracionesINVP>();
+			ConfiguracionesINVP config = new ConfiguracionesINVP();
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(Statements.GET_CONFIGURACION_INVP);
+			pstm.setLong(1, idprueba);
+			rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				config = new ConfiguracionesINVP();
+				config.setIdPrueba(rs.getInt("idprueba"));
+				config.setToleranciaMinutos(rs.getInt("toleranciaminutos"));
+				
+				rows.add(config);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		
+		return resultado;
+	}
 }

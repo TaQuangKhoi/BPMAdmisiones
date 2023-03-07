@@ -73,4 +73,12 @@ class Statements {
 	public static final String UPDATE_EXISTING_IDIOMA = "UPDATE IdiomaINVPUsuario SET idioma = ? WHERE username IN (SELECT DISTINCT(creg.correoelectronico)  FROM CatRegistro  AS creg LEFT JOIN AspirantesPruebas AS aspr ON aspr.caseid = creg.caseid LEFT JOIN Pruebas AS prue ON prue.persistenceid = aspr.prueba_pid LEFT JOIN CatTipoPrueba AS ctpr ON ctpr.persistenceid = prue.cattipoprueba_pid  LEFT JOIN InstanciaINVP AS invp ON invp.username =  creg correoelectronico  WHERE  prue.sesion_pid = ?)";
 	
 	public static final String GET_USUARIOS_BLOQUEADOS = "SELECT * FROM AspirantesBloqueados [WHERE] LIMIT ? OFFSET ?";
+	
+	public static final String INSERT_CONFIGURACION_INVP = "INSERT INTO ConfiguracionesINVP (persistenceid, persistenceversion, toleranciaminutos, idprueba) VALUES (case when (SELECT max(persistenceId)+1 from ConfiguracionesINVP) is null then 1 else (SELECT max(persistenceId)+1 from ConfiguracionesINVP) end, 0, ?, ?)";
+	
+	public static final String UPDATE_CONFIGURACION_INVP = "UPDATE ConfiguracionesINVP SET toleranciaminutos = ? WHERE idprueba = ?;";
+	
+	public static final String GET_EXISTE_CONFIGURACION_INVP = "SELECT COUNT(persistenceid) > 0 AS existe FROM ConfiguracionesINVP WHERE idprueba = ?;";
+	
+	public static final String GET_CONFIGURACION_INVP = "SELECT toleranciaminutos, idprueba FROM ConfiguracionesINVP WHERE idprueba = ?;";
 }
