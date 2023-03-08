@@ -1134,7 +1134,6 @@ public Result getCatPreguntas(String jsonData) {
 		String errorlog = "";
 		Boolean closeCon = false;
 		Boolean existe = false;
-		Boolean success = false;
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
@@ -1157,18 +1156,13 @@ public Result getCatPreguntas(String jsonData) {
 				pstm = con.prepareStatement(Statements.INSERT_CONFIGURACION_INVP);
 			}
 			
-			pstm.setInt(1, object.toleranciaminutos);
+			pstm.setInt(1, Integer.valueOf(object.toleranciaminutos));
 			pstm.setLong(2, object.idprueba);
-			
-			rs = pstm.executeQuery();
-			
-			if(rs.next()) {
-				success = true;
-			}
+			pstm.executeUpdate();
 			
 			con.commit();
 			
-			resultado.setSuccess(success);
+			resultado.setSuccess(true);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();

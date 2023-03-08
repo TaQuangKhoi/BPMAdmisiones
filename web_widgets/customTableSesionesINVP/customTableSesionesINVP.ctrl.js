@@ -627,11 +627,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             "toleranciaminutos": 0
         };
 
-        let url = "../API/extension/AnahuacINVPRestAPI?url=updateIdiomaTodos&p=0&c=10&idprueba" + _row.idSesion;
+        let url = "../API/extension/AnahuacINVPRestGet?url=getConfiguracionSesion&p=0&c=10&idprueba=" + _row.idSesion;
         
-        $http.get(url, dataToSend).success(function(_data){
-            debugger;
-            $scope.sesionConfiguracion = _data[0].toleranciaminutos;
+        $http.get(url).success(function(_data){
+            if(_data[0]){
+                $scope.sesionConfiguracion.toleranciaminutos = _data[0].toleranciaMinutos;
+            }
+            
             showModalConfig();
         }).error(function(_error){
             swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
@@ -639,20 +641,15 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.insertUpdateConfiguracionSesion = function(){
-        debugger;
-        $scope.dataToSend ={
-            "idprueba": $scope.sesionConfiguracion.idSesion,
-            "toleranciaminutos": 0
-        };
-
+        $scope.dataToSend = angular.copy($scope.sesionConfiguracion);
         let url = "../API/extension/AnahuacINVPRestAPI?url=insertUpdateConfiguracionSesion&p=0&c=10";
 
         $http.post(url, $scope.dataToSend).success(function(_data){
-            ocultarModal("modalIdiomaTodos");
-            swal("Ok", "Idioma actualizado para todos los aspirantes", "success");
+            ocultarModal("modalConfiguraciones");
+            swal("Ok", "La congifuración se ga guardado correctamente", "success");
             getAspirantesSesion($scope.selectedSesion.idSesion);
         }).error(function(_error){
-
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
         });
     }
 }
