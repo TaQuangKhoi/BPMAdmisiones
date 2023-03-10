@@ -135,6 +135,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     
     $scope.verSesion = function(_sesion){
         $scope.selectedSesion = angular.copy(_sesion);
+        console.log($scope.selectedSesion);
         getAspirantesSesion(_sesion.idSesion);
     }
   
@@ -650,6 +651,28 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             getAspirantesSesion($scope.selectedSesion.idSesion);
         }).error(function(_error){
             swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+    
+    $scope.cambiarIdioma = function(_aspirante, _modal){
+        $scope.selectedAspirante = angular.copy(_aspirante);
+        mostrarModal("modalIdioma");
+    }
+    
+    $scope.insertUpdateIidiomaUsuario = function(){
+        let dataToSend = {
+            "nombreusuario": $scope.selectedAspirante.correoElectronico,
+            "idioma": $scope.selectedAspirante.idioma === "ESP" ? "ENG" : "ESP"
+        }
+
+        let url = "../API/extension/AnahuacINVPRestAPI?url=insertUpdateIidiomaUsuario&p=0&c=10";
+
+        $http.post(url, dataToSend).success(function(_data){
+            ocultarModal("modalIdioma");
+            swal("Ok", "Idioma actualizado", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
         });
     }
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appDashboardINVP",
   "name" : "appDashboardINVP",
-  "lastUpdate" : 1678141349974,
+  "lastUpdate" : 1678469420455,
   "rows" : [
     [
       {
@@ -103,21 +103,23 @@
                 },
                 "action" : {
                   "type" : "constant",
-                  "value" : "Submit task"
+                  "value" : "POST"
                 },
                 "assign" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "url" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getExcelFileSesionesToday&p=0&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
                   "value" : ""
                 },
                 "dataToSend" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "dataToSend"
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
@@ -150,11 +152,15 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xls"
                 }
               },
-              "reference" : "0a2327b8-5ca5-49ca-a228-fbe3a60da351",
+              "reference" : "60b75b89-9209-4f5e-ab24-d034604463c8",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnDownloadExcel"
             }
           ],
           [

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
 import org.bonitasoft.engine.api.APIClient
@@ -257,37 +258,29 @@ class UsuariosDAO {
 		List<IdiomaExamen> lstIdioma = new ArrayList<IdiomaExamen>();
 		
 		try {
-		
-			error_log = " USUARIO | " + username
-				closeCon = validarConexion();
-				pstm = con.prepareStatement(Statements.GET_IDIOMA_USUARIO)
-				pstm.setString(1, username)
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(Statements.GET_IDIOMA_USUARIO)
+			pstm.setString(1, username)
+			
+			rs = pstm.executeQuery()
+			lstIdioma = new ArrayList<IdiomaExamen>();
+			while(rs.next()) {
+				idioma = new IdiomaExamen();
+				idioma.setPersistenceId(rs.getLong("persistenceId"));
+				idioma.setPersistenceVersion(rs.getString("persistenceVersion"));
+				idioma.setIdioma(rs.getString("idioma"));
+				idioma.setUsuario(rs.getString("username"));
+				idioma.setNombresesion(rs.getString("nombresesion"));
 				
-				rs = pstm.executeQuery()
-				lstIdioma = new ArrayList<IdiomaExamen>();
-				while(rs.next()) {
-					idioma = new IdiomaExamen();
-					error_log = " | EN EL WHILE " + rs.getString("idioma") + " | "
-					idioma.setPersistenceId(rs.getLong("persistenceId"));
-					error_log = " | EN EL WHILE " + rs.getString("persistenceId") + " | "
-					idioma.setPersistenceVersion(rs.getString("persistenceVersion"));
-					error_log = " | EN EL WHILE " + rs.getString("persistenceVersion") + " | "
-					idioma.setIdioma(rs.getString("idioma"));
-					error_log = " | EN EL WHILE " + rs.getString("idioma") + " | "
-					idioma.setUsuario(rs.getString("username"));
-					error_log = " | EN EL WHILE " + rs.getString("username") + " | "
-					idioma.setNombresesion(rs.getString("nombresesion"));
-					
-					lstIdioma.add(idioma);
-				}
-				resultado.setSuccess(true)
-				
-				resultado.setData(lstIdioma)
-				resultado.setError_info(error_log);
-				
-			} catch (Exception e) {
-				LOGGER.error "[ERROR] " + e.getMessage();
-				resultado.setError_info(error_log)
+				lstIdioma.add(idioma);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(lstIdioma);
+			resultado.setError_info(error_log);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(error_log)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -511,36 +504,42 @@ class UsuariosDAO {
 		List < String > lstGrupo = new ArrayList < String > ();
 		String errorLog = "";
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			
+			Long userLogged = context.getApiSession().getUserId();
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
-//			Long userLogged = context.getApiSession().getUserId();
-//			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-//
-//			for (UserMembership objUserMembership: lstUserMembership) {
-//				for (CatCampus rowGrupo: lstCatCampus) {
-//					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-//						lstGrupo.add(rowGrupo.getDescripcion());
-//						break;
-//					}
-//				}
-//			}
+            userLogged = context.getApiSession().getUserId();
+
+            List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+            for (UserMembership objUserMembership: lstUserMembership) {
+                for (CatCampus rowGrupo: lstCatCampus) {
+                    if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+                        lstGrupo.add(rowGrupo.getDescripcion());
+                        break;
+                    }
+                }
+            }
 			
-			if (lstGrupo.size() > 0 && object.campus != null ) {
+			errorLog += " | lstGrupo.size(): " + lstGrupo.size().toString() + " | object.campus: " + object.campus.toString();
+			if (lstGrupo.size() > 0 && object.campus == null) {
 				where += " AND (";
 				for (Integer i = 0; i < lstGrupo.size(); i++) {
 					String campusMiembro = lstGrupo.get(i);
-					where += " cca.descripcion = '" + campusMiembro + "'"
+					where += " ccam.descripcion = '" + campusMiembro + "'"
+					errorLog += " [| campusMiembro" + campusMiembro;
 					if (i == (lstGrupo.size() - 1)) {
 						where += ") "
 					} else {
 						where += " OR "
 					}
 				}
+				errorLog += "] "
+			} else if(object.campus != null) {
+				where += " AND ccam.grupobonita = '" + object.campus + "'"
 			}
 			
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
@@ -746,6 +745,7 @@ class UsuariosDAO {
 			}
 			
 			String consulta = Statements.GET_ASPIRANTES_SESIONES.replace("[WHERE]", where).replace("[ORDERBY]", orderBy)
+			errorLog += consulta;
 			pstm = con.prepareStatement(consulta);
 			pstm.setInt(1, object.limit);
 			pstm.setInt(2, object.offset);
@@ -769,22 +769,30 @@ class UsuariosDAO {
 				row.setCelular(rs.getString("telefonocelular"));
 				row.setPreguntas(rs.getInt("total_preguntas"));
 				row.setContestadas(rs.getInt("total_respuestas"));
+				
 				if(rs.getTimestamp("fechainicio") != null) {
 					Date date = new Date(rs.getTimestamp("fechainicio").getTime());
 					row.setInicio(formatter.format(date));
+				} else {
+					row.setInicio("...");
 				}
+				
 				if(rs.getTimestamp("fechafin") != null) {
 					Date date = new Date(rs.getTimestamp("fechafin").getTime());
 					row.setTermino(formatter.format(date));
 				}
 				
+				if(rs.getTimestamp("tiempo") != null) {
+					Date date = new Date(rs.getTimestamp("tiempo").getTime());
+					row.setTiempo(formatterTime.format(date));
+				}
+				
 				row.setIdBanner(rs.getString("idbanner"));
-//				row.setEstatus(rs.getString("estatus"))
 				row.setIdioma(rs.getString("idioma") != null ? rs.getString("idioma") : "ESP");
 				row.setBloqueado(rs.getBoolean("usuariobloqueado"));
 				row.setTerminado(rs.getBoolean("terminado"));
 				row.setCaseidINVP(rs.getString("caseidinvp"))
-				row.setEstatusINVP(rs.getString("estatusinvp"));
+				row.setEstatusINVP(rs.getString("estatusinvp") == null ? "Por iniciar" : rs.getString("estatusinvp"));
 				row.setExamenReiniciado(rs.getBoolean("examenReiniciado"));
 				row.setUsuarioBloqueado(rs.getBoolean("usuariobloqueadob"));
 				
@@ -1029,20 +1037,37 @@ class UsuariosDAO {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
+			Long userLogged = context.getApiSession().getUserId();
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
+            userLogged = context.getApiSession().getUserId();
+
+            List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+            for (UserMembership objUserMembership: lstUserMembership) {
+                for (CatCampus rowGrupo: lstCatCampus) {
+                    if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+                        lstGrupo.add(rowGrupo.getDescripcion());
+                        break;
+                    }
+                }
+            }
 			
-			if (lstGrupo.size() > 0 && object.campus != null ) {
+			errorLog += " | lstGrupo.size(): " + lstGrupo.size().toString() + " | object.campus: " + object.campus.toString();
+			if (lstGrupo.size() > 0 && object.campus == null) {
 				where += " AND (";
 				for (Integer i = 0; i < lstGrupo.size(); i++) {
 					String campusMiembro = lstGrupo.get(i);
-					where += " cca.descripcion = '" + campusMiembro + "'"
+					where += " ccam.descripcion = '" + campusMiembro + "'"
+					errorLog += " [| campusMiembro" + campusMiembro;
 					if (i == (lstGrupo.size() - 1)) {
 						where += ") "
 					} else {
 						where += " OR "
 					}
 				}
+				errorLog += "] "
+			} else if(object.campus != null) {
+				where += " AND ccam.grupobonita = '" + object.campus + "'"
 			}
 			
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
@@ -1275,6 +1300,8 @@ class UsuariosDAO {
 				if(rs.getTimestamp("fechainicio") != null) {
 					Date date = new Date(rs.getTimestamp("fechainicio").getTime());
 					row.setInicio(formatter.format(date));
+				} else {
+					row.setInicio("...");
 				}
 				if(rs.getTimestamp("fechafin") != null) {
 					Date date = new Date(rs.getTimestamp("fechafin").getTime());
@@ -1285,8 +1312,8 @@ class UsuariosDAO {
 				row.setIdioma(rs.getString("idioma") != null ? rs.getString("idioma") : "ESP");
 				row.setBloqueado(rs.getBoolean("usuariobloqueado"));
 				row.setTerminado(rs.getBoolean("terminado"));
-				row.setCaseidINVP(rs.getString("caseidinvp"))
-				row.setEstatusINVP(rs.getString("estatusinvp"));
+				row.setCaseidINVP(rs.getString("caseidinvp"));
+				row.setEstatusINVP(rs.getString("estatusinvp") == null ? "Por iniciar" : rs.getString("estatusinvp"));
 				row.setExamenReiniciado(rs.getBoolean("examenReiniciado"));
 				row.setUsuarioBloqueado(rs.getBoolean("usuariobloqueadob"));
 				
@@ -1418,12 +1445,15 @@ class UsuariosDAO {
 		try {
 			closeCon = validarConexion();
 			con.setAutoCommit(false);
-			errorLog += " | Consulta ";
 			pstm = con.prepareStatement("INSERT INTO AspirantesBloqueados (persistenceId, persistenceVersion, username, fechaBloqueo) VALUES (case when (SELECT max(persistenceId) + 1 from AspirantesBloqueados ) is null then 1 else (SELECT max(persistenceId) + 1 from AspirantesBloqueados) end, 0, ?, now())");
 			pstm.setString(1, username);
-			errorLog += " | Parametros ";
 			pstm.executeUpdate();
-			errorLog += " | Ejecutada ";
+			
+			pstm = con.prepareStatement(Statements.UPDATE_SESION_USUARIO);
+			pstm.setBoolean(1, true);
+			pstm.setString(2, username);
+			pstm.executeUpdate();
+			
 			con.commit();
 			
 			data.add(true);
@@ -1457,7 +1487,13 @@ class UsuariosDAO {
 			pstm.setString(1, username);
 			pstm.executeUpdate();
 			
+			pstm = con.prepareStatement(Statements.UPDATE_SESION_USUARIO);
+			pstm.setBoolean(1, false);
+			pstm.setString(2, username);
+			pstm.executeUpdate();
+			
 			con.commit();
+			
 			data.add(true);
 			resultado.setData(data);
 			resultado.setSuccess(true)
@@ -1549,5 +1585,40 @@ class UsuariosDAO {
 		}
 		
 		return resultado
+	}
+	
+	public Result checkTolerancia(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Boolean hasTolerance = false;
+		List<Boolean> data = new ArrayList<Boolean>();
+		
+		try {
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(Statements.GET_TOLERANCIA_BY_USERNAME);
+			pstm.setString(1, username);
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				hasTolerance = rs.getBoolean("tienetolerancia");
+			} else {
+				hasTolerance = false;
+			}
+			
+			data.add(hasTolerance);
+			resultado.setData(data);
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
 	}
 }

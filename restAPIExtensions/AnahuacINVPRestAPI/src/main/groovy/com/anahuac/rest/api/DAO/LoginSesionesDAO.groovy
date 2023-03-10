@@ -58,6 +58,7 @@ class LoginSesionesDAO {
 			pstm = con.prepareStatement(consulta);
 			pstm.setString(1, object.username);
 			rs = pstm.executeQuery();
+			
 			if(rs.next()) {
 				errorlog = " | " + errorlog + " | "
 				campus_pid = rs.getLong("catcampus_pid");
@@ -68,62 +69,28 @@ class LoginSesionesDAO {
 			pstm = con.prepareStatement(consulta);
 			pstm.setString(1, object.aplicacion);
 			pstm.setString(2, object.username);
-			//pstm.setLong(3, campus_pid);
 			rs = pstm.executeQuery();
-			while (rs.next()) {
-				/*row = new LoginSesion()
-				row.setDescripcion(rs.getString("descripcion"))
-				row.setUsername(rs.getString("username"))
-				row.setEntrada(rs.getString("entrada"));
-				try {
-					row.setAplicacion(rs.getString("aplicacion"))
-				} catch (Exception e) {
-					LOGGER.error "[ERROR] " + e.getMessage();
-					errorlog += e.getMessage()
-				}
-				row.setPersistenceId(rs.getLong("persistenceId"))
-				rows.add(row)*/
-				
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-				LocalTime hora = LocalTime.parse(rs.getString("entrada"));
-				errorlog = " | consulta_hora " + hora.format(formatter) + " | "
-				LocalTime horaModificada = hora.plusMinutes(600);
-				
-				horafinal = horaModificada.format(formatter);
-			}
 			
-			errorlog = " | consulta_hora " + horafinal + " | "
-			consulta = Statements.GET_SESION_LOGIN_HORA;
-			pstm = con.prepareStatement(consulta);
-			pstm.setString(1, object.aplicacion);
-			pstm.setString(2, object.username);
-			pstm.setString(3, horafinal);
-			rs = pstm.executeQuery();
 			while (rs.next()) {
-				errorlog += " dentro de la consulta " + " | "
 				row = new LoginSesion()
 				row.setPersistenceId(rs.getLong("idsesion"));
 				row.setNombre_sesion(rs.getString("nombresesion"));
-				
-				//tipoexamen
 				row.setDescripcion(rs.getString("descripcion"))
 				row.setNombre_prueba(rs.getString("nombre_prueba"));
 				row.setId_prueba(rs.getLong("id_prueba"));
 				try {
-					row.setAplicacion(rs.getString("aplicacion"))
+					row.setAplicacion(rs.getString("aplicacion"));
 				} catch (Exception e) {
-					LOGGER.error "[ERROR] " + e.getMessage();
-					errorlog += e.getMessage()
+					errorlog += e.getMessage();
 				}
 				row.setEntrada(rs.getString("entrada"));
 				row.setSalida(rs.getString("salida"));
 				row.setUsername(rs.getString("username"));
-				rows.add(row)
+				rows.add(row);
 			}
 			
-			
-			resultado.setSuccess(true)
-			resultado.setData(rows)
+			resultado.setSuccess(true);
+			resultado.setData(rows);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
@@ -157,27 +124,23 @@ class LoginSesionesDAO {
 			pstm = con.prepareStatement(Statements.GET_SESION_USUARIO);
 			pstm.setString(1, object.username);
 			rs = pstm.executeQuery();
+			Boolean exists = false;
 			if (rs.next()) {
-				
+				exists = true;
 				havesesion = rs.getBoolean("havesesion");
-			}
+			} 
 			
-			
-			error_log += " havesesion  | valor " + havesesion;
-			if(!havesesion) {
+			if(!exists) {
 				pstm = con.prepareStatement(Statements.INSERT_BLOQUEO_USUARIO);
 				pstm.setBoolean(1, Boolean.valueOf(object.havesesion));
 				pstm.setString(2, object.username);
 				rs = pstm.executeQuery();
+				
 				if(rs.next()) {
 					resultReq = rs.getLong("persistenceid")
 				}
+				
 				success = true;
-				if(resultReq > 0) {
-					error_log = resultReq + " Exito! query INSERT_BLOQUEO_USUARIO"
-				} else {
-					error_log = resultReq + " Error! query INSERT_BLOQUEO_USUARIO"
-				}
 				con.commit();
 			}else {
 				pstm = con.prepareStatement(Statements.UPDATE_SESION_USUARIO);
@@ -187,11 +150,6 @@ class LoginSesionesDAO {
 				con.commit();
 				
 				success = true;
-				if(resultReq > 0) {
-					error_log += resultReq + " Exito! query UPDATE_IDIOMA_REGISTRO_BY_USERNAME"
-				} else {
-					error_log += resultReq + " Error! query UPDATE_IDIOMA_REGISTRO_BY_USERNAME"
-				}
 			}
 			
 			resultado.setSuccess(true)
@@ -215,11 +173,13 @@ class LoginSesionesDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorlog = "";
+		Boolean isTemporal = false;
 		try {
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
+			List<String> additional_data = new ArrayList<String>();
 			Map<String,Object> row = new HashMap<String,Object>(); 
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(Statements.GET_SESION_USUARIO);
@@ -227,17 +187,36 @@ class LoginSesionesDAO {
 			rs = pstm.executeQuery();
 			
 			if (rs.next()) {
+				isTemporal = rs.getBoolean("istemporal");
 				row = new HashMap<String,Object>();
 				Result checkBloqueado = new UsuariosDAO().checkBloqueado(object.username);
 				Boolean bloqueado = false;
+				Boolean tieneTolerancia = false;
 				
 				if(checkBloqueado.isSuccess()) {
 					bloqueado = (Boolean) checkBloqueado.getData().get(0);
 					
 					if(bloqueado) {
+						additional_data.add("block");
 						row.put("havesesion", true);
 					} else {
-						row.put("havesesion", false);
+						if(isTemporal == true) {
+							row.put("havesesion", false);
+						} else {
+							Result checkTolerancia = new UsuariosDAO().checkTolerancia(object.username);
+							if(checkTolerancia.isSuccess()) {
+								tieneTolerancia = (Boolean) checkTolerancia.getData().get(0);
+							} else {
+								tieneTolerancia = false;
+							}
+							
+							if(!tieneTolerancia) {
+								additional_data.add("toler");
+								row.put("havesesion", true);
+							} else {
+								row.put("havesesion", false);
+							}
+						}
 					}
 				} else {
 					row.put("havesesion", false);
@@ -246,8 +225,9 @@ class LoginSesionesDAO {
 				rows.add(row)
 			}
 			
-			resultado.setSuccess(true)
-			resultado.setData(rows)
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+			resultado.setAdditional_data(additional_data);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
@@ -534,6 +514,47 @@ class LoginSesionesDAO {
 			}
 			resultado.setSuccess(true)
 			resultado.setData(rows)
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			errorlog = errorlog + " | " + e.getMessage();
+			resultado.setError_info(errorlog);
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getExamenTerminado(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = "";
+		
+		try {
+			Map<String,Integer> row = new HashMap<String,Integer>();
+			List<Map<String,Integer>> rows = new ArrayList<Map<String,Integer>>();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.GET_EXAMEN_TERMINADO);
+			pstm.setString(1, username);
+			rs = pstm.executeQuery();
+			
+			row = new HashMap<String,Integer>();
+			if (rs.next()) {
+				row.put("examenIniciado", true);
+				row.put("examenTerminado", rs.getBoolean("terminado"));
+			} else {
+				row.put("examenIniciado", false);
+				row.put("examenTerminado", false);
+			}
+			
+			rows.add(row);
+			resultado.setSuccess(true);
+			resultado.setData(rows);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();

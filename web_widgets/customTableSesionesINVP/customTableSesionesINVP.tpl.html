@@ -77,7 +77,7 @@
                 <td>{{row.aspirantes}}</td>
                 <!--<td>{{row.idioma}}</td>-->
                 <td class="text-center">
-                    <button class="btn btn-info" ng-click="getConfiguracionINVP(row)">
+                    <button class="btn btn-info" ng-disabled="row.estatus === 'Concluidas'" ng-click="getConfiguracionINVP(row)">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </button>
                     <button class="btn btn-default" ng-click="verSesion(row)">
@@ -127,6 +127,7 @@
                     <div class="col-xs-6">Campus: <label>{{selectedSesion.uni}}</label><br></div>
                     <div class="col-xs-6">Aspirantes: <label>{{selectedSesion.aspirantes}}</label><br></div>
                     <div class="col-xs-6">Fecha de inicio: <label>{{selectedSesion.fecha | date:'dd/MM/yyyy'}} {{selectedSesion.horaInicio}}</label><br></div>
+                    <div class="col-xs-6">Estatus sesión: <label>{{selectedSesion.estatus}}</label><br></div>
                    <hr> 
                 </div>
                 <div class="row">
@@ -134,11 +135,11 @@
                         <h4 class="color-orange">Aspirantes en sesión</h4>
                     </div>
                     <div class="col-xs-12 text-right">
-                        <button type="button" ng-click="mostrarModalTodos('modalIdiomaTodos')" class="button-margin btn btn-warning">
+                        <button ng-disabled="selectedSesion.estatus === 'Concluidas'" type="button" ng-click="mostrarModalTodos('modalIdiomaTodos')" class="button-margin btn btn-warning">
                             Cambiar idioma para todos
                         </button>
                         &nbsp;
-                        <button type="button" ng-click="mostrarModalTodos('modalTerminarTodos')" class="button-margin btn btn-danger">
+                        <button ng-disabled="selectedSesion.estatus === 'Concluidas'" type="button" ng-click="mostrarModalTodos('modalTerminarTodos')" class="button-margin btn btn-danger">
                             Terminar todos <span class="glyphicon glyphicon-time"></span>
                         </button>
                         <br>
@@ -218,24 +219,25 @@
                                         </td>
                                         <td>{{row.estatusINVP}}</td>
                                         <td>
-                                            <button type="button" ng-click="cambiarIdioma(row, 'idioma')" class="btn btn-warning">
+                                            <button ng-disabled="selectedSesion.estatus === 'Concluidas'" type="button" ng-click="cambiarIdioma(row, 'idioma')" class="btn btn-warning">
                                                 <label>{{row.idioma}}</label>
                                             </button>
                                         </td>    
                                         <td class="text-center ">
-                                            <button ng-if="row.estatusINVP !== 'Prueba terminada por administrador' && row.estatusINVP !== 'Prueba terminada'" type="button" ng-click="setSelectedAspirante(row, 'terminar')" class="btn btn-danger">
+                                            <button ng-disabled="(selectedSesion.estatus === 'Concluidas' || selectedSesion.estatus ==='Por aplicar') || (row.estatusINVP === 'Por iniciar')" ng-if="selectedSesion.estatus !== 'Prueba terminada por administrador' && selectedSesion.estatus !== 'Prueba terminada' && row.estatusINVP !== 'Prueba terminada'" type="button" ng-click="setSelectedAspirante(row, 'terminar')" class="btn btn-danger">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </button>
-                                            <button ng-if="row.estatusINVP === 'Prueba terminada por administrador'" type="button" ng-click="setSelectedAspirante(row, 'reactivar')" class="btn btn-warning">
+                                            <button ng-if="row.estatusINVP === 'Prueba terminada' || selectedSesion.estatus === 'Prueba terminada por administrador' || selectedSesion.estatus ==='Por aplicar'" type="button" ng-click="setSelectedAspirante(row, 'reactivar')" class="btn btn-warning">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </button>
                                             
-                                            <button ng-if="row.usuarioBloqueado"  type="button" ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-danger">
+                                            <button ng-disabled="selectedSesion.estatus === 'Concluidas' || selectedSesion.estatus ==='Por aplicar'" ng-if="row.usuarioBloqueado"  type="button" ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-danger">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                             </button>
-                                            <button ng-if="!row.usuarioBloqueado" type="button" ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-warning">
+                                            <button ng-if="!row.usuarioBloqueado" type="button" disabled ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                             </button>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>

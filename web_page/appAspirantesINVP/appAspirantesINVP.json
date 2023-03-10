@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appAspirantesINVP",
   "name" : "appAspirantesINVP",
-  "lastUpdate" : 1678236784769,
+  "lastUpdate" : 1678471236671,
   "rows" : [
     [
       {
@@ -43,7 +43,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -103,21 +103,23 @@
                 },
                 "action" : {
                   "type" : "constant",
-                  "value" : "Submit task"
+                  "value" : "POST"
                 },
                 "assign" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "url" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getExcelFileAspirantes&p=0&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
                   "value" : ""
                 },
                 "dataToSend" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "dataToSend"
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
@@ -150,11 +152,15 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xls"
                 }
               },
-              "reference" : "bd51a67b-d8d9-4fd4-845b-20cceba55b6f",
+              "reference" : "18932572-7848-4b9d-b105-9da4ca1eb29c",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnDownloadExcel"
             }
           ],
           [

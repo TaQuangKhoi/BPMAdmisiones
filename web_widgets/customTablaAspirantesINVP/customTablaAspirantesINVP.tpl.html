@@ -108,8 +108,15 @@
                     <button ng-if="row.estatusINVP !== 'Prueba terminada por administrador' && row.estatusINVP !== 'Prueba terminada'" type="button" ng-click="setSelectedAspirante(row, 'terminar')" class="btn btn-danger">
                         <span class="glyphicon glyphicon-time"></span>
                     </button>
-                    <button ng-if="row.estatusINVP === 'Prueba terminada por administrador'" type="button" ng-click="setSelectedAspirante(row, 'reactivar')" class="btn btn-warning">
+                    <button ng-if="row.estatusINVP === 'Prueba terminada por administrador' || row.estatusINVP === 'Prueba terminada'" type="button" ng-click="setSelectedAspirante(row, 'reactivar')" class="btn btn-warning">
                         <span class="glyphicon glyphicon-time"></span>
+                    </button>
+                    
+                    <button ng-if="row.usuarioBloqueado"  type="button" ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </button>
+                    <button ng-if="!row.usuarioBloqueado" type="button" disabled ng-click="setSelectedAspirante(row, 'bloquear')" class="btn btn-default">
+                        <span class="glyphicon glyphicon-lock"></span>
                     </button>
                 </td>
             </tr>
@@ -221,6 +228,27 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" ng-click="insertUpdateIidiomaUsuarioTodos()">Aceptar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalBloquear">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Bloquear/Desbloquear aspirante</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p ng-if="!selectedAspirante.usuarioBloqueado">¿Estás seguro(a) que deseas <b>Bloquear</b> al aspirante?.</p>
+            <p ng-if="selectedAspirante.usuarioBloqueado">¿Estás seguro(a) que deseas <b>Desbloquear</b> al aspirante?.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-click="bloquearAspiranteDef()">Aceptar</button>
         </div>
         </div>
     </div>

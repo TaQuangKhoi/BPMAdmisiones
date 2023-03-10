@@ -56,7 +56,8 @@ function ($scope, modalService, $http) {
     $scope.$watch("properties.cerrarSesion", function(){
         
         if($scope.properties.pageToken === "examen" || $scope.properties.pageToken === "presentar"){
-            //window.top.location.href = "/bonita/apps/invplogin/login/";    
+            //window.top.location.href = "/bonita/apps/invplogin/login/"; 
+            debugger;   
             updateterminado();
         }else if($scope.properties.pageToken === "termino"){
             $scope.properties.cerrarSesion = false;
@@ -90,7 +91,7 @@ function ($scope, modalService, $http) {
         }
     })
     
- function updateterminado() {
+    function updateterminado() {
         debugger;
 
         var data = {
@@ -105,14 +106,64 @@ function ($scope, modalService, $http) {
         };
 
         return $http(req)
-            .success(function(data, status) {
-               window.top.location.href = "/bonita/apps/aspiranteinvp/termino/";
-            })
-            .error(function(data, status) {
-               
-            })
-            .finally(function() {
+        .success(function(data, status) {
+        //    window.top.location.href = "/bonita/apps/aspiranteinvp/termino/";
+            // executeTask();
+            getTaskInfo();
+        })
+        .error(function(data, status) {
+           
+        })
+        .finally(function() {
 
-            });
+        });
+    }
+
+    function getTaskInfo(){
+        var req = {
+            method: "GET",
+            url: "../API/bpm/task?c=1&p=0&f=assigned_id=" + $scope.properties.userData.user_id
+        };
+
+        return $http(req)
+        .success(function(data, status) {
+            debugger;
+            executeTask(data[0].id);
+        })
+        .error(function(data, status) {
+           
+        })
+        .finally(function() {
+
+        });
+    }
+
+    function executeTask(_taskid) {
+        debugger;
+        let dataToSend = {
+            "isTerminado": true,
+            "instanciaINVPInput": {
+                "mensajeTermino": "",
+            },
+            "terminadoFInput": false,
+        }
+
+        var req = {
+            method: "POST",
+            url: "../API/bpm/userTask/" + _taskid + "/execution",
+            data: dataToSend
+        };
+
+        return $http(req)
+        .success(function(data, status) {
+            debugger;
+           window.top.location.href = "/bonita/apps/aspiranteinvp/termino/";
+        })
+        .error(function(data, status) {
+           
+        })
+        .finally(function() {
+
+        });
     }
 }

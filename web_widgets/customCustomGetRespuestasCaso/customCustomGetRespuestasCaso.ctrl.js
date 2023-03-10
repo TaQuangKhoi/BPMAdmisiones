@@ -1,7 +1,6 @@
 function ($scope, $http) {
     
     $scope.getCommentList = function(){
-        debugger
         let data = {
             "idusuario":$scope.properties.reload
         }
@@ -13,12 +12,12 @@ function ($scope, $http) {
         };
         
         return $http(req).success(function(data, status) {
-            debugger
             $scope.properties.commentList = data.data[0].caseid;
-            var termino = localStorage.getItem("terminado");
-            if(termino === "true"){
-                window.top.location.href = "/bonita/apps/login/testinvp/";
-            }
+            // var termino = localStorage.getItem("terminado");
+            // if(termino === "true"){
+            //     window.top.location.href = "/bonita/apps/login/testinvp/";
+            // }
+            getExamenTerminado($scope.properties.username);
         })
         .error(function(data, status) {
              swal("Error.", data.message, "error");
@@ -29,16 +28,29 @@ function ($scope, $http) {
         });
     }
     
+    function getExamenTerminado(_username){
+        let url = "../API/extension/AnahuacINVPRestGet?url=getExamenTerminado&p=0&c=100&username=" + _username;
+        $http.get(url).success(function(_success){
+            debugger;
+            if(_success[0].examenTerminado){
+                window.top.location.href = "/bonita/apps/aspiranteinvp/termino";
+            } else if (_success[0].examenIniciado && !$scope.properties.isExamen)  {
+                window.top.location.href = "/bonita/apps/aspiranteinvp/examen";
+            } 
+        }).error(function(_error){
+            Swal.fire({
+                title: '<strong>Atención</strong>',
+                icon: 'error',
+                html: _error, showCloseButton: false
+            });
+        });
+    }
+    
    // $scope.getCommentList();
     
     $scope.$watch("properties.reload", function(){
         if($scope.properties.reload !== undefined){
              $scope.getCommentList();
         }
-        /*if(($scope.properties.reload === undefined || $scope.properties.reload.length === 0) && $scope.properties.campusSeleccionado !== undefined){
-            $("#loading").modal("show");
-        }else{
-            $("#loading").modal("hide");
-        }*/
     });
 }

@@ -514,4 +514,23 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         });
     }
+    
+    $scope.bloquearAspiranteDef = function(){
+        let servicio = "bloquearAspiranteDef";
+
+        if($scope.selectedAspirante.usuarioBloqueado){
+            servicio = "desbloquearAspiranteDef"
+        }
+
+        let url = "../API/extension/AnahuacINVPRestGet?url=" + servicio + "&p=0&c=10&username=" + $scope.selectedAspirante.correoElectronico;
+
+        $http.get(url).success(function(_data){
+            let mensaje = "Usuario " + ($scope.selectedAspirante.usuarioBloqueado ? "desbloqueado" : "bloqueado");
+            ocultarModal("modalBloquear");
+            swal("Ok", mensaje, "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
+        });
+    }
 }

@@ -104,8 +104,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromSuccess = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromError = undefined;
-
-            debugger;
             checkBloqueado($scope.properties.dataToSend.username);
             // Servicio para validar el usuario  bloqueado o bloqquearlo en el momento 
             // if(!$scope.terminadoexamen && $scope.contestopreguntas){
@@ -141,9 +139,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function checkBloqueado(_username){
         let url = "../API/extension/AnahuacINVPRestGet?url=checkBloqueado&p=0&c=100&username=" + _username;
-        debugger;
         $http.get(url).success(function(_success){
-            debugger;
             if(!_success[0]){
                 bloquearAspiranteDef(_username);
             } else {
@@ -166,14 +162,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let url = "../API/extension/AnahuacINVPRestGet?url=bloquearAspiranteDef&p=0&c=100&username=" + _username;
 
         $http.get(url).success(function(_success){
-            debugger;
             if(_success[0]){
-                debugger;
-                // if(!$scope.terminadoexamen && $scope.contestopreguntas){
-                //     window.top.location.href = '/bonita/apps/aspiranteinvp/examen/';
-                // }else{
-                //     redirectIfNeeded();
-                // }
+                if(!$scope.terminadoexamen && $scope.contestopreguntas){
+                    window.top.location.href = '/bonita/apps/aspiranteinvp/examen/';
+                }else{
+                    redirectIfNeeded();
+                }
             } else {
                 Swal.fire({
                     title: '<strong>Atención</strong>',
@@ -318,27 +312,39 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
       
         return $http(req).success(function(data, status) {
+            debugger;
             if(data.data.length > 1){
                 for (var i = 0; data.data.length; i++) {
                     if(data.data[i].havesesion === true){
+                        let mensaje = 'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.';
+                        if(data.additional_data[0]){
+                            if(data.additional_data[0] === "toler"){
+                                mensaje = 'La hora de tolerancia de entrada al examen ya ha pasado. <br> Contacta a tu aplicador.';
+                            }
+                        }
                         entro = true;
                         Swal.fire({
                             title: '<strong>Atención</strong>',
                             icon: 'error',
-                            //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                            html:'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.', showCloseButton: false
+                            html: mensaje, 
+                            showCloseButton: false
                         });
                     }
                 }
             } else if(data.data.length === 0){
                 checkSesion();
             } else if(data.data[0].havesesion === true){
+                let mensaje = 'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.';
+                if(data.additional_data[0]){
+                    if(data.additional_data[0] === "toler"){
+                        mensaje = 'La hora de tolerancia de entrada al examen ya ha pasado. <br> Contacta a tu aplicador.';
+                    }
+                }
                 entro = true;
-                 Swal.fire({
+                Swal.fire({
                     title: '<strong>Atención</strong>',
                     icon: 'error',
-                    //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:'Existe una sesión activa con este usuario <br> Contacta a tu aplicador.', showCloseButton: false
+                    html: mensaje, showCloseButton: false
                 });
             } else{
                checkSesion();
@@ -347,7 +353,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if(!entro){
                 checkSesion();
             }
-            //redirectIfNeeded();
         })
         .error(function(data, status) {
             console.error(data);
@@ -376,7 +381,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
     $scope.getTotalPreguntasContestadas = function() {
-        debugger;
         var req = {
             method: "GET",
             url: "../API/extension/AnahuacINVPRestGet?url=getTotalPreguntasContestadas&p=0&c=10&username=" + $scope.properties.dataToSend.username
@@ -399,7 +403,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
     $scope.getTerminadoExamen = function() {
-        debugger;
         var req = {
             method: "GET",
             url: "../API/extension/AnahuacINVPRestGet?url=getTerminadoExamen&p=0&c=10&username=" + $scope.properties.dataToSend.username
@@ -447,14 +450,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if(data.data.length > 0){
                 var pos = data.data.length - 1;
                 var content = document.createElement('div');
-                let message  = "<p style='text-align: justify;'>No existe una sesión activa para este usuario, estas programado para el día " + data.data[pos].aplicacion + " a las " + data.data[pos].entrada +", para más información contacta a tu aplicador</p>";
+                let message  = "<p style='text-align: justify;'>No existe una sesión activa para este usuario, estas programado(a) para el día " + data.data[pos].aplicacion + " a las " + data.data[pos].entrada +", para más información contacta a tu aplicador</p>";
                 content.innerHTML = message;
                 
                 Swal.fire({
                     title: '<strong>Atención</strong>',
                     icon: 'error',
                     //html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
-                    html:"<p style='text-align: justify;'>No existe una sesión activa para este usuario, estas programado para el día " + data.data[pos].aplicacion + " a las " + data.data[pos].entrada +", para más información contacta a tu aplicador</p>", showCloseButton: false
+                    html:"<p style='text-align: justify;'>No existe una sesión activa para este usuario, estas programado(a) para el día " + data.data[pos].aplicacion + " a las " + data.data[pos].entrada +", para más información contacta a tu aplicador</p>", showCloseButton: false
                 });
             }else{
                 Swal.fire({

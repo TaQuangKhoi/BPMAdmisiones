@@ -199,6 +199,25 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         });
     }
+
+    $scope.bloquearAspiranteDef = function(){
+        let servicio = "bloquearAspiranteDef";
+
+        if($scope.selectedAspirante.usuarioBloqueado){
+            servicio = "desbloquearAspiranteDef"
+        }
+
+        let url = "../API/extension/AnahuacINVPRestGet?url=" + servicio + "&p=0&c=10&username=" + $scope.selectedAspirante.correoElectronico;
+
+        $http.get(url).success(function(_data){
+            let mensaje = "Usuario " + ($scope.selectedAspirante.usuarioBloqueado ? "desbloqueado" : "bloqueado");
+            ocultarModal("modalBloquear");
+            swal("Ok", mensaje, "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+
+        });
+    }
   
     $scope.terminarAspirante = function(){
         let url = "../API/extension/AnahuacINVPRestAPI?url=bloquearAspirante&p=0&c=10&username=" 
@@ -626,6 +645,42 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             getAspirantesSesion($scope.selectedSesion.idSesion);
         }).error(function(_error){
 
+        });
+    }
+
+    function showModalConfig(){
+        $("#modalConfiguraciones").modal("show");
+    }
+
+    $scope.getConfiguracionINVP = function (_row){
+        $scope.sesionConfiguracion = {
+            "idprueba": _row.idSesion,
+            "toleranciaminutos": 0
+        };
+
+        let url = "../API/extension/AnahuacINVPRestGet?url=getConfiguracionSesion&p=0&c=10&idprueba=" + _row.idSesion;
+        
+        $http.get(url).success(function(_data){
+            if(_data[0]){
+                $scope.sesionConfiguracion.toleranciaminutos = _data[0].toleranciaMinutos;
+            }
+            
+            showModalConfig();
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
+        });
+    }
+
+    $scope.insertUpdateConfiguracionSesion = function(){
+        $scope.dataToSend = angular.copy($scope.sesionConfiguracion);
+        let url = "../API/extension/AnahuacINVPRestAPI?url=insertUpdateConfiguracionSesion&p=0&c=10";
+
+        $http.post(url, $scope.dataToSend).success(function(_data){
+            ocultarModal("modalConfiguraciones");
+            swal("Ok", "La congifuración se ga guardado correctamente", "success");
+            getAspirantesSesion($scope.selectedSesion.idSesion);
+        }).error(function(_error){
+            swal("Algo ha fallado", "Por favor intente de nuevo mas tarde", "error");
         });
     }
 }

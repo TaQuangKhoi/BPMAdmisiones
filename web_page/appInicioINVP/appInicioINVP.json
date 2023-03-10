@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appInicioINVP",
   "name" : "appInicioINVP",
-  "lastUpdate" : 1678236086425,
+  "lastUpdate" : 1678468537791,
   "rows" : [
     [
       {
@@ -43,7 +43,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -103,21 +103,23 @@
                 },
                 "action" : {
                   "type" : "constant",
-                  "value" : "Submit task"
+                  "value" : "POST"
                 },
                 "assign" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "url" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getExcelFileSesiones&p=0&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
                   "value" : ""
                 },
                 "dataToSend" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "dataToSend"
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
@@ -150,11 +152,15 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xls"
                 }
               },
-              "reference" : "58f5e09d-a0b6-4716-b78b-525fd21531b3",
+              "reference" : "37248e4c-7691-4733-ab57-52fb8777edf0",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnDownloadExcel"
             }
           ],
           [

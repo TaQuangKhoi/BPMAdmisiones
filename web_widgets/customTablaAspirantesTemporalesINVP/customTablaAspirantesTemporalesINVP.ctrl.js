@@ -535,5 +535,4 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         });
     }
-    
-  }
+}

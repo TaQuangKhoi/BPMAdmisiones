@@ -357,27 +357,29 @@ public Result getCatPreguntas(String jsonData) {
 		String orderBy = "";
 		List < String > lstGrupo = new ArrayList < String > ();
 		String errorLog = "";
+		Boolean esPsicologo = false;
+		Boolean esTi = false;
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			where = where.replace("[USUARIO]", object.user_id);
+			assert object instanceof Map;
 			
+			Long userLogged = context.getApiSession().getUserId();
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
-			Long userLogged = context.getApiSession().getUserId();
-			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-
-			for (UserMembership objUserMembership: lstUserMembership) {
-				for (CatCampus rowGrupo: lstCatCampus) {
-					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-						lstGrupo.add(rowGrupo.getDescripcion());
-						break;
-					}
-				}
-			}
+            userLogged = context.getApiSession().getUserId();
+            List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+            for (UserMembership objUserMembership: lstUserMembership) {
+                for (CatCampus rowGrupo: lstCatCampus) {
+                    if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+                        lstGrupo.add(rowGrupo.getDescripcion());
+                        break;
+                    }
+                }
+            }
 			
-			if (lstGrupo.size() > 0 && object.campus != null ) {
+			if (lstGrupo.size() > 0 && object.campus == null) {
 				where += " AND (";
 				for (Integer i = 0; i < lstGrupo.size(); i++) {
 					String campusMiembro = lstGrupo.get(i);
@@ -388,11 +390,34 @@ public Result getCatPreguntas(String jsonData) {
 						where += " OR "
 					}
 				}
+				errorLog += "] "
+			} else if(object.campus != null) {
+				where += " AND cca.grupobonita = '" + object.campus + "'"
 			}
 			
-
-//			assert object instanceof Map;
+			for (UserMembership objUserMembership: lstUserMembership) {
+				if(objUserMembership.getRoleName().equals("PSICOLOGO") ){
+					esPsicologo = true;
+				} else if (objUserMembership.getRoleName().equals("PSICOLOGO SUPERVISOR") ||
+					objUserMembership.getRoleName().equals("TI CAMPUS") ||
+					objUserMembership.getRoleName().equals("TI SERUA") ||
+					objUserMembership.getRoleName().equals("ADMINISTRADOR")) {
+					esTi = true;
+				}
+				for (CatCampus rowGrupo: lstCatCampus) {
+					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
 			
+			if(esPsicologo && !esTi) {
+				errorLog += " | Filtro aplicado"
+				where += " AND res.responsableid = [USUARIO] AND res.iseliminado <> true ";
+				where = where.replace("[USUARIO]", object.user_id);
+				errorLog += " | WHERE: " + where;
+			}
 			
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				switch (filtro.get("columna")) {
@@ -592,31 +617,35 @@ public Result getCatPreguntas(String jsonData) {
 	public Result getSesionesToday(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "WHERE ctp.iseliminado <> true AND p.aplicacion = CURRENT_DATE AND res.responsableid = [USUARIO] ";
+//		String where = "WHERE ctp.iseliminado <> true AND p.aplicacion = CURRENT_DATE AND res.responsableid = [USUARIO] ";
+		String where = "WHERE ctp.iseliminado <> true AND p.aplicacion = CURRENT_DATE  ";
 		String errorlog = "";
 		String orderBy = "";
 		List < String > lstGrupo = new ArrayList < String > ();
 		String errorLog = "";
+		Boolean esPsicologo = false;
+		Boolean esTi = false;
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			where = where.replace("[USUARIO]", object.user_id);
+			assert object instanceof Map;
+			
+			Long userLogged = context.getApiSession().getUserId();
 			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
 			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
-			Long userLogged = context.getApiSession().getUserId();
-			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-
-			for (UserMembership objUserMembership: lstUserMembership) {
-				for (CatCampus rowGrupo: lstCatCampus) {
-					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-						lstGrupo.add(rowGrupo.getDescripcion());
-						break;
-					}
-				}
-			}
+            userLogged = context.getApiSession().getUserId();
+            List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+            for (UserMembership objUserMembership: lstUserMembership) {
+                for (CatCampus rowGrupo: lstCatCampus) {
+                    if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+                        lstGrupo.add(rowGrupo.getDescripcion());
+                        break;
+                    }
+                }
+            }
 			
-			if (lstGrupo.size() > 0 && object.campus == null ) {
+			if (lstGrupo.size() > 0 && object.campus == null) {
 				where += " AND (";
 				for (Integer i = 0; i < lstGrupo.size(); i++) {
 					String campusMiembro = lstGrupo.get(i);
@@ -627,6 +656,32 @@ public Result getCatPreguntas(String jsonData) {
 						where += " OR "
 					}
 				}
+				errorLog += "] "
+			} else if(object.campus != null) {
+				where += " AND cca.grupobonita = '" + object.campus + "'"
+			}
+			
+			for (UserMembership objUserMembership: lstUserMembership) {
+				if(objUserMembership.getRoleName().equals("PSICOLOGO") ){
+					esPsicologo = true;
+				} else if (objUserMembership.getRoleName().equals("PSICOLOGO SUPERVISOR") || 
+					objUserMembership.getRoleName().equals("TI CAMPUS") || 
+					objUserMembership.getRoleName().equals("TI SERUA") || 
+					objUserMembership.getRoleName().equals("ADMINISTRADOR")) {
+					esTi = true;
+				}
+				for (CatCampus rowGrupo: lstCatCampus) {
+					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			 
+			if(esPsicologo && !esTi) {
+				errorLog += " | Filtro aplicado"
+				where += " AND res.responsableid = [USUARIO] AND res.iseliminado <> true";
+				where = where.replace("[USUARIO]", object.user_id);
 			}
 			
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
@@ -813,6 +868,7 @@ public Result getCatPreguntas(String jsonData) {
 		Result resultado = new Result();
 		List < Object > lstParams;
 		String errorlog = "";
+		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -820,7 +876,7 @@ public Result getCatPreguntas(String jsonData) {
 			Result dataResult = new Result();
 			int rowCount = 0;
 
-			String type = object.type;
+			String type = "Sesiones";
 			XSSFWorkbook workbook = new XSSFWorkbook();
 			XSSFSheet sheet = workbook.createSheet(type);
 			CellStyle style = workbook.createCellStyle();
@@ -835,6 +891,7 @@ public Result getCatPreguntas(String jsonData) {
 			} else {
 				throw new Exception("No encontro datos");
 			}
+			
 			Row titleRow = sheet.createRow(++rowCount);
 			Cell cellReporte = titleRow.createCell(1);
 			cellReporte.setCellValue("Reporte:");
@@ -886,42 +943,460 @@ public Result getCatPreguntas(String jsonData) {
 			Cell header8 = headersRow.createCell(8);
 			header8.setCellValue("Aspirantes");
 			header8.setCellStyle(style);
-			Cell header9 = headersRow.createCell(9);
-			header9.setCellValue("Idioma");
-			header9.setCellStyle(style);
+			
 			for (int i = 0; i < lstParams.size(); ++i) {
-				//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
 				Row row = sheet.createRow(++rowCount);
 				Cell cell0 = row.createCell(0);
-				cell0.setCellValue(lstParams[i].idbanner);
-
+				cell0.setCellValue(lstParams[i].idSesion);
 				Cell cell1 = row.createCell(1);
-				cell1.setCellValue(
-					lstParams[i].apellidopaterno + " " +
-					lstParams[i].apellidomaterno + " " +
-					lstParams[i].primernombre + " " +
-					lstParams[i].segundonombre
-				);
-
+				cell1.setCellValue(lstParams[i].nombreSesion);
 				Cell cell2 = row.createCell(2);
-				cell2.setCellValue(lstParams[i].correoelectronico);
+				cell2.setCellValue(lstParams[i].uni);
 				Cell cell3 = row.createCell(3);
-				cell3.setCellValue(lstParams[i].curp);
+				cell3.setCellValue(lstParams[i].sesion);
 				Cell cell4 = row.createCell(4);
-				cell4.setCellValue(lstParams[i].licenciatura);
+				cell4.setCellValue(lstParams[i].fecha);
 				Cell cell5 = row.createCell(5);
-				cell5.setCellValue(lstParams[i].ingreso);
+				cell5.setCellValue(lstParams[i].horaInicio);
 				Cell cell6 = row.createCell(6);
-				cell6.setCellValue(lstParams[i].campus);
+				cell6.setCellValue(lstParams[i].horaTermino);
 				Cell cell7 = row.createCell(7);
-				cell7.setCellValue(lstParams[i].procedencia);
+				cell7.setCellValue(lstParams[i].estatus);
 				Cell cell8 = row.createCell(8);
-				cell8.setCellValue(lstParams[i].preparatoria);
-				Cell cell9 = row.createCell(9);
-				cell9.setCellValue(lstParams[i].promediogeneral);
-
+				cell8.setCellValue(lstParams[i].aspirantes);
 			}
 
+
+			for (int i = 0; i <= (20); ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("Report.xls");
+			workbook.write(outputStream);
+
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(encodeFileToBase64Binary("Report.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			e.printStackTrace();
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+	
+	public Result getExcelFileSesionesToday(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < Object > lstParams;
+		String errorlog = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			Result dataResult = new Result();
+			int rowCount = 0;
+
+			String type = "Sesiones";
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+
+			dataResult = getSesionesToday(jsonData, context);
+
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("No encontro datos");
+			}
+			
+			Row titleRow = sheet.createRow(++rowCount);
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("SESIONES DE EXAMEN PSICOMÉTRICO");
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.HOUR_OF_DAY, -7);
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+			Row blank = sheet.createRow(++rowCount);
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuario);
+			Row espacio = sheet.createRow(++rowCount);
+			Row headersRow = sheet.createRow(++rowCount);
+			Cell header0 = headersRow.createCell(0);
+			header0.setCellValue("No.");
+			header0.setCellStyle(style);
+			Cell header1 = headersRow.createCell(1);
+			header1.setCellValue("Nombre");
+			header1.setCellStyle(style);
+			Cell header2 = headersRow.createCell(2);
+			header2.setCellValue("Uni.");
+			header2.setCellStyle(style);
+			Cell header3 = headersRow.createCell(3);
+			header3.setCellValue("Sesión");
+			header3.setCellStyle(style);
+			Cell header4 = headersRow.createCell(4);
+			header4.setCellValue("Fecha");
+			header4.setCellStyle(style);
+			Cell header5 = headersRow.createCell(5);
+			header5.setCellValue("Hr. Inicio");
+			header5.setCellStyle(style);
+			Cell header6 = headersRow.createCell(6);
+			header6.setCellValue("Hr. Término");
+			header6.setCellStyle(style);
+			Cell header7 = headersRow.createCell(7);
+			header7.setCellValue("Estatus");
+			header7.setCellStyle(style);
+			Cell header8 = headersRow.createCell(8);
+			header8.setCellValue("Aspirantes");
+			header8.setCellStyle(style);
+			
+			for (int i = 0; i < lstParams.size(); ++i) {
+				Row row = sheet.createRow(++rowCount);
+				Cell cell0 = row.createCell(0);
+				cell0.setCellValue(lstParams[i].idSesion);
+				Cell cell1 = row.createCell(1);
+				cell1.setCellValue(lstParams[i].nombreSesion);
+				Cell cell2 = row.createCell(2);
+				cell2.setCellValue(lstParams[i].uni);
+				Cell cell3 = row.createCell(3);
+				cell3.setCellValue(lstParams[i].sesion);
+				Cell cell4 = row.createCell(4);
+				cell4.setCellValue(lstParams[i].fecha);
+				Cell cell5 = row.createCell(5);
+				cell5.setCellValue(lstParams[i].horaInicio);
+				Cell cell6 = row.createCell(6);
+				cell6.setCellValue(lstParams[i].horaTermino);
+				Cell cell7 = row.createCell(7);
+				cell7.setCellValue(lstParams[i].estatus);
+				Cell cell8 = row.createCell(8);
+				cell8.setCellValue(lstParams[i].aspirantes);
+			}
+
+
+			for (int i = 0; i <= (20); ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("Report.xls");
+			workbook.write(outputStream);
+
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(encodeFileToBase64Binary("Report.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			e.printStackTrace();
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+	
+	public Result getExcelFileAspirantes(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < Object > lstParams;
+		String errorlog = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			Result dataResult = new Result();
+			int rowCount = 0;
+
+			String type = "Aspirantes";
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+
+			dataResult = new UsuariosDAO().getAspirantes(jsonData, context);
+
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("No encontro datos");
+			}
+			
+			Row titleRow = sheet.createRow(++rowCount);
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("ASPIRANTES CON SESIÓN");
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.HOUR_OF_DAY, -7);
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+			Row blank = sheet.createRow(++rowCount);
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuario);
+			Row espacio = sheet.createRow(++rowCount);
+			Row headersRow = sheet.createRow(++rowCount);
+			
+			Cell header0 = headersRow.createCell(0);
+			header0.setCellValue("No.");
+			header0.setCellStyle(style);
+			Cell header1 = headersRow.createCell(1);
+			header1.setCellValue("Id banner");
+			header1.setCellStyle(style);
+			Cell header2 = headersRow.createCell(2);
+			header2.setCellValue("Nombre");
+			header2.setCellStyle(style);
+			Cell header3 = headersRow.createCell(3);
+			header3.setCellValue("Uni.");
+			header3.setCellStyle(style);
+			Cell header4 = headersRow.createCell(4);
+			header4.setCellValue("Teléfono");
+			header4.setCellStyle(style);
+			Cell header5 = headersRow.createCell(5);
+			header5.setCellValue("Celular");
+			header5.setCellStyle(style);
+			Cell header6 = headersRow.createCell(6);
+			header6.setCellValue("Correo");
+			header6.setCellStyle(style);
+			Cell header7 = headersRow.createCell(7);
+			header7.setCellValue("Preguntas");
+			header7.setCellStyle(style);
+			Cell header8 = headersRow.createCell(8);
+			header8.setCellValue("Contestadas");
+			header8.setCellStyle(style);
+			Cell header9 = headersRow.createCell(9);
+			header9.setCellValue("Inicio");
+			header9.setCellStyle(style);
+			Cell header10 = headersRow.createCell(10);
+			header10.setCellValue("Término");
+			header10.setCellStyle(style);
+			Cell header11 = headersRow.createCell(11);
+			header11.setCellValue("Tiempo");
+			header11.setCellStyle(style);
+			Cell header12 = headersRow.createCell(12);
+			header12.setCellValue("Estatus");
+			header12.setCellStyle(style);
+			Cell header13 = headersRow.createCell(13);
+			header13.setCellValue("Idioma");
+			header13.setCellStyle(style);
+			
+			for (int i = 0; i < lstParams.size(); ++i) {
+				Row row = sheet.createRow(++rowCount);
+				Cell cell0 = row.createCell(0);
+				cell0.setCellValue(lstParams[i].idBpm);
+				Cell cell1 = row.createCell(1);
+				cell1.setCellValue(lstParams[i].idBanner);
+				Cell cell2 = row.createCell(2);
+				cell2.setCellValue(lstParams[i].nombre);
+				Cell cell3 = row.createCell(3);
+				cell3.setCellValue(lstParams[i].uni);
+				Cell cell4 = row.createCell(4);
+				cell4.setCellValue(lstParams[i].telefono);
+				Cell cell5 = row.createCell(5);
+				cell5.setCellValue(lstParams[i].celular);
+				Cell cell6 = row.createCell(6);
+				cell6.setCellValue(lstParams[i].correoElectronico);
+				Cell cell7 = row.createCell(7);
+				cell7.setCellValue(lstParams[i].preguntas);
+				Cell cell8 = row.createCell(8);
+				cell8.setCellValue(lstParams[i].contestadas);
+				Cell cell9 = row.createCell(9);
+				cell9.setCellValue(lstParams[i].inicio);
+				Cell cell10 = row.createCell(10);
+				cell10.setCellValue(lstParams[i].termino);
+				Cell cell11 = row.createCell(11);
+				cell11.setCellValue(lstParams[i].tiempo);
+				Cell cell12 = row.createCell(12);
+				cell12.setCellValue(lstParams[i].estatusINVP);
+				Cell cell13 = row.createCell(13);
+				cell13.setCellValue(lstParams[i].idioma);
+			}
+
+			for (int i = 0; i <= (20); ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("Report.xls");
+			workbook.write(outputStream);
+
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add(encodeFileToBase64Binary("Report.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+			
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			e.printStackTrace();
+			
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+	
+	public Result getExcelFileAspirantesTemporales(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < Object > lstParams;
+		String errorlog = "";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			Result dataResult = new Result();
+			int rowCount = 0;
+
+			String type = "Aspirantes temporales";
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+
+			dataResult = new UsuariosDAO().getAspirantesTemporales(jsonData, context);
+
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("No encontro datos");
+			}
+			
+			Row titleRow = sheet.createRow(++rowCount);
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("ASPIRANTES  CON SESIÓN TEMPORAL");
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.HOUR_OF_DAY, -7);
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+			Row blank = sheet.createRow(++rowCount);
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuario);
+			Row espacio = sheet.createRow(++rowCount);
+			Row headersRow = sheet.createRow(++rowCount);
+			
+			Cell header0 = headersRow.createCell(0);
+			header0.setCellValue("No.");
+			header0.setCellStyle(style);
+			Cell header1 = headersRow.createCell(1);
+			header1.setCellValue("Id banner");
+			header1.setCellStyle(style);
+			Cell header2 = headersRow.createCell(2);
+			header2.setCellValue("Nombre");
+			header2.setCellStyle(style);
+			Cell header3 = headersRow.createCell(3);
+			header3.setCellValue("Uni.");
+			header3.setCellStyle(style);
+			Cell header4 = headersRow.createCell(4);
+			header4.setCellValue("Teléfono");
+			header4.setCellStyle(style);
+			Cell header5 = headersRow.createCell(5);
+			header5.setCellValue("Celular");
+			header5.setCellStyle(style);
+			Cell header6 = headersRow.createCell(6);
+			header6.setCellValue("Correo");
+			header6.setCellStyle(style);
+			Cell header7 = headersRow.createCell(7);
+			header7.setCellValue("Preguntas");
+			header7.setCellStyle(style);
+			Cell header8 = headersRow.createCell(8);
+			header8.setCellValue("Contestadas");
+			header8.setCellStyle(style);
+			Cell header9 = headersRow.createCell(9);
+			header9.setCellValue("Inicio");
+			header9.setCellStyle(style);
+			Cell header10 = headersRow.createCell(10);
+			header10.setCellValue("Término");
+			header10.setCellStyle(style);
+			Cell header11 = headersRow.createCell(11);
+			header11.setCellValue("Tiempo");
+			header11.setCellStyle(style);
+			Cell header12 = headersRow.createCell(12);
+			header12.setCellValue("Estatus");
+			header12.setCellStyle(style);
+			Cell header13 = headersRow.createCell(13);
+			header13.setCellValue("Idioma");
+			header13.setCellStyle(style);
+			
+			for (int i = 0; i < lstParams.size(); ++i) {
+				Row row = sheet.createRow(++rowCount);
+				Cell cell0 = row.createCell(0);
+				cell0.setCellValue(lstParams[i].idBpm);
+				Cell cell1 = row.createCell(1);
+				cell1.setCellValue(lstParams[i].idBanner);
+				Cell cell2 = row.createCell(2);
+				cell2.setCellValue(lstParams[i].nombre);
+				Cell cell3 = row.createCell(3);
+				cell3.setCellValue(lstParams[i].uni);
+				Cell cell4 = row.createCell(4);
+				cell4.setCellValue(lstParams[i].telefono);
+				Cell cell5 = row.createCell(5);
+				cell5.setCellValue(lstParams[i].celular);
+				Cell cell6 = row.createCell(6);
+				cell6.setCellValue(lstParams[i].correoElectronico);
+				Cell cell7 = row.createCell(7);
+				cell7.setCellValue(lstParams[i].preguntas);
+				Cell cell8 = row.createCell(8);
+				cell8.setCellValue(lstParams[i].contestadas);
+				Cell cell9 = row.createCell(9);
+				cell9.setCellValue(lstParams[i].inicio);
+				Cell cell10 = row.createCell(10);
+				cell10.setCellValue(lstParams[i].termino);
+				Cell cell11 = row.createCell(11);
+				cell11.setCellValue(lstParams[i].tiempo);
+				Cell cell12 = row.createCell(12);
+				cell12.setCellValue(lstParams[i].estatusINVP);
+				Cell cell13 = row.createCell(13);
+				cell13.setCellValue(lstParams[i].idioma);
+			}
 
 			for (int i = 0; i <= (20); ++i) {
 				sheet.autoSizeColumn(i);

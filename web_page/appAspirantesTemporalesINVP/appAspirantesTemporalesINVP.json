@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appAspirantesTemporalesINVP",
   "name" : "appAspirantesTemporalesINVP",
-  "lastUpdate" : 1678228124288,
+  "lastUpdate" : 1678472064040,
   "rows" : [
     [
       {
@@ -43,7 +43,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -103,21 +103,23 @@
                 },
                 "action" : {
                   "type" : "constant",
-                  "value" : "Submit task"
+                  "value" : "POST"
                 },
                 "assign" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "url" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getExcelFileAspirantesTemporales&p=0&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
                   "value" : ""
                 },
                 "dataToSend" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "dataToSend"
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
@@ -150,11 +152,15 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xls"
                 }
               },
-              "reference" : "2f43f91f-0a48-4058-9bd9-216e605133bb",
+              "reference" : "5afb3dad-91ea-4b77-bb11-e626a961fd12",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnDownloadExcel"
             }
           ],
           [

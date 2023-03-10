@@ -189,6 +189,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function insertCase(caseid) {
+        debugger;
         vm.busy = true;
         var data = {
             "pregunta": 0,
