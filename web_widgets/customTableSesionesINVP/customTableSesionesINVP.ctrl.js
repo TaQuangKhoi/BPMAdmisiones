@@ -15,6 +15,10 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     this.isSelected = function(row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
+    
+    $scope.setNavVar = function(_value){
+        $scope.properties.navigationVar = _value;
+    }
   
     function doRequest(method, url, params) {
         blockUI.start();
@@ -126,9 +130,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.aspirantes = _data.data;
             $scope.valueAsp = _data.totalRegistros;
             $scope.loadPaginadoAsp();
-            $("#modalAspirantesSesion").modal("show");
+            // $("#modalAspirantesSesion").modal("show");
+            $scope.properties.navigationVar = "aspirantesEnSesion";
         }).error(function(_err){
-            debugger;
             swal("Error", _err.mensajeError, "error");
         })
     }
@@ -175,13 +179,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
   
         return $http(req).success(function(data, status) {
-  
-                $scope.envelopeCancel();
-            })
-            .error(function(data, status) {
-                console.error(data)
-            })
-            .finally(function() {});
+            $scope.envelopeCancel();
+        })
+        .error(function(data, status) {
+            console.error(data)
+        })
+        .finally(function() {});
     }
 
     $scope.lstCampus = [];

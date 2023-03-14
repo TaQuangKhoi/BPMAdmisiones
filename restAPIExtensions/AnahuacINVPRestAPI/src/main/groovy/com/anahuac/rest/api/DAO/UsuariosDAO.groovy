@@ -554,17 +554,18 @@ class UsuariosDAO {
 						where += " ( prue.sesion_pid = [valor] )";
 						where = where.replace("[valor]", filtro.get("valor"))
 					break;
-					case "No.":
+					case "idBpm,idbanner":
 						errorlog += "creg.caseid "
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
 							where += " WHERE "
 						}
-						where += " ( LOWER(creg.caseid::VARCHAR) like lower('%[valor]%') )";
+						where += " ( ( LOWER(creg.caseid::VARCHAR) like lower('%[valor]%') )";
+						where += " OR ( LOWER(dets.idbanner) like lower('%[valor]%') ) )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
-					case "Nombre":
+					case "nombre":
 						errorlog += "ses.nombre"
 						if (where.contains("WHERE")) {
 							where += " AND "
@@ -573,7 +574,7 @@ class UsuariosDAO {
 						}
 						where += " ( ( LOWER(creg.primernombre) like lower('%[valor]%') ) ";
 						where += " OR ( LOWER(creg.segundonombre) like lower('%[valor]%') ) ";
-						where += " OR ( LOWER(creg.apellidopaterno) like lower('%[valor]%') ) ";
+						where += " OR ( LOWER(creg.apellidopaterno) like lower('%[valor]%') )  ";
 						where += " OR ( LOWER(creg.apellidomaterno) like lower('%[valor]%') ) )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
@@ -587,7 +588,7 @@ class UsuariosDAO {
 						where += " ( LOWER(dets.idbanner) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
-					case "Uni.":
+					case "uni":
 						errorlog += "ccam.descripcion "
 						if (where.contains("WHERE")) {
 							where += " AND "
@@ -597,14 +598,16 @@ class UsuariosDAO {
 						where += " ( LOWER(ccam.descripcion) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
-					case "Teléfono":
+					case "telefono,celular,correo":
 						errorlog += "sdad.telefono "
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
 							where += " WHERE "
 						}
-						where += " ( LOWER(sdad.telefono) like lower('%[valor]%') )";
+						where += " ( ( LOWER(sdad.telefono) like lower('%[valor]%') )";
+						where += " OR ( LOWER(sdad.telefonocelular) like lower('%[valor]%') )";
+						where += " OR ( LOWER(creg.correoelectronico) like lower('%[valor]%') ) )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 					case "Celular":
@@ -647,14 +650,15 @@ class UsuariosDAO {
 						where += " ( LOWER(total_respuestas) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
-					case "Inicio":
+					case "inicio,termino,tiempo":
 						errorlog += "extr.fechainicio "
 						if (where.contains("WHERE")) {
 							where += " AND "
 						} else {
 							where += " WHERE "
 						}
-						where += " ( LOWER(extr.fechainicio) like lower('%[valor]%') )";
+						where += " ( ( LOWER(extr.fechainicio) like lower('%[valor]%') )";
+						where += " OR ( LOWER(extr.fechafin) like lower('%[valor]%') ) )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 					case "Término":
@@ -1593,6 +1597,7 @@ class UsuariosDAO {
 		String errorLog = "";
 		Boolean hasTolerance = false;
 		List<Boolean> data = new ArrayList<Boolean>();
+		String errorInfo = "";
 		
 		try {
 			closeCon = validarConexion();
@@ -1608,11 +1613,63 @@ class UsuariosDAO {
 			
 			data.add(hasTolerance);
 			resultado.setData(data);
-			resultado.setSuccess(true)
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			con.rollback();
+			resultado.setError_info(errorLog);
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	} 
+	
+	public Result checkToleranciaFront(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Boolean hasTolerance = false;
+		Boolean isTemporal = false;
+		List<Boolean> data = new ArrayList<Boolean>();
+		String errorInfo = "";
+		
+		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.GET_USUARIO_TEMPORAL);
+			pstm.setString(1, username);
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				isTemporal = rs.getBoolean("istemporal");
+			} 
+			
+			if(!isTemporal) {
+				pstm = con.prepareStatement(Statements.GET_TOLERANCIA_BY_USERNAME);
+				pstm.setString(1, username);
+				rs = pstm.executeQuery();
+				
+				if(rs.next()) {
+					hasTolerance = rs.getBoolean("tienetolerancia");
+				} else {
+					hasTolerance = false;
+				}
+			} else {
+				hasTolerance = true;
+			}
+			
+			data.add(hasTolerance);
+			resultado.setData(data);
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

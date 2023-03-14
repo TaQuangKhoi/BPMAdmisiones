@@ -49,6 +49,7 @@ class RespuestasExamenDAO {
 		Boolean closeCon = false;
 		String where = "WHERE ISELIMINADO=false"
 		String errorlog = "";
+		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -106,19 +107,34 @@ class RespuestasExamenDAO {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
+		
 		return resultado
 	}
 	
 	public Result insertRespuesta( String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
+		Boolean terminado = false;
+		String idioma = "ESP";
+		
 		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
 			
-				def jsonSlurper = new JsonSlurper();
-				def object = jsonSlurper.parseText(jsonData);
-				
-				closeCon = validarConexion();
-				con.setAutoCommit(false);
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			pstm = con.prepareStatement(Statements.GET_EXAMEN_TERMINADO_IDIOMA);
+			pstm.setString(1, object.username);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				terminado = rs.getBoolean("terminado");
+//				idioma = rs.getString("idioma");
+			} 
+			
+			if(!terminado) {
 				pstm = con.prepareStatement(Statements.INSERT_RESPUESTA_EXAMEN, Statement.RETURN_GENERATED_KEYS)
 				pstm.setLong(1, object.pregunta);
 				pstm.setBoolean(2, object.respuesta);
@@ -129,24 +145,30 @@ class RespuestasExamenDAO {
 				
 				con.commit();
 				
-				resultado.setSuccess(true)
-			} catch (Exception e) {
+				resultado.setSuccess(true);
+			} else {
+				String mensaje = idioma.equals("ESP") ? "Tu examen ya ha finalizado" : "Your test has ended";
+				throw new Exception(mensaje);
+			}
+		} catch (Exception e) {
 			String es = e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(es);
 			con.rollback();
-		}finally {
+		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
-		return resultado
+		
+		return resultado;
 	}
 	
 	public Result getCatRespuestasExamenbyUsuariocaso(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorlog = "";
+		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -186,6 +208,7 @@ class RespuestasExamenDAO {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
+		
 		return resultado
 	}
 	
@@ -193,6 +216,7 @@ class RespuestasExamenDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorlog = "";
+		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -237,13 +261,27 @@ class RespuestasExamenDAO {
 	public Result updateRespuesta( String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
+		Boolean terminado = false;
+		String idioma = "ESP";
+		
 		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
 			
-				def jsonSlurper = new JsonSlurper();
-				def object = jsonSlurper.parseText(jsonData);
-				
-				closeCon = validarConexion();
-				con.setAutoCommit(false);
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			pstm = con.prepareStatement(Statements.GET_EXAMEN_TERMINADO_IDIOMA);
+			pstm.setString(1, object.username);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				terminado = rs.getBoolean("terminado");
+//				idioma = rs.getString("idioma");
+			}
+			
+			if(!terminado) {
 				pstm = con.prepareStatement(Statements.UPDATE_RESPUESTAS)
 				pstm.setBoolean(1, object.respuesta);
 				pstm.setLong(2, object.pregunta);
@@ -253,76 +291,81 @@ class RespuestasExamenDAO {
 				
 				con.commit();
 				
-				resultado.setSuccess(true)
-			} catch (Exception e) {
+				resultado.setSuccess(true);
+			} else {
+				String mensaje = idioma.equals("ESP") ? "Tu examen ya ha finalizado" : "Your test has ended";
+				throw new Exception(mensaje);
+			}
+		} catch (Exception e) {
 			String es = e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(es);
 			con.rollback();
-		}finally {
+		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
+		
 		return resultado
 	}
 	
 	public Result insertRespuestaid( String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
+		
 		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			Long iduser = getidusuariobyusername(object.username);
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement(Statements.INSERT_RESPUESTA_EXAMEN, Statement.RETURN_GENERATED_KEYS)
+			pstm.setLong(1, object.pregunta);
+			pstm.setBoolean(2, object.respuesta);
+			pstm.setLong(3,Long.valueOf(object.caseid));
+			pstm.setLong(4,Long.valueOf(iduser));
+			pstm.setString(5, object.username);
+			pstm.executeUpdate();
 			
-				def jsonSlurper = new JsonSlurper();
-				def object = jsonSlurper.parseText(jsonData);
-				Long iduser = getidusuariobyusername(object.username);
-				closeCon = validarConexion();
-				con.setAutoCommit(false);
-				pstm = con.prepareStatement(Statements.INSERT_RESPUESTA_EXAMEN, Statement.RETURN_GENERATED_KEYS)
-				pstm.setLong(1, object.pregunta);
-				pstm.setBoolean(2, object.respuesta);
-				pstm.setLong(3,Long.valueOf(object.caseid));
-				pstm.setLong(4,Long.valueOf(iduser));
-				pstm.setString(5, object.username);
-				pstm.executeUpdate();
-				
-				con.commit();
-				
-				resultado.setSuccess(true)
-			} catch (Exception e) {
+			con.commit();
+			
+			resultado.setSuccess(true);
+		} catch (Exception e) {
 			String es = e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(es);
 			con.rollback();
-		}finally {
+		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
-		return resultado
+		
+		return resultado;
 	}
 	
 	public Long getidusuariobyusername(String username) {
-	  Long iduser = 0;
-	  Boolean closeCon = false;
-	  try {
-
-	    closeCon = validarConexionBonita();
-	    pstm = con.prepareStatement(Statements.GET_ID_USER_BY_USERNAME)
-	    pstm.setString(1, username);
-	    rs = pstm.executeQuery();
-
-	    while (rs.next()) {
-			iduser = rs.getLong("id");
-	    }
-
-	  } catch (Exception e) {
-	    String es = e.getMessage();
-	  } finally {
-	    if (closeCon) {
-	      new DBConnect().closeObj(con, stm, rs, pstm)
-	    }
-	  }
-	  return iduser
+		Long iduser = 0;
+		Boolean closeCon = false;
+		
+		try {
+		    closeCon = validarConexionBonita();
+		    pstm = con.prepareStatement(Statements.GET_ID_USER_BY_USERNAME)
+		    pstm.setString(1, username);
+		    rs = pstm.executeQuery();
+		
+		    while (rs.next()) {
+				iduser = rs.getLong("id");
+		    }
+		} catch (Exception e) {
+			String es = e.getMessage();
+		} finally {
+		    if (closeCon) {
+		      new DBConnect().closeObj(con, stm, rs, pstm)
+		    }
+		}
+		return iduser
 	}
 	//
 }

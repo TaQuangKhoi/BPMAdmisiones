@@ -12,7 +12,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             addToCollection();
             closeModal($scope.properties.closeOnSuccess);
         } else if ($scope.properties.action === 'Start process') {
-            startProcess();
+            // startProcess();
+            checkTolerancia($scope.properties.userData.user_name);
         } else if ($scope.properties.action === 'Submit task') {
             submitTask();
         } else if ($scope.properties.action === 'Open modal') {
@@ -33,6 +34,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (shouldClose) {
             modalService.close();
         }
+    }
+
+    function checkTolerancia(_username){
+        let url = "../API/extension/AnahuacINVPRestGet?url=checkTolerancia&p=0&c=10&&username=" + _username;
+
+        $http.get(url).success(function(_success){
+            debugger;
+            if(_success[0] === true){
+                startProcess();
+            } else {
+                swal("Error", "Se ha excedido el timepo de tolerancia de entrada a tu examen", "error");
+            }
+        }).error(function(_error){
+            swal("Error", "Se ha excedido el timepo de tolerancia de entrada a tu examen", "error");
+        });
     }
 
     function removeFromCollection() {
@@ -189,7 +205,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function insertCase(caseid) {
-        debugger;
         vm.busy = true;
         var data = {
             "pregunta": 0,

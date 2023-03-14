@@ -168,6 +168,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     redirect = true;
                 } else if(membership.role_id.name === "ADMINISTRADOR"){
                     redirect = true;
+                } else if(membership.role_id.name === "SERUA"){
+                    redirect = true;
                 }
             }
 

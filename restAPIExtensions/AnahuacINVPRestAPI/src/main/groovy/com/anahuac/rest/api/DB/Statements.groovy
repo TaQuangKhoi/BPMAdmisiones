@@ -85,4 +85,8 @@ class Statements {
 	public static final String GET_TOLERANCIA_BY_USERNAME = "SELECT toleranciaminutos IS NULL, CONCAT(prbs.aplicacion, ' ', prbs.entrada)::Timestamp + ((CASE WHEN toleranciaminutos IS NULL THEN 5 WHEN toleranciaminutos IS NOT NULL THEN toleranciaminutos END ) * interval '1 minute') > now() AS tienetolerancia FROM ASPIRANTESPRUEBAS AS prue INNER JOIN CATTIPOPRUEBA AS tipo ON tipo.persistenceid = prue.cattipoprueba_pid AND tipo.descripcion = 'Examen Psicométrico' LEFT JOIN ConfiguracionesINVP AS conf ON conf.idprueba = sesiones_pid  INNER JOIN PRUEBAS AS prbs ON prbs.persistenceid = prue.prueba_pid  WHERE prue.username =  ? ORDER BY sesiones_pid DESC  LIMIT 1;";
 	
 	public static final String GET_EXAMEN_TERMINADO = "SELECT terminado FROM INVPExamenTerminado WHERE username = ?";
+	
+	public static final String GET_EXAMEN_TERMINADO_IDIOMA = "SELECT terminado FROM INVPExamenTerminado  WHERE username = ?";
+	
+	public static final String GET_USUARIO_TEMPORAL = "SELECT istemporal FROM IdiomaINVPUsuario WHERE username = ?";
 }

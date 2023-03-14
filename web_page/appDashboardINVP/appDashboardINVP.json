@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "appDashboardINVP",
   "name" : "appDashboardINVP",
-  "lastUpdate" : 1678469420455,
+  "lastUpdate" : 1678834803099,
   "rows" : [
     [
       {
@@ -82,8 +82,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "navigationVar !== 'principal'"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -178,8 +178,104 @@
                   "value" : ""
                 },
                 "hidden" : {
+                  "type" : "expression",
+                  "value" : "navigationVar !== 'aspirantesEnSesion'"
+                },
+                "disabled" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Excel"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "POST"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacINVPRestAPI?url=getExcelFileAspirantes&p=0&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "dataToSendAsp"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xls"
+                }
+              },
+              "reference" : "2f7d1a0b-845b-41dc-a9c1-f1461a555fb3",
+              "hasValidationError" : false,
+              "id" : "customCustomBtnDownloadExcel"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "navigationVar !== 'principal'"
                 },
                 "content" : {
                   "type" : "variable",
@@ -272,6 +368,10 @@
                 "dataToSendAsp" : {
                   "type" : "variable",
                   "value" : "dataToSendAsp"
+                },
+                "navigationVar" : {
+                  "type" : "variable",
+                  "value" : "navigationVar"
                 }
               },
               "reference" : "2e105f3f-98da-4f57-bdf7-69b54dc8112a",
@@ -394,10 +494,17 @@
         "    \"usuario\":$data.session.user_name,\r",
         "    \"orderby\":\"ID_SESION\",\r",
         "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":20,\r",
+        "    \"limit\":99999,\r",
         "    \"offset\":0,\r",
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "};\r"
+      ],
+      "exposed" : false
+    },
+    "navigationVar" : {
+      "type" : "constant",
+      "value" : [
+        "principal"
       ],
       "exposed" : false
     }
