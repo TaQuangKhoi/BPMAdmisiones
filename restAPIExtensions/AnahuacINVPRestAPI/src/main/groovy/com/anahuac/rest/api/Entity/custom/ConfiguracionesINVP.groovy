@@ -2,6 +2,7 @@ package com.anahuac.rest.api.Entity.custom
 
 class ConfiguracionesINVP {
 	private Integer toleranciaMinutos;
+	private Integer toleranciaSalidaMinutos;
 	private Long idPrueba;
 	
 	public Integer getToleranciaMinutos() {
@@ -15,5 +16,11 @@ class ConfiguracionesINVP {
 	}
 	public void setIdPrueba(Long idPrueba) {
 		this.idPrueba = idPrueba;
+	}
+	public Integer getToleranciaSalidaMinutos() {
+		return toleranciaSalidaMinutos;
+	}
+	public void setToleranciaSalidaMinutos(Integer toleranciaSalidaMinutos) {
+		this.toleranciaSalidaMinutos = toleranciaSalidaMinutos;
 	}
 }

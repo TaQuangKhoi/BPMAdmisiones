@@ -669,6 +669,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         $http.get(url).success(function(_data){
             if(_data[0]){
                 $scope.sesionConfiguracion.toleranciaminutos = _data[0].toleranciaMinutos;
+                $scope.sesionConfiguracion.toleranciasalidaminutos = _data[0].toleranciaSalidaMinutos;
             }
             
             showModalConfig();

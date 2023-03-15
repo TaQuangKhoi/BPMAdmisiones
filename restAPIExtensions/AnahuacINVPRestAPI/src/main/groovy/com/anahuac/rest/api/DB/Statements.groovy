@@ -74,13 +74,13 @@ class Statements {
 	
 	public static final String GET_USUARIOS_BLOQUEADOS = "SELECT * FROM AspirantesBloqueados [WHERE] LIMIT ? OFFSET ?";
 	
-	public static final String INSERT_CONFIGURACION_INVP = "INSERT INTO ConfiguracionesINVP (persistenceid, persistenceversion, toleranciaminutos, idprueba) VALUES (case when (SELECT max(persistenceId)+1 from ConfiguracionesINVP) is null then 1 else (SELECT max(persistenceId)+1 from ConfiguracionesINVP) end, 0, ?, ?)";
+	public static final String INSERT_CONFIGURACION_INVP = "INSERT INTO ConfiguracionesINVP (persistenceid, persistenceversion, toleranciaminutos, toleranciaSalidaMinutos, idprueba) VALUES (case when (SELECT max(persistenceId)+1 from ConfiguracionesINVP) is null then 1 else (SELECT max(persistenceId)+1 from ConfiguracionesINVP) end, 0, ?, ?, ?)";
 	
-	public static final String UPDATE_CONFIGURACION_INVP = "UPDATE ConfiguracionesINVP SET toleranciaminutos = ? WHERE idprueba = ?;";
+	public static final String UPDATE_CONFIGURACION_INVP = "UPDATE ConfiguracionesINVP SET toleranciaminutos = ?, toleranciaSalidaMinutos = ? WHERE idprueba = ?;";
 	
 	public static final String GET_EXISTE_CONFIGURACION_INVP = "SELECT COUNT(persistenceid) > 0 AS existe FROM ConfiguracionesINVP WHERE idprueba = ?;";
 	
-	public static final String GET_CONFIGURACION_INVP = "SELECT toleranciaminutos, idprueba FROM ConfiguracionesINVP WHERE idprueba = ?;";
+	public static final String GET_CONFIGURACION_INVP = "SELECT toleranciaminutos, toleranciasalidaminutos, idprueba FROM ConfiguracionesINVP WHERE idprueba = ?;";
 	
 	public static final String GET_TOLERANCIA_BY_USERNAME = "SELECT toleranciaminutos IS NULL, CONCAT(prbs.aplicacion, ' ', prbs.entrada)::Timestamp + ((CASE WHEN toleranciaminutos IS NULL THEN 5 WHEN toleranciaminutos IS NOT NULL THEN toleranciaminutos END ) * interval '1 minute') > now() AS tienetolerancia FROM ASPIRANTESPRUEBAS AS prue INNER JOIN CATTIPOPRUEBA AS tipo ON tipo.persistenceid = prue.cattipoprueba_pid AND tipo.descripcion = 'Examen Psicométrico' LEFT JOIN ConfiguracionesINVP AS conf ON conf.idprueba = sesiones_pid  INNER JOIN PRUEBAS AS prbs ON prbs.persistenceid = prue.prueba_pid  WHERE prue.username =  ? ORDER BY sesiones_pid DESC  LIMIT 1;";
 	

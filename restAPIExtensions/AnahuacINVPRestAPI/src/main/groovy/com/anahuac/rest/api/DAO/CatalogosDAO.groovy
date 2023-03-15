@@ -1632,7 +1632,8 @@ public Result getCatPreguntas(String jsonData) {
 			}
 			
 			pstm.setInt(1, Integer.valueOf(object.toleranciaminutos));
-			pstm.setLong(2, object.idprueba);
+			pstm.setInt(2, Integer.valueOf(object.toleranciaSalidaMinutos));
+			pstm.setLong(3, object.idprueba);
 			pstm.executeUpdate();
 			
 			con.commit();
@@ -1670,6 +1671,7 @@ public Result getCatPreguntas(String jsonData) {
 				config = new ConfiguracionesINVP();
 				config.setIdPrueba(rs.getInt("idprueba"));
 				config.setToleranciaMinutos(rs.getInt("toleranciaminutos"));
+				config.setToleranciaSalidaMinutos(rs.getInt("toleranciasalidaminutos"));
 				
 				rows.add(config);
 			}
