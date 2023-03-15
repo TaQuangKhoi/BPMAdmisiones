@@ -2000,7 +2000,7 @@ class SecurityFilter {
 		    }
 		    break;
 		case "getUserFoto":
-		allow=bonitaRolFilter(context,"TI SERUA")
+		allow=bonitaRolFilter(context,"ADMISIONES")
 			if(allow){break;}
 			break;
 		}
